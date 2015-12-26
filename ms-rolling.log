@@ -1,3 +1,0 @@
-[2015-12-26 17:14:52,448] qtp1468696365-19 com.mingsoft.basic.dao.ISystemSkinDao.getByManagerId DEBUG - <==      Total: 0
-[2015-12-26 17:15:51,356] Thread-1 com.mingsoft.base.listener.StartUpListener DEBUG - -=====
-[2015-12-26 17:15:51,365] Thread-1 com.alibaba.druid.pool.DruidDataSource INFO  - {dataSource-1} closed
