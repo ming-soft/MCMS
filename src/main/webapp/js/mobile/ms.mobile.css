@@ -1,0 +1,423 @@
+@charset "utf-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+* html body {
+	overflow: visible;
+}
+
+* html iframe,* html frame {
+	overflow: auto;
+}
+
+* html frameset {
+	overflow: hidden;
+}
+
+body {
+	color: #000;
+	background: #FFF;
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 100%;
+	text-align: left;
+	width: 100%;
+}
+
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fieldset,table,td,img,div,tr {
+	margin: 0 auto;
+	padding: 0
+}
+
+textarea,input,button {
+	word-wrap: break-word;
+	word-break: break-all;
+	padding: 0px;
+	outline: none;
+	resize: none;
+	VERTICAL-ALIGN: middle;
+}
+
+li {
+	list-style-type: none;
+}
+
+img {
+	border: 0 none;
+}
+
+a,a:HOVER,a:VISITED,a:LINK {
+	color: #000;
+	text-decoration: none;
+	outline: none;
+}
+
+/*通用字体*/
+/* for 900 px width screen */
+@media only screen and (min-device-width:900px) {
+	.iconfont {
+		font-size: 4rem;
+	}
+}
+
+/*全局*/
+.ms-header {
+	line-height: 310%;
+	width: 100%;
+	color: #fff;
+	background: #18B4ED;
+	border-bottom: 1px solid #ccc
+}
+
+.ms-text-center {
+	text-align: center
+}
+
+.ms-text-left {
+	text-align: left
+}
+
+.ms-text-right {
+	text-align: right
+}
+
+.ms-header {
+	
+}
+
+.ms-foot {
+	
+}
+
+.ms-container {
+	height: 100%;
+	width: 100%
+}
+
+.ms-container .ms-panel {
+	height: 100%;
+	width: 100%;
+	font-family: "Microsoft YaHei"
+}
+
+.ms-row {
+	clear: both;
+	width: 100%;
+}
+
+.ms-clear {
+	clear: both;
+}
+
+.ms-noborder {
+	border: none
+}
+
+.ms-fl {
+	float: left
+}
+
+.ms-fr {
+	float: right;
+}
+
+.ms-mask {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 1000;
+	opacity: 1;
+	transition: none 0.2s ease;
+	-webkit-transition: none 0.2s ease;
+	background-color: rgba(0, 0, 0, 0.901961);
+}
+
+.ms-absolute {
+	position: absolute;
+}
+
+.ms-relative {
+	position: relative;
+}
+
+.ms-fixed {
+	position: fixed;
+}
+
+.ms-copyright {
+	clear: both;
+	width: 100%;
+	line-height: 100%;
+	color: #666;
+	text-shadow: 0 1px 0 #eee;
+	height: 5%;
+	text-align: center;
+}
+
+/*按钮*/
+.ms-form .ms-form-group {
+	position: relative;
+	margin: 5px 0
+}
+
+.ms-button {
+	background: #FF3E5A;
+	color: white;
+	border-radius: 1000px;
+	height: 5%;
+	font-size: 1.2em;
+	border: none
+}
+
+.ms-input {
+	color: #999999;
+	font-size: 0.8em;
+	padding-left: 1%;
+	border: none;
+	clear: both;
+	position: relative;
+}
+
+.ms-slide-panel {
+	overflow: hidden;
+}
+
+.ms-slide-content {
+	overflow: hidden;
+	height: 100%
+}
+
+.ms-slide-content .ms-slide {
+	float: left;
+	height: 100%;
+}
+
+.ms-slide-content .ms-slide  img {
+	max-height: 100%
+}
+
+/*幻灯的滑动条*/
+.ms-slide-dot-btn {
+	height: 4px;
+	position: relative;
+	top: -4px;
+	margin: 0 auto;
+	background-color: #ccc;
+	opacity: 0.7;
+}
+
+.ms-slide-dot-btn .ms-slide-dot {
+	height: 4px;
+	margin: 0;
+}
+
+.ms-msg {
+	display: none;
+	position: fixed;
+	top: 35%;
+	left: 37%;
+	width: 80%;
+	padding: 4%;
+	margin: 0 0 0 -110px;
+	z-index: 9999;
+	background: rgba(0, 0, 0, 0.8);
+	color: #fff;
+	opacity: 0;
+	font-size: 14px;
+	line-height:18px;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	-ms-border-radius: 6px;
+	-o-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: "0px 1px 2px rgba(0,0,0,.2)";
+	-moz-box-shadow: "0px 1px 2px rgba(0,0,0,.2)";
+	box-shadow: "0px 1px 2px rgba(0,0,0,.2)";
+}
+/*弹出框*/
+.ms-modal {
+	position: absolute;
+	z-index: 9999;
+	top: 0;
+	background-color: #ffffff;
+	border-radius: 5px;
+	display: none;
+	overflow: hidden;
+}
+
+.ms-modal .ms-modal-body {
+	clear: both;
+	min-height: 100px;
+	padding: 2%
+}
+
+.ms-modal .ms-modal-button {
+	border-top: 1px solid #d1d1d1;
+	clear: both;
+	overflow: hidden;
+	color: #0079FF;
+	text-align: center;
+	font-size: 1.2em;
+	width: 100%
+}
+
+.ms-modal .ms-modal-button  .left {
+	padding-top: 2%;
+	width: 49%;
+	height: 100%;
+	float: left;
+	border-right: 1px solid #d1d1d1;
+}
+
+.ms-modal .ms-modal-button  .right {
+	padding-top: 2%;
+	width: 50%;
+	height: 100%;
+	float: left;
+}
+
+.ms-modal .ms-modal-title {
+	text-align: center;
+	padding: 3% 0
+}
+
+/*新闻列表*/
+.ms-list {
+	padding-top: 4%;
+	padding-left: 4%;
+	padding-right: 4%;
+	background-color: #EBEBEB;
+}
+/*顶部时间*/
+.ms-list-time {
+	clear: both;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	margin: 5% 0;
+}
+
+.ms-list-time>span {
+	background-color: #D4D4D4;
+	border-radius: 3px;
+	color: #FFF;
+	padding: 2%;
+}
+
+.ms-list-news {
+	border: 1px #DCDCDC solid;
+	overflow: hidden;
+	background-color: #FFF;
+}
+
+/*背景图为新闻列表第一条新闻中的大图片*/
+.ms-list-main {
+	width: 96%;
+	margin: 2%;
+	overflow: hidden;
+	position: relative;
+}
+
+/*第一条新闻的标题背景，半透明灰色*/
+.ms-list-main>div {
+	width: 100%;
+	background: rgba(51, 51, 51, 0.6) !important;
+	filter: Alpha(opacity =     60);
+	line-height: 180%;
+	position: absolute;
+	bottom: 0px;
+	overflow: hidden;
+	color: #fff;
+	font-size: 1.1em;
+}
+
+/*第二条新闻*/
+.ms-list-child {
+	border-top: 1px #DCDCDC solid;
+	overflow: hidden;
+}
+
+.ms-list-childtitle {
+	font-weight: bold;
+	margin: 6% 5%;
+	width: 70%;
+	float: left;
+	font-size: 1em;
+}
+
+.ms-list-childimg {
+	margin-top: 2%;
+	margin-right: 1%;
+	margin-bottom: 2%;
+	width: 18%;
+	float: left;
+}
+
+/*单篇文章列表*/
+.ms-listdan {
+	padding: 5%;
+}
+
+.ms-listdan-title {
+	padding-bottom: 4%;
+	font-size: 1.2em;
+}
+
+.ms-listdan-time {
+	color: #BFBFBF;
+	padding-bottom: 5%;
+}
+
+.ms-listdan-img {
+	padding-bottom: 6%;
+}
+
+.ms-listdan-zhaiyao {
+	color: #BFBFBF;
+	padding-bottom: 12%;
+	font-size: 1em;
+	font-family: "Microsoft YaHei" !important;
+}
+
+/*插件：一键更新*/
+.ms-widget-menu-key {
+	position: absolute;
+	bottom: 12%
+}
+
+.ms-widget-menu-key .ms-widget-main {
+	border: 2px #CCC solid;
+	border-radius: 50%;
+	text-align: center;
+	font-size: 2.5em;
+	font-weight: bold;
+	background-color: #FF3E5A;
+	color: white;
+	position: fixed;
+	z-index: 2
+}
+
+.ms-widget-menu-key .ms-widget-child {
+	border: 3px #FF3E5A solid;
+	border-radius: 50%;
+	left: 3%;
+	background-color: #fff;
+	color: #FF3E5A;
+	z-index: 1;
+	text-align: center;
+	position: fixed;
+	width: 10%
+}
+
+/*V键主题*/
+.red .ms-widget-menu-key .ms-widget-child {
+	border: 3px #FF3E5A solid
+}
+
+.red .ms-widget-menu-key .ms-widget-main {
+	border: 2px #CCC solid;
+}

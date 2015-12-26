@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 表单内容模型管理持久化层配置文件 -->
+<mapper namespace="com.mingsoft.cms.dao.IContentModelDao">
+	<!-- 表字段名开始 -->
+	<sql id="column_list">
+		CM_ID,CM_TIPSNAME,CM_TABLENAME,CM_MANAGERID
+	</sql>
+	<!-- 表字段名结束 -->
+	
+	<!-- 字段绑定开始 -->
+	<resultMap type="com.mingsoft.cms.entity.ContentModelEntity" id="resultMap">
+		<id column="CM_ID" property="cmId"></id> <!--实体字段cmId 与表中的cmId绑定 -->
+		<result column="CM_TIPSNAME" property="cmTipsName"/><!--实体字段cmTipsName 与表中的表单提示文字绑定 -->
+		<result column="CM_TABLENAME" property="cmTableName"/><!--实体字段cmTableName 与表中的表单表名绑定 -->
+		<result column="CM_MANAGERID" property="cmManagerId"/>
+	</resultMap>
+	<!-- 字段绑定结束 -->
+	
+	<!-- 统计表单开始 -->
+	<select id="queryCount" resultType="int">
+		select count(*) from cms_content_model;
+	</select>
+	<!-- 根据管理员Id查找内容模型的总数 -->
+	<select id="getContentModelByManagerId" resultType="int">
+		select count(*) from cms_content_model 
+		where CM_MANAGERID = #{cmManagerId}
+	</select>
+	
+	
+	<select id="getContentModelByTableName" parameterType="String" resultMap="resultMap">
+		select <include refid="column_list"/>
+		from cms_content_model
+		where CM_TABLENAME = #{cmTableName}
+	</select>
+	
+	<!-- 统计表单结束 -->
+	
+	<!-- 表单列表分页查询开始 -->
+	<select id="queryByPage" resultMap="resultMap" parameterType="int">
+		select * from cms_content_model
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
+		<if test="order == true">
+			asc
+		</if>
+		<if test="order == false">
+			desc
+		</if>
+		    limit ${pageNo*pageSize},#{pageSize}
+	</select>
+	<!-- 表单列表分页查询结束 -->
+	
+	<!-- 根据管理员id进行表单列表分页查询开始 -->
+	<select id="queryPageByManagerId" resultMap="resultMap" parameterType="int">
+		select * from cms_content_model where CM_MANAGERID =#{cmManagerId}
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
+		<if test="order == true">
+			asc
+		</if>
+		<if test="order == false">
+			desc
+		</if>
+		    limit ${pageNo*pageSize},#{pageSize}
+	</select>
+	<!-- 表单列表分页查询结束 -->
+	
+	<!-- 新增表单内容模型开始 -->
+	<insert id="saveEntity" parameterType="com.mingsoft.cms.entity.ContentModelEntity">
+		insert into cms_content_model
+		<!-- 注入表字段 -->
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="cmId != null">CM_ID,</if><!-- 内容模型id -->
+			<if test="cmTipsName != null">CM_TIPSNAME,</if><!-- 表单提示文字 -->
+			<if test="cmTableName != null">CM_TABLENAME,</if><!-- 表单的表名-->
+			<if test="cmManagerId != null">CM_MANAGERID,</if><!-- 表单的表名-->
+		</trim>
+		
+		<!-- 注入控制层字段 -->
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="cmId != null">#{cmId},</if>
+			<if test="cmTipsName != null">#{cmTipsName},</if>
+			<if test="cmTableName != null">#{cmTableName},</if>
+			<if test="cmManagerId != null">#{cmManagerId},</if>
+		</trim>
+	</insert>
+	<!-- 新增表单内容模型结束 -->
+	
+	<!-- 更新表单内容模型开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.cms.entity.ContentModelEntity">
+		update cms_content_model
+		<set>
+			<if test="cmTipsName != null">CM_TIPSNAME=#{cmTipsName},</if>
+			<if test="cmTableName != null">CM_TABLENAME=#{cmTableName},</if>
+			<if test="cmManagerId != null">CM_MANAGERID=#{cmManagerId},</if>
+		</set>
+		where CM_ID = #{cmId}
+	</update>
+	<!-- 更新表单内容模型结束-->
+	
+	<!-- 根据id删除内容模型表单记录开始 -->
+	<delete id="deleteEntity" parameterType="int">
+		delete from cms_content_model
+		where CM_ID = #{cmId}
+	</delete>
+	<!-- 根据id删除内容模型表单记录结束 -->
+	
+	<!-- 根据id查找内容模型实体信息 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select <include refid="column_list"/>
+		from cms_content_model
+		where CM_ID = #{cmId}
+		
+	</select>
+	<!-- 根据id查找内容模型实体信息 -->
+	
+	<!-- 查询所有内容模型实体信息开始 -->
+	<select id="queryAll" resultMap="resultMap">
+		select <include refid="column_list"/>
+		from cms_content_model
+	</select>
+	<!-- 查询所有内容模型实体信息结束-->
+	
+	<!-- 根据管理员Id内容模型实体信息开始 -->
+	<select id="queryByManagerId" resultMap="resultMap">
+		select <include refid="column_list"/>
+		from cms_content_model
+		where CM_MANAGERID = #{cmManagerId}
+	</select>
+	<!-- 查询所有内容模型实体信息开始 -->
+</mapper>

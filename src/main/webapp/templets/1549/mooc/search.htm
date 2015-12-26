@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html class="no-js screen-scroll">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="{ms:global.descrip/}"/>
+    <meta name="keywords" content="{ms:global.keyword/}"/>
+    <title>{ms:global.name/}</title>   
+    <link rel="stylesheet" href="{ms:globalskin.url/}css/list.css">
+    <link rel="stylesheet" href="{ms:globalskin.url/}css/arcList.css">
+    <link rel="stylesheet" href="{ms:globalskin.url/}css/search.css">
+    <script type="text/javascript" src="{ms:globalskin.url/}/js/jquery-1.9.1.min.js"></script>
+    <script src="{ms:globalskin.url/}/js/user.js" type="text/javascript"></script> 
+</head>
+<body>
+  {ms:include filename=header.htm/} 
+  <div class="wrap">
+ 	  <div class="main">
+  		<div class="block search">
+            <h1 class="title-s">搜索“{ms:search.basic_title/}”的相关结果</h1>
+            <div class="course_more">
+                <a href="" >查看全部课程&nbsp;&gt;</a>
+            </div>
+            <ul class="search_list">
+            	{ms:arclist size=5 ispaging=true}
+            	<li>
+                	<h2 class="search-title">[课程]
+                    	<a href="[field.link/]"  target="_blank" >[field.title/]</a>
+                	</h2>
+                	<p class="search-from">来自：
+                		<a href="[field.link/]" target="_blank">[field.source/]</a>
+                	</p>
+                	<p>[field.title/]</p>
+                </li>
+                {/ms:arclist}
+            </ul>
+         </div>
+         <ul class="pagination">
+          	<li><a href="{ms:page.index/}">首页</a></li>
+          	<li><a href="{ms:page.pre/}">上一页</a></li>
+          	<li><a href="{ms:page.next/}">下一页</a></li>
+    		<li><a href="{ms:page.last/}">末页</a></li>
+    	</ul>
+    </div>
+    <div class="side"></div>
+  </div>
+  {ms:include filename=footer.htm/} 
+</body>
+</html>
+<script>
+  //ul中没有li
+   if($(".search_list li").length<=0){
+   		 $(".course_more").remove();
+   		 $(".pagination").remove();
+   		 $(".search_list").before("<p class='no_course'>暂时没有找到相关课程，可能是我们忘记收录了，请戳<a href='#' style='color:#1caaea;'>这里</a>帮我们补充一下吧。</p><p class='no_result'>暂时没有相关结果，请您更换标题搜索。</p>")
+   }else if($(".search_list li").length<=9 && $(".search_list li").length >0 ){
+         //ul中li个数小于9，删除分页
+         $(".pagination").remove();
+   }
+
+   $(function(){
+       if($(".title-s").text() == "搜索“{ms:search.basic_title/}”的相关结果"){
+          $(".title-s").text("搜索“”的相关结果");
+       }
+   })
+</script>

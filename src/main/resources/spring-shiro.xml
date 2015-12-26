@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="true">
+
+	<description>Shiro Configuration</description>
+
+	<!-- 用户授权信息Cache -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
+
+	<!-- 項目自定义的Realm -->
+	<bean id="baseAuthRealm" class="com.mingsoft.basic.security.BaseAuthRealm">
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>
+
+
+	<!-- Shiro's main business-tier object for web-enabled applications -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="baseAuthRealm" />
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>
+
+	<bean
+		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+		<property name="securityManager" ref="securityManager" />
+	</bean>
+
+	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+	<!-- AOP式方法级权限检查 -->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+		depends-on="lifecycleBeanPostProcessor">
+		<property name="proxyTargetClass" value="true" />
+	</bean>
+
+
+
+	<!-- Shiro Filter -->
+	<bean id="baseAuthFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="/ms/login.do" />
+		<!-- <property name="successUrl" value="/view/index.html" />
+		<property name="unauthorizedUrl" value="/error/noperms.jsp" /> -->
+		<!-- 过滤器名称 过滤器类 描述 anon org.apache.shiro.web.filter.authc.AnonymousFilter 
+			匿名过滤器 authc org.apache.shiro.web.filter.authc.FormAuthenticationFilter 如果继续操作，需要做对应的表单验证否则不能通过 
+			authcBasic org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter 
+			基本http验证过滤，如果不通过，跳转屋登录页面 logout org.apache.shiro.web.filter.authc.LogoutFilter 
+			登录退出过滤器 noSessionCreation org.apache.shiro.web.filter.session.NoSessionCreationFilter 
+			没有session创建过滤器 perms org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter 
+			权限过滤器 port org.apache.shiro.web.filter.authz.PortFilter 端口过滤器，可以设置是否是指定端口如果不是跳转到登录页面 
+			rest org.apache.shiro.web.filter.authz.HttpMethodPermissionFilter http方法过滤器，可以指定如post不能进行访问等 
+			roles org.apache.shiro.web.filter.authz.RolesAuthorizationFilter 角色过滤器，判断当前用户是否指定角色 
+			ssl org.apache.shiro.web.filter.authz.SslFilter 请求需要通过ssl，如果不是跳转回登录页 user 
+			org.apache.shiro.web.filter.authc.UserFilter 如果访问一个已知用户，比如记住我功能，走这个过滤器 -->
+		<property name="filterChainDefinitions">
+			<value>
+				/manager/**=authc,perms
+			</value>
+		</property>
+	</bean>
+
+</beans>

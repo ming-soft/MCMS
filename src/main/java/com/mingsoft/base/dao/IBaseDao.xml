@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.base.dao.IBaseDao">
+
+	<!-- 根据sql动态查询开始 -->
+	<select id="queryBySQL" resultType="Map" statementType="STATEMENT">
+		select *
+		from ${table}
+
+		where
+		<foreach item="item" index="key" collection="wheres" open=""
+			separator="AND" close="">${key} = ${item}</foreach>
+			
+		<if test="order !=null">
+			order by ${order} desc 
+		</if>
+		<if test="begin != null">
+			limit ${begin}
+			<if test="end !=null ">
+				,${end}
+			</if>
+		</if>
+	</select>
+	<!-- 根据sql动态查询结束 -->
+	
+		<!-- 根据sql动态查询开始 -->
+	<select id="countBySQL" resultType="int" statementType="STATEMENT">
+		select count(*)
+		from ${table}
+		where
+		<foreach item="item" index="key" collection="wheres" open=""
+			separator="AND" close="">${key} = ${item}</foreach>
+	</select>
+	<!-- 根据sql动态查询结束 -->
+
+	<!-- 根据sql动态更新开始 -->
+	<update id="updateBySQL">
+		update ${table} set
+		<foreach item="field" index="name" collection="fields" open=""
+			separator="," close="">
+			`${name}`=#{field}
+		</foreach>
+		where
+		<foreach item="item" index="key" collection="wheres" open=""
+			separator="AND" close="">${key} = ${item}</foreach>
+	</update>
+	<!-- 根据sql动态更新结束 -->
+
+	<!-- 根据sql动态删除开始 -->
+	<update id="deleteBySQL">
+		delete from ${table} where
+		<foreach item="item" index="key" collection="wheres" open=""
+			separator="AND" close="">${key} = #{item}</foreach>
+	</update>
+	<!-- 根据sql动态删除结束 -->
+
+	<!-- 根据sql动态新增开始 -->
+	<insert id="insertBySQL">
+		insert into ${table}
+		<foreach item="field" index="key" collection="fields" open="("
+			separator="," close=")">`${key}`</foreach>
+		values
+		<foreach item="field" index="key" collection="fields" open="("
+			separator="," close=")">#{field}</foreach>
+		;
+	</insert>
+	<!-- 根据sql动态新增结束 -->
+
+	<!-- 根据sql动态创建表开始 -->
+	<update id="createTable" statementType="STATEMENT">
+		CREATE TABLE `${table}` (
+		`basicId` int(11) NOT NULL,
+		PRIMARY KEY (`basicId`)
+		) ENGINE=InnoDB
+		AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+	</update>
+	<!-- 根据sql动态创建表结束 -->
+
+	<!-- 根据sql动态更新表开始 -->
+
+	<update id="alterTable" statementType="STATEMENT">
+		<choose>
+			<when test="type=='add'">
+				ALTER TABLE ${table} add `${fileds.fieldName}` ${fileds.fieldType}
+				<if test="fileds.fieldType!='text'">
+					<if test="fileds.default ==''">default null</if>
+					<if test="fileds.default !=''">default '${fileds.default}'</if>
+
+				</if>
+
+			</when>
+			<when test="type=='modify'">
+				ALTER TABLE ${table} change `${fileds.fieldOldName}`
+				`${fileds.fieldName}` ${fileds.fieldType}
+				<if test="fileds.fieldType!='text'">
+					<if test="fileds.default ==''">default null</if>
+					<if test="fileds.default !=''">default '${fileds.default}'</if>
+				</if>
+
+			</when>
+			<when test="type=='drop'">
+				ALTER TABLE ${table} drop column
+				`${fileds.fieldName}`
+			</when>
+		</choose>
+
+	</update>
+	<!-- 根据sql动态更新表结束 -->
+
+
+
+	<!-- 根据sql动态删除表开始 -->
+	<update id="dropTable" statementType="STATEMENT">
+		DROP TABLE ${table}
+	</update>
+	<!-- 根据sql动态删除表结束 -->
+
+	<!-- 导入sql语句 -->
+	<update id="excuteSql" parameterType="String" statementType="STATEMENT">
+		${sql}
+	</update>
+	<!--导入sql语句 -->
+	
+	
+	
+</mapper>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 角色持久化层XML配置继承IRoleDao -->
+<mapper namespace="com.mingsoft.basic.dao.IRoleDao">
+	
+	<!-- 将实体属性与表字段对接开始 -->
+	<resultMap id="resultMap" type="com.mingsoft.basic.entity.RoleEntity">
+		<id column="ROLE_ID" property="roleId"/><!-- 将实体的ID属性与表的ID字段对接 -->
+		<result column="ROLE_NAME" property="roleName"/><!-- 将实体的roleName属性与表的roleName字段对接 -->
+		<result column="ROLE_MANAGERID" property="roleManagerId"/><!-- 将实体的roleManagerId属性与表的roleManagerId字段对接 -->
+	</resultMap>
+	<!-- 将实体属性与表字段对接结束 -->
+	
+	<!-- 查询角色列表开始 -->
+	<select id="queryCount" resultType="int">
+		select count(*) from role;
+	</select>
+	<!-- 查询角色列表结束 -->	
+	
+	<!-- 根据角色ID查询角色实体开始 -->
+	<select id="queryRoleByManagerId" resultMap="resultMap" parameterType="int">
+		select * from role where ROLE_MANAGERID=#{roleManagerId} order by ROLE_ID DESC
+	</select>
+	<!-- 根据角色ID查询角色实体结束 -->
+	
+	<!-- 角色列表分页查询开始 -->
+	<select id="queryByPage" resultMap="resultMap">
+		select * from role where ROLE_MANAGERID = #{roleManagerId}
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
+		<if test="order == true">
+			asc
+		</if>
+		<if test="order == false">
+			desc
+		</if>
+		    limit ${pageNo*pageSize},#{pageSize}
+	</select>
+	<!-- 角色列表分页查询结束 -->
+	
+	<!-- 新增角色开始 -->
+	<insert id="saveEntity" parameterType="com.mingsoft.basic.entity.RoleEntity">
+		insert into role
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleName != null">ROLE_NAME,</if>
+			<if test="roleManagerId != null">ROLE_MANAGERID</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="roleName != null">#{roleName},</if>
+			<if test="roleManagerId != null">#{roleManagerId}</if>
+		</trim>
+	</insert>
+	<!-- 新增角色结束 -->
+	
+	<!-- 删除角色开始 -->
+	<delete id="deleteEntity" parameterType="int">
+		delete  r,rm
+		from role r left join role_model rm on r.ROLE_ID=rm.RM_ROLEID left join model m on m.MODEL_ID=rm.RM_MODELID where r.ROLE_ID=#{roleId};
+	</delete>
+	<!-- 删除角色结束 -->
+	
+	<!--根据id数组批量删除开始 -->
+	<delete id="deleteAll" parameterType="List">
+	DELETE  FROM `role`
+	<where>
+   		ROLE_ID in <foreach collection="ids" item="item" index="index" 
+		open="(" separator="," close=")">#{item}</foreach>
+	</where>
+	</delete>
+	<!--根据id数组批量删除结束 -->
+	
+	<!-- 根据角色ID查询角色开始 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select 
+			ROLE_ID,ROLE_NAME,ROLE_MANAGERID
+		  		from role where ROLE_ID=#{roleId};
+	</select>
+	<!-- 根据角色ID查询角色结束 -->
+	
+	<!-- 根据角色名称查询角色开始 -->
+	<select id="queryRoleByRoleName" resultMap="resultMap">
+		select * from role where ROLE_NAME = #{roleName} and ROLE_MANAGERID = #{roleManagerId}
+	</select>
+	<!-- 根据角色名称查询角色结束 -->
+	
+	<!-- 更新角色开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.basic.entity.RoleEntity">
+		update role
+		<set>
+			<if test="roleName != null">ROLE_NAME=#{roleName},</if>
+			<if test="roleManagerId != null">ROLE_MANAGERID=#{roleManagerId}</if>
+		</set>
+		where ROLE_ID = #{roleId}
+	</update>
+	<!-- 更新角色结束 -->
+	
+	<!-- 查询该角色名称在数据库中的存在数开始 -->
+	<select id="countRoleName" resultType="int">
+		select count(*) from role where ROLE_NAME = #{roleName} and ROLE_MANAGERID = #{roleManagerId}
+	</select>
+	<!-- 查询该角色名称在数据库中的存在数结束 -->
+	
+	<!-- 角色列表分页查询开始 -->
+	<select id="getCountByManagerId" resultType="int">
+		select count(*) from role where ROLE_MANAGERID = #{roleManagerId}
+	</select>
+	<!-- 角色列表分页查询结束 -->
+</mapper>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 管理员持久化层XML配置继承IRoleDao -->
+<mapper namespace="com.mingsoft.basic.dao.IPeopleDao">
+	<!-- 表字段开始-->
+	<sql id="column_list">
+		P.PEOPLE_ID,P.PEOPLE_PHONE,P.PEOPLE_NAME,P.PEOPLE_PASSWORD,P.PEOPLE_CODE,
+		P.PEOPLE_DATETIME,P.PEOPLE_APP_ID,P.PEOPLE_MAIL,P.PEOPLE_STATE,P.PEOPLE_CODESENDDATE,
+		P.PEOPLE_PHONECHECK,P.PEOPLE_MAILLCHECK
+	</sql>
+	
+	<!-- 将实体属性与表字段对接开始 -->
+	<resultMap id="resultMap" type="com.mingsoft.basic.entity.PeopleEntity">
+		<id column="PEOPLE_ID" property="peopleId"/><!-- 将实体的ID属性与表的ID字段对接 -->
+		<result column="PEOPLE_PHONE" property="peoplePhone"/><!-- 将实体的peoplePhone属性与表的peoplePhone字段对接 -->
+		<result column="PEOPLE_NAME" property="peopleName"/><!-- 将实体的peopleName属性与表的peopleName字段对接 -->
+		<result column="PEOPLE_PASSWORD" property="peoplePassword"/><!-- 将实体的PEOPLE_PASSWORD属性与表的peoplePwd字段对接 -->
+		<result column="PEOPLE_DATETIME" property="peopleDateTime"/><!-- 将实体的peopleDateTime属性与表的peopleDateTime字段对接 -->
+		<result column="PEOPLE_APP_ID" property="peopleAppId"/><!-- 用户所属的应用ID -->
+		<result column="PEOPLE_MAIL" property="peopleMail"/><!-- 用户邮箱 -->
+		<result column="PEOPLE_STATE" property="peopleState"/><!-- 用户状态 -->
+		<result column="PEOPLE_CODE" property="peopleCode"/><!-- 用户随机码-->
+		<result column="PEOPLE_CODESENDDATE" property="peopleCodeSendDate"/><!-- 用户随机码发送时间-->
+		<result column="PEOPLE_MAILLCHECK" property="peopleMailCheck"/><!-- 用户是否通过邮箱验证-->
+		<result column="PEOPLE_PHONECHECK" property="peoplePhoneCheck"/><!-- 用户是否通过电话验证-->
+			<association property="peopleUser" javaType="com.mingsoft.basic.entity.PeopleUserEntity">
+			<result column="PU_REAL_NAME" property="peopleUserRealName"/><!--用户的真实名称 -->
+			<result column="PU_ADDRESS" property="peopleUserAddress"/><!-- 用户地址 -->
+			<result column="PU_ICON" property="peopleUserIcon"/><!-- 用户头像 -->
+			<result column="PU_NICKNAME" property="peopleUserNickName"/><!-- 用户昵称 -->
+			<result column="PU_SEX" property="peopleUserSex"/><!-- 用户性别0.未知;1.男;2.女 -->
+			<result column="PU_BIRTHDAY" property="peopleUserBirthday"/><!-- 用户生日 -->
+			<result column="PU_APP_ID" property="peopleUserAppId"/><!-- 用户应用ID -->	
+			<result column="PU_CARD" property="peopleUserCard"/><!-- 用户身份证号码 -->	
+			</association>		
+	</resultMap>
+	<!-- 将实体属性与表字段对接结束 -->
+	
+	<!-- 新增用户开始 -->
+	<insert id="saveEntity" useGeneratedKeys="true" keyProperty="peopleId" parameterType="com.mingsoft.base.entity.BaseEntity">
+		insert into people
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="peoplePhone != null">PEOPLE_PHONE,</if>
+			<if test="peopleName != null">PEOPLE_NAME,</if>
+			<if test="peoplePassword != null">PEOPLE_PASSWORD,</if>
+			<if test="peopleDateTime != null">PEOPLE_DATETIME,</if>
+			<if test="peopleAppId != null">PEOPLE_APP_ID,</if>
+			<if test="peopleMail != null">PEOPLE_MAIL,</if>
+			<if test="peopleState != null">PEOPLE_STATE,</if>
+			<if test="peopleCode != null">PEOPLE_CODE,</if>
+			<if test="peopleCodeSendDate != null">PEOPLE_CODESENDDATE,</if>
+			<if test="peopleMailCheck != null">PEOPLE_MAILLCHECK,</if>
+			<if test="peoplePhoneCheck != null">PEOPLE_PHONECHECK,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="peoplePhone != null">#{peoplePhone},</if>
+			<if test="peopleName != null">#{peopleName},</if>
+			<if test="peoplePassword != null">#{peoplePassword},</if>
+			<if test="peopleDateTime != null">#{peopleDateTime},</if>
+			<if test="peopleAppId != null">#{peopleAppId},</if>
+			<if test="peopleMail != null">#{peopleMail},</if>
+			<if test="peopleState != null">#{peopleState},</if>
+			<if test="peopleCode != null">#{peopleCode},</if>
+			<if test="peopleCodeSendDate != null">#{peopleCodeSendDate},</if>
+			<if test="peopleMailCheck != null">#{peopleMailCheck},</if>
+			<if test="peoplePhoneCheck != null">#{peoplePhoneCheck},</if>
+		</trim>
+	</insert>
+	<!-- 新增用户结束 -->
+	
+	<!-- 查询用户开始 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select  <include refid="column_list"/>
+			from people p where 
+			p.people_id = #{peopleId}
+	</select>
+	<!-- 查询用户结束 -->
+	
+	<!-- 更新用户开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.base.entity.BaseEntity">
+		update people
+		<set>
+			<if test="peoplePhone != null">PEOPLE_PHONE=#{peoplePhone},</if>
+			<if test="peopleName != null">PEOPLE_NAME=#{peopleName},</if>
+			<if test="peoplePassword != null">PEOPLE_PASSWORD=#{peoplePassword},</if>
+			<if test="peopleDateTime != null">PEOPLE_DATETIME=#{peopleDateTime},</if>
+			<if test="peopleMail != null">PEOPLE_MAIL=#{peopleMail},</if>
+			<if test="peopleState != null">PEOPLE_STATE=#{peopleState},</if>
+			<if test="peopleCode != null">PEOPLE_CODE=#{peopleCode},</if>
+			<if test="peopleCodeSendDate != null">PEOPLE_CODESENDDATE=#{peopleCodeSendDate},</if>
+			<if test="peopleMailCheck != null">PEOPLE_MAILLCHECK=#{peopleMailCheck},</if>
+			<if test="peoplePhoneCheck != null">PEOPLE_PHONECHECK=#{peoplePhoneCheck},</if>
+		</set>
+		where PEOPLE_ID = #{peopleId}
+	</update>
+	<!-- 更新用户结束 -->
+	
+	<!-- 删除用户开始 -->
+	<delete id="deleteEntity" parameterType="int">
+		delete from people where PEOPLE_ID = #{peopleId}
+	</delete>
+	<!-- 删除用户结束 -->
+	
+	<!-- 根据用户名(帐号,手机,邮箱)查询用户信息开始 -->
+	<select id="getEntityByUserName" resultMap="resultMap">
+		select *	from v_people_user	 where (people_name=#{userName} or people_phone=#{userName} or people_mail=#{userName}) and people_app_id=#{appId}
+	</select>
+	<!-- 根据用户名(帐号,手机,邮箱)查询用户信息结束 -->
+	
+	<!-- 根据AppId查询用户列表根据Id排序并进行分页开始 -->	
+	<select id="queryPageListByAppId" resultMap="resultMap">
+		select <include refid="column_list"/>
+		from people p
+		where p.people_app_id=#{appId}
+		order by people_id desc
+		<if test="page != null">
+			limit ${page.pageNo*page.pageSize},#{page.pageSize}	
+		</if>
+	</select>
+	<!-- 根据AppId查询用户列表根据Id排序并进行分页结束 -->	
+	
+	<!-- 根据应用ID查询用户总数开始 -->
+	<select id="queryCountByAppId" resultType="int">
+		select count(*)
+		from people where people_app_id = #{appId}
+	</select>
+	<!-- 根据应用ID查询用户总数结束 -->
+	
+	<!-- 根据用户名(帐号,手机,邮箱)和验证码查询用户信息开始 -->
+	<select id="getEntityByCode" resultMap="resultMap">
+		select <include refid="column_list"/>
+		from people p 
+		where (p.people_name=#{userName} or p.people_phone=#{userName} or p.people_mail=#{userName}) and p.people_app_id=#{appId} and p.people_code=#{peopleCode}
+	</select>
+	<!-- 根据用户名(帐号,手机,邮箱)和验证码用户信息结束 -->
+	
+	<!-- 根据应用ID和where条件查询用户总数开始 -->
+	<select id="getCount" resultType="int">
+		select count(*)
+		from people 
+		<where>
+			<if test="appId!=null">
+				people_app_id = #{appId}
+			</if>
+			<if test="where!=null">
+				<!--注册时间-->
+				<if test="where.peopleDateTime!=null and where.peopleDateTime!=''">
+					and date_format(`PEOPLE_DATETIME`,'%Y年%m月%d日') =  #{where.peopleDateTime}
+				</if>
+			</if>
+		</where>
+	</select>
+	<!-- 根据应用ID和where条件查询用户总数结束 -->
+	
+</mapper>

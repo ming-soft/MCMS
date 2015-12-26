@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.basic.dao.ISystemSkinDao">
+	<resultMap type="com.mingsoft.basic.entity.SystemSkinEntity" id="resultMap">
+		<id column="SS_ID" property="systemSkinId" /><!-- 与website表绑定id -->
+		<result column="SS_BACKGROUNDIMG" property="systemSkinBackgroundImg" /><!-- 与website表绑定keyword -->
+		<result column="SS_COLOR" property="systemSkinColor" /><!-- 与website表绑定copyright -->
+		<result column="SS_CSS" property="systemSkinCss" /><!-- 与website表绑定style -->
+		<result column="SS_DATETIME" property="systemSkinDate" /><!-- 与website表绑定style -->
+		<result column="SS_APPID" property="systemSkinAppId" />
+		<result column="SS_LOGINPAGE" property="systemSkinLoginPage" /><!-- 登陆页面 -->
+		
+	</resultMap>
+	
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select * from system_skin  where ss_id=#{systemSkinId}
+	</select>
+	<select id="queryAll" resultMap="resultMap" parameterType="int">
+		select * from system_skin;
+	</select>	
+	<select id="getByManagerId" resultMap="resultMap" parameterType="int">
+		select * from system_skin left join system_skin_manager on ss_id=ssm_system_skin_ID where ssm_managerID=#{managerId}
+	</select>
+	<!-- 更新管理员皮肤 -->
+	<update id="updateManagerSystemSkin" >
+		update system_skin_manager set  ssm_system_skin_ID=#{systemSkinId} where ssm_managerID=#{managerId} 
+	</update>
+	<insert id="saveManagerSystemSkin" >
+		insert into system_skin_manager values(#{managerId},#{systemSkinId});
+	</insert>
+</mapper>

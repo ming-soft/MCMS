@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.basic.dao.IModelTemplateDao">
+	<resultMap type="com.mingsoft.basic.entity.ModelTemplateEntity"
+		id="resultMap">
+		<result column="mt_path" property="modelTemplatePath" />
+		<result column="mt_title" property="modelTemplateTitle" />
+		<result column="mt_key" property="modelTemplateKey" />
+		<result column="mt_id" property="modelTemplateId" />
+	</resultMap>
+	<insert id="saveEntity">
+		insert into model_template
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="modelTemplatePath != null">mt_path,</if>
+			<if test="modelTemplateTitle != null">mt_title,</if>
+			<if test="modelTemplateKey != null">mt_key,</if>
+			<if test="modelTemplateAppId != null">mt_appid,</if>
+			<if test="modelTemplateModelId != null">mt_modelid,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="modelTemplatePath != null">#{modelTemplatePath},</if>
+			<if test="modelTemplateTitle != null">#{modelTemplateTitle},</if>
+			<if test="modelTemplateKey != null">#{modelTemplateKey},</if>
+			<if test="modelTemplateAppId != null">#{modelTemplateAppId},</if>
+			<if test="modelTemplateModelId != null">#{modelTemplateModelId},</if>
+		</trim>
+	</insert>
+	<select id="getEntityByAppIdAndKey" resultMap="resultMap">
+		select *
+		from model_template where mt_appid=#{appId} and mt_key =#{key}
+	</select>
+	<select id="queryByAppId" resultMap="resultMap">
+		select * from model_template
+		where mt_appid=#{appId} order by mt_id desc
+	</select>
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select * from model_template where mt_id=#{id}
+	</select>
+	<delete id="deleteEntity" parameterType="int">
+		delete from
+		model_template
+		where
+		mt_id = #{id}
+	</delete>
+	<update id="updateEntity" parameterType="com.mingsoft.basic.entity.ModelTemplateEntity">
+		update model_template
+		<set>
+			<if test="modelTemplateTitle != null">mt_title=#{modelTemplateTitle},</if>
+			<if test="modelTemplatePath != null">mt_path=#{modelTemplatePath},</if>
+			<if test="modelTemplateKey != null">mt_key=#{modelTemplateKey},</if>
+		</set>
+		where mt_id = #{modelTemplateId}
+	</update>
+</mapper>

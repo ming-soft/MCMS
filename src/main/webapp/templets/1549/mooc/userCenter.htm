@@ -1,0 +1,117 @@
+﻿<!DOCTYPE HTML>
+<html class="no-js screen-scroll">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="{ms:global.descrip/}"/>
+    <meta name="keywords" content="{ms:global.keyword/}"/>
+    <title>{ms:global.name/}</title>   
+    <link rel="stylesheet" href="{ms:globalskin.url/}/css/list.css">
+    <link rel="stylesheet" href="{ms:globalskin.url/}/css/peopleCenter.css" >
+    <script type="text/javascript" src="{ms:globalskin.url/}/js/jquery-1.9.1.min.js"></script> 
+    <script src="{ms:globalskin.url/}/js/user.js" type="text/javascript"></script> 
+    <script src="{ms:globalskin.url/}/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="{ms:globalskin.url/}/js/jquery.cookies.2.2.0.js" type="text/javascript"></script> 
+</head>
+<style>
+a{
+    color: #1caaea;
+    text-decoration: none;
+}
+</style>
+<body>
+  {ms:include filename=header.htm/}
+  <div class="wrap">
+      <div class="main">
+          <div class="certificate_box">
+            <h2 class="title-b">获得证书<span class="title-attached">（0张）</span></h2>
+            <ul class="certificates" id="certificateList"></ul>
+          </div>
+          <div class="course_box me">
+                <h2 class="title-b">课程</h2>
+                <h3 class="course-list-title"><a href="" ><span>0</span>个关注课程</a></h3>
+                <ul class="course-list"></ul>
+                <h3 class="course-list-title"><a href=""><span>0</span>个学过课程</a></h3>
+                <ul class="course-list"></ul>
+          </div>
+          <div class="lecture_box">
+            <h2 class="title-b">看过的演讲<span class="title-attached">(0条)</span></h2>
+        </div>
+          <div class="collect_box">
+            <h2 class="title-b">收藏<span class="title-attached">(0条)</span></h2>
+          </div>
+          <div class="comment_box">
+                <h2 class="title-b">点评<span class="title-attached">（0条）</span></h2>
+                <ul class="comment_list"></ul>
+                <div class="cmt_more">
+                  <a href="" >查看全部&nbsp;&gt;</a>
+                </div>
+          </div>
+          <div class="note_box me">
+              <h2 class="title-b">笔记<span class="title-attached">（0条）</span></h2>
+              <ul class="note_list"></ul>
+              <div class="note_more">
+                <a href="">查看全部&nbsp;&gt;</a>
+              </div>
+          </div>
+          <div class="discuss_box me">
+              <h2 class="title-b">演讲观点<span class="title-attached">（0条）</span></h2>
+              <ul class="discuss_list"></ul>
+              <div class="discuss_more">
+                  <a href="">查看全部&nbsp;&gt;</a>
+              </div>
+          </div>
+          <div class="discuss_box">
+              <h2 class="title-b">讨论<span class="title-attached">（0条）</span></h2>
+              <ul class="discuss_list"></ul>
+              <div class="discuss_more">
+                <a href="" >查看全部&nbsp;&gt;</a>
+              </div>
+          </div>
+    </div>
+    <div class="sides">
+      <div class="me-info">
+        <h2 class="title-b" style="text-align:center"><a href="#"></a></h2>
+        <a href="#" style="display:block;text-align:center"> 
+          <img class="me-avatar" src="{ms:globalskin.url/}/images/face.png" alt=""> 
+        </a>
+        <p class="me-sai"></p>
+        <div class="education">
+          <a href="{ms:global.host/}/changePassWord.do">修改密码</a>
+          <h3>个人资料</h3>
+        </div>
+        <ul class="me-nav">      
+        </ul>
+      </div>
+    </div>
+  </div>
+  {ms:include filename=footer.htm/}
+</body>
+</html>
+<script>
+    $(function(){
+    	//获取用户信息
+    	ms.people.getEntity({"func":function(json){
+			//如果已经登录,获取用户信息
+			if(json.result == true){
+				var peopleIcon = jQuery.parseJSON(json.resultData).peopleUserIcon;
+				if(peopleIcon!=""){
+					$(".me-avatar").attr("src","{ms:global.host/}/"+peopleIcon.replace("|",""));
+					
+				}
+			}else{
+				location.href = "/html/1549/index.html"
+			}
+		}});
+       //用户cookies存在
+		var people= $.cookies.get('PEOPLE_COOKIE'); 
+       //转形式    
+       var obj =  jQuery.parseJSON(people);
+       //显示用户名
+       if(obj == null){
+          location.href = "/html/1549/index.html"
+       }
+		if(obj !=null && obj !=0){
+          $(".title-b a").text(obj.userName);
+		}
+	});
+</script>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.basic.dao.IDiyFormFieldDao">
+	<resultMap type="com.mingsoft.basic.entity.DiyFormFieldEntity" id="resultMap">
+		<id column="DFF_ID" property="diyFormFieldId"></id>
+		<result column="DFF_TIPSNAME" property="diyFormFieldTipsName" />
+		<result column="DFF_FIELDNAME" property="diyFormFieldFieldName" />
+		<result column="DFF_TYPE" property="diyFormFieldType" />
+		<result column="DFF_DEFAULT" property="diyFormFieldDefault" />
+		<result column="DFF_SORT" property="diyFormFieldSort" />
+		<result column="DFF_ISNULL" property="diyFormFieldIsNull" />
+		<result column="DFF_FORMID" property="diyFormFieldFormId" />
+	</resultMap>
+
+
+	<!-- 新增表单内容模型开始 -->
+	<insert id="saveEntity" parameterType="com.mingsoft.basic.entity.DiyFormFieldEntity">
+		insert into diy_form_field
+		<!-- 注入表字段 -->
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="diyFormFieldTipsName != null">DFF_TIPSNAME,</if>
+			<if test="diyFormFieldFieldName != null">DFF_FIELDNAME,</if>
+			<if test="diyFormFieldType != null">DFF_TYPE,</if>
+			<if test="diyFormFieldDefault != null">DFF_DEFAULT,</if>
+			<if test="diyFormFieldSort != null">DFF_SORT,</if>
+			<if test="diyFormFieldIsNull != null">DFF_ISNULL,</if>
+			<if test="diyFormFieldFormId != null">DFF_FORMID,</if>
+		</trim>
+
+		<!-- 注入控制层字段 -->
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="diyFormFieldTipsName != null">#{diyFormFieldTipsName},</if>
+			<if test="diyFormFieldFieldName != null">#{diyFormFieldFieldName},</if>
+			<if test="diyFormFieldType != null">#{diyFormFieldType},</if>
+			<if test="diyFormFieldDefault != null">#{diyFormFieldDefault},</if>
+			<if test="diyFormFieldSort != null">#{diyFormFieldSort},</if>
+			<if test="diyFormFieldIsNull != null">#{diyFormFieldIsNull},</if>
+			<if test="diyFormFieldFormId != null">#{diyFormFieldFormId},</if>
+		</trim>
+	</insert>
+	<!-- 新增表单内容模型结束 -->
+
+	<!-- 更新表单内容模型开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.basic.entity.DiyFormFieldEntity">
+		update diy_form_field
+		<set>
+			<if test="diyFormFieldTipsName != null">DFF_TIPSNAME=#{diyFormFieldTipsName},</if>
+			<if test="diyFormFieldFieldName != null">DFF_FIELDNAME=#{diyFormFieldFieldName},</if>
+			<if test="diyFormFieldType != null">DFF_TYPE=#{diyFormFieldType},</if>
+			<if test="diyFormFieldDefault != null">DFF_DEFAULT=#{diyFormFieldDefault},</if>
+			<if test="diyFormFieldSort != null">DFF_SORT=#{diyFormFieldSort},</if>
+			<if test="diyFormFieldIsNull != null">DFF_ISNULL=#{diyFormFieldIsNull},</if>
+		</set>
+		where DFF_ID = #{diyFormFieldId}
+	</update>
+	<!-- 更新表单内容模型结束 -->
+
+	<!-- 根据id删除内容模型表单记录开始 -->
+	<delete id="deleteEntity" parameterType="int">
+		delete from diy_form_field
+		where DFF_ID = #{diyFormFieldId}
+	</delete>
+	<!-- 根据id删除内容模型表单记录结束 -->
+
+	<!-- 根据id查找内容模型实体信息 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select *
+		from diy_form_field
+		where DFF_ID = #{diyFormFieldId}
+
+	</select>
+	<!-- 根据id查找内容模型实体信息 -->
+
+	<!-- 查询所有内容模型实体信息开始 -->
+	<select id="queryAll" resultMap="resultMap">
+		select *	from diy_form_field order by DFF_ID desc
+	</select>
+	<!-- 查询所有内容模型实体信息结束 -->
+	
+	<!-- 查询所有内容模型实体信息开始 -->
+	<select id="query" resultMap="resultMap" parameterType="int">
+		select *	from diy_form where DFF_FORMID=#{diyFormAppId}
+	</select>
+	<!-- 查询所有内容模型实体信息结束 -->
+	<select id="queryByDiyFormId" resultMap="resultMap">
+		select * from diy_form_field where DFF_FORMID = #{diyFormFieldFormId}
+	</select>
+	
+	<!-- 根据字段名和表单id查找字段实体 -->
+	<select id="getByFieldName" resultMap="resultMap">
+		select * from diy_form_field 
+		where DFF_FORMID = #{diyFormFieldFormId} and DFF_FIELDNAME=#{diyFormFieldFieldName}
+	</select>
+	
+</mapper>

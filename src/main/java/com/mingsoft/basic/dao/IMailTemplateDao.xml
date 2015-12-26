@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.basic.dao.IMailTemplateDao">
+
+	<!-- 字段绑定 开始 -->
+	<resultMap type="com.mingsoft.basic.entity.MailTemplateEntity" id="resultMap">
+		<id column="mt_id" property="mailTemplateId" />
+		<result column="mt_appID" property="mailTemplateAppId" />
+		<result column="mt_modelID" property="mailTemplateModelId" />
+		<result column="mt_content" property="mailTemplateContent" />
+		<result column="mt_receive" property="mailTemplateReceive" />
+		<result column="mt_title" property="mailTemplateTitle" />
+	</resultMap>
+	<!-- 字段绑定结束 -->
+
+	<!-- 添加邮箱模板信息开始 -->
+	<insert id="saveEntity" parameterType="com.mingsoft.basic.entity.MailEntity">
+		insert into mail_template
+
+		<!-- 添加表字段 -->
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mailTemplateAppId != null">mt_appID,</if>
+			<if test="mailTemplateModelId != null">mt_modelID,</if>
+			<if test="mailTemplateContent != null">mt_content,</if>
+			<if test="mailTemplateReceive !=null">mt_receive,</if>
+			<if test="mailTemplateTitle !=null">mt_title,</if>
+		</trim>
+
+		<!-- 注入控制层字段 -->
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="mailTemplateAppId !=  null">#{mailTemplateAppId},</if>
+			<if test="mailTemplateModelId != null">#{mailTemplateModelId},</if>
+			<if test="mailTemplateContent != null">#{mailTemplateContent},</if>
+			<if test="mailTemplateReceive !=null">#{mailTemplateReceive},</if>
+			<if test="mailTemplateTitle !=null">#{mailTemplateTitle},</if>
+		</trim>
+
+	</insert>
+	<!-- 添加邮箱模板信息结束 -->
+
+	<!-- 得到邮箱实体开始 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select *
+		from mail_template
+		where
+		mt_id = #{mailTemplateId}
+	</select>
+	<!-- 更新邮箱实体结束 -->
+
+	<!-- 更新邮箱模板开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.basic.entity.MailTemplateEntity">
+		update mail_template
+		<set>
+			<if test="mailTemplateModelId != null">mt_modelID =#{mailTemplateModelId},</if>
+			<if test="mailTemplateTitle != null">mt_title =#{mailTemplateTitle},</if>
+			<if test="mailTemplateContent != null">mt_content =#{mailTemplateContent},</if>
+			<if test="mailTemplateReceive != null">mt_receive=#{mailTemplateReceive},</if>
+		</set>
+		where  mt_id=#{mailTemplateId}
+	</update>
+	<!-- 更新邮箱模板结束 -->
+
+	<!-- 查询所有邮箱模板开始 -->
+	<select id="queryAllByAppId" resultMap="resultMap">
+		select  *  from  mail_template  
+		
+		where mt_appID=#{mailTemplateAppId}
+	</select>
+	<!-- 查询所有邮箱模板结束 -->
+	
+	<!-- 根据mtId删除多条短信模板开始 -->
+	<delete id="deleteAll" parameterType="List">
+		DELETE  FROM mail_template
+		<where>
+    		mt_id in <foreach collection="ids" item="item" index="index" 
+			open="(" separator="," close=")">#{item}</foreach>
+		</where>
+	</delete>
+	<!-- 根据mtId删除多条短信模板结束 -->
+	
+
+	<!-- 查询所有邮箱模板开始 -->
+	<select id="getByAppIdAndModelCode" resultMap="resultMap">
+		select  *  from  mail_template  	where mt_appID=#{mailTemplateAppId} and mt_modelID=${modelId}
+	</select>
+	<!-- 查询所有邮箱模板结束 -->	
+	
+	
+</mapper>

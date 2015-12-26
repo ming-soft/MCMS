@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.basic.dao.IManagerModelPageDao">
+	
+	<!-- 字段绑定 开始 -->
+	<resultMap type="com.mingsoft.basic.entity.ManagerModelPageEntity" id="resultMap">
+		<result column="mmp_managerID" property="managerModelPagemanagerId" /><!-- 与管理员id绑定 -->
+		<result column="mmp_modelID" property="managerModelPageModelId" /><!-- 与模块id绑定 -->
+		<result column="mmp_url" property="managerModelPageUrl" /><!-- 与连接地址绑定 -->
+	</resultMap>
+	
+	<!-- 添加实体信息开始 -->
+	<insert id="saveEntity"  parameterType="com.mingsoft.basic.entity.ManagerModelPageEntity">
+		insert into manager_model_page
+		<!-- 添加表字段 -->
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="managerModelPagemanagerId != null">mmp_managerID,</if>
+			<if test="managerModelPageModelId != null">mmp_modelID,</if>
+			<if test="managerModelPageUrl != null">mmp_url,</if>
+		</trim>
+
+		<!-- 注入控制层字段 -->
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="managerModelPagemanagerId !=  null">#{managerModelPagemanagerId},</if>
+			<if test="managerModelPageModelId != null">#{managerModelPageModelId},</if>
+			<if test="managerModelPageUrl != null">#{managerModelPageUrl},</if>
+		</trim>
+	</insert>
+	<!-- 添加实体信息结束 -->
+	
+	<!-- 更新实体开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.basic.entity.ManagerModelPageEntity">
+		update manager_model_page
+		<set>
+			<if test="managerModelPageModelId != null">mmp_modelID =#{managerModelPageModelId},</if>
+			<if test="managerModelPageUrl != null">mmp_url =#{managerModelPageUrl},</if>
+		</set>
+		where mmp_managerID = #{managerModelPagemanagerId}
+	</update>
+	<!-- 更新实体结束 -->
+	
+
+	
+	<!-- 根据根据模块id和管理员id查找实体信息查询开始 -->
+	<select id="getByManagerIdAndModelId"  resultMap="resultMap" parameterType="int">
+		select * from manager_model_page
+		where mmp_managerID = #{managerModelPagemanagerId} and mmp_modelID =#{managerModelPageModelId}
+	</select>
+	<!-- 根据根据模块id和管理员id查找实体信息查询结束-->
+</mapper>

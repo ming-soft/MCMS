@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.basic.dao.IDiyFormDao">
+	<resultMap type="com.mingsoft.basic.entity.DiyFormEntity" id="resultMap">
+		<id column="DF_ID" property="diyFormId"></id>
+		<result column="DF_TIPSNAME" property="diyFormTipsName" />
+		<result column="DF_TABLENAME" property="diyFormTableName" />
+		<result column="DF_MANAGERID" property="diyFormManagerId" />
+		<result column="DF_APPID" property="diyFormAppId" />
+	</resultMap>
+
+
+	<!-- 新增表单内容模型开始 -->
+	<insert id="saveEntity" parameterType="com.mingsoft.basic.entity.DiyFormEntity">
+		insert into diy_form
+		<!-- 注入表字段 -->
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="diyFormTipsName != null">DF_TIPSNAME,</if>
+			<if test="diyFormTableName != null">DF_TABLENAME,</if>
+			<if test="diyFormManagerId != null">DF_MANAGERID,</if>
+			<if test="diyFormAppId != null">DF_APPID,</if>
+		</trim>
+
+		<!-- 注入控制层字段 -->
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="diyFormTipsName != null">#{diyFormTipsName},</if>
+			<if test="diyFormTableName != null">#{diyFormTableName},</if>
+			<if test="diyFormManagerId != null">#{diyFormManagerId},</if>
+			<if test="diyFormAppId != null">#{diyFormAppId},</if>
+		</trim>
+	</insert>
+	<!-- 新增表单内容模型结束 -->
+
+	<!-- 更新表单内容模型开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.basic.entity.DiyFormEntity">
+		update diy_form
+		<set>
+			<if test="diyFormTipsName != null">DF_TIPSNAME=#{diyFormTipsName},</if>
+			<if test="diyFormTableName != null">DF_TABLENAME=#{diyFormTableName},</if>
+		</set>
+		where DF_ID = #{diyFormId}
+	</update>
+	<!-- 更新表单内容模型结束 -->
+
+	<!-- 根据id删除内容模型表单记录开始 -->
+	<delete id="deleteEntity" parameterType="int">
+		delete from diy_form
+		where DF_ID = #{diyFormId}
+	</delete>
+	<!-- 根据id删除内容模型表单记录结束 -->
+	
+	<!--根据id数组批量删除开始 -->
+		<delete id="deleteAll" parameterType="List">
+		DELETE  FROM `diy_form`
+		<where>
+    		DF_ID in <foreach collection="ids" item="item" index="index" 
+			open="(" separator="," close=")">#{item}</foreach>
+		</where>
+	</delete>
+	<!--根据id数组批量删除结束 -->
+	
+	<!-- 根据id查找内容模型实体信息 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select *
+		from diy_form
+		where DF_ID = #{diyFormId}
+
+	</select>
+	<!-- 根据id查找内容模型实体信息 -->
+
+	<!-- 查询所有内容模型实体信息开始 -->
+	<select id="queryAll" resultMap="resultMap">
+		select *	from diy_form order by DF_ID desc
+	</select>
+	<!-- 查询所有内容模型实体信息结束 -->
+	
+		<!-- 查询所有内容模型实体信息开始 -->
+	<select id="query" resultMap="resultMap" parameterType="int">
+		select *	from diy_form where DF_APPID=#{diyFormAppId}
+	</select>
+	<!-- 查询所有内容模型实体信息结束 -->
+		<!-- 查询根据表名查找表单实体开始-->
+	<select id="getByTableName" resultMap="resultMap"  parameterType="String">
+		select * from diy_form where DF_TABLENAME=#{diyFormTableName}
+	</select>
+	<!-- 查询据表名查找表单实体结束 -->
+	
+	<!-- 根据sql动态创建表开始 -->
+	<update id="createDiyFormTable" statementType="STATEMENT">
+		CREATE TABLE `${table}` (
+		`Id` int(11) NOT NULL AUTO_INCREMENT,
+		`date` timestamp NULL DEFAULT NULL COMMENT 'CURRENT_TIMESTAMP',
+		`fromID` int(11) DEFAULT NULL,
+		PRIMARY KEY (`Id`)
+		) ENGINE=InnoDB
+		AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+	</update>
+	<!-- 根据sql动态创建表结束 -->
+</mapper>

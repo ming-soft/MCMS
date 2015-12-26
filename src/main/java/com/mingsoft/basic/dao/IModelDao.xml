@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.basic.dao.IModelDao">
+	<!-- 表字段 -->
+	<sql id="column_list">
+		MODEL_ID,MODEL_TITLE,MODEL_CODE,MODEL_MODELID,MODEL_URL,MODEL_DATETIME,MODEL_ICON,MODEL_MODELMANAGERID,MODEL_ISMENU
+	</sql>
+	<resultMap id="resultMap" type="com.mingsoft.basic.entity.ModelEntity">
+		<id column="MODEL_ID" property="modelId" />
+		<result column="MODEL_TITLE" property="modelTitle" />
+		<result column="MODEL_CODE" property="modelCode" />
+		<result column="MODEL_MODELID" property="modelModelId" />
+		<result column="MODEL_URL" property="modelUrl" />
+		<result column="MODEL_DATETIME" property="modelDatetime" />
+		<result column="MODEL_ICON" property="modelIcon" />
+		<result column="MODEL_MODELMANAGERID" property="modelManagerId" />
+		<result column="MODEL_ISMENU" property="modelIsMenu"/>
+	</resultMap>
+
+	<!-- 新增 -->
+	<insert id="saveEntity" useGeneratedKeys="true" keyProperty="modelId"
+		parameterType="com.mingsoft.basic.entity.ModelEntity" >
+		insert into model
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="modelTitle != null">MODEL_TITLE,</if>
+			<if test="modelCode != null">MODEL_CODE,</if>
+			<if test="modelModelId != null">MODEL_MODELID,</if>
+			<if test="modelUrl != null">MODEL_URL,</if>
+			<if test="modelDatetime != null">MODEL_DATETIME,</if>
+			<if test="modelIcon != null">MODEL_ICON,</if>
+			<if test="modelManagerId != null">MODEL_MODELMANAGERID,</if>
+			<if test="modelIsMenu!=null">MODEL_ISMENU,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="modelTitle != null">#{modelTitle},</if>
+			<if test="modelCode != null">#{modelCode},</if>
+			<if test="modelModelId != null">#{modelModelId},</if>
+			<if test="modelUrl != null">#{modelUrl},</if>
+			<if test="modelDatetime != null">#{modelDatetime},</if>
+			<if test="modelIcon != null">#{modelIcon},</if>
+			<if test="modelManagerId != null">#{modelManagerId},</if>
+			<if test="modelIsMenu != null">#{modelIsMenu},</if>
+		</trim>
+	</insert>
+	<!-- 新增结束 -->
+
+	<!-- 查询 -->
+	<select id="queryAll" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		from model
+	</select>
+
+
+	<!-- 查询结束 -->
+
+	<!-- 查询带分页 -->
+	<select id="queryByPage" resultMap="resultMap" parameterType="java.util.Map">
+		select
+		<include refid="column_list" />
+		from model order by model_id desc limit ${pageNo*pageSize},#{pageSize}
+	</select>
+	<!-- 查询带分页结束 -->
+
+	<!-- 查询模块总数 -->
+	<select id="queryCount" resultType="int">
+		select count(*) from
+		model
+	</select>
+	<!-- 查询模块总数结束 -->
+
+	<!-- 根据模块id查询model开始 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select
+		<include refid="column_list" />
+		from model
+		where model_id=#{modelId}
+	</select>
+	<!--根据模块id查询model结束 -->
+
+	<!-- 根据角色id查询model开始 -->
+	<select id="queryModelByRoleId" resultMap="resultMap"
+		parameterType="int">
+		select
+		MODEL_ID,MODEL_TITLE,MODEL_MODELID,MODEL_URL,MODEL_ICON
+		from model
+		where model_id in (select RM_MODELID from role_model where
+		RM_ROLEID=#{roleId})
+	</select>
+	<!--根据角色id查询model结束 -->
+
+	<!-- 更新 -->
+	<update id="updateEntity" parameterType="com.mingsoft.basic.entity.ModelEntity" flushCache="true">
+		update model
+		<set>
+			<if test="modelTitle != null">MODEL_TITLE=#{modelTitle},</if>
+			<if test="modelCode != null">MODEL_CODE=#{modelCode},</if>
+			<if test="modelModelId != null">MODEL_MODELID=#{modelModelId},</if>
+			<if test="modelUrl != null">MODEL_URL=#{modelUrl},</if>
+			<if test="modelDatetime != null">MODEL_DATETIME=#{modelDatetime},</if>
+			<if test="modelIcon != null">MODEL_ICON=#{modelIcon},</if>
+			<if test="modelManagerId != null">MODEL_MODELMANAGERID=#{modelManagerId},</if>
+			<if test="modelIsMenu != null">MODEL_ISMENU=#{modelIsMenu}</if>
+		</set>
+		where model_id=#{modelId}
+	</update>
+	<!-- 更新结束 -->
+
+	<!-- 查询模块的子模块 -->
+	<select id="queryChildList" resultMap="resultMap" parameterType="int">
+		select
+		<include refid="column_list" />
+		from model
+		where MODEL_MODELID = #{modelModelId}
+	</select>
+
+	<!-- 查找顶级模块 -->
+	<select id="queryParent" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		from model where model_modelId = 0
+	</select>
+
+	<!-- 根据管理员ID查询模块集合 -->
+	<select id="queryModelByManagerId" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		from model
+		where 1=1
+		<if test="modelManagerId != null">and MODEL_MODELMANAGERID=#{modelManagerId}</if>
+		<if test="modelId != null">and MODEL_MODELId=#{modelId}</if>
+
+	</select>
+
+	<!-- 查询管理员不为1的模块 -->
+	<select id="queryModelByManager" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		from model
+		where MODEL_MODELMANAGERID != 1;
+	</select>
+	
+	<select id="queryModelByIsMenu" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		from model
+		where MODEL_ISMENU=${modelEnum};
+	</select>
+	
+	<!-- 删除 -->
+	<delete id="deleteEntity" parameterType="java.lang.Integer" flushCache="true">
+		delete from model
+		where
+		model_id =
+		#{modelId}
+	</delete>
+
+	<!-- 更具模块编号查询模块实体开始 -->
+	<select id="getEntityByModelCode" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		from model
+		where MODEL_CODE = ${modelCode}
+	</select>
+	<!-- 更具模块编号查询模块实体结束 -->
+
+   <!-- 根据应用编号与模块编号查处通用的模块信息 -->
+	<select id="getModel"   resultMap="resultMap" >
+		select MODEL_ID,MODEL_TITLE,MODEL_CODE,MODEL_MODELID,MODEL_URL,MODEL_DATETIME,MODEL_ICON,MODEL_MODELMANAGERID from  model where substring(model_code,3,2)=#{modelCodeRegex} and (model_modelid = (select model_modelid from model where model_id=#{modelId}) or model_modelid = (select model_id from model where model_id=#{modelId}));
+	</select>
+	
+</mapper>

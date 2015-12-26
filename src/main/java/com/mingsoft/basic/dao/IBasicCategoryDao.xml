@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.basic.dao.IBasicCategoryDao">
+	<resultMap id="resultMap" type="com.mingsoft.basic.entity.BasicCategoryEntity">
+		<result column="bc_basic_Id" property="bcBasicId"/>
+		<result column="bc_category_id" property="bcCategoryId"/>
+	</resultMap>
+	
+	<!-- 向基础分类表中批量插数据 -->
+	<insert id="saveBatch" parameterType="java.util.List">
+		insert into basic_category (bc_basic_Id,bc_category_id) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.bcBasicId},#{item.bcCategoryId})
+		</foreach>
+	</insert>
+	
+	<!--向基础分类表中批量更新数据  -->
+	<update id="updateBatch" >  
+	    replace into basic_category (bc_basic_Id,bc_category_id) values
+	    <foreach collection="list" item="item" index="index" separator=",">  
+	         (#{item.bcBasicId},#{item.bcCategoryId})
+	    </foreach>
+	</update> 
+	
+	<!-- 更加basicId删除数据 -->
+	<update id="deleteEntity" parameterType="int">  
+	   delete from basic_category where bc_basic_Id=#{bcBasicId}
+	</update>
+	
+	<select id="queryByBasicId" resultMap="resultMap">
+		select * from basic_category
+		 where bc_basic_Id=#{bcBasicId}
+	</select>
+	<!-- 根据分类id集合和分类id集合的长度去查询符合条件的basicId集合 -->
+	<select id="queryBasicIdsByCategoryId" resultType="int">
+		select bc_basic_id from (
+			select *,count(bc_basic_id) as cun from basic_category 
+			<if test="categoryIds!=null">
+				where bc_category_id in
+			 	<foreach collection="categoryIds" item="item" index="index" 
+			open="(" separator="," close=")">#{item}</foreach>
+			
+			</if>
+			 GROUP BY
+				bc_basic_id
+			)
+			as temp where cun=#{categoryIdsSize};
+	</select>
+	
+	<!-- 根据分类id集合和分类id集合的长度去查询符合条件的basicId集合 -->
+	<select id="getCountByCategoryId" resultType="java.util.Arrays"> 
+			select count(bc_basic_id)  from basic_category 
+			<if test="categoryIds!=null">
+				where bc_category_id in
+			 	<foreach collection="categoryIds" item="item" index="index" 
+			open="(" separator="," close=")">#{item}</foreach>
+			</if>
+			GROUP BY bc_basic_id
+			
+	</select>
+</mapper>

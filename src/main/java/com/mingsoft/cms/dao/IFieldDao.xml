@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 字段管理持久化层XML配置继承IFieldDao -->
+<mapper namespace="com.mingsoft.cms.dao.IFieldDao">
+	<sql id="column_list">
+		FIELD_ID,FIELD_TIPSNAME,FIELD_FIELDNAME,FIELD_TYPE,FIELD_CMID,FIELD_DEFAULT,FIELD_ISNULL,FIELD_ISSEARCH
+	</sql>
+	
+	<!-- 表字段与实体属性对应，供返回实体信息时使用 -->
+	<resultMap id="resultMap" type="com.mingsoft.cms.entity.FieldEntity">
+		<id column="FIELD_ID" property="fieldId" />
+		<result column="FIELD_TIPSNAME" property="fieldTipsName" />
+		<result column="FIELD_FIELDNAME" property="fieldFieldName" />
+		<result column="FIELD_TYPE" property="fieldType" />
+		<result column="FIELD_CMID" property="fieldCmid" />
+		<result column="FIELD_DEFAULT" property="fieldDefault" />
+		<result column="FIELD_ISNULL" property="fieldIsNull" />
+		<result column="FIELD_ISSEARCH" property="fieldIsSearch" />
+	</resultMap>
+	
+	<!-- 根据sql动态查询开始 -->
+	<select id="queryListBySQL" resultType="Map">
+		select basicId from ${table} where
+		<foreach item="item" index="key" collection="diyFieldName" open="" separator="and" close="">
+				${key} like '%${item}%'
+		</foreach>
+	</select>
+
+
+	<!-- 查询所有字段开始 -->
+	<select id="queryAll" resultMap="resultMap">
+		select * from cms_content_mode_field;
+	</select>
+	<!-- 查询所有字段结束 -->
+	
+	<!-- 查询指定表单的自定义字段列表开始 -->
+	<select id="queryListByCmid" resultMap="resultMap" parameterType="int">
+		select * from cms_content_mode_field where FIELD_CMID = #{fieldCmid} order by field_sort,field_id desc;
+	</select>
+	<!-- 查询指定表单的自定义字段列表结束 -->
+	
+	<!-- 统计指定表单的字段数量开始 -->
+	<select id="queryCountByCmid" resultType="int" parameterType="int">
+		select count(*) from cms_content_mode_field where FIELD_CMID = #{fieldCmid};
+	</select>
+	<!-- 统计指定表单的字段数量结束 -->
+	
+	<!-- 字段列表分页查询开始 -->
+	<select id="queryByPage" resultMap="resultMap">
+		select * from cms_content_mode_field where FIELD_CMID = #{fieldCmid}
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
+		<if test="order == true">
+			asc
+		</if>
+		<if test="order == false">
+			desc
+		</if>
+		    limit ${pageNo*pageSize},#{pageSize}
+	</select>
+	<!-- 字段列表分页查询结束 -->
+	
+	<!-- 增加字段实体开始 -->
+	<insert id="saveEntity" parameterType="com.mingsoft.cms.entity.FieldEntity">
+		insert into cms_content_mode_field
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="fieldTipsName != null">FIELD_TIPSNAME,</if>
+			<if test="fieldFieldName != null">FIELD_FIELDNAME,</if>
+			<if test="fieldType != null">FIELD_TYPE,</if>
+			<if test="fieldCmid != null">FIELD_CMID,</if>
+			<if test="fieldDefault != null">FIELD_DEFAULT,</if>
+			<if test="fieldIsNull != null">FIELD_ISNULL,</if>
+			<if test="fieldIsSearch != null">FIELD_ISSEARCH,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="fieldTipsName != null">#{fieldTipsName},</if>
+			<if test="fieldFieldName != null">#{fieldFieldName},</if>
+			<if test="fieldType != null">#{fieldType},</if>
+			<if test="fieldCmid != null">#{fieldCmid},</if>
+			<if test="fieldDefault != null">#{fieldDefault},</if>
+			<if test="fieldIsNull != null">#{fieldIsNull},</if>
+			<if test="fieldIsSearch != null">#{fieldIsSearch}</if>
+		</trim>
+	</insert>
+	<!-- 增加字段实体结束 -->
+	
+	<!-- 删除字段实体开始 -->
+	<delete id="deleteEntity" parameterType="int">
+		delete from cms_content_mode_field where FIELD_ID = #{fieldId}
+	</delete>
+	<!-- 删除字段实体结束 -->
+		
+	<!-- 查询字段实体开始 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select 
+			<include refid="column_list"/>
+		  		from cms_content_mode_field where FIELD_ID=#{fieldId};
+	</select>
+	<!-- 查询字段实体结束 -->
+	
+	<!-- 通过字段名获取字段实体开始 -->
+	<select id="getEntityByFieldName" resultMap="resultMap" parameterType="String">
+		select 
+			<include refid="column_list"/>
+		  		from cms_content_mode_field where FIELD_FIELDNAME=#{fieldFieldName};
+	</select>
+	<!-- 通过字段名获取字段实体结束 -->
+	
+	<!-- 通过字段名和内容模型id获取字段实体开始 -->
+	<select id="getEntityByCmId" resultMap="resultMap">
+		select 
+			<include refid="column_list"/>
+		  		from cms_content_mode_field where FIELD_FIELDNAME=#{fieldFieldName} and FIELD_CMID=#{cmId};
+	</select>
+	<!-- 通过字段名获取字段实体结束 -->
+	
+	<!-- 更新字段开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.cms.entity.FieldEntity">
+		update cms_content_mode_field
+		<set>
+			<if test="fieldTipsName != null">FIELD_TIPSNAME=#{fieldTipsName},</if>
+			<if test="fieldFieldName != null">FIELD_FIELDNAME=#{fieldFieldName},</if>
+			<if test="fieldType != null">FIELD_TYPE=#{fieldType},</if>
+			<if test="fieldCmid != null">FIELD_CMID=#{fieldCmid},</if>
+			<if test="fieldDefault != null">FIELD_DEFAULT=#{fieldDefault},</if>
+			<if test="fieldIsNull != null">FIELD_ISNULL=#{fieldIsNull},</if>
+			<if test="fieldIsSearch != null">FIELD_ISSEARCH=#{fieldIsSearch}</if>
+		</set>
+		where FIELD_ID=#{fieldId};
+	</update>
+	<!-- 更新字段结束 -->
+	
+	<!-- 根据字段名和表单模型id查找符合条件的记录个数开始 -->
+	<select id="getCountFieldName" resultType="int">
+		select count(*) from cms_content_mode_field
+		where FIELD_CMID=#{fieldCmdId} 
+		<if test="fieldFieldName!=null">and FIELD_FIELDNAME=#{fieldFieldName}</if>
+	</select>
+	
+	
+	
+	
+	<!-- 根据sql动态查询开始 -->
+	<select id="queryListByListField" resultType="Map">
+		select basicId from ${table} ${where}
+	</select>
+	
+	<!-- - -->
+	<select id="queryByContentModelId" resultMap="resultMap">
+		select * from cms_content_mode_field where FIELD_CMID = #{contentModelId} order by field_sort,field_id desc
+	</select>
+	
+	<select id="queryByIsSearch" resultMap="resultMap">
+		select * from cms_content_mode_field 
+		<where>
+			<if test="contentModelId!=null">and FIELD_CMID=#{contentModelId}</if>
+			<if test="fieldIsSearch!=null">and FIELD_ISSEARCH=#{fieldIsSearch}</if>
+			order by field_sort,field_id desc
+		</where>
+	</select>
+	
+</mapper>

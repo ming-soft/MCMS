@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.basic.dao.IBasicDao">
+
+	<sql id="column_list">
+		BASIC_ID,BASIC_TITLE,BASIC_DESCRIPTION,BASIC_THUMBNAILS,BASIC_HIT,BASIC_DATETIME,BASIC_UPDATETIME,BASIC_PEOPLEID,BASIC_CATEGORYID,BASIC_APPID
+	</sql>
+
+	<resultMap id="resultMap" type="com.mingsoft.basic.entity.BasicEntity">
+		<id column="BASIC_ID" property="basicId" />
+		<result column="BASIC_TITLE" property="basicTitle" />
+		<result column="BASIC_DESCRIPTION" property="basicDescription" />
+		<result column="BASIC_THUMBNAILS" property="basicThumbnails" />
+		<result column="BASIC_HIT" property="basicHit" />
+		<result column="BASIC_DATETIME" property="basicDateTime" />
+		<result column="BASIC_UPDATETIME" property="basicUpdateTime" />
+		<result column="BASIC_PEOPLEID" property="basicPeopleId" />
+		<result column="BASIC_CATEGORYID" property="basicCategoryId" />
+		<result column="BASIC_APPID" property="basicAppId" />
+	</resultMap>
+
+	<!-- 新增开始 -->
+	<insert id="saveEntity" useGeneratedKeys="true" keyProperty="basicId"
+		parameterType="com.mingsoft.base.entity.BaseEntity">
+		insert into basic
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="basicTitle != null">basic_title,</if>
+			<if test="basicDescription != null">basic_description,</if>
+			<if test="basicThumbnails != null">basic_thumbnails,</if>
+			<if test="basicHit != null">basic_hit,</if>
+			<if test="basicCategoryId != null">BASIC_CATEGORYID,</if>
+			<if test="basicPeopleId != null">BASIC_PEOPLEID,</if>
+			<if test="basicDateTime != null">BASIC_Datetime,</if>
+			<if test="basicUpdateTime != null">BASIC_updatetime,</if>
+			<if test="basicAppId != null">BASIC_APPID,</if>
+			<if test="basicSort != null">BASIC_SORT,</if>
+			<if test="basicModelId != null">BASIC_MODELID,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="basicTitle != null">#{basicTitle},</if>
+			<if test="basicDescription != null">#{basicDescription},</if>
+			<if test="basicThumbnails != null">#{basicThumbnails},</if>
+			<if test="basicHit != null">#{basicHit},</if>
+			<if test="basicCategoryId != null">#{basicCategoryId},</if>
+			<if test="basicPeopleId != null">#{basicPeopleId},</if>
+			<if test="basicDateTime != null">#{basicDateTime},</if>
+			<if test="basicUpdateTime != null">#{basicUpdateTime},</if>
+			<if test="basicAppId != null">#{basicAppId},</if>
+			<if test="basicSort != null">#{basicSort},</if>
+			<if test="basicModelId != null">#{basicModelId},</if>
+		</trim>
+	</insert>
+	<!-- 新增结束 -->
+
+	<!-- 更新开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.base.entity.BaseEntity">
+		update basic
+		<set>
+			<if test="basicTitle != null">basic_title=#{basicTitle},</if>
+			<if test="basicDescription != null">basic_description=#{basicDescription},</if>
+			<if test="basicThumbnails != null">BASIC_THUMBNAILS=#{basicThumbnails},</if>
+			<if test="basicHit != null">BASIC_HIT=#{basicHit},</if>
+			<if test="basicUpdateTime != null">BASIC_UPDATETIME=#{basicUpdateTime},</if>
+			<if test="basicPeopleId != null">BASIC_PEOPLEID=#{basicPeopleId},</if>
+			<if test="basicCategoryId != null">BASIC_CATEGORYID=#{basicCategoryId},</if>
+			<if test="basicDateTime != null">BASIC_Datetime=#{basicDateTime},</if>
+			<if test="basicSort != null">BASIC_SORT=#{basicSort},</if>
+		</set>
+		where basic_id = #{basicId}
+	</update>
+	<delete id="deleteEntity" parameterType="int">
+		delete from basic where
+		basic_id = #{basicId}
+	</delete>
+	<delete id="deleteEntityByAppId" parameterType="int">
+		delete from basic where
+		basic_id = #{basicId} and basic_appid=#{appId}
+	</delete>	
+	<!-- 更新结束 -->
+
+	<!-- 根据ID查询开始 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select
+		<include refid="column_list" />
+		from basic where basic_id=#{basicId}
+	</select>
+	<!-- 根据ID查询结束 -->
+
+	<!-- 根据ID查询开始 -->
+	<select id="query" resultMap="resultMap" parameterType="int">
+		select
+		<include refid="column_list" />
+		from basic
+		<where>
+			<if test=" appId !=null">
+				 and basic_appid=#{appId}
+			</if>
+			<if test=" categoryId > 0">
+				 and basic_categoryid=#{categoryId}
+			</if>
+			<if test="modelId != null">
+				and basic_modelId = #{modelId}
+			</if>
+			<if test=" keyWord !=null ">
+				and basic_title like CONCAT('%',#{ keyWord},'%')
+			</if>			
+		</where>
+		<if test=" orderField != null">
+			order by #{orderField}
+			<if  test=" ad != null">
+				#{ad}
+			</if>
+		</if>
+		<if test=" orderField == null">
+			order by basic_id desc
+		</if>		
+		<if test=" begin !=null ">
+			limit #{begin}
+		</if>
+		<if test=" end !=null ">
+			,#{end}
+		</if>
+
+	</select>
+	<!-- 根据ID查询结束 -->
+	
+	<!-- 获取当前文章basicId的上一篇与下一篇开始 -->
+	<select id="getPreviousAndNext" parameterType="int" resultMap="resultMap">
+	 (select * from basic  where BASIC_ID    &lt;  #{basicId} order by BASIC_ID asc limit 1)
+		union all
+	(select * from basic  where BASIC_ID &gt; #{basicId} order by BASIC_ID asc limit 1)
+	</select>
+	<!-- 获取当前文章basicId的上一篇与下一篇结束 -->
+
+	<!-- 更新文章点击次数 -->
+	<update id="updateHit">
+		update basic set
+		<if test="num!=null">
+			basic_hit = #{num}
+		</if>
+		<if test="num==null">
+			basic_hit = basic_hit+1
+		</if>
+		where basic_id=#{basicId}
+	</update>
+	
+	<!-- 根据basicID删除开始-->
+	<delete id="delete" >
+		delete from basic
+		<where>
+			basic_id  in <foreach collection="ids" item="item" index="index" 
+			open="(" separator="," close=")">#{item}</foreach>
+		</where>
+	</delete>
+</mapper>

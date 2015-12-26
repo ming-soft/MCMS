@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 用户信息持久层继承IBaseDao -->
+<mapper namespace="com.mingsoft.people.dao.IPeopleWebsiteModelDao">
+	<!-- 表字段开始-->
+	<sql id="column_list">
+		pwm_peopleid,pwm_websiteid,pwm_modelid
+	</sql>
+	
+	<!-- 将实体属性与表字段对接开始 -->
+	<resultMap id="resultMap" type="com.mingsoft.people.entity.PeopleWebsiteModelEntity">
+		<result column="pwm_peopleid" property="peopleWebsiteModelPeopleId"/><!-- 用户ID -->
+		<result column="pwm_websiteid" property="peopleWebsiteModelWebsiteId"/><!-- 站点ID -->
+		<result column="pwm_modelid" property="peopleWebsiteModelModelId"/><!-- 模块ID -->
+	</resultMap>
+	<!-- 将实体属性与表字段对接结束 -->
+	
+	<!-- 新增用户站点模块信息开始 -->
+	<insert id="saveEntity" parameterType="com.mingsoft.base.entity.BaseEntity">
+		insert into people_website_model
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="peopleWebsiteModelPeopleId != null">pwm_peopleid,</if>
+			<if test="peopleWebsiteModelWebsiteId != null">pwm_websiteid,</if>
+			<if test="peopleWebsiteModelModelId != null">pwm_modelid,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="peopleWebsiteModelPeopleId != null">#{peopleWebsiteModelPeopleId},</if>
+			<if test="peopleWebsiteModelWebsiteId != null">#{peopleWebsiteModelWebsiteId},</if>
+			<if test="peopleWebsiteModelModelId != null">#{peopleWebsiteModelModelId},</if>
+		</trim>
+	</insert>
+	<!-- 新增用户站点模块信息结束 -->	
+	<!-- 删除用户站点模块开始 -->
+	<delete id="deleteEntity" parameterType="com.mingsoft.people.entity.PeopleWebsiteModelEntity">
+		delete from people_website_model where pwm_peopleid = #{peopleWebsiteModelPeopleId} and pwm_websiteid=#{peopleWebsiteModelWebsiteId} and 
+		pwm_modelid=#{peopleWebsiteModelModelId}
+	</delete>
+	<!-- 删除用户站点模块结束 -->
+	
+	
+	<!-- 根据用户ID删除用户站点模块开始 -->
+	<delete id="deleteByPeopleId" parameterType="int">
+		delete from people_website_model where pwm_peopleid = #{peopleWebsiteModelPeopleId}
+	</delete>
+	<!-- 根据用户ID删除用户站点模块结束 -->
+	
+	<!--  用户根据站点登陆验证开始 -->
+	<select id="queryPeopleId" resultType="int" parameterType="java.lang.String">
+			select
+				pe.peopel_id
+			from 
+				people pe left join people_website_model pw
+			where
+				pe.people_name=#{peopleName} and pe.people_pwd=#{peoplePwd} and pw.pwm_websiteid=#{peopleWebsiteModelWebsiteId}
+	</select>
+	<!--  用户根据站点登陆验证结束 -->
+	
+</mapper>

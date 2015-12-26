@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.basic.dao.IAppDao">
+	<!-- 字段绑定 开始 -->
+	<resultMap type="com.mingsoft.basic.entity.AppEntity" id="resultMap">
+		<id column="APP_ID" property="appId" /><!-- 与website表绑定id -->
+		<result column="APP_PAY_DATE" property="appPayDate" />
+		<result column="APP_PAY" property="appPay" />
+		<result column="APP_KEYWORD" property="appKeyword" /><!-- 与website表绑定keyword -->
+		<result column="APP_COPYRIGHT" property="appCopyright" /><!-- 与website表绑定copyright -->
+		<result column="APP_STYLE" property="appStyle" /><!-- 与website表绑定style -->
+		<result column="APP_URL" property="appUrl" /><!-- 与website表绑定url -->
+		<result column="APP_MANAGERID" property="appManagerId" /><!-- 与website表绑定管理员id -->
+		<result column="APP_NAME" property="appName" />
+		<result column="APP_DESCRIPTION" property="appDescription" />
+		<result column="APP_LOGO" property="appLogo" />
+		<result column="APP_DATETIME" property="appDatetime" />
+		<result column="APP_MOBILE_STYLE" property="appMobileStyle" />
+	</resultMap>
+	<!-- 字段绑定结束 -->
+
+	<!-- 添加website信息开始 -->
+	<insert id="saveEntity" parameterType="com.mingsoft.base.entity.BaseEntity" flushCache="true">
+		insert into app
+		<!-- 添加表字段 -->
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="appName!= null">APP_NAME,</if>
+			<if test="appDescription!= null">APP_DESCRIPTION,</if>
+			<if test="appLogo!= null">APP_LOGO,</if>
+			<if test="appDatetime!=null">APP_DATETIME,</if>
+			<if test="appKeyword!= null">APP_KEYWORD,</if><!-- 添加关键字 -->
+			<if test="appCopyright!= null">APP_COPYRIGHT,</if><!-- 添加版权信息 -->
+			<if test="appStyle!= null">APP_STYLE,</if><!-- 添加模板风格 -->
+			<if test="appUrl!= null">APP_URL,</if><!-- 添加域名 -->
+			<if test="appManagerId &gt;0 ">APP_MANAGERID,</if><!-- 添加管理员id -->
+			<if test="appPayDate != null">APP_PAY_DATE,</if><!-- 应用续费时间 -->
+			<if test="appPay != null">APP_PAY,</if><!-- 应用费用清单 -->
+		</trim>
+		<!-- 注入控制层字段 -->
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="appName !=  null">#{appName},</if>
+			<if test="appDescription != null">#{appDescription},</if>
+			<if test="appLogo != null">#{appLogo},</if>
+			<if test="appDatetime !=null">#{appDatetime},</if>
+			<if test="appKeyword != null">#{appKeyword},</if><!-- 添加内容 -->
+			<if test="appCopyright != null">#{appCopyright},</if><!-- 添加版权信息 -->
+			<if test="appStyle != null">#{appStyle},</if><!-- 添加模板风格 -->
+			<if test="appUrl != null">#{appUrl},</if><!-- 添加域名 -->
+			<if test="appManagerId &gt;0 ">#{appManagerId},</if><!-- 添加管理员id -->
+			<if test="appMobileStyle != null">#{appMobileStyle},</if>
+			<if test="appPayDate != null">#{appPayDate},</if>
+			<if test="appPay != null">#{appPay},</if>
+		</trim>
+
+	</insert>
+	<!-- 添加website信息结束 -->
+
+	<!-- 删除website开始 -->
+	<delete id="deleteEntity" parameterType="int" flushCache="true">
+		delete from app
+		where
+		APP_id = #{appId}
+	</delete>
+	<!-- 删除website结束 -->
+
+	<!-- 更新website开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.base.entity.BaseEntity" flushCache="true">
+		update app
+		<set>
+			<if test="appName != null">APP_NAME =#{appName},</if>
+			<if test="appDescription != null">APP_DESCRIPTION =#{appDescription},</if>
+			<if test="appLogo != null">APP_LOGO =#{appLogo},</if>
+			<if test="appDatetime != null">APP_DATETIME =#{appDatetime},</if>
+
+			<if test="appKeyword != null">APP_keyword =#{appKeyword},</if>
+			<if test="appCopyright != null">APP_copyright =#{appCopyright},</if>
+			<if test="appStyle != null">APP_style =#{appStyle},</if>
+			<if test="appUrl!= null">APP_URL=#{appUrl},</if>
+			<if test="appManagerId &gt;0 ">APP_managerId=#{appManagerId},</if>
+			<if test="appMobileStyle != null">APP_MOBILE_STYLE=#{appMobileStyle},</if>
+			<if test="appPayDate != null">APP_PAY_DATE=#{appPayDate},</if>
+			<if test="appPay != null">APP_PAY=#{appPay},</if>
+		</set>
+		where APP_Id = #{appId}
+	</update>
+	<!-- 更新website结束 -->
+
+	<!-- 查询所有website开始 -->
+	<select id="queryAll" resultMap="resultMap">
+		select * from app order by
+		app_id desc
+	</select>
+	<!-- 查询所有website结束 -->
+
+	<!-- 对website进行分页查询开始 -->
+	<select id="queryByPage" resultMap="resultMap">
+		<!--shiahbasic和 basic间进行连接查询 -->
+		select *
+		from app
+		order by app_id desc
+		limit ${pageNo*pageSize},#{pageSize}
+	</select>
+	<!-- 查询所有website结束 -->
+
+	<!-- 查询记录总数 开始 -->
+	<select id="queryCount" resultType="int">
+		select count(app_id) from app
+	</select>
+	<!-- 查询记录总数 结束 -->
+
+	<!-- 根据ID查询开始 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select * from app
+		where APP_id = #{appId}
+	</select>
+
+	<!-- 根据域名查找站点实体 -->
+	<select id="getByUrl" resultMap="resultMap" parameterType="String">
+		select *
+		from app
+		where  APP_URL like CONCAT('%',#{appUrl},'%') limit 0,1
+	</select>
+
+	<!-- 根据ID查询结束 -->
+
+	<!-- 根据域名查询 -->
+	<select id="countByUrl" resultType="int" parameterType="String">
+		select
+		count(app_id)
+		from app
+		where
+		REPLACE(APP_URL,"/","") =
+		REPLACE(#{appUrl},"/","")
+	</select>
+	<!-- 根据域名查询结束 -->
+
+	<!-- 根据站点管理员id查找 -->
+	<select id="getByManagerId" resultMap="resultMap" parameterType="int">
+		select * from app where APP_MANAGERID =
+		#{appManagerId}
+	</select>
+</mapper>

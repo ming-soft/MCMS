@@ -1,0 +1,89 @@
+    <script src="{ms:globalskin.url/}/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="{ms:globalskin.url/}/js/jquery.cookies.2.2.0.js" type="text/javascript"></script>   
+    <script src="http://static.ming-soft.net/base/ms.base.min.js"></script> 
+    <script src="http://static.ming-soft.net/util/ms.util.min.js"></script>
+    <script src="http://static.ming-soft.net/people/ms.people.min.js" type="text/javascript"></script> 
+    <div class="navbar navbar-default" style="background-color: #fff;" id="navbar">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand icon-logo" href="{ms:global.url/}"  title="铭飞科技">铭飞科技</a>
+          <div id="bdadm-1019183" class="navbar-slogan"></div>
+          <!--搜索-->
+          <form id="searchDataForm" class="navbar-form navbar-right" action="/html/1549/1/search.do" method="post">
+            <div class="form-group">
+            <!--表单的name值不能改变-->	 
+              <input class="form-control"  type="text" name="basic_title" maxlength="50" placeholder="搜索课程、笔记、帖子、文章"  />
+            </div>
+            <input type="submit"  class="btn icon-search"   value="搜索">
+          </form>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="nav navbar-nav navbar-right" id="unlogined">
+            <li class="navbar-sign">
+              <a href="{ms:global.host/}/register.do" >注册</a>
+            </li>
+            <li class="navbar-login">
+              <a href="{ms:global.host/}/login.do">登录</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="nav nav-main" id="navMain">
+        <ul class="container">
+          <li class="active"><a href="{ms:global.url/}">首页</a></li>
+          <li><a href="{ms:global.url/}/48/index.html">课程</a></li>
+          <li><a href="{ms:global.url/}/37/index.html">专题</a></li>
+          <li><a href="{ms:global.url/}/49/index.html">演讲</a></li>
+<!--          <li><a href="javascript:void(0);">社区</a></li>   
+-->
+        </ul>
+    </div>
+    <!--登录后右上角-->
+    <ul class="login-corner" style="display:none">            
+      <li class="navbar-notice" id="navbarNotice">                 
+          <a href="javascript:void 0;" >
+            <span class="mooc-notice"></span><span class="navbar-notice-txt">通知</span>
+          </a>          
+      </li>             
+      <li class="navbar-settings dropdown" id="navbarSettings">             
+        <a class="dropdown-toggle" href="javascript:void 0;">
+          <img width="30" height="30" src="{ms:globalskin.url/}/images/face.png" alt="">
+          <span class="navbar-settings-id"></span><span class="caret"></span>
+        </a>                 
+        <ul class="dropdown-menu" id="settingsBlock">                     
+          <li style="    background-color: #fff;">
+            <a href="{ms:global.host/}/people/userCenter.do" >个人主页</a>
+          </li>                                                                               
+          <li><a href="javascript:exitLogin()">退出</a></li>                 
+        </ul>             
+      </li>         
+    </ul>
+    <script>  
+    //登录后显示用户名
+    $(function(){
+      var people = $.cookies.get('PEOPLE_COOKIE');   
+      var obj =  jQuery.parseJSON(people);
+      if(obj !=null && obj !=0){
+        var noticeHTML = $("#navbarNotice");
+        var settingHTML = $("#navbarSettings");
+        $(".navbar-sign").html(noticeHTML);
+        $(".navbar-login").html(settingHTML);
+      }
+   });
+    //导航栏跳转样式保留
+    $(document).ready(function(){  
+      $(".nav ul li a").each(function(){  
+          $this = $(this);  
+          if($this[0].href==String(window.location)){  
+              $this.parent("li").addClass("showColor");  
+          }  
+      });  
+    });
+    //点击显示用户下拉菜单
+    $(".dropdown-toggle").click(function(){
+      $("#settingsBlock").css("width","88px");
+      $("#settingsBlock").toggle();              
+    });
+</script>
+

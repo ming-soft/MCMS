@@ -1,0 +1,12 @@
+<#include "input.ftl"/>
+<#include "select.ftl"/>
+<#include "checkboxlist.ftl"/>
+<#include "textarea.ftl"/>
+<#include "file.ftl"/>
+<#include "button.ftl"/>
+<#include "form.ftl"/>
+<#include "date.ftl"/>
+<#include "editor.ftl"/>
+<#include "time.ftl"/>
+<#include "tree.ftl"/>
+<#include "/manager/include/manager.ftl"/>

@@ -1,0 +1,168 @@
+<!DOCTYPE>
+<html>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>{ms:global.name/}</title>
+    <link rel="stylesheet" href="{ms:globalskin.url/}css/list.css">
+    <link rel="stylesheet" href="{ms:globalskin.url/}/css/index.css" >
+    <link rel="stylesheet" href="{ms:globalskin.url/}/css/gui.css">
+    <script type="text/javascript" src="{ms:globalskin.url/}/js/jquery-1.9.1.min.js"></script>
+    <script src="{ms:globalskin.url/}/js/base.js" type="text/javascript"></script>
+    <script src="{ms:globalskin.url/}/js/user.js" type="text/javascript"></script>
+</head>
+<body>
+    {ms:include filename=header.htm/} 
+    <div>
+       <div class="carousel-container">
+        	<div class="carousel" id="carousel">
+	            <ul>
+	            	{ms:arclist  typeid=15 size=1 flag=f}
+                        <a data-carousel="3" href="javascript:void(0);"   target="_blank">
+	                	<li style="background:url([field.litpic/]) no-repeat center;"></li>	                
+	                </a>
+	                {/ms:arclist}
+
+                    {ms:arclist  typeid=50 size=1 flag=f}
+                       <a data-carousel="2" href="javascript:void(0);"   target="_blank">
+	                	<li style="background:url([field.litpic/]) no-repeat center;"></li>	                
+	                </a>
+	                {/ms:arclist}
+  	            
+                      {ms:arclist  typeid=51 size=1 flag=f}
+                       <a data-carousel="1" href="javascript:void(0);"   target="_blank">
+	                	<li style="background:url([field.litpic/]) no-repeat center;"></li>	                
+	                </a>
+	                {/ms:arclist}
+  	            
+	            </ul>        
+        	</div>
+        	<div class="control">
+		       	<ul>
+		       		 <li data-control="1" class="control-active"></li>
+			         <li data-control="2"></li>
+			         <li data-control="3"></li>
+			    </ul>
+    		</div>
+    	</div>
+
+        <h3 class="title-b">推荐课程
+            <a class="all" href="{ms:global.url/}/48/index.html" target="_blank">全部课程</a>
+        </h3>
+        <div class="list_wrap recommend">
+            <ul class="course_list card_list slider">
+            {ms:arclist titlelen=14 size=4 typeid=48}
+                <li>
+                    <a class="course-img" href="[field.link/]" target="_blank" >
+                        <div class="shade">
+                            <img width="230" height="140"src="[field.litpic/]"/>
+                            <ul class="tips">
+                                <li class="no-disc">[[field.descrip/]</li>
+                            </ul>
+                        </div>
+                        <b class="course-ch" style="font-weight:lighter" data-src="[field.source/]">中文授课</b>
+                        <span class="course-time">[field.source/]</span>
+                    </a>
+                    <h3 class="course-title">
+                        <a href="[field.link/]" target="_blank">
+                            <span class="course-name">[field.fulltitle/]</span>
+                        </a>
+                    </h3>       
+                    <div class="course-info">
+                        <span class="course-info-score">作者：
+                        	<b class="course-info-num">[field.author/]</b>
+                        </span>
+                        <span class="course-info-line"></span>
+                        <p class="focus-man">[field.date fmt=yyyy-MM/]</p>
+                    </div>
+                    <p class="course-info">
+                    	<a class="course-tag tag-sign" href="[field.link/]"  target="_blank">签名认证</a>
+                    </p>
+                </li>    
+            {/ms:arclist}         
+            </ul>
+        </div>
+        <h3 class="title-b">热门演讲
+            <a class="all" href="{ms:global.url/}/49/index.html" target="_blank">全部演讲</a>
+        </h3>
+        <div class="list_wrap talk">
+            <ul class="special_list slider">         
+                {ms:arclist size=4  titlelen=14 typeid=49 }
+                <li>
+                    <a class="special-img" href="[field.link/]">
+                        <div class="shade">
+                            <img width="230" height="130"src="[field.litpic/]"/>
+                            <div class="tags">
+                               <span>[field.fulltitle/]</span>
+                            </div>
+                        </div>
+                        <span class="talk-name">[field.title/]</span>
+                    </a>
+                </li>         
+                {/ms:arclist} 
+            </ul>
+        </div>
+        <h3 class="title-b">新闻动态</h3>    
+        <div class="list_wrap zone">
+            <ul class="zone_list slider">
+                {ms:arclist  size=4  titlelen=14 typeid=22 }
+                <li>
+                    <div></div>
+                    <div></div>
+                    <a class="zone-img" href="[field.link/]"  title="慕课行动" target="_blank">
+                        <img width="224" height="131" src="[field.litpic/]" />
+                    </a>
+                </li>
+                {/ms:arclist} 
+            </ul>
+        </div>
+       	<h3 class="title-b">战略合作伙伴</h3>
+	    <div class="list_wrap">
+	        <ul class="coop_list">
+	            <li>
+	                <a href="javascript:void(0);" data-gaevent="index-coop-img:v4.0.0.0:academy">
+	                    <img src="{ms:globalskin.url/}/images/06241ac8.coursera.png"   alt="coursera" />
+	                </a>
+	            </li>
+	        </ul>
+	    </div>
+	    <h3 class="title-b">合作伙伴</h3>
+	    <div class="list_wrap">
+	        <ul class="coop_list">
+	            <li><a href="javascript:void(0);" target="_blank" data-gaevent="index-coop-img:v4.0.0.0:academy">
+	                <img src="{ms:globalskin.url/}images/a988219f.xuetang.png" />
+	            </a></li>
+	            <li><a href="javascript:void(0);"  target="_blank" data-gaevent="index-coop-img:v4.0.0.0:academy">
+	                <img src="{ms:globalskin.url/}images/58917707.edx.png" />
+	            </a></li>
+	            <li><a href="javascript:void(0);" target="_blank" data-gaevent="index-coop-img:v4.0.0.0:academy">
+	                <img src="{ms:globalskin.url/}/images/11ede0a6.futurelearn.png"  />
+	            </a></li>
+	            <li><a href="javascript:void(0);"   target="_blank" data-gaevent="index-coop-img:v4.0.0.0:academy">
+	                <img src="{ms:globalskin.url/}/images/6d89cb88.openlearning.png" />
+	            </a></li>
+	            <li><a href="javascript:void(0);"  target="_blank" data-gaevent="index-coop-img:v4.0.0.0:academy">
+	                <img src="{ms:globalskin.url/}/images/c8f30bcb.ewant.png"/>
+	            </a></li>
+	            <li><a href="javascript:void(0);"  target="_blank" data-gaevent="index-coop-img:v4.0.0.0:academy">
+	                <img src="{ms:globalskin.url/}/images/d8d6aa31.iversity.png" />
+	            </a></li>
+	            <li><a href="javascript:void(0);" data-gaevent="index-coop-img:v4.0.0.0:academy">
+	                <img src="{ms:globalskin.url/}/images/bc0dd37f.eduinfinity.png"/>
+	            </a></li>
+	        </ul>
+	    </div>
+
+    	{ms:include filename=footer.htm/} 
+
+</body>
+</html>
+<script src="{ms:globalskin.url/}/js/index.js" type="text/javascript"></script>
+
+<script>
+$(function(){   
+    $(".zone-list li > a img").each(function() {
+        if($(this).attr("src") == "<!--未找到该标签内容-->"){                       
+           $(this).parent().parent("li").remove();
+         }
+    });
+})
+</script>

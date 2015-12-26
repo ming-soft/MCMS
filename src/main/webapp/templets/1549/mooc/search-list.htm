@@ -1,0 +1,52 @@
+ <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+</head>
+ <ul class="search-sub-tabs" data-count="{ms:page.rcount/}">
+            <li class="active">
+            	<a href="javascript: void 0;">近期热门</a>
+            </li>
+            <li><a href="#" >评分最高</a></li>
+            <li><a href="#" >即将开始</a></li>
+            <li><a href="#" >时间自主</a><b class="tag">new</b></li>
+            <li class="results-count" >
+            	<span>共{ms:page.rcount/}门课</span>
+            </li>
+        </ul>
+<!-- 文章搜索的结果页面，主要是供ajax实现搜索功能时使用 -->
+ <ul class="course_list card_list" id="courseList">
+        	{ms:arclist size=5 ispaging=true}
+        	<li>
+                <a class="course-img" href="[field.link/]" target="_blank" >
+                    <div class="shade">
+                    	<img width="230" height="140" src="[field.litpic/]" >
+                    </div>
+                    <b class="course-ch"> 中文授课</b>
+                    <span class="course-time">[field.date fmt=yyyy-MM-dd/]开课</span>
+                </a>
+                <h3 class="course-title">
+                    <a href="[field.link/]" target="_blank">
+                    <span class="course-name">[field.title/]</span></a>
+                </h3>
+                <div class="course-info">
+                    <span class="course-info-star" style="margin-left:-4px;">
+        				<img src="{ms:globalskin.url/}/images/xing.png"/>
+       				</span>
+    				<span class="course-info-score">评分：<b class="course-info-num">9.3</b>
+   					</span>    
+                    <span class="course-info-line"></span>
+                    <p style="text-indent:-83px;">[field.author/]</p>
+                </div>
+                <p class="course-info">  
+                </p>
+            </li>
+           {/ms:arclist} 
+        </ul>
+        <!-- 搜索之后的分页地址-->
+        <ul class="pagination" data-page-count="{ms:page.total/}">
+	        <li data-type="index"><a >首页</a></li>
+	        <li data-type="pre"><a>上一页</a></li>
+	        <li data-type="next"><a>下一页</a> </li>
+	        <li data-type="last"><a>最末页</a></li>
+		</ul>
+

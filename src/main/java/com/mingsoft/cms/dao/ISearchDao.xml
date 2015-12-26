@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 搜索管理持久化层XML配置继承ISearchDao -->
+<mapper namespace="com.mingsoft.cms.dao.ISearchDao">
+	<sql id="column_list">
+		SEARCH_ID,SEARCH_NAME,SEARCH_TEMPLETS,SEARCH_WEBSITEID
+	</sql>
+
+	<!-- 表搜索与实体属性对应，供返回实体信息时使用 -->
+	<resultMap id="resultMap" type="com.mingsoft.cms.entity.SearchEntity">
+		<id column="SEARCH_ID" property="searchId" />
+		<result column="SEARCH_NAME" property="searchName" />
+		<result column="SEARCH_TEMPLETS" property="searchTemplets" />
+		<result column="SEARCH_WEBSITEID" property="searchWebsiteId" />
+	</resultMap>
+
+	<!-- 查询所有搜索开始 -->
+	<select id="queryAll" resultMap="resultMap">
+		select * from cms_search;
+	</select>
+	<!-- 查询所有搜索结束 -->
+
+	<!-- 通过数字区域来查询数据集合开始 -->
+	<select id="queryMapByNumArea" resultType="Map">
+		select * from
+		${cmTableName} where ${fieldFieldName} between #{preNum} and
+		#{nextNum};
+	</select>
+	<!-- 通过数字区域来查询数据集合结束 -->
+
+	<!-- 统计搜索开始 -->
+	<select id="queryCount" resultType="int">
+		select count(*) from
+		cms_search where SEARCH_WEBSITEID = ${appId};
+	</select>
+	<!-- 统计搜索结束 -->
+
+	<!-- 搜索列表分页查询开始 -->
+	<select id="queryByPage" resultMap="resultMap">
+		select * from cms_search
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
+		<if test="order == true">
+			asc
+		</if>
+		<if test="order == false">
+			desc
+		</if>
+		limit ${pageNo*pageSize},#{pageSize}
+	</select>
+	<!-- 搜索列表分页查询结束 -->
+
+	<!-- 增加搜索实体开始 -->
+	<insert id="saveEntity" useGeneratedKeys="true" keyProperty="searchId"
+		parameterType="com.mingsoft.base.entity.BaseEntity">
+		insert into cms_search
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="searchName != null">SEARCH_NAME,</if>
+			<if test="searchTemplets != null">SEARCH_TEMPLETS,</if>
+			<if test="searchWebsiteId != null">SEARCH_WEBSITEID,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="searchName != null">#{searchName},</if>
+			<if test="searchTemplets != null">#{searchTemplets},</if>
+			<if test="searchWebsiteId != null">#{searchWebsiteId}</if>
+		</trim>
+	</insert>
+	<!-- 增加搜索实体结束 -->
+
+	<!-- 删除搜索实体开始 -->
+	<delete id="deleteEntity" parameterType="int">
+		delete from cms_search
+		where SEARCH_ID = #{searchId}
+	</delete>
+	<!-- 删除搜索实体结束 -->
+
+	<!-- 查询搜索实体开始 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select
+		<include refid="column_list" />
+		from cms_search where SEARCH_ID=#{searchId}
+	</select>
+	<!-- 查询搜索实体结束 -->
+
+	<!-- 查询搜索实体开始 -->
+	<select id="getByIdAndAppId" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		from cms_search where SEARCH_ID=#{id} and SEARCH_WEBSITEID=#{appId};
+	</select>
+	<!-- 查询搜索实体结束 -->
+
+	<!-- 查询搜索实体开始 -->
+	<select id="query" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		from cms_search where SEARCH_WEBSITEID=#{appId} order by search_id desc limit #{start},#{pageSize} 
+	</select>
+	<!-- 查询搜索实体结束 -->
+
+	<!-- 更新搜索开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.cms.entity.SearchEntity">
+		update cms_search
+		<set>
+			<if test="searchName != null">SEARCH_NAME=#{searchName},</if>
+			<if test="searchTemplets != null">SEARCH_TEMPLETS=#{searchTemplets},</if>
+		</set>
+		where SEARCH_ID=#{searchId};
+	</update>
+	<!-- 更新搜索结束 -->
+
+
+
+
+</mapper>

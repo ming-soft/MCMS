@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 用户信息持久层继承IBaseDao -->
+<mapper namespace="com.mingsoft.basic.dao.IPeopleUserDao">
+	<!-- 表字段开始-->
+	<sql id="column_list">
+	 	PU.PU_PEOPLE_ID,PU.PU_REAL_NAME,PU.PU_ADDRESS,PU.PU_ICON,PU.PU_CARD,
+	 	PU.PU_NICKNAME,PU.PU_SEX,PU.PU_BIRTHDAY,PU.PU_APP_ID
+	</sql>
+	
+	<sql id="column_people_list">
+	 	PU.PU_PEOPLE_ID,PU.PU_REAL_NAME,PU.PU_ADDRESS,PU.PU_ICON,PU.PU_NICKNAME,PU.PU_SEX,PU.PU_BIRTHDAY,PU.PU_APP_ID,PU.PU_CARD,
+		P.PEOPLE_ID,P.PEOPLE_PHONE,P.PEOPLE_NAME,P.PEOPLE_PASSWORD,P.PEOPLE_DATETIME,P.PEOPLE_APP_ID,P.PEOPLE_MAIL	 		
+	</sql>
+	<!-- 表字段结束 -->
+	
+	<!-- 将实体属性与表字段对接开始 -->
+	<resultMap  id="resultMap" type="com.mingsoft.basic.entity.PeopleUserEntity">
+		<id column="PU_PEOPLE_ID" property="peopleUserPeopleId"/><!-- 将实体的ID属性与表的ID字段对接 -->
+		<result column="PU_REAL_NAME" property="peopleUserRealName"/><!--用户的真实名称 -->
+		<result column="PU_ADDRESS" property="peopleUserAddress"/><!-- 用户地址 -->
+		<result column="PU_ICON" property="peopleUserIcon"/><!-- 用户头像 -->
+		<result column="PU_NICKNAME" property="peopleUserNickName"/><!-- 用户昵称 -->
+		<result column="PU_SEX" property="peopleUserSex"/><!-- 用户性别0.未知;1.男;2.女 -->
+		<result column="PU_BIRTHDAY" property="peopleUserBirthday"/><!-- 用户生日 -->
+		<result column="PU_APP_ID" property="peopleUserAppId"/><!-- 用户应用ID -->	
+		<result column="PU_CARD" property="peopleUserCard"/><!-- 用户身份证号码 -->	
+		<result column="PEOPLE_ID" property="peopleId"/><!-- 将实体的ID属性与表的ID字段对接 -->
+		<result column="PEOPLE_PHONE" property="peoplePhone"/><!-- 将实体的peoplePhone属性与表的peoplePhone字段对接 -->
+		<result column="PEOPLE_NAME" property="peopleName"/><!-- 将实体的peopleName属性与表的peopleName字段对接 -->
+		<result column="PEOPLE_PASSWORD" property="peoplePassword"/><!-- 将实体的peoplePwd属性与表的peoplePwd字段对接 -->
+		<result column="PEOPLE_DATETIME" property="peopleDateTime"/><!-- 将实体的peopleDateTime属性与表的peopleDateTime字段对接 -->
+		<result column="PEOPLE_APP_ID" property="peopleAppId"/><!-- 用户所属的应用ID -->
+		<result column="PEOPLE_MAIL" property="peopleMail"/><!-- 用户邮箱 -->	
+	</resultMap>
+	<!-- 将实体属性与表字段对接结束 -->
+	
+	<!-- 新增用户信息开始 -->
+	<insert id="saveEntity" useGeneratedKeys="true" keyProperty="peopleId" parameterType="com.mingsoft.base.entity.BaseEntity">
+		insert into people_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="peopleId != null">PU_PEOPLE_ID,</if>
+			<if test="peopleUserRealName != null">PU_REAL_NAME,</if>
+			<if test="peopleUserAddress != null">PU_ADDRESS,</if>
+			<if test="peopleUserIcon != null">PU_ICON,</if>
+			<if test="peopleUserNickName != null">PU_NICKNAME,</if>
+			<if test="peopleUserSex != null">PU_SEX,</if>
+			<if test="peopleUserBirthday != null">PU_BIRTHDAY,</if>
+			<if test="peopleUserAppId != null">PU_APP_ID,</if>
+			<if test="peopleUserCard != null">PU_CARD,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="peopleId != null">#{peopleId},</if>
+			<if test="peopleUserRealName != null">#{peopleUserRealName},</if>
+			<if test="peopleUserAddress != null">#{peopleUserAddress},</if>
+			<if test="peopleUserIcon != null">#{peopleUserIcon},</if>
+			<if test="peopleUserNickName != null">#{peopleUserNickName},</if>
+			<if test="peopleUserSex != null">#{peopleUserSex},</if>
+			<if test="peopleUserBirthday != null">#{peopleUserBirthday},</if>
+			<if test="peopleUserAppId != null">#{peopleUserAppId},</if>
+			<if test="peopleUserCard != null">#{peopleUserCard},</if>
+		</trim>
+	</insert>
+	<!-- 新增用户信息结束 -->
+	
+	<!-- 更新用户开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.base.entity.BaseEntity">
+		update people_user
+		<set>
+			<if test="peopleId != null">PU_PEOPLE_ID=#{peopleId},</if>
+			<if test="peopleUserRealName != null">PU_REAL_NAME=#{peopleUserRealName},</if>
+			<if test="peopleUserAddress != null">PU_ADDRESS=#{peopleUserAddress},</if>
+			<if test="peopleUserIcon != null">PU_ICON=#{peopleUserIcon},</if>
+			<if test="peopleUserNickName != null">PU_NICKNAME=#{peopleUserNickName},</if>
+			<if test="peopleUserSex != null">PU_SEX=#{peopleUserSex},</if>
+			<if test="peopleUserBirthday != null">PU_BIRTHDAY=#{peopleUserBirthday},</if>
+			<if test="peopleUserCard != null">PU_CARD=#{peopleUserCard},</if>
+		</set>
+		where PU_PEOPLE_ID = #{peopleId}
+	</update>
+	<!-- 更新用户结束 -->
+	
+	<!-- 根据Id查询实体开始 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select <include refid="column_people_list"/>
+		from  people p 
+		left join people_user pu on p.people_id=pu.pu_people_id 
+		where 
+		p.people_id = #{peopleId}
+	</select>
+	<!-- 根据Id查询实体结束 -->
+	
+	
+	<!-- 删除用户开始 -->
+	<delete id="deleteEntity" parameterType="int">
+		delete from people_user where pu_people_id = #{id}
+	</delete>
+	<!-- 删除用户结束 -->
+</mapper>

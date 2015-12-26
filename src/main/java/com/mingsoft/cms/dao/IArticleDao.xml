@@ -1,0 +1,742 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 文章管理持久化层配置文件 -->
+<mapper namespace="com.mingsoft.cms.dao.IArticleDao">
+	<!-- 表栏目名 开始 -->
+	<sql id="column_list">
+		a.ARTICLE_BASICID,a.ARTICLE_CONTENT,a.ARTICLE_AUTHOR,a.ARTICLE_TYPE,a.ARTICLE_SOURCE,a.ARTICLE_URL,a.ARTICLE_KEYWORD,a.ARTICLE_FREEORDER,a.ARTICLE_WEBID,
+		b.BASIC_ID,b.BASIC_TITLE,b.BASIC_DESCRIPTION,b.BASIC_THUMBNAILS,b.BASIC_HIT,b.BASIC_DATETIME,b.BASIC_UPDATETIME,b.BASIC_PEOPLEID,b.BASIC_CATEGORYID,b.BASIC_SORT
+	</sql>
+	<!-- 表栏目名 结束 -->
+	
+
+	<!-- 获取表字段 开始 -->
+	<resultMap type="com.mingsoft.cms.entity.ArticleEntity" id="resultMap">
+		<id column="ARTICLE_BASICID" property="articleID" />				<!-- 与cms_article表绑定id -->
+		<result column="ARTICLE_CONTENT" property="articleContent" />	<!-- 文章内容 -->
+		<result column="ARTICLE_AUTHOR" property="articleAuthor" />		<!-- 文章作者 -->
+		<result column="ARTICLE_TYPE" property="articleType" />			<!-- 文章属性 -->
+		<result column="ARTICLE_SOURCE" property="articleSource" />		<!-- 文章来源 -->
+		<result column="ARTICLE_URL" property="articleUrl" />			<!-- 文章跳转链接地址 -->
+		<result column="ARTICLE_KEYWORD" property="articleKeyword" />	<!-- 文章关键字 -->
+		<result column="ARTICLE_FREEORDER" property="articleFreeOrder" /><!-- 
+			文章自定义显示顺序 -->
+		<result column="ARTICLE_WEBID" property="articleWebId" />				<!-- 站点id -->
+		<result column="BASIC_ID" property="basicId" />					<!-- 与表basic绑定 自增长ID -->
+		<result column="BASIC_TITLE" property="basicTitle" />			<!-- 文章标题 -->
+		<result column="BASIC_DESCRIPTION" property="basicDescription" /><!-- 
+			文章描述 -->
+		<result column="BASIC_THUMBNAILS" property="basicThumbnails" />	<!-- 文章缩略图 -->
+		<result column="BASIC_HIT" property="basicHit" />				<!-- 文章点击次数 -->
+		<result column="BASIC_DATETIME" property="basicDateTime" />		<!-- 文章发布时间 -->
+		<result column="BASIC_UPDATETIME" property="basicUpdateTime" />	<!-- 文章更新时间 -->
+		<result column="BASIC_PEOPLEID" property="basicPeopleId" />		<!-- 文章发布者id -->
+		<result column="BASIC_CATEGORYID" property="basicCategoryId" />	<!-- 文章所属主栏目id -->
+		<result column="BASIC_SORT" property="basicSort"/>
+		<!-- 一对一关联栏目 -->
+		<association property="column" column="BASIC_CATEGORYID"
+			javaType="com.mingsoft.cms.entity.ColumnEntity">
+			<result property="columnPath" column="column_path" />
+			<result property="categoryTitle" column="category_title" />
+			<result property="categoryId" column="category_id" />
+			<result property="columnContentModelId" column="COLUMN_CONTENTMODELID" />
+			<result property="columnType" column="COLUMN_TYPE" />
+		</association>
+	</resultMap>
+	<!-- 获取表字段 结束 -->
+
+	<!-- 通过视图查询返回结果集 开始 -->
+	<resultMap type="com.mingsoft.cms.entity.ArticleEntity" id="viewResultMap">
+		<id column="ARTICLE_BASICID" property="articleID" />				<!-- 与cms_article表绑定id -->
+		<result column="ARTICLE_CONTENT" property="articleContent" />	<!-- 文章内容 -->
+		<result column="ARTICLE_AUTHOR" property="articleAuthor" />		<!-- 文章作者 -->
+		<result column="ARTICLE_TYPE" property="articleType" />			<!-- 文章属性 -->
+		<result column="ARTICLE_SOURCE" property="articleSource" />		<!-- 文章来源 -->
+		<result column="ARTICLE_URL" property="articleUrl" />			<!-- 文章跳转链接地址 -->
+		<result column="ARTICLE_KEYWORD" property="articleKeyword" />	<!-- 文章关键字 -->
+		<result column="ARTICLE_FREEORDER" property="articleFreeOrder" /><!-- 
+			文章自定义显示顺序 -->
+		<result column="ARTICLE_WEBID" property="articleWebId" />				<!-- 站点id -->
+
+		<result column="BASIC_ID" property="basicId" />					<!-- 与表basic绑定 自增长ID -->
+		<result column="BASIC_TITLE" property="basicTitle" />			<!-- 文章标题 -->
+		<result column="BASIC_DESCRIPTION" property="basicDescription" /><!-- 
+			文章描述 -->
+		<result column="BASIC_THUMBNAILS" property="basicThumbnails" />	<!-- 文章缩略图 -->
+		<result column="BASIC_HIT" property="basicHit" />				<!-- 文章点击次数 -->
+		<result column="BASIC_DATETIME" property="basicDateTime" />		<!-- 文章发布时间 -->
+		<result column="BASIC_UPDATETIME" property="basicUpdateTime" />	<!-- 文章更新时间 -->
+		<result column="BASIC_CATEGORYID" property="basicCategoryId" />	<!-- 文章所属主栏目id -->
+		<result column="BASIC_SORT" property="basicSort" />
+		<!-- 一对一关联栏目 -->
+		<association property="column" column="BASIC_CATEGORYID"
+			javaType="com.mingsoft.cms.entity.ColumnEntity">
+			<result property="columnPath" column="column_path" />
+			<result property="categoryTitle" column="category_title" />
+			<result property="categoryId" column="category_id" />
+			<result property="columnContentModelId" column="COLUMN_CONTENTMODELID" />
+			<result property="columnType" column="COLUMN_TYPE" />
+		</association>
+	</resultMap>
+	<!-- 通过视图查询返回结果集  结束 -->
+	
+	<!-- 文章bean返回数据列表 开始 -->
+	<sql id="bean_column_list">
+		BASIC_ID,ARTICLE_AUTHOR,ARTICLE_TYPE,ARTICLE_SOURCE,ARTICLE_URL,ARTICLE_KEYWORD,ARTICLE_FREEORDER,
+		BASIC_TITLE,BASIC_DESCRIPTION,BASIC_THUMBNAILS,BASIC_HIT,BASIC_DATETIME,BASIC_UPDATETIME,BASIC_PEOPLEID,BASIC_CATEGORYID,BASIC_SORT
+	</sql>
+	<!-- 表栏目名结束 -->
+	
+	<!-- 通过查询文章bean开始 -->
+	<resultMap type="com.mingsoft.cms.bean.ArticleBean" id="articleBeanMap">
+		<result column="ARTICLE_CONTENT" property="articleContent"/>	<!-- 文章内容 -->
+		<result column="ARTICLE_AUTHOR" property="articleAuthor"/>		<!-- 文章作者 -->
+		<result column="ARTICLE_TYPE" property="articleType"/>			<!-- 文章属性 -->
+		<result column="ARTICLE_SOURCE" property="articleSource"/>		<!-- 文章来源 -->
+		<result column="ARTICLE_URL" property="articleUrl" />			<!-- 文章跳转链接地址 -->
+		<result column="ARTICLE_KEYWORD" property="articleKeyword" />	<!-- 文章关键字 -->
+		<result column="ARTICLE_FREEORDER" property="articleFreeOrder" /><!-- 文章自定义显示顺序 -->
+
+		<result column="BASIC_TITLE" property="articleTitle" />			<!-- 文章标题 -->
+		<result column="BASIC_DESCRIPTION" property="articleDescription" /><!-- 文章描述 -->
+		<result column="BASIC_THUMBNAILS" property="articleThumbnails" />	<!-- 文章缩略图 -->
+		<result column="BASIC_HIT" property="articleHit" />				<!-- 文章点击次数 -->
+		<result column="BASIC_DATETIME" property="articleDateTime" />		<!-- 文章发布时间 -->
+		<result column="BASIC_UPDATETIME" property="articleUpdateTime" />	<!-- 文章更新时间 -->
+		<result column="BASIC_CATEGORYID" property="articleCategoryId" />	<!-- 文章所属主栏目id -->
+	</resultMap>
+	<!-- 通过查询文章bean结束-->
+	
+	
+
+	<!-- 添加文章信息 开始 -->
+	<insert id="saveEntity" parameterType="com.mingsoft.base.entity.BaseEntity">
+		insert into cms_article
+		<!-- 添加表字段 -->
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="basicId != null">ARTICLE_BASICID,</if>
+			<if test="articleContent != null">ARTICLE_CONTENT,</if>
+			<if test="articleAuthor != null">ARTICLE_AUTHOR,</if>
+			<if test="articleType != null">ARTICLE_TYPE,</if>
+			<if test="articleSource != null">ARTICLE_SOURCE,</if>
+			<if test="articleUrl != null">ARTICLE_URL,</if>
+			<if test="articleKeyword != null">ARTICLE_KEYWORD,</if>
+			<if test="articleFreeOrder != null">ARTICLE_FREEORDER,</if>
+			<if test="articleWebId != null">ARTICLE_WEBID,</if>
+		</trim>
+		<!-- 注入控制层字段 -->
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="basicId != null">#{basicId},</if>
+			<if test="articleContent != null">#{articleContent},</if>
+			<if test="articleAuthor != null">#{articleAuthor},</if>
+			<if test="articleType != null">#{articleType},</if>
+			<if test="articleSource != null">#{articleSource},</if>
+			<if test="articleUrl != null">#{articleUrl},</if>
+			<if test="articleKeyword != null">#{articleKeyword},</if>
+			<if test="articleFreeOrder != null">#{articleFreeOrder},</if>
+			<if test="articleWebId != null">#{articleWebId},</if>
+		</trim>
+	</insert>
+	<!-- 添加文章信息 结束 -->
+
+	<!-- 删除文章管理的信息 开始 -->
+	<delete id="deleteEntity" parameterType="int">
+		delete from cms_article
+		where ARTICLE_BASICID = #{basicId}
+	</delete>
+	<!-- 删除文章管理的信息 结束 -->
+
+	<!-- 更新文章管理的信息 开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.base.entity.BaseEntity">
+		update cms_article
+		<set>
+			<if test="articleContent != null">ARTICLE_CONTENT=#{articleContent},</if>
+			<if test="articleAuthor != null">ARTICLE_AUTHOR=#{articleAuthor},</if>
+			<if test="articleType != null">ARTICLE_TYPE=#{articleType},</if>
+			<if test="articleSource != null">ARTICLE_SOURCE=#{articleSource},</if>
+			<if test="articleUrl != null">ARTICLE_URL=#{articleUrl},</if>
+			<if test="articleKeyword != null">ARTICLE_KEYWORD=#{articleKeyword},</if>
+			<if test="articleFreeOrder != null">ARTICLE_FREEORDER=#{articleFreeOrder},</if>
+			<if test="articleWebId != null">ARTICLE_WEBID=#{articleWebId},</if>
+		</set>
+		where ARTICLE_BASICID = #{basicId}
+	</update>
+	<!-- 更新文章管理的信息 开始 -->
+
+	<!-- 根据文章字段条件查询文章集合开始 -->
+	<select id="queryListByArticleField" resultMap="resultMap">
+		select a.ARTICLE_BASICID from cms_article a left join basic b on
+		b.basic_id=a.ARTICLE_BASICID
+		<where>
+		<foreach item="item" index="key" collection="articleFieldName"
+			open="(" separator="and" close=")">${key} like '%${item}%'</foreach>
+		</where>
+	</select>
+	<!-- 根据文章字段条件查询文章集合结束 -->
+
+	<!-- 查找文章管理的信息 开始 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select
+		<include refid="column_list" />
+		,c.CATEGORY_TITLE,cl.column_path,cl.column_type,c.CATEGORY_id,cl.COLUMN_CONTENTMODELID
+		FROM
+		basic b
+		LEFT JOIN
+		category c ON b.BASIC_CATEGORYID = c.CATEGORY_ID
+		LEFT JOIN cms_column
+		cl ON c.CATEGORY_ID = cl.COLUMN_CATEGORYID
+		LEFT
+		JOIN cms_article a ON
+		a.ARTICLE_BASICID = b.BASIC_ID
+
+		<!-- 查询与关联表id相同的信息 -->
+
+		where a.ARTICLE_BASICID=#{basicId};
+	</select>
+	<!-- 查找文章管理的信息 结束 -->
+
+
+
+
+	<!-- ======= 站点下文章列表显示 开始======= -->
+	<!-- 查询本站点下文章条数 开始 -->
+	<select id="getCountByWebsiteId" resultType="int">
+		select count(*)
+		from
+		cms_article a left join basic b on b.basic_id=a.ARTICLE_BASICID
+		where
+		a.ARTICLE_WEBID=#{webId}
+	</select>
+	<!-- 查询本站点下文章条数 结束 -->
+
+	<!--查询本站点下文章条数 并进行分页 开始 -->
+	<select id="queryPageListByWebsiteId" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		,c.CATEGORY_TITLE,cl.column_path,c.CATEGORY_id,cl.COLUMN_CONTENTMODELID,cl.column_type
+		FROM
+		basic b
+		LEFT JOIN
+		category c ON b.BASIC_CATEGORYID = c.CATEGORY_ID
+		LEFT JOIN cms_column
+		cl ON c.CATEGORY_ID = cl.COLUMN_CATEGORYID
+		LEFT
+		JOIN cms_article a ON
+		a.ARTICLE_BASICID = b.BASIC_ID
+		where
+		a.ARTICLE_WEBID = #{webId}
+		<if test="orderBy != null">order by ${orderBy}</if>
+		<if test="order == true">asc</if>
+		<if test="order == false">desc</if>
+		limit ${pageNo*pageSize},#{pageSize};
+	</select>
+	<!-- 查询本站点下文章条数 并进行分页 结束 -->
+
+	<!-- ======= 站点下文章列表显示 结束======= -->
+
+	<!-- 正则查询指定文章条数 开始 -->
+	<select id="getCountByColumnId" resultType="int">
+		select count(*)
+		from cms_article a left join basic b on
+		b.basic_id=a.ARTICLE_BASICID
+		where a.ARTICLE_WEBID = #{webId}
+		<if test="basicCategoryIds != null">
+			and
+			b.BASIC_CATEGORYID in
+			<foreach collection="basicCategoryIds" item="id" open="("
+				separator="," close=")">
+				#{id}
+			</foreach>
+		</if>
+		<if test="flag != null">and a.ARTICLE_TYPE like CONCAT('%',#{flag},'%')</if>
+		<if test="noFlag != null">and a.ARTICLE_TYPE not like CONCAT('%',#{noFlag},'%')</if>
+	</select>
+	<!-- 正则查询指定文章条数 结束 -->
+
+	<!-- 根据文章列表id查找文章总数 开始 -->
+	<select id="getCountByArticleIds" resultType="int">
+		select count(*)
+		from cms_article a left join basic b on
+		b.basic_id=a.ARTICLE_BASICID
+		where a.ARTICLE_WEBID = #{webId}
+		<if test="articleIds != null">
+			and
+			a.ARTICLE_BASICID in
+			<foreach collection="articleIds" item="id" open="("
+				separator="," close=")">
+				#{id}
+			</foreach>
+		</if>
+		<if test="flag != null">and a.ARTICLE_TYPE like CONCAT('%',#{flag},'%')</if>
+		<if test="noFlag != null">and a.ARTICLE_TYPE not like CONCAT('%',#{noFlag},'%')</if>
+	</select>
+	<!-- 根据文章列表id查找文章总数 结束 -->
+
+	<!--根据文章列表id查找文章列表开始 -->
+	<select id="queryListByListArticleId" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		,c.CATEGORY_TITLE,cl.column_path,c.CATEGORY_id,cl.COLUMN_CONTENTMODELID,cl.column_type
+		FROM
+		basic b
+		LEFT JOIN
+		category c ON b.BASIC_CATEGORYID = c.CATEGORY_ID
+		LEFT JOIN cms_column
+		cl ON c.CATEGORY_ID = cl.COLUMN_CATEGORYID
+		LEFT
+		JOIN cms_article a ON
+		a.ARTICLE_BASICID = b.BASIC_ID
+		where
+		a.ARTICLE_WEBID = #{webId}
+		<if test="articleIds != null">
+			and
+			b.BASIC_ID in
+			<foreach collection="articleIds" item="id" open="("
+				separator="," close=")">
+				#{id}
+			</foreach>
+		</if>
+		<if test="flag != null">and a.ARTICLE_TYPE like CONCAT('%',#{flag},'%')</if>
+		<if test="noFlag != null">and a.ARTICLE_TYPE not like CONCAT('%',#{noFlag},'%')</if>
+		<if test="orderBy != null">order by ${orderBy}</if>
+		<if test="orderBy==null">
+			order by b.basic_id
+		</if>
+		<if test="order == true">desc</if>
+		<if test="order == false">asc</if>
+		limit #{begin},#{count};
+	</select>
+	<!-- 根据文章列表id查找文章列表结束 -->
+
+	<!--正则查询指定文章条数 并进行分页 开始 -->
+	<select id="queryList" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		,c.CATEGORY_TITLE,cl.column_path,c.CATEGORY_id,cl.COLUMN_CONTENTMODELID,cl.column_type
+		FROM
+		basic b
+		LEFT JOIN
+		category c ON b.BASIC_CATEGORYID = c.CATEGORY_ID
+		LEFT JOIN cms_column
+		cl ON c.CATEGORY_ID = cl.COLUMN_CATEGORYID
+		LEFT
+		JOIN cms_article a ON
+		a.ARTICLE_BASICID = b.BASIC_ID
+		<where>
+		a.ARTICLE_WEBID = #{webId}
+		<if test="keyword !=null ">
+		and b.BASIC_TITLE like CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="basicCategoryIds != null">
+			and
+			b.BASIC_CATEGORYID in
+			<foreach collection="basicCategoryIds" item="id" open="("
+				separator="," close=")">
+				#{id}
+			</foreach>
+		</if>
+		<if test="flag != null">and a.ARTICLE_TYPE like CONCAT('%',#{flag},'%')</if>
+		<if test="noFlag != null">and a.ARTICLE_TYPE not like CONCAT('%',#{noFlag},'%')</if>
+		<if test="orderBy != null">order by ${orderBy}</if>
+		<if test="orderBy==null">
+			order by b.basic_id
+		</if>
+		<if test="order == true">desc</if>
+		<if test="order == false">asc</if>
+		limit #{begin},#{count};
+		</where>
+	</select>
+	<!-- 正则查询指定文章条数 并进行分页 结束 -->
+
+	<!-- 列表查询开始 -->
+	<select id="query" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		,c.CATEGORY_TITLE,cl.column_path,c.CATEGORY_id,cl.COLUMN_CONTENTMODELID,cl.column_type
+		FROM
+		basic b
+		LEFT JOIN
+		category c ON b.BASIC_CATEGORYID = c.CATEGORY_ID
+		LEFT JOIN cms_column
+		cl ON c.CATEGORY_ID = cl.COLUMN_CATEGORYID
+		LEFT
+		JOIN cms_article a ON
+		a.ARTICLE_BASICID = b.BASIC_ID
+		where
+		a.ARTICLE_WEBID = #{webId}
+		<if test="basicCategoryId > 0">
+			and
+			b.BASIC_CATEGORYID = #{basicCategoryId}
+		</if>
+		<if test="flag != null">and a.ARTICLE_TYPE like CONCAT('%',#{flag},'%')</if>
+		<if test="noFlag != null">and a.ARTICLE_TYPE not like CONCAT('%',#{noFlag},'%')</if>
+		<if test="orderBy != null">order by ${orderBy}</if>
+		<if test="orderBy==null">
+			order by b.basic_id
+		</if>
+		<if test="order == true">desc</if>
+		<if test="order == false">asc</if>
+		limit #{begin},#{count};
+	</select>
+	<select id="count" resultType="int">
+		select
+		count(basic_id)
+		FROM
+		basic b
+		LEFT JOIN
+		category c ON
+		b.BASIC_CATEGORYID = c.CATEGORY_ID
+		LEFT JOIN cms_column
+		cl ON
+		c.CATEGORY_ID = cl.COLUMN_CATEGORYID
+		LEFT
+		JOIN cms_article a ON
+		a.ARTICLE_BASICID = b.BASIC_ID
+		<where>
+		a.ARTICLE_WEBID = #{webId}
+		
+		<if test="keyword !=null ">
+		and
+		b.BASIC_TITLE like CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="basicCategoryId > 0">
+			and
+			b.BASIC_CATEGORYID = #{basicCategoryId}
+		</if>
+		<if test="flag != null">and a.ARTICLE_TYPE like CONCAT('%',#{flag},'%')</if>
+		<if test="noFlag != null">and a.ARTICLE_TYPE not like CONCAT('%',#{noFlag},'%')</if>
+		</where>
+	</select>
+	<!-- 列表查询结束 -->
+
+
+	<!--查询页面栏目的文章 开始 -->
+	<select id="queryListByColumnId" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		from cms_article a left join basic b on b.basic_id=a.ARTICLE_BASICID
+		where b.BASIC_CATEGORYID = #{basicCategoryId}
+	</select>
+	<!-- 查询页面栏目的文章 结束 -->
+
+
+	<!--根据站点id获取该站点下所有文章 开始 -->
+	<select id="queryListByWebsiteId" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		,c.CATEGORY_TITLE,cl.column_path,c.CATEGORY_id,cl.COLUMN_CONTENTMODELID,cl.column_type
+		FROM
+		basic b
+		LEFT JOIN
+		category c ON b.BASIC_CATEGORYID = c.CATEGORY_ID
+		LEFT JOIN cms_column
+		cl ON c.CATEGORY_ID = cl.COLUMN_CATEGORYID
+		LEFT
+		JOIN cms_article a ON
+		a.ARTICLE_BASICID = b.BASIC_ID
+		where
+		a.ARTICLE_WEBID = #{basicId}
+	</select>
+	<!-- 根据站点id获取该站点下所有文章 结束 -->
+
+	<!--根据文章ID集合查询文章集合开始 -->
+	<select id="queryListByArticleIds" resultMap="resultMap">
+		select *
+		from v_article where ARTICLE_BASICID = 0
+		<foreach item="id" index="index" collection="articleIds" open=""
+			separator="" close="">
+			UNION ALL (select * from v_article where
+			ARTICLE_BASICID=#{id})
+		</foreach>
+	</select>
+	<!-- 根据文章ID集合查询文章集合 结束 -->
+
+	<!-- 根据字段条件查找文章实体开始 -->
+	<select id="queryListForSearch" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		,c.CATEGORY_TITLE,cl.column_path,c.CATEGORY_id,cl.COLUMN_CONTENTMODELID,cl.column_type
+		from cms_article a
+		left join basic b
+		on b.basic_id=a.ARTICLE_BASICID
+		left join category c
+		ON b.BASIC_CATEGORYID = c.CATEGORY_ID
+		left join
+		cms_column cl
+		on c.CATEGORY_ID = cl.COLUMN_CATEGORYID
+		<if test="tableName!=null">left join ${tableName} d on d.basicId=a.ARTICLE_BASICID
+		</if>
+		where a.ARTICLE_WEBID = #{websiteId}
+		<if test="ids!=null" >
+			and
+			b.BASIC_CATEGORYID  in
+				<foreach item="id" index="key" collection="ids" open="("
+			separator="," close=")">
+					#{id.categoryId}
+				</foreach>
+		</if>
+		<foreach item="item" index="key" collection="map" open=""
+			separator="" close="">
+			<if test=" item[0] == false">
+				and ${key}
+			</if>
+			<if test="item[0]== true">
+				and d.${key}
+			</if>
+			<!-- 数字类型的查找 item[1]:字段是否为数字类型false:数字 -->
+			<if test="item[1] == false">
+				<!--item[2]： 是采用等值还是区间查询。false:区间 itme[3][0]第一个值item[3][1]的二个值 -->
+				<if test="item[2] == true">
+					=
+					<foreach item="val" index="index" collection="item[3]">#{val}
+					</foreach>
+				</if>
+				<if test="item[2] == false">
+					between
+					<foreach item="val" index="index" collection="item[3]"
+						separator="and">
+						#{val}
+					</foreach>
+				</if>
+			</if>
+			<!-- 字符型数据的查找 item[1]:字段是否为数字类型true:字符串 -->
+			<if test="item[1] == true">
+				<!--item[2]： 是采用模糊查询。false:不采用模糊 -->
+				<if test="item[2] == true">
+					like CONCAT("%",
+					<foreach item="val" index="index" collection="item[3]">
+						<if test="index==0">#{val}</if>
+					</foreach>
+					,"%")
+				</if>
+				<if test="item[2] == false">
+					=
+					<foreach item="val" index="index" collection="item[3]">#{val}
+					</foreach>
+				</if>
+			</if>
+		</foreach>
+		<if test="sortMap!=null">
+			order by ${sortMap.order} ${sortMap.by} 
+		</if>
+		
+		<if test="page!=null">
+			limit ${page.pageNo*page.pageSize},#{page.pageSize};
+		</if>
+	</select>
+	<!-- 根据字段条件查找文章实体结束 -->
+
+	<!-- 根据字段条件查找文章实体总数开始 -->
+	<select id="getSearchCount" resultType="int">
+		select count(*) from
+		cms_article a
+		left join basic b
+		on
+		b.basic_id=a.ARTICLE_BASICID
+		left join category c
+		ON b.BASIC_CATEGORYID
+		= c.CATEGORY_ID
+		left join cms_column cl
+		on c.CATEGORY_ID =
+		cl.COLUMN_CATEGORYID
+		<if test="tableName!=null">left join ${tableName} d on d.basicId=a.ARTICLE_BASICID
+		</if>
+		where a.ARTICLE_WEBID = #{websiteId}
+		
+		<if test="ids!=null" >
+			and
+			b.BASIC_CATEGORYID  in
+				<foreach item="id" index="key" collection="ids" open="("
+			separator="," close=")">
+					#{id.categoryId}
+				</foreach>
+		</if>
+		
+		<foreach item="item" index="key" collection="map" open=""
+			separator="" close="">
+			<if test=" item[0] == false">
+				and ${key}
+			</if>
+			<if test="item[0]== true">
+				and d.${key}
+			</if>
+			<!-- 数字类型的查找 item[1]:字段是否为数字类型false:数字 -->
+			<if test="item[1] == false">
+				<!--item[2]： 是采用等值还是区间查询。false:区间 itme[3][0]第一个值item[3][1]的二个值 -->
+				<if test="item[2] == true">
+					=
+					<foreach item="val" index="index" collection="item[3]">#{val}
+					</foreach>
+				</if>
+				<if test="item[2] == false">
+					between
+					<foreach item="val" index="index" collection="item[3]"
+						separator="and">
+						#{val}
+					</foreach>
+				</if>
+			</if>
+			<!-- 字符型数据的查找 item[1]:字段是否为数字类型true:字符串 -->
+			<if test="item[1] == true">
+				<!--item[2]： 是采用模糊查询。false:不采用模糊 -->
+				<if test="item[2] == true">
+					like CONCAT("%",
+					<foreach item="val" index="index" collection="item[3]">
+						<if test="index==0">#{val}</if>
+					</foreach>
+					,"%")
+				</if>
+				<if test="item[2] == false">
+					=
+					<foreach item="val" index="index" collection="item[3]">#{val}
+					</foreach>
+				</if>
+			</if>
+		</foreach>
+	</select>
+	<!-- 根据字段条件查找文章实体总数结束 -->
+
+
+	<!--视图查询开始 -->
+	<select id="queryPageByCategoryId" resultMap="resultMap">
+		select * from v_article 
+		<if test="contentModelTableName!=null">
+			left join ${contentModelTableName} cmt on
+			cmt.basicid=basic_id
+		</if>
+		where BASIC_CATEGORYID=#{categoryId}
+		order by basic_id desc
+		limit
+		${page.pageNo*page.pageSize},#{page.pageSize};
+		<if test="categoryIds!=null">
+			<foreach item="category" index="index" collection="categoryIds"
+				open="" separator="" close="">
+				UNION ALL (select * from v_article where
+				BASIC_CATEGORYID=#{category.categoryId} order by basic_id desc limit
+				${page.pageNo*page.pageSize},#{page.pageSize})
+			</foreach>
+		</if>
+	</select>
+
+	<select id="countByCategoryId" resultType="int">
+		select count(basic_id)
+		from
+		v_article where BASIC_CATEGORYID=#{categoryId};
+	</select>
+
+	<select id="getById" resultMap="viewResultMap">
+		select * from v_article
+		<if test="contentModelTableName!=null">
+			left join ${contentModelTableName} cmt on
+			cmt.basicid=basic_id
+		</if>
+		 where basic_id=#{basicId}
+	</select>
+	<select id="queryByBasicIds" resultMap="resultMap">
+		select * from v_article where BASIC_ID=#{basicId}
+		<if test="basicIds!=null">
+			<foreach item="id" index="index" collection="basicIds" open=""
+				separator="" close="">
+				UNION ALL (select * from v_article where
+				BASIC_ID=#{id})
+			</foreach>
+		</if>
+	</select>
+	<!-- 视图查询结束 -->
+
+	<select id="queryListByTime" resultMap="resultMap">
+		select * from v_article where article_webid=#{appId}
+		<if test="dateTime!=null">
+			and basic_updatetime > #{dateTime}
+		</if>
+		<if test="basicCategoryId!=null">
+			and basic_categoryId = #{basicCategoryId}
+		</if>
+	</select>
+
+	<!-- 通过文章标题、应用ID、模块编号来查询文章集合开始 -->
+	<resultMap type="java.util.HashMap"  id="resultTitleMap">
+		<result column="basic_id" property="basicId"/>
+		<result column="basic_title" property="basicTitle"/>
+		<result column="basic_hit" property="basicHit"/>
+		<result column="basic_categoryid" property="basicCategoryId"/>
+		<result column="model_id" property="modelId"/>
+		
+	</resultMap>
+	<select id="queryByArticleTitle" resultMap="resultTitleMap">
+		select basic_title,basic_id,basic_categoryid,basic_hit,model_id from basic inner join category on basic_categoryid=category_id inner join model on category_modelid=model_id  where category_appid=#{webId} and model_code = #{modelCode} and basic_title=#{articleTitle}
+	</select>
+	<!-- 通过文章标题、应用ID、模块编号来查询文章集合结束 -->
+
+	<!-- 查找上一篇下一篇 -->
+	<select id="getNextOrPrevious" resultMap="resultMap">
+		select * from v_article where category_appid=#{appId}
+		<if test="flag==false">
+			and basic_id &lt; ${basicId}
+			
+		</if>
+		
+		<if test="flag==true">
+			and basic_id &gt; ${basicId}
+			
+		</if>
+		<if test="categoryId!=null">
+			and BASIC_CATEGORYID = #{categoryId}
+		</if>
+		<if test="flag==false">
+			order by basic_id desc
+			
+		</if>
+		<if test="flag==true">
+			order by basic_id asc
+			
+		</if>
+		
+		limit 0,1;
+	</select>
+	
+	
+	<select id="getByCategoryId" resultMap="resultMap">
+		select * from v_article where basic_categoryId=#{categoryId} order by basic_id desc limit 1;
+	</select>
+	<!-- 删除指定栏目下的文章开始 -->
+	<delete id="deleteByColumnId" parameterType="int">
+		delete from cms_article
+		where BASIC_CATEGORYID = #{columnId}
+	</delete>
+	
+	<!--根据分类id查询articleBean开始 -->
+	<select id="queryByCategoryForBean" resultMap="articleBeanMap">
+		select <include refid="bean_column_list" /> from v_article 
+		<if test="contentModelTableName!=null">
+			left join ${contentModelTableName} cmt on
+			cmt.basicid=basic_id
+		</if>
+		where BASIC_CATEGORYID=#{categoryId}
+		<if test="categoryIds!=null">
+			<foreach item="category" index="index" collection="categoryIds"
+				open="" separator="" close="">
+				UNION ALL (select <include refid="bean_column_list" /> from v_article where
+				BASIC_CATEGORYID=#{category.categoryId} order by basic_id desc limit
+				${page.pageNo*page.pageSize},#{page.pageSize})
+			</foreach>
+		</if>
+		order by basic_id desc
+		<if test="page!=null">
+		limit
+		${page.pageNo*page.pageSize},#{page.pageSize}
+		</if>
+	</select>
+	
+	<!-- 根据basicID删除开始-->
+	<delete id="delete" >
+		delete from cms_article
+		<where>
+			ARTICLE_BASICID  in <foreach collection="ids" item="item" index="index" 
+			open="(" separator="," close=")">#{item}</foreach>
+		</where>
+	</delete>
+	
+	
+	
+</mapper>

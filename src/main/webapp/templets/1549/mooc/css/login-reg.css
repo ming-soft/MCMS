@@ -1,0 +1,249 @@
+/* @generated */.tooltip-new .tip {
+	background-color: rgba(86,86,86,0.95);
+	background-color: #595959\9;
+*background-color:#595959;
+	border-radius: 5px 5px 5px 5px;
+	box-shadow: 0 1px 5px rgba(0,0,0,0.25);
+	color: #FFF;
+	padding: 15px 20px 20px;
+	position: relative;
+	zoom: 1
+}
+.tooltip-new .tip h5 {
+	font-size: 18px;
+	margin-bottom: 8px
+}
+.tooltip-new .tip .tip-txt {
+	line-height: 24px;
+	margin-bottom: 22px
+}
+.tooltip-new .tip a.tip-btn, .tooltip-new .tip a.tip-btn:hover {
+	float: right;
+	display: block;
+	width: 72px;
+	height: 23px;
+	background: #fafafa;
+	padding: 0;
+	border: 1px solid #e9e9e9;
+	line-height: 23px;
+	text-align: center;
+	font-size: 14px;
+	color: #4ea733;
+	text-decoration: none
+}
+.tooltip-new .tip a.tip-btn:hover {
+	background: #e9e9e9
+}
+.tooltip-new .tip a.tip-close, .tooltip-new .tip a.tip-close:hover {
+	display: block;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	height: 9px;
+	width: 9px;
+	background: url(../images/4-icon.png) -454px 0;
+	font-size: 0;
+	padding: 0
+}
+.tooltip-new b.tooltip-new-up {
+	border-bottom-color: #595959!important
+}
+.tooltip-new b.tooltip-new-down {
+	border-top-color: #595959!important
+}
+.tooltip-new b.tooltip-new-left {
+	border-right-color: #595959!important
+}
+.tooltip-new b.tooltip-new-right {
+	border-left-color: #595959!important
+}
+.tooltip-new s.tooltip-new-up {
+	border-bottom-color: #595959!important
+}
+.tooltip-new s.tooltip-new-down {
+	border-top-color: #595959!important
+}
+.tooltip-new s.tooltip-new-left {
+	border-right-color: #595959!important
+}
+.tooltip-new s.tooltip-new-right {
+	border-left-color: #595959!important
+}
+.extoauth2 .icon {
+	background: url(../images/login_reg.png);
+	display: block;
+	text-indent: -9999px;
+	outline: 0;
+	width: 156px;
+	height: 33px
+}
+.extoauth2 .weibo {
+	background-position: 0 -152px
+}
+.extoauth2 .qq {
+	background-position: 0 -185px
+}
+.extoauth2 .renren {
+	background-position: 0 -218px
+}
+.extoauth2 .douban {
+	background-position: 0 -251px
+}
+.extoauth2 {
+  margin: 20px 0px;
+  padding-left: 7px;
+  width: 170px;
+}
+.extoauth2 .icon {
+	margin-bottom: 20px
+}
+.wrap {
+	background: #f9f9f9;
+	border-radius: 4px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	overflow: visible!important
+}
+.wrap h1 {
+	color: #333;
+	font-size: 23px;
+	letter-spacing: 1px;
+}
+.wrap .compromsg {
+	font-size: 12px
+}
+.wrap .compromsg a {
+	color: #f26522
+}
+.in {
+	font-size: 16px;
+	color: #6cb658
+}
+.in .in-big {
+	font-size: 22px
+}
+.hide {
+	display: none
+}
+.gform-captcha {
+	display: inline;
+	margin: 0 10px;
+	vertical-align: middle
+}
+.gform-forget_pw {
+	font-size: 12px;
+	margin: 10px 0 0 10px;
+	display: inline-block;
+	vertical-align: middle
+}
+.side {	
+	font-size: 12px;
+	text-align: center;
+	background: url("../images/reg_side.png") no-repeat right center;
+}
+.side .side-title {
+	font-family: 宋体;
+	color: #000;
+}
+.gform input, .gform label, .gform span {
+	font-size: 14px;
+	vertical-align: middle
+}
+.gform .login-error {
+	color: #f26522
+}
+.gform .gform-box .form-txt-vcode {
+	width: 6em
+}
+.gform .greg-btn {
+	width: 128px;
+	height: 32px;
+	line-height: 32px;
+	border: 0;
+	background: url(../images/4-login_reg.png) 0 -120px no-repeat;
+	margin-left: 85px;
+	text-align: center;
+	color: #fff
+}
+.gform .gbtn-primary, .gform .gbtn-ext {
+	margin-left: 85px
+}
+.gform .gform-box label {
+	display: block;
+	float: left;
+	width: 70px;
+	margin-right: 15px;
+	text-align: right
+}
+.gform .gform-rem label {
+	display: inline;
+	float: none;
+	width: auto;
+	font-size: 12px
+}
+.gform .gform-terms label {
+	display: inline;
+	float: none;
+	width: auto
+}
+.gform .gbtxt {
+	line-height: 35px;
+	height: 35px;
+    background-color: rgb(255, 255, 255);
+    width: 280px;
+    border: #ddd 1px solid;
+    text-indent: 1px;
+}
+.gform .login-password label {
+	width: 50px
+}
+.gform .user-head {
+	float: left;
+	padding-left: 15px
+}
+.gform .user-summary {
+	margin-left: 85px;
+	line-height: 1.5
+}
+.gform .gform-box .gform-submit {
+	padding: 0 20px;
+	width: auto;
+	height: 28px;
+	background: #85c926;
+	line-height: 28px;
+	text-align: center;
+	color: #FFF;
+	font-family: "Microsoft YaHei", "WenQuanYi Micro Hei", SimHei, tahoma, sans-serif;
+	border: 0;
+	margin: 14px 10px 0 0
+}
+.gform .check-success {
+	color: #6cb658;
+	margin-bottom: 10px
+}
+.gform .reg-summary {
+	margin: 0 0 10px 0
+}
+.msg-box p {
+	margin: 30px 0 0 50px
+}
+.gmotto {
+	float: right;
+	width: 290px;
+	height: 20px;
+	margin: 10px 30px 0 0;
+	_display: inline
+}
+input:-webkit-autofill { 
+	-webkit-box-shadow: 0 0 0px 1000px white inset; 
+	border: 1px solid #CCC!important; 
+} 
+input:-webkit-autofill { 
+	background-color: #FFF; 
+	background-image: none; 
+	color: #000; 
+} 
+.infor-tips{
+	width: 100%;
+	height:20px;
+}

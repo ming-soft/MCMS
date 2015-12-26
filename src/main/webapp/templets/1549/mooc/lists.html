@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="no-js screen-scroll">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>{ms:global.name/}</title>
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">	
+    <link rel="stylesheet" href="{ms:globalskin.url/}/css/courseList.css">
+    <link rel="stylesheet" href="{ms:globalskin.url/}/css/list.css">
+    <script type="text/javascript" src="{ms:globalskin.url/}/js/jquery-1.9.1.min.js"></script>
+    <script src="{ms:globalskin.url/}/js/user.js" type="text/javascript"></script>
+    <script src="{ms:globalskin.url/}/js/search-list.js" type="text/javascript"></script>
+    <body>
+    {ms:include filename=header.htm/}
+    <div class="wrap">
+        <div class="search" id="search">
+            <div class="search-filter">
+                <a class="search-filter-fold" id="fold" href="javascript: void 0;"><span class="icon-filter"></span>筛选</a>
+                <a class="search-filter-submit" id="submit" href="javascript: void 0;">确定</a>
+                <ul class="search-filter-tabs" id="tabs">
+                    <li class="active"><a href="">热门</a></li>
+                    <li><a href="">好评</a></li>
+                    <li><a href="" >最新</a></li>
+                    <li><a href="">时间自主</a></li>
+                </ul>
+            </div>
+            <ul class="search-sec" id="searchSec">
+                <li class="search-field">
+                    <div>
+                        <h3 class="search-sort">语言：</h3>
+                        <div class="search-list-wrapper">
+                            <ul class="search-list">
+                            	<li class="active"><a href="#" data-type="lang">全部</a>
+                                </li>
+                                <li><a href="#" data-type="lang" data-id="2">中文</a>
+                                </li>
+                                <li><a href="#" data-type="lang" data-id="1">英语</a>
+                                </li>
+                                <li><a href="#" data-type="lang" data-id="4">法语</a>
+                                </li>
+                                <li><a href="#" data-type="lang" data-id="7">日语</a>
+                                </li>
+                                <li><a href="#" data-type="lang" data-id="10">意大利语</a>
+                                </li>
+                                <li><a href="#" data-type="lang" data-id="6">德语</a>
+                                </li>
+                                <li><a href="#" data-type="lang" data-id="5">西班牙语</a>
+                                </li>
+                                <li><a href="#" data-type="lang" data-id="9">俄语</a>
+                                </li>
+                                <li><a href="#" data-type="lang" data-id="12">土耳其语</a>
+                                </li>
+                                <li><a href="#" data-type="lang" data-id="16">瑞典语</a>
+                                </li>
+                                <li><a href="#" data-type="lang" data-id="15">阿拉伯语</a>
+                                </li>
+                                <li><a href="#" data-type="lang" data-id="11">葡萄牙语</a>
+                                </li>
+                                <li><a href="#" data-type="lang" data-id="13">希伯来语</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="search-field category">
+                    <div>
+                        <h3 class="search-sort">内容：</h3>
+                        <div class="search-list-wrapper">
+                            <ul class="search-list">
+                            	<li class="active"><a href="#"  data-type="dept">全部</a>
+                                </li>
+                                <li><a href="#" data-type="dept" data-id="69">留学</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="52"> 计算机</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="67">
+                                    AP课程</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="57"> 经济管理</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="63"> 语言</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="60">艺术与设计</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="37">人文</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="28"> 教育</a>
+                                </li>
+                                <li><a href="#"  data-id="48"> 社会科学</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="56">  生命科学</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="54">影视与音乐</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="55">数学与统计</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="30"> 电子</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="46"> 物理</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="22"> 化学</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="53"> 医药与健康</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="59">食品与营养</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="32">工程</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="58">能源、环境、地球</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="40"> 法律</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="68">SAT课程</a>
+                                </li>
+                                <li><a href="#"  data-type="dept" data-id="51">其他</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="search-field">
+                    <div>
+                        <h3 class="search-sort">机构：</h3>
+                        <div class="search-list-wrapper">
+                            <ul class="search-list fold">
+                            	<!-- data-type:自定义内容模型的字段名，data-id:为对应的值。在自定义模型中下拉框中默认值用英文字符逗号隔开。对应的值是从1开始 -->
+                            	<li class="active">
+                            		<a href="#" data-gaevent="list-platform-all:v1.3.0.0:academy" data-type="platform"  data-id="">全部</a>
+                                </li>
+                                
+                                <li><a href="#"  data-type="platform"  data-id="1">
+                                    	筛选演示一</a>
+                                </li>
+                                <li><a href="#"  data-type="platform" data-id="2" >
+                                    	筛选演示二</a>
+                                </li>
+                                <li><a href="#"  data-type="platform" data-id="3">
+                                    筛选演示三</a>
+                                </li>
+                             
+      
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </li>
+                <li class="search-field school">
+                    <div>
+                        <h3 class="search-sort">学校：</h3>
+                        <div class="search-list-wrapper">
+                            <ul class="search-list">
+                            	<li class="active">
+                               		<a href="#"  data-type="school" data-id="">全部</a>
+                             	</li>
+                                <li><a href="#"  data-type="school" data-id="1">
+                                    筛选演示一</a>
+                                </li>
+                                <li><a href="#"  data-type="school" data-id="2">
+                                   筛选演示二</a>
+                                </li>
+                                <li><a href="#"  data-type="school" data-id="3">
+                                   筛选演示三</a>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <ul class="search-sub-tabs">
+            <li class="active">
+            	<a href="javascript: void 0;">近期热门</a>
+            </li>
+            <li><a href="#" >评分最高</a></li>
+            <li><a href="#" >即将开始</a></li>
+            <li><a href="#" >时间自主</a><b class="tag">new</b></li>
+            <li class="results-count">
+            	<span>共{ms:page.rcount/}门课</span>
+            </li>
+        </ul>
+        <ul class="course_list card_list" id="courseList">
+        	{ms:arclist size=5 ispaging=true}
+        	<li>
+                <a class="course-img" href="[field.link/]" target="_blank" >
+                    <div class="shade">
+                    	<img width="230" height="140" src="[field.litpic/]" >
+                    </div>
+                    <b class="course-ch"> 中文授课</b>
+                    <span class="course-time">[field.date fmt=yyyy-MM-dd/]开课</span>
+                </a>
+                <h3 class="course-title">
+                    <a href="[field.link/]" target="_blank">
+                    <span class="course-name">[field.title/]</span></a>
+                </h3>
+                <div class="course-info">
+                    <span class="course-info-star" style="margin-left:-4px;">
+        				<img src="{ms:globalskin.url/}/images/xing.png"/>
+       				</span>
+    				<span class="course-info-score">评分：<b class="course-info-num">9.3</b>
+   					</span>    
+                    <span class="course-info-line"></span>
+                    <p style="text-indent:-83px;">[field.author/]</p>
+                </div>
+                <p class="course-info">  
+                </p>
+            </li>
+           {/ms:arclist} 
+        </ul>
+       <ul class="pagination" data-page-count="{ms:page.total/}">
+	        <li data-type="index"><a href="{ms:page.index/}">首页</a></li>
+	        <li data-type="pre"><a href="{ms:page.pre/}">上一页</a></li>
+	        <li data-type="next"><a href="{ms:page.next/}">下一页</a> </li>
+	        <li data-type="last"><a href="{ms:page.last/}">最末页</a></li>
+		</ul>
+		
+      </div>
+      {ms:include filename=footer.htm/}
+       <!-- 后台生成的自定义搜索代码 -->
+      <form id="searchForm" action="/html/1549/9/search.do" method="post">
+		<!--表单的name值不能改变-->
+	 	<input type="hidden" name="categoryId" value="{ms:field.typeid/}"/><!-- 当前栏目的栏目id值 -->
+	 	<input type="hidden" name="school" value=""/>
+	 	<input type="hidden" name="pageNo" value="1"><!-- 当前页码值，通过ajax实现搜索时是必须的-->
+		<input type="submit" value="搜索">
+		<input type="hidden" name="platform" value=""/>
+	 </form>
+</body>
+</html>

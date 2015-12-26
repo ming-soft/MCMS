@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 管理员持久化层XML配置继承IManagerDao -->
+<mapper namespace="com.mingsoft.basic.dao.IManagerDao">
+	<sql id="column_list">
+		MANAGER_ID,MANAGER_NAME,MANAGER_NICKNAME,MANAGER_PASSWORD,MANAGER_ROLEID,MANAGER_PEOPLEID,MANAGER_TIME
+	</sql>
+	
+	<sql id="all_column_list">
+		m.MANAGER_ID,m.MANAGER_NAME,m.MANAGER_NICKNAME,m.MANAGER_PASSWORD,m.MANAGER_ROLEID,m.MANAGER_PEOPLEID,m.MANAGER_TIME,
+		r.ROLE_NAME
+	</sql>
+	
+	<!-- 管理员表字段与评论实体属性对应，供返回实体信息时使用 -->
+	<resultMap id="resultMap" type="com.mingsoft.basic.entity.ManagerEntity">
+		<id column="MANAGER_ID" property="managerId" />
+		<result column="MANAGER_NAME" property="managerName" />
+		<result column="MANAGER_NICKNAME" property="managerNickName" />
+		<result column="MANAGER_PASSWORD" property="managerPassword" />
+		<result column="MANAGER_ROLEID" property="managerRoleID" />
+		<result column="MANAGER_PEOPLEID" property="managerPeopleID" />
+		<result column="MANAGER_TIME" property="managerTime" />
+	</resultMap>
+	
+	<!-- 管理员表字段与评论实体属性对应，供返回实体信息时使用 -->
+	<resultMap id="resultMapAll" type="java.util.HashMap">
+		<id column="MANAGER_ID" property="managerId" />
+		<result column="MANAGER_NAME" property="managerName" />
+		<result column="MANAGER_NICKNAME" property="managerNickName" />
+		<result column="MANAGER_PASSWORD" property="managerPassword" />
+		<result column="MANAGER_ROLEID" property="managerRoleID" />
+		<result column="MANAGER_PEOPLEID" property="managerPeopleID" />
+		<result column="MANAGER_TIME" property="managerTime" />
+		<result column="ROLE_NAME" property="roleName" />
+	</resultMap>
+	
+	<!-- 查询此时登录的管理员的子管理员列表开始 -->
+	<select id="queryAllChildManager" resultMap="resultMap" parameterType="int">
+		select * from manager where MANAGER_ROLEID in (select ROLE_ID from role where ROLE_MANAGERID = #{managerId}) order by MANAGER_ID DESC;
+	</select>
+	<!-- 查询此时登录的管理员的子管理员列表开始  -->
+	
+	<!-- 查询管理员列表开始 -->
+	<select id="queryCount" resultType="int">
+		select count(*) from manager;
+	</select>
+	<!-- 查询管理员列表结束 -->
+	
+	<!-- 管理员列表分页查询开始 -->
+	<select id="queryByPage" resultMap="resultMapAll" parameterType="int">
+		select 
+			<include refid="all_column_list" />
+				 from manager m left join role r on m.MANAGER_ROLEID = r.ROLE_ID
+				 	where MANAGER_ROLEID in (select ROLE_ID from role where ROLE_MANAGERID = #{managerId} ) or m.MANAGER_ID = #{managerId}
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
+		<if test="order == true">
+			asc
+		</if>
+		<if test="order == false">
+			desc
+		</if>
+		    limit ${pageNo*pageSize},#{pageSize}
+	</select>
+	<!-- 管理员列表分页查询结束 -->
+	
+	<!-- 根据帐号查询管理员实体开始 -->
+	<select id="queryManagerByManagerName" resultMap="resultMap" parameterType="java.lang.String">
+		select
+			<include refid="column_list" />
+				from manager where MANAGER_NAME=#{managerName}
+	</select>
+	<!-- 根据帐号查询管理员实体结束 -->
+	
+	<!-- 增加管理员开始 -->
+	<insert id="saveEntity" parameterType="com.mingsoft.basic.entity.ManagerEntity">
+		insert into manager
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="managerName != null">MANAGER_NAME,</if>
+			<if test="managerNickName != null">MANAGER_NICKNAME,</if>
+			<if test="managerPassword != null">MANAGER_PASSWORD,</if>
+			<if test="managerRoleID != null">MANAGER_ROLEID,</if>
+			<if test="managerPeopleID != null">MANAGER_PEOPLEID,</if>
+			<if test="managerTime != null">MANAGER_TIME,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="managerName != null">#{managerName},</if>
+			<if test="managerNickName != null">#{managerNickName},</if>
+			<if test="managerPassword != null">#{managerPassword},</if>
+			<if test="managerRoleID != null">#{managerRoleID},</if>
+			<if test="managerPeopleID != null">#{managerPeopleID},</if>
+			<if test="managerTime != null">#{managerTime},</if>
+		</trim>
+	</insert>
+	<!-- 增加管理员结束 -->
+	
+	<!-- 删除管理员开始 -->
+	<delete id="deleteEntity" parameterType="int">
+		delete from manager where MANAGER_ID = #{managerId}
+	</delete>
+	<!-- 删除管理员结束 -->
+	
+	<!-- 通过角色ID删除管理员开始 -->
+	<delete id="deleteManagerByRoleId" parameterType="int">
+		delete from manager where MANAGER_ROLEID = #{managerRoleID}
+	</delete>
+	<!-- 通过角色ID删除管理员结束 -->
+	
+	<!-- 查询管理员开始 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select 
+			<include refid="column_list"/>
+		  		from manager where MANAGER_ID=#{managerId};
+	</select>
+	<!-- 查询管理员结束 -->
+	
+	<!-- 更新管理员开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.basic.entity.ManagerEntity">
+		update manager
+		<set>
+			<if test="managerName != null">MANAGER_NAME=#{managerName},</if>
+			<if test="managerNickName != null">MANAGER_NICKNAME=#{managerNickName},</if>
+			<if test="managerPassword != null">MANAGER_PASSWORD=#{managerPassword},</if>
+			<if test="managerRoleID != null">MANAGER_ROLEID=#{managerRoleID},</if>
+			<if test="managerPeopleID != null">MANAGER_PEOPLEID=#{managerPeopleID},</if>
+			<if test="managerTime != null">MANAGER_TIME=#{managerTime}</if>
+		</set>
+		where MANAGER_ID = #{managerId}
+	</update>
+	<!-- 更新管理员结束 -->
+	
+	<!-- 修改用户登录密码开始 -->
+	<update id="updateUserPasswordByUserName" parameterType="com.mingsoft.basic.entity.ManagerEntity">
+		update manager
+		<set>
+			<if test="managerPassword != null">MANAGER_PASSWORD=#{managerPassword}</if>
+		</set>
+		where MANAGER_NAME = #{managerName}
+	</update>
+	<!-- 修改用户登录密码结束 -->
+	
+	<!-- 查询该管理员帐号在数据库中的存在数开始 -->
+	<select id="countManagerName" resultType="String" parameterType="java.lang.String">
+		select * from manager where MANAGER_NAME=#{managerName};
+	</select>
+	<!-- 查询该管理员帐号在数据库中的存在数结束 -->
+	
+	
+</mapper>

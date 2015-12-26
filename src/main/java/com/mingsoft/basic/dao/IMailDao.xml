@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.basic.dao.IMailDao">
+
+	<!-- 字段绑定 开始 -->
+	<resultMap type="com.mingsoft.basic.entity.MailEntity" id="resultMap">
+		<result column="MAIL_APPID" property="mailAppId" /><!-- 与website表绑定keyword -->
+		<result column="MAIL_MODELID" property="mailModelId" /><!-- 与website表绑定copyright -->
+		<result column="MAIL_NAME" property="mailName" /><!-- 与website表绑定style -->
+		<result column="MAIL_PASSWORD" property="mailPassword" /><!-- 与website表绑定url -->
+		<result column="MAIL_PORT" property="mailPort" /><!-- 与website表绑定管理员id -->
+		<result column="MAIL_SERVER" property="mailServer" />
+		<result column="MAIL_CONTENT" property="mailContent" />
+		<result column="MAIL_RECEIVE" property="mailReceive" />
+	</resultMap>
+	<!-- 字段绑定结束 -->
+
+	<!-- 添加website信息开始 -->
+	<insert id="saveEntity" parameterType="com.mingsoft.basic.entity.MailEntity">
+		insert into mail
+
+		<!-- 添加表字段 -->
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="mailAppId != null">MAIL_APPID,</if>
+			<if test="mailModelId != null">MAIL_MODELID,</if>
+			<if test="mailName != null">MAIL_NAME,</if>
+			<if test="mailPassword !=null">MAIL_PASSWORD,</if>
+			<if test="mailPort != null">MAIL_PORT,</if>
+			<if test="mailServer != null">MAIL_SERVER,</if>
+			<if test="mailContent != null">MAIL_CONTENT,</if>
+			<if test="mailReceive != null">MAIL_RECEIVE,</if>
+		</trim>
+
+		<!-- 注入控制层字段 -->
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="mailAppId !=  null">#{mailAppId},</if>
+			<if test="mailModelId != null">#{mailModelId},</if>
+			<if test="mailName != null">#{mailName},</if>
+			<if test="mailPassword !=null">#{mailPassword},</if>
+			<if test="mailPort != null">#{mailPort},</if> 
+			<if test="mailServer != null">#{mailServer},</if> 
+			<if test="mailContent != null">#{mailContent},</if> 
+			<if test="mailReceive != null">#{mailReceive},</if> 
+		</trim>
+
+	</insert>
+	<!-- 添加website信息结束 -->
+
+
+	<!-- 更新website开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.basic.entity.MailEntity">
+		update mail
+		<set>
+			<if test="mailName != null">mail_name =#{mailName},</if>
+			<if test="mailPassword != null">mail_password =#{mailPassword},</if>
+			<if test="mailPort != null">mail_port =#{mailPort},</if>
+			<if test="mailServer != null">mail_server=#{mailServer},</if>
+			<if test="mailContent != null">mail_content =#{mailContent},</if>
+			<if test="mailReceive != null">mail_receive=#{mailReceive},</if>
+		</set>
+		where  mail_appid=#{mailAppId} 
+	</update>
+	<!-- 更新website结束 -->
+
+	<!-- 查询所有website开始 -->
+	<select id="get" resultMap="resultMap">
+	
+		select * from mail  where mail_appid=#{appId}
+		<if test="modelId!=null">
+		 	and mail_modelId=#{modelId}
+		 </if>
+	</select>
+	<!-- 查询所有website结束 -->
+</mapper>

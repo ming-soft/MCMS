@@ -1,0 +1,1 @@
+@charset "UTF-8";.header{background:url(../images/bg.png) 50% 50%;background-size:cover;}.header-wrap{padding:7% 0 }.header-title{font-size:3em;text-align:center}.mobile_title{color:#1caaea;font-size:2em;text-align:left;margin-bottom:2%;display:none}.list_wrap{max-width:800px}@media (max-width:767px){.header{display:none}.mobile_title{display:block}}

@@ -1,0 +1,176 @@
+@charset "utf-8";
+/* CSS Document */
+
+BODY {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+UL {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+OL {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+LI {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+P {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+H1 {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+H2 {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+H3 {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+H4 {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+H5 {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+H6 {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+FORM {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+FIELDSET {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+TABLE {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+TD {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+IMG {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+DIV {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+BODY {
+	MARGIN-TOP: 0px; FONT-FAMILY: "SimSun", "宋体", "Arial Narrow"; BACKGROUND: #fff; COLOR: #333; FONT-SIZE: 12px
+}
+UL {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+OL {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+SELECT {
+	VERTICAL-ALIGN: middle
+}
+INPUT {
+	VERTICAL-ALIGN: middle
+}
+IMG {
+	VERTICAL-ALIGN: middle
+}
+SELECT {
+	VERTICAL-ALIGN: middle
+}
+A {
+	TEXT-DECORATION: none
+}
+A:link {
+	COLOR: #009
+}
+A:visited {
+	COLOR: #800080
+}
+A:hover {
+	COLOR: #c00; TEXT-DECORATION: underline
+}
+A:active {
+	COLOR: #c00; TEXT-DECORATION: underline
+}
+A:focus {
+	COLOR: #c00; TEXT-DECORATION: underline
+}
+
+.ms-logo{ height:60px;}
+.ms-container {
+	OVERFLOW: hidden; background-size: 100% 160%;height: 100%; 
+}
+.ms-skin-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -10;
+    background-position: center 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    zoom:1}
+.ms-m-iconmenu {
+	POSITION: relative; BACKGROUND-COLOR: #303131; WIDTH: 70px; box-shadow: 0px 0px 6px #000; -webkit-box-shadow: 0px 0px 10px #000; -moz-box-shadow: 0px 0px 10px #000000;z-index: 1;
+	background:rgba(0,0,0,0.2) none repeat scroll !important;background:#000; filter:Alpha(opacity=20);/*实现IE背景透明*/ height: 100%;
+}
+
+
+.ms-m-iconmenu LI {
+	MARGIN-BOTTOM: 5px; cursor:pointer
+}
+
+.ms-m-iconmenu LI img{
+	width:60%
+}
+.ms-m-iconmenu LI h5{
+	text-shadow: 0 0 2px #000;color:#fff
+}
+
+.ms-m-iconmenu LI.sel{ background:url(../images/li_sel_bg.png)}
+.ms-m-menu {
+	POSITION: relative; TEXT-ALIGN: right; BACKGROUND-COLOR: #666666; WIDTH: 130px; box-shadow: 0px 0px 6px #000; -webkit-box-shadow: 0px 0px 13px #000; -moz-box-shadow: 0px 0px 13px #000000;
+	background:rgba(0,0,0,0.2) none repeat scroll !important;height: 100%;
+}
+.ms-m-iconmenu  LI.sel img { width:80%}
+.ms-m-menu H3 {
+	MARGIN-TOP: 20px; PADDING-RIGHT: 10px; MARGIN-BOTTOM: 10px; COLOR: #ffffff; FONT-WEIGHT: bold;text-shadow: 0 0 2px #000;
+}
+.ms-m-menu UL LI {
+	LINE-HEIGHT: 40px; PADDING-RIGHT: 10px; COLOR: #ffffff; FONT-SIZE: 16px
+}
+.ms-m-menu UL LI A {
+	COLOR: #ffffff;text-shadow: 0 0 2px #000;
+}
+.ms-m-menu UL LI A:hover {
+	COLOR: #ffff00
+}
+.ms-m-menu UL LI.sel {
+	LINE-HEIGHT: 40px;  FONT-WEIGHT: bold; MARGIN-RIGHT: -1px; color:#e02222 !important
+}
+
+.ms-m-menu UL LI.sel a {color:#FFFF00}
+
+.ms-m-body {
+	 MARGIN: 0px auto;height: 100%; margin-left: 10px
+}
+.ms-m-body .header {
+	HEIGHT: 40px; padding:10px;
+}
+
+.ms-m-body .header { color:#FFFFFF; font-size:14px;}
+
+.ms-m-bg {
+	Z-INDEX: -1; POSITION: absolute; WIDTH: 100%; FLOAT: left; HEIGHT: 100%; TOP: 0px
+}
+.ms-m-body .frame {
+	PADDING-BOTTOM: 10px; BACKGROUND-COLOR: #ffffff; MARGIN: 0px auto; PADDING-LEFT: 10px; WIDTH: 98%; height: 100%;PADDING-RIGHT: 0px; PADDING-TOP: 10px; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px
+}
+.ms-poweroff {
+	POSITION: fixed; WIDTH: 60px; BOTTOM: 8px; BACKGROUND: url(../images/icon.png); HEIGHT: 60px; margin:0 auto; left:5px; cursor:pointer
+}
+.ms-poweroff:hover { background-position:0 -64px;}
+
+.ms-test {border: 1px solid red}
+
+-

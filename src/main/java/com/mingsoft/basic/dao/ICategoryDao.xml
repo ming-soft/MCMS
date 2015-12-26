@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.basic.dao.ICategoryDao">
+	<sql id="category_list">
+		c.category_id,c.category_title,c.category_sort,c.category_datetime,c.category_managerid,c.category_modelId,c.category_categoryid,c.category_smallimg,c.category_description
+	</sql>
+	<resultMap id="resultMap" type="com.mingsoft.basic.entity.CategoryEntity">
+		<id column="category_id" property="categoryId" /><!-- 关联表category的类比ID 
+			category_id字段 -->
+		<result column="category_title" property="categoryTitle" /><!-- 
+			关联表category的类比标题 category_title字段 -->
+		<result column="category_sort" property="categorySort" /><!-- 关联表category的类比排序 
+			category_sort字段 -->
+		<result column="category_datetime" property="categoryDateTime" /><!-- 
+			关联表category的类比发布时间 category_datetime字段 -->
+		<result column="category_managerid" property="categoryManagerId" /><!-- 
+			关联表category的类发布用户ID "category_managerid"字段 -->
+		<result column="category_modelId" property="categoryModelId" /><!-- 
+			关联表category的所属模块ID category_modelid字段 -->
+		<result column="category_categoryid" property="categoryCategoryId" /><!-- 
+			关联表category的父类别ID category_categoryid字段 -->
+		<result column="category_smallimg" property="categorySmallImg" /><!-- 
+			关联表category的略缩图地址 category_smallimg字段 -->
+		<result column="category_description" property="categoryDescription" /> 
+	</resultMap>
+
+	<!-- 类别添加开始 -->
+	<insert id="saveEntity" useGeneratedKeys="true" keyProperty="categoryId"
+		parameterType="com.mingsoft.base.entity.BaseEntity">
+		insert into category
+		<!-- 注入表字段 -->
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="categoryTitle != null">category_title,</if><!-- 类别标题 -->
+			<if test="categorySort != null">category_sort,</if>
+			<if test="categoryDateTime != null">category_datetime,</if>
+			<if test="categoryManagerId != null">category_managerid,</if>
+			<if test="categoryModelId != null">category_modelId,</if>
+			<if test="categoryCategoryId != null">category_categoryid,</if>
+			<if test="categorySmallImg != null">category_smallimg,</if>
+			<if test="categoryAppId!= null">category_appid,</if>
+			<if test="categoryDescription != null">category_description,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="categoryTitle != null">#{categoryTitle},</if>
+			<if test="categorySort != null">#{categorySort},</if>
+			<if test="categoryDateTime != null">#{categoryDateTime},</if>
+			<if test="categoryManagerId != null">#{categoryManagerId},</if>
+			<if test="categoryModelId != null">#{categoryModelId},</if>
+			<if test="categoryCategoryId != null">#{categoryCategoryId},</if>
+			<if test="categorySmallImg != null">#{categorySmallImg},</if>
+			<if test="categoryAppId != null">#{categoryAppId},</if>
+			<if test="categoryDescription != null">#{categoryDescription}</if>
+		</trim>
+
+	</insert>
+	<!-- 类别添加结束 -->
+
+	<!-- 更新类别开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.base.entity.BaseEntity">
+		update category
+		<set>
+			<if test="categoryTitle != null">category_title=#{categoryTitle},</if>
+			<if test="categorySort != null">category_sort=#{categorySort},</if>
+			<if test="categoryDateTime != null">category_datetime=#{categoryDateTime},</if>
+			<if test="categoryManagerId != null">category_managerid=#{categoryManagerId},</if>
+			<if test="categoryCategoryId != null">category_categoryid=#{categoryCategoryId},</if>
+			<if test="categorySmallImg != null">category_smallimg=#{categorySmallImg},</if>
+			<if test="categoryDescription != null">category_description=#{categoryDescription},</if>
+		</set>
+		where category_id = #{categoryId}
+	</update>
+	<!-- 更新类别结束 -->
+
+	<!-- 删除类别开始 -->
+	<delete id="deleteEntity" parameterType="int">
+		delete from category
+		where
+		category_id = #{categoryId}
+	</delete>
+	<!-- 删除类别结束 -->
+
+	<!-- 根据ID查询开始 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select
+		<include refid="category_list" />
+		from category c where category_id=#{categoryId}
+	</select>
+	<!-- 根据ID查询结束 -->
+
+	<!-- 根据上级分类ID和模块编号对分类进行分页查询开始 -->
+	<select id="queryByPageList" resultMap="resultMap">
+		select
+		<include refid="category_list" />
+		from category c where c.category_modelId=#{category.categoryModelId}
+		<if test="category.categoryManagerId>0">
+		  and c.category_managerid=#{category.categoryManagerId}
+		</if>
+		<if test="category.categoryCategoryId>0">
+			and c.category_categoryid=#{category.categoryCategoryId}
+		</if>
+		<if test="category.categoryAppId>0">
+			and c.category_appid=#{category.categoryAppId}
+		</if>
+		<if test="orderBy != null">
+			order by ${orderBy}
+		</if>
+		<if test="order==true">asc</if>
+		<if test="order==false">desc</if>
+	</select>
+	<!-- 根据上级分类ID和模块编号对分类进行分页查询结束 -->
+
+
+	<!-- 根据分类ID查询子分类开始 -->
+	<select id="queryChilds" resultMap="resultMap">
+		select
+		<include refid="category_list" />
+		from category c where c.category_modelId=#{category.categoryModelId}
+		
+		<if test="category.categoryManagerId>0">
+			and c.category_managerid=#{category.categoryManagerId}
+		</if>
+		
+		<if test="category.categoryId>0">
+			and c.category_categoryid=#{category.categoryId}
+		</if>
+		order by c.category_id asc;
+	</select>
+	<!-- 根据分类ID查询子分类结束 -->
+
+	<!-- 查询分类数量，可以使用条件开始 -->
+	<select id="count" resultType="int">
+		select count(*) from category c where
+		category_modelId=#{category.categoryModelId} and
+		category_managerid=#{category.categoryManagerId}
+		<if test="category.categoryCategoryId>0">
+			and c.category_categoryid=#{category.categoryCategoryId}
+		</if>
+	</select>
+	<!-- 查询分类数量，可以使用条件结束 -->
+
+	<!-- 根据模块ID查询分类信息开始 -->
+	<select id="queryByModelId" resultMap="resultMap">
+		select
+		<include refid="category_list" />
+		from category c where c.category_modelId=#{category.categoryModelId}
+		<if test="category.categoryCategoryId>0">
+			and c.category_categoryid=#{category.categoryCategoryId}
+		</if>
+		order by c.category_id asc;
+	</select>
+	<!-- 根据模块ID查询分类信息结束 -->
+
+	<!-- 根据名称和模块ID查询分类ID集合开始(课表数据采集使用) -->
+	<select id="queryCategoryIdByTitle" resultType="int">
+		select
+		c.category_id from category c where c.category_title=#{categoryTitle}
+		and c.category_modelid=#{categoryModelId};
+	</select>
+	<!-- 根据名称查询分类ID集合结束 -->
+
+	<!-- 根据分类标题和模块ID查询指定分类模块下的第三级数据(课表调用) -->
+	<select id="queryCategoryIdByCategoryTitle" resultType="int">
+		select
+		cp.category_id from category c
+		left join category cf on
+		c.category_id=cf.category_categoryid
+		left join category cp on
+		cf.category_id=cp.category_categoryid
+		where
+		c.category_title=#{categoryTitle} and
+		c.category_modelId=#{fatherModelId}
+		and
+		cf.category_modelId=#{sonModelId} and
+		cp.category_modelId=#{sonModelId};
+	</select>
+	<!-- 根据分类标题和模块ID查询指定分类模块下的第三级数据(课表调用) -->
+
+	<!-- 根据分类标题和模块ID查询指定分类模块下的第三级数据(课表调用) -->
+	<select id="queryCategoryIdByCategoryId" resultType="int">
+		select
+		cp.category_id from category c
+		left join category cf on
+		c.category_id=cf.category_categoryid
+		left join category cp on
+		cf.category_id=cp.category_categoryid
+		where
+		c.category_id=#{categoryId}
+		and
+		c.category_modelId=#{fatherModelId}
+		and
+		cf.category_modelId=#{sonModelId} and
+		cp.category_modelId=#{sonModelId};
+	</select>
+	<!-- 根据分类标题和模块ID查询指定分类模块下的第三级数据(课表调用) -->
+
+	<!-- 根据分类ID批量查询分类实体,并按照字段压入顺序排序开始 -->
+	<select id="queryBatchCategoryById" resultMap="resultMap"
+		parameterType="list">
+		select
+		<include refid="category_list" />
+		from category c where c.category_id in
+		<foreach collection="listId" index="index" item="item" open="("
+			close=")" separator=",">
+			#{item}
+		</foreach>
+	</select>
+	<!-- 根据分类ID批量查询分类实体结束 -->
+
+	<!-- 根据应用编号或模块编号查询分类开始 -->
+	<select id="queryByAppIdOrModelId" resultMap="resultMap">
+		select * from category where 1=1
+		<if test="appId!=null">
+			and category_appId=#{appId}
+		</if>
+		<if test="modelId!=null">
+			and category_modelId=#{modelId}
+		</if>
+	</select>
+	<!-- 根据应用编号或模块编号查询分类结束 -->
+
+	<select id="queryChildrenCategoryId" resultMap="resultMap">
+		call
+		p_getAllChildren(#{categoryId},#{appId},#{modelId});
+	</select>
+
+	<!-- 根据栏目编号活取所有的父级别编号 -->
+	<select id="queryParentIds" resultType="String">
+		select
+		func_parent_category(#{categoryId})
+	</select>
+	
+	<!-- 根据分类ID批量查询分类实体,并按照字段压入顺序排序开始 -->
+	<select id="queryByDescription" resultMap="resultMap"
+		parameterType="list">
+		select
+		<include refid="category_list" />
+		from category c 
+		<where>
+			<if test="appId!=null">
+				and category_appId=#{appId}
+			</if>
+			<if test="modelId!=null">
+				and category_modelId=#{modelId}
+			</if>
+			<if test="categoryDescription!=null">
+				and c.category_description =#{categoryDescription}
+			</if>
+		</where>
+	</select>
+</mapper>

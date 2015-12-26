@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.basic.dao.IBasicChildDao">
+
+	
+
+	
+	<resultMap id="resultMap" type="com.mingsoft.basic.entity.BasicChildEntity">
+		<result column="bc_basic_Id" property="basicId"/>
+		<result column="bc_basic_child_Id" property="basicChildId"/>
+		
+	</resultMap>
+	<!-- 批量新增开始 -->
+	<insert  id="saveBatch" parameterType="java.util.List">
+		insert into basic_child (bc_basic_Id,bc_basic_child_Id) values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.basicId},#{item.basicChildId})
+		</foreach>
+	</insert>
+	<!-- 批量新增结束 -->
+
+	
+	<!-- 根据id删除数据开始 -->
+	<delete id="delete" parameterType="int">
+		delete from basic_child where
+		bc_basic_Id = #{basicId}
+	</delete>
+	<!-- 根据id删除数据结束 -->
+	
+	<!-- 根据id查询数据开始 -->
+	<select id="queryByBasicId" resultMap="resultMap">
+		select * from basic_child
+		 where bc_basic_Id=#{basicId}
+	</select>
+	<!-- 根据id查询数据结束 -->
+</mapper>
