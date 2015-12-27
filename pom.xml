@@ -32,11 +32,18 @@
 			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/ueditor.jar</systemPath>
 		</dependency>
 		<dependency>
-			<groupId>com.baidu</groupId>
-			<artifactId>ueditor</artifactId>
-			<version>1.4.3</version>
+			<groupId>com.hyperic</groupId>
+			<artifactId>sigar</artifactId>
+			<version>1.0</version>
 			<scope>system</scope>
 			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/sigar.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.jagregory</groupId>
+			<artifactId>shiro</artifactId>
+			<version>0.1</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/shiro-freemarker-tags-0.1-SNAPSHOT.jar</systemPath>
 		</dependency>
 
 		<dependency>
