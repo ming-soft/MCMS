@@ -99,7 +99,7 @@ a{
 					
 				}
 			}else{
-				location.href = "/html/1549/index.html"
+				location.href = "{ms:global.url/}/index.html"
 			}
 		}});
        //用户cookies存在
@@ -108,7 +108,7 @@ a{
        var obj =  jQuery.parseJSON(people);
        //显示用户名
        if(obj == null){
-          location.href = "/html/1549/index.html"
+          location.href = "{ms:global.url/}/index.html"
        }
 		if(obj !=null && obj !=0){
           $(".title-b a").text(obj.userName);

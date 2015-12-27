@@ -1,96 +1,58 @@
 #铭飞MCMS内容管理系统完整开源版J2EE代码
-
-当前版本:4.5.4
-铭飞MS官网:http://ms.ming-soft.com
-官网同时提供一键运行版本下载，请步移官网....
-QQ交流群号：221335098
+当前版本:4.5.4<br/>
+铭飞MS官网:http://ms.ming-soft.com<br/>
+官网同时提供一键运行版本下载，请步移官网....<br/>
+QQ交流群号：221335098<br/>
+很多人说铭飞MCMS是大天朝国唯一完整开源的J2EE系统！团队希望看到更多的优秀好用的开源系统，我们一直会努力下去！
 #特点
-免费开源:纯Java开发，MS开发团队承诺将MCMS内容系统永久完整开源;
-
-终端统一: 铭飞MCMS支持PC与MOBILE皮肤定制,同时使用MS团队移动JS插件,轻松实现手机多屏幕适配,想想看你发布的信息第一时间在PC上展示又能在手机上展示,这是件多么幸福的事情,数据统一、平台统一、终端统一是MS团队一直在努力的方向;
-
-扩展性:以铭飞MCMS为核心,MS官网提供第三方插件安装,最新的插件用户可以通过更新功能获得,同时MS也鼓励并支持第三方开发人员发布优质的插件;
-
-更新升级: 铭飞MCMS提供了行业内最完美的升级方案,从此升级无需手动下载复制粘贴,一切完全由MS升级插件无缝完成;
-
-文档手册:铭飞不断向外部公布最新文档，如二次开发手册、标签使用手册,减轻用户学习成本;
-
-站群：MCMS支持站群，只需在服务器上架设一套铭飞MCMS就可以创建多个个网站，并且网站之间的数据是独立存在，很大程度降低了维护成本，与服务器资源的开销；
-
-其他：html静态生成、标签式建站
-
-技术支持:提永久升级服务技术交流群,不定期会升级系统，开发可以关注后台的更新板块；
-
+* 免费完整开源：基于MIT协议，源代码完全开源，无商业限制,MS开发团队承诺将MCMS内容系统永久完整开源；<br/>
+* 标签化建站：不需要专业的后台开发技能，只要使用系统提供的标签，就能轻松建设网站；<br/>
+* html静态化：系统支持全站静态化；<br/>
+* 跨终端：站点同时支持PC与移动端访问，同时会自动根据访问的终端切换到对应的界面，数据由系统统一管理；<br/>
+* 海量模版：铭飞通过MStore（MS商城）分享更多免费、精美的企业网站模版，降低建站成本；<br/>
+* 丰富插件：为了让MCms适应更多的业务场景，在MStore用户可以下载对应的插件，如：站群插件、微信插件、商城插件等；<br/>
+* 每月更新：铭飞团队承诺每月28日为系统升级日，分享更多好用等模版与插件；<br/>
+* 文档丰富：为了让用户更快速的使用MCms系统进行开发，铭飞团队持续更新开发相关文档，如标签文档、使用文档、视频教程等；<br/>
 
 #面向对象
-铭飞MCMS是企业在创立初期很好的技术基础框架，加快公司项目开发进度，当然也可以对现有的系统进行升级；
+* 铭飞MCMS是企业在创立初期很好的技术基础框架，加快公司项目开发进度，当然也可以对现有的系统进行升级；
+* 个人开发者也可以使用MCMS承接外包项目；
+* 初学JAVA的同学可以下载源代码来进行学习交流；
 
-个人开发者也可以使用MCMS承接外包项目；
-
-初学JAVA的同学可以下载源代码来进行学习交流；
-
-
-#开发框及语言
-
-铭飞MCMS(铭飞内容管理系统)是一款支持不同平台、不同终端并且支持多站点的内容管理系统，
-
-· SpringMVC4+Spring4+MyBatis3+Freemarker技术架构
-
-· 基于java技术开发，继承其强大、稳定、安全、高效、跨平台等多方面的优点；
-
-· 标签化建站，只要你懂html就能建站；
-
-· 完全生成全站静态页面；
-
-· 可自定义路径结构，全面提高页面访问速度；
-
-有人说铭飞MCMS是全国唯一完整开源的J2EE版本系统！团队希望看到更多的优秀好用的开源系统，我们一直会努力下去！
-
-
-#运行环境
-
-原则上支持全系列JAVA运行环境；
-
-WEB服务器：Weblogic、Tomcat、WebSphere、JBoss、Jetty 等
-
-数据库服务器：Mysql等
-
-操作系统：Windows、Linux、Unix 等
-
+#技术框架
+* 核心框架：Spring Framework 4
+* 安全框架：Apache Shiro 1.2
+* 视图框架：Spring MVC 4
+* 任务调度：Spring Task 4
+* 持久层框架：MyBatis 3
+* 数据库连接池：Alibaba Druid 1.0
+* 日志管理：SLF4J 1.7、Log4j
+* JS框架：jQuery 1.10
+* CSS框架：Twitter Bootstrap 2.3.1。
+* 富文本：Ueditor
 
 #开发环境
-
 建议开发者使用以下环境，这样避免版本带来的问题
+* IDE:eclipse
+* DB:Mysql5.5
+* JDK:JAVA 7、J2EE6
 
-IDE:eclipse、MyEclise
+#运行环境
+* WEB服务器：Weblogic、Tomcat、WebSphere、JBoss、Jetty 等
+* 数据库服务器：Mysql5.5
+* 操作系统：Windows、Linux、Unix 等
 
-DB:Mysql5.5
-
-JDK:JAVA 7、J2EE6
-
-
-#重要文件说明
-
-数据库连接文件: config.properties
-
-数据库文件：doc/db-mcms-open.sql
-
-数据库编码：UTF-8
-
-模板文件：templets/1549/mooc
-
-后台访问路径：
-
-http://+ip地址（或localhost）+tomcat端口+项目发布名/ms/login.do
-
-账号:msopen
-
-密码:msopen
-
+#快速体验
+* 将MCMS项目源码导入eclipse；
+* 创建数据库db-mcms-open,注意：数据库使用utf-8编码，导入doc/db-mcms-open.sql备份文件；
+* 修改src\main\resources\config.properties文件中的数据库设置参数；
+* 前台访问地址：http://+ip地址（或localhost）+tomcat端口+项目发布名
+* 后台访问地址：http://+ip地址（或localhost）+tomcat端口+项目发布名/ms/login.do
+* 管理员账号，用户名：msopen 密码：msopen
 
 #代码部署与常见问题
-
-参考铭飞MS官方开发社区文档 http://ms.ming-soft.com/mbbs/12998/detail.do
+* 参考铭飞MS官方开发社区文档： http://ms.ming-soft.com/mbbs/12998/detail.do
+* MStore使用方式：http://ms.ming-soft.com/mbbs/13008/detail.do
 
 #系统美图
 ![输入图片说明](http://git.oschina.net/uploads/images/2015/1029/110523_6727b755_542665.jpeg "铭飞模版商城，模版商城")
