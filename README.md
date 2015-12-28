@@ -51,8 +51,8 @@ QQ交流群号：221335098<br/>
 * 前台访问地址：http://+ip地址（或localhost）+tomcat端口+项目发布名<font color="red">如果发布的地址不是http://localhost:8080/mcms</font>，先在后台生成静态页面再进行访问
 * 管理员账号，用户名：msopen 密码：msopen
 
-＃文件说明
-*  .externalToolBuilders eclipse缓存文件
+#文件说明 
+* .externalToolBuilders eclipse缓存文件
 * .settings  eclipse配置缓存文件
 * doc  项目文档文件夹，里面有数据库文件
 * libs  项目依赖的jar包，方便开发者在非maven环境下配置
