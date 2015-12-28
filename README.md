@@ -59,22 +59,22 @@ QQ交流群号：221335098<br/>
 * src/main maven结构的项目源代码  
 * java/com/mingsoft java源代码文件
 * resources 项目的资源配置文件
-* webapp
-   	 META-INF 
-	 WEB-INF 
-	 bootstrap3.0.3  
-	 bootstrap3.3.0
-	 css 
-	 errors
-	 html/1 默认生成的静态代码，实际项目需要删除，只是提供给开发者快速预览生成后的静态页面
-	 images  
-	 jquery  
-	 js    
-	 manager 
-	 templets/1/mooc  默认模版
-	 ueditor1_3_6 
-	 upload  
-	 zepto
+* webapp<br/>
+   	 META-INF <br/>
+	 WEB-INF <br/>
+	 bootstrap3.0.3  <br/>
+	 bootstrap3.3.0<br/>
+	 css <br/>
+	 errors<br/>
+	 html/1 默认生成的静态代码，实际项目需要删除，只是提供给开发者快速预览生成后的静态页面<br/>
+	 images  <br/>
+	 jquery  <br/>
+	 js    <br/>
+	 manager <br/>
+	 templets/1/mooc  默认模版<br/>
+	 ueditor1_3_6 <br/>
+	 upload  <br/>
+	 zepto<br/>
 *   target  临时文件，可以删除让maven自动生成
 * .classpath eclipse配置缓存文件
 * .project  eclipse配置缓存文件
