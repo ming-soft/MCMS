@@ -46,8 +46,8 @@ QQ交流群号：221335098<br/>
 * 将MCMS项目源码导入eclipse；
 * 创建数据库db-mcms-open,注意：数据库使用utf-8编码，导入doc/db-mcms-open.sql备份文件；
 * 修改src\main\resources\config.properties文件中的数据库设置参数；
+* 后台访问地址：http://+ip地址（或localhost）+tomcat端口+项目发布名/ms/login.do 必需先访问后台界面再访问前台界面
 * 前台访问地址：http://+ip地址（或localhost）+tomcat端口+项目发布名
-* 后台访问地址：http://+ip地址（或localhost）+tomcat端口+项目发布名/ms/login.do
 * 管理员账号，用户名：msopen 密码：msopen
 
 #代码部署与常见问题
