@@ -42,6 +42,7 @@ QQ交流群号：221335098<br/>
 * 数据库服务器：Mysql5.5
 * 操作系统：Windows、Linux、Unix 等
 
+
 #快速体验
 * 将MCMS项目源码导入eclipse；
 * 创建数据库db-mcms-open,注意：数据库使用utf-8编码，导入doc/db-mcms-open.sql备份文件；
@@ -49,6 +50,37 @@ QQ交流群号：221335098<br/>
 * 后台访问地址：http://+ip地址（或localhost）+tomcat端口+项目发布名/ms/login.do 必需先访问后台界面再访问前台界面
 * 前台访问地址：http://+ip地址（或localhost）+tomcat端口+项目发布名
 * 管理员账号，用户名：msopen 密码：msopen
+
+＃文件说明
+*  .externalToolBuilders eclipse缓存文件
+* .settings  eclipse配置缓存文件
+* doc  项目文档文件夹，里面有数据库文件
+* libs  项目依赖的jar包，方便开发者在非maven环境下配置
+* src/main maven结构的项目源代码  
+* java/com/mingsoft java源代码文件
+* resources 项目的资源配置文件
+* webapp
+   	 META-INF 
+	 WEB-INF 
+	 bootstrap3.0.3  
+	 bootstrap3.3.0
+	 css 
+	 errors
+	 html/1 默认生成的静态代码，实际项目需要删除，只是提供给开发者快速预览生成后的静态页面
+	 images  
+	 jquery  
+	 js    
+	 manager 
+	 templets/1/mooc  默认模版
+	 ueditor1_3_6 
+	 upload  
+	 zepto
+*   target  临时文件，可以删除让maven自动生成
+* .classpath eclipse配置缓存文件
+* .project  eclipse配置缓存文件
+* LICENSE 项目协议说明
+* README.md 项目说明文档
+* pom.xml maven的依赖配置文件
 
 #代码部署与常见问题
 * eclipse中git使用：http://my.oschina.net/songxinqiang/blog/192567?fromerr=O1U3nvWt
