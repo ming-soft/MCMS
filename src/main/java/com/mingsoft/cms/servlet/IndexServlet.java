@@ -73,7 +73,7 @@ public class IndexServlet extends BaseServlet{
 		if(website!=null){
 			websiteId = website.getAppId();
 		} else {
-			this.outString(response, this.getResString("err"));
+			this.outString(response, this.getResString("err")); 
 			return ;
 		}
 		String path = "";
