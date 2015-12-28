@@ -1,5 +1,5 @@
 #铭飞MCMS内容管理系统完整开源版J2EE代码
-当前版本:4.5.4<br/>
+当前版本:4.5.3<br/>
 铭飞MS官网:http://ms.ming-soft.com<br/>
 官网同时提供一键运行版本下载，请步移官网....<br/>
 QQ交流群号：221335098<br/>
@@ -51,6 +51,7 @@ QQ交流群号：221335098<br/>
 * 管理员账号，用户名：msopen 密码：msopen
 
 #代码部署与常见问题
+* eclipse中git使用：http://my.oschina.net/songxinqiang/blog/192567?fromerr=O1U3nvWt
 * 参考铭飞MS官方开发社区文档： http://ms.ming-soft.com/mbbs/12998/detail.do
 * MStore使用方式：http://ms.ming-soft.com/mbbs/13008/detail.do
 
