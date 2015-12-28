@@ -50,7 +50,6 @@ import com.mingsoft.base.constant.Const;
 import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.base.constant.SessionConst;
 import com.mingsoft.util.FileUtil;
-import com.mingsoft.util.ServerUtil;
 import com.mingsoft.util.StringUtil;
 
 /**
