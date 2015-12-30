@@ -120,5 +120,10 @@ public final class Const {
 
 	public final static String UTF8 = "utf-8";
 	
+	/**
+	 * 文件路径符
+	 */
+	public final static String SEPARATOR ="/";
+	
 
 }
