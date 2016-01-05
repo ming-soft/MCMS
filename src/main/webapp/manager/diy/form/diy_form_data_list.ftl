@@ -16,19 +16,19 @@
 			</@ms.contentNav>
 			<@ms.contentPanel>
 
-					<@ms.table head=['编号','数据','提交时间','操作']>
+					<@ms.table head=['数据','<th class="text-center">提交时间</th>',"<th class='text-center'>操作</th>"]>
 						<#if list?has_content>
 		        			<#list list as form>
 		           				<tr> 
-			           				<td class="text-center basicId">${form['Id']?default(0)}</td>
-			           				<td>
+			           			<!--<td class="text-center basicId">${form['Id']?default(0)}</td>-->
+			           				<td style="width:40%">
 			           					<ul>
 								           	<#list fields as field>
 								            	<li><b style="color:#999">${field.diyFormFieldTipsName}:</b>${form['${field.diyFormFieldFieldName}']?default('')}</li>
 								            </#list>
 			            				</ul>
 			           				</td>
-			            			<td class="text-center" id="name">${form.date?default("")}</td>
+			            			<td style="width:40%" id="name" class="text-center">${form.date?default("")}</td>
 			            			<td class="text-center">
                     					<a class="btn btn-xs red tooltips del-btn " data-toggle="tooltip" data-original-title="删除" data-url="${basePath}/manager/diy/form/${form['fromID']?default(0)}/${form['Id']?default(0)}/delete.do">
 	                     					<i class="glyphicon glyphicon-trash"></i>
@@ -71,14 +71,16 @@
 $(function(){
 	//删除按钮点击
 	$(".del-btn").click(function() {
-		var url = $(this).attr("data-url");
-		
+		var url = $(this).attr("data-url");		
 		$(".deleteData").attr("data-ajax-url",url);
 		$(".delete").modal();
 		//设置
 	});
 	//点击确定进行删除
 	$(".deleteData").click(function() {
+		deleteData
+		$(".deleteData").text("删除中");
+		$(".deleteData").attr("disabled",true);
 		$(this).request({method:"post",func:function(msg) { 
 			var json = jQuery.parseJSON(msg);
 			if(json.result==true){

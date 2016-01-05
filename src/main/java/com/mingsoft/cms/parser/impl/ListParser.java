@@ -1,28 +1,8 @@
-/**
-The MIT License (MIT) * Copyright (c) 2015 铭飞科技
-
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
-
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
-
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 package com.mingsoft.cms.parser.impl;
 
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -112,6 +92,8 @@ public class ListParser extends com.mingsoft.parser.impl.general.ListParser {
 		String htmlList = "";
 		String tabHtml = "";
 		tabHtml = tabHtml(tabHtmlContent);
+		List<String> parserHtml = new ArrayList<String>();
+		int countNoParser = 0;
 		if (articleList != null && tabHtml != null && articleList.size() != 0 && tabHtml != "") {
 			for (int i = 0; i < articleList.size(); i++) {
 				
@@ -119,6 +101,15 @@ public class ListParser extends com.mingsoft.parser.impl.general.ListParser {
 				if(article.getColumn()!=null){
 					// 序号,根据显示条数显示的序号1 2 …..10。
 					htmlList += tabContent(tabHtml, StringUtil.int2String((i + 1)),INDEX_FIELD_LIST);
+					// 文章内容,
+					htmlList =  tabContent(htmlList, contentLength(article.getArticleContent(), htmlList),CONTENT_FIELD_LIST);
+					countNoParser = NoParser.countParser(htmlList);
+					NoParser noParser = new NoParser(htmlList);
+					
+					if(countNoParser>0){
+						parserHtml = noParser.getNoParserHtml(countNoParser,parserHtml);
+					}
+					htmlList = noParser.parse();
 					// 编号,对应文章在数据库里的自动编号。
 					htmlList = tabContent(htmlList, StringUtil.int2String(article.getBasicId()),ID_FIELD_LIST);
 					// 标题,标题长度根据titlelen的属性值指定，默认40个汉字,
@@ -141,7 +132,6 @@ public class ListParser extends com.mingsoft.parser.impl.general.ListParser {
 						link =path + StringUtil.null2String(article.getColumn().getColumnPath()) + File.separator + IParserRegexConstant.HTML_INDEX;
 					}
 					
-					link = StringUtil.removeRepeatStr(link, File.separator).replace(":/", "://");
 					htmlList = tabContent(htmlList, link,LINK_FIELD_LIST);
 					// 分类编号,文章所属分类的编号,
 					htmlList = tabContent(htmlList, article.getBasicCategoryId(),TYPEID_FIELD_LIST);
@@ -153,22 +143,23 @@ public class ListParser extends com.mingsoft.parser.impl.general.ListParser {
 					String numArticle = Integer.toString(articleList.size());
 					htmlList = tabContent(htmlList, numArticle,NUM_ARTICLE_LIST);
 					//分类连接：[field.typelink/]	点击连接连接到当前分类的列表
-					String channelLink = path+File.separator+StringUtil.null2String(article.getColumn().getColumnPath())+File.separator+ IParserRegexConstant.HTML_INDEX;
-					channelLink = StringUtil.removeRepeatStr(channelLink, File.separator);
+					String channelLink = path+StringUtil.null2String(article.getColumn().getColumnPath())+File.separator+ IParserRegexConstant.HTML_INDEX;
 					htmlList = tabContent(htmlList, channelLink,TTYPELINK_FIELD_LIST);
 					
 					//对自定义字段进行替换
 					htmlList = replaceField(htmlList,article.getColumn(),article.getBasicId());
 					
-					// 文章内容,
-					htmlList =  tabContent(htmlList, contentLength(article.getArticleContent(), htmlList),CONTENT_FIELD_LIST);
+					
+					
 				}
-				
 			}
 		}
+		if(countNoParser>0){
+			NoParser noParser = new NoParser(htmlList);
+			htmlList =noParser.parse(htmlList,parserHtml);
+		}
+		
 		return htmlList;
 	}
 	
-	
-
 }

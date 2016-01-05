@@ -8,7 +8,7 @@
 	
 <@ms.content>
 		<@ms.contentBody>
-			<@ms.contentNav title="搜索管理">
+			<@ms.contentNav title="自定义搜索">
 			</@ms.contentNav>
 			<@ms.contentPanel>
 				<@ms.panelNav>
@@ -18,25 +18,24 @@
 						
 					</@ms.panelNavBtnGroup>
 				</@ms.panelNav>
-					<@ms.table head=['编号','搜索名称','搜索结果模版','操作']>
+					<@ms.table head=['<th class="text-center">编号</th>','搜索名称','搜索结果模版',"<th style='text-align:center;width:10%;'>操作</th>"]>
 						<#if searchList?has_content>
 		        			<#list searchList as search>
 		           				<tr>
 		           					
-						            <td class="text-center commentId" style="width: 10%">${search.searchId?c?default(0)}</td>
-						            <td class="text-center" style="width: 35%" ">
+						            <td class="commentId text-center" style="width: 10%">${search.searchId?c?default(0)}</td>
+						            <td class="" style="width: 35%" ">
 						            	
 			            					<span class="updateSearch" data-toggle="tooltip"  data-original-title="点击修改搜索模块" data-id="${search.searchId?c?default(0)}" style="cursor: pointer;">
 						            			${search.searchName?default("暂无")}
 						            		</span>
 						            	
 						            </td>
-						            <td class="text-center" style="width: 35%">${search.searchTemplets?default("暂无")}</td>
-						            <td class="text-center operate" style="width: 10%">
+						            <td style="width: 35%">${search.searchTemplets?default("暂无")}</td>
+						            <td class="text-center operate" style='text-align:center;width:10%;'>
 					                    <a class="btn btn-xs tooltips deleteImg" data-toggle="tooltip" data-id="${search.searchId?c?default(0)}" data-original-title="删除">
 					                        <i class="glyphicon glyphicon-trash"></i>
-					                    </a>
-					                    
+					                    </a>					                    
 									</td>
 						        </tr>
 		           			</#list>
@@ -72,7 +71,7 @@
 	
 	<script type="text/javascript">	
 	
-			//全选
+		//全选
 	   	$("#allCheck").on("click",function(){   
 			if(this.checked){
 			      $("input[name='searchId']").each(function(){this.checked=true;});
@@ -85,6 +84,8 @@
 		//删除评论 
 		function deleteSearch(id){
 				var URL="${base}/manager/cms/search/"+id+"/delete.do"
+				$("#deleteButton").text("删除中");
+				$("#deleteButton").attr("disabled",true);
 				$(this).request({url:URL,type:"json",method:"post",func:function(msg) {
 					//回调处理方式
 					if(msg != 0) {
@@ -96,6 +97,8 @@
 						}
 			    	} else {
 						alert("删除搜索失败");
+						$("#deleteButton").text("删除");
+						$("#deleteButton").attr("disabled",false);
 			    	}
 				}});
 			}

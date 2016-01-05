@@ -7,9 +7,16 @@
 <body>
 <@ms.content>
 	<@ms.contentBody>
-		<@ms.contentNav title="添加站点">
-			<@ms.button class="btn btn-success"  id="saveOrUpdateApp"  value="保存"/>
-		</@ms.contentNav >
+		<#if app.appId != 0>
+			<@ms.contentNav title="应用设置">
+				<@ms.button class="btn btn-success"  id="saveOrUpdateApp"  value="更新"/>
+			</@ms.contentNav >
+		<#else>
+			<@ms.contentNav title="添加站点">
+				<@ms.button class="btn btn-success"  id="saveOrUpdateApp"  value="保存"/>
+				<@ms.contentNavBack  class="btn btn-default returnList" value="返回列表" />
+			</@ms.contentNav >
+		</#if>
 		<@ms.contentPanel>
 
 			<@ms.form isvalidation=true name="appForm" style="width: 65%;" class="form-inline" action="${base}/manager/app/save.do">
@@ -19,7 +26,7 @@
         			<div class="col-md-4  col-xs-4" style="padding: 0;">
         				<@uploadImg path="upload/app/${app.appId?c?default(0)}/" inputName="appLogo" size="1" filetype="" msg="提示:网站logo图片"  maxSize="1" imgs="${app.appLogo?default('')}" />
 					</div>
-           	   </div>
+           	  	</div>
             	<div class="form-group ms-form-group">	
 					<label for="appKeyword">启动移动端</label>
 					<div class="ms-form-control" style="height:auto;margin-top: 8px;">
@@ -62,8 +69,6 @@
 		})
 		
 		<#if app.appId != 0>
-			$("#saveOrUpdateApp").text("更新");
-			$("#saveOrUpdateApp").prev("span").text("编辑站点");
 			$("#appForm").attr("action","${base}/manager/app/update.do");
 			<#if SystemManager==true>
 			<#else>
@@ -123,11 +128,14 @@
 			    		alert(msg.resultMsg);
 			    	}
 				}});
-			} else {
-				alert("表单验证失败");
-			}  
+			} 
 		});
 		
+		
+		//返回应用列表
+		$(".returnList").click(function(){
+			location.href = base+"/manager/app/list.do";
+		});
 	});
 	
 </script>

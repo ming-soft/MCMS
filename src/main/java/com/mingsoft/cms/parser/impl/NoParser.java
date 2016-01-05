@@ -1,24 +1,3 @@
-/**
-The MIT License (MIT) * Copyright (c) 2015 铭飞科技
-
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
-
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
-
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 package com.mingsoft.cms.parser.impl;
 
 import java.util.ArrayList;
@@ -48,7 +27,7 @@ public class NoParser  extends IParser{
 	/**
 	 * 不解析标签临时标记标签
 	 */
-	protected final static String TAB_BODY="\\{MS:NOTAB\\}([\\s\\S]*?)\\{/MS:NOTAB}";
+	protected final static String TAB_BODY="\\{ms:noparser\\}([\\s\\S]*?)\\{/ms:noparser}";
 	
 	/**
 	 * 临时标签开始标记
@@ -93,7 +72,8 @@ public class NoParser  extends IParser{
 	 * 
 	 * @param htmlCotent html模版内容
 	 */
-	public NoParser(String htmlCotent) {
+	public NoParser(String htmlCotent){
+		
 		this.htmlCotent = htmlCotent;
 	}
 	
@@ -114,12 +94,12 @@ public class NoParser  extends IParser{
 	 */
 	@Override
 	public String parse() {
-		//获取模版中不解析标签的个数
-		this.noParserCount = countParser(htmlCotent);
-		for(int i=0;i<noParserCount;i++){
-			htmlCotent = replaceStartAndEnd(htmlCotent,LIST_NOPARSER);
-		}
-		noParserHtml =this.getNoParserHtml(noParserCount);
+//		//获取模版中不解析标签的个数
+//		this.noParserCount = countParser(htmlCotent);
+//		for(int i=0;i<noParserCount;i++){
+//			htmlCotent = replaceStartAndEnd(htmlCotent,LIST_NOPARSER);
+//		}
+//		noParserHtml =this.getNoParserHtml(noParserCount);
 		return htmlCotent;
 	}
 	
@@ -128,12 +108,12 @@ public class NoParser  extends IParser{
 	 * @param htmlCotent html模版
 	 * @return
 	 */
-	public String parse(String htmlCotent){
+	public String parse(String htmlCotent,List<String> noParserHtml){
 		if(noParserHtml!=null && noParserHtml.size()<=0){
 			return htmlCotent;
 		}
 		for(int i=0;i<noParserHtml.size();i++){
-			htmlCotent =RegexUtil.replaceAll(htmlCotent, TAB_REG_CONTENT, noParserHtml.get(i)); 
+			htmlCotent =RegexUtil.replaceFirst(htmlCotent, TAB_REG_CONTENT, noParserHtml.get(i)); 
 		}
 		return htmlCotent;
 	}
@@ -145,8 +125,7 @@ public class NoParser  extends IParser{
 	 * @param html html代码
 	 * @return 代码集合
 	 */
-	public List<String> getNoParserHtml(int count){
-		List<String> noParserHtml = new ArrayList<String>();
+	public List<String> getNoParserHtml(int count,List<String> noParserHtml){
 		for(int i=0;i<count;i++){
 			String tabHtml = "";
 			//查找出第i+1个不解析标签的代码

@@ -10,7 +10,7 @@
 <body>
 	<@ms.content>
 		<@ms.contentBody>
-			<@ms.contentNav title="角色管理列表">
+			<@ms.contentNav title="角色管理">
 			</@ms.contentNav>
 			<@ms.contentPanel>
 				<@ms.panelNav>
@@ -20,24 +20,19 @@
 					</@ms.panelNavBtnGroup>
 				</@ms.panelNav>
 					
-					<@ms.table head=['<input type="checkbox" id="allCheck" value="全选" data-original-title="全选删除" data-toggle="tooltip"/>','角色ID','角色名称','操作']>
+					<@ms.table head=['<th class="text-center"><input type="checkbox" id="allCheck"/></th>','<th style="width:7%;text-align:center;">编号</th>','角色名称',"<th style='text-align:center;width:10%;'>操作</th>"]>
 						<#if listRole?has_content>
 		           			<#list listRole as role>
 					          <tr>
-					          	<td class="text-center">
-					          	<#if role.roleId!=managerRoleId>
-		  								<input class="text-center" type="checkbox" name="ids" value="${role.roleId?c?default(0)}">
-					            </#if>
+					            <td style="width:5%" class="text-center">
+						          	<#if role.roleId!=managerRoleId>
+		  								<input type="checkbox" name="ids" value="${role.roleId?c?default(0)}">
+						            </#if>
 					            </td>
 					            <input type="hidden" name="${role.roleId?c?default(0)}" />
-					            <td class="text-center roleId">${role.roleId?c?default(0)}</td>
-			            		<td class="text-center">${role.roleName?default("暂无")}</td>
+					            <td style="width:7%" class="roleId text-center">${role.roleId?c?default(0)}</td>
+			            		<td style="width:40%">${role.roleName?default("暂无")}</td>
 					            <td class="text-center operate">
-					            	<#if role.roleId!=managerRoleId>
-				                    <a class="btn btn-xs tooltips del-btn" data-toggle="tooltip" data-id="${role.roleId?c?default(0)}" data-target="#deleteModal" data-original-title="删除">
-				                        <i class="glyphicon glyphicon-trash"></i>
-				                    </a>
-				                    </#if>
 				                    <a class="btn btn-xs tooltips" data-toggle="tooltip" href="${base}/manager/role/${role.roleId}/edit.do" data-original-title="编辑">
 			                     		<i class="glyphicon glyphicon-pencil"></i>
 			                    	</a>
@@ -82,11 +77,6 @@
 	</@ms.content>
 	
 	<script type="text/javascript">	
-		<#if listRole?has_content>
-			$("#allCheck").attr("style","display:block;margin:0 auto");
-			<#else>
-			$("#allCheck").attr("style","display:none");
-		</#if>
 		
 		//触发模态框事件或者是模态框中按钮的事件
 		$(function(){
@@ -132,7 +122,9 @@
 		//删除角色
 		function deleteRole(roleId){
 			//拼接ajax地址
-			var URL="${base}/manager/role/"+roleId+"/delete.do"
+			var URL="${base}/manager/role/"+roleId+"/delete.do";
+			$("#deleteButtonAll").text("删除中");
+			$("#deleteButtonAll").attr("disabled",true);
 			$(this).request({url:URL,data:"roleId=" + roleId,type:"json",method:"post",func:function(msg) {
 				//回调处理方式
 				if(msg != 0) {
@@ -158,11 +150,11 @@
 				if(this.checked==true){
 					count++;
 				}
-			});
-			
-			
+			});	
 			if(ids.length != 0) {
 				var URL= "${base}/manager/role/allDelete.do";
+				$("#deleteButtonAll").text("删除中");
+				$("#deleteButtonAll").attr("disabled",true);
 				$(this).request({url:URL,data:ids,type:"json",method:"post",func:function(msg) {
                 	if(msg != 0) {
 			   			alert("批量删除成功");
@@ -173,6 +165,8 @@
 						}
 			   		} else {
 			    		alert("删除角色失败");
+			    		$("#deleteButtonAll").text("删除");
+						$("#deleteButtonAll").attr("disabled",false);
 						$(".deleteAll").modal("hide");
 			    	}
 				}});

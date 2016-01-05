@@ -33,14 +33,14 @@
 						</@ms.row>
 					</@ms.form>
 					
-					<@ms.table head=['图标','模板名称','类型','操作']>
+					<@ms.table head=['<th class="text-center">图标</th>','模板名称',"<th style='width:20%;text-align:center'>类型</th>","<th class='text-center' style='width:10%;'>操作</th>"]>
 						<#if fileNameList?has_content>
 			           		<#list fileNameList as fileName>
 					        	<tr> 
-						            <td class="text-center pic"></td>
-						            <td class="text-center name">${fileName}</td>
+						            <td style="width:10%" class="pic text-center"></td>
+						            <td style="width:35%" class="name">${fileName}</td>
 						            <td class="text-center type"></td>
-						            <td class="text-center">			      
+						            <td style="width:10%;text-align:center">			      
 				                    	<a class="btn btn-xs tooltips deleteIcon" data-toggle="tooltip" data-title="${fileName}" data-original-title="删除">
 					                        <i class="glyphicon glyphicon-trash" style="color:#428BCA"></i>
 					                    </a>

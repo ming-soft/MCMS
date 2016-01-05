@@ -12,13 +12,9 @@
 	   
 	<#--根据filed实体的类别来显示项目的控件-->
 		<#switch type>
-			<#case "1">
-				
-				<#if isnull="0">
-					<#assign  validationType={"required":"true", "data-bv-notempty-message":"必填"}>
-				</#if>
+			<#case "1">			
 				<#if value!="">
-					<@ms.text name="${filedName}"  style="width: 15%;"  label="${name}" title="${name}" size="5"  placeholder="请输入${name}"  value="${value}" labelStyle="width:15%" style="width:30%" validation="${validationType?default('')}"/>
+					<@ms.text name="${filedName}"  style="width: 15%;"  label="${name}" title="${name}" size="5"  placeholder="请输入${name}"  value="${value}" labelStyle="width:15%" style="width:30%"/>
 				<#else>
 					<@ms.text name="${filedName}"  style="width: 15%;"  label="${name}" title="${name}" size="5"  placeholder="请输入${name}"  value="${defaultValue}" labelStyle="width:15%" style="width:30%"/>
 				</#if>
@@ -76,15 +72,15 @@
 				
 			<#break>
 			<#case "6">
-					<div class="form-group">
-						<label for="${filedName}" class="control-label" style="width:15%;">${name}:</label>    
-						<div class="input-prepend input-group ms-form-control"  style='height:auto'>
-								<span class="add-on input-group-addon">
-									<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-								</span>
-								<input type="text" style="width:132px" name="${filedName}" id="birthday" class="form-control" value="<#if value!="">${value}<#else>${defaultValue}</#if>" />
-						</div>
+				<div class="form-group">
+					<label for="${filedName}" class="control-label" style="width:15%;">${name}:</label>    
+					<div class="input-prepend input-group ms-form-control"  style='height:auto'>
+						<span class="add-on input-group-addon">
+							<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+						</span>
+						<input type="text" style="width:132px" name="${filedName}" id="birthday" class="form-control" value="<#if value!="">${value}<#else>${defaultValue}</#if>" />
 					</div>
+				</div>
 				<script>
 					$(function(){
 						// 获取系统当前时间
@@ -100,10 +96,10 @@
 						}else{
 							time = time +date.getDate();
 						}
-						$("#birthday").val(time);
+						<#if value!="">${value}<#else>$("#birthday").val(time);</#if>
 						// 应用日历
 						$('#birthday').daterangepicker({
-								singleDatePicker: true
+							singleDatePicker: true
 						},
 						function(start, end, label) {
 							console.log(start.toISOString(), end.toISOString(), label);

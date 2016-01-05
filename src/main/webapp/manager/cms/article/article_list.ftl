@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="zh">
  <head>
 <#include "/manager/include/macro.ftl"/>
@@ -25,51 +25,51 @@
 				
 				<@ms.col size="12" style="text-align:right">
 					<@ms.button  id="submitSearch" value="筛选"/>
-					<@ms.resetbutton  />	
+					<@ms.resetbutton/>	
 				</@ms.col>
 			</@ms.row>
 		</@ms.form>
 		
 		<@ms.panelNav>
 			<@ms.panelNavBtnGroup>
-				<@ms.panelNavBtnDel />
-				<@ms.panelNavBtnAdd/>
+				<@ms.panelNavBtnAdd title=""/>
+				<@ms.panelNavBtnDel title=""/>
+				
 			</@ms.panelNavBtnGroup>
 		</@ms.panelNav>
 				
-		<@ms.table head=['<input type="checkbox" name="allCheck"/>','ID',"<th>文章标题</th>",'栏目名','作者','点击','排序']>
+		<@ms.table head=['<input type="checkbox" name="allCheck">','<th class="text-center">编号</th>','文章标题','栏目名','作者','<th class="text-center">排序</th>']>
 			<#if listArticle?has_content>
 	        	<#list listArticle as listArticle>
                 	<tr id="tableArticle">
-			        	<td class="text-center">
+			        	<td style="width:5%">
 							<input type="checkbox" name="ids" value="${listArticle.basicId?c?default(0)}">
 			            </td>
-			        	<td class="text-center articleId" >${listArticle.basicId?c?default(0)}</td>
-			            <td class="text-center" >
+			        	<td style="width:8%" class="articleId text-center" >${listArticle.basicId?c?default(0)}</td>
+			            <td style="width:35%">
 			            	<a style="cursor: pointer;">
-			            	<span class="updateArticle" data-toggle="tooltip"  data-original-title="点击修改文章" data-id="${listArticle.basicId?c?default(0)}">
-			            		<#if keyword?has_content>
-			            			${listArticle.basicTitle?default("无标题")?replace(keyword,"<font color='red'>"+keyword+"</font>")}
-			            		<#else>
-			            			${listArticle.basicTitle?default("无标题")}
-			            		</#if>
-				            	<span style="color:red">
-				            	<#if articleTypeList?has_content>
-				        			<#list articleTypeList as at>
-				        				<#if at.key?default("")?string?trim == listArticle.articleType?default("")?string?trim?replace(","," ")>
-				        					[${at.value}]
-		  									<#break>
-		  								</#if>
-				        			</#list>
-				        		</#if>
-				        		</span>
-			            	</span>
+		            			<span class="updateArticle" data-toggle="tooltip"  data-original-title="点击修改文章" data-id="${listArticle.basicId?c?default(0)}">
+		            				<#if keyword?has_content>
+		            					${listArticle.basicTitle?default("无标题")?replace(keyword,"<font color='red'>"+keyword+"</font>")}
+		            				<#else>
+		            					${listArticle.basicTitle?default("无标题")}
+		            				</#if>
+			            			<span style="color:red">
+			            				<#if articleTypeList?has_content>
+				        					<#list articleTypeList as at>
+				        						<#if at.key?default("")?string?trim == listArticle.articleType?default("")?string?trim?replace(","," ")>
+				        							[${at.value}]
+	  											<#break>
+		  										</#if>
+				        					</#list>
+			        					</#if>
+			        				</span>
+		            			</span>
 			            	</a>
 			            </td>
-			            <td class="text-center" ><#if listArticle.column?exists>${listArticle.column.categoryTitle?default("")}</#if></td>
-			            <td class="text-center" >${listArticle.articleAuthor?default("无作者")}</td>
-			            <td class="text-center" >${listArticle.basicHit?c?default(0)}</td>
-			            <td class="text-center" >${listArticle.basicSort?c?default(0)}</td>
+			            <td style="width:15%"><#if listArticle.column?exists>${listArticle.column.categoryTitle?default("")}</#if></td>
+			            <td style="width:15%">${listArticle.articleAuthor?default("无作者")}</td>
+			            <td class="text-center">${listArticle.basicSort?c?default(0)}</td>
 			           
 	          	</tr>
 			   </#list>
@@ -79,8 +79,8 @@
 		            <td colspan="8" class="text-center">
 		            	<@ms.nodata content="暂无文章"/>
 					</td>
-	          </tr>
-	           <#else>
+	          	</tr>
+	        <#else>
 	          <tr>
 		            <td colspan="8" class="text-center">
 		            	<@ms.nodata content="没有搜索到文章"/>
@@ -92,7 +92,7 @@
 		<!--分页-->
 	   	<@showPage page=page/>
 	   	
-	   	<!--删除文章-->    
+	   	<!--删除限时文章-->    
 		<@ms.modal modalName="delete" title="删除文章">
 			  <@ms.modalBody>
 			  		确定要删除所选的文章吗?
@@ -151,15 +151,13 @@ $(function(){
 		var keyword =  $('[name="keyWord"]').val();
 		location.href = base+"/manager/cms/article/${categoryId?default(0)}/list.do?keyword="+keyword+"&articleType="+articleType;
 	});
-	
+	//点击重置按钮
+	$(".reset").click(function(){
+		$("input[name=keyWord]").val("");
+	})
    	var articleId="";//单个文章id
    	var ids ="";//多个文章id
-	//删除文章
-	/*$(".deleteArticle").click(function(){
-		ids="";
-		articleId = $(this).attr("data-id");
-		$(".delete").modal();
-	});*/
+	
 	//多选删除
 	$("#delButton").click(function(){
 		ids = $("input[name='ids']").serialize();

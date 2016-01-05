@@ -1,28 +1,11 @@
 /**
-The MIT License (MIT) * Copyright (c) 2015 铭飞科技
-
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
-
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
-
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * 
  */
-
 package com.mingsoft.people.action;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -52,7 +35,7 @@ import com.mingsoft.util.StringUtil;
  * </p>
  * 
  * <p>
- * Copyright: Copyright (c) 2014 - 2015
+ * Copyright: Copyright (c) 2014 - 2015 
  * </p>
  *
  * @author 成卫雄
@@ -98,18 +81,23 @@ public class PeopleUserAction extends BaseAction{
 	public String list(ModelMap mode,HttpServletRequest request,HttpServletResponse response){
 		//获取应用ID  
 		int appId = this.getAppId(request);
-		//查询用户总数
-		int peopleCount = this.peopleBiz.queryCountByAppId(appId);
 		int pageNo = this.getInt(request, "pageNo", 1);
+		Map map = assemblyRequestMap(request);
+		//查询用户总数
+		//int peopleCount = this.peopleBiz.queryCountByAppId(appId);
+		int peopleCount = this.peopleBiz.getCountByAppIdAndMap(appId, map);
+		map.put("pageNo", null);
 		//页面链接地址
 		String pageUrl = getUrl(request)+"/manager/people/user/list.do";
+		pageUrl= StringUtil.buildUrl(pageUrl, map);
 		//分页通用类
-		PageUtil page=new PageUtil(pageNo,peopleCount,pageUrl);
+		PageUtil page=new PageUtil(pageNo,20,peopleCount,pageUrl);
 		//获取用户列表
-		List<PeopleEntity> listPeople = this.peopleBiz.queryPageListByAppId(appId,page);
+		List<PeopleEntity> listPeople = this.peopleBiz.queryByAppIdAndMap(appId,map, page);
+		//List<PeopleEntity> listPeople = this.peopleBiz.queryPageListByAppId(appId,page);
 		mode.addAttribute("listPeople", listPeople);
 		mode.addAttribute("page", page);
-		this.setCookie(request, response,CookieConst.BACK_COOKIE, pageUrl+"?pageNo="+pageNo);
+		this.setCookie(request, response,CookieConst.BACK_COOKIE, pageUrl);
 		return "/manager/people/user/people_user_list";
 	}
 	
@@ -286,14 +274,14 @@ public class PeopleUserAction extends BaseAction{
 			this.outJson(response, ModelCode.PEOPLE_USER, false, this.getResString("people.msg.name.error", com.mingsoft.people.constant.Const.RESOURCES));
 			return false;
 		}
-		
+				
 		//如果填写了手机号码，则验证手机号码填写是否正确
 		if (!StringUtil.isBlank(peopleUser.getPeoplePhone()) && !StringUtil.isMobile(peopleUser.getPeoplePhone())) {
 			this.outJson(response, ModelCode.PEOPLE_USER, false, this.getResString("people.msg.phone.format.error", com.mingsoft.people.constant.Const.RESOURCES));
 			return false;
 		}
-		
-		
+				
+				
 		//当用户名进行修改时验证用户名是否是唯一的
 		if (!StringUtil.isBlank(peopleUser.getPeopleName())) {
 			// 验证手机号是否唯一
@@ -308,12 +296,12 @@ public class PeopleUserAction extends BaseAction{
 			}else{
 				if(!oldPeopleUser.getPeopleName().equals(peopleUser.getPeopleName())){
 					if (peoplePhone != null) {
-						this.outJson(response, ModelCode.PEOPLE_USER, false, this.getResString("people.register.msg.name.repeat.error", com.mingsoft.people.constant.Const.RESOURCES));
-						return false;
+							this.outJson(response, ModelCode.PEOPLE_USER, false, this.getResString("people.register.msg.name.repeat.error", com.mingsoft.people.constant.Const.RESOURCES));
+							return false;
 					}
 				}
 			}
-			
+					
 		}
 		if(!StringUtil.isBlank(peopleUser.getPeoplePhone())){
 			PeopleEntity peoplePhone = this.peopleBiz.getEntityByUserName(peopleUser.getPeoplePhone(), appId);

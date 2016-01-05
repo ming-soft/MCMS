@@ -11,18 +11,18 @@
 	<@ms.contentPanel>
 		<@ms.panelNav>
 			<@ms.panelNavBtnGroup>
-				<@ms.panelNavBtnAdd/>
+				<@ms.panelNavBtnAdd title=""/>
 			</@ms.panelNavBtnGroup>
 		</@ms.panelNav>
-		<@ms.table head=['编号','标题','属性','链接地址','列表地址','内容地址','封面地址','操作'] id="tableConterent">
+		<@ms.table head=["<th class='text-center' style='width:7%'>编号</th>",'标题',"<th style='text-align:center;width:10%'>属性</th>",'链接地址','列表地址','内容地址','封面地址',"<th style='text-align:center;width:10%;'>操作</th>"] id="tableConterent">
 			<#if listColumn?has_content && listColumn!="[]">
-	        	<@ms.treeTable treeId="clumnTree"  style="width:20%" tbodyId="tableConterent" json="${listColumn?default('')}" jsonName="categoryTitle" jsonId="categoryId" jsonPid="categoryCategoryId"/>
+	        	<@ms.treeTable treeId="clumnTree"  style="width:15%" tbodyId="tableConterent" json="${listColumn?default('')}" jsonName="categoryTitle" jsonId="categoryId" jsonPid="categoryCategoryId"/>
 	      	<#else>
-             	<tr>
-		            <td colspan="8" class="text-center">
-		            	<@ms.nodata content="暂无栏目"/>
-					</td>
-	          </tr>
+             <tr>
+	            <td colspan="8" class="text-center">
+	            	<@ms.nodata content="暂无栏目"/>
+				</td>
+	         </tr>
         </#if>
 		</@ms.table>
 		
@@ -34,14 +34,14 @@
 					单页
 				{{/if}}
 			</td>
-			<td class="text-center">${columnRegexConstant}{{= columnPath}}/index.html</td>
-			<td class="text-center">{{= columnListUrl}}</td>
-			<td class="text-center">
+			<td style="width:20%">${columnRegexConstant}{{= columnPath}}/index.html</td>
+			<td style="width:10%">{{= columnListUrl}}</td>
+			<td style="width:10%">
 				{{if columnType==1 }}
 					{{= columnUrl}}
 				{{/if}}
 			</td>
-			<td class="text-center">
+			<td style="width:10%">
 				{{if columnType==2}}
 					{{= columnUrl}}
 				{{/if}}

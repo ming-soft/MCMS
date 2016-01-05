@@ -1,24 +1,3 @@
-/**
-The MIT License (MIT) * Copyright (c) 2015 铭飞科技
-
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
-
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
-
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 package com.mingsoft.parser.impl.general;
 
 import java.io.File;
@@ -87,19 +66,19 @@ public class PageParser extends IParser{
 		if (this.page!=null) {
 			// TODO Auto-generated method stub
 			//替换首页标签:{ms:page.index}
-			super.newCotent = StringUtil.removeRepeatStr(this.page.getIndexUrl(), File.separator).replace(":/", "://");//this.page.getIndexUrl().replace("\\", "/");
+			super.newCotent =this.page.getIndexUrl();//this.page.getIndexUrl().replace("\\", "/");
 			String indexHtml = super.replaceAll(PAGE_INDEX);
 			//替换上一页标签:{ms:page.pre/}
 			super.htmlCotent = indexHtml;
-			super.newCotent =  StringUtil.removeRepeatStr(this.page.getPreviousUrl(), File.separator).replace(":/", "://");// this.page.getPreviousUrl().replace("\\", "/");
+			super.newCotent =  this.page.getPreviousUrl();// this.page.getPreviousUrl().replace("\\", "/");
 			String preHtml = super.replaceAll(PAGE_PRE);
 			//替换下一页标签：{ms:page.next/}
 			super.htmlCotent = preHtml;
-			super.newCotent =  StringUtil.removeRepeatStr(this.page.getNextUrl(), File.separator).replace(":/", "://");//this.page.getNextUrl().replace("\\", "/");
+			super.newCotent =  this.page.getNextUrl();//this.page.getNextUrl().replace("\\", "/");
 			String nextHtml = super.replaceAll(PAGE_NEXT);
 			//替换尾页标签：{ms:page.over/}
 			super.htmlCotent = nextHtml;
-			super.newCotent =  StringUtil.removeRepeatStr(this.page.getLastUrl(), File.separator).replace(":/", "://");//  this.page.getLastUrl().replace("\\", "/");
+			super.newCotent =  this.page.getLastUrl();//  this.page.getLastUrl().replace("\\", "/");
 			String traileHtml = super.replaceAll(PAGE_OVER);			
 			return traileHtml;
 		} else {

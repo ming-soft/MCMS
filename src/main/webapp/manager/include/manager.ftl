@@ -67,11 +67,11 @@ false>
 		<#assign _class="${class}">
 	</#if>
 </#macro>
-<#macro panelNavBtnAdd value="" icon="plus" class="default" id="addButton" onclick="" title="新增">
+<#macro panelNavBtnAdd value="" icon="plus" class="default" id="addButton" onclick="" title="">
 	<@ms.isPanelNavBtn id="${id}" _id="addButton" class="${class}" _class="default"/>
 	<@ms.button icon="${icon}" id="${_id}" value="${value} " icon="${icon}"  class="btn btn-${_class}" onclick="${onclick}" title="${title}"/>
 </#macro>
-<#macro panelNavBtnDel value="" icon="trash" class="danger" id="delButton" onclick="" title="删除">
+<#macro panelNavBtnDel value="" icon="trash" class="danger" id="delButton" onclick="" title="">
 	<@ms.isPanelNavBtn id="${id}" _id="delButton" class="${class}" _class="danger"/>
 	<@ms.button icon="${icon}" value="${value} " icon="${icon}" id="${id}" class="btn btn-${_class}"  onclick="${onclick}" title="${title}"/>
 </#macro>
@@ -183,12 +183,11 @@ false>
 
 
 <#--表格列表-->
-<#macro table head="" list="" id="" >
+<#macro table head="" list="" id="">
  <table class="table table-hover">
 	<!--表格栏目属性 开始-->
     <thead>
         <tr>
-        
         	<#if head?has_content>
 				<#list head as h>
 						<#if h?html?length gt 5 &&  h?html?substring(0,6)=="&lt;th">
@@ -200,7 +199,6 @@ false>
 	        	        </#if>
 	        	</#list>        	
         	</#if>
-        	
         </tr>
     </thead>
     <!--表格栏目属性 结束-->

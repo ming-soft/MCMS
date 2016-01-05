@@ -8,11 +8,11 @@
 	<@ms.content>
 		<@ms.contentBody>
 			<#if flag == true>
-				<@ms.contentNav title="角色管理  增加">
+				<@ms.contentNav title="新增角色">
 					<@ms.contentNavBack onclick="javascript:history.go(-1)" value="返回角色列表"/>
 				</@ms.contentNav>
 			<#else>
-				<@ms.contentNav title="角色管理  更新">
+				<@ms.contentNav title="编辑角色">
 					<@ms.contentNavBack onclick="javascript:history.go(-1)" value="返回角色列表"/>
 				</@ms.contentNav>
 			</#if>	
@@ -95,7 +95,6 @@
 			
 			//保存按钮点击提交表单
 			$("#save").click(function(){
-
 				if($("#saveRoleFrom").data('bootstrapValidator').validate().isValid()){
 					$(this).attr("disabled","true");
 					var nodes = zTreeObjtree.getCheckedNodes(true);
@@ -113,23 +112,24 @@
 					   dataType: "json",
 					   url:  URL,
 					   data: $("#saveRoleFrom").serialize() + "&modelId=" + modelId,
+					   beforeSend:function(){
+					   		$("#save").text($("#save").text()+"中");
+					   		$("#save").attr("disabled",true);
+					   },
 					   success: function(msg){
 					     	if(msg.result){
-					     		alert("<#if flag == true>增加<#else>更新</#if>角色成功");
+					     		alert("<#if flag == true>保存<#else>更新</#if>成功");
 					   			location.href = "${base}"+msg.resultMsg;
 					    	} else {
 					    	    alert(msg.resultMsg);
 					    	}
 					    	$("#save").removeAttr("disabled");
 					   },error: function(){
-					   	  alert("操作失败");
+					   	  	alert("操作失败");
 					   	$("#save").removeAttr("disabled");
-					   	  location.href = "${base}/manager/role/queryList.do";
+					   	  	location.href = "${base}/manager/role/queryList.do";
 					   }
 					});
-				}else{
-					$("#saveRoleFrom").attr("disabled","false");
-					return;
 				}
 			});
 		});	

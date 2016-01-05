@@ -8,20 +8,20 @@
 <body>	
 <@ms.content>
 <@ms.contentBody >
-	<@ms.contentNav title="自定义页面模块管理" ></@ms.contentNav >
+	<@ms.contentNav title="自定义页面" ></@ms.contentNav >
 	<@ms.contentPanel>
 		<@ms.panelNav >
 			<@ms.panelNavBtnGroup>
 				<@ms.panelNavBtnAdd/>
 			</@ms.panelNavBtnGroup>
 		</@ms.panelNav>
-		<@ms.table head=['名称','模版路径','访问路径','操作']>
+		<@ms.table head=['名称','模版路径','访问路径',"<th class='text-center'>操作</th>"]>
 			<#if list?has_content>
 				<#list list as item>
 					<tr>
-			   			<td class="text-center" >${item.modelTemplateTitle?default("")}</td>
-						<td class="text-center">${item.modelTemplatePath?default("")}</td>
-						<td class="text-center">${item.modelTemplateKey?default("")}</td>
+			   			<td style="width:30%">${item.modelTemplateTitle?default("")}</td>
+						<td style="width:30%">${item.modelTemplatePath?default("")}</td>
+						<td style="width:30%">${item.modelTemplateKey?default("")}</td>
 						<td class="text-center">
 							<a class="btn btn-xs red tooltips del-btn" data-toggle="tooltip" data-id="${item.modelTemplateId?c?default(0)}"  data-original-title="删除">
 								<i class="glyphicon glyphicon-trash"></i>
@@ -45,8 +45,8 @@
 		<@ms.modal modalName="addEditModel" title="添加模块">
 			<@ms.modalBody>
 				<@ms.form isvalidation=true name="addEditForm"  action="" method="post"  >
-					<@ms.text name="modelTemplateTitle" style="width: 40%;" label="标题" title="标题" placeholder="请输入标题" value=""/>
-					<@ms.text name="modelTemplateKey" style="width: 40%;" label="访问路径" title="访问路径" placeholder="请输入访问路径" value=""/>
+					<@ms.text name="modelTemplateTitle" style="width: 40%;" label="标题" title="标题" placeholder="请输入标题" value="" validation={"maxlength":"20","required":"true", "data-bv-notempty-message":"标题不能为空","data-bv-stringlength-message":"标题在20个字符以内!"}/>
+					<@ms.text name="modelTemplateKey" style="width: 40%;" label="访问路径" title="访问路径" placeholder="请输入访问路径" value="" validation={"maxlength":"100","required":"true", "data-bv-notempty-message":"访问路径不能为空","data-bv-stringlength-message":"访问路径在100个字符以内!"}/>
 					<div class="form-group">
 				    	<label for="selectRole">选择模版</label>
 						<select class="template templateSelect" style="width:40%" name="modelTemplatePath"></select>
@@ -56,9 +56,7 @@
 			<@ms.modalButton>
 				<@ms.button  value=""  id="addEditBtn"/>
 			</@ms.modalButton>
-		</@ms.modal>
-		
-		
+		</@ms.modal>		
 		<@ms.modal modalName="delete" title="删除提示!">
 			<@ms.modalBody>
 			  		确认删除？？
@@ -66,11 +64,7 @@
 			<@ms.modalButton>
 				<@ms.button value="确认" id="rightDelete" class="btn btn-danger" value="删除"/>
 			</@ms.modalButton>
-		</@ms.modal>
-			
-			
-				
-	
+		</@ms.modal>	
 	<!--删除的模态框结束-->
 	</@ms.contentPanel>
 </@ms.contentBody>
@@ -135,6 +129,8 @@ $(function(){
 	//确认删除
 	$("#rightDelete").on("click",function(){
 		var actionUrl="${base}/manager/modeltemplate/"+tmplModelId+"/delete.do";
+		$(this).text("删除中");
+		$(this).attr("disabled",true);
 		$("#rightDelete").request({url:actionUrl,type:"json",method:"post",func:function(data) {
 			alert("删除成功");
 			location.reload();
@@ -143,19 +139,22 @@ $(function(){
 	
 	//保存或更新
 	$("#addEditBtn").on("click",function(){
-		$("#addEditForm").attr("action",postUrl);
-		$("#addEditForm").postForm("#addEditForm",{func:function(msg){
-			if (msg.result) {
-	     		if($("#addEditBtn").text()=="保存"){
-	     			alert("保存成功");
-	     		}else{
-	     			alert("更新成功");
-	     		}
-	    		location.reload();
-	    	}else{
-	    		alert(msg);
-	    	}
-		}});
+		var vobj = $("#addEditForm").data('bootstrapValidator').validate();
+		if(vobj.isValid()){
+			$("#addEditForm").attr("action",postUrl);
+			$("#addEditForm").postForm("#addEditForm",{func:function(msg){
+				if (msg.result) {
+		     		if($("#addEditBtn").text()=="保存"){
+		     			alert("保存成功");
+		     		}else{
+		     			alert("更新成功");
+		     		}
+		    		location.reload();
+		    	}else{
+		    		alert(msg);
+		    	}
+			}});
+		}
 	});
 });
 
@@ -165,16 +164,3 @@ $(function(){
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-

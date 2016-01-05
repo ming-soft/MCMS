@@ -109,8 +109,8 @@
 	
 	<!-- 根据AppId查询用户列表根据Id排序并进行分页开始 -->	
 	<select id="queryPageListByAppId" resultMap="resultMap">
-		select <include refid="column_list"/>
-		from people p
+		select <include refid="column_list"/>,people_user.*
+		from people p left join people_user on people_id=pu_people_id
 		where p.people_app_id=#{appId}
 		order by people_id desc
 		<if test="page != null">
@@ -161,5 +161,76 @@
 		</where>
 	</delete>
 	<!-- 批量删除用户结束 -->
+	
+	<!-- 根据应用id和其他查询条件查询用户列表信息开始 -->
+	<select id="queryByAppIdAndMap" resultMap="resultMap" parameterType="int">
+		select <include refid="column_list"/>
+		,people_user.*
+		from people p left join people_user on people_id=pu_people_id
+		<where>
+			p.PEOPLE_APP_ID = #{appId}
+			<if test="whereMap!=null">
+				<!-- 用户审核状态 -->
+				<if test="whereMap.peopleState">
+				 and PEOPLE_STATE=#{whereMap.peopleState}
+				</if>
+				<!-- 根据用户昵称-->
+				<if test="whereMap.peopleUserNickName">
+				 and PU_NICKNAME=#{whereMap.peopleUserNickName}
+				</if>
+				<!-- 根据用户性别 -->
+				<if test="whereMap.peopleUserSex">
+				 and PU_SEX=#{whereMap.peopleUserSex}
+				</if>
+				<!-- 根据用户注册时间 -->
+				<if test="whereMap.peopleDateTime">
+				 and (date(PEOPLE_DATETIME) between #{where.peopleDateStartTime} and
+					#{where.peopleDateEndTime})
+				</if>
+				<!-- 根据用户真实姓名-->
+				<if test="whereMap.peopleUserRealName">
+				 and PU_REAL_NAME=#{whereMap.peopleUserRealName}
+				</if>
+			</if>
+		</where>
+		<if test="page!=null">
+			limit ${page.pageNo*page.pageSize},#{page.pageSize};
+		</if>
+	</select>
+	<!-- 根据应用id和其他查询条件查询用户列表信息结束 -->
+	
+	<!-- 根据应用id和其他查询条件查询用户总数开始 -->
+	<select id="getCountByAppIdAndMap" resultType="int" parameterType="int">
+		select count(*)
+		from people p left join people_user on people_id=pu_people_id
+		<where>
+			p.PEOPLE_APP_ID = #{appId}
+			<if test="whereMap!=null">
+				<!-- 用户审核状态 -->
+				<if test="whereMap.peopleState">
+				 and PEOPLE_STATE=#{whereMap.peopleState}
+				</if>
+				<!-- 根据用户昵称-->
+				<if test="whereMap.peopleUserNickName">
+				 and PU_NICKNAME=#{whereMap.peopleUserNickName}
+				</if>
+				<!-- 根据用户性别 -->
+				<if test="whereMap.peopleUserSex">
+				 and PU_SEX=#{whereMap.peopleUserSex}
+				</if>
+				<!-- 根据用户注册时间 -->
+				<if test="whereMap.peopleDateTime">
+				 and (date(PEOPLE_DATETIME) between #{where.peopleDateStartTime} and
+					#{where.peopleDateEndTime})
+				</if>
+				<!-- 根据用户真实姓名-->
+				<if test="whereMap.peopleUserRealName">
+				 and PU_REAL_NAME=#{whereMap.peopleUserRealName}
+				</if>
+			</if>
+		</where>
+		
+	</select>
+	<!-- 根据应用id和其他查询条件查询用户总数结束 -->
 	
 </mapper>

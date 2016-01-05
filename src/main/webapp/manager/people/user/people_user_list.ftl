@@ -5,17 +5,42 @@
 </head>
 <body>
 <@ms.content>
-		<@ms.contentBody>
-			<@ms.contentNav title="用户管理"/>
-			
+	<@ms.contentBody>
+		<@ms.contentNav title="用户管理"/>
 			<@ms.contentPanel>
-					<@ms.panelNav>
+				<@ms.form class="searchForm"  name="searchForm" action="${basePath}/manager/people/user/list.do">
+					<@ms.row>
+						<@ms.col size="4">
+							<@ms.text label="昵称" name="peopleUserNickName" value="" title="请输入用户昵称"  placeholder="请输入用户昵称" value="${peopleUserNickName?default('')}"   />			  
+						</@ms.col>
+						<@ms.col size="4">
+							<@ms.text label="真实姓名" name="peopleUserRealName" value="" title="请输入用户昵称"  placeholder="请输入用户昵称" value="${peopleUserRealName?default('')}"   />			  
+						</@ms.col>
+						<@ms.col size="4">
+							<#assign status=[{"id":"1","name":"男"},{"id":"2","name":"女"}]>
+							<@ms.select label="性别" list="status" listValue="name" listKey="id"    name="peopleUserSex" style="width:100%"  default="全部" />
+						</@ms.col>
+						<@ms.col size="4">
+							<#assign status=[{"id":"0","name":"未审核"},{"id":"1","name":"已审核"}]>
+							<@ms.select label="审核状态" list="status" listValue="name" listKey="id"    name="peopleState" style="width:100%"  default="全部" />
+						</@ms.col>
+						<@ms.col size="4">
+							<@ms.date label="注册时间" name="peopleDateTime"  value=""     value="${peopleDateTime?default('')}" readonly="readonly"  />
+						</@ms.col>
+						<@ms.col size="12" style="text-align:right">
+							<button type="button" class="btn btn-primary submit">筛选</button>　 
+							 <button type="button" class="btn reset">清除条件</button>　
+									 <!--button type="button" class="btn btn-default  exportExcel">批量导出&nbsp;<span class="glyphicon glyphicon-export"></span></button-->					
+						</@ms.col>
+					</@ms.row>
+				</@ms.form>
+				<@ms.panelNav>
 					<@ms.panelNavBtnGroup>
 						<@ms.panelNavBtnAdd/>
 						<@ms.panelNavBtnDel/>
 					</@ms.panelNavBtnGroup>
 				</@ms.panelNav>
-					<@ms.table head=['<input type="checkbox" name="allCheck">','编号','头像','帐号','真实姓名','昵称','手机','邮箱','注册时间','用户状态']>
+				<@ms.table head=['<th class="text-center"><input type="checkbox" name="allCheck"></th>','<th class="text-center">编号</th>','<th class="text-center">头像</th>','<th class="text-center">帐号</th>','<th class="text-center">真实姓名</th>','<th class="text-center">昵称</th>','<th class="text-center">手机</th>','<th class="text-center">邮箱</th>','<th class="text-center">注册时间</th>','<th class="text-center">用户状态</th>']>
 						<#if listPeople?has_content>
 		        			<#list listPeople as people>
 		           				<tr>
@@ -25,27 +50,24 @@
 						            <td class="text-center commentId">${people.peopleId?c?default(0)}</td>
 						            <td class="text-center"><#if people.peopleUser?has_content><img src="${people.peopleUser.peopleUserIcon?default("暂无")}" width="25" height="25"/></#if></td>
 						            <td class="text-center">  <a class="btn btn-xs tooltips editPeople" data-id="${people.peopleId?c?default(0)}"  href="${base}/manager/people/user/${people.peopleId?c?default(0)}/edit.do" data-original-title="编辑用户信息" data-toggle="tooltip">${people.peopleName?default("暂无")}</a></td>
-						            <td class="text-center">${people.peoplePhone?default("暂无")}</td>
+						            <td class="text-center"><#if people.peopleUser?has_content>${people.peopleUser.peopleUserRealName?default("暂无")}</#if></td>
 					            	<td class="text-center"><#if people.peopleUser?has_content>${people.peopleUser.peopleUserNickName?default("暂无")}</#if></td>
-					             	<td class="text-center"><#if people.peopleUser?has_content>${people.peopleUser.peopleUserRealName?default("暂无")}</#if></td>
+					             	<td class="text-center">${people.peoplePhone?default("暂无")}</td>
 						            <td class="text-center">${people.peopleMail?default("暂无")}</td>
 						            <td class="text-center">${people.peopleDateTime?string("yyyy-MM-dd HH:mm:ss")}</td>
 						            <td class="text-center">
 						            <span class="switch switch-mini " data-id="${people.peopleId?c?default(0)}" data-status="${people.peopleState?default(0)}" data-status="${people.peopleState?default(0)}" >
 				                    		<input type="checkbox" name="peopleState" data-size="mini" data-on-text="已审" data-id="${people.peopleId?c?default(0)}" data-status="${people.peopleState?default(0)}" data-off-text="未审"/>
 				                    </span>
-						            
-						            
 						            </td>
-						        	
 						        </tr>
 		           			</#list>
 		           		<#else>	
-			           			<tr>
-						            <td colspan="10" class="text-center">
-						            	<@ms.nodata/>
-									</td>
-					          	</tr>
+			           		<tr>
+						         <td colspan="12" class="text-center">
+						            <@ms.nodata/>
+								</td>
+					        </tr>
 		           		</#if>
 					</@ms.table>
 					<!--分页样式 开始-->
@@ -123,19 +145,25 @@
 </@ms.content>
 	<script>
 		$(function(){
+			//根据条件查询用户
+			$(".submit").click(function() {
+				$("#searchForm").submit();
+			});
 			//初始化Switch按钮
 			$("input[name='peopleState']").bootstrapSwitch();
 			//遍历所有用户状态
 			$("input[name=peopleState]").each(function() {
 					var status = $(this).attr("data-status");//当前门店用户状态
-					if (status=="1") {
-						$(this).bootstrapSwitch('state', true);
-					} else if(status=="0") {
+				if (status=="1") {
+					$(this).bootstrapSwitch('state', true);
+				} else if(status=="0") {
 					$(this).bootstrapSwitch('state', false);
 				}
-		});
+				$(this).on('switchChange.bootstrapSwitch',changeStatus)
+			});
 		//点击事件,更新用户的的状态
-		$(".switch-mini").click(function() {
+		function changeStatus(){
+		
 			//用户ID
 			var peopleId = $(this).attr("data-id");
 			var obj = $(this);
@@ -154,7 +182,7 @@
 					}
 				}
 			})
-		});	
+		}
 			
 			//全选
    			$("input[name='allCheck']").on("click",function(){  

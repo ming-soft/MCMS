@@ -16,15 +16,15 @@
 		<@ms.form class="aritcleForm searchForm" isvalidation=true name="articleForm" action="">
 
 			<@ms.text name="basicTitle"  style="width: 30%;"  label="文章标题" title="文章标题" size="5"  placeholder="请输入文章标题"  value="${article.basicTitle?default('')}" labelStyle="width:15%" validation={"maxlength":"300","required":"true", "data-bv-notempty-message":"文章标题不能为空","data-bv-stringlength-message":"标题在300个字符以内!"}/>
-			<@ms.text name="basicSort"   style="width: 10%;"  label="自定义顺序" title="自定义顺序" size="5"  placeholder="请输入文章顺序" value="${article.basicSort?c?default(0)}" labelStyle="width:15%" validation={"data-bv-between":"true","data-bv-between-message":"自定义顺序必须大于0","data-bv-between-min":"0", "data-bv-between-max":"99999999","data-bv-stringlength-message":"自定义顺序不能为空"}/>
+			<@ms.text name="basicSort"   style="width: 10%;"  label="自定义顺序" title="自定义顺序" size="5"  placeholder="请输入文章顺序" value="${article.basicSort?c?default(0)}" labelStyle="width:15%" validation={"data-bv-between":"true","data-bv-between-message":"自定义顺序必须大于0","data-bv-between-min":"0", "data-bv-between-max":"99999999","data-bv-notempty-message":"自定义顺序不能为空"}/>
 			<#if articleType?has_content>
 				<@ms.checkboxlist name="checkbox" label="文章属性" style="position: relative;"  list=articleType listKey="key"  listValue="value"   labelStyle="width:15%"/>
 			</#if>
 			<div class="form-group">
-        			<label class="col-md-3  col-xs-3" style="width:15%">文章缩略图</label>
-        			<div class="col-md-4  col-xs-4" style="padding: 0;">
-						<@uploadImg path="upload/article/${websiteId}/" inputName="basicThumbnails" size="1" filetype="" msg="提示:文章缩略图,支持jpg格式"  maxSize="2" imgs="${article.basicThumbnails?default('')}"  />
-					</div>
+    			<label class="col-md-3  col-xs-3" style="width:15%">文章缩略图</label>
+    			<div class="col-md-4  col-xs-4" style="padding: 0;">
+					<@uploadImg path="upload/article/${websiteId}/" inputName="basicThumbnails" size="1" filetype="" msg="提示:文章缩略图,支持jpg格式"  maxSize="2" imgs="${article.basicThumbnails?default('')}"  />
+				</div>
             </div>
 			<@ms.text name="articleSource"  style="width: 20%;"  label="文章来源" title="文章来源" size="5"  placeholder="请输入文章来源"  value="${article.articleSource?default('')}"  labelStyle="width:15%"/>
 			<@ms.text name="articleAuthor"   style="width: 15%;" label="文章作者" title="文章作者" size="5"  placeholder="请输入文章作者"  value="${article.articleAuthor?default('')}"  labelStyle="width:15%"/>

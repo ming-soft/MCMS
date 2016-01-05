@@ -2,14 +2,11 @@
 <html lang="en">
 <head>
 <#include "/manager/include/meta.ftl"/>
-<style>
-
-</style>
 </head>
 <body>
 	<@ms.content>
 		<@ms.contentBody>
-			<@ms.contentNav title="内容模型管理列表">
+			<@ms.contentNav title="自定义模型">
 			</@ms.contentNav>
 			<@ms.contentPanel>
 				<@ms.panelNav>
@@ -17,24 +14,21 @@
 						<@ms.panelNavBtnAdd  id="totalAdd"/>
 					</@ms.panelNavBtnGroup>
 				</@ms.panelNav>
-					<@ms.table head=['编号','内容模型名称','操作']>
+					<@ms.table head=['<th style="width:7%;text-align:center">编号</th>','<th style="text-align:center;">模型名称</th>',"<th style='text-align:center;width:10%;'>操作</th>"]>
 						<#if listContentModel?has_content>
 				           <#list listContentModel as model>
 					          <tr>
-					            <td class="text-center">${model.cmId?c?default(0)}</td>		          	
-					            <td class="text-center">
+					            <td class="text-center" style="width:7%;text-align:center">${model.cmId?c?default(0)}</td>		          	
+					            <td style="text-align:center">
 					            	 <a class="btn btn-xs tooltips updateModalBtn" href="${base}/manager/cms/contentModel/${model.cmId?c?default(0)}/edit.do" data-toggle="tooltip" data-original-title="编辑内容模型">
 					            		${model.cmTipsName?default("暂无")}
 					            	</a>
 					            </td>
-					            <td class="text-center operate">
+					            <td class="text-center operate" style='text-align:center;width:10%;'>
 				                    <a class="btn btn-xs tooltips delete-btn" data-toggle="tooltip" data-id="${model.cmId?c?default(0)}" data-original-title="删除">
 				                        <i class="glyphicon glyphicon-trash"></i>
 				                    </a>
-				                   
-			                     		
-			                    	
-								</td>
+				                </td>
 					          </tr>
 				           </#list>
 							<#else>

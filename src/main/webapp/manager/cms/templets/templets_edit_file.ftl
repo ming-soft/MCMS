@@ -81,6 +81,8 @@
 				var URL="${base}/manager/cms/templet/writeFileContent.do"
 				var oldFileName = $("#fileName").val();
 				var fileNamePrefix = $("#fileNamePrefix").val();
+				$(this).text("修改中");
+				$(this).attr("disabled",true);
 				$(this).request({url:URL,type:"json",method:"post",data:formData+"&oldFileName="+oldFileName+"&fileNamePrefix="+fileNamePrefix,func:function(msg) {
 					//回调处理方式
 					if(msg.result){
@@ -89,6 +91,8 @@
 			    		alert("修改模版文件失败");
 			   	  	}
 			   	  	var fileNameUrl = $(".fileNamePrefix").val();
+			   	  	$(".update").text("修改");
+					$(".update").attr("disabled",false);
 			   	  	//location.href = base+"/manager/cms/templet/showChildFileAndFolder.do?skinFolderName=" + fileNameUrl;
 				}});
 			});

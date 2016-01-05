@@ -3,15 +3,11 @@
 <head>
 	<#include "/manager/include/macro.ftl"/>
 	<#include "/manager/include/meta.ftl"/> 
-<style> 
-	 
-</style>
 </head>
-
 <body>
 	<@ms.content>
 		<@ms.contentBody>
-			<@ms.contentNav title="自定义表单管理">
+			<@ms.contentNav title="自定义表单">
 			</@ms.contentNav>
 			<@ms.contentPanel>
 				<@ms.panelNav>
@@ -20,23 +16,22 @@
 					</@ms.panelNavBtnGroup>
 				</@ms.panelNav>
 					
-					<@ms.table head=['编号','名称','表单提交地址','请求数据地址','操作']>
+					<@ms.table head=['<th style="width:7%;text-align:center">编号</th>','名称','表单提交地址','请求数据地址',"<th class='text-center'>操作</th>"]>
 						<#if list?has_content>
 		        			<#list list as form>
 		           				<tr> 
-						           	<td class="text-center basicId">${form.diyFormId?c?default(0)}</td>
-						            <td class="text-center" id="name" >
+						           	<td style="width:5%;text-align:center" class="basicId">${form.diyFormId?c?default(0)}</td>
+						            <td style="width:10%" id="name" >
 						            	<a href="${base}/manager/diy/form/${form.diyFormId?c?default(0)}/edit.do?title=${form.diyFormTipsName?default(0)}" class="btn btn-xs red tooltips " data-toggle="tooltip" data-original-title="编辑表单" >
 						            	${form.diyFormTipsName?default(0)}
 						            	</a>
 						            </td>
-						            <td class="text-center" >/from/${form.diyFormUrl?default("")}.do</td>
-						             <td class="text-center" >/from/${form.diyFormUrl?default("")}/queryData.do</td>
+						            <td style="width:35%">/from/${form.diyFormUrl?default("")}.do</td>
+						            <td style="width:35%">/from/${form.diyFormUrl?default("")}/queryData.do</td>
 						            <td class="text-center">
 			                    		<a href="${base}/manager/diy/form/${form.diyFormId?c?default(0)}/query.do?title=${form.diyFormTipsName?default(0)}" class="btn btn-xs red tooltips" data-toggle="tooltip" data-original-title="查看记录" >
 				                     		<i class="glyphicon glyphicon-comment"></i>
 				                    	</a>
-				                    	
 				                    	<a href="javascript:(0)" class="btn btn-xs red tooltips del-btn" data-toggle="tooltip" data-original-title="删除表单"  data-id="${form.diyFormId?c?default(0)}">
 				                     		<i class="glyphicon glyphicon-trash"></i>
 				                    	</a>
@@ -79,7 +74,9 @@
 	
 		//进行自定义表单删除的函数
 		function deleteDiyForm(diyFormId){
-			var URL="${base}/manager/diy/form/"+diyFormId+"/delete.do"
+			var URL="${base}/manager/diy/form/"+diyFormId+"/delete.do";
+			$("#deleteButton").text("删除中");
+			$("#deleteButton").attr("disabled",true);
 			$(this).request({url:URL,type:"json",method:"post",func:function(msg) {
 				//回调处理方式
 				if(msg.result) {

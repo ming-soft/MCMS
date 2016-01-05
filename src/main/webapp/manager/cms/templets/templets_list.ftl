@@ -10,15 +10,14 @@
 <body>
 	<@ms.content>
 		<@ms.contentBody>
-			<@ms.contentNav title="模板列表"></@ms.contentNav>
+			<@ms.contentNav title="模板管理"></@ms.contentNav>
 			<@ms.contentPanel>
 					<!--上传模板文件夹-->
 					<@ms.form name="">
 						<@ms.row>
 							<@ms.col style="line-height: 30px;text-align: right;">
 								<b>模版上传:</b>
-							</@ms.col>
-							
+							</@ms.col>				
 							<@ms.col size="5">
 								<@uploadFile path="templets/${websiteId}/" inputName="websiteStyle" size="10" filetype="zip" msg="建议上传30M以下的zip文件,zip的压缩方式为:存储"  maxSize="30" callBack="setUrl" isRename="false"/>
 							</@ms.col>
@@ -26,14 +25,14 @@
 
 					</@ms.form>
 					
-					<@ms.table head=['图标','模板名称','类型','操作']>
+					<@ms.table head=['<th class="text-center">图标</th>','模板名称',"<th style='width:20%;text-align:center'>类型</th>","<th class='text-center' style='width:10%;'>操作</th>"]>
 						<#if folderNameList?has_content>
 			           		<#list folderNameList as folderName>
 					        	<tr> 
-						            <td class="text-center"><span class='glyphicon glyphicon-folder-close'></span></td>
-						            <td class="text-left" style="text-align: center;">${folderName}</td>
+						            <td style="width:7%" class="pic text-center"><span class='glyphicon glyphicon-folder-close'></span></td>
+						            <td style="width:35%">${folderName}</td>
 						            <td class="text-center">文件夹</td>
-						            <td class="text-center">
+						            <td style="width:10%;text-align:center">
 						            	<a class="btn btn-xs tooltips deleteIcon" data-toggle="tooltip" data-title="${folderName}" data-original-title="删除">
 					                        <i class="glyphicon glyphicon-trash" style="color:#428BCA"></i>
 					                    </a>				      
@@ -57,7 +56,7 @@
 	</@ms.content>
 	
 	<!--=================模态框部分开始=================-->
-	<@ms.modal modalName="delete" title="删除评论">
+	<@ms.modal modalName="delete" title="删除模板">
 		 <@ms.modalBody>
 			确定删除该模板吗？
 	     </@ms.modalBody>
@@ -81,7 +80,7 @@
 				   url: base+"/manager/cms/templet/unZip.do",
 				   data: "fileUrl=" + fileUrl,
 				   success: function(msg){ 
-				   		alert("模版上传成功！ 	");
+				   		alert("模版上传成功!");
 				     	location.href="${base}/manager/cms/templet/queryTempletSkin.do"
 				   }
 			  });            	   

@@ -105,13 +105,13 @@
 						<@ms.panelNavBtnAdd  id="addField"/>
 					</@ms.panelNavBtnGroup>
 				</@ms.panelNav>
-    			<@ms.table head=['编号','字段提示文字','字段名称','字段类型','操作']>
+    			<@ms.table head=['字段提示文字','字段名称',"<th style='width: 30%;text-align:center'>字段类型</th>","<th class='text-center'>操作</th>"]>
 						<#if searchList?has_content>
 		        			<#list searchList as search>
 		           				<tr>
-						            <td class="text-center commentId" style="width: 10%"></td>
-						            <td class="text-center" style="width: 30%"></td>
-						            <td class="text-center" style="width: 30%"></td>
+						            <td class="commentId" style="width: 10%"></td>
+						            <td style="width: 30%"></td>
+						            <td style="width: 30%"></td>
 						            <td class="text-center" style="width: 30%"></td>
 						            <td class="text-center operate" style="width: 10%">
 					                    <a class="btn btn-xs tooltips deleteImg" data-toggle="tooltip" data-id="" data-original-title="删除">
@@ -136,10 +136,6 @@
 		</@ms.contentPanel>
 	</@ms.contentBody>
 </@ms.content>   
-
-	
-
-
 	<!--删除的模态框开始-->
 	<@ms.modal modalName="deleteModal" title="删除字段">
 		 <@ms.modalBody>
@@ -225,7 +221,9 @@
 	<script type="text/javascript">
 		//进行自定义表单删除的函数
 		function deleteField(fieldId){
-			var URL="${base}/manager/diy/formField/"+fieldId+"/delete.do"
+			var URL="${base}/manager/diy/formField/"+fieldId+"/delete.do";
+			$("#deleteButtonField").text("删除中");
+			$("#deleteButtonField").attr("disabled",true);
 			$(this).request({url:URL,type:"json",method:"post",func:function(msg) {
 				//回调处理方式
 				if(msg.result) {
@@ -323,9 +321,8 @@
 					    		//获取字段列表信息
 					    		for(var i=0; i<msg.fieldList.length; i++){	    					
 			    					var fieldTypeC =  msg.fieldType[msg.fieldList[i].diyFormFieldType];
-			    					$("tbody").append("<tr class='fieldList'><td class='text-center'>"+msg.fieldList[i].diyFormFieldId+"</td>"+		          	
-									            "<td class='text-center'>"+msg.fieldList[i].diyFormFieldTipsName+"</td>"+
-									            "<td class='text-center'>"+msg.fieldList[i].diyFormFieldFieldName+"</td>"+
+			    					$("tbody").append("<tr class='fieldList'><td style='width: 30%'>"+msg.fieldList[i].diyFormFieldTipsName+"</td>"+
+									            "<td style='width: 30%'>"+msg.fieldList[i].diyFormFieldFieldName+"</td>"+
 									 			"<td class='text-center'>"+fieldTypeC+"</td>"+
 									            "<td class='text-center'>"+
 							                    "<a class='btn btn-xs tooltips delete deleteImg' data-toggle='tooltip' data-id='"+msg.fieldList[i].diyFormFieldId+"' data-original-title='删除'>"+

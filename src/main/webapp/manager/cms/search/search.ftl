@@ -23,17 +23,20 @@
 
 		<@ms.content>
 			<@ms.contentBody>
-
-				<div class="form-group">
-					<label class="col-md-3 control-label col-xs-3 ">
-						<h4 class="page-title bottomLine">搜索管理  <small><#if flag=true>创建<#else>更新</#if>搜索</small></h4>
-					</label>
-					<@ms.contentNav title="">
-						<@ms.panelNavFilter>
-							<@ms.contentNavBack onclick="location.href='${base}/manager/cms/search/list.do'" value="返回搜索列表" />
-						</@ms.panelNavFilter>
-					</@ms.contentNav>
-				</div>
+				<#if flag=true>
+				<@ms.contentNav title="新增搜索">
+					<@ms.panelNavFilter>
+						<@ms.contentNavBack  onclick="location.href='${base}/manager/cms/search/list.do'" value="返回搜索列表"/>
+					</@ms.panelNavFilter>
+				</@ms.contentNav >
+				<#else>
+				<@ms.contentNav title="更新搜索">
+					<@ms.panelNavFilter>
+						<@ms.contentNavBack  onclick="location.href='${base}/manager/cms/search/list.do'" value="返回搜索列表"/>
+					</@ms.panelNavFilter>
+				</@ms.contentNav >
+				</#if>
+				
 
 				<@ms.contentPanel>
 					<div class="form-group">
@@ -43,13 +46,11 @@
 					</div>
 					<@ms.form isvalidation=true name="" id="searchForm">
 						<!--输入表单名称-->
-						<@ms.row>
-							
-							<#if flag=false>
-								<input type="hidden" value="${search.searchId}" name="searchId" class="searchId"/>
-							</#if>								
-							
-							<@ms.col style="width: 12%;height: 20px;text-align: right;">搜索名称：</@ms.col>
+						<@ms.row>		
+							<#if search?has_content>
+								<@ms.hidden value="${search.searchId?default('')}" name="searchId" />
+							</#if>							
+							<@ms.col style="width: 12%;height: 20px;text-align: right;">搜索名称</@ms.col>
 							<@ms.col size="4">
 								<#if flag=true>
 									<@ms.text  id="searchName" title="搜索名称" size="3" placeholder="请输入搜索名称" name="searchName" />
@@ -63,7 +64,7 @@
 
 							<!--搜索结果模板-->
 							<div class="form-group">
-								<@ms.col style="width: 12%;height: 20px;text-align: right;">搜索结果模板：</@ms.col>
+								<@ms.col style="width: 12%;height: 20px;text-align: right;">搜索结果模板</@ms.col>
 								<div class="col-md-4  col-xs-4">
 									<select class="col-md-4 form-control searchTemplets" name="searchTemplets">
 										<#if flag=true>
@@ -179,7 +180,7 @@
 						<!--生成代码的模态框开始-->
 						<@ms.modal modalName="softModal" title="提示框标题" style="">
 							<@ms.modalBody>
-									<textarea class="softCode" style='width:100%;height:500px' ></textarea>
+									<textarea class="softCode" style='width:100%;height:300px' ></textarea>
 							</@ms.modalBody>
 							<@ms.modalButton><!--模态框按钮组-->
 								<@ms.button value="关闭" id="closeModal"/>
@@ -266,14 +267,15 @@
 					dataType:"json",
 					url:"${base}/manager/cms/search/save.do",
 					data:$("#searchForm").serialize(),
-					 beforeSend:function() {
+					beforeSend:function() {
 		   				$("#saveSearchForm").html("正在保存...");
 		   				$("#saveSearchForm").attr("disabled","disabled");
 		   				$("#saveSearchForm").unbind("click");
-		  			 },
+		  			},
 					success:function(msg){
 						if(msg.result){
 							$("#fieldForm").css("display","block");
+							$("#fieldForm").append("<input type='hidden' name='searchId'>");
 							$("input[name='searchId']").val(msg.resultMsg);
 							$("#saveSearchForm").html("更新搜索");
 							$("#saveSearchForm").removeAttr("disabled");
@@ -282,6 +284,7 @@
 						 	});								
 						}else {
 							alert(msg.resultMsg);
+							location.reload();
 						}
 					}
 				})	 		

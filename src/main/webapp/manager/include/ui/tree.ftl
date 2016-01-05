@@ -328,7 +328,7 @@
 			<#if tmplBefored== "true" >
 				{{tmpl($data) '#befored${treeId}'}}
 			</#if>
-			<td class="text-left" style="${style}">
+			<td style="width:15%">
 				<a class="btn btn-xs red tooltips switch-list columnTitle" data-id="{{= ${jsonId}}}" onclick="clickDome${treeId}(this)" data-parentId="{{= ${jsonPid}}}" data-toggle="tooltip" data-original-title="查看子结点">
 				 	<i class="glyphicon glyphicon-folder-close"></i>
 				</a>

@@ -1,24 +1,3 @@
-/**
-The MIT License (MIT) * Copyright (c) 2015 铭飞科技
-
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
-
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
-
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 package com.mingsoft.cms.parser;
 
 import java.io.File;
@@ -55,6 +34,7 @@ import com.mingsoft.cms.parser.impl.ArticleTitleParser;
 import com.mingsoft.cms.parser.impl.ArticleTypeIdParser;
 import com.mingsoft.cms.parser.impl.ArticleTypeLinkParser;
 import com.mingsoft.cms.parser.impl.ArticleTypeTitleParser;
+import com.mingsoft.cms.parser.impl.ColumnParser;
 import com.mingsoft.cms.parser.impl.NoParser;
 import com.mingsoft.parser.IGeneralParser;
 import com.mingsoft.parser.IParserRegexConstant;
@@ -147,15 +127,14 @@ public class CmsParser extends IGeneralParser {
 		modelId = modelBiz.getEntityByModelCode(ModelCode.CMS_COLUMN).getModelId(); // 查询当前模块编号
 		// TODO Auto-generated method stub
 		
-		htmlContent = parseArticle();
-		NoParser noParser = new NoParser(htmlContent);
+		
 		htmlContent = parseGeneral();
 		htmlContent = parseChannel();
 		htmlContent  = parseSearchList();
 		htmlContent = parseList();
 		htmlContent = parseArclist();
 		htmlContent = parsePage();
-		htmlContent=noParser.parse(htmlContent);
+		htmlContent = parseArticle();
 		return htmlContent;
 	}
 	
@@ -275,6 +254,7 @@ public class CmsParser extends IGeneralParser {
 	private String parseArclist() {
 		// 查找当前模版页面拥有多少个列表标签
 		int listNum = ListParser.countArcList(super.htmlContent);
+		//List<String> noParserHtml = new ArrayList<String>();
 		// 替换完分页标签后的HTML代码
 		for (int i = 0; i < listNum; i++) {
 			
@@ -370,8 +350,8 @@ public class CmsParser extends IGeneralParser {
 
 		// 替换文章缩略图标签
 		htmlContent = new ArticleLitpicParser(htmlContent, article.getBasicThumbnails()).parse();
-		
-
+		//解析当前栏目信息
+		htmlContent = new ColumnParser(htmlContent,column,this.getWebsiteUrl()).parse();
 		// 替换文章栏目链接标签{ms:filed.typelink/}
 		ColumnEntity tmp = null;
 		htmlContent = new ArticleTypeIdParser(htmlContent, column.getCategoryId() + "").parse();
@@ -451,6 +431,8 @@ public class CmsParser extends IGeneralParser {
 			ColumnEntity tmp = null;
 			String columnTitle = column.getCategoryTitle();
 			int columnId = column.getCategoryId();
+			//解析当前栏目信息
+			htmlContent = new ColumnParser(htmlContent,column,this.getWebsiteUrl()).parse();
 			// 解析当前栏目id// 替换文章所在栏目标签：{ms:field.typeid/}
 			ArticleTypeIdParser atId = new ArticleTypeIdParser(htmlContent, columnId+ "");
 			if (atId.isTop()) {
@@ -538,12 +520,10 @@ public class CmsParser extends IGeneralParser {
 				channel = htmlContent;
 			}
 		}
-
 		// 替换完封面标签后的TML文件
 		String channelContHtml = channel;
 		// 查找当前模版页面拥有多少个封面列表标签
 		int channelConNum = ChannelContParser.channelContNum(channelContHtml);
-
 		for (int i = 0; i < channelConNum; i++) {
 			// 取出当前封面标签中的封面ID
 			int channelTypeId = ChannelContParser.channelContTypeId(channelContHtml);
@@ -551,7 +531,6 @@ public class CmsParser extends IGeneralParser {
 				channelTypeId = column.getCategoryId();
 			}
 			String channelCont = "";
-			// 取出当前封面的内容
 			// 取出当前封面的内容
 			if (channelTypeId != 0) {
 				List<ArticleEntity> arctile = articleBiz.queryListByColumnId(channelTypeId);
@@ -561,7 +540,6 @@ public class CmsParser extends IGeneralParser {
 					} else {
 						channelCont = arctile.get(arctile.size()).getArticleContent();
 					}
-
 				}
 			}
 			// 替换封面标签
@@ -671,34 +649,10 @@ public class CmsParser extends IGeneralParser {
 		String isPaging = property.get(ListParser.LIST_ISPAGING);
 		if (isPaging != null && isPaging.equals("true")) {
 			// 排序
-			String orderBy = property.get(ListParser.LIST_ORDERBY);
 			String order = property.get(ListParser.LIST_ORDER);
 			// 取当前标签下的栏目ID
-			int columnId = StringUtil.string2Int(property.get(ListParser.LIST_TYPEID));
-			List<Integer> columnIds = new ArrayList<Integer>();
 			// 从数据库取出文章列表数组
 			List  listArticles =searchList;
-			int articleCount=0;
-			// 列表每页显示的数量
-			int size = StringUtil.string2Int(property.get(ListParser.LIST_SIZE));
-			// 从数据库取出文章列表数组
-			/*
-			 * 判断栏目id是否指定 如果指定则取该栏目下的文章,否则取符合搜索条件的文章
-			 */
-			if (columnId != 0) {
-				columnIds = columnBiz.queryChildIdsByColumnId(columnId, app.getAppId());
-				columnIds.add(columnId);
-				// 显示文章的形式flag属性
-				String flag = property.get(ListParser.LIST_FLAG);
-				// 显示文章的形式noflag属性
-				String noFlag = property.get(ListParser.LIST_NOFLAG);
-				// 数据库中该栏目下文章的总数
-				articleCount = articleBiz.getCountByColumnId(app.getAppId(), columnIds, flag, noFlag);
-				listArticles = articleBiz.queryList(app.getAppId(), columnIds, flag, noFlag, 0, size, orderBy, true);
-				if (page==null)  {
-					page = new PageUtilHtml(curPageNo, size, articleCount, listLinkPath);
-				}
-			} 
 			// 当数据库中该栏目下没有该文章时不取数据
 			if(listArticles!=null){
 				/**
