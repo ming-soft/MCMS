@@ -72,7 +72,7 @@
 		    			</@ms.col>
 	    			</@ms.form>
 				<#else>
-					<@ms.form  name="saveForm" class="contentModelFrom" action="${base}/manager/diy/form/save.do">
+					<@ms.form  name="saveForm" class="contentModelFrom" isvalidation=true action="${base}/manager/diy/form/save.do">
 						<!--提示文字-->
 						<@ms.col  style="text-align: right; width:15%;">模型名称</@ms.col>
 						<@ms.col size="4">
