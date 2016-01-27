@@ -1,8 +1,9 @@
   <base target="mainFrame" />
   <#setting url_escaping_charset='utf-8'> 
-  <#assign bootstrap="bootstrap3.3.0">
+  <#assign bootstrap="bootstrap-3.3.5-dist">
   <#assign static="http://static.ming-soft.net/">
-  <#assign static_ver="2015-5-1">
+  <#assign static_ver="4.5.6.min">
+  <#assign ueditor_ver="ueditor_1_4_3_1"/>
   <meta content="IE=edge" http-equiv="X-UA-Compatible" /> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> 
@@ -18,7 +19,7 @@
   <!--time插件-->
     <link rel="stylesheet" type="text/css" href="${base}/css/bootstrap-datetimepicker.min.css" media="all" />
     
-  <link rel="stylesheet" type="text/css" href="${static}/manager/ms.manager.min.css?v=${static_ver}" media="all" />
+  <link rel="stylesheet" type="text/css" href="${static}/manager/ms.manager-${static_ver}.css?v=" media="all" />
   <link rel="stylesheet" type="text/css" href="${base}/jquery/zTree_v3/zTreeStyle.css" media="all" /> 
   <script type="text/javascript" src="${base}/jquery/jquery-1.10.2.min.js"></script> 
   <script type="text/javascript" src="${base}/jquery/zTree_v3/jquery.ztree.all-3.5.min.js"></script> 
@@ -70,13 +71,15 @@
 	var websiteId= "${manager_session.basicId?default('0')}" ;
 </#if>
   </script>	
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	  <script src="${base}/https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	  <script src="${base}/https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
 <style>
 
 </style>
-
-		<script type="text/javascript" charset="utf-8" src="${basePath}/ueditor1_3_6/ueditor.config.msg.js"></script>
-	    <script type="text/javascript" charset="utf-8" src="${basePath}/ueditor1_3_6/ueditor.all.js"> </script>
-	    <script type="text/javascript" charset="utf-8" src="${basePath}/ueditor1_3_6/ueditor.parse.js"> </script>
-	    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
-	    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
-	    <script type="text/javascript" charset="utf-8" src="${basePath}/ueditor1_3_6/lang/zh-cn/zh-cn.js"></script>
+		<script type="text/javascript" charset="utf-8" src="${basePath}/${ueditor_ver}/ueditor.parse.js"></script>
+		<script type="text/javascript" charset="utf-8" src="${basePath}/${ueditor_ver}/ueditor.config.js"></script>
+		<script type="text/javascript" charset="utf-8" src="${basePath}/${ueditor_ver}/ueditor.all.js"></script>
+        <script type="text/javascript" charset="utf-8" src="${basePath}/${ueditor_ver}/lang/zh-cn/zh-cn.js"></script>

@@ -74,7 +74,7 @@
 	<!-- 根据帐号查询管理员实体结束 -->
 	
 	<!-- 增加管理员开始 -->
-	<insert id="saveEntity" parameterType="com.mingsoft.basic.entity.ManagerEntity">
+	<insert id="saveEntity" parameterType="com.mingsoft.basic.entity.ManagerEntity"  useGeneratedKeys="true" keyProperty="managerId">
 		insert into manager
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="managerName != null">MANAGER_NAME,</if>
@@ -122,9 +122,8 @@
 			<if test="managerName != null">MANAGER_NAME=#{managerName},</if>
 			<if test="managerNickName != null">MANAGER_NICKNAME=#{managerNickName},</if>
 			<if test="managerPassword != null">MANAGER_PASSWORD=#{managerPassword},</if>
-			<if test="managerRoleID != null">MANAGER_ROLEID=#{managerRoleID},</if>
-			<if test="managerPeopleID != null">MANAGER_PEOPLEID=#{managerPeopleID},</if>
-			<if test="managerTime != null">MANAGER_TIME=#{managerTime}</if>
+			<if test="managerRoleID != null and managerRoleID gt 0">MANAGER_ROLEID=#{managerRoleID},</if>
+			<if test="managerPeopleID != null and managerPeopleID gt 0">MANAGER_PEOPLEID=#{managerPeopleID},</if>
 		</set>
 		where MANAGER_ID = #{managerId}
 	</update>
@@ -141,8 +140,8 @@
 	<!-- 修改用户登录密码结束 -->
 	
 	<!-- 查询该管理员帐号在数据库中的存在数开始 -->
-	<select id="countManagerName" resultType="String" parameterType="java.lang.String">
-		select * from manager where MANAGER_NAME=#{managerName};
+	<select id="countManagerName" resultType="int" parameterType="java.lang.String">
+		select count(*) from manager where MANAGER_NAME=#{managerName};
 	</select>
 	<!-- 查询该管理员帐号在数据库中的存在数结束 -->
 	

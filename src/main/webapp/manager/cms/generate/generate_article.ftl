@@ -1,55 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<!--调用head内样式信息-->
-	<#include "/manager/include/macro.ftl"/>
-  	<#include "/manager/include/meta.ftl"/>   
-</head>
-
-<body>
-	<@ms.content>
-		<@ms.contentBody>
-		
-			<!--标题和顶部更新按钮-->
-			<@ms.contentNav title="一键更新文章" >
-				<@ms.panelNavFilter>
-				</@ms.panelNavFilter>
-			</@ms.contentNav >
+<@ms.html5>
+	<@ms.nav title="生成文章">	<@ms.button class="btn btn-primary" id="updateArticle" value="生成文章" /></@ms.nav>
+	<@ms.panel>
 			
 			<!--更新信息提示-->
-			<div class="col-md-12 col-xs-12" style="margin-top:20px">
-				<div class="form-group">
-					<p class="alert alert-info" role="alert" style="margin:0">
+					<p class="alert alert-info" role="alert" >
 						<span class="glyphicon glyphicon-pushpin text-lef "></span>
 						<a class="alert-link text-lef" style="margin-left: 12px;">
 			            	根据时间与栏目类型生成文章
 						</a>
 					</p>
-				</div>
-			</div>
 			
 			<!--选择栏目和选择更新时间-->
-			<@ms.contentPanel style="width:50%;">
-				<div class="form-group" style="min-height: 35px;">
-	        		<label class="col-md-2  col-xs-2">所属栏目</label>
-	        		<div class="col-md-4  col-xs-4" style="padding: 0;">
+			<@ms.form name="generateArticle">
+				<@ms.formRow label="文章栏目" width="200">
 	        			<#if list?has_content>
 							<@ms.treeInput  treeId="inputTree" json="${list?default('')}" jsonId="categoryId" jsonPid="categoryCategoryId" jsonName="categoryTitle" addNodesName="所有栏目" buttonText="选择更新的栏目" inputName="columnId"  showIcon="true" expandAll="true" />
 	    				<#else> 
 							<@ms.treeInput  treeId="errorTree"  buttonText="暂无数据" />
 	    				</#if>	
-	 				</div>
-	            </div>
-	            <label class="col-md-2  col-xs-2">起始时间</label>
-	            <@ms.date name="dateTime" single=true readonly="readonly" style="width:36%;" value="${now?string('yyyy-MM-dd')}" validation={"required":"true", "data-bv-notempty-message":"必填项目"} placeholder="点击该框选择时间段"  />
-	            <div class="col-md-2  col-xs-2"></div> 
-	            <@ms.button class="btn btn-primary" id="updateArticle" value="更新文档"/>
-			</@ms.contentPanel>		
+	    		</@ms.formRow>
+	            <@ms.date name="dateTime" label="指定时间" single=true readonly="readonly" style="width:36%;" value="${now?string('yyyy-MM-dd')}" validation={"required":"true", "data-bv-notempty-message":"必填项目"} placeholder="点击该框选择时间段"  />
+			</@ms.form>		
 			
-		</@ms.contentBody>
-	</@ms.content>
-	
+	</@ms.panel>
+</@ms.html5>	
 	<!--点击进行按钮提交-->
 	<script>
 		$("#updateArticle").click(function() {
@@ -75,6 +49,3 @@
 			
 		});
 	</script>
-</body>
-
-</html>

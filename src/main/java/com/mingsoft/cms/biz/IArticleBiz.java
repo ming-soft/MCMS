@@ -28,10 +28,10 @@ import java.util.Map;
 
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.basic.biz.IBasicBiz;
+import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.basic.entity.BasicCategoryEntity;
 import com.mingsoft.cms.entity.ArticleEntity;
-import com.mingsoft.cms.entity.ContentModelEntity;
-import com.mingsoft.base.constant.ModelCode;
+import com.mingsoft.basic.entity.ContentModelEntity;
 import com.mingsoft.util.PageUtil;
 
 /**

@@ -40,7 +40,7 @@
 	<!-- 角色列表分页查询结束 -->
 	
 	<!-- 新增角色开始 -->
-	<insert id="saveEntity" parameterType="com.mingsoft.basic.entity.RoleEntity">
+	<insert id="saveEntity" parameterType="com.mingsoft.basic.entity.RoleEntity" useGeneratedKeys="true" keyProperty="roleId">
 		insert into role
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="roleName != null">ROLE_NAME,</if>

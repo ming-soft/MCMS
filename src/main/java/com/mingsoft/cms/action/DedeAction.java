@@ -44,12 +44,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.mingsoft.basic.action.BaseAction;
+import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.basic.entity.ManagerSessionEntity;
 import com.mingsoft.cms.biz.IArticleBiz;
 import com.mingsoft.cms.biz.IColumnBiz;
 import com.mingsoft.cms.entity.ArticleEntity;
 import com.mingsoft.cms.entity.ColumnEntity;
-import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.util.StringUtil;
 
 /**
@@ -224,7 +224,6 @@ public class DedeAction extends BaseAction {
 				article.setArticleKeyword(column.getColumnKeyword());// 文章关键字
 				article.setBasicThumbnails(column.getColumnDescrip());// 文章描述
 				article.setArticleType("");
-				article.setBasicAppId(managerSession.getBasicId());
 				article.setArticleWebId(managerSession.getBasicId());// 文章所属站点id
 				article.setBasicCategoryId(Integer.valueOf(localColumnId)); // 文章所属栏目ID
 				article.setColumn(column);

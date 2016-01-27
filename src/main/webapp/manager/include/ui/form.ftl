@@ -7,9 +7,9 @@ method:提交方式
 -->
 <#macro form  name id="" target=""
 	 action="" method="post"  enctype=""  
-	 class="form-horizontal" style=""  
-	 isvalidation=false
-	>
+	 class="form-horizontal"  style="display:none; width:100%; background-color: white;" isvalidation=false tooltip=false
+	 redirect=""
+	 >
 <form<#rt/>
  role="form"<#rt/>
  method="${method}"<#rt/>
@@ -20,22 +20,83 @@ method:提交方式
 <#if enctype!=""> enctype="${enctype}"</#if><#rt/>
 <#include "common-attributes.ftl"/><#rt/>
 >
+<@ms.hidden name="redirect" value="${redirect}"/>
 <#nested/><#rt/>
-<#if isvalidation>
 <script>
 	$(function() {
 				var id = "${name}";
 				<#if id?? && id!="">id="${id}"</#if>
+				$('#'+id).fadeIn("slow");
+				<#if isvalidation>
 				$('#'+id).bootstrapValidator({
-						feedbackIcons : {
-							valid : 'glyphicon glyphicon-ok',
-							invalid : 'glyphicon glyphicon-remove',
-							validating : 'glyphicon glyphicon-refresh',
-							autoFocus : true
-						}
+						<#if tooltip>
+				        container: 'tooltip',
+				        </#if>
+				        feedbackIcons: {
+				            valid: 'glyphicon glyphicon-ok',
+				            invalid: 'glyphicon glyphicon-remove',
+				            validating: 'glyphicon glyphicon-refresh'
+				        }
+						
 				});	
+				
+				</#if>
+				
+				//$("#${name} .form-group>div.radio").siblings("i.form-control-feedback").clone().prependTo($("#${name} .form-group>div.radio"));
+				//$("#${name} .form-group>div.radio").siblings("i.form-control-feedback").remove();
+				<#if !class?has_content>
+					$("#${name} .form-group>label").removeClass("col-sm-2");
+					$("#${name} .form-group>div").removeClass("col-sm-9");
+					var width = $("#${name} .form-group>div.ms-from-group-input").width();
+					//$("#${name} .form-group>div.ms-from-group-input>:input").unwrap().parent().width(width);
+					$("#${name} .form-group>div.ms-from-group-input").addClass("has-feedback").parent().width(width);
+					
+					//$("#${name} .form-group label").removeClass("checkbox-inline").removeClass("radio-inline");
+					//$("#${name} .has-feedback .form-control-feedback").css({top:"25px"});
+					
+				</#if>
 	})
 </script>
-</#if>
 </form>
 </#macro>
+
+<#macro searchForm  name id="" target=""
+	 action="" method="post"  enctype=""  
+	 class="searchForm form-inline"  style="display:none;  background-color: white;" isvalidation=false tooltip=true >
+	<@ms.form name="${name}" id="${id}" action="${action}" style="background-color: white;" isvalidation=true class="${class}" tooltip=true>
+		<#nested/><#rt/>
+	</@ms.form>
+</#macro>
+
+<#macro searchFormButton close="">
+		<div class="bottom">
+			<!--div class="close">close</div-->
+			<@ms.resetButton/>
+			<#nested/><#rt/>
+		</div>
+</#macro>
+
+<#--自定义行-->
+<#macro formRow label=" " 
+ 	class="form-control" 	 	
+ 	 width=""  groupClass="form-group"   labelStyle="" help="">
+<div class="${groupClass}">	
+	<#include "control.ftl"/><#rt/>
+	<div class="col-sm-9 ms-from-group-input" style="line-height:30px;<#if width!=""> width:${width}px;</#if>"<#rt/>>
+		<#nested/>
+	</div>
+</div>
+</#macro>
+
+<#--
+<input type="text"/>
+-->
+<#macro fromgroup   id="" size="" label="" style="">
+<div class="form-group ms-form-group" style="${style}" help="">	
+	<#include "control.ftl"/><#rt/>
+	<div class="ms-form-control">
+		<#nested/><#rt/>
+	 </div>
+</div>
+</#macro>
+

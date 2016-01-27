@@ -40,11 +40,11 @@ import com.mingsoft.base.action.BaseAction;
 import com.mingsoft.base.entity.ListJson;
 import com.mingsoft.cms.biz.IArticleBiz;
 import com.mingsoft.cms.biz.IColumnBiz;
-import com.mingsoft.cms.biz.IContentModelBiz;
-import com.mingsoft.cms.biz.IFieldBiz;
+import com.mingsoft.basic.biz.IContentModelBiz;
+import com.mingsoft.basic.biz.IFieldBiz;
 import com.mingsoft.cms.entity.ArticleEntity;
 import com.mingsoft.cms.entity.ColumnEntity;
-import com.mingsoft.cms.entity.ContentModelEntity;
+import com.mingsoft.basic.entity.ContentModelEntity;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
 
@@ -104,6 +104,12 @@ public class ArticleAction extends BaseAction{
 	@Autowired
 	private IContentModelBiz contentModelBiz;
 	
+	
+	/**
+	 * 查询文章列表信息
+	 * @param request
+	 * @param response
+	 */
 	@RequestMapping("/list")
 	@ResponseBody
 	public void list(HttpServletRequest request, HttpServletResponse response) {
@@ -128,7 +134,6 @@ public class ArticleAction extends BaseAction{
 		
 		int count = articleBiz.countByCategoryId(_categoryId);
 		PageUtil page=new PageUtil(Integer.parseInt(pageNo),_pageSize,count,getUrl(request)+"/list.do");
-//		categoryBiz.queryChilds(_categoryId);
 		List list = articleBiz.queryPageByCategoryId(_categoryId,this.getAppId(request), page,_isHasChilds);
 		ListJson json = new ListJson(count,list);
 		this.outJson(response, JSONObject.toJSONString(json));
@@ -148,7 +153,6 @@ public class ArticleAction extends BaseAction{
 			this.outJson(response, this.getResString("err"));
 		}
 		ArticleEntity map = articleBiz.getById(basicId);
-		
 		this.outJson(response, JSONObject.toJSONString(map));
 	}
 	
@@ -220,10 +224,13 @@ public class ArticleAction extends BaseAction{
 		if(article==null){
 			this.outJson(response, this.getResString("err"));
 		}
-		if (article.getBasicAppId()!=this.getAppId(request)) {
+		//判断该文章是否是改应用下
+		if (article.getArticleWebId()!=this.getAppId(request)) {
 			this.outJson(response, this.getResString("err"));
 		}
-		article.setBasicHit(article.getBasicHit()+1);
-		articleBiz.updateEntity(article);
+		//更新点击量
+		articleBiz.updateHit(basicId, article.getBasicHit()+1);
+		this.outJson(response, String.valueOf(article.getBasicHit()+1));
 	}
+	
 }

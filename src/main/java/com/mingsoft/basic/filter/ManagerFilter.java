@@ -62,7 +62,7 @@ public class ManagerFilter extends BaseFilter {
 			if (mangerObj!=null) {
 				chain.doFilter(request, response);
 			} else {
-				httpResponse.sendRedirect(request.getScheme() + "://"+ request.getServerName() + (request.getServerPort()==80?"":":"+request.getServerPort())+ httpRequest.getContextPath() + "/ms/login.do");
+				httpResponse.sendRedirect(request.getScheme() + "://"+ request.getServerName() + (request.getServerPort()==80?"":":"+request.getServerPort())+ httpRequest.getContextPath() + "/msadmin/login.do");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

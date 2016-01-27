@@ -16,34 +16,29 @@
 				<#if column.categoryId!=0>
 					<@ms.hidden name="categoryId" value="${column.categoryId?c?default(0)}" />
 				</#if>
-				<@ms.text name="categoryTitle" style="width: 15%;" label="${Session.model_title_session?default('栏目')}名称" title="${Session.model_title_session?default('栏目')}名称" placeholder="${Session.model_title_session?default('栏目')}名称" value="${column.categoryTitle?default('')}" id="" labelStyle="width:15%"/>
-				<div class="form-group" style="overflow: inherit; min-height: 39px;">
-	        		<label class="col-md-3  col-xs-3" style="width:15%;">所属栏目</label>
-	        		<div class="col-md-3  col-xs-3" style="padding: 0;">
-						<@ms.treeInput treeId="inputTree"  json="${listColumn?default('')}"  jsonId="categoryId" jsonPid="categoryCategoryId" jsonName="categoryTitle" inputName="categoryCategoryId" inputValue="${column.categoryCategoryId?c?default(0)}" addNodesName="顶级栏目管理"  buttonText="${columnSuper.categoryTitle?default('顶级栏目管理')}" clickZtreeId="clickZtreeId(event,treeId,treeNode);"  expandAll="true" showIcon="true"/>
-	 				</div>
-          		</div>
-          		<@ms.text name="categorySort"   style="width: 10%;"  label="自定义顺序" title="自定义顺序" size="5"  placeholder="请输入文章顺序" value="${column.categorySort?c?default(0)}" labelStyle="width:15%" validation={"data-bv-between":"true","data-bv-between-message":"自定义顺序必须大于0","data-bv-between-min":"0", "data-bv-between-max":"99999999","data-bv-notempty-message":"自定义顺序不能为空"}/>
-          		<@ms.textarea name="columnKeyword" label="${Session.model_title_session?default('栏目')}关键字" wrap="Soft" rows="4" placeholder="${Session.model_title_session?default('栏目')}关键字，有助于搜索"   value="${column.columnKeyword?default('')}" labelStyle="width:15%"/>
-          		<@ms.textarea name="columnDescrip" label="${Session.model_title_session?default('栏目')}描述" wrap="Soft" rows="4" placeholder="${Session.model_title_session?default('栏目')}描述，对${Session.model_title_session?default('栏目')}关键字的扩展"   value="${column.columnDescrip?default('')}" labelStyle="width:15%"/>
+				<@ms.text name="categoryTitle" width="200" label="${Session.model_title_session?default('栏目')}名称" title="${Session.model_title_session?default('栏目')}名称" placeholder="${Session.model_title_session?default('栏目')}名称" value="${column.categoryTitle?default('')}" id="" />
+		        <@ms.formRow label="所属栏目" width="300">
+					<@ms.treeInput treeId="inputTree"  json="${listColumn?default('')}"  jsonId="categoryId" jsonPid="categoryCategoryId" jsonName="categoryTitle" inputName="categoryCategoryId" inputValue="${column.categoryCategoryId?c?default(0)}" addNodesName="顶级栏目管理"  buttonText="${columnSuper.categoryTitle?default('顶级栏目管理')}" clickZtreeId="clickZtreeId(event,treeId,treeNode);"  expandAll="true" showIcon="true"/>
+				</@ms.formRow>
+          		<@ms.text name="categorySort"  width="200"  label="自定义顺序" title="自定义顺序" size="5"  placeholder="请输入文章顺序" value="${column.categorySort?c?default(0)}"  validation={"data-bv-between":"true","data-bv-between-message":"自定义顺序必须大于0","data-bv-between-min":"0", "data-bv-between-max":"99999999","data-bv-notempty-message":"自定义顺序不能为空"}/>
+          		<@ms.textarea name="columnKeyword" width="600" label="${Session.model_title_session?default('栏目')}关键字" wrap="Soft" rows="4" placeholder="${Session.model_title_session?default('栏目')}关键字，有助于搜索"   value="${column.columnKeyword?default('')}" />
+          		<@ms.textarea name="columnDescrip" width="600" label="${Session.model_title_session?default('栏目')}描述" wrap="Soft" rows="4" placeholder="${Session.model_title_session?default('栏目')}描述，对${Session.model_title_session?default('栏目')}关键字的扩展"   value="${column.columnDescrip?default('')}" />
 				<#assign columnTypes=[{"id":"1","name":"列表"},{"id":"2","name":"封面"}]>
-				<@ms.radio name="columnType" label="${Session.model_title_session?default('栏目')}属性"  list=columnTypes listKey="id" listValue="name" value="${column.columnType?c?default(1)}" labelStyle="width:15%"/>
+				<@ms.radio name="columnType" label="${Session.model_title_session?default('栏目')}属性"  list=columnTypes listKey="id" listValue="name" value="${column.columnType?c?default(1)}" />
 				<#if listCm?has_content>
-						<@ms.select name="columnContentModelId" style="width: 15%;"  list="listCm"  listKey="cmId" listValue="cmTipsName"  default="普通文章"  label="${Session.model_title_session?default('栏目')}内容模型"  value="" labelStyle="width:15%"/>
-					<#else>
-						<input name="columnContentModelId" value="${column.columnContentModelId?c?default(0)}" type="hidden"/>
+					<@ms.select name="columnContentModelId" width="200"  list=listCm  listKey="cmId" listValue="cmTipsName"  default="普通文章"  label="${Session.model_title_session?default('栏目')}内容模型"  value=""/>
+				<#else>
+					<input name="columnContentModelId" value="${column.columnContentModelId?c?default(0)}" type="hidden"/>
+					<@ms.select name="columnContentModelId" width="200"  list=listCm  listKey="cmId" listValue="cmTipsName"  default="普通文章"  label="${Session.model_title_session?default('栏目')}内容模型"  value=""/>						
 				</#if>
-				<#assign columnMOdelUrls=[{"id":"0","name":"暂无文件"}]>
-				<@ms.select name="columnListUrl" style="width: 15%;" id="columnListUrlModel"  list="columnMOdelUrls"  listKey="id" listValue="name" label="列表模版"  value="${column.columnListUrl?default('')}"  labelStyle="width:15%"/>
-				<@ms.select name="columnUrl" style="width: 15%;"id="columnUrlModel" default="暂无文件"  list="columnMOdelUrls"  listKey="id" listValue="name" label="内容模版"  value="${column.columnUrl?default('')}"  labelStyle="width:15%"/>
+				<#assign columnModelUrls=[{"id":"0","name":"暂无文件"}]>
+				<@ms.select name="columnListUrl" width="300" id="columnListUrlModel"  list=columnModelUrls  listKey="id" listValue="name" label="列表模版"  value="${column.columnListUrl?default('')}"  />
+				<@ms.select name="columnUrl" width="300" id="columnUrlModel" default="暂无文件"  list=columnModelUrls  listKey="id" listValue="name" label="内容模版"  value="${column.columnUrl?default('')}"  />
 			</@ms.form>
 		</@ms.contentPanel>
 	</@ms.contentBody>
 </@ms.content>    
-
 </body>
-
-
 <script>
 $(function(){
 	<#if column.categoryId==0>
@@ -56,7 +51,7 @@ $(function(){
 	<#if column.columnType == 0> 
 		  $("input:radio[name='columnType']:first").attr("checked",true);
 	</#if>
-	var columnListUrlSes ="${column.columnListUrl?default('')}";
+	var columnListUrlSes = "${column.columnListUrl?default('')}";
 	var columnUrlSes = "${column.columnUrl?default('')}";
 	//页面加载列表模板和内容模板
 	$.ajax({
@@ -111,6 +106,7 @@ $(function(){
 	
 	//栏目保存提交事件
 	$("#saveUpdate").click(function(){
+		var btnWord = $(this).text();
 		if($("#columnListUrlModel").find("option:selected").text()=="暂无文件"){
 			$("#columnListUrlModel").find("option:selected").text("");
 		}
@@ -134,12 +130,15 @@ $(function(){
 			$("#saveUpdate").css("disabled",false);
 			return;
 		}
-		$(this).css("disabled",true);
 		$.ajax({
 		   	type: "post",
 		   	url: URL,
 		   	data: formdata,
 		   	dataType:"json",
+		   	beforeSend:function(){
+		   		$("#saveUpdate").attr("disabled",true);
+		   		$("#saveUpdate").text($("#saveUpdate").text()+"中")
+		   	},
 		   	success: function(msg){
 		    	if (msg.result) {
 	     			<#if column.categoryId==0>
@@ -154,7 +153,8 @@ $(function(){
 	     			<#else>
 	     			alert("更新失败");
 	     			</#if>
-	    			$("#saveUpdate").css("disabled",false);
+	    			$("#saveUpdate").attr("disabled",false);
+	    			$("#saveUpdate").text(btnWord)
 	    		}
 		   	}
 		});

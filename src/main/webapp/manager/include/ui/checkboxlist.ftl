@@ -1,4 +1,5 @@
 <#--
+4.5.5开始废弃
 <input type="checkbox"/>
 -->
 <#macro checkboxlist
@@ -6,11 +7,13 @@
 	label=""     colon=":" hasColon="true"
 	id="" name="" class="" style="" size="" title="" disabled=false
 	validation="" direction=true
+	width=""
 	labelStyle=""
+	help=""
 	>
 <div class="form-group ms-form-group">	
 	<#include "control.ftl"/><#rt/>
-	<div class="ms-form-control">
+	<div class="col-sm-10" <#if width!=""> style="${width}px"</#if><#rt/>>
 		<#if list?is_sequence>
 			<#if listKey!="" && listValue!="">
 				<#list list as item>

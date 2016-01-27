@@ -1,31 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<#include "/manager/include/meta.ftl"/>
-<style>
-	.container{margin:0;padding:0;width:auto}
-	 hr{margin-top:9px;margin-bottom:9px;padding:0;}
-	.ms-button-group{padding:0px 0px 8px 0px}
-	.row {margin-left:0;margin-right:0}
-	.form-horizontal .form-group{margin-left:0;margin-right:0}
-	.form-group{overflow: hidden;}
-	
-	.padding-zero{padding:0;}
-	/*链接样式*/
-	.link-style a:hover{color:#000;}
-	.link-style a:visited{color:#000;}
-	.operate a:visited{color:#428BCA;}
-	.form-inline .form-group {display: inline-block;margin-bottom: 0;vertical-align: middle;}
-	.dedeteRight{width: 32%;margin: 0 auto;overflow: hidden;}
-	
-	.margin20{ margin-top:20px;}
-	.marginleft70{ margin-left:-70px;}
-	.has-error .form-control-feedback{float:right; margin-top:-24px; margin-right:5px; color:#A94442;}
-	.has-success .form-control-feedback{float:right; margin-top:-24px; margin-right:5px; color:#3C763D;}
-	.form-control{ padding-right:22px;} 
-	.zhu{ height:30px; line-height:30px; color:#F00;}
-	.fieldRadio{float:left;width:50%;height:25px;}
-</style>
+	<#include "/manager/include/meta.ftl"/>
+	<style>
+		.container{margin:0;padding:0;width:auto}
+		hr{margin-top:9px;margin-bottom:9px;padding:0;}
+		.ms-button-group{padding:0px 0px 8px 0px}
+		.row {margin-left:0;margin-right:0}
+		.form-horizontal .form-group{margin-left:0;margin-right:0}
+		.form-group{overflow: hidden;}
+		.padding-zero{padding:0;}
+		/*链接样式*/
+		.link-style a:hover{color:#000;}
+		.link-style a:visited{color:#000;}
+		.operate a:visited{color:#428BCA;}
+		.form-inline .form-group {display: inline-block;margin-bottom: 0;vertical-align: middle;}
+		.dedeteRight{width: 32%;margin: 0 auto;overflow: hidden;}
+		.margin20{ margin-top:20px;}
+		.marginleft70{ margin-left:-70px;}
+		.has-error .form-control-feedback{float:right; margin-top:-24px; margin-right:5px; color:#A94442;}
+		.has-success .form-control-feedback{float:right; margin-top:-24px; margin-right:5px; color:#3C763D;}
+		.form-control{ padding-right:22px;} 
+		.zhu{ height:30px; line-height:30px; color:#F00;}
+		.fieldRadio{float:left;width:50%;height:25px;}
+	</style>
 </head>
 <body>
 <@ms.content>
@@ -52,50 +50,40 @@
 				<@ms.col size="12">
 				<#if contentModel?has_content>
 					<@ms.form name="saveForm" isvalidation=true class="contentModelFrom" action="${base}/manager/diy/form/update.do">
-						<!--提示文字-->
-						<@ms.col  style="text-align: right; width:15%;">模型名称</@ms.col>
-						<@ms.col size="4">
-							<@ms.text title="名称" size="3" value="${contentModel.cmTipsName?default('')}" placeholder="请输入模型名称" name="cmTipsName" validation={"required":"true", "data-bv-notempty-message":"名称不能为空","data-bv-stringlength":"true","data-bv-stringlength-max":"20","data-bv-stringlength-min":"1","data-bv-stringlength-message":"长度介于1-20个字符"} />
-						</@ms.col>
-						<@ms.col size="12"></@ms.col>
-						<!--表单名称-->
-						<@ms.col  style="text-align: right; width:15%;">模型表名</@ms.col>
-						<@ms.col size="8">
-							<@ms.text title="名称" size="3" value="${contentModel.cmTableName?default('')}"  placeholder="表名只能为英文字符或下划线或数字" name="cmTableName" readonly="true" style="width:30%;" validation={"required":"true", "data-bv-notempty-message":"名称不能为空","data-bv-stringlength":"true","data-bv-stringlength-max":"13","data-bv-stringlength-min":"1","data-bv-stringlength-message":"长度介于1-13个字符"}/>
-							<span style=" height:30px; line-height:30px; color:#F00;font-weight:bold;">注：表单名称一旦保存不能再更改</span>
-						</@ms.col>
+						<!--模型名称-->
+						<@ms.text label="模型名称" labelStyle="width:9%" style="width:25%" title="模型名称" size="3" value="${contentModel.cmTipsName?default('')}" placeholder="请输入模型名称" name="cmTipsName" validation={"required":"true", "data-bv-notempty-message":"名称不能为空","data-bv-stringlength":"true","data-bv-stringlength-max":"20","data-bv-stringlength-min":"1","data-bv-stringlength-message":"长度介于1-20个字符"} />
+						<!--模型表名-->
+						<@ms.text label="模型表名" labelStyle="width:9%" style="width:25%" title="模型表名" size="3" value="${contentModel.cmTableName?default('')}" placeholder="表名只能为英文字符或下划线或数字" name="cmTableName" readonly="true" validation={"required":"true", "data-bv-notempty-message":"名称不能为空","data-bv-stringlength":"true","data-bv-stringlength-max":"13","data-bv-stringlength-min":"1","data-bv-stringlength-message":"长度介于1-13个字符"}/>
+						<div class="form-group">	
+							<label for="" style="width:9%"></label>
+							<span style="height:30px; line-height:30px; color:#F00;font-weight:bold;">注：表单名称一旦保存不能再更改</span>
+						</div>
 						<@ms.hidden name="cmId" value="${contentModel.cmId}"  />
-						<@ms.col size="12"></@ms.col>
-						<@ms.col style="width:15%;"></@ms.col>
-						<@ms.col size="4">
-		    				<@ms.button class="btn btn-primary updateContentModel" value="更新表单" />
-		    			</@ms.col>
+						<div class="form-group">	
+							<label for="" style="width:9%"></label>
+							<@ms.button class="btn btn-primary updateContentModel" value="更新模型" />		    			
+						</div>	    			
 	    			</@ms.form>
 				<#else>
 					<@ms.form  name="saveForm" class="contentModelFrom" isvalidation=true action="${base}/manager/diy/form/save.do">
-						<!--提示文字-->
-						<@ms.col  style="text-align: right; width:15%;">模型名称</@ms.col>
-						<@ms.col size="4">
-							<@ms.text title="名称" size="3"  placeholder="请输入模型名称" name="cmTipsName" validation={"required":"true", "data-bv-notempty-message":"名称不能为空","data-bv-stringlength":"true","data-bv-stringlength-max":"20","data-bv-stringlength-min":"1","data-bv-stringlength-message":"长度介于1-20个字符"}/>
-						</@ms.col>
-						<@ms.col size="12"></@ms.col>
-						<!--表单名称-->
-						<@ms.col  style="text-align: right; width:15%;">模型表名</@ms.col>
-						<@ms.col size="9">
-							<@ms.text  title="名称" size="3"   placeholder="表名只能为英文字符或下划线或数字"  name="cmTableName"  validation={"required":"true", "data-bv-notempty-message":"名称不能为空","data-bv-stringlength":"true","data-bv-stringlength-max":"13","data-bv-stringlength-min":"1","data-bv-stringlength-message":"长度介于1-13个字符","data-bv-regexp":"true","data-bv-regexp-regexp":'^[A-Za-z0-9_]+$',"data-bv-regexp-message":"表单名称只能由英文字母，数字，下划线组成!"} style="width:30%;"/>
-							<span style=" height:30px; line-height:30px; color:#F00;font-weight:bold;">注：表单名称一旦保存不能再更改</span>
-						</@ms.col>
-						<@ms.col size="12"></@ms.col>
-						<@ms.col style="width:15%;"></@ms.col>
-						<@ms.col size="4">
-		    				<@ms.button class="btn btn-primary saveContentModel" value="保存表单" />
-		    			</@ms.col>
+						<!--模型名称-->
+						<@ms.text label="模型名称" labelStyle="width:9%" style="width:25%" title="名称" size="3" value="" placeholder="请输入模型名称" name="cmTipsName" validation={"required":"true", "data-bv-notempty-message":"名称不能为空","data-bv-stringlength":"true","data-bv-stringlength-max":"20","data-bv-stringlength-min":"1","data-bv-stringlength-message":"长度介于1-20个字符"} />
+						<!--模型表名-->
+						<@ms.text label="模型表名" labelStyle="width:9%" style="width:25%" title="名称" size="3" value="" placeholder="表名只能为英文字符或下划线或数字" name="cmTableName" validation={"required":"true", "data-bv-notempty-message":"名称不能为空","data-bv-stringlength":"true","data-bv-stringlength-max":"13","data-bv-stringlength-min":"1","data-bv-stringlength-message":"长度介于1-13个字符"}/>
+						<div class="form-group">	
+							<label for="" style="width:9%"></label>
+							<span style="height:30px; line-height:30px; color:#F00;font-weight:bold;">注：表单名称一旦保存不能再更改</span>
+						</div>
+						<div class="form-group">	
+							<label for="" style="width:9%"></label>
+							<@ms.button class="btn btn-primary saveContentModel" value="保存模型" />
+						</div>
 		    		</@ms.form>
 				</#if>
 				</@ms.col>
 			</@ms.row>		
 			<#if contentModel?has_content>
-			<hr>
+				<hr>
 				<div class="form-group">
 					<label class="col-md-2 control-label col-xs-2 "><h4><strong>字段信息</strong></h4></label>
 				</div>
@@ -313,7 +301,7 @@
 						}else {
 							alert("更新失败");							
 						}
-						$(".updateContentModel").text("更新");
+						$(".updateContentModel").text("更新模型");
 						$(".updateContentModel").attr("disabled",false);
 					}});
 				}
@@ -349,7 +337,7 @@
 				var fieldFieldName = $(this).val();
 				var fieldCmId = $("input[name='fieldCmid']").val();
 				if(oldFielName!=$("input[name='fieldFieldName']").val() && $("input[name='fieldFieldName']").val()!=""){
-					var URL="${base}/manager/cms/field/"+fieldFieldName+"/checkFieldNameExist.do"
+					var URL="${base}/manager/cms/field/"+fieldFieldName+"/checkFieldNameExist.do?fieldCmId="+fieldCmId;
 					$(this).request({url:URL,method:"post",type:"json",data:fieldCmId,func:function(msg) {
 						if(msg){
 				     		alert("字段名已存在，请再次输入");
@@ -389,13 +377,8 @@
 						success: function(msg){
 							var fieldCmid = $("input[name='fieldCmid']").val();
 							if(msg.result){
-								if($("#saveOrUpdate").html()=="更新中"){
-									alert("更新成功");
-									location.href="${base}/manager/cms/contentModel/"+fieldCmid+"/edit.do";
-								}else{
-									alert("保存成功");
-									location.href="${base}/manager/cms/contentModel/"+fieldCmid+"/edit.do";
-								}						
+								alert(btnText+"成功");
+								location.href="${base}/manager/cms/contentModel/"+fieldCmid+"/edit.do";					
 							}else{
 								alert(msg.resultMsg);
 								$("#saveOrUpdate").html(btnText);
@@ -428,12 +411,9 @@
 			     	
 				}});			
 				$("#openModalTitle").text("更新字段");
-			});
-			
+			});		
 			queryFieldList();
-		<#else>
-		
-			
+		<#else>			
 			//新增自定义模型
 			function saveContentModel(){
 				//对自定义模型的表单进行验证
@@ -445,24 +425,20 @@
 						dataType:"json",
 						data: $(".contentModelFrom").serialize(),
 						beforeSend:function() {
-			   				$(".saveContentModel").html("正在保存...");
+			   				$(".saveContentModel").html("保存中");
 			   				$(".saveContentModel").attr("disabled","disabled");
-			   				$(".saveContentModel").unbind("click");
 			  			 },
 						success: function(msg){
 							if(msg.result){
 								$("input[name='cmTableName']").attr("readonly","readonly");
 								$("input[name='fieldCmid']").val(msg.resultMsg);
-								alert("表单信息保存成功");
-								$(".saveContentModel").html("更新表单");
-								$(".saveContentModel").removeAttr("disabled");
-							 	$(".saveContentModel").bind("click",function(){
-							 		updateContentModel();
-							 	});	
+								alert("保存成功");
 								location.href="${base}/manager/cms/contentModel/"+msg.resultMsg+"/edit.do";
 							}else{
 								alert(msg.resultMsg);
+								$(".saveContentModel").html("保存模型");	
 							}
+							$(".saveContentModel").removeAttr("disabled");
 						}
 					});
 				}
@@ -489,6 +465,5 @@
 		</#if>
 		});
 	</script>
-
 </body>
 </html>

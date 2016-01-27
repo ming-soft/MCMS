@@ -33,9 +33,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSONArray;
 import com.mingsoft.basic.action.BaseAction;
 import com.mingsoft.basic.biz.ISystemSkinBiz;
+import com.mingsoft.base.constant.SessionConst;
 import com.mingsoft.basic.entity.ManagerSessionEntity;
 import com.mingsoft.basic.entity.SystemSkinEntity;
-import com.mingsoft.base.constant.SessionConst;
 
 /**
  * 后台主题

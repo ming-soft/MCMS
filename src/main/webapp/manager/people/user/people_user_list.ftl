@@ -1,39 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<#include "/manager/include/meta.ftl"/> 
-</head>
-<body>
-<@ms.content>
-	<@ms.contentBody>
-		<@ms.contentNav title="用户管理"/>
-			<@ms.contentPanel>
-				<@ms.form class="searchForm"  name="searchForm" action="${basePath}/manager/people/user/list.do">
-					<@ms.row>
-						<@ms.col size="4">
-							<@ms.text label="昵称" name="peopleUserNickName" value="" title="请输入用户昵称"  placeholder="请输入用户昵称" value="${peopleUserNickName?default('')}"   />			  
-						</@ms.col>
-						<@ms.col size="4">
-							<@ms.text label="真实姓名" name="peopleUserRealName" value="" title="请输入用户昵称"  placeholder="请输入用户昵称" value="${peopleUserRealName?default('')}"   />			  
-						</@ms.col>
-						<@ms.col size="4">
+<@ms.html5>
+	<@ms.nav title="用户管理" back=true></@ms.nav>
+	<@ms.panel>
+				<@ms.searchForm name="searchForm" id="searchForm" action="${basePath}/manager/people/user/list.do">
+							<@ms.text label="昵称" width="150" name="peopleUserNickName"  title="请输入用户昵称"  placeholder="请输入用户昵称" value="${peopleUserNickName?default('')}"   />			  
+							<@ms.text label="真实姓名" width="150" name="peopleUserRealName"  title="请输入用户昵称"  placeholder="请输入用户昵称" value="${peopleUserRealName?default('')}"   />			  
 							<#assign status=[{"id":"1","name":"男"},{"id":"2","name":"女"}]>
-							<@ms.select label="性别" list="status" listValue="name" listKey="id"    name="peopleUserSex" style="width:100%"  default="全部" />
-						</@ms.col>
-						<@ms.col size="4">
+							<@ms.select label="性别" list=status listValue="name" listKey="id" width="150"   name="peopleUserSex"   default="全部" />
 							<#assign status=[{"id":"0","name":"未审核"},{"id":"1","name":"已审核"}]>
-							<@ms.select label="审核状态" list="status" listValue="name" listKey="id"    name="peopleState" style="width:100%"  default="全部" />
-						</@ms.col>
-						<@ms.col size="4">
-							<@ms.date label="注册时间" name="peopleDateTime"  value=""     value="${peopleDateTime?default('')}" readonly="readonly"  />
-						</@ms.col>
-						<@ms.col size="12" style="text-align:right">
-							<button type="button" class="btn btn-primary submit">筛选</button>　 
-							 <button type="button" class="btn reset">清除条件</button>　
-									 <!--button type="button" class="btn btn-default  exportExcel">批量导出&nbsp;<span class="glyphicon glyphicon-export"></span></button-->					
-						</@ms.col>
-					</@ms.row>
-				</@ms.form>
+							<@ms.select label="审核状态" list=status listValue="name" listKey="id"  width="150"  name="peopleState"   default="全部" />
+							<@ms.date label="注册时间" name="peopleDateTime" width="150"    value="${peopleDateTime?default('')}" readonly="readonly"  />
+						<@ms.searchFormButton>
+								<@ms.queryButton id="submitSearch"/>								
+						</@ms.searchFormButton>
+				</@ms.searchForm>
+				
 				<@ms.panelNav>
 					<@ms.panelNavBtnGroup>
 						<@ms.panelNavBtnAdd/>
@@ -71,9 +51,9 @@
 		           		</#if>
 					</@ms.table>
 					<!--分页样式 开始-->
-					<@showPage page=page/>
-			</@ms.contentPanel>
-		</@ms.contentBody>
+					<@ms.showPage page=page/>
+	</@ms.panel>
+</@ms.html5>
 		<!--=================模态框部分开始=================-->
 		<!--删除的模态框开始-->
 		<@ms.modal modalName="peopleInfoModel" title="查看用户状态">
@@ -142,12 +122,11 @@
 		 	</@ms.modalButton>
 		</@ms.modal>
 		<!--=================模态框部分结束=================-->
-</@ms.content>
 	<script>
 		$(function(){
 			//根据条件查询用户
-			$(".submit").click(function() {
-				$("#searchForm").submit();
+			$("#submitSearch").click(function() {
+				$("#searchForm")[0].submit();
 			});
 			//初始化Switch按钮
 			$("input[name='peopleState']").bootstrapSwitch();
@@ -307,5 +286,3 @@
   			  }
 		}
 	</script>	
-</body>
-</html>	

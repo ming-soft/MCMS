@@ -32,8 +32,8 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.mingsoft.basic.entity.ManagerSessionEntity;
 import com.mingsoft.base.constant.SessionConst;
+import com.mingsoft.basic.entity.ManagerSessionEntity;
 
 /**
  * 

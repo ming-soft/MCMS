@@ -41,14 +41,14 @@ import com.mingsoft.basic.biz.IManagerBiz;
 import com.mingsoft.basic.biz.IModelBiz;
 import com.mingsoft.basic.biz.IRoleBiz;
 import com.mingsoft.basic.biz.IRoleModelBiz;
+import com.mingsoft.base.constant.Const;
+import com.mingsoft.base.constant.CookieConst;
+import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.basic.entity.AppEntity;
 import com.mingsoft.basic.entity.ManagerEntity;
 import com.mingsoft.basic.entity.ManagerSessionEntity;
 import com.mingsoft.basic.entity.RoleEntity;
 import com.mingsoft.basic.entity.RoleModelEntity;
-import com.mingsoft.base.constant.Const;
-import com.mingsoft.base.constant.CookieConst;
-import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
 
@@ -309,16 +309,19 @@ public class ManagerAction extends BaseAction {
 			return;
 		}
 		//若数据库中存在该名称且当前名称不为更改前的名称，则属于重名
-		if (!StringUtil.isBlank(managerBiz.countManagerName(manager.getManagerName())) && !manager.getManagerName().equals(oldManagerName)) {
+		if (managerBiz.countManagerName(manager.getManagerName()) >0 && !manager.getManagerName().equals(oldManagerName)) {
 			this.outJson(response, ModelCode.ROLE, false, getResString("err.exist",this.getResString("managerName")));
 			return;
 		}		
+		System.out.println("============" + managerBiz.countManagerName(manager.getManagerName()));
 		//验证表单
 		if (!this.checkForm(manager, response)) {
 			return;
 		}
 		int websiteID = 0;int managerId = 0;
 		String basicId = request.getParameter("basicId");
+		
+		
 		//加密密码
 		// 新增网站时添加管理员
 		if (!StringUtil.isBlank(basicId)) {
@@ -338,22 +341,47 @@ public class ManagerAction extends BaseAction {
 				website.setAppManagerId(managerId);
 				appBiz.updateEntity(website);
 			} else {
-				role.setRoleName(manager.getManagerName());
-				managerId = managerBiz.queryManagerByManagerName(manager.getManagerName()).getManagerId();
-				role.setRoleManagerId(managerId);
-				//更新角色
-				this.saveOrUpdateRole(role, request, response, false);
+				manager = managerBiz.queryManagerByManagerName(manager.getManagerName());
+				if(manager==null){
+					return;
+				}
+				//查询当前用户所需的角色id
+				int roleId = manager.getManagerRoleID();
+				//判断当前用户角色
+				role = (RoleEntity) roleBiz.getEntity(roleId);
+				String modelId[] = request.getParameterValues("modelIds");
+				if(!StringUtil.isBlank(modelId)){
+					//将获取的模块ID分割成数组
+					modelId = modelId[0].split(","); 
+				} 
+				//若没有选择功能模块，则提示错误，并将其数据库中该已存在的模块删除
+				if(StringUtil.isBlank(modelId[0])){
+					roleModelBiz.deleteEntity(roleId);
+					return;
+				} 
+				//为该角色增加/更新功能模块
+				List<RoleModelEntity> roleModelList =new ArrayList<RoleModelEntity>();
+				for(int i=0; i<modelId.length; i++){
+					RoleModelEntity roleModel = new RoleModelEntity();
+					roleModel.setModelId(Integer.parseInt(modelId[i]));
+					roleModel.setRoleId(roleBiz.queryRoleByRoleName(role.getRoleName(),role.getRoleManagerId()).getRoleId());
+					roleModelList.add(roleModel);
+				}
+				//修改该角色所拥有的模块数据
+				roleModelBiz.deleteEntity(roleId);
+				roleModelBiz.updateEntity(roleModelList);
 			}
 			//设置管理员角色ID为自身角色ID
 			manager.setManagerRoleID(roleBiz.queryRoleByRoleName(role.getRoleName(), role.getRoleManagerId()).getRoleId());
-			manager.setManagerId(managerId);
 			if(!StringUtil.isBlank(manager.getManagerPassword())){
 				manager.setManagerPassword(StringUtil.Md5(oldPassword));
 				//更新管理员
 				managerBiz.updateEntity(manager);
 			}
 		} else {
-			manager.setManagerPassword(StringUtil.Md5(manager.getManagerPassword()));
+			if (!StringUtil.isBlank(manager.getManagerPassword())) {
+				manager.setManagerPassword(StringUtil.Md5(manager.getManagerPassword()));
+			}
 			if(flag){
 					managerBiz.saveEntity(manager);					
 			} else {
@@ -393,6 +421,7 @@ public class ManagerAction extends BaseAction {
 	@RequestMapping("/update")
 	@ResponseBody
 	public void update(@ModelAttribute ManagerEntity manager, HttpServletRequest request, HttpServletResponse response) {
+		
 		this.saveOrUpdateManager(false, manager, request, response);
 	}
 

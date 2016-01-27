@@ -21,7 +21,9 @@ The MIT License (MIT) * Copyright (c) 2015 铭飞科技
 
 package com.mingsoft.basic.entity;
 
+import com.mingsoft.base.constant.e.TableCloumnEnum;
 import com.mingsoft.base.entity.BaseEntity;
+import com.mingsoft.basic.constant.e.ContentModelFieldEnum;
 import com.mingsoft.basic.constant.e.DiyFormFieldEnum;
 
 /**
@@ -70,12 +72,38 @@ public class DiyFormFieldEntity extends BaseEntity{
 	private String diyFormFieldTipsName;
 	
 	/**
+	 * 长度
+	 */
+	private int diyFormFieldLength = 1;
+	
+	/**
 	 * 字段类型
 	 * 参考：DiyFormFieldEnum
 	 */
 	private int diyFormFieldType;
 
+	
+	
+	
+	public int getDiyFormFieldLength() {
+		return diyFormFieldLength;
+	}
+
+	public void setDiyFormFieldLength(int diyFormFieldLength) {
+		this.diyFormFieldLength = diyFormFieldLength;
+	}
+
 	public String getDiyFormFieldDefault() {
+		if (this.diyFormFieldType == DiyFormFieldEnum.DATE.toInt()
+				|| this.diyFormFieldType == DiyFormFieldEnum.TEXTAREA.toInt()) {
+			return null;
+		} else if (this.diyFormFieldType == DiyFormFieldEnum.FLOAT.toInt()
+				|| this.diyFormFieldType == DiyFormFieldEnum.INT.toInt()
+				)  {
+			return "0";	
+		}
+				
+
 		return diyFormFieldDefault;
 	}
 
@@ -104,9 +132,27 @@ public class DiyFormFieldEntity extends BaseEntity{
 	}
 
 	public int getDiyFormFieldType() {
+		
 		return diyFormFieldType;
 	}
 
+	
+	public String getDiyFormFieldColumnType() {
+		if (this.getDiyFormFieldType() == DiyFormFieldEnum.DATE.toInt()) {
+			return TableCloumnEnum.DATETIME.toString();
+		} else if (this.getDiyFormFieldType() == DiyFormFieldEnum.FLOAT.toInt()) {
+			return TableCloumnEnum.FLOAT.toString()+"(11)";
+		} else if (this.getDiyFormFieldType() == DiyFormFieldEnum.INT.toInt()) {
+			return TableCloumnEnum.INT.toString()+"(11)";
+		} else if (this.getDiyFormFieldType() == DiyFormFieldEnum.TEXTAREA.toInt()) {
+			return TableCloumnEnum.TEXT.toString();
+		} else {
+			return TableCloumnEnum.VARCHAR.toString()+"(100)";
+		}
+
+	}
+
+	
 	public void setDiyFormFieldDefault(String diyFormFieldDefault) {
 		this.diyFormFieldDefault = diyFormFieldDefault;
 	}

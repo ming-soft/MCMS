@@ -42,10 +42,11 @@ import com.mingsoft.basic.action.BaseAction;
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.basic.entity.ManagerSessionEntity;
 import com.mingsoft.cms.biz.IColumnBiz;
-import com.mingsoft.cms.biz.IFieldBiz;
+import com.mingsoft.basic.biz.IFieldBiz;
 import com.mingsoft.cms.biz.ISearchBiz;
+import com.mingsoft.cms.constant.Const;
 import com.mingsoft.cms.entity.ColumnEntity;
-import com.mingsoft.cms.entity.FieldEntity;
+import com.mingsoft.basic.entity.FieldEntity;
 import com.mingsoft.cms.entity.SearchEntity;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
@@ -86,7 +87,7 @@ import com.mingsoft.util.StringUtil;
  * </p>
  */
 @Controller
-@RequestMapping("/manager/cms/search")
+@RequestMapping("/manager/search")
 public class SearchAction extends BaseAction {
 
 	/**
@@ -110,7 +111,7 @@ public class SearchAction extends BaseAction {
 	/**
 	 * 搜索列表路径
 	 */
-	private final static String PAGE_URL = "/manager/cms/search/list.do";
+	private final static String PAGE_URL = "/manager/search/list.do";
 	
 	/**
 	 * 跳转至创建搜索页面
@@ -118,12 +119,12 @@ public class SearchAction extends BaseAction {
 	 * @param request 请求
 	 * @return 返回页面
 	 */
-	@RequestMapping("/add")
-	public String add(ModelMap model ,HttpServletRequest request){
- 		List<ColumnEntity> columnList = columnBiz.queryColumnListByWebsiteId(getManagerBySession(request).getBasicId());
+	@RequestMapping("/{searchId}/searchCode")
+	public String searchCode(@PathVariable int searchId,ModelMap model ,HttpServletRequest request){
+ 		List<ColumnEntity> columnList = columnBiz.queryColumnListByWebsiteId(this.getAppId(request));
  		model.addAttribute("columnList", JSONObject.toJSON(columnList).toString());
-		model.addAttribute("flag", true);
-		return "/manager/cms/search/search";
+ 		model.addAttribute("searchId",searchId);
+		return "/manager/search/search_code";
 	}
 	
 	/**
@@ -173,6 +174,7 @@ public class SearchAction extends BaseAction {
 	 * @param response 响应
 	 */
 	@RequestMapping("/save")
+	@ResponseBody
 	public void save(@ModelAttribute SearchEntity search,HttpServletRequest request,HttpServletResponse response){
 		if(this.validateForm(search, response)){
 			ManagerSessionEntity managerSession = getManagerBySession(request);
@@ -195,13 +197,14 @@ public class SearchAction extends BaseAction {
 		if(!StringUtil.isBlank(request.getParameter("searchId"))){
 			searchId = Integer.valueOf(request.getParameter("searchId"));
 		}
+		
 		//获取页面勾选的字段信息
 		Map<String, String[]> field = new HashMap<String,String[]>();
 		field = request.getParameterMap();
 		int basicCategoryId = 0;
 		int cmId = 0;
-		Map<String, String> articleField = getMapByProperties("com/mingsoft/cms/resources/article_field");
-		Map<String, String> articleType = getMapByProperties("com/mingsoft/cms/resources/article_attribute");
+		Map<String, String> articleField = getMapByProperties(Const.ARTICLE_FIELD_RESOURCE);
+		Map<String, String> articleType = getMapByProperties(Const.ARTICLE_ATTRIBUTE_RESOURCE);
 		List<Map<String,String>> listFieldName = new ArrayList<Map<String,String>>();	
 		for(Entry<String, String[]> entry : field.entrySet()){
 			String key = entry.getKey();
@@ -241,7 +244,7 @@ public class SearchAction extends BaseAction {
 		model.addAttribute("websiteId", managerSession.getBasicId());
 		model.addAttribute("listFieldName", listFieldName);
 		model.addAttribute("basicCategoryId",basicCategoryId);
-		return "manager/cms/search/search_field";
+		return "/manager/search/search_field";
 	}
 
 	
@@ -261,7 +264,7 @@ public class SearchAction extends BaseAction {
 		List<BaseEntity> searchList = searchBiz.query(appId, page);
 		model.addAttribute("searchList",searchList);
 		model.addAttribute("page", page);
-		return "manager/cms/search/search_list";
+		return "manager/search/search_list";
 	}
 	
 	/**
@@ -287,17 +290,13 @@ public class SearchAction extends BaseAction {
 	 * @return 返回更新搜索页面
 	 */
 	@RequestMapping("/{searchId}/edit")
-	public String edit(@PathVariable int searchId,ModelMap model,HttpServletRequest request){
+	@ResponseBody
+	public void edit(@PathVariable int searchId,HttpServletRequest request,HttpServletResponse response) {
 		if(searchId == 0){
-			return "/manager/searchId/list";
+			this.outJson(response, false);
 		}
-		List<ColumnEntity> columnList = columnBiz.queryColumnListByWebsiteId(getManagerBySession(request).getBasicId());
- 		model.addAttribute("columnList", JSONObject.toJSON(columnList).toString());
 		SearchEntity search = (SearchEntity)searchBiz.getEntity(searchId);
-		model.addAttribute("search",search);
-		model.addAttribute("flag", false);
-		return "/manager/cms/search/search";
-				
+		this.outJson(response, search);
 	}
 	
 	/**

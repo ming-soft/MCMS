@@ -19,7 +19,7 @@ The MIT License (MIT) * Copyright (c) 2015 铭飞科技
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.mingsoft.cms.action;
+package com.mingsoft.basic.action;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,13 +33,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.mingsoft.base.action.BaseAction;
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.basic.entity.ManagerEntity;
-import com.mingsoft.cms.biz.IContentModelBiz;
-import com.mingsoft.cms.entity.ContentModelEntity;
+import com.mingsoft.basic.biz.IContentModelBiz;
+import com.mingsoft.basic.biz.IFieldBiz;
 import com.mingsoft.base.constant.CookieConst;
 import com.mingsoft.base.constant.SessionConst;
+import com.mingsoft.basic.entity.ContentModelEntity;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
 /**
@@ -78,8 +80,8 @@ import com.mingsoft.util.StringUtil;
  * </p>
  */
 @Controller
-@RequestMapping("/manager/cms/contentModel/")
-public class ContentModelAction extends BaseAction{
+@RequestMapping("/manager/contentModel/")
+public class ContentModelAction extends com.mingsoft.basic.action.BaseAction{
 	
 	/**
 	 * 自定义表前缀
@@ -96,9 +98,10 @@ public class ContentModelAction extends BaseAction{
 	private IContentModelBiz contentModelBiz;
 	
 	/**
-	 * 表单列表路径
+	 * 注入字段业务层
 	 */
-	private final static String PAGE_URL="/manager/cms/contentModel/list.do";
+	@Autowired
+	private IFieldBiz fieldBiz;
 	
 	/**
 	 * 表单列表
@@ -115,12 +118,12 @@ public class ContentModelAction extends BaseAction{
 			pageNo = "1";
 		}
 		int recordCount = contentModelBiz.getContentModelByManagerId(managerId);
-		PageUtil page = new PageUtil(StringUtil.string2Int(pageNo), recordCount, getUrl(request)+ PAGE_URL);
+		PageUtil page = new PageUtil(1000);
 		this.setCookie(request, response, CookieConst.PAGENO_COOKIE, pageNo);
 		List<BaseEntity> listContentModel = contentModelBiz.queryPageByManagerId(page, "CM_ID", false,managerId);
 		model.addAttribute("listContentModel", listContentModel);
 		model.addAttribute("page", page);
-		return "/manager/cms/form/form_list";
+		return "/manager/content_model/content_model_list";
 	}
 	
 	/**
@@ -129,18 +132,19 @@ public class ContentModelAction extends BaseAction{
 	 * @param request 请求
 	 * @param response 响应
 	 */
-	@RequestMapping("/{cmId}/delete")
+	@RequestMapping("/delete")
 	@ResponseBody
-	public int delete(@PathVariable int cmId, HttpServletRequest request) {
-		int pageNo = 1;
-		if (cmId != 0) {
-			ContentModelEntity contentModel = (ContentModelEntity) contentModelBiz.getEntity(cmId);
-			contentModelBiz.dropTable(contentModel.getCmTableName());
-			contentModelBiz.deleteEntity(cmId);
-			//判断当前页码
-			this.getHistoryPageNoByCookie(request);
+	public void delete(HttpServletRequest request,HttpServletResponse response) {
+		String cmIds = request.getParameter("cmId");
+		if (!StringUtil.isBlank(cmIds) && StringUtil.isIntegers(cmIds.split(","))) {
+			Integer[] ids = StringUtil.stringsToIntegers(cmIds.split(","));
+			for (int i=0;i<ids.length;i++) {
+				ContentModelEntity cme =  (ContentModelEntity)contentModelBiz.getEntity(ids[i]);
+				contentModelBiz.dropTable(cme.getCmTableName());
+				contentModelBiz.deleteEntity(ids[i]);
+			}
+			this.outJson(response, true); 
 		}
-		return pageNo;
 	}
 	
 	/**
@@ -150,9 +154,8 @@ public class ContentModelAction extends BaseAction{
 	 */
 	@RequestMapping("/add")
 	public String add(ModelMap model) {
-		model.addAttribute("cmId", 0);
-		model.addAttribute("flag", true);
-		return "/manager/cms/form/form";
+		model.addAttribute("contentModel",new ContentModelEntity());
+		return "/manager/content_model/content_model";
 	}
 	
 	/**
@@ -161,13 +164,11 @@ public class ContentModelAction extends BaseAction{
 	 * @return 编辑表单页面
 	 */
 	@RequestMapping("/{cmId}/edit")
-	public String edit(@PathVariable int cmId, ModelMap model) {
+	@ResponseBody
+	public void edit(@PathVariable int cmId, HttpServletResponse response) {
 		//获取表单实体
 		ContentModelEntity contentModel = (ContentModelEntity) contentModelBiz.getEntity(cmId);
-		model.addAttribute("contentModel", contentModel);
-		model.addAttribute("cmId", cmId);
-		model.addAttribute("flag", false);
-		return "/manager/cms/form/form";
+		this.outJson(response, JSONObject.toJSONString(contentModel));
 	}
 	
 	
@@ -182,17 +183,24 @@ public class ContentModelAction extends BaseAction{
 	public void save(@ModelAttribute ContentModelEntity contentModel,HttpServletRequest request, HttpServletResponse response){
 		// 保存前判断数据是否合法
 		if(!StringUtil.checkLength(contentModel.getCmTipsName(), 1,30)){
-			this.outJson(response, null, false,getResString("err.length",this.getResString("cmTipsName"),"1","30"));
+			this.outJson(response, null, false,getResString("err.length",this.getResString("content.model.tips.name"),"1","30"));
 			return;
 		}
-		if(!StringUtil.checkLength(contentModel.getCmTableName(), 1,20)){
-			this.outJson(response, null, false,getResString("err.length",this.getResString("cmTableName"),"1","20"));
+		if (!StringUtil.checkLength(contentModel.getCmTableName(), 1,20)) {
+			this.outJson(response, null, false,getResString("err.length",this.getResString("content.model.table.name"),"1","20"));
 			return;
 		}
+		
 		// 获取当前管理员实体
 		ManagerEntity managerSession = (ManagerEntity) getSession(request, SessionConst.MANAGER_ESSION);
 		//获取当前管理员Id
 		int managerId = managerSession.getManagerId();
+		if (contentModelBiz.getContentModelByTableName(TABLE_NAME_PREFIX+contentModel.getCmTableName()+TABLE_NAME_SPLIT+managerId)!=null) {
+			this.outJson(response, null, false,getResString("err.exist",this.getResString("content.model")));
+			return;
+		}
+		
+		
 		contentModel.setCmManagerId(managerId);
 		// 新增表名为"cms_"+用户填写的表名+"_"+站点id
 		contentModel.setCmTableName(TABLE_NAME_PREFIX+contentModel.getCmTableName()+TABLE_NAME_SPLIT+managerId);
@@ -215,7 +223,7 @@ public class ContentModelAction extends BaseAction{
 	public void update(@ModelAttribute ContentModelEntity contentModel,HttpServletRequest request, HttpServletResponse response){
 		// 保存前判断数据是否合法
 		if(!StringUtil.checkLength(contentModel.getCmTipsName(), 1,30)){
-			this.outJson(response, null, false,getResString("err.length",this.getResString("cmTipsName"),"1","30"));
+			this.outJson(response, null, false,getResString("err.length",this.getResString("content.model.tips.name"),"1","30"));
 			return;
 		}
 		// 获取当前管理员实体
@@ -228,8 +236,8 @@ public class ContentModelAction extends BaseAction{
 	}
 	
 	/**
-	 * 判断字段名是否存在重复
-	 * @param fieldFieldName :字段名
+	 * 判断自定义模型表名是否重复
+	 * @param cmTableName 表明
 	 * @param request
 	 * @return true:存在重复,false:不存在重复
 	 */

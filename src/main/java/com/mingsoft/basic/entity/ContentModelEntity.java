@@ -19,14 +19,9 @@ The MIT License (MIT) * Copyright (c) 2015 铭飞科技
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.mingsoft.cms.dao;
-
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
-import com.mingsoft.base.dao.IBaseDao;
+package com.mingsoft.basic.entity;
 import com.mingsoft.base.entity.BaseEntity;
+
 
 /**
  * 
@@ -43,7 +38,7 @@ import com.mingsoft.base.entity.BaseEntity;
  * Company:景德镇铭飞科技有限公司
  * </p>
  * 
- * @author 姓名 史爱华
+ * @author 姓名：张敏
  * 
  * @version 300-001-001
  * 
@@ -52,7 +47,7 @@ import com.mingsoft.base.entity.BaseEntity;
  * </p>
  *  
  * <p>
- * Comments:字段管理持久化层  || 继承IBaseDao持久化层
+ * Comments:内容模型实体，指表单类型，继承BaseEntity
  * </p>
  *  
  * <p>
@@ -60,38 +55,94 @@ import com.mingsoft.base.entity.BaseEntity;
  * </p>
  *
  * <p>
- * Modification history:
+ * Modification history:暂无
  * </p>
  */
-public interface IContentModelDao extends IBaseDao{
+public class ContentModelEntity extends BaseEntity{
+ 
+	/**
+	 * 自增长ID
+	 */
+	private int cmId;
 	
 	/**
-	 * 根据内容模型的表名查找实体
-	 * @param cmTableName 内容模型表名
+	 * 表名提示文字
 	 */
-	public BaseEntity getContentModelByTableName(String cmTableName);
+	private String cmTipsName;
 	
 	/**
-	 * 根据管理员Id查找内容模型的总数
-	 * @param cmManagerId 管理员id
-	 * @return 内容模型总数
+	 * 表单名称
 	 */
-	public int getContentModelByManagerId(int cmManagerId);
+	private String cmTableName;
 	
 	/**
-	 * 根据管理员id查找内容模型实体
-	 * @param cmManagerId 管理员id
-	 * @return 内容模型列表集合
+	 * 表单所属的管理员id
 	 */
-	public List<BaseEntity> queryByManagerId(int cmManagerId);
+	private int cmManagerId;
+
+	/**
+	 * 获取cmId
+	 * @return cmId
+	 */
+	public int getCmId() {
+		return cmId;
+	}
+
+	/**
+	 * 设置cmId
+	 * @param cmId
+	 */
+	public void setCmId(int cmId) {
+		this.cmId = cmId;
+	}
+
+	/**
+	 * 获取cmTipsName
+	 * @return cmTipsName
+	 */
+	public String getCmTipsName() {
+		return cmTipsName;
+	}
+
+	/**
+	 * 设置cmTipsName
+	 * @param cmTipsName
+	 */
+	public void setCmTipsName(String cmTipsName) {
+		this.cmTipsName = cmTipsName;
+	}
+
+	/**
+	 * 获取cmTableName
+	 * @return cmTableName
+	 */
+	public String getCmTableName() {
+		return cmTableName;
+	}
+
+	/**
+	 * 设置cmTableName
+	 * @param cmTableName
+	 */
+	public void setCmTableName(String cmTableName) {
+		this.cmTableName = cmTableName;
+	}
 	
 	/**
-	 * 分页查询指定管理员的表单内容模型
-	 * @param entity 实体
-	 * @param page Map对象
-	 * @param order 排序方式,true:asc;fales:desc
-	 * @param cmManagerId 管理员id
-	 * @return 内容模型列表集合
+	 * 获取该表单所属的管理员id
+	 * @return
 	 */
-	List<BaseEntity> queryPageByManagerId(@Param("pageNo")int pageNo,@Param("pageSize")int pageSize,@Param("orderBy")String orderBy,@Param("order") boolean order,@Param("cmManagerId") int cmManagerId);
+	public int getCmManagerId() {
+		return cmManagerId;
+	}
+	
+	/**
+	 * 设置该表单所属的管理员id
+	 * @param cmManagerId
+	 */
+	public void setCmManagerId(int cmManagerId) {
+		this.cmManagerId = cmManagerId;
+	}
+	
+	
 }

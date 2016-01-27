@@ -144,6 +144,11 @@ public class ChannelParser extends IParser {
 	 * sibling=false:当该分类下没有子分类时则不显示
 	 */
 	public static final String CHANNEL_TYP_SIBLING="sibling";
+	
+	/**
+	 * 分类显示的个数
+	 */
+	public static final String CHANNEL_TYPE_SIZE = "size";
 
 	/**
 	 * 当前栏目

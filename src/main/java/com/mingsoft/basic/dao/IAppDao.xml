@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mingsoft.basic.dao.IAppDao">
+	 <cache />
 	<!-- 字段绑定 开始 -->
 	<resultMap type="com.mingsoft.basic.entity.AppEntity" id="resultMap">
 		<id column="APP_ID" property="appId" /><!-- 与website表绑定id -->
@@ -22,6 +23,7 @@
 	<!-- 添加website信息开始 -->
 	<insert id="saveEntity" parameterType="com.mingsoft.base.entity.BaseEntity" flushCache="true">
 		insert into app
+
 		<!-- 添加表字段 -->
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="appName!= null">APP_NAME,</if>
@@ -33,9 +35,11 @@
 			<if test="appStyle!= null">APP_STYLE,</if><!-- 添加模板风格 -->
 			<if test="appUrl!= null">APP_URL,</if><!-- 添加域名 -->
 			<if test="appManagerId &gt;0 ">APP_MANAGERID,</if><!-- 添加管理员id -->
+			<if test="appMobileStyle != null">APP_MOBILE_STYLE,</if><!-- 添加手机端模版 -->
 			<if test="appPayDate != null">APP_PAY_DATE,</if><!-- 应用续费时间 -->
 			<if test="appPay != null">APP_PAY,</if><!-- 应用费用清单 -->
 		</trim>
+
 		<!-- 注入控制层字段 -->
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="appName !=  null">#{appName},</if>

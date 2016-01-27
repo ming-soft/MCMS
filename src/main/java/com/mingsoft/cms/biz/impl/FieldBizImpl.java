@@ -31,10 +31,10 @@ import org.springframework.stereotype.Service;
 import com.mingsoft.base.dao.IBaseDao;
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.basic.biz.impl.BasicBizImpl;
+import com.mingsoft.basic.dao.IFieldDao;
+import com.mingsoft.basic.entity.FieldEntity;
 import com.mingsoft.cms.biz.IFieldBiz;
 import com.mingsoft.cms.constant.e.FieldSearchEnum;
-import com.mingsoft.cms.dao.IFieldDao;
-import com.mingsoft.cms.entity.FieldEntity;
 import com.mingsoft.util.PageUtil;
 
 /**
@@ -72,7 +72,8 @@ import com.mingsoft.util.PageUtil;
  * Modification history:暂无
  * </p>
  */
-@Service("fieldBiz")
+@Deprecated
+@Service("cmsfieldBiz")
 public class FieldBizImpl extends BasicBizImpl implements IFieldBiz{
 
 	/**

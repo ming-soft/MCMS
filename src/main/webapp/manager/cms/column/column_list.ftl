@@ -34,7 +34,7 @@
 					单页
 				{{/if}}
 			</td>
-			<td style="width:20%">${columnRegexConstant}{{= columnPath}}/index.html</td>
+			<td style="width:20%">{ms:global.url/}{{= columnPath}}/index.html</td>
 			<td style="width:10%">{{= columnListUrl}}</td>
 			<td style="width:10%">
 				{{if columnType==1 }}

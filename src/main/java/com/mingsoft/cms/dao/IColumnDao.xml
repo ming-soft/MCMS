@@ -114,6 +114,7 @@
 		select
 		<include refid="category_column_list"/>
 		from category where category_managerid = #{categoryManagerId} and category_modelid = #{categoryModelId};
+		
 	</select>
 	<!-- 根据ID查询结束 -->
 	
@@ -134,6 +135,9 @@
 		 and ca.category_modelId=#{modelId}
 		</if> 
 		order by ca.CATEGORY_SORT desc,ca.category_id desc
+		<if test="size!=null">
+			limit 0,#{size}
+		</if>
 	</select>
 	<!-- 根据站点Id查询栏目，返回该父栏目ID为categoryCategoryId的栏目集合结束 -->
 	

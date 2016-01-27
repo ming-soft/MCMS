@@ -115,7 +115,7 @@ public class ManagerBizImpl extends BaseBizImpl implements IManagerBiz {
 	}
 	
 	@Override
-	public String countManagerName(String managerName){
+	public int countManagerName(String managerName){
 		// TODO Auto-generated method stub
 		return managerDao.countManagerName(managerName);
 	}

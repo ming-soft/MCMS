@@ -178,30 +178,17 @@
 				   },
 				   success: function(msg){ 
 			   			if(msg) {
-			   				//如果连接成功则进行表单禁用和数据展示
-			   				if(msg.result){
-			   					$.fn.zTree.init($("#remoteColumnTree"), setting, msg);$.fn.zTree.init($("#remoteColumnTree"), setting, msg);
-			   					$("#connection").hide();
-			   					$("#close").show();
-			   					
-			   					//禁用所有的属于表单
-			   					$("input").attr("readonly","readonly");
-			   				}else{
-			   					alert("连接不成功，请重新输入");
-			   					$("#connection").text("连接");
-			   				}
-			   				
+			   				$("#connection").hide();
+			   				$("#close").show();
+			   				$.fn.zTree.init($("#remoteColumnTree"), setting, msg);
 			   				$("#startImport").removeAttr("disabled")
 			   				
-			   				
+			   				//禁用所有的属于表单
+			   				$("input").attr("readonly","readonly");
 			   			} else {
 			   				alert("连接不成功，请重新输入");
 			   			}
-				   },
-				   error:function(){ 
-     				 alert("操作远程数据库发生异常");
-     				 $("#connection").text("连接"); 
-   				  } 
+				   }
 				});
 			});
 			

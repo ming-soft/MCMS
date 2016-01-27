@@ -64,6 +64,7 @@ import com.mingsoft.util.PageUtil;
  *          Modification history:
  *          </p>
  */
+@Deprecated
 public interface IContentModelBiz extends IBaseBiz{
 	
 	/**

@@ -29,8 +29,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.mingsoft.base.entity.BaseEntity;
-import com.mingsoft.cms.biz.IFieldBiz;
-import com.mingsoft.cms.entity.FieldEntity;
+import com.mingsoft.basic.biz.IFieldBiz;
+import com.mingsoft.basic.entity.FieldEntity;
 import com.mingsoft.parser.IParser;
 import com.mingsoft.util.StringUtil;
 

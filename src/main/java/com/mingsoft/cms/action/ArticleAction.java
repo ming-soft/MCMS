@@ -51,15 +51,16 @@ import com.mingsoft.base.entity.ListJson;
 import com.mingsoft.basic.entity.BasicCategoryEntity;
 import com.mingsoft.cms.biz.IArticleBiz;
 import com.mingsoft.cms.biz.IColumnBiz;
-import com.mingsoft.cms.biz.IContentModelBiz;
-import com.mingsoft.cms.biz.IFieldBiz;
+import com.mingsoft.cms.constant.Const;
 import com.mingsoft.cms.constant.e.ColumnTypeEnum;
-import com.mingsoft.cms.entity.ArticleEntity;
-import com.mingsoft.cms.entity.ColumnEntity;
-import com.mingsoft.cms.entity.ContentModelEntity;
-import com.mingsoft.cms.entity.FieldEntity;
+import com.mingsoft.basic.biz.IContentModelBiz;
+import com.mingsoft.basic.biz.IFieldBiz;
 import com.mingsoft.base.constant.CookieConst;
 import com.mingsoft.base.constant.ModelCode;
+import com.mingsoft.cms.entity.ArticleEntity;
+import com.mingsoft.cms.entity.ColumnEntity;
+import com.mingsoft.basic.entity.ContentModelEntity;
+import com.mingsoft.basic.entity.FieldEntity;
 import com.mingsoft.parser.IParserRegexConstant;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
@@ -138,7 +139,7 @@ public class ArticleAction extends BaseAction {
 	 * @return
 	 */
 	public List<Map.Entry<String, String>> articleType() {
-		Map<String, String> map = getMapByProperties("com/mingsoft/cms/resources/article_attribute");
+		Map<String, String> map = getMapByProperties(Const.ARTICLE_ATTRIBUTE_RESOURCE);
 		Set<Entry<String, String>> set = map.entrySet();
 		List<Map.Entry<String, String>> articleType = new ArrayList<Map.Entry<String, String>>();
 		for (Iterator<Entry<String, String>> it = set.iterator(); it.hasNext();) {
@@ -183,10 +184,10 @@ public class ArticleAction extends BaseAction {
 			keyword = null;
 		}
 		// 获取站点id
-		int websiteId =  this.getAppId(request);
+		int appId =  this.getAppId(request);
 		
 		// 查询数据表中记录集合总数
-		int count = articleBiz.count(websiteId, categoryId, articleType, null,keyword);
+		int count = articleBiz.count(appId, categoryId, articleType, null,keyword);
 		
 		// 当前页面
 		int pageNo = 1;
@@ -199,7 +200,7 @@ public class ArticleAction extends BaseAction {
 		// 分页集合
 		PageUtil page = new PageUtil(pageNo, 20, count, getUrl(request) + url);
 		// 实例化对象
-		List<ArticleEntity> listArticle = articleBiz.queryList(page, "a.ARTICLE_BASICID", true, keyword, articleType, categoryId, websiteId);
+		List<ArticleEntity> listArticle = articleBiz.queryList(page, "a.ARTICLE_BASICID", true, keyword, articleType, categoryId, appId);
 		
 		// 返回文章类型
 		// 文章属性
@@ -240,10 +241,10 @@ public class ArticleAction extends BaseAction {
 		mode.addAttribute("articleType", articleType());
 		
 		// 站点ID
-		int websiteId = this.getAppId(request);
-		List<ColumnEntity> list = columnBiz.queryAll(websiteId,this.getModelCodeId(request, ModelCode.CMS_COLUMN));
+		int appId = this.getAppId(request);
+		List<ColumnEntity> list = columnBiz.queryAll(appId,this.getModelCodeId(request, ModelCode.CMS_COLUMN));
 		JSONObject ja = new JSONObject();
-		mode.addAttribute("websiteId", websiteId);
+		mode.addAttribute("appId", appId);
 		mode.addAttribute("listColumn", ja.toJSON(list).toString());
 		boolean isEditCategory = false; //新增，不是单篇
 		//获取栏目id
@@ -273,7 +274,7 @@ public class ArticleAction extends BaseAction {
 	@RequestMapping("/save")
 	public void save(@ModelAttribute ArticleEntity article, HttpServletRequest request, HttpServletResponse response) {
 		// 获取站点id
-		int webId = this.getAppId(request);
+		int appId = this.getAppId(request);
 		// 验证文章，文章自由排序，栏目id
 
 		if (fromTest(article, response)) {
@@ -297,19 +298,18 @@ public class ArticleAction extends BaseAction {
 			ColumnEntity column = (ColumnEntity) columnBiz.getEntity(article.getBasicCategoryId());
 			article.setColumn(column);
 			// 添加文章所属的站点id
-			article.setArticleWebId(webId);
+			article.setArticleWebId(appId);
 			//绑定模块编号
 			article.setBasicModelId(this.getModelCodeId(request));
-			// 保存所属应用id
-			article.setBasicAppId(webId);
+			// 保存文章实体
+			
 			String articleType = request.getParameter("articleTypeJson");
-			//判断是否存在自定义栏目属性对象
 			if(!StringUtil.isBlank(articleType)){
 				// 将JSON字符串转换为数组
 				List<BasicCategoryEntity> basicCategoryList = JSONArray.parseArray(articleType, BasicCategoryEntity.class);
 				articleBiz.saveArticle(article, basicCategoryList);
 			}else{
-				// 保存文章信息
+				// 更新文章信息
 				articleBiz.saveBasic(article);
 			}
 			if(column.getColumnType()==ColumnTypeEnum.COLUMN_TYPE_LIST.toInt()) {//列表
@@ -336,7 +336,7 @@ public class ArticleAction extends BaseAction {
 			//
 			
 			if (article.getColumn().getColumnType()==ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {
-				this.outJson(response, ModelCode.CMS_ARTICLE, true, "" + article.getColumn().getCategoryId());
+				this.outJson(response, ModelCode.CMS_ARTICLE, true,"" + article.getColumn().getCategoryId(),"");
 			} else {
 				this.outJson(response, ModelCode.CMS_ARTICLE, true, "" + article.getColumn().getCategoryId(),this.redirectBack(request,false));	
 			}
@@ -400,7 +400,7 @@ public class ArticleAction extends BaseAction {
 	@RequestMapping("/{basicId}/update")
 	public void update(@PathVariable int basicId, @ModelAttribute ArticleEntity article, HttpServletRequest request, HttpServletResponse response) {
 		// 获取站点id
-		int webId =this.getAppId(request);
+		int appId =this.getAppId(request);
 		article.setBasicUpdateTime(new Timestamp(System.currentTimeMillis()));
 		// 文章类型
 		article.setArticleType(request.getParameter("checkboxType"));
@@ -441,10 +441,10 @@ public class ArticleAction extends BaseAction {
 		}
 
 		// 添加文章所属的站点id
-		article.setArticleWebId(webId);
+		article.setArticleWebId(appId);
 		// 设置文章所属的栏目实体
 		article.setColumn(column);
-
+		
 		article.setBasicUpdateTime(new Date());
 		
 		String articleType = request.getParameter("articleTypeJson");
@@ -511,7 +511,7 @@ public class ArticleAction extends BaseAction {
 
 		ArticleEntity articleEntity = null;
 		int appId = this.getAppId(request);
-		model.addAttribute("websiteId", appId);
+		model.addAttribute("appId", appId);
 		if (categoryId > 0) { //分类获取文章
 			articleEntity =  articleBiz.getByCategoryId(categoryId);
 			model.addAttribute("article", articleEntity);
@@ -665,5 +665,46 @@ public class ArticleAction extends BaseAction {
 		}
 		return mapParams;
 	}
-
+	
+	/**
+	 * 通用查询，带关键字，返回json数据
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping("/queryArticle")
+	@ResponseBody
+	public void queryArticle(HttpServletRequest request,HttpServletResponse response){
+		//获取栏目ID
+		String categoryId = request.getParameter("categoryId");
+		int categoryIdInt = 0;
+		if (StringUtil.isInteger(categoryId)) {
+			categoryIdInt = Integer.parseInt(categoryId);
+		}
+		String categoryTitle = request.getParameter("categoryTitle");//栏目名
+		String articleType = request.getParameter("articleType");//文章类型
+		String keyword = request.getParameter("keyword");//关键字
+		//判断关键字是否为null 
+		if(StringUtil.isBlank(keyword)){
+			keyword = null;
+		}
+		String flag = request.getParameter("flag"); // 文章属性
+		String noFlag = request.getParameter("noFlag"); // 文章不允许属性
+		// 获取站点id
+		int appId =  this.getAppId(request);		
+		// 查询数据表中记录集合总数
+		int count = articleBiz.count(appId, categoryIdInt, flag, noFlag,keyword);	
+		// 当前页面
+		int pageNo = this.getPageNo(request);
+		if( !(pageNo>1) ){
+			pageNo = 1;
+		}
+		String url =  "/manager/cms/article/queryArticle.do?categoryTitle="+StringUtil.encodeStringByUTF8(categoryTitle)+"&articleType="+(articleType==null?"":articleType)+"&keyword="+(keyword==null?"":keyword);
+		// 分页集合
+		PageUtil page = new PageUtil(pageNo,count, getUrl(request) + url);
+		// 实例化对象
+		List<ArticleEntity> listArticle = articleBiz.queryList(page, "a.ARTICLE_BASICID", true, keyword, articleType, categoryIdInt, appId);
+		ListJson json = new ListJson(count, listArticle);
+		this.outJson(response, JSONObject.toJSONString(json));
+	}
+	
 }

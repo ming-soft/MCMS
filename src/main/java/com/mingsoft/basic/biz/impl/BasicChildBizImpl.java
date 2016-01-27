@@ -74,4 +74,24 @@ public class BasicChildBizImpl  extends BaseBizImpl implements IBasicChildBiz{
 		return basicChildDao;
 	}
 
+	@Override
+	public void deleteBatch(int[] basicIds) {
+		basicChildDao.deleteBatch(basicIds);
+		
+	}
+	
+	
+	
+	@Override
+	public void deleteByChildIds(int basicId, int[] basicChildIds) {
+		basicChildDao.deleteByChildIds(basicId, basicChildIds);
+		
+	}
+
+	@Override
+	public void deleteByBasicIdAndChildId(int basicId, int basicChildId) {
+		basicChildDao.deleteByBasicIdAndChildId(basicId, basicChildId);
+		
+	}
+
 }

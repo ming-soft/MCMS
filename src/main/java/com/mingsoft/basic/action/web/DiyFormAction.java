@@ -33,10 +33,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.mingsoft.base.action.BaseAction;
 import com.mingsoft.basic.biz.IDiyFormBiz;
-import com.mingsoft.util.PageUtil;
 import com.mingsoft.base.constant.SessionConst;
+import com.mingsoft.base.entity.ListJson;
+import com.mingsoft.util.PageUtil;
+import com.mingsoft.util.StringUtil;
 
 /**
  * 通用自定义表单
@@ -66,14 +69,24 @@ public class DiyFormAction extends BaseAction{
 	@ResponseBody
 	public void save(@PathVariable("idBase64") String idBase64,HttpServletRequest request,HttpServletResponse response) {
 			String temp =this.decryptByAES(request, idBase64);
-			
-			Object obj = this.getSession(request, SessionConst.CODE_SESSION);
-			if (obj!=null) {
-				if (!this.checkRandCode(request)) {
-					this.outJson(response, null, false);
-					return;
+			//在进行自定义表单提交数据时是否需要提交验证码，默认是需要验证码
+			String isCode = request.getParameter("isCode");
+			//如果isCode为空获取，isCode=true，则进行验证码的验证
+			if(StringUtil.isBlank(isCode) || isCode.equals("true")){
+				Object obj = this.getSession(request, SessionConst.CODE_SESSION);
+				if (obj!=null) {
+					if (!this.checkRandCode(request)) {
+						this.outJson(response, null, false);
+						return;
+					}
 				}
 			}
+			//判断传入的加密数字是否能转换成整形
+			if(!StringUtil.isInteger(temp)){
+				this.outJson(response, null, false);
+				return;
+			}
+			//获取表单id
 			int  formId = Integer.parseInt(temp);
 			if (formId  !=0 ) {
 				LOG.debug("fromId:" + formId);
@@ -82,7 +95,6 @@ public class DiyFormAction extends BaseAction{
 				
 			} 
 	}
-	
 	/**
 	 * 提供前端查询自定义表单提交数据
 	 * @param idBase64 Base64编码数据
@@ -95,6 +107,11 @@ public class DiyFormAction extends BaseAction{
 		String temp =this.decryptByAES(request, idBase64);
 		//获取自定义表单的id
 		int  formId = Integer.parseInt(temp);
+		//判断传入的加密数字是否能转换成整形
+		if(!StringUtil.isInteger(temp)){
+			this.outJson(response, null, false);
+			return;
+		}
 		if (formId  !=0 ) {
 			int appId = this.getAppId(request);
 			//当前页面
@@ -105,16 +122,14 @@ public class DiyFormAction extends BaseAction{
 			int count = diyFormBiz.countDiyFormData(formId, appId);
 			PageUtil page = new PageUtil(pageNo,pageSize,count,"");
 			Map map = diyFormBiz.queryDiyFormData(formId, appId, page);
-			if (map!=null) {
-				if (map.get("list") != null) {
-					this.outJson(response, JSON.toJSONString(map.get("list")));
-					return;
-				}			
+			if(map!=null){
+				List list = (List) map.get("list");
+				ListJson json = new ListJson(count,list);
+				this.outJson(response, JSONObject.toJSONString(json));
+				return;
 			}
-			this.outJson(response, null);
-			
 		} 
-		
+		this.outJson(response, null, false);
 	}
 	
 }

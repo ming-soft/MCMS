@@ -109,8 +109,8 @@ public class ColumnBizImpl extends CategoryBizImpl implements IColumnBiz {
 		return columnDao.queryColumnListByWebsiteId(columnWebsiteId);
 	}
 	
-	public List<ColumnEntity> queryChild(int categoryCategoryId,int columnWebsiteId,Integer modelId){
-		return columnDao.queryColumnByCategoryIdAndWebsiteIdAndModelId(categoryCategoryId, columnWebsiteId,modelId);
+	public List<ColumnEntity> queryChild(int categoryCategoryId,int columnWebsiteId,Integer modelId,Integer size){
+		return columnDao.queryColumnByCategoryIdAndWebsiteIdAndModelId(categoryCategoryId, columnWebsiteId,modelId,size);
 	}
 	
 	public List<ColumnEntity> queryAll(int appId,int modelId) {
@@ -144,7 +144,7 @@ public class ColumnBizImpl extends CategoryBizImpl implements IColumnBiz {
 	 */
 	private void queryExpansionColumnListByWebsiteId(int categoryCategoryId, List<ColumnEntity> list,int columnWebsiteId){
 		List<ColumnEntity> queryChildList = new ArrayList<ColumnEntity>();
-		queryChildList = columnDao.queryColumnByCategoryIdAndWebsiteIdAndModelId(categoryCategoryId,columnWebsiteId,null);
+		queryChildList = columnDao.queryColumnByCategoryIdAndWebsiteIdAndModelId(categoryCategoryId,columnWebsiteId,null,null);
 		for(int i = 0; i < queryChildList.size(); i++){
 			list.add(queryChildList.get(i));
 		}
@@ -160,12 +160,12 @@ public class ColumnBizImpl extends CategoryBizImpl implements IColumnBiz {
 	 * @param columnId 栏目ID
 	 * @return 同级栏目集合
 	 */
-	public List<ColumnEntity> querySibling(int columnId){
+	public List<ColumnEntity> querySibling(int columnId,Integer size){
 		ColumnEntity columnEntity= (ColumnEntity)columnDao.getEntity(columnId);
 		List<ColumnEntity> list = new ArrayList<ColumnEntity>();
 		if(columnEntity!=null){
 			
-			list = columnDao.queryColumnByCategoryIdAndWebsiteIdAndModelId(columnEntity.getCategoryCategoryId(),columnEntity.getColumnWebsiteId(),null);
+			list = columnDao.queryColumnByCategoryIdAndWebsiteIdAndModelId(columnEntity.getCategoryCategoryId(),columnEntity.getColumnWebsiteId(),null,size);
 		}
 		return list;
 	}
@@ -177,11 +177,11 @@ public class ColumnBizImpl extends CategoryBizImpl implements IColumnBiz {
 	 * @param columnId 栏目ID
 	 * @return 顶级同级栏目集合
 	 */
-	public List<ColumnEntity> queryTopSiblingListByColumnId(int columnId){
+	public List<ColumnEntity> queryTopSiblingListByColumnId(int columnId,Integer size){
 		ColumnEntity columnEntity= (ColumnEntity)columnDao.getEntity(columnId);
 		List<ColumnEntity> list = null;
 		if(columnEntity != null){
-				list = querySibling(columnEntity.getCategoryCategoryId()) ;
+				list = querySibling(columnEntity.getCategoryCategoryId(),size) ;
 		}
 		return list;
 	}
@@ -191,11 +191,11 @@ public class ColumnBizImpl extends CategoryBizImpl implements IColumnBiz {
 	 * @param columnId 栏目ID
 	 * @return 子栏目集合
 	 */
-	public List<ColumnEntity> queryChildListByColumnId(int columnId){
+	public List<ColumnEntity> queryChildListByColumnId(int columnId,Integer size){
 		ColumnEntity columnEntity= (ColumnEntity)columnDao.getEntity(columnId);
 		List<ColumnEntity> list = null;
 		if(columnEntity!=null){
-			list = columnDao.queryColumnByCategoryIdAndWebsiteIdAndModelId(columnEntity.getCategoryId(),columnEntity.getColumnWebsiteId(),null);
+			list = columnDao.queryColumnByCategoryIdAndWebsiteIdAndModelId(columnEntity.getCategoryId(),columnEntity.getColumnWebsiteId(),null,size);
 		}
 		return list;
 	}
@@ -280,7 +280,7 @@ public class ColumnBizImpl extends CategoryBizImpl implements IColumnBiz {
 		List<ColumnEntity> list = null;
 		if(columnEntity!=null){
 			if(columnEntity.getCategoryId()!=0){
-				list = columnDao.queryColumnByCategoryIdAndWebsiteIdAndModelId(columnEntity.getCategoryId(),columnEntity.getColumnWebsiteId(),null);
+				list = columnDao.queryColumnByCategoryIdAndWebsiteIdAndModelId(columnEntity.getCategoryId(),columnEntity.getColumnWebsiteId(),null,null);
 			}
 			
 		}

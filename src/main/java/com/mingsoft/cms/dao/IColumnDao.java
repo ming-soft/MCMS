@@ -80,7 +80,7 @@ public interface IColumnDao extends IBaseDao {
 	 * @param columnWebsiteId 站点Id
 	 * @return 栏目集合
 	 */
-	public List<ColumnEntity> queryColumnByCategoryIdAndWebsiteIdAndModelId(@Param("categoryCategoryId")int categoryCategoryId,@Param("columnWebsiteId")int columnWebsiteId,@Param("modelId")Integer modelId);
+	public List<ColumnEntity> queryColumnByCategoryIdAndWebsiteIdAndModelId(@Param("categoryCategoryId")int categoryCategoryId,@Param("columnWebsiteId")int columnWebsiteId,@Param("modelId")Integer modelId,@Param("size")Integer size);
 	
 	/**
 	 * 根据栏目ID查询其子栏目ID集合

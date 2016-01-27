@@ -41,7 +41,7 @@
 					  */
 					  zTreeObj${treeId}.getNodesByParam(key,value,parentNode);
 -->		  
-<#macro treeInput treeId="" json="" jsonId="" jsonPid="" jsonName="" jsonUrl="" addNodesName="" buttonText="" inputName="" inputValue="" inputId="" selectParent="" clickZtreeId="" expandAll="true" showIcon="false" >
+<#macro treeInput treeId=""  json="" jsonId="" jsonPid="" jsonName="" jsonUrl="" addNodesName="" buttonText="" inputName="" inputValue="" inputId="" selectParent="" clickZtreeId="" expandAll="true" showIcon="false" >
 	<!-- 初始化样式开始 -->
 	<div class="dropdown" id="${treeId}">
 		<button type="text" id="treeLabel${treeId}" class="form-control dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
@@ -59,10 +59,10 @@
 	</style>	
 	<!-- css样式结束 -->
 	
-	<!-- js操作方法开始 -->	
+	<!-- js操作方法开始 input -->	
 	<script>
 		//初始化树形数据
-		var zNodes${treeId} = ${json?default('')};
+		var zNodes${treeId} = <#if json?has_content>${json}<#else>[]</#if>;
 		
 		//初始化树形结构
 		var setting${treeId} = {
@@ -227,21 +227,55 @@
 					  */
 					  zTreeObj${treeId}.getNodesByParam(key,value,parentNode);
 -->	
-<#macro tree label="" treeId="" json="" jsonId="" jsonPid="" jsonName="" jsonUrl="" addNodesName="" expandAll="true" showIcon="false" getZtreeId="" ischeck="false">
+<#macro tree id="ztree${.now?string('yyyyMMddhhmmss')}" type="default" data=[] url="" idKey="" pIdKey="" text=""  label="" treeId="" json="" jsonId="" jsonPid="" jsonName="" jsonUrl="" addNodesName="" expandAll="true" showIcon="false" getZtreeId="" ischeck="false" help="">
+<#if type="checkbox">
+	<ul id="${id}" class="ztree"></ul>
+	<SCRIPT type="text/javascript">
+		<!--
+		var ${id};
+		ms.post("${url}",null,function(json){
+			var setting = {
+				check: {
+					enable: true,
+					chkboxType: { "Y" : "ps", "N" : "ps" }
+				},		
+				data: {
+					simpleData: {
+						enable: true,//是否采用简单数据模式 (Array)
+						idKey:"${idKey}",//节点ID名称
+						pIdKey:"${pIdKey}",//父节点ID名称
+					},
+					key:{
+						name:"${text}"//节点数据保存节点名称的属性名称。
+					}
+				}
+			};
+			
+			$(document).ready(function(){
+				$.fn.zTree.init($("#${id}"), setting, json);
+				${id} = $.fn.zTree.getZTreeObj("${id}");
+				${id}.expandAll(true);
+			});
+			
+		});
+		//-->
+	</SCRIPT>
+
+<#elseif type=="default"> <#--默认调用方式在4.5.5将废弃-->
 <!-- 初始化样式开始 -->
-	<div class="form-group ms-form-group">	
+	<div class="form-group ms-form-group ">	
 		<#include "control.ftl"/><#rt/>
-		<div  class="ms-form-control">	
+		<div  class="ms-form-control <#if label!="">col-sm-9</#if>">	
 			<ul class="ztree" id="treeDome${treeId}">
 			</ul>
 		</div>
 	</div>
 <!-- 初始化样式结束 -->
 	
-<!-- js操作方法开始 -->	
+<!-- js操作方法开始 tree-->	
 	<script>
 		//初始化树形数据
-		var zNodes${treeId} = ${json?default('')};
+		var zNodes${treeId} = ${json?default('[]')};
 		var zTreeObj${treeId};
 		//初始化树形结构
 		var setting${treeId} = {
@@ -297,6 +331,8 @@
 		</#if>
 	</script>
 <!-- js操作方法结束 -->
+
+</#if>
 </#macro>
 
 
@@ -358,7 +394,7 @@
 		};
 		$(function(){
 			//初始化树形数据
-			var zNodes${treeId} = ${json?default('')};
+			var zNodes${treeId} = ${json?default('[]')};
 			//加载树形
 			$.fn.zTree.init($("#treeDome${treeId}"),setting${treeId},zNodes${treeId});	
 			

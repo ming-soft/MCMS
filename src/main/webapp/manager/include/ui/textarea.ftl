@@ -16,14 +16,17 @@
 	style="" 
 	size=""
 	disabled=false
-	maxlength="" minlength=""
+	maxlength="" 
 	placeholder=""
 	validation=""
 	labelStyle=""
+	width=""
+	help=""
+	helpDirection=""
 	>
 <div class="form-group ms-form-group">	
 	<#include "control.ftl"/><#rt/>
-	<div  class="ms-form-control" style="height:auto">
+	<div  class="ms-form-control ms-from-group-input col-sm-9" <#if width!=""> style="width:${width}px"</#if><#rt/>>
 		<textarea<#rt/>
 		<#if id!=""> id="${id}"</#if><#rt/>
 		<#if wrap!=""> wrap="${wrap}"</#if><#rt/>

@@ -31,11 +31,11 @@ import java.util.regex.Pattern;
 
 
 import com.mingsoft.base.entity.BaseEntity;
-import com.mingsoft.cms.biz.IContentModelBiz;
-import com.mingsoft.cms.biz.IFieldBiz;
+import com.mingsoft.basic.biz.IContentModelBiz;
+import com.mingsoft.basic.biz.IFieldBiz;
 import com.mingsoft.cms.entity.ColumnEntity;
-import com.mingsoft.cms.entity.ContentModelEntity;
-import com.mingsoft.cms.entity.FieldEntity;
+import com.mingsoft.basic.entity.ContentModelEntity;
+import com.mingsoft.basic.entity.FieldEntity;
 
 import com.mingsoft.parser.IParser;
 import com.mingsoft.parser.IParserRegexConstant;
@@ -135,14 +135,9 @@ public abstract class ListParser extends IParser {
 	protected final static int RADIO=10;
 	
 	/**
-	 * 图片路径分割符
+	 * 
 	 */
 	protected final static String OPREATE="\\|";
-	
-	/**
-	 * 基础类中的基础id属性名
-	 */
-	protected final static String BasicID="basicId";
 	
 	/**
 	 * checkbox 多选框
@@ -343,16 +338,12 @@ public abstract class ListParser extends IParser {
 				listFieldName.add(field.getFieldFieldName());
 			}
 			ContentModelEntity contentModel = (ContentModelEntity) contentBiz.getEntity(column.getColumnContentModelId());
-			//判断内容模型是否存在
-			if(contentModel==null){
-				return htmlList;
-			}
 			// 组织where条件
 			Map<String, Integer> where = new HashMap<String, Integer>();
-			where.put(BasicID,basicId);
+			where.put("basicId",basicId);
 			// 获取各字段的值
 			List fieldLists = fieldBiz.queryBySQL(contentModel.getCmTableName(), listFieldName, where);
-			
+		
 			if(fieldLists!=null && fieldLists.size()>0){
 				Map fields = (Map)fieldLists.get(0);
 				//计算标签的个数
@@ -454,7 +445,11 @@ public abstract class ListParser extends IParser {
 				    				fieldValue+=filedNew[Integer.valueOf(checkBox[i].toString())-1];
 				    			}
 				    		}else{
-				    			fieldValue = filedNew[Integer.valueOf(field.get(key).toString())-1];
+				    			if(Integer.valueOf(field.get(key).toString())-1<filedNew.length){
+				    				fieldValue = filedNew[Integer.valueOf(field.get(key).toString())-1];
+				    			}else{
+				    				fieldValue = filedNew[filedNew.length-1];
+				    			}
 				    		}
 			    		}
 			    	}

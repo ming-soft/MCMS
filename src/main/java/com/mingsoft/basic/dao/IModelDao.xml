@@ -160,7 +160,7 @@
 		select
 		<include refid="column_list" />
 		from model
-		where MODEL_CODE = ${modelCode}
+		where MODEL_CODE = #{modelCode}
 	</select>
 	<!-- 更具模块编号查询模块实体结束 -->
 

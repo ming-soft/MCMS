@@ -36,11 +36,11 @@ import com.mingsoft.basic.action.BaseAction;
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.basic.biz.IAppBiz;
 import com.mingsoft.basic.biz.IManagerBiz;
-import com.mingsoft.basic.entity.AppEntity;
-import com.mingsoft.basic.entity.ManagerEntity;
 import com.mingsoft.base.constant.CookieConst;
 import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.base.constant.SessionConst;
+import com.mingsoft.basic.entity.AppEntity;
+import com.mingsoft.basic.entity.ManagerEntity;
 import com.mingsoft.parser.IParserRegexConstant;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
@@ -69,7 +69,34 @@ public class AppAction extends BaseAction{
 	@Autowired
 	private IManagerBiz managerBiz;
 	
-	
+	/**
+	 * 对系统管理进行的查询站点列表信息
+	 * @param request 请求对象
+	 * @param mode ModelMap实体对象
+	 * @param response 响应对象
+	 * @return 站点列表显示页面
+	 */
+	@RequestMapping("/list")
+	public String queryList(HttpServletRequest request,ModelMap mode,HttpServletResponse response){
+		ManagerEntity managerSession = (ManagerEntity) getSession(request, SessionConst.MANAGER_ESSION);
+		int pageNo=1;
+		//查询总记录数
+		int recordCount = appBiz.queryCount();
+		//排序依据字段
+		String orderBy="app_id";
+		if(request.getParameter("pageNo")!=null){
+			pageNo=Integer.parseInt(request.getParameter("pageNo").toString());
+		}
+		PageUtil page=new PageUtil(pageNo,100,recordCount,getUrl(request)+"/manager/app/list.do");
+		//保存cookie值
+		this.setCookie(request, response, CookieConst.PAGENO_COOKIE, String.valueOf(pageNo));
+		//分页查询
+		List<BaseEntity>apps = appBiz.queryByPage(page, orderBy,false);
+		mode.addAttribute("listApp",apps);
+		mode.addAttribute("page",page);
+		mode.addAttribute("managerSession", managerSession);
+		return "/manager/app/app_list";
+	}
 	
 	/**
 	 * 根据id删除站点信息

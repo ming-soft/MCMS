@@ -2,13 +2,15 @@
 <input type="text"/>
 -->
 <#macro date    id=""    name=""    value="" begin="" end="" limit="30"  
-	time=false single=false label=""	title=""	size=""	
+	time=false single=false label=""	title=""	size=""	width=""
 	class="form-control"	 style=""	readonly=""	validation=""   disabled=false	 maxlength=""	minlength=""	 placeholder="" ranges=true
 	labelStyle=""
+	help=""
+	helpDirection=""
 	>
 <div class="form-group ms-form-group">	
 	<#include "control.ftl"/><#rt/>
-			<div class="control-group">
+			<div class="control-group col-sm-9 ms-from-group-input has-feedback" style="min-width:210px;<#if width!=""> width:${width}px"</#if>"<#rt/>>
 		            <div class="controls">
 			             <div class="input-prepend input-group">
 			               <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
@@ -70,10 +72,10 @@
     //alert("Callback has fired: [" + start.format('MMMM D, YYYY') + " to " + end.format('MMMM D, YYYY') + ", label = " + label + "]");
     //$('#subscribeReplyForm').formValidation('revalidateField', "${name}");
   }
-$('#${name}').daterangepicker(${name}Set, ${name}Func);
-      $('#${name}').on('apply.daterangepicker', function(ev, picker) {
-            $('#${name}').parents("form:first").data('bootstrapValidator').revalidateField('sdfsfsdsdfsd');
-        });
+	$('#${name}').daterangepicker(${name}Set, ${name}Func);
+	      $('#${name}').on('apply.daterangepicker', function(ev, picker) {
+	            $('#${name}').parents("form:first").data('bootstrapValidator').revalidateField('<#if id!="">${id}<#elseif name!="">${name}</#if>');
+	 });
 </script>
 
 </#macro>

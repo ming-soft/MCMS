@@ -166,25 +166,25 @@ public class DiyFormBizImpl extends BaseBizImpl implements IDiyFormBiz {
 		for (int i = 0; i < listField.size(); i++) {
 			DiyFormFieldEntity field = (DiyFormFieldEntity) listField.get(i);
 			String fieldName = field.getDiyFormFieldFieldName();
-			int fieldType = field.getDiyFormFieldType();
-			if (fieldType == DiyFormFieldEnum.CHECKBOX.toInt() ) {
-				String langtyp[] = (String[])params.get(fieldName);
-				if (langtyp != null) {
-					StringBuffer sb = new StringBuffer();
-					for (int j = 0; j < langtyp.length; j++) {
-						sb.append(langtyp[j] + ",");
-					}
-					mapParams.put(fieldName, sb.toString());
-				} else {
-					mapParams.put(fieldName, langtyp);
-				}
-			} else {
+//			int fieldType = field.getDiyFormFieldType();
+//			if (fieldType == DiyFormFieldEnum. ) {
+//				String langtyp[] = (String[])params.get(fieldName);
+//				if (langtyp != null) {
+//					StringBuffer sb = new StringBuffer();
+//					for (int j = 0; j < langtyp.length; j++) {
+//						sb.append(langtyp[j] + ",");
+//					}
+//					mapParams.put(fieldName, sb.toString());
+//				} else {
+//					mapParams.put(fieldName, langtyp);
+//				}
+//			} else {
 				if (StringUtil.isBlank(params.get(fieldName))) {
 					mapParams.put(fieldName, null);
 				} else {
 					mapParams.put(fieldName, params.get(fieldName));
 				}
-			}
+			//			}
 		}
 		return mapParams;
 	}

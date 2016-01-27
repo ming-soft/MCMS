@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
 import com.mingsoft.base.biz.IBaseBiz;
+import com.mingsoft.base.constant.e.TableEnum;
 import com.mingsoft.base.dao.IBaseDao;
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.util.PageUtil;
@@ -39,12 +40,8 @@ import com.mingsoft.util.PageUtil;
  * 历史修订：<br/>
  */
 public abstract class BaseBizImpl implements IBaseBiz {
-	
-	/**
-	 * LOG对象
-	 */
+
 	protected final  Logger LOG = Logger.getLogger(this.getClass());
-	
 	@Override
 	public int saveEntity(BaseEntity entity) {
 		return getDao().saveEntity(entity);
@@ -139,6 +136,11 @@ public abstract class BaseBizImpl implements IBaseBiz {
 	public void alterTable(String table, Map fileds,String type) {
 		// TODO Auto-generated method stub
 		getDao().alterTable(table, fileds,type);
+	}
+	
+	public void alterTable(String table, Map fileds,TableEnum type) {
+		// TODO Auto-generated method stub
+		getDao().alterTable(table, fileds,type.toString());
 	}
 
 	@Override

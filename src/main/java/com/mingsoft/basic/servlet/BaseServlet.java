@@ -40,11 +40,11 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import com.alibaba.fastjson.JSONObject;
 import com.mingsoft.base.entity.ResultJson;
 import com.mingsoft.basic.biz.IAppBiz;
-import com.mingsoft.basic.entity.AppEntity;
 import com.mingsoft.base.constant.Const;
 import com.mingsoft.base.constant.CookieConst;
 import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.base.constant.SessionConst;
+import com.mingsoft.basic.entity.AppEntity;
 import com.mingsoft.util.StringUtil;
 
 /**

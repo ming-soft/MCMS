@@ -15,7 +15,7 @@
 						<@ms.panelNavBtnDel  id="totalDelete"/>
 					</@ms.panelNavBtnGroup>
 				</@ms.panelNav>
-	              <@ms.table head=['<th style="text-align:center;width:10%;"><input type="checkbox" id="allCheck" value="全选" data-original-title="全选删除" data-toggle="tooltip"/></th>','账号','昵称','密码','角色名称',"<th style='text-align:center'>添加时间</th>","<th style='text-align:center;width:10%;'>操作</th>"]>
+	              <@ms.table head=['账号','昵称','密码','角色名称',"<th style='text-align:center'>添加时间</th>"] checkbox="checkbox">
 	           			<#if listManager?has_content>
 	           				<#list listManager as manager>
 	                    	<tr>
@@ -24,21 +24,21 @@
 		  									<input type="checkbox" name="checkbox" value="${manager.managerId?c?default(0)}">
 		  								</#if>
 						            </td>	          	
-						            <td style="width:10%">${manager.managerName?default("暂无")}</td>
+						            <td style="width:10%">
+						            	
+						            	<#if manager.managerName != managerSession.managerName>
+						                    
+						                    <a class="btn btn-xs tooltips updateModalBtn" data-toggle="tooltip" data-id="${manager.managerId?c?default(0)}" data-original-title="编辑">
+					                     		${manager.managerName?default("暂无")}
+					                    	</a>
+					                    	<#else>
+					                    	${manager.managerName?default("暂无")}
+				                    	</#if>	
+						            </td>
 						            <td style="width:10%">${manager.managerNickName?default("暂无")}</td>
 						 			<td style="width:25%">${manager.managerPassword?default("暂无")}</td>
-						            <td style="width:10%">${manager.roleName?default("暂无")}</td>
+						            <td style="width:10%" >${manager.roleName?default("暂无")}</td>
 						            <td class="text-center">${manager.managerTime?string("yyyy-MM-dd HH:mm:ss")}</td>
-						            <td class="text-center operate">
-						            	<a class="btn btn-xs tooltips  addPage" data-toggle="tooltip" data-id="${manager.managerId?c?default(0)}" data-original-title="绑定">
-					                     		<i class="glyphicon glyphicon-plus"></i>
-					                    </a>
-						            	<#if manager.managerName != managerSession.managerName>
-						                    <!--a class="btn btn-xs tooltips updateModalBtn" data-toggle="tooltip" data-id="${manager.managerId?c?default(0)}" data-original-title="编辑">
-					                     		<i class="glyphicon glyphicon-pencil"></i>
-					                    	</a-->
-				                    	</#if>	
-									</td>
 						         </tr>
 	                    	</#list>
 	                 		<#else>
@@ -56,18 +56,17 @@
 		
 		<!--修改/保存的模态框开始-->
 		<@ms.modal modalName="update" title="">
-			 <@ms.modalBody>
-				<@ms.form isvalidation=true name="updateManager" id="updateManager" class="form-inline" action="">	
-		    		<@ms.text name="managerName"  style="width:40%"  label="账号" title="账号" maxlength="30" placeholder="请输入账号" validation={"required":"true", "data-bv-notempty-message":"账号不能为空"}/>
-		    		<@ms.text name="managerNickName"  style="width:40%"  label="昵称" title="昵称"  maxlength="30" placeholder="请输入昵称" validation={"required":"true", "data-bv-notempty-message":"昵称不能为空"}/>
-		    		<@ms.text name="managerPassword"  style="width:40%"  label="密码" title="密码"  maxlength="100" placeholder="请输入密码"/>	
-					<@ms.select  name="managerRoleID" label="选择角色"  list="listRole"  id="orderStatus" listKey="roleId"  listValue="roleName" value="" style="width:57%" validation={"required":"true", "data-bv-notempty-message":"角色不能为空"}/>
+			 <@ms.modalBody height="250">
+				<@ms.form isvalidation=true name="updateManager" id="updateManager"  action="">	
+		    		<@ms.text name="managerName"    label="账号" title="账号" maxlength="30" placeholder="请输入账号" validation={"required":"true", "data-bv-notempty-message":"账号不能为空"}/>
+		    		<@ms.text name="managerNickName"    label="昵称" title="昵称"  maxlength="30" placeholder="请输入昵称" validation={"required":"true", "data-bv-notempty-message":"昵称不能为空"}/>
+		    		<@ms.text name="managerPassword"    label="密码" title="密码"  maxlength="100" placeholder="请输入密码"/>	
+					<@ms.select  name="managerRoleID" label="选择角色"  list=listRole  id="orderStatus" listKey="roleId"  listValue="roleName" value="" style="width:57%" validation={"required":"true", "data-bv-notempty-message":"角色不能为空"}/>
 	    			<input type="hidden" class="managerPeopleID" name="managerPeopleID" value="0"/>
 					<input type="hidden" class="oldManagerName" name="oldManagerName" value=""/>
 		    	</@ms.form>		          	
 		     </@ms.modalBody>
 		     <@ms.modalButton>
-	    		<@ms.button value="返回" id="closeUpdate"/>  
 	 			<@ms.savebutton id="updateButton"/>  
 	 		 </@ms.modalButton>
 		</@ms.modal>
@@ -99,8 +98,8 @@
 		<@ms.modal modalName="managerPageModel" title="主页面绑定">
 			 <@ms.modalBody>
 				<@ms.form isvalidation=true name="managerPageForm" id="managerPageForm" class="form-inline" action="${base}/manager/managerModelPage/save.do">	
-		    		<@ms.text name="managerModelPageUrl"  style="width:40%"  label="主界面地址:" title="主界面地址:" size="5" maxlength="30" placeholder="请输入主页面地址"/>
-		    		<@ms.select  name="managerModelPageModelId" label="选择模块"  list="listManager"  id="orderStatus" listKey="managerRoleID"  listValue="roleName" value="" style="width:57%"/>
+		    		<@ms.text name="managerModelPageUrl"    label="主界面地址:" title="主界面地址:" size="5" maxlength="30" placeholder="请输入主页面地址"/>
+		    		<@ms.select  name="managerModelPageModelId" label="选择模块"  list=listManager  id="orderStatus" listKey="managerRoleID"  listValue="roleName" value="" style="width:57%"/>
 		  			<input type="hidden"  name="managerModelPagemanagerId">
 		    	</@ms.form>		          	
 		     </@ms.modalBody>
@@ -151,6 +150,7 @@
 	 $("#updateButton").click(function() {
 			var formData = $("#updateManager").serialize();
 			var vobj = $("#updateManager").data('bootstrapValidator').validate();
+			var buttonHtml = $("#updateButton").html();
 			if(vobj.isValid()){
 					$.ajax({
 					   type: "post",
@@ -163,14 +163,12 @@
 					   },
 					   success: function(msg){ 
 					   		if(msg.result==true){
-					   			if($("#updateButton").text() == "保存中"){
-					   				alert("保存成功!");
-					   			}else{
-					   				alert("更新成功!");
-					   			}
+					   			alert(buttonHtml+"成功");
 					   			location.reload();
 					   		}else{
 					   			alert(msg.resultMsg);
+					   			$("#updateButton").text(buttonHtml);
+					   			$("#updateButton").attr("disabled",false);
 					   		}
 					   },error: function(){
 					   	  alert("数据请求失败，请检查请求地址和参数是否正确");

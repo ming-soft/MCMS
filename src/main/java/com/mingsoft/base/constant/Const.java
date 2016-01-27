@@ -58,8 +58,7 @@ public final class Const {
 	/**
 	 * action层对应的国际化资源文件
 	 */
-	public final static ResourceBundle RESOURCES = ResourceBundle
-			.getBundle("com.mingsoft.base.action.resources");
+	public final static ResourceBundle RESOURCES = ResourceBundle.getBundle("com.mingsoft.base.action.resources");
 
 	/**
 	 * 默认系统管理员所对应的角色ID为1
@@ -92,6 +91,10 @@ public final class Const {
 	 */
 	public final static String UTF8 = "utf-8";
 	
+	/**
+	 * 文件路径符
+	 */
+	public final static String SEPARATOR ="/";
 	
 
 }

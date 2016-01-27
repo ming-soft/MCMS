@@ -28,8 +28,8 @@ import java.util.List;
 import java.util.Map;
 
 
-import com.mingsoft.cms.biz.IContentModelBiz;
-import com.mingsoft.cms.biz.IFieldBiz;
+import com.mingsoft.basic.biz.IContentModelBiz;
+import com.mingsoft.basic.biz.IFieldBiz;
 import com.mingsoft.cms.constant.e.ColumnTypeEnum;
 import com.mingsoft.cms.entity.ArticleEntity;
 
@@ -166,12 +166,8 @@ public class ListParser extends com.mingsoft.parser.impl.general.ListParser {
 					//分类连接：[field.typelink/]	点击连接连接到当前分类的列表
 					String channelLink = path+StringUtil.null2String(article.getColumn().getColumnPath())+File.separator+ IParserRegexConstant.HTML_INDEX;
 					htmlList = tabContent(htmlList, channelLink,TTYPELINK_FIELD_LIST);
-					
 					//对自定义字段进行替换
 					htmlList = replaceField(htmlList,article.getColumn(),article.getBasicId());
-					
-					
-					
 				}
 			}
 		}

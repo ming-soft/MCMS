@@ -21,7 +21,6 @@ The MIT License (MIT) * Copyright (c) 2015 铭飞科技
 
 package com.mingsoft.cms.parser.impl;
 
-import java.util.Map;
 
 
 import com.mingsoft.parser.IParser;

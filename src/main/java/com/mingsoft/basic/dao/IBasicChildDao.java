@@ -23,6 +23,8 @@ package com.mingsoft.basic.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.mingsoft.base.dao.IBaseDao;
 import com.mingsoft.basic.entity.BasicChildEntity;
 
@@ -56,4 +58,24 @@ public interface IBasicChildDao extends IBaseDao{
 	 * @return  基础表关联数据集合
 	 */
 	List<BasicChildEntity> queryByBasicId(int basicId);
+	
+	/**
+	 * 根据basicId集合实现批量的删除
+	 * @param basicIds basicId集合
+	 */
+	void deleteBatch(@Param("basicIds")int[] basicIds);
+	
+	/**
+	 * 根据基础id和子id集合删除
+	 * @param basicId 基础id
+	 * @param basicChildIds 子集合id
+	 */
+	void deleteByChildIds(@Param("basicId")int basicId,@Param("basicChildIds")int[] basicChildIds);
+	
+	/**
+	 * 根据基础id和子id删除
+	 * @param basicId  基础id
+	 * @param basicChildId 子id
+	 */
+	void deleteByBasicIdAndChildId(@Param("basicId")int basicId,@Param("basicChildId")int basicChildId);
 }

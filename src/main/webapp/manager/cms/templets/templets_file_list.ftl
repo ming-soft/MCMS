@@ -1,37 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<#include "/manager/include/macro.ftl"/>
-	<#include "/manager/include/meta.ftl"/> 
-<style> 
-	 
-</style>
-</head>
-
-<body>
-	<@ms.content>
-		<@ms.contentBody>
+<@ms.html5>
+	<@ms.nav title="文件列表"></@ms.nav>
+	<@ms.panel>
 		
-			<!--标题-->
-			<@ms.contentNav title="模板列表">
-				<@ms.panelNavFilter>
-					<@ms.contentNavBack onclick="javascript:history.go(-1)" value="返回上一层" />
-				</@ms.panelNavFilter>
-			</@ms.contentNav>
-			
-			<@ms.contentPanel>
-					<!--上传模板文件夹-->
-					<@ms.form name="">
-						<@ms.row>
-							<@ms.col style="line-height: 30px;text-align: right;">
-								<b>文件上传:</b>
-							</@ms.col>
-							
-							<@ms.col size="5">
-								<@uploadFile path="templets/${uploadFileUrl}" inputName="file" size="20" filetype="*.htm;*.html;*.jpg;*.gif;*.png;*.css;*.js;*.ico;*.swf" msg="建议上传5M以下htm/html/css/js/jpg/gif/png/swf文件"  maxSize="5" callBack="test" isRename="false"/>
-							</@ms.col>
-						</@ms.row>
-					</@ms.form>
+					<@ms.uploadFile path="templets/${uploadFileUrl}" inputName="file" size="20" filetype="*.htm;*.html;*.jpg;*.gif;*.png;*.css;*.js;*.ico;*.swf" msg="建议上传5M以下htm/html/css/js/jpg/gif/png/swf文件"  maxSize="5" callBack="test" isRename="false"/>
+
 					
 					<@ms.table head=['<th class="text-center">图标</th>','模板名称',"<th style='width:20%;text-align:center'>类型</th>","<th class='text-center' style='width:10%;'>操作</th>"]>
 						<#if fileNameList?has_content>
@@ -41,10 +13,10 @@
 						            <td style="width:35%" class="name">${fileName}</td>
 						            <td class="text-center type"></td>
 						            <td style="width:10%;text-align:center">			      
-				                    	<a class="btn btn-xs tooltips deleteIcon" data-toggle="tooltip" data-title="${fileName}" data-original-title="删除">
+				                    	<a class="btn btn-xs tooltips deleteIcon" data-toggle="tooltip" data-title="templets/${websiteId}/${fileName}" data-original-title="删除">
 					                        <i class="glyphicon glyphicon-trash" style="color:#428BCA"></i>
 					                    </a>
-					                    <a class="btn btn-xs tooltips editFileBtn" data-toggle="tooltip" data-title="${fileName}" data-original-title="编辑">
+					                    <a class="btn btn-xs tooltips editFileBtn" data-toggle="tooltip" data-title="templets/${websiteId}/${fileName}" data-original-title="编辑">
 				                     		<i class="glyphicon glyphicon-pencil" style="color:#428BCA"></i>
 				                    	</a>			                    	
 									</td>
@@ -58,11 +30,8 @@
 				          	</tr>
 						</#if>
 					</@ms.table>
-			</@ms.contentPanel>
-			
-		</@ms.contentBody>
-	</@ms.content>
-	
+	</@ms.panel>
+</@ms.html5>	
 	<!--=================模态框部分开始=================-->
 	<@ms.modal modalName="delete" title="删除评论">
 		 <@ms.modalBody>
@@ -187,6 +156,4 @@
 			});	
 		});
 	</script>
-</body>
-</html>
 	

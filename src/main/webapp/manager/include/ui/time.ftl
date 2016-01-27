@@ -2,12 +2,14 @@
 <input type="t"/>
 -->
 <#macro time    id=""    name=""    value="" 
-	label=""  title=""  size=""  labelStyle=""
-  class="form-control"   style="" readonly="" disabled=false  maxlength=""  minlength=""   placeholder=""
+	label=""  title=""  size=""  labelStyle="" width=""
+  class="form-control"   style="" readonly="" disabled=false  maxlength=""  minlength=""   placeholder="" 	validation="" 
+  help=""
+  helpDirection=""
   >
 <div class="form-group ms-form-group">
     <#include "control.ftl"/><#rt/>
-    <div class="control-group">
+    <div class="control-group col-sm-9 ms-from-group-input"  style="min-widht:200px;<#if width!="">width:${width}px</#if>"<#rt/>>
     	<div class="controls">
 		     <div class="input-prepend input-group date" <#if id!=""> id="${id}"<#elseif name!="">id="${name}"</#if><#rt/> 
 		     data-date="" data-date-format="hh:ii"  data-link-format="hh:ii">

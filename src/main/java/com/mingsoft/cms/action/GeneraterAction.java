@@ -41,6 +41,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.mingsoft.basic.action.BaseAction;
 import com.mingsoft.basic.biz.IAppBiz;
 import com.mingsoft.basic.biz.IModelBiz;
+import com.mingsoft.base.constant.Const;
+import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.basic.entity.AppEntity;
 import com.mingsoft.basic.entity.CategoryEntity;
 import com.mingsoft.cms.biz.IArticleBiz;
@@ -49,8 +51,6 @@ import com.mingsoft.cms.constant.e.ColumnTypeEnum;
 import com.mingsoft.cms.entity.ArticleEntity;
 import com.mingsoft.cms.entity.ColumnEntity;
 import com.mingsoft.cms.parser.CmsParser;
-import com.mingsoft.base.constant.Const;
-import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.parser.IParserRegexConstant;
 import com.mingsoft.util.FileUtil;
 import com.mingsoft.util.StringUtil;
@@ -488,7 +488,6 @@ public class GeneraterAction extends BaseAction {
 								next.setArticleLinkURL(url +  article.getColumn().getColumnPath() + File.separator + next.getArticleID() + IParserRegexConstant.HTML_SUFFIX);
 							}
 						}
-						
 						Map map = new HashMap();
 						map.put(CmsParser.PREVIOUS, previous);
 						map.put(CmsParser.NEXT, next);
@@ -509,6 +508,7 @@ public class GeneraterAction extends BaseAction {
 								writePath = generatePath + mobileStyle + File.separator + tempColumn.getColumnPath() + File.separator + path;
 								article.setArticleLinkURL(url + mobileStyle + File.separator + tempColumn.getColumnPath() + File.separator + article.getArticleID() + IParserRegexConstant.HTML_SUFFIX);
 							}
+
 							if(article.getColumn()!=null){
 								if (previous != null) {
 									previous.setArticleLinkURL(url + mobileStyle + File.separator + article.getColumn().getColumnPath() + File.separator + previous.getArticleID() + IParserRegexConstant.HTML_SUFFIX);
@@ -517,7 +517,6 @@ public class GeneraterAction extends BaseAction {
 									next.setArticleLinkURL(url + mobileStyle + File.separator + article.getColumn().getColumnPath() + File.separator + next.getArticleID() + IParserRegexConstant.HTML_SUFFIX);
 								}
 							}
-							
 							map.put(CmsParser.MOBILE,this.MOBILE);
 							String tmp = cmsParser.parse(mobileTmpContent,app,tempColumn,article,map);//;generaterFactory.builderArticle(app, tempColumn, article, mobileTmpContent, tmpPath, previous, next, mobileStyle); // 解析标签
 							FileUtil.writeFile(tmp, writePath, FileUtil.URF8);// 写文件

@@ -10,9 +10,9 @@
 		where
 		<foreach item="item" index="key" collection="wheres" open=""
 			separator="AND" close="">${key} = ${item}</foreach>
-			
+
 		<if test="order !=null">
-			order by ${order} desc 
+			order by ${order} desc
 		</if>
 		<if test="begin != null">
 			limit ${begin}
@@ -22,8 +22,8 @@
 		</if>
 	</select>
 	<!-- 根据sql动态查询结束 -->
-	
-		<!-- 根据sql动态查询开始 -->
+
+	<!-- 根据sql动态查询开始 -->
 	<select id="countBySQL" resultType="int" statementType="STATEMENT">
 		select count(*)
 		from ${table}
@@ -70,7 +70,8 @@
 	<update id="createTable" statementType="STATEMENT">
 		CREATE TABLE `${table}` (
 		`basicId` int(11) NOT NULL,
-		PRIMARY KEY (`basicId`)
+		PRIMARY KEY (`basicId`),
+        CONSTRAINT `fk_${table}_basicId` FOREIGN KEY (`basicId`) REFERENCES `basic` (`basic_id`) ON DELETE CASCADE
 		) ENGINE=InnoDB
 		AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 	</update>
@@ -82,20 +83,14 @@
 		<choose>
 			<when test="type=='add'">
 				ALTER TABLE ${table} add `${fileds.fieldName}` ${fileds.fieldType}
-				<if test="fileds.fieldType!='text'">
-					<if test="fileds.default ==''">default null</if>
-					<if test="fileds.default !=''">default '${fileds.default}'</if>
+				<if test="fileds.default !=null">default '${fileds.default}'</if>
 
-				</if>
 
 			</when>
 			<when test="type=='modify'">
 				ALTER TABLE ${table} change `${fileds.fieldOldName}`
 				`${fileds.fieldName}` ${fileds.fieldType}
-				<if test="fileds.fieldType!='text'">
-					<if test="fileds.default ==''">default null</if>
-					<if test="fileds.default !=''">default '${fileds.default}'</if>
-				</if>
+				<if test="fileds.default !=null">default '${fileds.default}'</if>
 
 			</when>
 			<when test="type=='drop'">
@@ -120,7 +115,7 @@
 		${sql}
 	</update>
 	<!--导入sql语句 -->
-	
-	
-	
+
+
+
 </mapper>

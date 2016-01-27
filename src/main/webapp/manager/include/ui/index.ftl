@@ -1,6 +1,5 @@
 <#include "input.ftl"/>
 <#include "select.ftl"/>
-<#include "checkboxlist.ftl"/>
 <#include "textarea.ftl"/>
 <#include "file.ftl"/>
 <#include "button.ftl"/>
@@ -10,3 +9,7 @@
 <#include "time.ftl"/>
 <#include "tree.ftl"/>
 <#include "/manager/include/manager.ftl"/>
+<#include "page.ftl"/>
+<#include "table.ftl"/>
+<#include "modal.ftl"/>
+<#include "upload.ftl"/>

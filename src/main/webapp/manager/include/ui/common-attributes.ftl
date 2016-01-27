@@ -2,7 +2,7 @@
 <#if class!=""> class="${class}"</#if><#rt/>
 <#if style!=""> style="${style}"</#if><#rt/>
 <#if title?? && title!=""> title="${title}"</#if><#rt/>
-<#if disabled?? && disabled> disabled="${disabled}"</#if><#rt/>
+<#if disabled?? && disabled> disabled="disabled"</#if><#rt/>
 <#if maxlength?? && maxlength!=""> maxlength="${maxlength}"</#if><#rt/>
 <#if minlength?? && minlength!=""> minlength="${minlength}"</#if><#rt/>
 <#if name!=""> name="${name}"</#if><#rt/>

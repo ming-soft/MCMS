@@ -42,24 +42,23 @@
 		</@ms.table>
 		
 		 <!--添加模块-->    
-		<@ms.modal modalName="addEditModel" title="添加模块">
+		<@ms.modal id="addEditModel" title="添加模块">
 			<@ms.modalBody>
 				<@ms.form isvalidation=true name="addEditForm"  action="" method="post"  >
-					<@ms.text name="modelTemplateTitle" style="width: 40%;" label="标题" title="标题" placeholder="请输入标题" value="" validation={"maxlength":"20","required":"true", "data-bv-notempty-message":"标题不能为空","data-bv-stringlength-message":"标题在20个字符以内!"}/>
-					<@ms.text name="modelTemplateKey" style="width: 40%;" label="访问路径" title="访问路径" placeholder="请输入访问路径" value="" validation={"maxlength":"100","required":"true", "data-bv-notempty-message":"访问路径不能为空","data-bv-stringlength-message":"访问路径在100个字符以内!"}/>
-					<div class="form-group">
-				    	<label for="selectRole">选择模版</label>
-						<select class="template templateSelect" style="width:40%" name="modelTemplatePath"></select>
-					</div>
+					<@ms.text name="modelTemplateTitle" label="标题" labelStyle="width:25%" width="250" title="标题" placeholder="请输入标题" value="" validation={"maxlength":"20","required":"true", "data-bv-notempty-message":"标题不能为空","data-bv-stringlength-message":"标题在20个字符以内!"}/>
+					<@ms.text name="modelTemplateKey"  label="访问路径" labelStyle="width:25%" width="250" title="访问路径" placeholder="请输入访问路径" value="" validation={"maxlength":"100","required":"true", "data-bv-notempty-message":"访问路径不能为空","data-bv-stringlength-message":"访问路径在100个字符以内!"}/>
+					<@ms.formRow label="选择模板" labelStyle="width:25%" width="250">			    	
+					 	<select class="form-control template templateSelect" name="modelTemplatePath"></select>
+					</@ms.formRow>
 				</@ms.form>
 			</@ms.modalBody>
 			<@ms.modalButton>
 				<@ms.button  value=""  id="addEditBtn"/>
 			</@ms.modalButton>
 		</@ms.modal>		
-		<@ms.modal modalName="delete" title="删除提示!">
+		<@ms.modal id="delete" title="删除提示!">
 			<@ms.modalBody>
-			  		确认删除？？
+			  		确认删除？
 			</@ms.modalBody>
 			<@ms.modalButton>
 				<@ms.button value="确认" id="rightDelete" class="btn btn-danger" value="删除"/>

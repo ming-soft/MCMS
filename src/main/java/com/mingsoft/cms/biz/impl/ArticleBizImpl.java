@@ -37,15 +37,15 @@ import com.mingsoft.basic.biz.IBasicCategoryBiz;
 import com.mingsoft.basic.biz.ICategoryBiz;
 import com.mingsoft.basic.biz.IModelBiz;
 import com.mingsoft.basic.biz.impl.BasicBizImpl;
+import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.basic.entity.BasicCategoryEntity;
 import com.mingsoft.cms.biz.IArticleBiz;
 import com.mingsoft.cms.biz.IColumnBiz;
-import com.mingsoft.cms.biz.IContentModelBiz;
+import com.mingsoft.basic.biz.IContentModelBiz;
 import com.mingsoft.cms.dao.IArticleDao;
 import com.mingsoft.cms.entity.ArticleEntity;
 import com.mingsoft.cms.entity.ColumnEntity;
-import com.mingsoft.cms.entity.ContentModelEntity;
-import com.mingsoft.base.constant.ModelCode;
+import com.mingsoft.basic.entity.ContentModelEntity;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
 

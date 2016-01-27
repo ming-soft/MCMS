@@ -23,6 +23,10 @@ package com.mingsoft.base.biz;
 
 import java.util.List;
 import java.util.Map;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
+
+import com.mingsoft.base.constant.e.TableEnum;
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.util.PageUtil;
 
@@ -35,6 +39,8 @@ import com.mingsoft.util.PageUtil;
  * 历史修订：<br/>
  */
 public interface IBaseBiz {
+	
+	
 
 	/**
 	 * 保存
@@ -155,7 +161,16 @@ public interface IBaseBiz {
 	 * @param fileds key:字段名称  list[0] 类型  list[1]长度 list[2]默认值 list[3]是否不填
 	 */
 	@SuppressWarnings("rawtypes")
+	@Deprecated
 	void alterTable(String table,Map fileds,String type);
+	
+	/**
+	 * 修改表
+	 * @param table 表名
+	 * @param fileds 修改字段
+	 * @param type 修改类型 @see TableEnum
+	 */
+	void alterTable(String table,Map fileds,TableEnum type);
 	
 	/**
 	 * 删除表

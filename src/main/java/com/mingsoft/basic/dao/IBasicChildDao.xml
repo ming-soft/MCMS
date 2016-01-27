@@ -33,4 +33,40 @@
 		 where bc_basic_Id=#{basicId}
 	</select>
 	<!-- 根据id查询数据结束 -->
+	
+	<!-- 根据basicId集合实现批量的删除开始-->
+	<delete id="deleteBatch" >
+		delete from basic_child
+		<where>
+			and bc_basic_Id  in <foreach collection="basicIds" item="item" index="index" 
+			open="(" separator="," close=")">#{item}</foreach>
+		</where>
+	</delete>
+	<!-- 根据basicId集合实现批量的删除结束-->
+	
+	<!-- 根据基础id和子id集合删除开始-->
+	<delete id="deleteByChildIds">
+		delete from basic_child
+		<where>
+			<if test="basicId>0">
+				bc_basic_Id = #{basicId}
+			</if>
+			and bc_basic_child_id  in <foreach collection="basicChildIds" item="item" index="index" 
+			open="(" separator="," close=")">#{item}</foreach>
+		</where>
+	</delete>
+	<!-- 根据基础id和子id集合删除结束-->
+	
+	<!-- 根据基础id和子id集合删除开始-->
+	<delete id="deleteByBasicIdAndChildId">
+		delete from basic_child
+		<where>
+			<if test="basicId>0">
+				bc_basic_Id = #{basicId}
+			</if>
+			and bc_basic_child_id  in <foreach collection="basicChildIds" item="item" index="index" 
+			open="(" separator="," close=")">#{item}</foreach>
+		</where>
+	</delete>
+	<!-- 根据基础id和子id集合删除结束-->
 </mapper>

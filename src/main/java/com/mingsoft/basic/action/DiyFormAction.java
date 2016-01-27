@@ -33,9 +33,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.mingsoft.base.action.BaseAction;
-import com.mingsoft.base.constant.SessionConst;
 import com.mingsoft.basic.biz.IDiyFormBiz;
 import com.mingsoft.basic.biz.IDiyFormFieldBiz;
+import com.mingsoft.base.constant.SessionConst;
 import com.mingsoft.basic.entity.DiyFormEntity;
 import com.mingsoft.basic.entity.ManagerEntity;
 import com.mingsoft.util.PageUtil;
@@ -105,7 +105,7 @@ public class DiyFormAction extends BaseAction{
 		}
 		int appId = this.getAppId(request);
 		int count = diyFormBiz.countDiyFormData(diyFormId, appId);
-		PageUtil page = new PageUtil(pageNo, 30,count,"/manager/diy/form/"+diyFormId+"/data.do");
+		PageUtil page = new PageUtil(pageNo, 30,count,"/manager/diy/form/"+diyFormId+"/query.do");
 		Map map = diyFormBiz.queryDiyFormData(diyFormId, appId, page);
 		if (map!=null) {
 			if (map.get("fields") != null) {
@@ -204,7 +204,7 @@ public class DiyFormAction extends BaseAction{
 		//获取当前管理员Id
 		int managerId = managerSession.getManagerId();
 		//获取实际创建的表名
-		String diyFormTableName =TABLE_NAME_PREFIX+managerId+TABLE_NAME_SPLIT+diyForm.getDiyFormTableName();
+		String diyFormTableName =TABLE_NAME_PREFIX+diyForm.getDiyFormTableName()+TABLE_NAME_SPLIT+managerId;
 		//判断是否存在重复的表
 		if( this.diyFormBiz.getByTableName(diyFormTableName)!=null){
 			this.outJson(response, null, false,this.getResString("err.exist",this.getResString("diy.form.table.name")));
@@ -217,7 +217,7 @@ public class DiyFormAction extends BaseAction{
 		//设置管理员id
 		diyForm.setDiyFormManagerId(managerId);
 		//设置自定义表单的表面
-		String tableName = TABLE_NAME_PREFIX+managerId+TABLE_NAME_SPLIT+diyForm.getDiyFormTableName();
+		String tableName = TABLE_NAME_PREFIX+diyForm.getDiyFormTableName()+TABLE_NAME_SPLIT+managerId;
 		diyForm.setDiyFormTableName(tableName);
 		
 		//在数据库中创建自定义表单的表
@@ -268,7 +268,7 @@ public class DiyFormAction extends BaseAction{
 		//获取当前管理员Id
 		int managerId = managerSession.getManagerId();
 		//组装表名
-		diyFormTableName =TABLE_NAME_PREFIX+managerId+TABLE_NAME_SPLIT+diyFormTableName;
+		diyFormTableName =TABLE_NAME_PREFIX+diyFormTableName+TABLE_NAME_SPLIT+managerId;
 		DiyFormEntity diyForm = this.diyFormBiz.getByTableName(diyFormTableName);
 		if(diyForm==null){
 			this.outJson(response, null, false);

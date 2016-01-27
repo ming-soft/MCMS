@@ -1,24 +1,7 @@
-<!DOCTYPE html>
-<html lang="zh">
-<head>
-  	<#include "/manager/include/macro.ftl"/>
-  	<#include "/manager/include/meta.ftl"/>
-</head>
-<body>	
-	<@ms.content>
-		<@ms.contentBody>
-			<#if flag == true>
-				<@ms.contentNav title="新增角色">
-					<@ms.contentNavBack onclick="javascript:history.go(-1)" value="返回角色列表"/>
-				</@ms.contentNav>
-			<#else>
-				<@ms.contentNav title="编辑角色">
-					<@ms.contentNavBack onclick="javascript:history.go(-1)" value="返回角色列表"/>
-				</@ms.contentNav>
-			</#if>	
-				
-				<@ms.contentPanel>
-		    			<@ms.form isvalidation=true name="saveRoleFrom" style="width: 55%" class="form-inline" action="">
+<@ms.html5>
+	<@ms.nav title="角色设置"><#if flag == true><@ms.saveButton id="save"/><#else><@ms.saveButton id="save" value="更新"/></#if><@ms.resetButton id="reset" value="重置" onclick=" " /></@ms.nav>
+	<@ms.panel>
+		    			<@ms.form isvalidation=true name="saveRoleFrom" style="width: 55%" action="">
 				    		<@ms.text name="roleName" label="角色名称:" title="角色名称"  maxlength="30"  validation={"required":"true", "data-bv-notempty-message":"请填写标题"}/>
 				    		<#if flag == false><input type="hidden" name="roleId" value="${role.roleId}"/><input type="hidden" id="oldRoleName" name="oldRoleName" value="${role.roleName}"/></#if>
 				    		<!-- 树形模块菜单开始 -->	
@@ -29,18 +12,11 @@
 			    				</#if>	
 			    			<!-- 树形模块菜单结束 -->
 		    			</@ms.form>	
-		    			<#if listModel?has_content>
-			    			<@ms.buttonarea style="margin-left: 18%">
-			    			   <#if flag == true><@ms.savebutton id="save"/> <#else><@ms.savebutton id="save" value="更新"/> </#if>
-				    			
-				    			<@ms.button id="reset" style="margin-left:1%" value="重置" /> 
-			    			</@ms.buttonarea>
-			    		<#else>
+		    			<#if !listModel?has_content>
 			    			<@ms.nodata/>	
 			    		</#if>
-	        	</@ms.contentPanel>		
-		</@ms.contentBody>
-	</@ms.content>
+	</@ms.panel>
+</@ms.html5>
 	
 	<script type="text/javascript">
 		
@@ -137,6 +113,3 @@
 		
 		
 	</script>
-	
-</body>
-</html>

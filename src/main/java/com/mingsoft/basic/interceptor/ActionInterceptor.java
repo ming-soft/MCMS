@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
 import com.mingsoft.base.constant.Const;
 import com.mingsoft.base.constant.SessionConst;
 import com.mingsoft.util.StringUtil;
@@ -47,8 +48,12 @@ public class ActionInterceptor extends  HandlerInterceptorAdapter {
     
     private static String MODEL_ID = "modelId";
     
+    private static String BASE_URL = "baseUrl";
+    
 
     public static boolean IS_WINDOWS  = false;
+    
+    
     
     
     static {
@@ -75,6 +80,7 @@ public class ActionInterceptor extends  HandlerInterceptorAdapter {
     	}
         request.setAttribute(BASE, Const.BASE);
         request.setAttribute(BASE_PATH,request.getScheme() + "://"+ request.getServerName() + (request.getServerPort()==80?"":":"+request.getServerPort())+ Const.BASE);
+        request.setAttribute(BASE_URL,request.getScheme() + "://" + request.getServerName() + (request.getServerPort()==80?"":":"+request.getServerPort())+request.getContextPath() + request.getServletPath()+ (request.getQueryString()==null?"":"?"+request.getQueryString())  );
         return true; 
 	}
 

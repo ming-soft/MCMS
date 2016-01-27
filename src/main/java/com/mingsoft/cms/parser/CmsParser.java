@@ -29,18 +29,19 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import com.mingsoft.base.constant.ModelCode;
+
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.basic.biz.IModelBiz;
+import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.basic.entity.AppEntity;
 import com.mingsoft.cms.biz.IArticleBiz;
 import com.mingsoft.cms.biz.IColumnBiz;
-import com.mingsoft.cms.biz.IContentModelBiz;
-import com.mingsoft.cms.biz.IFieldBiz;
+import com.mingsoft.basic.biz.IContentModelBiz;
+import com.mingsoft.basic.biz.IFieldBiz;
 import com.mingsoft.cms.entity.ArticleEntity;
 import com.mingsoft.cms.entity.ColumnEntity;
-import com.mingsoft.cms.entity.ContentModelEntity;
-import com.mingsoft.cms.entity.FieldEntity;
+import com.mingsoft.basic.entity.ContentModelEntity;
+import com.mingsoft.basic.entity.FieldEntity;
 import com.mingsoft.cms.parser.impl.ArticleAuthorParser;
 import com.mingsoft.cms.parser.impl.ArticleContentParser;
 import com.mingsoft.cms.parser.impl.ArticleDateParser;
@@ -56,7 +57,6 @@ import com.mingsoft.cms.parser.impl.ArticleTypeIdParser;
 import com.mingsoft.cms.parser.impl.ArticleTypeLinkParser;
 import com.mingsoft.cms.parser.impl.ArticleTypeTitleParser;
 import com.mingsoft.cms.parser.impl.ColumnParser;
-import com.mingsoft.cms.parser.impl.NoParser;
 import com.mingsoft.parser.IGeneralParser;
 import com.mingsoft.parser.IParserRegexConstant;
 import com.mingsoft.parser.PageUtilHtml;
@@ -92,10 +92,10 @@ public class CmsParser extends IGeneralParser {
 	private IColumnBiz columnBiz;
 
 	/**
-	 * 新增字段业务层
+	 * 新增字段业务层 
 	 */
 	@Autowired
-	private IFieldBiz fieldBiz;
+	private IFieldBiz fieldBiz; 
 
 	/**
 	 * 内容模型业务层
@@ -119,7 +119,6 @@ public class CmsParser extends IGeneralParser {
 
 	private ColumnEntity column;
 	
-	private List articleList = null;
 	
 	/**
 	 * 新增模块业务层
@@ -146,9 +145,6 @@ public class CmsParser extends IGeneralParser {
 		super.htmlContent = html;
 		init(obj);
 		modelId = modelBiz.getEntityByModelCode(ModelCode.CMS_COLUMN).getModelId(); // 查询当前模块编号
-		// TODO Auto-generated method stub
-		
-		
 		htmlContent = parseGeneral();
 		htmlContent = parseChannel();
 		htmlContent  = parseSearchList();
@@ -505,36 +501,47 @@ public class CmsParser extends IGeneralParser {
 				tempColumnId = column.getCategoryId();
 			}
 			List<ColumnEntity> categoryList = null;
+			//指定要显示的栏目数量
+			String size = mapProperty.get(ChannelParser.CHANNEL_TYPE_SIZE);
+			Integer _size = null;
+			if(!StringUtil.isBlank(size) && StringUtil.isInteger(size)){
+				if(StringUtil.string2Int(size)>0){
+					_size = StringUtil.string2Int(size);
+				}
+				
+			}
 			if (tempColumnId != 0) {
 				// 取出栏目的取值范围
 				String type = mapProperty.get(ChannelParser.CHANNEL_TYPE);
 				//同级栏目是否显示属性
 				String childType = mapProperty.get(ChannelParser.CHANNEL_TYP_SIBLING);
 				// 根据范围在BIZ中取出不同的栏目信息
-					
+				
+				
+				
 				// 判断用户填写的栏目属性，如果未填写那么取当前栏目的下级栏目，如果但前栏目没有下级栏目那么晚取本级栏目
 				// 如果填写:son,那么取下级栏目，没有下级栏目则取本级栏目
 				// 如果为：top,那么取上级栏目，如果没有上级栏目则取本级栏目
 				// 如果为：level,则取本级栏目
 				if (type == null) {
-					categoryList = columnBiz.queryChildListByColumnId(tempColumnId);
+					categoryList = columnBiz.queryChildListByColumnId(tempColumnId,_size);
 					//当值为true表示不存在子级分类时，显示他的同级分类
 					if(childType!=null && childType.equals("true") && categoryList.size()<=0){
-						categoryList = columnBiz.querySibling(tempColumnId);
+						categoryList = columnBiz.querySibling(tempColumnId,_size);
 					}
 				} else if (type.equals(ChannelParser.CHANNEL_TYPE_SON)) {
-					categoryList = columnBiz.queryChildListByColumnId(tempColumnId);
+					categoryList = columnBiz.queryChildListByColumnId(tempColumnId,_size);
 				} else if (type.equals(ChannelParser.CHANNEL_TYPE_TOP)) {
-					categoryList = columnBiz.queryTopSiblingListByColumnId(tempColumnId);
+					categoryList = columnBiz.queryTopSiblingListByColumnId(tempColumnId,_size);
 				} else if (type.equals(ChannelParser.CHANNEL_TYPE_LEVEL)) {
-					categoryList = columnBiz.querySibling(tempColumnId);
+					categoryList = columnBiz.querySibling(tempColumnId,_size);
 				}
 				// 替换栏目标签
 				htmlContent = new ChannelParser(channel, categoryList, this.getWebsiteUrl(), column != null ? column.getCategoryId() : 0, mapProperty.get(ChannelParser.CHANNEL_CLASS)).parse();
 				// 替换完栏目标签后的HTML代码
 				channel = htmlContent;
 			} else {
-				categoryList = columnBiz.queryChild(tempColumnId, app.getAppId(), null);
+				categoryList = columnBiz.queryChild(tempColumnId, app.getAppId(),modelId,_size);
 				// 替换栏目标签
 				htmlContent = new ChannelParser(channel, categoryList, this.getWebsiteUrl()).parse();
 				// 替换完栏目标签后的HTML代码

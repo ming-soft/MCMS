@@ -78,7 +78,6 @@ $(function(){
 	});
 	//点击确定进行删除
 	$(".deleteData").click(function() {
-		deleteData
 		$(".deleteData").text("删除中");
 		$(".deleteData").attr("disabled",true);
 		$(this).request({method:"post",func:function(msg) { 

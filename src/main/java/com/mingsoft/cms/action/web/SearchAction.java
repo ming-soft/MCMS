@@ -40,19 +40,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mingsoft.base.action.BaseAction;
-import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.basic.biz.IAppBiz;
 import com.mingsoft.basic.biz.ICategoryBiz;
 import com.mingsoft.basic.biz.IModelBiz;
+import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.basic.entity.AppEntity;
 import com.mingsoft.cms.biz.IArticleBiz;
 import com.mingsoft.cms.biz.IColumnBiz;
-import com.mingsoft.cms.biz.IContentModelBiz;
-import com.mingsoft.cms.biz.IFieldBiz;
+import com.mingsoft.basic.biz.IContentModelBiz;
+import com.mingsoft.basic.biz.IFieldBiz;
 import com.mingsoft.cms.biz.ISearchBiz;
 import com.mingsoft.cms.entity.ColumnEntity;
-import com.mingsoft.cms.entity.ContentModelEntity;
-import com.mingsoft.cms.entity.FieldEntity;
+import com.mingsoft.basic.entity.ContentModelEntity;
+import com.mingsoft.basic.entity.FieldEntity;
 import com.mingsoft.cms.entity.SearchEntity;
 import com.mingsoft.cms.parser.CmsParser;
 import com.mingsoft.parser.IParserRegexConstant;
@@ -148,6 +148,11 @@ public class SearchAction extends BaseAction {
 	 */
 	@Autowired
 	private IModelBiz modelBiz;
+	
+	/**
+	 * 手机端模板前缀
+	 */
+	public static final String MOBILE = "m";
 	
 	/**
 	 * 实现前端页面的文章搜索
@@ -291,6 +296,8 @@ public class SearchAction extends BaseAction {
 			map.put(CmsParser.SEARCH_LIST_ARTICLE, articleList);
 			//移动端与pc端分离
 			if (isMobileDevice(request) && !StringUtil.isBlank(app.getAppMobileStyle())) {
+				// 对模板内容进行解析
+				map.put(CmsParser.MOBILE,this.MOBILE);
 				// 对模板内容进行解析
 				htmlContent = cmsParser.parse(htmlContent,app,column,articleList,page,map);//generaterFactory.buildSearch(app, htmlContent, webSiteTmpPath, no, articleList,null, column, page,app.getAppMobileStyle());				
 			} else {

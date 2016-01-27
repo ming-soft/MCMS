@@ -19,14 +19,16 @@ The MIT License (MIT) * Copyright (c) 2015 铭飞科技
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.mingsoft.cms.dao;
+package com.mingsoft.basic.dao;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+
 import com.mingsoft.base.dao.IBaseDao;
 import com.mingsoft.base.entity.BaseEntity;
-import com.mingsoft.cms.entity.FieldEntity;
+import com.mingsoft.basic.entity.ContentModelFieldEntity;
+import com.mingsoft.basic.entity.FieldEntity;
 /**
  * 
  * 
@@ -62,7 +64,7 @@ import com.mingsoft.cms.entity.FieldEntity;
  * Modification history:
  * </p>
  */
-public interface IFieldDao extends IBaseDao{
+public interface IContentModelFieldDao extends IBaseDao{
 
 	/**
 	 * 查询指定表单的自定义字段列表
@@ -109,7 +111,7 @@ public interface IFieldDao extends IBaseDao{
 	 * @param fieldFieldName 字段名
 	 * @return 字段实体
 	 */
-	public FieldEntity getEntityByFieldName(String fieldFieldName);
+	public ContentModelFieldEntity getEntityByFieldName(String fieldFieldName);
 	
 	/**
 	 * 根据内容模型id和字段名查找字段实体
@@ -117,7 +119,7 @@ public interface IFieldDao extends IBaseDao{
 	 * @param fieldFieldName
 	 * @return 字段实体
 	 */
-	public FieldEntity getEntityByCmId(@Param("cmId") int cmId,@Param("fieldFieldName")String fieldFieldName);
+	public ContentModelFieldEntity getEntityByCmId(@Param("cmId") int cmId,@Param("fieldFieldName")String fieldFieldName);
 	
 	/**
 	 * 根据自定义字段信息动态查询表
@@ -151,4 +153,10 @@ public interface IFieldDao extends IBaseDao{
 	 * @return 字段实体列表
 	 */
 	public List<FieldEntity> queryByIsSearch(@Param("contentModelId") Integer contentModelId,@Param("fieldIsSearch")Integer fieldIsSearch);
+	
+	/**
+	 * 根据模型ID删除相应字段
+	 * @param fieldCmid 模型ID
+	 */
+	public void deleteEntityByFieldCmid(@Param("fieldCmid") int fieldCmid);
 }

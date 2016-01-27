@@ -46,4 +46,10 @@ public interface IRoleModelDao extends IBaseDao{
 	 * @param roleModelList 集合
 	 */
 	public void updateEntity(List<RoleModelEntity> roleModelList);
+	
+	/**
+	 * 根据角色编号删除对应功能
+	 * @param id 角色编号
+	 */
+	public void deleteByRoleId(int id);
 }

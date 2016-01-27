@@ -25,7 +25,7 @@ import java.util.Map;
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.basic.biz.IBasicBiz;
 import com.mingsoft.cms.constant.e.FieldSearchEnum;
-import com.mingsoft.cms.entity.FieldEntity;
+import com.mingsoft.basic.entity.FieldEntity;
 import com.mingsoft.util.PageUtil;
 
 /**
@@ -63,6 +63,7 @@ import com.mingsoft.util.PageUtil;
  * Modification history:暂无
  * </p>
  */
+@Deprecated
 public interface IFieldBiz extends IBasicBiz{
 	
 	/**

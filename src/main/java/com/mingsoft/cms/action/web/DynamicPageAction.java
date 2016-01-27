@@ -34,13 +34,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.mingsoft.cms.parser.CmsParser;
 import com.mingsoft.util.StringUtil;
 
-/** 
- * 动态生成页面，需要后台配置自定义页数据
+/**
+ * 
+ * 
+ * 
+ * <p>
+ * <b>铭飞科技</b>
+ * </p>
+ * 
+ * <p>
+ * Copyright: Copyright (c) 2014 - 2015
+ * </p>
+ * 
  * @author killfen
- * @version 
- * 版本号：100-000-000<br/>
- * 创建日期：2015-4-20<br/>
- * 历史修订：<br/>
+ * 
+ * <p>
+ * Comments:该类作废，自定义页面请调用对应模块下面的DynamicPageAction
+ * </p>
+ * 
+ * <p>
+ * Create Date:2015-4-20
+ * </p>
+ * 
+ * <p>
+ * Modification history:动态生成页面，需要后台配置自定义页数据
+ * </p>
  */
 @Deprecated
 @Controller("dynamicPageAction")

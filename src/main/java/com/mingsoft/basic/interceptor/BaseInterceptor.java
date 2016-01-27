@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
 import com.mingsoft.base.constant.SessionConst;
 import com.mingsoft.util.StringUtil;
 

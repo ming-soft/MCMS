@@ -81,7 +81,7 @@ public interface IColumnBiz extends ICategoryBiz {
 	 * @param modelId 模块编号
 	 * @return 栏目集合
 	 */
-	public List<ColumnEntity> queryChild(int categoryCategoryId,int columnWebsiteId,Integer modelId);
+	public List<ColumnEntity> queryChild(int categoryCategoryId,int columnWebsiteId,Integer modelId,Integer size);
 
 	/**
 	 * 获取当前应用下面对应模块的所以栏目分类
@@ -104,21 +104,21 @@ public interface IColumnBiz extends ICategoryBiz {
 	 * @param columnId 栏目ID
 	 * @return 同级栏目集合
 	 */
-	public List<ColumnEntity> querySibling(int columnId);
+	public List<ColumnEntity> querySibling(int columnId,Integer size);
 	
 	/**
 	 * 通过栏目ID查询顶级栏目的同级栏目
 	 * @param columnId 栏目ID
 	 * @return 顶级同级栏目集合
 	 */
-	public List<ColumnEntity> queryTopSiblingListByColumnId(int columnId);
+	public List<ColumnEntity> queryTopSiblingListByColumnId(int columnId,Integer size);
 	
 	/**
 	 * 根据栏目Id查询栏目的子栏目集
 	 * @param columnId 栏目ID
 	 * @return 子栏目集合
 	 */
-	public List<ColumnEntity> queryChildListByColumnId(int columnId);
+	public List<ColumnEntity> queryChildListByColumnId(int columnId,Integer size);
 	
 	
 	/**

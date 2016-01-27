@@ -45,7 +45,7 @@
 				 <div class="form-group"  style="width:100%;margin-bottom:10px">
 				    	<label for="${filedName}"  class="control-label"  style="float: left;">${name}:</label>
 						<div style="float: left;" >
-							<@ms.editor name="${filedName}" width="700px"   content="${value}"/>
+							<@ms.editor name="${filedName}" width="700px"   content="${value}" appId="${appId?default(0)}"/>
 						</div>
 				</div>
 			<#break>
@@ -125,7 +125,7 @@
 						<div class="col-md-12">
 							<label for="${filedName}" class="control-label col-md-3 col-xs-3" >${name}:</label>    
 							<div class="col-md-4  col-xs-6 margin10" style="width:auto;">
-								<@uploadImg path="/upload/article/${appid}/" inputName="${filedName}" size="30" filetype="" msg="提示：可以上传多张图片"  maxSize="10" imgs="${value?default('')}" />
+								<@uploadImg path="/upload/article/${appId}/" inputName="${filedName}" size="30" filetype="" msg="提示：可以上传多张图片"  maxSize="10" imgs="${value?default('')}" />
 							</div>
 						</div>
 					</div>
@@ -136,7 +136,7 @@
 					<div class="col-md-9  col-xs-10">
 							<label for="${filedName}" class="control-label" >${name}:</label>    
 							<div class="col-md-8  col-xs-8">
-								<@uploadFile path="/upload/article/${appid}/" inputName="${filedName}" size="1" filetype="*" msg="建议上传5M以下的文件"  maxSize="5" callBack="test" isRename="false"/>
+								<@uploadFile path="/upload/article/${appId}/" inputName="${filedName}" size="1" filetype="*" msg="建议上传5M以下的文件"  maxSize="5" callBack="test" isRename="false"/>
 							</div>
 					</div>
 				</div>

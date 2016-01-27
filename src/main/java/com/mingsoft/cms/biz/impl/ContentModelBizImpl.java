@@ -30,10 +30,12 @@ import com.mingsoft.base.biz.impl.BaseBizImpl;
 import com.mingsoft.base.dao.IBaseDao;
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.cms.biz.IContentModelBiz;
-import com.mingsoft.cms.dao.IContentModelDao;
+import com.mingsoft.basic.dao.IContentModelDao;
 import com.mingsoft.cms.entity.ContentModelEntity;
 import com.mingsoft.util.PageUtil;
-@Service("contentModelBiz")
+
+@Deprecated
+//@Service("contentModelBiz")
 public class ContentModelBizImpl extends BaseBizImpl implements IContentModelBiz{
 	
 	/**

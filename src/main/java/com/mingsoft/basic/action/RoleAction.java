@@ -39,11 +39,11 @@ import com.mingsoft.basic.biz.IManagerBiz;
 import com.mingsoft.basic.biz.IModelBiz;
 import com.mingsoft.basic.biz.IRoleBiz;
 import com.mingsoft.basic.biz.IRoleModelBiz;
+import com.mingsoft.base.constant.CookieConst;
+import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.basic.entity.ManagerSessionEntity;
 import com.mingsoft.basic.entity.RoleEntity;
 import com.mingsoft.basic.entity.RoleModelEntity;
-import com.mingsoft.base.constant.CookieConst;
-import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
 
@@ -128,6 +128,15 @@ public class RoleAction extends BaseAction{
 			model.addAttribute("listModel", JSONObject.toJSONString(listModel));
 		}
 	}
+	
+	
+	@RequestMapping("/{roleId}/queryByRole")
+	@ResponseBody
+	public void queryByRole(@PathVariable int roleId, HttpServletResponse response){
+		List models = modelBiz.queryModelByRoleId(roleId);
+		this.outJson(response, JSONObject.toJSONString(models));
+	}
+	
 	
 	/**
 	 * 加载添加角色界面

@@ -44,15 +44,8 @@ import com.google.zxing.common.BitMatrix;
  */
 @WebServlet(urlPatterns = "/qrcode")
 public class QrcodeServlet extends BaseServlet {
-	
-	/**
-	 * 黑色颜色值
-	 */
+
 	private static final int BLACK = 0xff000000;
-	
-	/**
-	 * 白色颜色值
-	 */
 	private static final int WHITE = 0xFFFFFFFF;
 
 	/**

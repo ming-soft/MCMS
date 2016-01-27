@@ -64,7 +64,7 @@ public class AppEntity extends BaseEntity {
 	/**
 	 * 移动端样式目录
 	 */
-	private String appMobileStyle;
+	private String appMobileStyle="";
 
 
 	/**

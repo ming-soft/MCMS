@@ -104,7 +104,7 @@ public class ErrorAction extends  BaseAction{
 	public void _500(HttpServletRequest req, HttpServletResponse resp){
 		//先判断当前因为是否有设置错误页面,错误页面的文件名称必须为500.htm
 		// 模版路径加上(用户选择的主页的模版的路径)default/index.html
-		String tmpFilePath = this.getTemplatePath(req) + "/500.html";
+		String tmpFilePath = this.getTemplatePath(req) + File.separator + "500.html";
 		String content = 	FileUtil.readFile(tmpFilePath);
 		if (StringUtil.isBlank(content)) {
 			 content = FileUtil.readFile(this.getRealPath(req,ERR_500));

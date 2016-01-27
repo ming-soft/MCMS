@@ -33,6 +33,8 @@ import com.mingsoft.basic.biz.IAppBiz;
 import com.mingsoft.basic.entity.AppEntity;
 import com.mingsoft.basic.servlet.BaseServlet;
 import com.mingsoft.parser.IParserRegexConstant;
+import com.mingsoft.util.FileUtil;
+import com.mingsoft.util.RegexUtil;
 import com.mingsoft.util.StringUtil;
 
 /**
@@ -43,25 +45,17 @@ import com.mingsoft.util.StringUtil;
 @WebServlet("/index")
 public class IndexServlet extends BaseServlet{
 	/**
-	 * 版本信息
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * 手机端访问路径前缀名
-	 */
 	private static String MOBILE_PATH = "m";
-	
-	private static boolean isFirst = true;
 	
 	/**
 	 * 注入站点业务层
 	 */
 	private IAppBiz appBiz;
-	
-	/**
-	 * 根据地址栏判断网站来源,跳转到对应的网站首页
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//获取用户所请求的域名地址
@@ -73,7 +67,7 @@ public class IndexServlet extends BaseServlet{
 		if(website!=null){
 			websiteId = website.getAppId();
 		} else {
-			this.outString(response, this.getResString("err")); 
+			this.outString(response, this.getResString("err"));
 			return ;
 		}
 		String path = "";
@@ -88,12 +82,9 @@ public class IndexServlet extends BaseServlet{
 		if (file.exists()) {
 			 indexPosition =IParserRegexConstant.HTML_SAVE_PATH+File.separator+websiteId+File.separator+path+File.separator+"default.html";
 		}
-		
 		//转发到网站首页
 		request.getRequestDispatcher(indexPosition).forward(request, response);
 		
 	}
-
 	
-		
 }

@@ -32,29 +32,34 @@ import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.context.support.WebApplicationContextUtils;
+
 import com.alibaba.fastjson.JSONObject;
+import com.mingsoft.base.constant.Const;
+import com.mingsoft.base.constant.CookieConst;
+import com.mingsoft.base.constant.SessionConst;
 import com.mingsoft.base.constant.e.BaseEnum;
+import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.base.entity.ResultJson;
 import com.mingsoft.base.entity.SessionEntity;
 import com.mingsoft.basic.biz.IAppBiz;
 import com.mingsoft.basic.entity.AppEntity;
 import com.mingsoft.basic.entity.ModelEntity;
 import com.mingsoft.basic.entity.ModelTemplateEntity;
-import com.mingsoft.base.constant.Const;
-import com.mingsoft.base.constant.CookieConst;
-import com.mingsoft.base.constant.SessionConst;
 import com.mingsoft.parser.IGeneralParser;
 import com.mingsoft.parser.IParserRegexConstant;
 import com.mingsoft.util.AESUtil;
@@ -344,64 +349,6 @@ public abstract class BaseAction {
 		cookie.setMaxAge(maxAge);
 		response.addCookie(cookie);
 	}
-
-	/**
-	 * 输出json数据
-	 * @param response HttpServletResponse对象
-	 * @param code
-	 *            模块编号<br/>
-	 * @param flag
-	 *            成功状态,true:成功、false:失败
-	 * @param msg
-	 *            提示信息
-	 */
-	protected void outJson(HttpServletResponse response, BaseEnum code, boolean flag, String msg) {
-		try {
-			ResultJson result = new ResultJson();
-			if (code != null) {
-				result.setCode(code.toString());
-			}
-			result.setResult(flag);
-			result.setResultMsg(msg);
-			response.setCharacterEncoding("utf-8");
-			PrintWriter out = response.getWriter();
-			out.print(JSONObject.toJSON(result));
-			LOG.debug(JSONObject.toJSON(result));
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-			LOG.error(e);
-		}
-	}
-
-	/**
-	 * 输出json数据
-	 * @param response HttpServletResponse对象
-	 * @param code
-	 *            模块编号<br/>
-	 * @param flag
-	 *            成功状态,true:成功、false:失败
-	 */
-	protected void outJson(HttpServletResponse response, BaseEnum code, boolean flag) {
-		try {
-			ResultJson result = new ResultJson();
-			if (code != null) {
-				result.setCode(code.toString());
-			}
-			result.setResult(flag);
-			response.setCharacterEncoding("utf-8");
-			PrintWriter out = response.getWriter();
-			out.print(JSONObject.toJSON(result));
-			LOG.debug(JSONObject.toJSON(result));
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-			LOG.error(e);
-		}
-	}
-
 	/**
 	 * 输出json数据
 	 * @param response HttpServletResponse对象
@@ -435,6 +382,45 @@ public abstract class BaseAction {
 		}
 	}
 
+	
+	/**
+	 * 输出json数据
+	 * @param response HttpServletResponse对象
+	 * @param code
+	 *            模块编号<br/>
+	 * @param flag
+	 *            成功状态,true:成功、false:失败
+	 * @param msg
+	 *            提示信息
+	 */
+	protected void outJson(HttpServletResponse response, BaseEnum code, boolean flag, String msg) {
+		this.outJson(response, code, flag, msg, null);
+	}
+
+	/**
+	 * 输出json数据
+	 * @param response HttpServletResponse对象
+	 * @param code
+	 *            模块编号<br/>
+	 * @param flag
+	 *            成功状态,true:成功、false:失败
+	 */
+	protected void outJson(HttpServletResponse response, BaseEnum code, boolean flag) {
+		this.outJson(response, code, flag, null, null);
+	}
+	
+	/**
+	 * 输出json数据
+	 * @param response HttpServletResponse对象
+	 * @param flag
+	 *            成功状态,true:成功、false:失败
+	 */
+	protected void outJson(HttpServletResponse response, boolean flag) {
+		this.outJson(response, null, flag, null, null);
+	}
+
+
+	
 	/**
 	 * 输出json数据字符串
 	 * @param response HttpServletResponse对象
@@ -454,6 +440,25 @@ public abstract class BaseAction {
 		}
 	}
 
+	/**
+	 * 将BaseEntity以json字符串格式输出
+	 * @param response
+	 * @param entity 实体对象
+	 */
+	protected void outJson(HttpServletResponse response, BaseEntity entity) {
+		this.outJson(response, JSONObject.toJSONString(entity));
+	}
+	
+	/**
+	 * 将list以json字符串格式输出
+	 * @param response HttpServletResponse对象
+	 * @param list 记录集合
+	 */
+	protected void outJson(HttpServletResponse response, List list) {
+		JSONObject.toJSONString(list);
+	}
+	
+	
 	/**
 	 * 输出String数据字符串
 	 * @param response HttpServletResponse对象
@@ -571,7 +576,7 @@ public abstract class BaseAction {
 	 * @return 返回获取到的字符串
 	 */
 	protected String getResString(String key, String... fullStrs) {
-		String temp = Const.RESOURCES.getString(key);
+		String temp = this.getResString(key);
 		for (int i = 0; i < fullStrs.length; i++) {
 			temp = temp.replace("{" + i + "}", fullStrs[i]);
 		}
@@ -591,8 +596,7 @@ public abstract class BaseAction {
 		try {
 			temp = rb.getString(key);
 		} catch (MissingResourceException e) {
-			temp = Const.RESOURCES.getString(key);
-			;
+			temp = getResString(key);
 		}
 		for (int i = 0; i < fullStrs.length; i++) {
 			temp = temp.replace("{" + i + "}", fullStrs[i]);
@@ -732,6 +736,10 @@ public abstract class BaseAction {
 			return null;
 		}
 		ResourceBundle rb = ResourceBundle.getBundle(filePath);
+		return this.getMapByProperties(rb);
+	}
+	
+	protected Map<String, String> getMapByProperties(ResourceBundle rb) {
 		Map<String, String> map = new HashMap<String, String>();
 		Enumeration<String> en = rb.getKeys();
 		while (en.hasMoreElements()) {
@@ -751,8 +759,9 @@ public abstract class BaseAction {
 	 * @return 返回当期项目物理路径
 	 */
 	protected String getRealPath(HttpServletRequest request, String filePath) {
-		return request.getServletContext().getRealPath("/") + File.separator + filePath;
+		return request.getServletContext().getRealPath("") + File.separator + filePath;
 	}
+	
 
 	/**
 	 * 获取当前模块编号

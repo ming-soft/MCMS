@@ -1,61 +1,37 @@
-<!DOCTYPE html>
-<html lang="zh">
- <head>
-<#include "/manager/include/macro.ftl"/>
-<#include "/manager/include/meta.ftl"/>
-</head>
-
-<body>	
-<@ms.content>
-<@ms.contentBody width="" >
-	<@ms.contentNav title="" >
-		<@ms.savebutton  id="saveUpdate" value=""/>
-		<@ms.contentNavBack  class="btn btn-default returnList" value="返回列表" />
-	</@ms.contentNav >
-	<@ms.contentPanel>
-		<@ms.form class="aritcleForm searchForm" isvalidation=true name="articleForm" action="">
-
-			<@ms.text name="basicTitle"  style="width: 30%;"  label="文章标题" title="文章标题" size="5"  placeholder="请输入文章标题"  value="${article.basicTitle?default('')}" labelStyle="width:15%" validation={"maxlength":"300","required":"true", "data-bv-notempty-message":"文章标题不能为空","data-bv-stringlength-message":"标题在300个字符以内!"}/>
-			<@ms.text name="basicSort"   style="width: 10%;"  label="自定义顺序" title="自定义顺序" size="5"  placeholder="请输入文章顺序" value="${article.basicSort?c?default(0)}" labelStyle="width:15%" validation={"data-bv-between":"true","data-bv-between-message":"自定义顺序必须大于0","data-bv-between-min":"0", "data-bv-between-max":"99999999","data-bv-notempty-message":"自定义顺序不能为空"}/>
+<@ms.html5>
+	<@ms.nav title="文章管理" back=true>
+		<@ms.saveButton  id="saveUpdate" /> 
+	</@ms.nav>
+	<@ms.panel>
+		<@ms.form isvalidation=true name="articleForm" action="${base}/manager/cms/article/${autoCURD}.do">
+			<@ms.text name="basicTitle" width="400" label="文章标题"	title="文章标题" size="5"  placeholder="请输入文章标题"  value="${article.basicTitle?default('')}"  validation={"maxlength":"300","required":"true", "data-bv-notempty-message":"文章标题不能为空","data-bv-stringlength-message":"标题在300个字符以内!"}/>
+			<@ms.text name="basicSort"  width="200" label="自定义顺序" title="自定义顺序" size="5"  placeholder="请输入文章顺序" value="${article.basicSort?c?default(0)}" validation={"data-bv-between":"true","data-bv-between-message":"自定义顺序必须大于0","data-bv-between-min":"0", "data-bv-between-max":"99999999","data-bv-notempty-message":"自定义顺序不能为空"}/>
 			<#if articleType?has_content>
-				<@ms.checkboxlist name="checkbox" label="文章属性" style="position: relative;"  list=articleType listKey="key"  listValue="value"   labelStyle="width:15%"/>
+				<@ms.checkboxlist name="checkbox" label="文章属性" list=articleType listKey="key"  listValue="value" />
 			</#if>
-			<div class="form-group">
-    			<label class="col-md-3  col-xs-3" style="width:15%">文章缩略图</label>
-    			<div class="col-md-4  col-xs-4" style="padding: 0;">
-					<@uploadImg path="upload/article/${websiteId}/" inputName="basicThumbnails" size="1" filetype="" msg="提示:文章缩略图,支持jpg格式"  maxSize="2" imgs="${article.basicThumbnails?default('')}"  />
-				</div>
-            </div>
-			<@ms.text name="articleSource"  style="width: 20%;"  label="文章来源" title="文章来源" size="5"  placeholder="请输入文章来源"  value="${article.articleSource?default('')}"  labelStyle="width:15%"/>
-			<@ms.text name="articleAuthor"   style="width: 15%;" label="文章作者" title="文章作者" size="5"  placeholder="请输入文章作者"  value="${article.articleAuthor?default('')}"  labelStyle="width:15%"/>
-			<@ms.text name="articleUrl"   style="width: 20%;"  label="跳转网址" title="跳转网址" size="5"  placeholder="http://"  value="${article.articleUrl?default('')}"  labelStyle="width:15%"/>
+			<@ms.formRow label="文章缩略图" width="400">
+					<@ms.uploadImg path="upload/article/${appId}/" inputName="basicThumbnails" size="1" filetype="" msg="提示:文章缩略图,支持jpg格式"  maxSize="2" imgs="${article.basicThumbnails?default('')}"  />
+			</@ms.formRow>
+			<@ms.text name="articleSource" width="200" label="文章来源" title="文章来源" size="5"  placeholder="请输入文章来源"  value="${article.articleSource?default('')}" />
+			<@ms.text name="articleAuthor" width="200" label="文章作者" title="文章作者" size="5"  placeholder="请输入文章作者"  value="${article.articleAuthor?default('')}" />
 			<#if !isEditCategory><!-- 如果不是单篇 -->
-			<div class="form-group" style="overflow: inherit; min-height: 39px;">
-        		<label class="col-md-3  col-xs-3" style="width:15%;">所属栏目</label>
-        		<div class="col-md-4  col-xs-4" style="padding: 0;">
-					<@ms.treeInput treeId="inputTree" json="${listColumn?default('')}" jsonId="categoryId" jsonPid="categoryCategoryId" jsonName="categoryTitle" buttonText="${categoryTitle?default('选择栏目')}" clickZtreeId="clickZtreeId(event,treeId,treeNode);" inputName="basicCategoryId"  inputValue="${categoryId}" expandAll="true" showIcon="true"/>
- 				</div>
-            </div>
+	            <@ms.formRow label="所属栏目" width="300">
+	            	<@ms.treeInput treeId="inputTree" json="${listColumn?default('')}" jsonId="categoryId" jsonPid="categoryCategoryId" jsonName="categoryTitle" inputName="basicCategoryId" inputValue="${categoryId}" buttonText="${categoryTitle?default('选择栏目')}" clickZtreeId="clickZtreeId(event,treeId,treeNode);" expandAll="true"  showIcon="true"/>
+				</@ms.formRow>
             </#if>
-			<@ms.textarea name="basicDescription" label="描述"  wrap="Soft" rows="4"  size=""  value="${article.basicDescription?default('')}" placeholder="请输入对该文章的简短描述，以便用户查看文章简略" labelStyle="width:15%"/>
-			<@ms.textarea name="articleKeyword" label="关键字" wrap="Soft" rows="4"  size="" placeholder="请输入文章关键字"   value="${article.articleKeyword?default('')}" labelStyle="width:15%"/>
+			<@ms.textarea name="basicDescription" label="描述" width="600" wrap="Soft" rows="4"  size=""  value="${article.basicDescription?default('')}" placeholder="请输入对该文章的简短描述，以便用户查看文章简略"/>
+			<@ms.textarea name="articleKeyword" label="关键字" width="600" wrap="Soft" rows="4"  size="" placeholder="请输入文章关键字"   value="${article.articleKeyword?default('')}"/>
 			<!--新填字段内容开始-->
-			<div id="addFieldForm">
-					
+			<div id="addFieldForm">		
 			</div>
 			<!--新增属性开始-->
 			<div id="articleTypeField">
 			</div>
-			<input name="articleTypeJson" type="hidden" value=""/>
-			<@ms.editor name="articleContent" label="文章内容" content="${article.articleContent?default('')}" labelStyle="width:15%" width="688px;"/>			
+			<@ms.hidden name="articleTypeJson" />
+			<@ms.editor name="articleContent" label="文章内容" content="${article.articleContent?default('')}"  appId="${appId?default(0)}"/>			
 		</@ms.form>
-	</@ms.contentPanel>
-</@ms.contentBody>
-</@ms.content>        
-
-</body>
-
-
+	</@ms.panel>
+</@ms.html5>	      
 <script>
 var articleBasicId=0;
 $(function(){
@@ -64,33 +40,27 @@ $(function(){
 	$(".ms-content-body-title>span").html(articleTitle);	
 	//隐藏跳转地址
 	$("input[name='articleUrl']").parent().hide();
-	//返回列表
-	$(".returnList").click(function(){
-		location.href = base+"/manager/cms/article/${categoryId}/list.do";
-	});	
 	
 	//文章属性
 	var actionUrl="";
 	
 	<#if article.basicId !=0>
-	$("#saveUpdate").text("更新");
 	actionUrl = "${base}/manager/cms/article/${article.basicId?c?default(0)}/update.do";
 	var type="${article.articleType?default('')}";
 	var articleType = new Array;
 	//文章属性
 	$("#articleForm input[name='checkbox']").each(function(){
 		if(type!=""){
-			 articleType = type.split(",");
-			  for(i=0;i<articleType.length;i++){
-				 if($(this).val()==articleType[i]){
-					 $(this).attr("checked",'true');
+			articleType = type.split(",");
+		  	for(i=0;i<articleType.length;i++){
+				if($(this).val()==articleType[i]){
+					$(this).attr("checked",'true');
 				}
 			}
 		}
 	});
 	articleBasicId=${article.basicId?c?default(0)};
 	<#else>
-	$("#saveUpdate").text("保存");
 	actionUrl = "${base}/manager/cms/article/save.do";
 	</#if>	
 	
@@ -99,13 +69,11 @@ $(function(){
 	var articleId="basicId="+${article.basicId?c?default(0)};
 	$(this).request({url:url,data:articleId,method:"post",func:function(data) {
 		$("#addFieldForm").html(data);
-		$("select").select2();
 	}});
 	//获取当前栏目的自定义属性
 	var url="${base}/manager/cms/type/"+${categoryId?default(0)}+"/"+articleBasicId+"/queryByCategoryId.do";
 	$(this).request({url:url,method:"post",func:function(data) {
 		$("#articleTypeField").html(data);
-		$("select").select2();
 	}});
 
 	//显示跳转地址
@@ -123,7 +91,6 @@ $(function(){
 	
 	//更新或保存				
 	$("#saveUpdate").click(function(){
-		$("#saveUpdate").attr({"disabled":"disabled"});
 		//获取所有栏目属性被选中的值
 		var typeJson=""
 		$("#articleTypeField").find("select").each(function(index){ 
@@ -174,6 +141,7 @@ $(function(){
 					$("input[name=basicSort]").val(0);
 					return;
 				}
+				$("#saveUpdate").attr("disabled",true);
 				$(this).request({url:actionUrl,data:dataMsg,loadingText:seeMsg,method:"post",type:"json",func:function(obj) {
 					if(obj.result){
 						var generateUrl =  base+"/manager/cms/generate/"+obj.resultMsg+"/genernateForArticle.do";
@@ -186,27 +154,28 @@ $(function(){
 					   			</#if>
 				   				if (obj.resultData!="") {
 				   					location.href=base+obj.resultData;
-				   				} else {
-				   					$("#saveUpdate").text("更新");
-				   				}
+				   				} 
 				   				$("#saveUpdate").removeAttr("disabled");
 				   			}else{
 				   				//生产失败则将按钮信息返回默认
-				   				$("#saveUpdate").text(buttonText);
 				   				alert("生成文件失败");
 				   				$("#saveUpdate").removeAttr("disabled");
 				   			}
 						}});
+								if (obj.resultData!="") {
+				   					location.href=base+obj.resultData;
+				   				} 
+				   				<@ms.notify msg="文章保存成功" type="success"/>
+				   				$("#saveUpdate").removeAttr("disabled");
 					}else{
-						$("#saveUpdate").text(buttonText);
 				   		alert(obj.resultMsg);
 				   		$("#saveUpdate").removeAttr("disabled");
 					}
 				}});
 			}
 		}else{
-				alert("请选择文章所属栏目");
-				$("#saveUpdate").removeAttr("disabled");
+			alert("请选择文章所属栏目");
+			$("#saveUpdate").removeAttr("disabled");
 		}
 	});	
 });
@@ -234,18 +203,3 @@ function clickZtreeId(event,treeId,treeNode){
 	}});
 } 
 </script>
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

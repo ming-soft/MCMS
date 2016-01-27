@@ -200,7 +200,7 @@ public interface ICategoryBiz extends IBaseBiz {
 	public List<CategoryEntity> queryByAppIdOrModelId(Integer appId, Integer modelId);
 	
 	/**
-	 * 递归活取父栏目，
+	 * 递归获取父栏目，
 	 * @param appId
 	 *            应用编号
 	 * @param modelId

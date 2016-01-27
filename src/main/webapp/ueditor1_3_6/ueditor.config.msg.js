@@ -86,7 +86,7 @@
         //,videoFieldName:"upfile"                    //附件提交的表单名，若此处修改，需要在后台对应文件修改对应参数
  
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
-        , toolbars:[["Source","Bold","Italic","Underline","InsertUnorderedList","InsertOrderedList","InsertImage","Link","insertvideo","attachment","inserttable","Link","RemoveFormat","FontSize","ForeColor","BackColor",'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify','map']]
+        , toolbars:[["Source","Bold","Italic","Underline","InsertUnorderedList","InsertOrderedList","InsertImage","Link","insertvideo","attachment","inserttable","Link","RemoveFormat","FontSize","ForeColor","BackColor",'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify','map','insertcode']]
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
 //        ,labelMap:{
 //            'anchor':'', 'undo':''

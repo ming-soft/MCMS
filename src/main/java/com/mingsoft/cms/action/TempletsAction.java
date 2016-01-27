@@ -46,10 +46,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mingsoft.basic.action.BaseAction;
 import com.mingsoft.basic.biz.IAppBiz;
-import com.mingsoft.basic.entity.AppEntity;
-import com.mingsoft.basic.entity.ManagerSessionEntity;
+import com.mingsoft.base.constant.Const;
 import com.mingsoft.base.constant.CookieConst;
 import com.mingsoft.base.constant.ModelCode;
+import com.mingsoft.basic.entity.AppEntity;
+import com.mingsoft.basic.entity.ManagerSessionEntity;
 import com.mingsoft.parser.IParserRegexConstant;
 import com.mingsoft.util.FileUtil;
 import com.mingsoft.util.PageUtil;
@@ -283,18 +284,18 @@ public class TempletsAction extends BaseAction {
 	public String showChildFileAndFolder(HttpServletResponse response, ModelMap model, HttpServletRequest request){
 		ManagerSessionEntity managerSession = getManagerBySession(request);
 		List<String> folderNameList = null;
-		String skinFolderName = request.getParameter("skinFolderName");
-		String templetsUrl = this.getTempletsUrl(request, skinFolderName);
-		File files[] = new File(templetsUrl).listFiles();
+		String skinFolderName = request.getParameter("skinFolderName"); 
+		File files[] = new File(this.getRealPath(request, skinFolderName)).listFiles();
 		if(!StringUtil.isBlank(files)){
 			folderNameList = new ArrayList<String>();
 			List<String> fileNameList = new ArrayList<String>();
 			for (int i = 0; i < files.length; i++) {
 				File currFile = files[i];
+				String temp = currFile.getPath().replace(this.getRealPath(request, ""),"").replace(IParserRegexConstant.REGEX_SAVE_TEMPLATE+Const.SEPARATOR+this.getAppId(request)+Const.SEPARATOR, "");
 				if(currFile.isDirectory()){
-					folderNameList.add(currFile.toString().substring(currFile.toString().indexOf(skinFolderName)));
+					folderNameList.add(temp);
 				}else {
-					fileNameList.add(currFile.toString().substring(currFile.toString().indexOf(skinFolderName)));
+					fileNameList.add(temp);
 				}			
 			}
 			folderNameList.addAll(fileNameList);
@@ -303,6 +304,7 @@ public class TempletsAction extends BaseAction {
 		String uploadFileUrl = managerSession.getBasicId() + File.separator +  skinFolderName;
 		uploadFileUrl = uploadFileUrl.replace(File.separator  + File.separator  ,  File.separator );
 		model.addAttribute("uploadFileUrl", uploadFileUrl);
+		model.addAttribute("websiteId",  managerSession.getBasicId());
 		return "/manager/cms/templets/templets_file_list";
 	}
 	
@@ -316,10 +318,10 @@ public class TempletsAction extends BaseAction {
 	public String readFileContent(ModelMap model, HttpServletRequest request){
 		String fileName = request.getParameter("fileName");
 		if (!StringUtil.isBlank(fileName)) {
-			String templets = this.getTempletsUrl(request, fileName);
-			model.addAttribute("fileContent",  FileUtil.readFile(templets));
+			
+			model.addAttribute("fileContent",  FileUtil.readFile(this.getRealPath(request, fileName)));
 		}
-		model.addAttribute("fileName",  fileName.substring(fileName.lastIndexOf(File.separator)+1));
+		model.addAttribute("fileName",  fileName);
 		model.addAttribute("fileNamePrefix",  fileName.substring(0,fileName.lastIndexOf(File.separator)+1));
 		return "/manager/cms/templets/templets_edit_file";
 	}
@@ -335,7 +337,7 @@ public class TempletsAction extends BaseAction {
 		int pageNo = 1;
 		ManagerSessionEntity managerSession = getManagerBySession(request);
 		String fileName = request.getParameter("fileName");
-		FileUtil.delFile(this.getRealPath(request,IParserRegexConstant.REGEX_SAVE_TEMPLATE + File.separator + managerSession.getBasicId() + File.separator + fileName));
+		FileUtil.delFile(this.getRealPath(request, fileName));
 		// 判断当前页码
 		this.getHistoryPageNoByCookie(request);
 		return pageNo;
@@ -353,20 +355,20 @@ public class TempletsAction extends BaseAction {
 		String fileName = request.getParameter("fileName");
 		String oldFileName = request.getParameter("oldFileName");		
 		String fileContent = request.getParameter("fileContent");
-		String fileNamePrefix = request.getParameter("fileNamePrefix");
 		ManagerSessionEntity managerSession = getManagerBySession(request);
 		if (!StringUtil.isBlank(fileName)) {
 			// 文件路径
-			String templets = this.getRealPath(request, IParserRegexConstant.REGEX_SAVE_TEMPLATE + File.separator + managerSession.getBasicId() + File.separator + fileNamePrefix + fileName);
+			String templets =  this.getRealPath(request, fileName);
+			LOG.debug(templets);
 			FileUtil.writeFile(fileContent, templets, "utf-8");
 			if(!fileName.equals(oldFileName)){
 				//得到一个待命名文件对象  
 	            File newName = new File(templets);  
 	            //获取新名称文件的文件对象  
-	            File oldName = new File(this.getRealPath(request, IParserRegexConstant.REGEX_SAVE_TEMPLATE + File.separator + managerSession.getBasicId() + File.separator + fileNamePrefix + oldFileName));  
+	            File oldName = new File(this.getRealPath(request, oldFileName));  
 	            //进行重命名  
 	            oldName.renameTo(newName); 
-	            FileUtil.delFile(fileNamePrefix+oldFileName);
+	            FileUtil.delFile(this.getRealPath(request, oldFileName));
 			}
             this.outJson(response, ModelCode.ROLE, true, null);
 		}

@@ -55,7 +55,7 @@ public interface IManagerDao extends IBaseDao {
 	 * @param managerName 管理员帐号
 	 * @return 返回存在数量
 	 */
-	public String countManagerName(String managerName);
+	public int countManagerName(String managerName);
 	
 	/**
 	 * 查询当前登录的管理员的所有子管理员

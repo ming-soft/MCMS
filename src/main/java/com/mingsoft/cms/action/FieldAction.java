@@ -41,48 +41,25 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.mingsoft.base.action.BaseAction;
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.cms.biz.IColumnBiz;
-import com.mingsoft.cms.biz.IContentModelBiz;
-import com.mingsoft.cms.biz.IFieldBiz;
-import com.mingsoft.cms.entity.ColumnEntity;
-import com.mingsoft.cms.entity.ContentModelEntity;
-import com.mingsoft.cms.entity.FieldEntity;
+import com.mingsoft.basic.biz.IContentModelBiz;
+import com.mingsoft.basic.biz.IFieldBiz;
+import com.mingsoft.basic.constant.Const;
+import com.mingsoft.basic.constant.e.ContentModelFieldEnum;
 import com.mingsoft.base.constant.CookieConst;
+import com.mingsoft.cms.entity.ColumnEntity;
+import com.mingsoft.basic.entity.ContentModelEntity;
+import com.mingsoft.basic.entity.FieldEntity;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
+
 /**
  * 
- * 
- * <p>
- * <b>铭飞CMS-铭飞内容管理系统</b>
- * </p>
- * 
- * <p>
- * Copyright: Copyright (c) 2014 - 2015
- * </p>
- * 
- * <p>
- * Company:景德镇铭飞科技有限公司
- * </p>
- * 
- * @author 姓名：张敏
- * 
- * @version 300-001-001
- * 
- * <p>
- * 版权所有 铭飞科技
- * </p>
- *  
- * <p>
- * Comments:字段管理控制层，继承BasicAction
- * </p>
- *  
- * <p>
- * Create Date:2014-9-12
- * </p>
- *
- * <p>
- * Modification history:
- * </p>
+ * 铭飞mcms开源系统， 自定义模型字段控制层
+ * @author 猪
+ * @version 
+ * 版本号：100-000-000<br/>
+ * 创建日期：2016年1月20日<br/>
+ * 历史修订：<br/>
  */
 @Controller
 @RequestMapping("/manager/cms/field/")
@@ -126,23 +103,6 @@ public class FieldAction extends BaseAction{
 	 */
 	private final static String PAGE_URL="/manager/cms/field/list.do";
 	
-	/**
-	 * 获取字段属性
-	 * @return
-	 */
-	public Map<Integer,String> getfieldType(){
-		Map<String,String> maps = new LinkedHashMap<String,String>(); 
-		maps = getMapByProperties("com/mingsoft/cms/resources/field_type");
-		Map<Integer,String> fieldType= new LinkedHashMap<Integer,String>();
-		Map<Integer,String> map= new LinkedHashMap<Integer,String>();
-		for(Entry<String, String> entry : maps.entrySet()){
-			map.put(Integer.valueOf(entry.getKey()), entry.getValue());
-		}
-		for(int i=1; i<=maps.size(); i++){
-			fieldType.put(i, map.get(i));
-		}
-        return fieldType;
-	}
 	
 	
 	/**
@@ -154,8 +114,8 @@ public class FieldAction extends BaseAction{
 	 */
 	@RequestMapping("/list")
 	@ResponseBody
-	public Map list(int cmId,HttpServletRequest request, HttpServletResponse response){
-		Map model = new HashMap();
+	public Map<String,Object> list(int cmId,HttpServletRequest request, HttpServletResponse response){
+		Map<String,Object> model = new HashMap<String, Object>();
 		String pageNo = request.getParameter("pageNo");
 		if (!StringUtil.isInteger(pageNo)) {
 			pageNo = "1";
@@ -167,10 +127,9 @@ public class FieldAction extends BaseAction{
 		List<BaseEntity> fieldList = fieldBiz.queryByPage(cmId, page, "FIELD_ID", false);
 		model.put("fieldList", fieldList);
 		//获取字段属性
-		Map<Integer,String> fieldType = this.getfieldType();
-		model.put("fieldType",fieldType);
+		model.put("fieldType",ContentModelFieldEnum.toMap());
 		model.put("page",page);
-		model.put("fieldNum",fieldType.size());
+		model.put("fieldNum",ContentModelFieldEnum.toMap().size());
 		if(cmId == 0){
 			model.put("flag", true);
 		} else {
@@ -201,7 +160,7 @@ public class FieldAction extends BaseAction{
 			//获取内容模型实体
 			ContentModelEntity contentModel = (ContentModelEntity) contentModelBiz.getEntity(field.getFieldCmid());
 			if(contentModel != null){
-				Map fields = new HashMap();
+				Map<String,Object> fields = new HashMap<String, Object>();
 				// 要删除的字段名
 				fields.put("fieldName",field.getFieldFieldName());
 				//删除列
@@ -238,14 +197,14 @@ public class FieldAction extends BaseAction{
 		fieldBiz.saveEntity(field);
 		//读取属性配置文件
 		Map<String,String> maps = new LinkedHashMap<String,String>(); 
-		maps = getMapByProperties("com/mingsoft/cms/resources/field_dataType");
 		//动态的修改表结构
 		//获取字段信息
 		Map fileds = new HashMap();
 		//压入字段名
 		fileds.put("fieldName", field.getFieldFieldName());
 		//字段的数据类型
-		fileds.put("fieldType",maps.get(String.valueOf(field.getFieldType())));
+		
+		fileds.put("fieldType",ContentModelFieldEnum.get(field.getFieldType()).toString());
 		//字段的默认值
 		//判断该字段是否为checkBox或option或为raido，
 		if(field.getFieldType()==OPTION||field.getFieldType()==RADIO||field.getFieldType()==CHECKBOX){
@@ -295,13 +254,10 @@ public class FieldAction extends BaseAction{
 		}
 		//获取内容模型实体
 		ContentModelEntity contentModel = (ContentModelEntity) contentModelBiz.getEntity(field.getFieldCmid());
-		//读取属性配置文件
-		Map<String,String> maps = new LinkedHashMap<String,String>(); 
-		maps = getMapByProperties("com/mingsoft/cms/resources/field_dataType");
 		// 获取更改前的字段实体
 		FieldEntity oldField =(FieldEntity) fieldBiz.getEntity(field.getFieldId());
 		fieldBiz.updateEntity(field);
-		Map fields = new HashMap();
+		Map<String,Object> fields = new HashMap<String, Object>();
 		//更改前的字段名
 		fields.put("fieldOldName", oldField.getFieldFieldName());
 		//新字段名
@@ -313,7 +269,7 @@ public class FieldAction extends BaseAction{
 				fields.put("default", field.getFieldDefault());
 		}
 		//字段的数据类型
-		fields.put("fieldType", maps.get(String.valueOf(field.getFieldType())));
+		fields.put("fieldType", ContentModelFieldEnum.get(field.getFieldType()).toString());
 		if(contentModel!=null){
 			// 更新表的字段名
 			fieldBiz.alterTable(contentModel.getCmTableName(), fields, "modify");
@@ -330,15 +286,13 @@ public class FieldAction extends BaseAction{
 	@RequestMapping("/{fieldFieldName}/checkFieldNameExist")
 	@ResponseBody
 	public boolean checkFieldNameExist(@PathVariable String fieldFieldName, HttpServletRequest request){
-		int fieldCmId = 1;
-		if(request.getParameter("fieldCmId")!=null){
-			fieldCmId =Integer.parseInt(request.getParameter("fieldCmId"));
-		}
-		if(fieldBiz.getCountFieldName(fieldFieldName, fieldCmId)>0){
-			return true;
-		}else{
+		//获取表单模型ID
+		int fieldCmId  = this.getInt(request, "fieldCmId");
+		//判断字段名是否重复
+		if(fieldBiz.getCountFieldName(fieldFieldName, fieldCmId) <= 0){
 			return false;
 		}
+		return true;
 	}
 	
 	/**
@@ -386,7 +340,7 @@ public class FieldAction extends BaseAction{
 				}
 			}
 			model.addAttribute("listField",listField);
-			model.addAttribute("appid",this.getAppId(request));
+			model.addAttribute("appId",this.getAppId(request));
 		}
 		return "manager/cms/article/article_fields";
 	}
@@ -436,7 +390,7 @@ public class FieldAction extends BaseAction{
 				}
 			}
 			model.addAttribute("listField",listField);
-			model.addAttribute("appid",this.getAppId(request));
+			model.addAttribute("appId",this.getAppId(request));
 		}
 		return "manager/cms/article/article_cms_fields";
 	}

@@ -153,7 +153,20 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 		// TODO Auto-generated method stub
 		return categoryDao.queryCategoryIdByCategoryTitle(categorySchoolName, schoolModelId, facultyModelId);
     }    
-    
+
+	/**
+	 * 根据分类标题和分类的模块ID查询该分类是否存在</br> 
+	 * 若存在则不持久化直接返回数据库中原来的数据</br> 
+	 * 若不存在则持久化并返回实体信息
+	 * 
+	 * @param categoryTitle
+	 *            分类标题
+	 * @param categoryCategoryId
+	 *            父ID
+	 * @param categoryModelId
+	 *            模块ID
+	 * @return 返回分类实体
+	 */	
 	@Override
 	public CategoryEntity saveByCategoryTitle(String categoryTitle,int categoryCategoryId,int categoryModelId){
 		// TODO Auto-generated method stub
