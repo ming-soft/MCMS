@@ -78,6 +78,7 @@ public class FieldBizImpl extends BasicBizImpl implements IFieldBiz{
 	/**
 	 * 字段持久化层
 	 */
+	@Autowired
 	private IFieldDao fieldDao;
 	
 	/**
