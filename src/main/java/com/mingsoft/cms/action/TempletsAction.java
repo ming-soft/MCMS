@@ -58,9 +58,9 @@ import com.mingsoft.util.StringUtil;
 
 /**
  * 
- *  
+ * 
  * <p>
- * <b>铭飞CMS-铭飞内容管理系统 </b>
+ * <b>铭飞CMS-铭飞内容管理系统</b>
  * </p>
  * 
  * <p>
@@ -301,7 +301,7 @@ public class TempletsAction extends BaseAction {
 			folderNameList.addAll(fileNameList);
 			model.addAttribute("fileNameList", folderNameList);
 		}
-		String uploadFileUrl = managerSession.getBasicId() + File.separator +  skinFolderName;
+		String uploadFileUrl =   skinFolderName;
 		uploadFileUrl = uploadFileUrl.replace(File.separator  + File.separator  ,  File.separator );
 		model.addAttribute("uploadFileUrl", uploadFileUrl);
 		model.addAttribute("websiteId",  managerSession.getBasicId());

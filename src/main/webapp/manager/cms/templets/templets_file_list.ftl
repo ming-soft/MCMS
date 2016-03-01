@@ -1,8 +1,7 @@
 <@ms.html5>
 	<@ms.nav title="文件列表"></@ms.nav>
 	<@ms.panel>
-		
-					<@ms.uploadFile path="templets/${uploadFileUrl}" inputName="file" size="20" filetype="*.htm;*.html;*.jpg;*.gif;*.png;*.css;*.js;*.ico;*.swf" msg="建议上传5M以下htm/html/css/js/jpg/gif/png/swf文件"  maxSize="5" callBack="test" isRename="false"/>
+					<@ms.uploadFile path="${uploadFileUrl}" inputName="file" size="20" filetype="*.htm;*.html;*.jpg;*.gif;*.png;*.css;*.js;*.ico;*.swf" msg="建议上传5M以下htm/html/css/js/jpg/gif/png/swf文件"  maxSize="5" callBack="test" isRename="false"/>
 
 					
 					<@ms.table head=['<th class="text-center">图标</th>','模板名称',"<th style='width:20%;text-align:center'>类型</th>","<th class='text-center' style='width:10%;'>操作</th>"]>

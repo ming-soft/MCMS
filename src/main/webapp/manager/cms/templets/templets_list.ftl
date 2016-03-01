@@ -64,7 +64,7 @@
        
        	//点击删除按钮进行删除模版
 		$("#deleteButton").click(function(){			
-			var URL = "/manager/cms/templet/"+${websiteId}+"/"+name+"/delete.do";
+			var URL = base+"/manager/cms/"+name.replace("templets","templet")+"/delete.do";
 			var DATA = "name=" + name + "&websiteId=" + ${websiteId};
 			$(this).attr("disabled",true);
 			$(this).text("删除中");
