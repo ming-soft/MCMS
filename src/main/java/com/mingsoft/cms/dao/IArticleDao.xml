@@ -328,12 +328,7 @@
 		and b.BASIC_TITLE like CONCAT('%',#{keyword},'%')
 		</if>
 		<if test="basicCategoryIds != null">
-			and
-			b.BASIC_CATEGORYID in
-			<foreach collection="basicCategoryIds" item="id" open="("
-				separator="," close=")">
-				#{id}
-			</foreach>
+			and b.BASIC_CATEGORYID in <foreach collection="basicCategoryIds" item="id" open="(" separator="," close=")">#{id}</foreach>
 		</if>
 		<if test="flag != null">and a.ARTICLE_TYPE like CONCAT('%',#{flag},'%')</if>
 		<if test="noFlag != null">and a.ARTICLE_TYPE not like CONCAT('%',#{noFlag},'%')</if>
