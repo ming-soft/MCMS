@@ -5,7 +5,8 @@
 		<@ms.panel>		
 			<@ms.form name="form"  id="editFileForm">
 				<!--文件名称-->
-				<@ms.text size="3" value="${fileName}" readonly="readonly" label="文件名称"  name="fileName" validation={"required":"true", "data-bv-notempty-message":"名称不能为空","data-bv-stringlength":"true","data-bv-stringlength-max":"20","data-bv-stringlength-min":"1","data-bv-stringlength-message":"长度介于1-20个字符"} />
+				<@ms.text label="文件名称" value="${name}" readonly="readonly"/>
+				<@ms.hidden value="${fileName}" name="fileName" />
 				<!--文件内容-->
 				<@ms.textarea name="fileContent" label="文件内容"   wrap="Soft" rows="21"  size="" value="${fileContent}"/>
 				<@ms.hidden id="fileName" value="${fileName}" />
