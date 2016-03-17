@@ -304,12 +304,13 @@ public class ManagerAction extends BaseAction {
 		String oldManagerName = request.getParameter("oldManagerName");
 		String oldPassword = manager.getManagerPassword();
 		//判断是否帐号已存在
-		if (!StringUtil.isBlank(managerBiz.countManagerName(manager.getManagerName())) && flag) {
+		int count = managerBiz.countManagerName(manager.getManagerName());
+		if (count>0 && flag) {
 			this.outJson(response, ModelCode.ROLE, false, getResString("err.exist",this.getResString("managerName")));
 			return;
 		}
 		//若数据库中存在该名称且当前名称不为更改前的名称，则属于重名
-		if (managerBiz.countManagerName(manager.getManagerName()) >0 && !manager.getManagerName().equals(oldManagerName)) {
+		if (count >0 && !manager.getManagerName().equals(oldManagerName)) {
 			this.outJson(response, ModelCode.ROLE, false, getResString("err.exist",this.getResString("managerName")));
 			return;
 		}		
