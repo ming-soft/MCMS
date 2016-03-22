@@ -85,6 +85,7 @@ QQ交流群号1：221335098<br/>
 #代码部署与常见问题
 * eclipse导入git源码：http://ms.ming-soft.com/mbbs/13582/detail.do
 * eclipse导入zip源码： http://ms.ming-soft.com/mbbs/12998/detail.do
+* MCms环境配置常见问题  http://ms.ming-soft.com/mbbs/13000/detail.do
 * MStore使用方式：http://ms.ming-soft.com/mbbs/13008/detail.do
 
 #系统美图
