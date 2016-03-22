@@ -83,8 +83,8 @@ QQ交流群号1：221335098<br/>
 * pom.xml maven的依赖配置文件
 
 #代码部署与常见问题
-* eclipse中git使用：http://my.oschina.net/songxinqiang/blog/192567?fromerr=O1U3nvWt
-* 参考铭飞MS官方开发社区文档： http://ms.ming-soft.com/mbbs/12998/detail.do
+* eclipse导入git源码：http://ms.ming-soft.com/mbbs/13582/detail.do
+* eclipse导入zip源码： http://ms.ming-soft.com/mbbs/12998/detail.do
 * MStore使用方式：http://ms.ming-soft.com/mbbs/13008/detail.do
 
 #系统美图
