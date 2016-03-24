@@ -769,7 +769,7 @@ public class GeneraterAction extends BaseAction {
 		//获取应用实体信息
 		AppEntity app = this.getApp(request);
 		//组织主页预览地址
-		String indexPosition = app.getAppHostUrl() + File.separator + IParserRegexConstant.HTML_SAVE_PATH + File.separator + app.getAppId() + File.separator + position;
+		String indexPosition = app.getAppHostUrl() + (app.getAppHostUrl().lastIndexOf("/")>-1?"":File.separator) + IParserRegexConstant.HTML_SAVE_PATH + File.separator + app.getAppId() + File.separator + position;
 		return "redirect:" + indexPosition;
 	}
 

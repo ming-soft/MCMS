@@ -6,7 +6,7 @@
 	<display-name>mybatis</display-name>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring.xml,classpath:spring-mybatis.xml,classpath:spring-shiro.xml</param-value>
+		<param-value>classpath:spring-mvc.xml,classpath:spring-mybatis.xml,classpath:spring-shiro.xml</param-value>
 	</context-param>
 	<filter>
 		<description>字符集过滤器</description>
@@ -59,8 +59,6 @@
 		<welcome-file>login.do</welcome-file>
 	</welcome-file-list>
 	<!-- 配置session超时时间，单位分钟 -->
-
-
 
 	<error-page>
 		<error-code>404</error-code>
