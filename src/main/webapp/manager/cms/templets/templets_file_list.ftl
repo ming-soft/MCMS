@@ -12,7 +12,7 @@
 						            <td style="width:35%" class="name">${fileName}</td>
 						            <td class="text-center type"></td>
 						            <td style="width:10%;text-align:center">			      
-				                    	<a class="btn btn-xs tooltips deleteIcon" data-toggle="tooltip" data-title="templets/${websiteId}/${fileName}" data-original-title="删除">
+				                    	<a class="btn btn-xs tooltips deleteIcon" data-toggle="tooltip" data-title="${fileName}" data-original-title="删除">
 					                        <i class="glyphicon glyphicon-trash" style="color:#428BCA"></i>
 					                    </a>
 					                    <a class="btn btn-xs tooltips editFileBtn" data-toggle="tooltip" data-title="templets/${websiteId}/${fileName}" data-original-title="编辑">

@@ -5,7 +5,7 @@
 		<@ms.panel>		
 			<@ms.form name="form"  id="editFileForm">
 				<!--文件名称-->
-				<@ms.text label="文件名称" value="${name}" readonly="readonly"/>
+				<@ms.text label="文件名称" value="${name?default('')}" readonly="readonly"/>
 				<@ms.hidden value="${fileName}" name="fileName" />
 				<!--文件内容-->
 				<@ms.textarea name="fileContent" label="文件内容"   wrap="Soft" rows="21"  size="" value="${fileContent}"/>

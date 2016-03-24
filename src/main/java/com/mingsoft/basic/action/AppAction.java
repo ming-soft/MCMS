@@ -208,6 +208,17 @@ public class AppAction extends BaseAction{
 		if(!StringUtil.isBlank(app.getAppLogo())) {
 			app.setAppLogo( app.getAppLogo().replace("|", ""));
 		}
+		String url = app.getAppUrl();
+		String[] _url = url.split("\n");
+		StringBuffer sb = new StringBuffer();
+		for (String temp:_url) {
+			if (temp.lastIndexOf("/")>-1 || temp.lastIndexOf("\\")>-1) {
+				temp = temp.substring(temp.length()-1);
+				sb.append(temp).append("\n");
+			}
+		}
+				 
+		app.setAppUrl(sb.toString());		
 		//更新站点信息
 		appBiz.updateEntity(app);
 		this.outJson(response, ModelCode.APP, true, String.valueOf(pageNo), String.valueOf(managerRoleID));

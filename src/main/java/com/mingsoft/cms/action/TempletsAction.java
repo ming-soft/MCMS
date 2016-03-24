@@ -291,7 +291,10 @@ public class TempletsAction extends BaseAction {
 			List<String> fileNameList = new ArrayList<String>();
 			for (int i = 0; i < files.length; i++) {
 				File currFile = files[i];
-				String temp = currFile.getPath().replace(this.getRealPath(request, ""),"").replace(IParserRegexConstant.REGEX_SAVE_TEMPLATE+Const.SEPARATOR+this.getAppId(request)+Const.SEPARATOR, "");
+				String filter = IParserRegexConstant.REGEX_SAVE_TEMPLATE+"/"+this.getAppId(request)+"/";
+				String temp = currFile.getPath().replace(this.getRealPath(request, ""),"").replace(filter, "");
+				filter = IParserRegexConstant.REGEX_SAVE_TEMPLATE+"\\"+this.getAppId(request)+"\\";
+				temp = temp.replace(filter, "");
 				if(currFile.isDirectory()){
 					folderNameList.add(temp);
 				}else {
@@ -321,6 +324,7 @@ public class TempletsAction extends BaseAction {
 			
 			model.addAttribute("fileContent",  FileUtil.readFile(this.getRealPath(request, fileName)));
 		}
+		model.addAttribute("name",new File(this.getRealPath(request, fileName)).getName());
 		model.addAttribute("fileName",  fileName);
 		model.addAttribute("fileNamePrefix",  fileName.substring(0,fileName.lastIndexOf(File.separator)+1));
 		return "/manager/cms/templets/templets_edit_file";

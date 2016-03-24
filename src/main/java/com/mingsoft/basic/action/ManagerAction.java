@@ -314,7 +314,6 @@ public class ManagerAction extends BaseAction {
 			this.outJson(response, ModelCode.ROLE, false, getResString("err.exist",this.getResString("managerName")));
 			return;
 		}		
-		System.out.println("============" + managerBiz.countManagerName(manager.getManagerName()));
 		//验证表单
 		if (!this.checkForm(manager, response)) {
 			return;
