@@ -156,7 +156,9 @@ public class AppAction extends BaseAction {
 				sb.append(temp.substring(0, temp.trim().length()-1)).append("\r\n");
 			}
 		}
-		app.setAppUrl(sb.toString());
+		if (!StringUtil.isBlank(sb.toString())) {
+			app.setAppUrl(sb.toString());
+		}
 		// 更新站点信息
 		appBiz.updateEntity(app);
 		this.outJson(response, ModelCode.APP, true, String.valueOf(pageNo), String.valueOf(managerRoleID));
