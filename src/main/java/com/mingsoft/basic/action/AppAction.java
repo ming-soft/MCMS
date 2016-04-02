@@ -1,5 +1,5 @@
 /**
-The MIT License (MIT) * Copyright (c) 2015 铭飞科技
+The MIT License (MIT) * Copyright (c) 2016 铭飞科技
 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -62,12 +62,6 @@ public class AppAction extends BaseAction {
 	 */
 	@Autowired
 	private IAppBiz appBiz;
-
-	/**
-	 * managerBiz业务层的注入
-	 */
-	@Autowired
-	private IManagerBiz managerBiz;
 
 	/**
 	 * 跳转到修改页面
@@ -146,20 +140,20 @@ public class AppAction extends BaseAction {
 		if (!StringUtil.isBlank(app.getAppLogo())) {
 			app.setAppLogo(app.getAppLogo().replace("|", ""));
 		}
+
 		// 过滤地址后面的/\符号
 		String url = app.getAppUrl();
 		String _url[] = url.split("\r\n");
 		StringBuffer sb = new StringBuffer();
-		for (String temp:_url) {
-			String lastChar = temp.trim().substring(temp.length()-1);
+		for (String temp : _url) {
+			String lastChar = temp.trim().substring(temp.length() - 1);
 			if (lastChar.equals("/") || lastChar.equals("\\")) {
-				sb.append(temp.substring(0, temp.trim().length()-1)).append("\r\n");
+				sb.append(temp.substring(0, temp.trim().length() - 1)).append("\r\n");
 			}
 		}
 		if (!StringUtil.isBlank(sb.toString())) {
 			app.setAppUrl(sb.toString());
 		}
-		// 更新站点信息
 		appBiz.updateEntity(app);
 		this.outJson(response, ModelCode.APP, true, String.valueOf(pageNo), String.valueOf(managerRoleID));
 	}

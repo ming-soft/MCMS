@@ -1,7 +1,7 @@
 <@ms.html5>
 	<@ms.nav title="文件列表"></@ms.nav>
 	<@ms.panel>
-					<@ms.uploadFile path="${uploadFileUrl}" inputName="file" size="20" filetype="*.htm;*.html;*.jpg;*.gif;*.png;*.css;*.js;*.ico;*.swf" msg="建议上传5M以下htm/html/css/js/jpg/gif/png/swf文件"  maxSize="5" callBack="test" isRename="false"/>
+					<@ms.uploadFile path="${uploadFileUrl}" inputName="file" size="20" filetype="*.htm;*.html;*.jpg;*.gif;*.png;*.css;*.js;*.ico;*.swf" msg="建议上传5M以下htm/html/css/js/jpg/gif/png/swf文件"  maxSize="5" callBack="refresh" isRename="false"/>
 
 					
 					<@ms.table head=['<th class="text-center">图标</th>','模板名称',"<th style='width:20%;text-align:center'>类型</th>","<th class='text-center' style='width:10%;'>操作</th>"]>
@@ -50,17 +50,11 @@
 		var skinFolderName = "${uploadFileUrl?replace("\\","/")}";
 		
 	   var interval;  
-       function run() {  
-          interval = setInterval(chat, "1000");  
-       }  
-       function test(e){
-            isSuccess = true;
-            fileUrl = e;
-			alert("模版文件上传成功 ");
+       function refresh(e){
+        alert("上传成功");
+       	location.reload();
 	   }
        function chat() {  
-       	  if(isSuccess){
-       	  	  clearTimeout(interval);  //关闭定时器  
        	  	  var temp = $(".deleteIcon").attr("data-title");
        	  	  if(temp == null || temp == ""){
        	  	  	temp = $(".editFileBtn").attr("data-title");
@@ -87,7 +81,6 @@
 			  } else {
 	     	 	 location.href="${base}/manager/cms/templet/showChildFileAndFolder.do?skinFolderName="+temp;
 	     	  }
-           }
        }
 		
 		//删除模版文件
@@ -98,8 +91,7 @@
 			$(this).request({url:URL,data:DATA,type:"json",method:"post",func:function(msg) {
 					if(msg != 0) {
 						alert("删除模版文件成功");
-						fileName = fileName.substring(0,fileName.lastIndexOf("/"));
-			    		location.href = base+"/manager/cms/templet/showChildFileAndFolder.do?skinFolderName="+fileName;
+						location.reload();
 			    	} else {
 						alert("删除模版文件失败");
 			    	}
@@ -109,7 +101,6 @@
 		
 		$(function () {	
 			//加载页面时启动定时器  
-	        run(); 
 	        
 	        //若为文件夹，则左侧显示文件夹图标；若为文件，则左侧显示文件图标，且稍向右偏移
 	       $(".name").each(function(i){

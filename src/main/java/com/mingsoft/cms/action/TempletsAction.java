@@ -291,7 +291,7 @@ public class TempletsAction extends BaseAction {
 			List<String> fileNameList = new ArrayList<String>();
 			for (int i = 0; i < files.length; i++) {
 				File currFile = files[i];
-				String filter = IParserRegexConstant.REGEX_SAVE_TEMPLATE+"/"+this.getAppId(request)+"/";
+				String filter = IParserRegexConstant.REGEX_SAVE_TEMPLATE+"/"+this.getAppId(request)+"/"; 
 				String temp = currFile.getPath().replace(this.getRealPath(request, ""),"").replace(filter, "");
 				filter = IParserRegexConstant.REGEX_SAVE_TEMPLATE+"\\"+this.getAppId(request)+"\\";
 				temp = temp.replace(filter, "");
@@ -305,8 +305,7 @@ public class TempletsAction extends BaseAction {
 			model.addAttribute("fileNameList", folderNameList);
 		}
 		String uploadFileUrl =   skinFolderName;
-		uploadFileUrl = uploadFileUrl.replace(File.separator  + File.separator  ,  File.separator );
-		model.addAttribute("uploadFileUrl", uploadFileUrl);
+		model.addAttribute("uploadFileUrl", uploadFileUrl+File.separator);
 		model.addAttribute("websiteId",  managerSession.getBasicId());
 		return "/manager/cms/templets/templets_file_list";
 	}
@@ -341,7 +340,7 @@ public class TempletsAction extends BaseAction {
 		int pageNo = 1;
 		ManagerSessionEntity managerSession = getManagerBySession(request);
 		String fileName = request.getParameter("fileName");
-		FileUtil.delFile(this.getRealPath(request, fileName));
+		FileUtil.delFile(this.getRealPath(request, IParserRegexConstant.REGEX_SAVE_TEMPLATE + File.separator + managerSession.getBasicId() + File.separator +fileName));
 		// 判断当前页码
 		this.getHistoryPageNoByCookie(request);
 		return pageNo;

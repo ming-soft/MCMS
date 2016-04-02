@@ -41,10 +41,10 @@ method:提交方式
 				});	
 				
 				</#if>
-				
 				//$("#${name} .form-group>div.radio").siblings("i.form-control-feedback").clone().prependTo($("#${name} .form-group>div.radio"));
 				//$("#${name} .form-group>div.radio").siblings("i.form-control-feedback").remove();
 				<#if !class?has_content>
+					
 					$("#${name} .form-group>label").removeClass("col-sm-2");
 					$("#${name} .form-group>div").removeClass("col-sm-9");
 					var width = $("#${name} .form-group>div.ms-from-group-input").width();
@@ -53,7 +53,15 @@ method:提交方式
 					
 					//$("#${name} .form-group label").removeClass("checkbox-inline").removeClass("radio-inline");
 					//$("#${name} .has-feedback .form-control-feedback").css({top:"25px"});
+				<#elseif class?index_of("searchForm") gt -1>
+					$("#${name} .form-group>label").removeClass("col-sm-3");
+					$("#${name} .form-group>div").removeClass("col-sm-9");
 					
+					$("#${name} .form-group>label").addClass("col-sm-4");
+					$("#${name} .form-group>div").addClass("col-sm-8");		
+					
+					$("#${name} .ms-form-group").addClass("col-sm-4");	
+					$("#${name}").show(); 
 				</#if>
 	})
 </script>
@@ -63,13 +71,13 @@ method:提交方式
 <#macro searchForm  name id="" target=""
 	 action="" method="post"  enctype=""  
 	 class="searchForm form-inline"  style="display:none;  background-color: white;" isvalidation=false tooltip=true >
-	<@ms.form name="${name}" id="${id}" action="${action}" style="background-color: white;" isvalidation=true class="${class}" tooltip=true>
+	<@ms.form name="${name}" id="${id}" action="${action}" style="display:none;background-color: white;" isvalidation=true class="${class}" tooltip=true>
 		<#nested/><#rt/>
 	</@ms.form>
 </#macro>
 
 <#macro searchFormButton close="">
-		<div class="bottom">
+		<div class="bottom" style="clear:both">
 			<!--div class="close">close</div-->
 			<@ms.resetButton/>
 			<#nested/><#rt/>

@@ -12,8 +12,8 @@
   			<@ms.checkbox name="appMobileStyle" width="200"  list=[{"id":"m","value":"启用"}] listKey="id" listValue="value" valueList=["${app.appMobileStyle!('')}"] label="启用移动端" 
   				help="启用后手机用户访问网站会显示手机版网页，前提是网站必需提供移动端皮肤，相关教程:<a href='http://ms.ming-soft.com/mbbs/13086/detail.do' target='_blank'>铭飞移动端开发教程</a>"/>
 			<@ms.textarea name="appUrl" label="域 名" width="400"  rows="4" value="${app.appUrl?default('')}" 
-						  placeholder="使用回车换行可以输入多个域名地址，必须要加http:// 域名不要以/\\符号结尾"
-						  help="多个域名回车换行显示，必须以http[s]://打头，域名不要以/\\符号结尾<br/>例如：<br/>http://www.a.com <br/> http://a.com "
+						  placeholder="使用回车换行可以输入多个域名地址，必须要加http:// 域名不要以／\\符号结尾"
+						  help="多个域名回车换行显示，必须以http[s]://打头，<br/>例如：http://www.a.com <br/> http://a.com 域名不要以／\\符号结尾"
 						  validation={"maxlength":"150","required":"true","data-bv-notempty-message":"必填项目", "data-bv-stringlength-message":"长度在150个字符以内!"} />
 			<@ms.select name="appStyle" width="300" id="appStyle" label="模板风格"  />
 			<@ms.textarea name="appKeyword"  label="关键字" width="700" value="${app.appKeyword?default('')}" rows="4"  placeholder="请输入关键字"/>

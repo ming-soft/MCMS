@@ -1,14 +1,14 @@
 <@ms.html5>
 	<@ms.nav title="用户管理" back=true></@ms.nav>
 	<@ms.panel>
-				<@ms.searchForm name="searchForm" id="searchForm" action="${basePath}/manager/people/user/list.do">
-							<@ms.text label="昵称" width="150" name="peopleUserNickName"  title="请输入用户昵称"  placeholder="请输入用户昵称" value="${peopleUserNickName?default('')}"   />			  
-							<@ms.text label="真实姓名" width="150" name="peopleUserRealName"  title="请输入用户昵称"  placeholder="请输入用户昵称" value="${peopleUserRealName?default('')}"   />			  
+				<@ms.searchForm  name="searchForm" id="searchForm" action="${basePath}/manager/people/user/list.do">
+							<@ms.text label="昵称"  name="peopleUserNickName"  title="请输入用户昵称"  placeholder="请输入用户昵称" value="${peopleUserNickName?default('')}"   />			  
+							<@ms.text label="真实姓名"   name="peopleUserRealName"  title="请输入用户昵称"  placeholder="请输入用户昵称" value="${peopleUserRealName?default('')}"   />			  
 							<#assign status=[{"id":"1","name":"男"},{"id":"2","name":"女"}]>
-							<@ms.select label="性别" list=status listValue="name" listKey="id" width="150"   name="peopleUserSex"   default="全部" />
+							<@ms.select label="性别" list=status listValue="name" listKey="id"    name="peopleUserSex"   default="全部" />
 							<#assign status=[{"id":"0","name":"未审核"},{"id":"1","name":"已审核"}]>
-							<@ms.select label="审核状态" list=status listValue="name" listKey="id"  width="150"  name="peopleState"   default="全部" />
-							<@ms.date label="注册时间" name="peopleDateTime" width="150"    value="${peopleDateTime?default('')}" readonly="readonly"  />
+							<@ms.select label="审核状态" list=status listValue="name" listKey="id"    name="peopleState"   default="全部" />
+							<@ms.date label="注册时间" name="peopleDateTime"     value="${peopleDateTime?default('')}" readonly="readonly"  />
 						<@ms.searchFormButton>
 								<@ms.queryButton id="submitSearch"/>								
 						</@ms.searchFormButton>
@@ -285,4 +285,4 @@
     			alert("请选择用户！");
   			  }
 		}
-	</script>	
+	</script>
