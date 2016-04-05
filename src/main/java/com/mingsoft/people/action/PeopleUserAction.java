@@ -127,6 +127,7 @@ public class PeopleUserAction extends BaseAction{
 	public String add(ModelMap mode,HttpServletRequest request){
 		int appId = this.getAppId(request);
 		mode.addAttribute("appId", appId);
+		mode.addAttribute("peopleUser",new PeopleUserEntity());
 		return "/manager/people/user/people_user";
 	}
 	

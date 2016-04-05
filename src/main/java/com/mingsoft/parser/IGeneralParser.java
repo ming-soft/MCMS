@@ -114,7 +114,8 @@ public abstract class IGeneralParser extends IParser {
 		htmlContent = new GlobalNameParser(htmlContent, app.getAppName()).parse();
 
 		// 替换模版链接地址标签：{ms: globalskin.url/}
-		String tmpSkinUrl = app.getAppHostUrl() +  StringUtil.removeRepeatStr(File.separator + IParserRegexConstant.REGEX_SAVE_TEMPLATE + File.separator + app.getAppId() + File.separator + app.getAppStyle(), File.separator)+File.separator;
+		String tmpSkinUrl = app.getAppHostUrl() +  File.separator + IParserRegexConstant.REGEX_SAVE_TEMPLATE + File.separator + app.getAppId() + File.separator + app.getAppStyle()+File.separator;
+		
 		// 替换网站链接地址标签:{ms:global.url/}
 		String linkUrl = app.getAppHostUrl() + File.separator + IParserRegexConstant.HTML_SAVE_PATH + File.separator + app.getAppId()+File.separator;
 		//如果论坛模板不为空，模板连接地址=原有地址+"/"+论坛模板

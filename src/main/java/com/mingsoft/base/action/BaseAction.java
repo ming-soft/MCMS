@@ -455,7 +455,7 @@ public abstract class BaseAction {
 	 * @param list 记录集合
 	 */
 	protected void outJson(HttpServletResponse response, List list) {
-		JSONObject.toJSONString(list);
+		this.outJson(response, JSONObject.toJSONString(list));
 	}
 	
 	

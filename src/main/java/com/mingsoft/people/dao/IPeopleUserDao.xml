@@ -10,7 +10,7 @@
 	
 	<sql id="column_people_list">
 	 	PU.PU_PEOPLE_ID,PU.PU_REAL_NAME,PU.PU_ADDRESS,PU.PU_ICON,PU.PU_NICKNAME,PU.PU_SEX,PU.PU_BIRTHDAY,PU.PU_APP_ID,PU.PU_CARD,
-		P.PEOPLE_ID,P.PEOPLE_PHONE,P.PEOPLE_NAME,P.PEOPLE_PASSWORD,P.PEOPLE_DATETIME,P.PEOPLE_APP_ID,P.PEOPLE_MAIL	 		
+		P.PEOPLE_ID,P.PEOPLE_PHONE,P.PEOPLE_NAME,P.PEOPLE_PASSWORD,P.PEOPLE_DATETIME,P.PEOPLE_APP_ID,P.PEOPLE_MAIL,P.PEOPLE_PHONECHECK,P.PEOPLE_MAILLCHECK	 		
 	</sql>
 	<!-- 表字段结束 -->
 	
@@ -32,6 +32,8 @@
 		<result column="PEOPLE_DATETIME" property="peopleDateTime"/><!-- 将实体的peopleDateTime属性与表的peopleDateTime字段对接 -->
 		<result column="PEOPLE_APP_ID" property="peopleAppId"/><!-- 用户所属的应用ID -->
 		<result column="PEOPLE_MAIL" property="peopleMail"/><!-- 用户邮箱 -->	
+		<result column="PEOPLE_MAILLCHECK" property="peopleMailCheck"/><!-- 用户邮箱 -->	
+		<result column="PEOPLE_PHONECHECK" property="peoplePhoneCheck"/><!-- 用户邮箱 -->	
 	</resultMap>
 	<!-- 将实体属性与表字段对接结束 -->
 	
