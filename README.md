@@ -1,5 +1,5 @@
 #铭飞MCMS内容管理系统完整开源版J2EE代码
-当前版本:4.5.6<br/>
+当前版本:4.5.7<br/>
 铭飞MS官网:http://ms.mingsoft.net<br/>
 官网同时提供一键运行版本下载，请步移官网....<br/>
 QQ交流群号1：221335098<br/>
@@ -36,6 +36,7 @@ QQ交流群号1：221335098<br/>
 * IDE:eclipse
 * DB:Mysql5.5
 * JDK:JAVA 7、J2EE6
+* WEB:Tomcat8
 
 #运行环境
 * WEB服务器：Weblogic、Tomcat、WebSphere、JBoss、Jetty 等
@@ -62,19 +63,10 @@ QQ交流群号1：221335098<br/>
 * webapp<br/>
    	 META-INF <br/>
 	 WEB-INF <br/>
-	 bootstrap3.0.3  <br/>
-	 bootstrap3.3.0<br/>
-	 css <br/>
-	 errors<br/>
 	 html/1 <font color="red">默认生成的静态代码，实际项目需要删除，只是提供给开发者快速预览生成后的静态页面</font><br/>
-	 images  <br/>
-	 jquery  <br/>
-	 js    <br/>
 	 manager <br/>
 	 templets/1/mooc  <font color="red">默认模版</font><br/>
-	 ueditor1_3_6 <br/>
 	 upload  <br/>
-	 zepto<br/>
 *   target  临时文件，可以删除让maven自动生成
 * .classpath eclipse配置缓存文件
 * .project  eclipse配置缓存文件
