@@ -1,6 +1,6 @@
 #铭飞MCMS内容管理系统完整开源版J2EE代码
-当前版本:4.5.5<br/>
-铭飞MS官网:http://ms.ming-soft.com<br/>
+当前版本:4.5.6<br/>
+铭飞MS官网:http://ms.mingsoft.net<br/>
 官网同时提供一键运行版本下载，请步移官网....<br/>
 QQ交流群号1：221335098<br/>
 很多人说铭飞MCMS是大天朝国唯一完整开源的J2EE系统！团队希望看到更多的优秀好用的开源系统，我们一直会努力下去！
@@ -83,10 +83,10 @@ QQ交流群号1：221335098<br/>
 * pom.xml maven的依赖配置文件
 
 #代码部署与常见问题
-* eclipse导入git源码：http://ms.ming-soft.com/mbbs/13582/detail.do
-* eclipse导入zip源码： http://ms.ming-soft.com/mbbs/12998/detail.do
-* MCms环境配置常见问题  http://ms.ming-soft.com/mbbs/13000/detail.do
-* MStore使用方式：http://ms.ming-soft.com/mbbs/13008/detail.do
+* eclipse导入git源码：http://ms.mingsoft.net/mbbs/13582/detail.do
+* eclipse导入zip源码： http://ms.mingsoft.net/mbbs/12998/detail.do
+* MCms环境配置常见问题  http://ms.mingsoft.net/mbbs/13000/detail.do
+* MStore使用方式：http://ms.mingsoft.netmbbs/13008/detail.do
 
 #系统美图
 ![输入图片说明](http://git.oschina.net/uploads/images/2015/1029/110523_6727b755_542665.jpeg "铭飞模版商城，模版商城")
