@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.people.dao.IPeopleOpenDao">
+	<resultMap type="com.mingsoft.people.entity.PeopleOpenEntity"
+		id="peopleOpen">
+		<result column="OPEN_PEOPLE_ID" property="peopleOpenPeopleId" />
+		<result column="OPEN_ID" property="peopleOpenId" />
+		<result column="OPEN_PLATFORM" property="peopleOpenPlatform" />
+
+	</resultMap>
+	<select id="getByOpenId" resultMap="peopleOpen">
+		SELECT OPEN_PEOPLE_ID FROM
+		PEOPLE_OPEN WHERE OPEN_ID = #{openId}
+	</select>
+
+	<insert id="saveEntity" parameterType="com.mingsoft.people.entity.PeopleOpenEntity">
+		INSERT INTO PEOPLE_OPEN
+		(OPEN_PEOPLE_ID,OPEN_ID,OPEN_PLATFORM)
+		VALUES(#{peopleId},#{peopleOpenId},#{peopleOpenPlatform});
+	</insert>
+</mapper>

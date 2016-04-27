@@ -31,6 +31,9 @@ QQ交流群号1：221335098<br/>
 * CSS框架：Twitter Bootstrap 2.3.1。
 * 富文本：Ueditor
 
+#系统结构
+
+
 #开发环境
 建议开发者使用以下环境，这样避免版本带来的问题
 * IDE:eclipse

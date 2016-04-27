@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!-- 用户信息持久层继承IBaseDao -->
+<mapper namespace="com.mingsoft.people.dao.IPeopleStudentDao">
+	<!-- 表字段开始-->
+	<sql id="column_list">
+	 	ps.ps_peopleID,ps.ps_education,ps.ps_indate,ps.ps_cityID,ps.ps_school,ps.ps_department,ps.ps_specialty,
+	 	ps.ps_class,ps.ps_no,ps.ps_room
+	</sql>
+	
+	<sql id="column_peopleStudent_list">
+	 	ps.ps_peopleID,ps.ps_education,ps.ps_indate,ps.ps_cityID,ps.ps_school,ps.ps_department,ps.ps_specialty,ps.ps_class,ps.ps_no,ps.ps_room,
+	 	P.PEOPLE_ID,P.PEOPLE_PHONE,P.PEOPLE_NAME,P.PEOPLE_PASSWORD,P.PEOPLE_DATETIME,P.PEOPLE_APP_ID,P.PEOPLE_MAIL
+	</sql>
+	<!-- 表字段结束 -->
+	
+	<!-- 将实体属性与表字段对接开始 -->
+	<resultMap  id="resultMap" type="com.mingsoft.people.entity.PeopleStudentEntity">
+		<id column="ps_peopleID" property="peopleStudentPeopleId"/><!-- 将实体的ID属性与表的ID字段对接 -->
+		<result column="ps_education" property="peopleStudentEducation"/><!--学生的学历 -->
+		<result column="ps_indate" property="peopleStudentIndate"/><!--学生的入学年份 -->
+		<result column="ps_cityID" property="peopleStudentCityID"/><!--学生所在城市 -->
+		<result column="ps_school" property="peopleStudentSchool"/><!--学生所在学校 -->
+		<result column="ps_department" property="peopleStudentDepartment"/><!--学生所在院系-->
+		<result column="ps_specialty" property="peopleStudentSpecialty"/><!--学生所在的专业-->
+		<result column="ps_class" property="peopleStudentClass"/><!--学生所在的班级-->
+		<result column="ps_no" property="peopleStudentNo"/><!--学生的学号-->
+		<result column="ps_room" property="peopleStudentRoom"/><!--学生的宿舍号-->
+		
+		<result column="PEOPLE_ID" property="peopleId"/><!-- 将实体的ID属性与表的ID字段对接 -->
+		<result column="PEOPLE_PHONE" property="peoplePhone"/><!-- 将实体的peoplePhone属性与表的peoplePhone字段对接 -->
+		<result column="PEOPLE_NAME" property="peopleName"/><!-- 将实体的peopleName属性与表的peopleName字段对接 -->
+		<result column="PEOPLE_PASSWORD" property="peoplePassword"/><!-- 将实体的peoplePwd属性与表的peoplePwd字段对接 -->
+		<result column="PEOPLE_DATETIME" property="peopleDateTime"/><!-- 将实体的peopleDateTime属性与表的peopleDateTime字段对接 -->
+		<result column="PEOPLE_APP_ID" property="peopleAppId"/><!-- 用户所属的应用ID -->
+		<result column="PEOPLE_MAIL" property="peopleMail"/><!-- 用户邮箱 -->
+		
+		<result column="PEOPLE_STATE" property="peopleState"/><!-- 用户状态-->
+		
+		<result column="PU_REAL_NAME" property="peopleUserRealName"/><!--用户的真实名称 -->
+		<result column="PU_ADDRESS" property="peopleUserAddress"/><!-- 用户地址 -->
+		<result column="PU_ICON" property="peopleUserIcon"/><!-- 用户头像 -->
+		<result column="PU_NICKNAME" property="peopleUserNickName"/><!-- 用户昵称 -->
+		<result column="PU_SEX" property="peopleUserSex"/><!-- 用户性别0.未知;1.男;2.女 -->
+		<result column="PU_BIRTHDAY" property="peopleUserBirthday"/><!-- 用户生日 -->
+		<result column="PU_APP_ID" property="peopleUserAppId"/><!-- 用户应用ID -->	
+		<result column="PU_CARD" property="peopleUserCard"/><!-- 用户身份证号码 -->
+		
+	</resultMap>
+	<!-- 将实体属性与表字段对接结束-->
+	
+	<!-- 新增学生信息开始 -->
+	<insert id="saveEntity" useGeneratedKeys="true"  keyProperty="peopleId" parameterType="com.mingsoft.base.entity.BaseEntity">
+		insert into people_student
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="peopleId != null">ps_peopleID,</if>
+			<if test="peopleStudentEducation != null">ps_education,</if>
+			<if test="peopleStudentIndate != null">ps_indate,</if>
+			<if test="peopleStudentCityID != null">ps_cityID,</if>
+			<if test="peopleStudentSchool != null">ps_school,</if>
+			<if test="peopleStudentDepartment != null">ps_department,</if>
+			<if test="peopleStudentClass != null">ps_class,</if>
+			<if test="peopleStudentNo != null">ps_no,</if>
+			<if test="peopleStudentRoom != null">ps_room,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="peopleId != null">#{peopleId},</if>
+			<if test="peopleStudentEducation != null">#{peopleStudentEducation},</if>
+			<if test="peopleStudentIndate != null">#{peopleStudentIndate},</if>
+			<if test="peopleStudentCityID != null">#{peopleStudentCityID},</if>
+			<if test="peopleStudentSchool != null">#{peopleStudentSchool},</if>
+			<if test="peopleStudentDepartment != null">#{peopleStudentDepartment},</if>
+			<if test="peopleStudentClass != null">#{peopleStudentClass},</if>
+			<if test="peopleStudentNo != null">#{peopleStudentNo},</if>
+			<if test="peopleStudentRoom != null">#{peopleStudentRoom},</if>
+		</trim>
+	</insert>
+	<!-- 新增学生信息结束 -->
+	
+	<!-- 更新学生开始 -->
+	<update id="updateEntity" parameterType="com.mingsoft.base.entity.BaseEntity">
+		update people_Student
+		<set>
+			<if test="peopleStudentEducation != null">ps_education=#{peopleStudentEducation},</if>
+			<if test="peopleStudentIndate != null">ps_indate=#{peopleStudentIndate},</if>
+			<if test="peopleStudentCityID != null">ps_cityID=#{peopleStudentCityID},</if>
+			<if test="peopleStudentSchool != null">ps_school=#{peopleStudentSchool},</if>
+			<if test="peopleStudentDepartment != null">ps_department=#{peopleStudentDepartment},</if>
+			<if test="peopleStudentClass != null">ps_class=#{peopleStudentClass},</if>
+			<if test="peopleStudentNo != null">ps_no=#{peopleStudentNo},</if>
+			<if test="peopleStudentRoom != null">ps_room=#{peopleStudentRoom},</if>
+			<if test="peopleStudentSpecialty != null">ps_specialty=#{peopleStudentSpecialty},</if>
+		</set>
+		where ps_peopleID = #{peopleId}
+	</update>
+	<!-- 更新学生结束 -->
+	
+	<!-- 根据Id查询实体开始 -->
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select <include refid="column_peopleStudent_list"/>
+		from  people p 
+		left join people_student ps on p.people_id=ps.ps_peopleID 
+		where 
+		p.people_id = #{peopleId}
+	</select>
+	<!-- 根据Id查询实体结束 -->
+	
+	<!-- 删除用户开始 -->
+	<delete id="deleteEntity" parameterType="int">
+		delete from people_student where ps_peopleID = #{peopleID}
+	</delete>
+	<!-- 删除用户结束 -->
+	<!-- 根据Id查询学生实体开始 -->
+	<select id="getPeopleStudent" resultMap="resultMap" parameterType="int">
+		select * from v_people_student  where  ps_peopleID=#{peopleId}
+	</select>
+	<!-- 查询站点下学生的信息开始 -->
+	<select id="queryPageListByAppId" resultMap="resultMap" >
+		select * from v_people_student  where  PEOPLE_APP_ID=#{appId}
+		<if test="page != null">
+			limit ${page.pageNo*page.pageSize},#{page.pageSize}	
+		</if>
+	</select>
+	<!-- 查询站点下学生的信息结束-->
+	<select id="queryByMap"  resultMap="resultMap">
+		select * from v_people_student 
+		<where>
+			<if test="appId != null">
+				and PEOPLE_APP_ID = #{appId}
+			</if>
+			<if test="where!=null">
+				<if test="where.peopleStudentCityID!=null">
+					and ps_cityID=#{where.peopleStudentCityID}
+				</if>
+				<if test="where.peopleStudentSchool!= null">
+					and ps_school=#{where.peopleStudentSchool}
+				</if>
+				<if test="where.peopleState!= null">
+					and PEOPLE_STATE=#{where.peopleState}
+				</if>
+				<if test="where.peopleUserRealName != null">
+					and PU_REAL_NAME=#{where.peopleUserRealName}
+				</if>
+			</if>
+
+			order by PEOPLE_ID desc
+			<if test="page != null">
+				limit ${page.pageNo*page.pageSize},#{page.pageSize};
+			</if>
+		</where>
+	</select>
+	
+	<select id="getCountByMap" resultType="int">
+			select count(*)  from v_people_student 
+		<where>
+			<if test="appId != null">
+				and PEOPLE_APP_ID = #{appId}
+			</if>
+			<if test="where!=null">
+				<if test="where.peopleStudentCityID!=null">
+					and ps_cityID=#{where.peopleStudentCityID}
+				</if>
+				<if test="where.peopleStudentSchool!= null">
+					and ps_school=#{where.peopleStudentSchool}
+				</if>
+				<if test="where.peopleState != null">
+					and PEOPLE_STATE=#{where.peopleState}
+				</if>
+			</if>
+		</where>
+	</select>
+	
+</mapper>
