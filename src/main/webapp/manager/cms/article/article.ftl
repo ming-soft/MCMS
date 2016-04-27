@@ -3,14 +3,14 @@
 		<@ms.saveButton  id="saveUpdate" /> 
 	</@ms.nav>
 	<@ms.panel>
-		<@ms.form isvalidation=true name="articleForm" action="${base}/manager/cms/article/${autoCURD}.do">
+		<@ms.form isvalidation=true name="articleForm" action="${base}${baseManager}/cms/article/${autoCURD}.do">
 			<@ms.text name="basicTitle" width="400" label="文章标题"	title="文章标题" size="5"  placeholder="请输入文章标题"  value="${article.basicTitle?default('')}"  validation={"maxlength":"300","required":"true", "data-bv-notempty-message":"文章标题不能为空","data-bv-stringlength-message":"标题在300个字符以内!"}/>
 			<@ms.text name="basicSort"  width="200" label="自定义顺序" title="自定义顺序" size="5"  placeholder="请输入文章顺序" value="${article.basicSort?c?default(0)}" validation={"data-bv-between":"true","data-bv-between-message":"自定义顺序必须大于0","data-bv-between-min":"0", "data-bv-between-max":"99999999","data-bv-notempty-message":"自定义顺序不能为空"}/>
 			<#if articleType?has_content>
 				<@ms.checkboxlist name="checkbox" label="文章属性" list=articleType listKey="key"  listValue="value" />
 			</#if>
 			<@ms.formRow label="文章缩略图" width="400">
-					<@ms.uploadImg path="upload/article/${appId}/" inputName="basicThumbnails" size="1" filetype="" msg="提示:文章缩略图,支持jpg格式"  maxSize="2" imgs="${article.basicThumbnails?default('')}"  />
+					<@ms.uploadImg path="upload/article/${appId}/" inputName="basicThumbnails" size="1" msg="提示:文章缩略图,支持jpg格式"  maxSize="2" imgs="${article.basicThumbnails?default('')}"  />
 			</@ms.formRow>
 			<@ms.text name="articleSource" width="200" label="文章来源" title="文章来源" size="5"  placeholder="请输入文章来源"  value="${article.articleSource?default('')}" />
 			<@ms.text name="articleAuthor" width="200" label="文章作者" title="文章作者" size="5"  placeholder="请输入文章作者"  value="${article.articleAuthor?default('')}" />
@@ -23,9 +23,6 @@
 			<@ms.textarea name="articleKeyword" label="关键字" width="600" wrap="Soft" rows="4"  size="" placeholder="请输入文章关键字"   value="${article.articleKeyword?default('')}"/>
 			<!--新填字段内容开始-->
 			<div id="addFieldForm">		
-			</div>
-			<!--新增属性开始-->
-			<div id="articleTypeField">
 			</div>
 			<@ms.hidden name="articleTypeJson" />
 			<@ms.editor name="articleContent" label="文章内容" content="${article.articleContent?default('')}"  appId="${appId?default(0)}"/>			
@@ -45,7 +42,7 @@ $(function(){
 	var actionUrl="";
 	
 	<#if article.basicId !=0>
-	actionUrl = "${base}/manager/cms/article/${article.basicId?c?default(0)}/update.do";
+	actionUrl = "${base}${baseManager}/cms/article/${article.basicId?c?default(0)}/update.do";
 	var type="${article.articleType?default('')}";
 	var articleType = new Array;
 	//文章属性
@@ -61,19 +58,14 @@ $(function(){
 	});
 	articleBasicId=${article.basicId?c?default(0)};
 	<#else>
-	actionUrl = "${base}/manager/cms/article/save.do";
+	actionUrl = "${base}${baseManager}/cms/article/save.do";
 	</#if>	
 	
 	//获取当前栏目的自定义模型
-	var url="${base}/manager/cms/field/"+${categoryId?default(0)}+"/queryField.do";
+	var url="${base}${baseManager}/mdiy/contentModel/contentModelField/"+${categoryId?default(0)}+"/queryField.do";
 	var articleId="basicId="+${article.basicId?c?default(0)};
 	$(this).request({url:url,data:articleId,method:"post",func:function(data) {
 		$("#addFieldForm").html(data);
-	}});
-	//获取当前栏目的自定义属性
-	var url="${base}/manager/cms/type/"+${categoryId?default(0)}+"/"+articleBasicId+"/queryByCategoryId.do";
-	$(this).request({url:url,method:"post",func:function(data) {
-		$("#articleTypeField").html(data);
 	}});
 
 	//显示跳转地址
@@ -144,7 +136,7 @@ $(function(){
 				$("#saveUpdate").attr("disabled",true);
 				$(this).request({url:actionUrl,data:dataMsg,loadingText:seeMsg,method:"post",type:"json",func:function(obj) {
 					if(obj.result){
-						var generateUrl =  base+"/manager/cms/generate/"+obj.resultMsg+"/genernateForArticle.do";
+						var generateUrl =  base+"${baseManager}/cms/generate/"+obj.resultMsg+"/genernateForArticle.do";
 						$(this).request({url:generateUrl,loadingText:"生成中....",method:"post",type:"json",func:function(re) {
 							if(re.result){
 				   				<#if article.basicId !=0>
@@ -184,21 +176,14 @@ $(function(){
 //选择栏目后查询自定义模型
 function clickZtreeId(event,treeId,treeNode){
 	if(treeNode.columnType == 2){
-		alert("不能选择单篇栏目");
+		<@ms.notify msg="不能选择单篇栏目" />
 		return false;
 	}
-	var url="${base}/manager/cms/field/"+treeNode.categoryId+"/queryField.do";
+	var url="${base}${baseManager}/mdiy/contentModel/contentModelField/"+treeNode.categoryId+"/queryField.do";
 	var basicId="basicId=${article.basicId?c?default(0)}";
 	$(this).request({url:url,data:basicId,method:"post",func:function(data) {
 		$("#addFieldForm").html("");
 		$("#addFieldForm").html(data);
-		$("select").select2();
-	}});
-	//获取当前栏目的自定义属性
-	var url="${base}/manager/cms/type/"+treeNode.categoryId+"/"+articleBasicId+"/queryByCategoryId.do";
-	$(this).request({url:url,method:"post",func:function(data) {
-		$("#articleTypeField").html("");
-		$("#articleTypeField").html(data);
 		$("select").select2();
 	}});
 } 

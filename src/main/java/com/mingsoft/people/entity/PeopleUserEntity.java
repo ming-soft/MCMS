@@ -1,24 +1,3 @@
-/**
-The MIT License (MIT) * Copyright (c) 2015 铭飞科技
-
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
-
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
-
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 package com.mingsoft.people.entity;
 
 import java.util.Date;
@@ -61,37 +40,14 @@ import java.util.Date;
 public class PeopleUserEntity extends PeopleEntity {
 	
 	/**
-	 * 关联用户编号
-	 */
-	private int peopleUserPeopleId;
-	
-	/**
-	 * 用户的真实名称
-	 */
-	private String peopleUserRealName;
-	
-	/**
 	 * 用户地址
 	 */
 	private String peopleUserAddress;
 	
 	/**
-	 * 用户头像
+	 * 用户所属应用ID
 	 */
-	private String peopleUserIcon;
-	
-	/**
-	 * 用户昵称
-	 */
-	private String peopleUserNickName;
-
-	/**
-	 * 用户性别</br>
-	 * 0.未知</br>
-	 * 1.男</br>
-	 * 2.女</br>
-	 */
-	private int peopleUserSex = 1; 
+	private int peopleUserAppId;
 	
 	/**
 	 * 用户生日
@@ -103,112 +59,42 @@ public class PeopleUserEntity extends PeopleEntity {
 	 */
 	private String peopleUserCard;
 	
+	/**
+	 * 用户头像
+	 */
+	private String peopleUserIcon;
+
+	/**
+	 * 用户昵称
+	 */
+	private String peopleUserNickName; 
+	
+	/**
+	 * 关联用户编号
+	 */
+	private int peopleUserPeopleId;
+	
+	/**
+	 * 用户的真实名称
+	 */
+	private String peopleUserRealName;
+	
 
 	
 	/**
-	 * 用户所属应用ID
+	 * 用户性别</br>
+	 * 0.未知</br>
+	 * 1.男</br>
+	 * 2.女</br>
 	 */
-	private int peopleUserAppId;
+	private int peopleUserSex = 1;
 	
-	/**
-	 * 获取peopleUserRealName
-	 * @return  peopleUserRealName
-	 */
-	public String getPeopleUserRealName() {
-		return peopleUserRealName;
-	}
-
-	/**
-	 * 设置peopleUserRealName
-	 * @param peopleUserRealName
-	 */
-	public void setPeopleUserRealName(String peopleUserRealName) {
-		this.peopleUserRealName = peopleUserRealName;
-	}
-
 	/**
 	 * 获取peopleUserAddress
 	 * @return  peopleUserAddress
 	 */
 	public String getPeopleUserAddress() {
 		return peopleUserAddress;
-	}
-
-	/**
-	 * 设置peopleUserAddress
-	 * @param peopleUserAddress
-	 */
-	public void setPeopleUserAddress(String peopleUserAddress) {
-		this.peopleUserAddress = peopleUserAddress;
-	}
-
-	/**
-	 * 获取peopleUserIcon
-	 * @return  peopleUserIcon
-	 */
-	public String getPeopleUserIcon() {
-		return peopleUserIcon;
-	}
-
-	/**
-	 * 设置peopleUserIcon
-	 * @param peopleUserIcon
-	 */
-	public void setPeopleUserIcon(String peopleUserIcon) {
-		this.peopleUserIcon = peopleUserIcon;
-	}
-
-	/**
-	 * 获取peopleUserNickName
-	 * @return  peopleUserNickName
-	 */
-	public String getPeopleUserNickName() {
-		return peopleUserNickName;
-	}
-
-	/**
-	 * 设置peopleUserNickName
-	 * @param peopleUserNickName
-	 */
-	public void setPeopleUserNickName(String peopleUserNickName) {
-		this.peopleUserNickName = peopleUserNickName;
-	}
-
-	/**
-	 * 获取peopleUserSex
-	 * @return  peopleUserSex
-	 */
-	public int getPeopleUserSex() {
-		return peopleUserSex;
-	}
-
-	/**
-	 * 设置peopleUserSex
-	 * @param peopleUserSex
-	 */
-	public void setPeopleUserSex(int peopleUserSex) {
-		if (peopleUserSex%2==0) {
-			this.peopleUserSex = 2;
-		} else {
-			this.peopleUserSex = 1;
-		}
-		
-	}
-
-	/**
-	 * 获取peopleUserBirthday
-	 * @return  peopleUserBirthday
-	 */
-	public Date getPeopleUserBirthday() {
-		return peopleUserBirthday;
-	}
-
-	/**
-	 * 设置peopleUserBirthday
-	 * @param peopleUserBirthday
-	 */
-	public void setPeopleUserBirthday(Date peopleUserBirthday) {
-		this.peopleUserBirthday = peopleUserBirthday;
 	}
 
 	/**
@@ -220,13 +106,37 @@ public class PeopleUserEntity extends PeopleEntity {
 	}
 
 	/**
-	 * 设置peopleUserAppId
-	 * @param peopleUserAppId
+	 * 获取peopleUserBirthday
+	 * @return  peopleUserBirthday
 	 */
-	public void setPeopleUserAppId(int peopleUserAppId) {
-		this.peopleUserAppId = peopleUserAppId;
+	public Date getPeopleUserBirthday() {
+		return peopleUserBirthday;
 	}
-	
+
+	/**
+	 * 获取用户身份证号码
+	 * @return
+	 */
+	public String getPeopleUserCard() {
+		return peopleUserCard;
+	}
+
+	/**
+	 * 获取peopleUserIcon
+	 * @return  peopleUserIcon
+	 */
+	public String getPeopleUserIcon() {
+		return peopleUserIcon;
+	}
+
+	/**
+	 * 获取peopleUserNickName
+	 * @return  peopleUserNickName
+	 */
+	public String getPeopleUserNickName() {
+		return peopleUserNickName;
+	}
+
 	/**
 	 * 设置xu
 	 * @return
@@ -235,24 +145,93 @@ public class PeopleUserEntity extends PeopleEntity {
 		return peopleUserPeopleId;
 	}
 
-	public void setPeopleUserPeopleId(int peopleUserPeopleId) {
-		this.peopleUserPeopleId = peopleUserPeopleId;
-	}
-	
 	/**
-	 * 获取用户身份证号码
-	 * @return
+	 * 获取peopleUserRealName
+	 * @return  peopleUserRealName
 	 */
-	public String getPeopleUserCard() {
-		return peopleUserCard;
+	public String getPeopleUserRealName() {
+		return peopleUserRealName;
 	}
-	
+
+	/**
+	 * 获取peopleUserSex
+	 * @return  peopleUserSex
+	 */
+	public int getPeopleUserSex() {
+		return peopleUserSex;
+	}
+
+	/**
+	 * 设置peopleUserAddress
+	 * @param peopleUserAddress
+	 */
+	public void setPeopleUserAddress(String peopleUserAddress) {
+		this.peopleUserAddress = peopleUserAddress;
+	}
+
+	/**
+	 * 设置peopleUserAppId
+	 * @param peopleUserAppId
+	 */
+	public void setPeopleUserAppId(int peopleUserAppId) {
+		this.peopleUserAppId = peopleUserAppId;
+	}
+
+	/**
+	 * 设置peopleUserBirthday
+	 * @param peopleUserBirthday
+	 */
+	public void setPeopleUserBirthday(Date peopleUserBirthday) {
+		this.peopleUserBirthday = peopleUserBirthday;
+	}
+
 	/**
 	 *设置用户身份证号码
 	 * @param peopleUserCard
 	 */
 	public void setPeopleUserCard(String peopleUserCard) {
 		this.peopleUserCard = peopleUserCard;
+	}
+
+	/**
+	 * 设置peopleUserIcon
+	 * @param peopleUserIcon
+	 */
+	public void setPeopleUserIcon(String peopleUserIcon) {
+		this.peopleUserIcon = peopleUserIcon;
+	}
+	
+	/**
+	 * 设置peopleUserNickName
+	 * @param peopleUserNickName
+	 */
+	public void setPeopleUserNickName(String peopleUserNickName) {
+		this.peopleUserNickName = peopleUserNickName;
+	}
+
+	public void setPeopleUserPeopleId(int peopleUserPeopleId) {
+		this.peopleUserPeopleId = peopleUserPeopleId;
+	}
+	
+	/**
+	 * 设置peopleUserRealName
+	 * @param peopleUserRealName
+	 */
+	public void setPeopleUserRealName(String peopleUserRealName) {
+		this.peopleUserRealName = peopleUserRealName;
+	}
+	
+	/**
+	 * 设置peopleUserSex
+	 * @param peopleUserSex
+	 */
+	public void setPeopleUserSex(int peopleUserSex) {
+		if (peopleUserSex%2==0) {
+			this.peopleUserSex = 2;
+		} else {
+			this.peopleUserSex = 1;
+		}
+		
 	}
 
 	

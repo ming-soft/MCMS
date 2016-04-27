@@ -20,7 +20,7 @@
 		<!--点击进行按钮提交-->
 		<script>
 			$(function(){
-				var URL="${base}/manager/cms/templet/queryTempletFileForColumn.do";
+				var URL="${base}${baseManager}/template/queryTemplateFileForColumn.do";
 				var DATA = "";
 				$(this).request({url:URL,data:DATA,type:"json",method:"post",func:function(msg) {
 					if(msg.length==0){
@@ -45,7 +45,7 @@
 				var position =$("input[name='position']").val();
 				
 				//封装ajax请求参数
-				var URL="${base}/manager/cms/generate//generateIndex.do";
+				var URL="${base}${baseManager}/cms/generate//generateIndex.do";
 				var DATA = "url="+url+"&position="+position;
 				$(this).html("更新中..").attr("disabled", "disabled");
 				
@@ -63,6 +63,6 @@
 			//点击预览时，进行预览
 			$("#viewIndex").click(function(){
 				var position =$("input[name='position']").val();
-				window.open("${base}/manager/cms/generate/"+position+"/viewIndex.do");
+				window.open("${base}${baseManager}/cms/generate/"+position+"/viewIndex.do");
 			});
 		</script>

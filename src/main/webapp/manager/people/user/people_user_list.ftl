@@ -29,7 +29,7 @@
 			            			</td>
 						            <td class="text-center commentId">${people.peopleId?c?default(0)}</td>
 						            <td class="text-center"><#if people.peopleUser?has_content><img src="${people.peopleUser.peopleUserIcon?default("暂无")}" width="25" height="25"/></#if></td>
-						            <td class="text-center">  <a class="btn btn-xs tooltips editPeople" data-id="${people.peopleId?c?default(0)}"  href="${base}/manager/people/user/${people.peopleId?c?default(0)}/edit.do" data-original-title="编辑用户信息" data-toggle="tooltip">${people.peopleName?default("暂无")}</a></td>
+						            <td class="text-center">  <a class="btn btn-xs tooltips editPeople" data-id="${people.peopleId?c?default(0)}"  href="${base}${baseManager}/people/user/${people.peopleId?c?default(0)}/edit.do" data-original-title="编辑用户信息" data-toggle="tooltip">${people.peopleName?default("暂无")}</a></td>
 						            <td class="text-center"><#if people.peopleUser?has_content>${people.peopleUser.peopleUserRealName?default("暂无")}</#if></td>
 					            	<td class="text-center"><#if people.peopleUser?has_content>${people.peopleUser.peopleUserNickName?default("暂无")}</#if></td>
 					             	<td class="text-center">${people.peoplePhone?default("暂无")}</td>
@@ -151,7 +151,7 @@
 			//开始更新门店用户状态
 			$("body").request({
 				method:"post",
-				url:"${base}/manager/people/updateState.do",
+				url:"${base}${baseManager}/people/updateState.do",
 				data:"peopleId="+peopleId+"&peopleState="+peopleState+"&t="+new Date(),
 				func:function(msg) {
 					if(peopleState == "1"){
@@ -201,7 +201,7 @@
 				var peopleId = $(this).attr("data-id");
 				$.ajax({
 					type:"POST",
-					url:"${base}/manager/people/user/getEntity.do",
+					url:"${base}${baseManager}/people/user/getEntity.do",
 					data:"peopleId="+peopleId,
 					success:function(msg){
 						if($.parseJSON(msg).result == true){
@@ -273,7 +273,7 @@
 		//删除用户
 		function deletes(ids){
 			if(ids!=""){
-				$(this).request({url:base+"/manager/people/user/delete.do",type:"json",data:ids,method:"post",func:function(msg) {
+				$(this).request({url:base+"${baseManager}/people/user/delete.do",type:"json",data:ids,method:"post",func:function(msg) {
 					if (msg.result) {
 						alert("删除成功！")
 						location.href=msg.resultMsg; 
@@ -285,4 +285,4 @@
     			alert("请选择用户！");
   			  }
 		}
-	</script>
+	</script>	

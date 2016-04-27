@@ -103,9 +103,32 @@
 	
 	<!-- 根据用户名(帐号,手机,邮箱)查询用户信息开始 -->
 	<select id="getEntityByUserName" resultMap="resultMap">
-		select *	from v_people_user	 where (people_name=#{userName} or people_phone=#{userName} or people_mail=#{userName}) and people_app_id=#{appId}
+		select *	from v_people_user	 where (people_name=#{userName} or (people_phone=#{userName} and PEOPLE_PHONECHECK=1) or people_mail=#{userName} and PEOPLE_MAILLCHECK=1) and people_app_id=#{appId}
 	</select>
 	<!-- 根据用户名(帐号,手机,邮箱)查询用户信息结束 -->
+	<select id="getEntityByMailOrPhone" resultMap="resultMap">
+		select *	from v_people_user	 where  people_phone=#{userName} or people_mail=#{userName} and people_app_id=#{appId}
+	</select>
+	
+	<select id="getByPeople" parameterType="com.mingsoft.people.entity.PeopleEntity" resultMap="resultMap">
+		<if test="people != null"> 
+			select * from v_people_user 
+			<where>
+				<if test="people.peopleName != null">
+					and people_name = #{people.peopleName}
+				</if>
+				<if test="people.peopleMail != null">
+					and people_mail = #{people.peopleMail} and PEOPLE_MAILLCHECK=1
+				</if>
+				<if test="people.peoplePhone !=null ">
+					and people_phone = #{people.peoplePhone} and PEOPLE_PHONECHECK=1
+				</if>
+					and people_app_id = #{appId}
+			</where>
+			
+		</if>
+		
+	</select>
 	
 	<!-- 根据AppId查询用户列表根据Id排序并进行分页开始 -->	
 	<select id="queryPageListByAppId" resultMap="resultMap">
@@ -193,6 +216,7 @@
 				</if>
 			</if>
 		</where>
+		order by people_id desc
 		<if test="page!=null">
 			limit ${page.pageNo*page.pageSize},#{page.pageSize};
 		</if>

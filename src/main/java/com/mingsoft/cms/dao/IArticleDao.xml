@@ -35,7 +35,7 @@
 		<result column="BASIC_SORT" property="basicSort"/>
 		<!-- 一对一关联栏目 -->
 		<association property="column" column="BASIC_CATEGORYID"
-			javaType="com.mingsoft.cms.entity.ColumnEntity">
+			javaType="com.mingsoft.basic.entity.ColumnEntity">
 			<result property="columnPath" column="column_path" />
 			<result property="categoryTitle" column="category_title" />
 			<result property="categoryId" column="category_id" />
@@ -70,7 +70,7 @@
 		<result column="BASIC_SORT" property="basicSort" />
 		<!-- 一对一关联栏目 -->
 		<association property="column" column="BASIC_CATEGORYID"
-			javaType="com.mingsoft.cms.entity.ColumnEntity">
+			javaType="com.mingsoft.basic.entity.ColumnEntity">
 			<result property="columnPath" column="column_path" />
 			<result property="categoryTitle" column="category_title" />
 			<result property="categoryId" column="category_id" />

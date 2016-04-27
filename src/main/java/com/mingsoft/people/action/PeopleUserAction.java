@@ -1,24 +1,3 @@
-/**
-The MIT License (MIT) * Copyright (c) 2015 铭飞科技
-
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
-
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
-
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 package com.mingsoft.people.action;
 
 import java.util.Date;
@@ -37,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
-import com.mingsoft.base.constant.CookieConst;
-import com.mingsoft.base.constant.ModelCode;
+import com.mingsoft.basic.constant.Const;
+import com.mingsoft.basic.constant.e.CookieConstEnum;
 import com.mingsoft.people.biz.IPeopleBiz;
 import com.mingsoft.people.biz.IPeopleUserBiz;
+import com.mingsoft.people.constant.ModelCode;
 import com.mingsoft.people.entity.PeopleEntity;
 import com.mingsoft.people.entity.PeopleUserEntity;
 import com.mingsoft.util.PageUtil;
@@ -115,8 +95,8 @@ public class PeopleUserAction extends BaseAction{
 		//List<PeopleEntity> listPeople = this.peopleBiz.queryPageListByAppId(appId,page);
 		mode.addAttribute("listPeople", listPeople);
 		mode.addAttribute("page", page);
-		this.setCookie(request, response,CookieConst.BACK_COOKIE, pageUrl);
-		return "/manager/people/user/people_user_list";
+		this.setCookie(request, response,CookieConstEnum.BACK_COOKIE, pageUrl);
+		return Const.VIEW+"/people/user/people_user_list";
 	}
 	
 	/**
@@ -124,11 +104,11 @@ public class PeopleUserAction extends BaseAction{
 	 * @return 新增用户页面
 	 */
 	@RequestMapping("/add")
-	public String add(ModelMap mode,HttpServletRequest request){
+	public String add(ModelMap model,HttpServletRequest request){
 		int appId = this.getAppId(request);
-		mode.addAttribute("appId", appId);
-		mode.addAttribute("peopleUser",new PeopleUserEntity());
-		return "/manager/people/user/people_user";
+		model.addAttribute("appId", appId);
+		model.addAttribute("peopleUser",new PeopleUserEntity());
+		return Const.VIEW+"/people/user/people_user";
 	}
 	
 	
@@ -179,7 +159,7 @@ public class PeopleUserAction extends BaseAction{
 		//判断peopleUser是否存在是否存在
 		PeopleUserEntity oldPeopleUser = (PeopleUserEntity) peopleUserBiz.getEntity(people.getPeopleId());
 		// 获取cookie
-		String cookieUrl =this.getCookie(request, CookieConst.BACK_COOKIE);
+		String cookieUrl =this.getCookie(request, CookieConstEnum.BACK_COOKIE);
 		//如果不存在则进行保存操作
 		if(oldPeopleUser!=null && oldPeopleUser.getPeopleUserPeopleId()==0){
 			this.peopleUserBiz.saveEntity(peopleUser);
@@ -213,7 +193,7 @@ public class PeopleUserAction extends BaseAction{
 		//获取要删除的用户id集合
 		String [] ids = request.getParameterValues("ids");
 		// 获取cookie
-		String cookieUrl =this.getCookie(request, CookieConst.BACK_COOKIE);
+		String cookieUrl =this.getCookie(request, CookieConstEnum.BACK_COOKIE);
 		//如果用户id不为空且传入的用户集合是数字集合
 		if(!StringUtil.isBlank(ids) && StringUtil.isIntegers(ids)){
 			int[] _ids = StringUtil.stringsToInts(ids);
@@ -233,7 +213,7 @@ public class PeopleUserAction extends BaseAction{
 		int appId = this.getAppId(request);
 		mode.addAttribute("appId", appId);
 		mode.addAttribute("peopleUser", peopleUser);
-		return "/manager/people/user/people_user";
+		return Const.VIEW+"/people/user/people_user";
 	}
 	
 	/**
@@ -266,7 +246,7 @@ public class PeopleUserAction extends BaseAction{
 		//保存用户信息
 		this.peopleUserBiz.savePeople(peopleUser);
 		// 获取cookie
-		String cookieUrl =this.getCookie(request, CookieConst.BACK_COOKIE);
+		String cookieUrl =this.getCookie(request, CookieConstEnum.BACK_COOKIE);
 		//返回更新成功
 		this.outJson(response, ModelCode.PEOPLE_USER,true,cookieUrl);
 	}

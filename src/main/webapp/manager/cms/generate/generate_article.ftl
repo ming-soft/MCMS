@@ -33,7 +33,7 @@
 				columnId = $("input[name='columnId']").val();
 			}
 			
-			var URL="${base}/manager/cms/generate/" + columnId + "/generateArticle.do";
+			var URL="${base}${baseManager}/cms/generate/" + columnId + "/generateArticle.do";
 			var DATA = "dateTime=" + $("input[name='dateTime']").val();
 			$(this).html("更新中..").attr("disabled", "disabled");
 			

@@ -103,7 +103,7 @@
 					$(this).html("更新中..").attr("disabled","disabled");
 					$.ajax({
 			   			type: "post",
-			   			url: "${base}/manager/cms/generate/generateAll.do",
+			   			url: "${base}${baseManager}/cms/generate/generateAll.do",
 			   			dataType:"json",
 			   			success: function(msg){
 			     			if(msg.result){

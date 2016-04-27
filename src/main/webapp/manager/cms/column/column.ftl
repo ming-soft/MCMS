@@ -57,7 +57,7 @@ $(function(){
 	$.ajax({
 	   type: "post",
 	   dataType: "json",
-	   url:  "${base}/manager/cms/templet/queryTempletFileForColumn.do",
+	   url:  "${base}${baseManager}/template/queryTemplateFileForColumn.do",
 	   success: function(msg){
 	   		$("#columnListUrlModel").html("");
 	     	$("#columnUrlModel").html("");
@@ -100,7 +100,7 @@ $(function(){
 	
 	//返回栏目列表
 	$(".returnList").click(function(){
-		location.href = base+"/manager/cms/column/list.do";
+		location.href = base+"${baseManager}/cms/column/list.do";
 	});
 	
 	
@@ -120,9 +120,9 @@ $(function(){
 		var formdata = $("#columnForm").serialize();
 		var URL = "";
 		<#if column.categoryId==0>
-		URL =base+"/manager/cms/column/save.do";
+		URL =base+"${baseManager}/cms/column/save.do";
 		<#else>
-		URL = base+"/manager/cms/column/update.do";
+		URL = base+"${baseManager}/cms/column/update.do";
 		</#if>
 		if(isNaN($("input[name=categorySort]").val())){
 			alert("自定义排序必须是数字");
@@ -146,7 +146,7 @@ $(function(){
 	     			<#else>
 	     			alert("更新成功");
 	     			</#if>
-	    			location.href=base+"/manager/cms/column/list.do?categoryId="+msg.resultData;
+	    			location.href=base+"${baseManager}/cms/column/list.do?categoryId="+msg.resultData;
 	    		}else{
 	    			<#if column.categoryId==0>
 	     			alert("保存失败");

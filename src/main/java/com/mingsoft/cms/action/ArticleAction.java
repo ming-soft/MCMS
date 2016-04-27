@@ -1,24 +1,3 @@
-/**
-The MIT License (MIT) * Copyright (c) 2015 铭飞科技
-
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
-
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
-
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 package com.mingsoft.cms.action;
 
 import java.io.File;
@@ -45,22 +24,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mingsoft.base.action.BaseAction;
+import com.mingsoft.basic.action.BaseAction;
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.base.entity.ListJson;
 import com.mingsoft.basic.entity.BasicCategoryEntity;
 import com.mingsoft.cms.biz.IArticleBiz;
-import com.mingsoft.cms.biz.IColumnBiz;
-import com.mingsoft.cms.constant.Const;
+import com.mingsoft.basic.biz.IColumnBiz;
+import com.mingsoft.basic.constant.Const;
 import com.mingsoft.cms.constant.e.ColumnTypeEnum;
-import com.mingsoft.basic.biz.IContentModelBiz;
-import com.mingsoft.basic.biz.IFieldBiz;
-import com.mingsoft.base.constant.CookieConst;
-import com.mingsoft.base.constant.ModelCode;
+import com.mingsoft.mdiy.biz.IContentModelBiz;
+import com.mingsoft.mdiy.biz.IContentModelFieldBiz;
+import com.mingsoft.basic.constant.e.CookieConstEnum;
+import com.mingsoft.cms.constant.ModelCode;
 import com.mingsoft.cms.entity.ArticleEntity;
-import com.mingsoft.cms.entity.ColumnEntity;
-import com.mingsoft.basic.entity.ContentModelEntity;
-import com.mingsoft.basic.entity.FieldEntity;
+import com.mingsoft.basic.entity.ColumnEntity;
+import com.mingsoft.mdiy.entity.ContentModelEntity;
+import com.mingsoft.mdiy.entity.ContentModelFieldEntity;
 import com.mingsoft.parser.IParserRegexConstant;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
@@ -117,7 +96,7 @@ public class ArticleAction extends BaseAction {
 	 * 字段管理业务层
 	 */
 	@Autowired
-	private IFieldBiz fieldBiz;
+	private IContentModelFieldBiz fieldBiz;
 
 	/**
 	 * 内容管理业务层
@@ -139,7 +118,7 @@ public class ArticleAction extends BaseAction {
 	 * @return
 	 */
 	public List<Map.Entry<String, String>> articleType() {
-		Map<String, String> map = getMapByProperties(Const.ARTICLE_ATTRIBUTE_RESOURCE);
+		Map<String, String> map = getMapByProperties(com.mingsoft.cms.constant.Const.ARTICLE_ATTRIBUTE_RESOURCE);
 		Set<Entry<String, String>> set = map.entrySet();
 		List<Map.Entry<String, String>> articleType = new ArrayList<Map.Entry<String, String>>();
 		for (Iterator<Entry<String, String>> it = set.iterator(); it.hasNext();) {
@@ -164,7 +143,7 @@ public class ArticleAction extends BaseAction {
 		JSONObject ja = new JSONObject();
 		request.setAttribute("listColumn", ja.toJSON(list).toString());
 		// 返回路径
-		return "/manager/cms/article/index"; // 这里表示显示/manager/cms/article/article_list.ftl
+		return Const.VIEW+"/cms/article/index"; // 这里表示显示/manager/cms/article/article_list.ftl
 	}
 	
 	/**
@@ -175,7 +154,7 @@ public class ArticleAction extends BaseAction {
 	 */
 	@SuppressWarnings("static-access")
 	@RequestMapping("/{categoryId}/list")
-	public String queryList(HttpServletRequest request, ModelMap mode, HttpServletResponse response, @PathVariable int categoryId) {
+	public String l(HttpServletRequest request, ModelMap mode, HttpServletResponse response, @PathVariable int categoryId) {
 		String categoryTitle = request.getParameter("categoryTitle");
 		String articleType = request.getParameter("articleType");
 		String keyword = request.getParameter("keyword");
@@ -218,7 +197,7 @@ public class ArticleAction extends BaseAction {
 		mode.addAttribute("categoryId", categoryId);
 		
 		// 返回路径
-		this.setCookie(request, response, CookieConst.BACK_COOKIE,url+"&pageNo="+pageNo);
+		this.setCookie(request, response, CookieConstEnum.BACK_COOKIE,url+"&pageNo="+pageNo);
 		return "manager/cms/article/article_list";
 	}
 
@@ -262,7 +241,7 @@ public class ArticleAction extends BaseAction {
 		ArticleEntity article = new ArticleEntity();
 		mode.addAttribute("article",article);
 		// 返回路径
-		return "/manager/cms/article/article"; // 这里表示显示/manager/cms/article/article_save.ftl
+		return Const.VIEW+"/cms/article/article"; // 这里表示显示/manager/cms/article/article_save.ftl
 	}
 
 	/**
@@ -521,7 +500,7 @@ public class ArticleAction extends BaseAction {
 			model.addAttribute("categoryTitle",categoryTitle);
 			model.addAttribute("categoryId", categoryId);//编辑封面
 			model.addAttribute("isEditCategory", true);//编辑封面
-			return "/manager/cms/article/article";
+			return Const.VIEW+"/cms/article/article";
 		} else if(id>0){ //文章id获取
 			//允许编辑文章时更改分类
 			List<ColumnEntity> list = columnBiz.queryAll(appId, this.getModelCodeId(request, ModelCode.CMS_COLUMN));
@@ -545,9 +524,9 @@ public class ArticleAction extends BaseAction {
 				model.addAttribute("isEditCategory", false);//编辑文章
 			} 
 			model.addAttribute("categoryId", column.getCategoryId());//编辑封面
-			return "/manager/cms/article/article";
+			return Const.VIEW+"/cms/article/article";
 		} else {//非法
-			//return "/manager/cms/article/article";
+			//return Const.VIEW+"/cms/article/article";
 			return this.redirectBack(request,true);
 		}
 	}
@@ -641,7 +620,7 @@ public class ArticleAction extends BaseAction {
 		mapParams.put("basicId", articleId);
 		// 遍历字段名
 		for (int i = 0; i < listField.size(); i++) {
-			FieldEntity field = (FieldEntity) listField.get(i);
+			ContentModelFieldEntity field = (ContentModelFieldEntity) listField.get(i);
 			String fieldName = field.getFieldFieldName();
 			// 判断字段类型是否为checkbox类型
 			if (field.getFieldType() == checkBox) {

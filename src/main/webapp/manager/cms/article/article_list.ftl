@@ -3,11 +3,11 @@
 	<@ms.panel>
 				<@ms.searchForm   name="searchForm" action="">
 							<#if articleTypeList?has_content>
-								<@ms.select label="文章属性" labelStyle="width:100px;"  width="200"  name="articleType" id="forumSelect"  list=articleTypeList  listValue="value"   listKey="key"  default="默认属性"  value="${articleType?default('')}"/>
+								<@ms.select label="文章属性"     name="articleType" id="forumSelect"  list=articleTypeList  listValue="value"   listKey="key"  default="默认属性"  value="${articleType?default('')}"/>
 							<#else>
-								<@ms.select label="文章属性" labelStyle="width:100px;"  width="200"  name="articleType" id="forumSelect" value="" list=["默认属性"]  />
+								<@ms.select label="文章属性"     name="articleType" id="forumSelect" value="" list=["默认属性"]  />
 							</#if>
-							<@ms.text label="关键字" labelStyle="width:84px;"  width="200"  name="keyWord" value="" title="请输入关键字"  placeholder="请输入关键字" value="${keyword?default('')}"/>
+							<@ms.text label="关键字"  name="keyWord" value="" title="请输入关键字"  placeholder="请输入关键字" value="${keyword?default('')}"/>
 							<@ms.searchFormButton>
 								<@ms.queryButton id="submitSearch"/>								
 							</@ms.searchFormButton>
@@ -19,7 +19,7 @@
 						<@ms.panelNavBtnDel title=""/>
 					</@ms.panelNavBtnGroup>
 				</@ms.panelNav>
-				<@ms.table head=["<th class='text-center'>编号</th>",'文章标题,300','栏目名,120','作者,90','<th class="text-center">点击量</th>','<th class="text-center">排序</th>'] checkbox="ids">
+				<@ms.table head=["<th class='text-center'>编号</th>",'文章标题,300','栏目名,150','作者,90','<th class="text-center">点击量</th>','<th class="text-center">排序</th>'] checkbox="ids">
 					<#if listArticle?has_content>
 			        	<#list listArticle as listArticle>
 		                	<tr id="tableArticle">
@@ -91,16 +91,16 @@
 		/*$(".preview").click(function(){
 			var articleId = $(this).attr("data-id");
 			var viewAction = articleId+"detail.do"
-			window.open(base+"/manager/cms/generate/"+viewAction+"/viewIndex.do");
+			window.open(base+"${baseManager}/cms/generate/"+viewAction+"/viewIndex.do");
 		});*/
 		//添加文章
 		$("#addButton").click(function(){
-			location.href = base+"/manager/cms/article/add.do?categoryId=${categoryId?default(0)}&categoryTitle=${categoryTitle?default('')}"; 
+			location.href = base+"${baseManager}/cms/article/add.do?categoryId=${categoryId?default(0)}&categoryTitle=${categoryTitle?default('')}"; 
 		});	
 		//编辑文章
 		$(".updateArticle").click(function(){
 			var id = $(this).attr("data-id");
-			location.href = base+"/manager/cms/article/"+id+"/edit.do";
+			location.href = base+"${baseManager}/cms/article/"+id+"/edit.do";
 		});	
 		//全选
 	   	$("input[name='allCheck']").on("click",function(){  
@@ -114,7 +114,7 @@
 		$("#submitSearch").click(function(){
 			var articleType=$("#forumSelect").val();
 			var keyword =  $('[name="keyWord"]').val();
-			location.href = base+"/manager/cms/article/${categoryId?default(0)}/list.do?keyword="+keyword+"&articleType="+articleType;
+			location.href = base+"${baseManager}/cms/article/${categoryId?default(0)}/list.do?keyword="+keyword+"&articleType="+articleType;
 		});
 		//点击重置按钮
 		$(".reset").click(function(){
@@ -144,7 +144,7 @@
 	//删除文章
 	function deletes(ids){
 		if(ids!=""){
-			$(this).request({url:base+"/manager/cms/article/delete.do",type:"json",data:ids,method:"post",func:function(msg) {
+			$(this).request({url:base+"${baseManager}/cms/article/delete.do",type:"json",data:ids,method:"post",func:function(msg) {
 				if (msg.result) {
 					alert("删除成功！")
 					location.href="${basePath}/"+msg.resultData; 

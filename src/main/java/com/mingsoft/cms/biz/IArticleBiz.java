@@ -1,37 +1,14 @@
-/**
-The MIT License (MIT) * Copyright (c) 2015 铭飞科技
-
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
-
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
-
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 package com.mingsoft.cms.biz;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.basic.biz.IBasicBiz;
-import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.basic.entity.BasicCategoryEntity;
+import com.mingsoft.mdiy.entity.ContentModelEntity;
 import com.mingsoft.cms.entity.ArticleEntity;
-import com.mingsoft.basic.entity.ContentModelEntity;
 import com.mingsoft.util.PageUtil;
 
 /**
@@ -271,18 +248,6 @@ public interface IArticleBiz extends IBasicBiz {
 	 */
 	public List queryByBasicIds(int basicId, Integer[] basicIds);
 
-	/**
-	 * 根据文章标题查询文章
-	 * 
-	 * @param articleTitle
-	 *            文章标题
-	 * @param webId
-	 *            应用Id
-	 * @param modelCode
-	 *            模块编号
-	 * @return 文章分类
-	 */
-	public List queryListByArticleTitle(String articleTitle, int webId, ModelCode modelCode);
 
 	/**
 	 * @para　 webId　网站编号

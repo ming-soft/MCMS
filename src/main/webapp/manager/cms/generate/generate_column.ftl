@@ -32,7 +32,7 @@
 					columnId = $("input[name='columnId']").val();
 				}
 				
-				var URL="${base}/manager/cms/generate/"+columnId+"/genernateColumn.do";
+				var URL="${base}${baseManager}/cms/generate/"+columnId+"/genernateColumn.do";
 				$(this).html("更新中..").attr("disabled", "disabled");
 				
 				$(this).request({url:URL,data:columnId,type:"json",method:"post",func:function(msg) {

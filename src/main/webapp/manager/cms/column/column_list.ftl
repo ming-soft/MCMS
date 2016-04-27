@@ -14,7 +14,7 @@
 				<@ms.panelNavBtnAdd title=""/>
 			</@ms.panelNavBtnGroup>
 		</@ms.panelNav>
-		<@ms.table head=["<th class='text-center' style='width:7%'>编号</th>",'标题',"<th style='text-align:center;width:10%'>属性</th>",'链接地址','列表地址','内容地址','封面地址',"<th style='text-align:center;width:10%;'>操作</th>"] id="tableConterent">
+		<@ms.table head=["编号",'标题',"属性",'链接地址','列表地址','内容地址','封面地址',"<th style='text-align:center;width:10%;'>操作</th>"] id="tableConterent">
 			<#if listColumn?has_content && listColumn!="[]">
 	        	<@ms.treeTable treeId="clumnTree"  style="width:15%" tbodyId="tableConterent" json="${listColumn?default('')}" jsonName="categoryTitle" jsonId="categoryId" jsonPid="categoryCategoryId"/>
 	      	<#else>
@@ -75,11 +75,11 @@
 var columnId="";
 $(function(){
 	$("#addButton").on("click",function(){
-		location.href=base+"/manager/cms/column/add.do";
+		location.href=base+"${baseManager}/cms/column/add.do";
 	});
 	//确认删除
 	$(".rightDelete").on("click",function(){
-		$(this).request({url: base+"/manager/cms/column/"+columnId+"/delete.do",type:"json",method:"post",func:function(msg) {
+		$(this).request({url: base+"${baseManager}/cms/column/"+columnId+"/delete.do",type:"json",method:"post",func:function(msg) {
 			var columnJson = $.parseJSON(msg.resultMsg);
 			if(columnJson==false){
 				alert("请先删除子栏目");
@@ -95,7 +95,7 @@ $(function(){
 
 function editclumnTree(obj){
 	var categoryId = $(obj).attr("data-id");
-	location.href=base+"/manager/cms/column/"+categoryId+"/edit.do";
+	location.href=base+"${baseManager}/cms/column/"+categoryId+"/edit.do";
 }
 
 function deleteclumnTree(obj){

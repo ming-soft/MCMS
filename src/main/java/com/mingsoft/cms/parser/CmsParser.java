@@ -1,24 +1,3 @@
-/**
-The MIT License (MIT) * Copyright (c) 2015 铭飞科技
-
- * Permission is hereby granted, free of charge, to any person obtaining a copy of
- * this software and associated documentation files (the "Software"), to deal in
- * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
- * the Software, and to permit persons to whom the Software is furnished to do so,
- * subject to the following conditions:
-
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
-
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
- * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
- * COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
- * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
- * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- */
-
 package com.mingsoft.cms.parser;
 
 import java.io.File;
@@ -26,27 +5,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.mingsoft.base.entity.BaseEntity;
+import com.mingsoft.basic.biz.IColumnBiz;
 import com.mingsoft.basic.biz.IModelBiz;
-import com.mingsoft.base.constant.ModelCode;
 import com.mingsoft.basic.entity.AppEntity;
+import com.mingsoft.basic.entity.ColumnEntity;
+import com.mingsoft.basic.parser.IGeneralParser;
 import com.mingsoft.cms.biz.IArticleBiz;
-import com.mingsoft.cms.biz.IColumnBiz;
-import com.mingsoft.basic.biz.IContentModelBiz;
-import com.mingsoft.basic.biz.IFieldBiz;
+import com.mingsoft.cms.constant.ModelCode;
 import com.mingsoft.cms.entity.ArticleEntity;
-import com.mingsoft.cms.entity.ColumnEntity;
-import com.mingsoft.basic.entity.ContentModelEntity;
-import com.mingsoft.basic.entity.FieldEntity;
 import com.mingsoft.cms.parser.impl.ArticleAuthorParser;
 import com.mingsoft.cms.parser.impl.ArticleContentParser;
 import com.mingsoft.cms.parser.impl.ArticleDateParser;
 import com.mingsoft.cms.parser.impl.ArticleDescripParser;
 import com.mingsoft.cms.parser.impl.ArticleHistoryParser;
+import com.mingsoft.cms.parser.impl.ArticleHitParser;
 import com.mingsoft.cms.parser.impl.ArticleIdParser;
 import com.mingsoft.cms.parser.impl.ArticleKeywordParser;
 import com.mingsoft.cms.parser.impl.ArticleLinkParser;
@@ -56,16 +34,19 @@ import com.mingsoft.cms.parser.impl.ArticleTitleParser;
 import com.mingsoft.cms.parser.impl.ArticleTypeIdParser;
 import com.mingsoft.cms.parser.impl.ArticleTypeLinkParser;
 import com.mingsoft.cms.parser.impl.ArticleTypeTitleParser;
+import com.mingsoft.cms.parser.impl.ChannelParser;
 import com.mingsoft.cms.parser.impl.ColumnParser;
-import com.mingsoft.parser.IGeneralParser;
+import com.mingsoft.mdiy.biz.IContentModelBiz;
+import com.mingsoft.mdiy.biz.IContentModelFieldBiz;
+import com.mingsoft.mdiy.entity.ContentModelEntity;
+import com.mingsoft.mdiy.entity.ContentModelFieldEntity;
+import com.mingsoft.mdiy.parser.ListParser;
+import com.mingsoft.mdiy.parser.TaglibParser;
 import com.mingsoft.parser.IParserRegexConstant;
 import com.mingsoft.parser.PageUtilHtml;
 import com.mingsoft.parser.impl.general.ChannelContParser;
-import com.mingsoft.parser.impl.general.ChannelParser;
-import com.mingsoft.parser.impl.general.ListParser;
 import com.mingsoft.parser.impl.general.PageNumParser;
 import com.mingsoft.parser.impl.general.PageParser;
-import com.mingsoft.parser.impl.general.TaglibParser;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
 
@@ -95,7 +76,7 @@ public class CmsParser extends IGeneralParser {
 	 * 新增字段业务层 
 	 */
 	@Autowired
-	private IFieldBiz fieldBiz; 
+	private IContentModelFieldBiz fieldBiz; 
 
 	/**
 	 * 内容模型业务层
@@ -152,6 +133,7 @@ public class CmsParser extends IGeneralParser {
 		htmlContent = parseArclist();
 		htmlContent = parsePage();
 		htmlContent = parseArticle();
+		
 		return htmlContent;
 	}
 	
@@ -356,6 +338,9 @@ public class CmsParser extends IGeneralParser {
 		// 替换文章标题标签： {ms:field.title/}
 		htmlContent = new ArticleTitleParser(htmlContent, article.getBasicTitle()).parse();
 
+		// 替换文章点击数标签： {ms:field.hit/}
+		htmlContent = new ArticleHitParser(htmlContent, article.getBasicHit()+"").parse();
+				
 		// 替换文章id标签： {ms:field.id/}
 		htmlContent = new ArticleIdParser(htmlContent, article.getBasicId() + "").parse();
 
@@ -406,7 +391,7 @@ public class CmsParser extends IGeneralParser {
 			// 遍历所有的字段实体,得到字段名列表信息
 			List<String> listFieldName = new ArrayList<String>();
 			for (int i = 0; i < listField.size(); i++) {
-				FieldEntity field = (FieldEntity) listField.get(i);
+				ContentModelFieldEntity field = (ContentModelFieldEntity) listField.get(i);
 				listFieldName.add(field.getFieldFieldName());
 			}
 			ContentModelEntity contentModel = (ContentModelEntity) contentBiz.getEntity(column.getColumnContentModelId());
