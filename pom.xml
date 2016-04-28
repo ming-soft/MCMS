@@ -68,7 +68,7 @@
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-basic</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
-			<classifier>sources</classifier>
+			<classifier>sources</classifier>  
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -164,7 +164,7 @@
 
 				</configuration>
 			</plugin>
-		</plugins>
+		</plugins> 
 		<defaultGoal>compile</defaultGoal>
 	</build>
 </project>
