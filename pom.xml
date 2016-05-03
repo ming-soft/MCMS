@@ -4,7 +4,7 @@
 	<groupId>com.mingsoft</groupId>
 	<artifactId>mcms</artifactId>
 	<packaging>war</packaging>
-	<version>4.5.5</version>
+	<version>4.5.7</version>
 	<name>铭飞MCMS开源系统</name>
 	<url>http://ms.ming-soft.com</url>
 	<repositories>
