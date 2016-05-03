@@ -60,7 +60,7 @@
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>shiro-freemarker-tags</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>0.1</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
