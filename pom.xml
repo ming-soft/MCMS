@@ -20,61 +20,71 @@
 			</snapshots>
 		</repository>
 	</repositories>
+	<properties>
+		<ms.util.version>1.0.0</ms.util.version>
+		<ms.base.version>1.0.0</ms.base.version>
+		<ms.proxy.version>1.0.0</ms.proxy.version>
+		<ms.parser.version>1.0.0</ms.parser.version>
+		<ms.ueditor.version>1.0.0-SNAPSHOT</ms.ueditor.version>
+		<shiro-freemarker-tags.version>0.2-SNAPSHOT</shiro-freemarker-tags.version>
+		<ms.basic.version>1.0.2-SNAPSHOT</ms.basic.version>
+		<ms.mdiy.version>1.0.1-SNAPSHOT</ms.mdiy.version>
+	</properties>
 	<dependencies>
 		<!-- MAVEN源码加载 -->
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-util</artifactId>
-			<version>1.0.0</version>
+			<version>${ms.util.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-base</artifactId>
-			<version>1.0.0</version>
+			<version>${ms.base.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-proxy</artifactId>
-			<version>1.0.0</version>
+			<version>${ms.proxy.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-parser</artifactId>
-			<version>1.0.0</version>
+			<version>${ms.parser.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-ueditor</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${ms.ueditor.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>shiro-freemarker-tags</artifactId>
-			<version>0.1-SNAPSHOT</version>
+			<version>${shiro-freemarker-tags.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-basic</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
-			<classifier>sources</classifier>  
+			<version>${ms.basic.version}</version>
+			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mdiy</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${ms.mdiy.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
@@ -82,42 +92,42 @@
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-base</artifactId>
-			<version>1.0.0</version>
+			<version>${ms.base.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-parser</artifactId>
-			<version>1.0.0</version>
+			<version>${ms.parser.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-basic</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${ms.basic.version}</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-basic</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${ms.basic.version}</version>
 			<classifier>classes</classifier>
 			<scope>provided</scope>
 		</dependency>
-				<dependency> 
+		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-ueditor</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${ms.ueditor.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mdiy</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${ms.mdiy.version}</version>
 			<classifier>classes</classifier>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mdiy</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>${ms.mdiy.version}</version>
 			<type>war</type>
 		</dependency>
 
@@ -164,7 +174,7 @@
 
 				</configuration>
 			</plugin>
-		</plugins> 
+		</plugins>
 		<defaultGoal>compile</defaultGoal>
 	</build>
 </project>
