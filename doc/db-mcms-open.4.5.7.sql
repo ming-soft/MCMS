@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50520
 File Encoding         : 65001
 
-Date: 2016-04-27 15:55:40
+Date: 2016-05-06 10:00:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -41,7 +41,7 @@ CREATE TABLE `app` (
 -- ----------------------------
 -- Records of app
 -- ----------------------------
-INSERT INTO `app` VALUES ('1', 'MCMS-OPEN', 'http://localhost:99/mcms', '', '', '', 'mooc', '50', '', null, 'm', null, '', '0', '0');
+INSERT INTO `app` VALUES ('1', 'MCMS-OPEN', 'http://localhost:8080/mcms', '', '', '', 'mooc', '50', '', null, 'm', null, '', '0', '0');
 
 -- ----------------------------
 -- Table structure for `basic`
