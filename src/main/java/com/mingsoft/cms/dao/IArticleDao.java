@@ -47,231 +47,46 @@ import com.mingsoft.util.PageUtil;
  */
 public interface IArticleDao extends IBaseDao {
 
-
 	/**
-	 * 获取站点下文章总条数
-	 * 
-	 * @param webId
-	 *            webId 站点id<br/>
-	 * @return 返回查询总条数
-	 */
-	public int getCountByWebsiteId(@Param("webId") int webId);
-
-	/**
-	 * 根据站点获取文章列表
-	 * 
-	 * @param webId
-	 *            站点id
-	 * @param pageNo
-	 * @param pageSize
-	 * @param orderBy
-	 *            排序字段 <br/>
-	 * @param order
-	 *            排序方式true:asc false:desc <br/>
-	 * @return 文章集合
-	 */
-	public List<ArticleEntity> queryPageListByWebsiteId(@Param("webId") int webId, @Param("pageNo") int pageNo, @Param("pageSize") int pageSize,
-			@Param("orderBy") String orderBy, @Param("order") boolean order);
-
-	/**
-	 * 根据栏目id获取该栏目下所有文章
-	 * 
-	 * @param typeId
-	 *            文章所属栏目
-	 * @param articleId
-	 *            文章id
-	 * @return Map集合
-	 */
-	public List<ArticleEntity> queryArticleMap(@Param("basicCategoryId") int basicCategoryId);
-
-	/**
-	 * 查询指定栏目下的需要的文章属性和不需要的文章属性
-	 * 
+	 * @para webId 网站编号
 	 * @param basicCategoryIds
-	 *            栏目id<br/>
+	 *            栏目编号集合
 	 * @param flag
-	 *            需要的文章属性<br/>
+	 *            文章属性
 	 * @param noFlag
-	 *            不需要的文章属性<br/>
-	 * @return 返回查询总条数
-	 */
-	@SuppressWarnings("rawtypes")
-	public int getCountByColumnId(@Param("webId") int webId, @Param("basicCategoryIds") List basicCategoryIds, @Param("flag") String flag,
-			@Param("noFlag") String noFlag);
-
-	/**
-	 * 根据栏目ID，flag,等属性获取文章
-	 * 
-	 * @param webId
-	 *            站点编号
-	 * @param ids
-	 *            栏目ids
-	 * @param flag
-	 *            需要的文章属性
-	 * @param noFlag
-	 *            不需要的文章属性
-	 * @param begin光标开始位置
-	 * @param count
-	 *            每页显示条数
-	 * @param orderBy
-	 *            排序依据字段
-	 * @param order
-	 *            false,true
-	 * @param keyword
-	 *            关键字   
-	 * @return 文章集合
-	 */
-	public List<ArticleEntity> queryList(@Param("webId") int webId, @Param("basicCategoryIds") List<Integer> basicCategoryIds,
-			@Param("flag") String flag, @Param("noFlag") String noFlag, @Param("begin") int begin, @Param("count") int count,
-			@Param("orderBy") String orderBy, @Param("order") boolean order,@Param("keyword") String keyword);
-	
-	
-	/**
-	 * 文章查询
-	 * 
-	 * @para　 webId　网站编号
-	 * @param basicCategoryId
-	 *            　栏目编号集合
-	 * @param flag
-	 *            　文章属性
-	 * @param noFlag
-	 *            　文章不存在的属性
-	 * @param start
-	 *            　开始位置
-	 * @param pageSize
-	 *            　一页显示数量
-	 * @param orderBy
-	 *            　排序字段
-	 * @param order
-	 *            　排序方式
-	 * @return 文章集合
-	 */
-	public List<ArticleEntity> query(@Param("webId") int webId, @Param("basicCategoryId") int basicCategoryId,
-			@Param("flag") String flag, @Param("noFlag") String noFlag, @Param("begin") int begin, @Param("count") int count,
-			@Param("orderBy") String orderBy, @Param("order") boolean order);
-	
-	/**
-	 * @para　 webId　网站编号
-	 * @param basicCategoryId
-	 *            　栏目编号
-	 * @param flag
-	 *            　文章属性
-	 * @param noFlag
-	 *            　文章不存在的属性
-	 * @param keyword 文章关键字
+	 *            文章不存在的属性
+	 * @param article
+	 *            文章实体，便于扩展查询
 	 * @return 文章总数
 	 */
-	int count(@Param("webId")int webId, @Param("basicCategoryId") int basicCategoryId, @Param("flag")String flag, @Param("noFlag")String noFlag,@Param("keyword")String keyword);
-
-
-	/**
-	 * 根据页面栏目的id获取与其绑定的文章实体
-	 * 
-	 * @param basicCategoryId
-	 * @return 文章实体
-	 */
-	public List<ArticleEntity> queryListByColumnId(@Param("basicCategoryId") int basicCategoryId);
+	int count(@Param("webId") int webId, @Param("basicCategoryIds") int[] basicCategoryIds, @Param("flag") String flag,
+			@Param("noFlag") String noFlag, @Param("article") ArticleEntity article);
 
 	/**
-	 * 根据站点获取的所有栏目
+	 * 通过视图表来查询文章总数 ，
 	 * 
-	 * @param basicId
-	 * @return 文章集合
+	 * @see IArticleDao.count
+	 * @param categoryId
+	 *            分类编号
+	 * @return 总数
 	 */
-	public List<ArticleEntity> queryListByWebsiteId(@Param("basicId") int basicId);
+	@Deprecated
+	int countByCategoryId(@Param("categoryId") int categoryId);
 
 	/**
 	 * 根据栏目id和文章更新时间获取文章
 	 * 
-	 * @param basicCategoryId 分类编号
-	 * @param dateTime　时间
-	 * @param appId　应用时间
+	 * @param basicCategoryId
+	 *            分类编号
+	 * @param dateTime
+	 *            时间
+	 * @param appId
+	 *            应用时间
 	 * @return 文章集合
 	 */
-	public List<ArticleEntity> queryListByTime(@Param("basicCategoryId") int basicCategoryId, @Param("dateTime") String dateTime,@Param("appId") int appId);
-
-	/**
-	 * 根据文章ID集合查询文章实体集合
-	 * 
-	 * @param articleIds
-	 *            文章ID集合
-	 * @return 文章实体集合
-	 */
-	@SuppressWarnings("rawtypes")
-	public List<ArticleEntity> queryListByArticleIds(@Param("articleIds") List articleIds);
-
-	/**
-	 * 根据文章字段条件查询文章集合
-	 * 
-	 * @param articleFieldName
-	 *            文章字段
-	 * @return 文章ID集合
-	 */
-	public List<ArticleEntity> queryListByArticleField(@Param("articleFieldName") Map<String, String> articleFieldName);
-
-	/**
-	 * 根据文章id查找文章的总数
-	 * 
-	 * @param webId
-	 * @param articleIds
-	 *            :文章id
-	 * @param flag
-	 *            推荐属性
-	 * @param noFlag
-	 *            不推荐属性
-	 * @return 文章总数
-	 */
-	public int getCountByArticleIds(@Param("webId") int webId, @Param("articleIds") List<Integer> articleIds, @Param("flag") String flag,
-			@Param("noFlag") String noFlag);
-
-	/**
-	 * 根据文章列表ID，flag,等属性获取文章
-	 * 
-	 * @param webId
-	 *            站点编号
-	 * @param ids
-	 *            栏目ids
-	 * @param flag
-	 *            需要的文章属性
-	 * @param noFlag
-	 *            不需要的文章属性
-	 * @param begin光标开始位置
-	 * @param count
-	 *            每页显示条数
-	 * @param orderBy
-	 *            排序依据字段
-	 * @param order
-	 *            false,true
-	 * @return 文章集合
-	 */
-	public List<ArticleEntity> queryListByListArticleId(@Param("webId") int webId, @Param("articleIds") List<Integer> articleIds,
-			@Param("flag") String flag, @Param("noFlag") String noFlag, @Param("begin") int begin, @Param("count") int count,
-			@Param("orderBy") String orderBy, @Param("order") boolean order);
-
-	/**
-	 * 根据查询文章实体
-	 * 
-	 * @param tableName
-	 *            :自定义生成的表名
-	 * @param map
-	 *            获取查询条件的Map key:字段名 value:List 字段的各种判断值 list[0]:是否为自定义字段
-	 *            list[1]:是否为整形 list[2]:是否是等值查询 list[3]:字段的值
-	 * @return 文章实体
-	 */
-	public List<ArticleEntity> queryListForSearch(@Param("tableName") String tableName, @Param("map") Map<String, List> map,
-			@Param("page") PageUtil page, @Param("websiteId") int websiteId,@Param("ids") List ids,@Param("sortMap") Map sortMap);
-
-	/**
-	 * 根据查询文章实体总数
-	 * 
-	 * @param tableName
-	 *            :自定义生成的表名
-	 * @param map
-	 *            key:字段名 value:List 字段的各种判断值 list[0]:是否为自定义字段 list[1]:是否为整形
-	 *            list[2]:是否是等值查询 list[3]:字段的值
-	 * @return 文章实体总数
-	 */
-	public int getSearchCount(@Param("tableName") String tableName, @Param("map") Map<String, List> map, @Param("websiteId") int websiteId,@Param("ids")List ids);
+	@Deprecated
+	List<ArticleEntity> queryListByTime(@Param("basicCategoryId") int basicCategoryId,
+			@Param("dateTime") String dateTime, @Param("appId") int appId);
 
 	/**
 	 * 通过视图表来查询文章列表
@@ -287,85 +102,134 @@ public interface IArticleDao extends IBaseDao {
 	 *            关联模型表，更具分类id自动绑定
 	 * @return
 	 */
-	public List<BaseEntity> queryPageByCategoryId(@Param("categoryId") int categoryId, @Param("categoryIds") List categoryIds, @Param("page") PageUtil page,
-			@Param("contentModelTableName") String contentModelTableName);
+	@Deprecated
+	List<BaseEntity> queryPageByCategoryId(@Param("categoryId") int categoryId, @Param("categoryIds") List categoryIds,
+			@Param("page") PageUtil page, @Param("contentModelTableName") String contentModelTableName);
 
 	/**
-	 * 通过视图表来查询文章总数
+	 * 通过分类id获取文章内容
 	 * 
 	 * @param categoryId
 	 *            分类编号
-	 * @return 总数
-	 */
-	public int countByCategoryId(@Param("categoryId") int categoryId);
-	
-	/**
-	 * 通过分类id获取文章内容
-	 * @param categoryId　分类编号
 	 * @return 文章集合
 	 */
-	public List getByCategoryId(@Param("categoryId") int categoryId);
-	
+	List getByCategoryId(@Param("categoryId") int categoryId);
+
 	/**
 	 * 通过视图表来查询文章总数
 	 * 
 	 * @param basicId
 	 *            文章编号
 	 * @param contentModelTableName
-	 *           对应模块表名称
+	 *            对应模块表名称
 	 */
-	public List getById(@Param("basicId") int basicId,@Param("contentModelTableName") String contentModelTableName);
-	
+	List getById(@Param("basicId") int basicId, @Param("contentModelTableName") String contentModelTableName);
+
 	/**
-	 * 根据文章id集合获取文章列表
-	 * @param basicId　文章编号，便于提供UNION使用
-	 * @param basicIds　id集合
-	 * @return　列表
+	 * 查询指定栏目下的需要的文章属性和不需要的文章属性
+	 * 
+	 * @see IArticleDao.count
+	 * @param basicCategoryIds
+	 *            栏目id<br/>
+	 * @param flag
+	 *            需要的文章属性<br/>
+	 * @param noFlag
+	 *            不需要的文章属性<br/>
+	 * @return 返回查询总条数
 	 */
-	public List queryByBasicIds(@Param("basicId")int basicId,@Param("basicIds") Integer[] basicIds);
-	
-	/**
-	 * 通过文章标题来查询文章集合
-	 * @param articleTitle 文章标题
-	 * @param webId 应用ID
-	 * @param modelCode 模块编号
-	 * @return basicTitle,categoryId的map集合
-	 */
-	public List  queryByArticleTitle(@Param("articleTitle")String articleTitle,@Param("webId")int webId,@Param("modelCode")String modelCode);
-	
-	/**
-	 * 根据分类与时间查询文章列表
-	 * @param categoryId 分类编号
-	 * @param dateTime 时间
-	 * @return 文章
-	 */
-	public List<ArticleEntity> query(@Param("categoryId")Integer categoryId,@Param("dateTime")String dateTime);
+	@Deprecated
+	@SuppressWarnings("rawtypes")
+	int getCountByColumnId(@Param("webId") int webId, @Param("basicCategoryIds") int[] basicCategoryIds,
+			@Param("flag") String flag, @Param("noFlag") String noFlag);
 
 	/**
 	 * 查找basicId上一篇文章
-	 * @param appId　应用编号
-	 * @param basicId　文章编号
-	 * @param flag　true:上一条 false:下一条
+	 * 
+	 * @param appId
+	 *            应用编号
+	 * @param basicId
+	 *            文章编号
+	 * @param flag
+	 *            true:上一条 false:下一条
 	 * @return
 	 */
-	public ArticleEntity getNextOrPrevious(@Param("appId")int appId, @Param("basicId")int basicId, @Param("flag")boolean flag,@Param("categoryId")Integer categoryId);
-	
-	/**
-	 * 根据栏目id删除文章实体
-	 * @param columnId 栏目id
-	 */
-	public void deleteByColumnId(int columnId);
-	
+	ArticleEntity getNextOrPrevious(@Param("appId") int appId, @Param("basicId") int basicId,
+			@Param("flag") boolean flag, @Param("categoryId") Integer categoryId);
 
-	
 	/**
-	 * 查询文章bean实体，只返回文章的基本信息
-	 * @param appId 应用id
-	 * @param categoryId 分类id
-	 * @param categoryIds 子分类集合
+	 * 根据查询文章实体总数
+	 * 
+	 * @param tableName
+	 *            :自定义生成的表名
+	 * @param map
+	 *            key:字段名 value:List 字段的各种判断值 list[0]:是否为自定义字段 list[1]:是否为整形
+	 *            list[2]:是否是等值查询 list[3]:字段的值
+	 * @return 文章实体总数
+	 */
+	@Deprecated
+	int getSearchCount(@Param("tableName") String tableName, @Param("map") Map<String, List> map,
+			@Param("websiteId") int websiteId, @Param("ids") List ids);
+
+	/**
+	 * 文章查询
+	 * 
+	 * @para webId 网站编号
+	 * @param basicCategoryIds
+	 *            栏目编号集合
+	 * @param flag
+	 *            文章属性
+	 * @param noFlag
+	 *            文章不存在的属性
+	 * @param orderBy
+	 *            排序字段
+	 * @param order
+	 *            true 升序 false 降序 排序方式
+	 * @param article
+	 *            文章实体，便于扩展查询
 	 * @return 文章集合
 	 */
-	public List queryByCategoryForBean(@Param("categoryId")Integer categoryId,@Param("categoryIds") List categoryIds,@Param("page") PageUtil page,@Param("contentModelTableName") String contentModelTableName);
-	
-	
+	List<ArticleEntity> query(@Param("webId") int webId, @Param("basicCategoryIds") int[] basicCategoryIds,
+			@Param("flag") String flag, @Param("noFlag") String noFlag, @Param("orderBy") String orderBy,
+			@Param("order") boolean order, @Param("article") ArticleEntity article);
+
+	/**
+	 * 通过文章标题来查询文章集合
+	 * 
+	 * @see IArticleDao.query
+	 * @param articleTitle
+	 *            文章标题
+	 * @param webId
+	 *            应用ID
+	 * @param modelCode
+	 *            模块编号
+	 * @return basicTitle,categoryId的map集合
+	 */
+	@Deprecated
+	List queryByArticleTitle(@Param("articleTitle") String articleTitle, @Param("webId") int webId,
+			@Param("modelCode") String modelCode);
+
+	/**
+	 * 根据页面栏目的id获取与其绑定的文章实体
+	 * 
+	 * @param basicCategoryId
+	 * @return 文章实体
+	 */
+	@Deprecated
+	List<ArticleEntity> queryListByColumnId(@Param("basicCategoryId") int basicCategoryId);
+
+	/**
+	 * 根据查询文章实体
+	 * 
+	 * @param tableName
+	 *            :自定义生成的表名
+	 * @param map
+	 *            获取查询条件的Map key:字段名 value:List 字段的各种判断值 list[0]:是否为自定义字段
+	 *            list[1]:是否为整形 list[2]:是否是等值查询 list[3]:字段的值
+	 * @return 文章实体
+	 */
+	@Deprecated
+	List<ArticleEntity> queryListForSearch(@Param("tableName") String tableName, @Param("map") Map<String, List> map,
+			@Param("page") PageUtil page, @Param("websiteId") int websiteId, @Param("ids") List ids,
+			@Param("sortMap") Map sortMap);
+
 }

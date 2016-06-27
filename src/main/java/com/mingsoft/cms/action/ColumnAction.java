@@ -69,7 +69,7 @@ import com.mingsoft.util.StringUtil;
  *          </p>
  */
 @Controller
-@RequestMapping("/manager/cms/column")
+@RequestMapping("/${managerPath}/cms/column")
 public class ColumnAction extends BaseAction {
 
 	/**
@@ -110,7 +110,7 @@ public class ColumnAction extends BaseAction {
 		model.addAttribute("column",new ColumnEntity());
 		model.addAttribute("listColumn", JSONObject.toJSON(list).toString());
 		model.addAttribute("listCm", listCm);
-		return Const.VIEW+"/cms/column/column";
+		return view("/cms/column/column");
 	}
 
 	/**
@@ -287,7 +287,7 @@ public class ColumnAction extends BaseAction {
 		}
 		model.addAttribute("columnSuper", columnSuper);
 		model.addAttribute("listColumn", JSONObject.toJSON(list).toString());
-		return Const.VIEW+"/cms/column/column";
+		return view("/cms/column/column");
 	}
 	
 	/**
@@ -315,7 +315,7 @@ public class ColumnAction extends BaseAction {
 		//栏目链接标签拼接字符串
 		request.setAttribute("columnRegexConstant", IParserRegexConstant.HTML_SAVE_PATH+File.separator+websiteId);
 		request.setAttribute("listColumn", JSONArray.toJSONString(list));
-		return Const.VIEW+"/cms/column/column_list";
+		return view("/cms/column/column_list");
 	}
 	
 	/**

@@ -43,6 +43,7 @@ import com.mingsoft.util.StringUtil;
 @RequestMapping("/mcms")
 public class MCmsAction extends com.mingsoft.mdiy.action.BaseAction{
 	
+	
 	/**
 	 * 替换时间的字符
 	 */
@@ -68,9 +69,9 @@ public class MCmsAction extends com.mingsoft.mdiy.action.BaseAction{
 	@RequestMapping("/{diy}.do")
 	@ExceptionHandler(java.lang.NullPointerException.class) 
 	public void diy(@PathVariable(value = "diy") String diy, HttpServletRequest req, HttpServletResponse resp) {
-		String content = this.generaterPage(diy,cmsParser,req);
+		String content = this.generaterPage("mcms/" + diy,cmsParser,req);
 		if (StringUtil.isBlank(content)) {
-			this.outString(resp, this.getResString("err"));
+			this.outString(resp, this.getResString("err.not.exist","mcms/"+diy));
 			return;
 		}
 		//增加时间

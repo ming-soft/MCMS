@@ -26,6 +26,8 @@ import com.mingsoft.people.entity.PeopleUserEntity;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
 
+import net.mingsoft.basic.util.BasicUtil;
+
 /**
  * 
  * <p>
@@ -53,7 +55,7 @@ import com.mingsoft.util.StringUtil;
  */
 
 @Controller
-@RequestMapping("/manager/people/user")
+@RequestMapping("/${managerPath}/people/user")
 public class PeopleUserAction extends BaseAction{
 	
 	/**
@@ -76,27 +78,19 @@ public class PeopleUserAction extends BaseAction{
 	 * @return
 	 */
 	@RequestMapping("/list")
-	public String list(ModelMap mode,HttpServletRequest request,HttpServletResponse response){
-		//获取应用ID  
+	public String list(PeopleEntity people,ModelMap mode,HttpServletRequest request,HttpServletResponse response){
 		int appId = this.getAppId(request);
-		int pageNo = this.getInt(request, "pageNo", 1);
-		Map map = assemblyRequestMap(request);
-		//查询用户总数
-		//int peopleCount = this.peopleBiz.queryCountByAppId(appId);
-		int peopleCount = this.peopleBiz.getCountByAppIdAndMap(appId, map);
-		map.put("pageNo", null);
-		//页面链接地址
-		String pageUrl = getUrl(request)+"/manager/people/user/list.do";
-		pageUrl= StringUtil.buildUrl(pageUrl, map);
-		//分页通用类
-		PageUtil page=new PageUtil(pageNo,20,peopleCount,pageUrl);
-		//获取用户列表
-		List<PeopleEntity> listPeople = this.peopleBiz.queryByAppIdAndMap(appId,map, page);
-		//List<PeopleEntity> listPeople = this.peopleBiz.queryPageListByAppId(appId,page);
-		mode.addAttribute("listPeople", listPeople);
-		mode.addAttribute("page", page);
-		this.setCookie(request, response,CookieConstEnum.BACK_COOKIE, pageUrl);
-		return Const.VIEW+"/people/user/people_user_list";
+		BasicUtil.startPage();
+		Map where = BasicUtil.assemblyRequestMap();
+		Object peopleDateTimeWhere = where.get("peopleDateTimeWhere");
+		if (!StringUtil.isBlank(peopleDateTimeWhere) ) {
+			where.put("peopleDateStartTime", peopleDateTimeWhere.toString().split("至")[0]);
+			where.put("peopleDateEndTime",  peopleDateTimeWhere.toString().split("至")[1]);
+		}
+		List<PeopleEntity> listPeople = this.peopleBiz.query(appId,where);
+		BasicUtil.endPage(listPeople);
+		request.setAttribute("listPeople", listPeople);
+		return view("/people/user/people_user_list");
 	}
 	
 	/**
@@ -108,7 +102,7 @@ public class PeopleUserAction extends BaseAction{
 		int appId = this.getAppId(request);
 		model.addAttribute("appId", appId);
 		model.addAttribute("peopleUser",new PeopleUserEntity());
-		return Const.VIEW+"/people/user/people_user";
+		return view("/people/user/people_user");
 	}
 	
 	
@@ -163,8 +157,6 @@ public class PeopleUserAction extends BaseAction{
 		//如果不存在则进行保存操作
 		if(oldPeopleUser!=null && oldPeopleUser.getPeopleUserPeopleId()==0){
 			this.peopleUserBiz.saveEntity(peopleUser);
-			this.outJson(response, ModelCode.PEOPLE_USER,true,cookieUrl);
-			return;
 		}
 		//判断用户密码是否为空，如果不为空则进行密码的更新
 		if(!StringUtil.isBlank(StringUtil.Md5(peopleUser.getPeoplePassword()))){
@@ -172,7 +164,7 @@ public class PeopleUserAction extends BaseAction{
 			peopleUser.setPeoplePassword(StringUtil.Md5(peopleUser.getPeoplePassword()));
 		}
 		//存在则进行更新操作
-		this.peopleUserBiz.updatePeopleUser(peopleUser);;
+		this.peopleUserBiz.updatePeople(peopleUser);;
 		//返回更新成功
 		this.outJson(response, ModelCode.PEOPLE_USER,true,cookieUrl);
 	}
@@ -213,7 +205,7 @@ public class PeopleUserAction extends BaseAction{
 		int appId = this.getAppId(request);
 		mode.addAttribute("appId", appId);
 		mode.addAttribute("peopleUser", peopleUser);
-		return Const.VIEW+"/people/user/people_user";
+		return view("/people/user/people_user");
 	}
 	
 	/**

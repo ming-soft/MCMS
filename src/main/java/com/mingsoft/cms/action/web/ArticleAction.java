@@ -21,7 +21,6 @@ import com.mingsoft.basic.action.BaseAction;
 import com.mingsoft.base.entity.ListJson;
 import com.mingsoft.cms.biz.IArticleBiz;
 import com.mingsoft.basic.biz.IColumnBiz;
-import com.mingsoft.cms.constant.e.CookieEnum;
 import com.mingsoft.mdiy.biz.IContentModelBiz;
 import com.mingsoft.mdiy.biz.IContentModelFieldBiz;
 import com.mingsoft.basic.constant.e.CookieConstEnum;
@@ -111,7 +110,6 @@ public class ArticleAction extends BaseAction {
 
 		// 判断内容模型的值
 		if (contentModel != null) {
-			this.outJson(response, this.getResString("err"));
 			Map where = new HashMap();
 			// 压入basicId字段的值
 			where.put("basicId", basicId);
@@ -129,42 +127,6 @@ public class ArticleAction extends BaseAction {
 		this.outJson(response, JSONObject.toJSONStringWithDateFormat(article, "yyyy-MM-dd hh:mm:ss"));
 	}
 
-	/**
-	 * 更新文章点击数
-	 * 
-	 * @param basicId
-	 *            文章编号
-	 *            <dt><span class="strong">返回</span></dt><br/>
-	 *            {code:"模块编码",<br/>
-	 *            result:"true｜false",<br/>
-	 *            resultMsg:"错误信息",<br/>
-	 *            resultData:"成功会返回最新点击数"<br/>
-	 *            }
-	 */
-	@RequestMapping(value = "/{basicId}/hit", method = RequestMethod.POST)
-	@ResponseBody
-	public void hit(@PathVariable int basicId, HttpServletRequest request, HttpServletResponse response) {
-		if (basicId <= 0) {
-			this.outJson(response, false);
-		}
-		// 获取文章实体
-		ArticleEntity article = articleBiz.getById(basicId);
-		// 判断文章是否存在
-		if (article == null) {
-			this.outJson(response, false);
-		}
-		// 判断该文章是否是改应用下
-		if (article.getArticleWebId() != this.getAppId(request)) {
-			this.outJson(response, false);
-		}
-		String str = this.getCookie(request, CookieEnum.BASIC_HIT);
-		if (StringUtil.isBlank(str) || Integer.parseInt(str) != basicId) {
-			// 更新点击量
-			articleBiz.updateHit(basicId, article.getBasicHit() + 1);
-			this.setCookie(request, response, CookieEnum.BASIC_HIT, basicId);
-			this.outJson(response, null, true, "", String.valueOf(article.getBasicHit() + 1));
-		}
-	}
 
 	/**
 	 * 文章列表信息

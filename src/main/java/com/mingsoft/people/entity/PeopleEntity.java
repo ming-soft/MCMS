@@ -49,6 +49,11 @@ public class PeopleEntity extends SessionEntity {
 	private int peopleAppId;
 
 	/**
+	 * 不参表结构 大于0表示自动登录
+	 */
+	private int peopleAutoLogin;
+
+	/**
 	 * 用户随机验证码
 	 */
 	private String peopleCode;
@@ -62,6 +67,8 @@ public class PeopleEntity extends SessionEntity {
 	 * 注册时间
 	 */
 	private Date peopleDateTime;
+	
+	
 
 	/**
 	 * 自增长ID
@@ -83,6 +90,12 @@ public class PeopleEntity extends SessionEntity {
 	 * 登录帐号
 	 */
 	private String peopleName;
+	
+	
+	/**
+	 * 旧密码
+	 */
+	private String peopleOldPassword;
 
 	/**
 	 * 登录密码
@@ -99,16 +112,11 @@ public class PeopleEntity extends SessionEntity {
 	 * 是否通过手机验证
 	 */
 	private int peoplePhoneCheck;
-
+	
 	/**
 	 * 用户状态 1.已审核 0.未审核
 	 */
 	private int peopleState;
-	
-	/**
-	 * 不参表结构 大于0表示自动登录
-	 */
-	private int peopleAutoLogin;
 
 	/**
 	 * 用户真信息
@@ -122,6 +130,10 @@ public class PeopleEntity extends SessionEntity {
 	 */
 	public int getPeopleAppId() {
 		return peopleAppId;
+	}
+
+	public int getPeopleAutoLogin() {
+		return peopleAutoLogin;
 	}
 
 	/**
@@ -177,6 +189,10 @@ public class PeopleEntity extends SessionEntity {
 		return peopleName;
 	}
 
+	public String getPeopleOldPassword() {
+		return peopleOldPassword;
+	}
+
 	/**
 	 * 获取peoplePassword
 	 * 
@@ -219,6 +235,10 @@ public class PeopleEntity extends SessionEntity {
 	 */
 	public void setPeopleAppId(int peopleAppId) {
 		this.peopleAppId = peopleAppId;
+	}
+
+	public void setPeopleAutoLogin(int peopleAutoLogin) {
+		this.peopleAutoLogin = peopleAutoLogin;
 	}
 
 	/**
@@ -284,6 +304,10 @@ public class PeopleEntity extends SessionEntity {
 		this.peopleName = peopleName;
 	}
 
+	public void setPeopleOldPassword(String peopleOldPassword) {
+		this.peopleOldPassword = peopleOldPassword;
+	}
+
 	/**
 	 * 设置peoplePwd
 	 * 
@@ -337,14 +361,6 @@ public class PeopleEntity extends SessionEntity {
 
 	public void setPeopleUser(PeopleUserEntity peopleUser) {
 		this.peopleUser = peopleUser;
-	}
-
-	public int getPeopleAutoLogin() {
-		return peopleAutoLogin;
-	}
-
-	public void setPeopleAutoLogin(int peopleAutoLogin) {
-		this.peopleAutoLogin = peopleAutoLogin;
 	}
 
 	

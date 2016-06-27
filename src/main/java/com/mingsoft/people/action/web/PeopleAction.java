@@ -74,7 +74,7 @@ public class PeopleAction extends BaseAction {
 	}
 
 	/**
-	 * 验证用户名、手机号、邮箱是否可用，同一时间只能判断一种，优先用户名称 <br/>
+	 * 验证用户名、手机号、邮箱是否可用，同一时间只能判断一种，优先用户名称 ,只验证已绑定的用户,建议独立使用<br/>
 	 * 
 	 * @param people
 	 *            用户信息<br/>
@@ -235,9 +235,10 @@ public class PeopleAction extends BaseAction {
 	}
 
 	/**
-	 * 用户名、邮箱、手机号验证<br/>
+	 * 用户名、邮箱、手机号验证 ,用户重置密码必须使用该接口<br/>
 	 * 适用场景:?<br/>
-	 * 1、用户注册是对用户名、邮箱或手机号唯一性判断 2、用户取回密码是判断账号是否存在
+	 * 1、用户注册是对用户名、邮箱或手机号唯一性判断 
+	 * 2、用户取回密码是判断账号是否存在
 	 * 
 	 * @param people
 	 *            用户信息<br/>
@@ -305,7 +306,7 @@ public class PeopleAction extends BaseAction {
 	@ResponseBody
 	public void register(@ModelAttribute PeopleEntity people, HttpServletRequest request,
 			HttpServletResponse response) {
-
+		LOG.debug("people register");
 		// 验证码验证 验证码不为null 或 验证码不相等
 		if (!checkRandCode(request)) {
 			this.outJson(response, null, false, this.getResString("err.error", this.getResString("rand.code")));
@@ -346,10 +347,24 @@ public class PeopleAction extends BaseAction {
 
 		if (!StringUtil.isBlank(people.getPeoplePhone())) {// 验证手机号
 			PeopleEntity peoplePhone = this.peopleBiz.getEntityByUserName(people.getPeoplePhone(), appId);
-			if (peoplePhone != null && peoplePhone.getPeoplePhoneCheck() == PeopleEnum.PHONE_CHECK.toInt()) {
+			if (peoplePhone != null && peoplePhone.getPeoplePhoneCheck() == PeopleEnum.PHONE_CHECK.toInt()) { // 已存在
 				this.outJson(response, ModelCode.PEOPLE_REGISTER, false,
 						this.getResString("err.exist", this.getResString("people.phone")));
 				return;
+			} else {
+				Object obj = this.getSession(request, SessionConstEnum.SEND_CODE_SESSION);
+				if (obj != null) {
+					PeopleEntity _people = (PeopleEntity) obj;
+					if (_people.getPeoplePhone().equals(people.getPeoplePhone())) {
+						if (_people.getPeopleCode().equals(people.getPeopleCode())) {
+							people.setPeoplePhoneCheck(PeopleEnum.PHONE_CHECK);
+						} else {
+							this.outJson(response, ModelCode.PEOPLE_REGISTER, false,
+									this.getResString("err.error", this.getResString("people.code")));
+							return;
+						}
+					}
+				}
 			}
 		}
 
@@ -359,6 +374,20 @@ public class PeopleAction extends BaseAction {
 				this.outJson(response, ModelCode.PEOPLE_REGISTER, false,
 						this.getResString("err.exist", this.getResString("people.mail")));
 				return;
+			} else {
+				Object obj = this.getSession(request, SessionConstEnum.SEND_CODE_SESSION);
+				if (obj != null) {
+					PeopleEntity _people = (PeopleEntity) obj;
+					if (_people.getPeopleMail().equals(people.getPeopleMail())) {
+						if (_people.getPeopleCode().equals(people.getPeopleCode())) {
+							people.setPeoplePhoneCheck(PeopleEnum.MAIL_CHECK);
+						} else {
+							this.outJson(response, ModelCode.PEOPLE_REGISTER, false,
+									this.getResString("err.error", this.getResString("people.mail")));
+							return;
+						}
+					}
+				}
 			}
 		}
 
@@ -381,6 +410,7 @@ public class PeopleAction extends BaseAction {
 		this.peopleBiz.saveEntity(people);
 		this.outJson(response, ModelCode.PEOPLE_REGISTER, true,
 				this.getResString("success", this.getResString("people.register")));
+		LOG.debug("people register ok");
 	}
 
 	/**
@@ -410,12 +440,14 @@ public class PeopleAction extends BaseAction {
 			this.outJson(response, null, false, this.getResString("err.error", this.getResString("rand.code")));
 			return;
 		}
+
 		// 验证新密码的长度
 		if (StringUtil.checkLength(people.getPeoplePassword(), 3, 12)) {
 			this.outJson(response, ModelCode.PEOPLE, false,
 					this.getResString("err.error", this.getResString("people.password")));
 			return;
 		}
+
 		PeopleEntity _people = (PeopleEntity) this.getSession(request, SessionConstEnum.PEOPLE_RESET_PASSWORD_SESSION);
 
 		if (_people == null) {
@@ -476,6 +508,13 @@ public class PeopleAction extends BaseAction {
 	 *            接收地址，只能是邮箱或手机号，邮箱需要使用邮箱插件，手机号需要短信插件
 	 * @param modelCode
 	 *            对应邮件插件的模块编号
+	 * @param thrid
+	 *            默认sendcloud
+	 * @param rand_code
+	 *            图片验证码 如果isSession=true rand_code为必填项
+	 * @param isSession
+	 *            true启用session保存code,false 关联用户信息，true一般是当用户手机还不存在系统中时使用，
+	 * 
 	 *            <dt><span class="strong">返回</span></dt><br/>
 	 *            {result:"true｜false"}<br/>
 	 */
@@ -484,13 +523,8 @@ public class PeopleAction extends BaseAction {
 	public void sendCode(HttpServletRequest request, HttpServletResponse response) {
 		String receive = request.getParameter("receive");
 		String modelCode = request.getParameter("modelCode");
-		// 通过邮箱地址和应用id得到用户实体
-		PeopleEntity people = peopleBiz.getEntityByMailOrPhone(receive, this.getAppId(request));
-		if (people == null) {
-			this.outJson(response, ModelCode.PEOPLE, false,
-					this.getResString("err.not.exist", this.getResString("people.mail")));
-			return;
-		}
+		String thrid = request.getParameter("thrid");
+		boolean isSession = this.getBoolean(request, "isSession");
 
 		if (StringUtil.isBlank(receive)) {
 			this.outJson(response, ModelCode.PEOPLE, false, this.getResString("err.empty", "receive"));
@@ -501,6 +535,63 @@ public class PeopleAction extends BaseAction {
 			return;
 		}
 		String peopleCode = StringUtil.randomNumber(6);
+
+		// 解密得到的模块编码
+		String _modelCode = this.encryptByAES(request, modelCode);
+		Map params = new HashMap();
+		params.put("modelCode", _modelCode);
+		params.put("receive", receive);
+		params.put("thrid", thrid); // 使用第三方平台发送，确保用户能收到
+		params.put("content", "{code:'" + peopleCode + "'}");
+		if (isSession) { // 启用session
+			if (!this.checkRandCode(request)) {
+				this.outJson(response, ModelCode.PEOPLE, false,
+						this.getResString("err.error", this.getResString("rand.code")));
+				return;
+			}
+
+			Object obj = this.getSession(request, SessionConstEnum.SEND_CODE_SESSION);
+			if (obj != null) {
+				PeopleEntity p = (PeopleEntity) obj;
+				if (DateUtil.diffSec(new DateUtil(), new DateUtil(p.getPeopleCodeSendDate().getTime())) == 60) {
+					this.outJson(response, ModelCode.PEOPLE, false, this.getResString("people.code.time.error"));
+					return;
+
+				}
+			}
+
+			PeopleEntity _people = new PeopleEntity();
+			_people.setPeopleCode(peopleCode);
+			_people.setPeopleCodeSendDate(DateUtil.dateToTimestamp(new Date()));
+			if (StringUtil.isMobile(receive)) {
+				_people.setPeoplePhone(receive);
+			} else {
+				_people.setPeopleMail(receive);
+			}
+			this.setSession(request, SessionConstEnum.SEND_CODE_SESSION, _people);
+			if (StringUtil.isMobile(receive)) {
+				Result rs = Proxy.post(this.getUrl(request) + "/sms/send.do", null, params, Const.UTF8);
+				this.outJson(response, rs.getContent());
+			} else if (StringUtil.isEmail(receive)) {
+				Result rs = Proxy.post(this.getUrl(request) + "/mail/send.do", null, params, Const.UTF8);
+				String re = rs.getContent();
+				LOG.debug("send mail" + receive + ":content " + peopleCode + " " + re);
+				this.outJson(response, re);
+			}
+			return;
+		}
+		// 通过邮箱地址和应用id得到用户实体
+		PeopleEntity people = peopleBiz.getEntityByMailOrPhone(receive, this.getAppId(request));
+		if (people == null) {
+			this.outJson(response, ModelCode.PEOPLE, false,
+					this.getResString("err.not.exist", this.getResString("people")));
+			return;
+		}
+		if (people.getPeopleUser() != null) {
+			params.put("content",
+					"{code:'" + peopleCode + "',userName:'" + people.getPeopleUser().getPeopleUserNickName() + "'}");
+		}
+
 		// 将生成的验证码加入用户实体
 		people.setPeopleCode(peopleCode);
 
@@ -508,13 +599,6 @@ public class PeopleAction extends BaseAction {
 		people.setPeopleCodeSendDate(DateUtil.dateToTimestamp(new Date()));
 		// 更新该实体
 		this.peopleBiz.updateEntity(people);
-
-		// 解密得到的模块编码
-		String _modelCode = this.encryptByAES(request, modelCode);
-		Map params = new HashMap();
-		params.put("modelCode", _modelCode);
-		params.put("receive", receive);
-		params.put("content", "{code:'" + peopleCode + "'}");
 
 		if (StringUtil.isMobile(receive)) {
 			Result rs = Proxy.post(this.getUrl(request) + "/sms/send.do", null, params, Const.UTF8);
@@ -539,8 +623,8 @@ public class PeopleAction extends BaseAction {
 	 *            {result:"true｜false"}<br/>
 	 */
 	@RequestMapping(value = "/checkSendCode", method = RequestMethod.POST)
-	public void checkSendCode( HttpServletRequest request, HttpServletResponse response) {
-		String code  = request.getParameter("code");
+	public void checkSendCode(HttpServletRequest request, HttpServletResponse response) {
+		String code = request.getParameter("code");
 		String receive = request.getParameter("receive");
 		// 验证码
 		if (StringUtil.isBlank(code)) {
@@ -552,7 +636,7 @@ public class PeopleAction extends BaseAction {
 		// 根据邮箱地址查找用户实体
 		PeopleEntity peopleEntity = this.peopleBiz.getEntityByMailOrPhone(receive, this.getAppId(request));
 
-		//如果用户已经绑定过邮箱直接返回错误
+		// 如果用户已经绑定过邮箱直接返回错误
 		if (peopleEntity.getPeoplePhoneCheck() == PeopleEnum.MAIL_CHECK.toInt()) {
 			this.outJson(response, ModelCode.PEOPLE, false);
 			return;

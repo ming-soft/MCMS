@@ -169,6 +169,12 @@ public class PeopleBizImpl  extends BaseBizImpl implements IPeopleBiz{
 		return peopleDao.getEntityByMailOrPhone(userName, appId);
 	}
 
+	@Override
+	public List<PeopleEntity> query(int appId, Map where) {
+		// TODO Auto-generated method stub
+		return peopleDao.query(appId,where);
+	}
+
 	
 	
 	

@@ -30,6 +30,7 @@ import com.mingsoft.base.entity.ListJson;
 import com.mingsoft.basic.entity.BasicCategoryEntity;
 import com.mingsoft.cms.biz.IArticleBiz;
 import com.mingsoft.basic.biz.IColumnBiz;
+import com.mingsoft.basic.biz.impl.CategoryBizImpl;
 import com.mingsoft.basic.constant.Const;
 import com.mingsoft.cms.constant.e.ColumnTypeEnum;
 import com.mingsoft.mdiy.biz.IContentModelBiz;
@@ -44,10 +45,13 @@ import com.mingsoft.parser.IParserRegexConstant;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
 
+import net.mingsoft.basic.util.BasicUtil;
+
 /**
  * 
  * 
- * <b>铭飞CMS-铭飞内容管理系统</b> </p>
+ * <b>铭飞CMS-铭飞内容管理系统</b>
+ * </p>
  * 
  * <p>
  * Copyright: Copyright (c) 2014 - 2015
@@ -78,7 +82,7 @@ import com.mingsoft.util.StringUtil;
  *          </p>
  */
 @Controller
-@RequestMapping("/manager/cms/article")
+@RequestMapping("/${managerPath}/cms/article")
 public class ArticleAction extends BaseAction {
 	/**
 	 * 业务层的注入
@@ -103,9 +107,6 @@ public class ArticleAction extends BaseAction {
 	 */
 	@Autowired
 	private IContentModelBiz contentBiz;
-	
-	
-
 
 	/**
 	 * 判断是否为checkbox类型
@@ -138,69 +139,45 @@ public class ArticleAction extends BaseAction {
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request, ModelMap mode, HttpServletResponse response) {
 		// 获取站点id
-		int appId =  this.getAppId(request);
-		List<ColumnEntity> list = columnBiz.queryAll(appId, this.getModelCodeId(request,ModelCode.CMS_COLUMN));
+		int appId = this.getAppId(request);
+		List<ColumnEntity> list = columnBiz.queryAll(appId, this.getModelCodeId(request, ModelCode.CMS_COLUMN));
 		JSONObject ja = new JSONObject();
 		request.setAttribute("listColumn", ja.toJSON(list).toString());
 		// 返回路径
-		return Const.VIEW+"/cms/article/index"; // 这里表示显示/manager/cms/article/article_list.ftl
+		return view("/cms/article/index"); // 这里表示显示/manager/cms/article/article_list.ftl
 	}
-	
+
 	/**
 	 * 加载页面显示所有文章信息
 	 * 
 	 * @param request
 	 * @return 返回文章页面显示地址
 	 */
-	@SuppressWarnings("static-access")
 	@RequestMapping("/{categoryId}/list")
-	public String l(HttpServletRequest request, ModelMap mode, HttpServletResponse response, @PathVariable int categoryId) {
+	public String list(@ModelAttribute ArticleEntity article, HttpServletRequest request, ModelMap mode,
+			HttpServletResponse response, @PathVariable int categoryId) {
 		String categoryTitle = request.getParameter("categoryTitle");
 		String articleType = request.getParameter("articleType");
-		String keyword = request.getParameter("keyword");
-		//判断关键字是否为null 
-		if(StringUtil.isBlank(keyword)){
-			keyword = null;
-		}
-		// 获取站点id
-		int appId =  this.getAppId(request);
-		
-		// 查询数据表中记录集合总数
-		int count = articleBiz.count(appId, categoryId, articleType, null,keyword);
-		
-		// 当前页面
-		int pageNo = 1;
-		// 获取页面的当页数
-		if (request.getParameter("pageNo") != null) {
-			pageNo = Integer.parseInt(request.getParameter("pageNo"));
-		}
-		
-		String url =  "/manager/cms/article/"+categoryId+"/list.do?categoryTitle="+StringUtil.encodeStringByUTF8(categoryTitle)+"&articleType="+(articleType==null?"":articleType)+"&keyword="+(keyword==null?"":keyword);
-		// 分页集合
-		PageUtil page = new PageUtil(pageNo, 20, count, getUrl(request) + url);
-		// 实例化对象
-		List<ArticleEntity> listArticle = articleBiz.queryList(page, "a.ARTICLE_BASICID", true, keyword, articleType, categoryId, appId);
-		
+		int[] basicCategoryIds = columnBiz.queryChildrenCategoryIds(categoryId, BasicUtil.getAppId(),
+				BasicUtil.getModelCodeId(ModelCode.CMS_COLUMN));
+
+		int appId = BasicUtil.getAppId();
+		BasicUtil.startPage();
+		List<ArticleEntity> listArticle = articleBiz.query(appId, basicCategoryIds, null, null, null, true, article);
+		BasicUtil.endPage(listArticle);
+
 		// 返回文章类型
 		// 文章属性
 		mode.addAttribute("articleTypeList", articleType());
 		// 实例化对象
 		mode.addAttribute("listArticle", listArticle);
-		mode.addAttribute("page", page);
-		
 		mode.addAttribute("articleShow", "");
-		
-		//将搜索的参数再传回页面
-		mode.addAttribute("keyword", keyword);
+		// 将搜索的参数再传回页面
 		mode.addAttribute("articleType", articleType);
 		mode.addAttribute("categoryTitle", categoryTitle);
 		mode.addAttribute("categoryId", categoryId);
-		
-		// 返回路径
-		this.setCookie(request, response, CookieConstEnum.BACK_COOKIE,url+"&pageNo="+pageNo);
-		return "manager/cms/article/article_list";
+		return view("/cms/article/article_list");
 	}
-
 
 	/**
 	 * 添加文章页面
@@ -210,38 +187,39 @@ public class ArticleAction extends BaseAction {
 	@SuppressWarnings("static-access")
 	@RequestMapping("/add")
 	public String add(ModelMap mode, HttpServletRequest request) {
-		int categoryId = this.getInt(request, "categoryId",0);
+		int categoryId = this.getInt(request, "categoryId", 0);
 		String categoryTitle = request.getParameter("categoryTitle");
-		//判断栏目是否为""
-		if(StringUtil.isBlank(categoryTitle)){
-			categoryTitle=null;
+		// 判断栏目是否为""
+		if (StringUtil.isBlank(categoryTitle)) {
+			categoryTitle = null;
 		}
 		// 文章属性
 		mode.addAttribute("articleType", articleType());
-		
+
 		// 站点ID
 		int appId = this.getAppId(request);
-		List<ColumnEntity> list = columnBiz.queryAll(appId,this.getModelCodeId(request, ModelCode.CMS_COLUMN));
+		List<ColumnEntity> list = columnBiz.queryAll(appId, this.getModelCodeId(request, ModelCode.CMS_COLUMN));
 		JSONObject ja = new JSONObject();
 		mode.addAttribute("appId", appId);
 		mode.addAttribute("listColumn", ja.toJSON(list).toString());
-		boolean isEditCategory = false; //新增，不是单篇
-		//获取栏目id
+		boolean isEditCategory = false; // 新增，不是单篇
+		// 获取栏目id
 		ColumnEntity column = (ColumnEntity) columnBiz.getEntity(categoryId);
-		//判断栏目是否是单篇
-		if(column!=null && column.getColumnType()==ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()){
-			isEditCategory = true; //是单页
-		};
+		// 判断栏目是否是单篇
+		if (column != null && column.getColumnType() == ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {
+			isEditCategory = true; // 是单页
+		}
+		;
 		mode.addAttribute("categoryTitle", categoryTitle);
-	
-		mode.addAttribute("isEditCategory", isEditCategory); //新增状态
+
+		mode.addAttribute("isEditCategory", isEditCategory); // 新增状态
 		mode.addAttribute("categoryId", categoryId);
-	
-		//添加一个空的article实体
+
+		// 添加一个空的article实体
 		ArticleEntity article = new ArticleEntity();
-		mode.addAttribute("article",article);
+		mode.addAttribute("article", article);
 		// 返回路径
-		return Const.VIEW+"/cms/article/article"; // 这里表示显示/manager/cms/article/article_save.ftl
+		return view("/cms/article/article"); // 这里表示显示/manager/cms/article/article_save.ftl
 	}
 
 	/**
@@ -256,69 +234,72 @@ public class ArticleAction extends BaseAction {
 		int appId = this.getAppId(request);
 		// 验证文章，文章自由排序，栏目id
 
-		if (fromTest(article, response)) {
-			// 设置发布时间
-			article.setBasicDateTime(new Timestamp(System.currentTimeMillis()));
-			article.setBasicUpdateTime(new Timestamp(System.currentTimeMillis()));
-			// 文章类型
-			String langtyp[] = request.getParameterValues("articleType");
-			if (langtyp != null) {
-				StringBuffer sb = new StringBuffer();
-				for (int j = 0; j < langtyp.length; j++) {
-					sb.append(langtyp[j] + ",");
-				}
-			}
-			article.setArticleType(request.getParameter("checkboxType"));
-			// 问题:由于上传的图片路径后面可能带有｜符合。所以要进行将“｜”替换空
-			// 空值判断
-			if (!StringUtil.isBlank(article.getBasicThumbnails())) {
-				article.setBasicThumbnails(article.getBasicThumbnails().replace("|", ""));
-			}
-			ColumnEntity column = (ColumnEntity) columnBiz.getEntity(article.getBasicCategoryId());
-			article.setColumn(column);
-			// 添加文章所属的站点id
-			article.setArticleWebId(appId);
-			//绑定模块编号
-			article.setBasicModelId(this.getModelCodeId(request));
-			// 保存文章实体
-			
-			String articleType = request.getParameter("articleTypeJson");
-			if(!StringUtil.isBlank(articleType)){
-				// 将JSON字符串转换为数组
-				List<BasicCategoryEntity> basicCategoryList = JSONArray.parseArray(articleType, BasicCategoryEntity.class);
-				articleBiz.saveArticle(article, basicCategoryList);
-			}else{
-				// 更新文章信息
-				articleBiz.saveBasic(article);
-			}
-			if(column.getColumnType()==ColumnTypeEnum.COLUMN_TYPE_LIST.toInt()) {//列表
-				article.setArticleUrl(column.getColumnPath()+File.separator+article.getBasicId()+".html");
-			} else if (column.getColumnType()==ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {//单篇
-				article.setArticleUrl(column.getColumnPath()+File.separator+IParserRegexConstant.HTML_INDEX);
-			}
-			articleBiz.updateBasic(article);
+		if (!validateForm(article, response)) {
+			this.outJson(response, ModelCode.CMS_ARTICLE, false);
 
-			// 判断栏目是否存在新增字段
-			if (column.getColumnContentModelId() != 0) {
-				// 保存所有的字段信息
-				List<BaseEntity> listField = fieldBiz.queryListByCmid(column.getColumnContentModelId());
-				// 获取内容模型实体
-				ContentModelEntity contentModel = (ContentModelEntity) contentBiz.getEntity(column.getColumnContentModelId());
-				if (contentModel != null) {
-					// 保存新增字段的信息
-					Map param = this.checkField(listField, request, article.getBasicId());
-					fieldBiz.insertBySQL(contentModel.getCmTableName(), param);
-				}
+		}
+		// 设置发布时间
+		article.setBasicDateTime(new Timestamp(System.currentTimeMillis()));
+		article.setBasicUpdateTime(new Timestamp(System.currentTimeMillis()));
+		// 文章类型
+		String langtyp[] = request.getParameterValues("articleType");
+		if (langtyp != null) {
+			StringBuffer sb = new StringBuffer();
+			for (int j = 0; j < langtyp.length; j++) {
+				sb.append(langtyp[j] + ",");
+			}
+		}
+		article.setArticleType(request.getParameter("checkboxType"));
+		// 问题:由于上传的图片路径后面可能带有｜符合。所以要进行将“｜”替换空
+		// 空值判断
+		if (!StringUtil.isBlank(article.getBasicThumbnails())) {
+			article.setBasicThumbnails(article.getBasicThumbnails().replace("|", ""));
+		}
+		ColumnEntity column = (ColumnEntity) columnBiz.getEntity(article.getBasicCategoryId());
+		article.setColumn(column);
+		// 添加文章所属的站点id
+		article.setArticleWebId(appId);
+		// 绑定模块编号
+		article.setBasicModelId(this.getModelCodeId(request));
+		// 保存文章实体
 
+		String articleType = request.getParameter("articleTypeJson");
+		if (!StringUtil.isBlank(articleType)) {
+			// 将JSON字符串转换为数组
+			List<BasicCategoryEntity> basicCategoryList = JSONArray.parseArray(articleType, BasicCategoryEntity.class);
+			articleBiz.saveArticle(article, basicCategoryList);
+		} else {
+			// 更新文章信息
+			articleBiz.saveBasic(article);
+		}
+		if (column.getColumnType() == ColumnTypeEnum.COLUMN_TYPE_LIST.toInt()) {// 列表
+			article.setArticleUrl(column.getColumnPath() + File.separator + article.getBasicId() + ".html");
+		} else if (column.getColumnType() == ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {// 单篇
+			article.setArticleUrl(column.getColumnPath() + File.separator + IParserRegexConstant.HTML_INDEX);
+		}
+		articleBiz.updateBasic(article);
+
+		// 判断栏目是否存在新增字段
+		if (column.getColumnContentModelId() != 0) {
+			// 保存所有的字段信息
+			List<BaseEntity> listField = fieldBiz.queryListByCmid(column.getColumnContentModelId());
+			// 获取内容模型实体
+			ContentModelEntity contentModel = (ContentModelEntity) contentBiz
+					.getEntity(column.getColumnContentModelId());
+			if (contentModel != null) {
+				// 保存新增字段的信息
+				Map param = this.checkField(listField, request, article.getBasicId());
+				fieldBiz.insertBySQL(contentModel.getCmTableName(), param);
 			}
-			
-			//
-			
-			if (article.getColumn().getColumnType()==ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {
-				this.outJson(response, ModelCode.CMS_ARTICLE, true,"" + article.getColumn().getCategoryId(),"");
-			} else {
-				this.outJson(response, ModelCode.CMS_ARTICLE, true, "" + article.getColumn().getCategoryId(),this.redirectBack(request,false));	
-			}
+
+		}
+
+		//
+
+		if (article.getColumn().getColumnType() == ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {
+			this.outJson(response, ModelCode.CMS_ARTICLE, true, "" + article.getColumn().getCategoryId(), "");
+		} else {
+			this.outJson(response, ModelCode.CMS_ARTICLE, true, "",article.getColumn().getCategoryId()+"");
 		}
 	}
 
@@ -329,41 +310,52 @@ public class ArticleAction extends BaseAction {
 	 * @param response
 	 * @return 返回Boolean类型 true：通过，false:有错
 	 */
-	public boolean fromTest(ArticleEntity article, HttpServletResponse response) {
+	public boolean validateForm(ArticleEntity article, HttpServletResponse response) {
 		// 对表单数据进行再次验证
 		// 验证文章标题是否为空
 		if (StringUtil.isBlank(article.getBasicTitle())) {
-			this.outJson(response, ModelCode.CMS_ARTICLE, false, getResString("err.empty", this.getResString("basicTitle")));
+			this.outJson(response, ModelCode.CMS_ARTICLE, false,
+					getResString("err.empty", this.getResString("basicTitle")));
 			return false;
 		}
 		// 验证文章所属是否为0
 		if (article.getBasicCategoryId() == 0) {
-			this.outJson(response, ModelCode.CMS_ARTICLE, false, getResString("err.empty", this.getResString("basicCategoryId")));
+			this.outJson(response, ModelCode.CMS_ARTICLE, false,
+					getResString("err.empty", this.getResString("basicCategoryId")));
 			return false;
 		}
 		// 验证文章标题长度,若超过定义长度则截取
 		if (!StringUtil.checkLength(article.getBasicTitle(), 1, 300)) {
-			this.outJson(response, ModelCode.CMS_ARTICLE, false, getResString("err.length", this.getResString("basicTitle"), "1", "300"));
+			this.outJson(response, ModelCode.CMS_ARTICLE, false,
+					getResString("err.length", this.getResString("basicTitle"), "1", "300"));
 			return false;
 		}
 		// 验证文章来源长度,若超过定义长度则截取
-		if (!StringUtil.isBlank(article.getArticleSource()) && !StringUtil.checkLength(article.getArticleSource(), 1, 300)) {
-			this.outJson(response, ModelCode.CMS_ARTICLE, false, getResString("err.length", this.getResString("articleSource"), "1", "300"));
+		if (!StringUtil.isBlank(article.getArticleSource())
+				&& !StringUtil.checkLength(article.getArticleSource(), 1, 300)) {
+			this.outJson(response, ModelCode.CMS_ARTICLE, false,
+					getResString("err.length", this.getResString("articleSource"), "1", "300"));
 			return false;
 		}
 		// 验证文章作者长度,若超过定义长度则截取
-		if (!StringUtil.isBlank(article.getArticleAuthor()) && !StringUtil.checkLength(article.getArticleAuthor(), 1, 12)) {
-			this.outJson(response, ModelCode.CMS_ARTICLE, false, getResString("err.length", this.getResString("articleAuthor"), "1", "12"));
+		if (!StringUtil.isBlank(article.getArticleAuthor())
+				&& !StringUtil.checkLength(article.getArticleAuthor(), 1, 12)) {
+			this.outJson(response, ModelCode.CMS_ARTICLE, false,
+					getResString("err.length", this.getResString("articleAuthor"), "1", "12"));
 			return false;
 		}
 		// 验证文章描述长度,若超过定义长度则截取
-		if (!StringUtil.isBlank(article.getBasicDescription()) && !StringUtil.checkLength(article.getBasicDescription(), 1, 400)) {
-			this.outJson(response, ModelCode.CMS_ARTICLE, false, getResString("err.length", this.getResString("basicDescription"), "1", "400"));
+		if (!StringUtil.isBlank(article.getBasicDescription())
+				&& !StringUtil.checkLength(article.getBasicDescription(), 1, 400)) {
+			this.outJson(response, ModelCode.CMS_ARTICLE, false,
+					getResString("err.length", this.getResString("basicDescription"), "1", "400"));
 			return false;
 		}
 		// 验证文章关键字长度,若超过定义长度则截取
-		if (!StringUtil.isBlank(article.getArticleKeyword()) && !StringUtil.checkLength(article.getArticleKeyword(), 1, 155)) {
-			this.outJson(response, ModelCode.CMS_ARTICLE, false, getResString("err.length", this.getResString("articleKeyword"), "1", "155"));
+		if (!StringUtil.isBlank(article.getArticleKeyword())
+				&& !StringUtil.checkLength(article.getArticleKeyword(), 1, 155)) {
+			this.outJson(response, ModelCode.CMS_ARTICLE, false,
+					getResString("err.length", this.getResString("articleKeyword"), "1", "155"));
 			return false;
 		}
 		return true;
@@ -371,21 +363,25 @@ public class ArticleAction extends BaseAction {
 
 	/**
 	 * 更新文章
-	 * @param basicId 文章id
-	 * @param article 文章实体
+	 * 
+	 * @param basicId
+	 *            文章id
+	 * @param article
+	 *            文章实体
 	 * @param request
 	 * @param response
 	 */
 	@RequestMapping("/{basicId}/update")
-	public void update(@PathVariable int basicId, @ModelAttribute ArticleEntity article, HttpServletRequest request, HttpServletResponse response) {
+	public void update(@PathVariable int basicId, @ModelAttribute ArticleEntity article, HttpServletRequest request,
+			HttpServletResponse response) {
 		// 获取站点id
-		int appId =this.getAppId(request);
+		int appId = this.getAppId(request);
 		article.setBasicUpdateTime(new Timestamp(System.currentTimeMillis()));
 		// 文章类型
 		article.setArticleType(request.getParameter("checkboxType"));
 		// 问题:由于上传的图片路径后面可能带有｜符合。所以要进行将“｜”替换空
 		// 空值判断
-		if (!StringUtil.isBlank(article.getBasicThumbnails())) { 
+		if (!StringUtil.isBlank(article.getBasicThumbnails())) {
 			article.setBasicThumbnails(article.getBasicThumbnails().replace("|", ""));
 		}
 		// 获取更改前的文章实体
@@ -399,7 +395,8 @@ public class ArticleAction extends BaseAction {
 			// 通过表单类型id判断是否更改了表单类型,如果更改则先删除记录
 			if (oldColumn.getColumnContentModelId() != column.getColumnContentModelId()) {
 				// 获取旧的内容模型id
-				ContentModelEntity contentModel = (ContentModelEntity) contentBiz.getEntity(oldColumn.getColumnContentModelId());
+				ContentModelEntity contentModel = (ContentModelEntity) contentBiz
+						.getEntity(oldColumn.getColumnContentModelId());
 				// 删除旧的内容模型中保存的值
 				Map wheres = new HashMap();
 				wheres.put("basicId", article.getBasicId());
@@ -410,7 +407,8 @@ public class ArticleAction extends BaseAction {
 				if (column.getColumnContentModelId() != 0) {
 					// 保存所有的字段信息
 					List<BaseEntity> listField = fieldBiz.queryListByCmid(column.getColumnContentModelId());
-					ContentModelEntity newContentModel = (ContentModelEntity) contentBiz.getEntity(column.getColumnContentModelId());
+					ContentModelEntity newContentModel = (ContentModelEntity) contentBiz
+							.getEntity(column.getColumnContentModelId());
 					if (newContentModel != null) {
 						Map param = this.checkField(listField, request, article.getBasicId());
 						fieldBiz.insertBySQL(newContentModel.getCmTableName(), param);
@@ -423,19 +421,19 @@ public class ArticleAction extends BaseAction {
 		article.setArticleWebId(appId);
 		// 设置文章所属的栏目实体
 		article.setColumn(column);
-		
+
 		article.setBasicUpdateTime(new Date());
-		
+
 		String articleType = request.getParameter("articleTypeJson");
-		if(!StringUtil.isBlank(articleType)){
+		if (!StringUtil.isBlank(articleType)) {
 			// 将JSON字符串转换为数组
 			List<BasicCategoryEntity> basicCategoryList = JSONArray.parseArray(articleType, BasicCategoryEntity.class);
 			articleBiz.updateArticle(article, basicCategoryList);
-		}else{
+		} else {
 			// 更新文章信息
 			articleBiz.updateBasic(article);
 		}
-		
+
 		// 判断该文章是否存在新增字段
 		if (column.getColumnContentModelId() != 0) {
 			// 保存所有的字段信息
@@ -446,16 +444,17 @@ public class ArticleAction extends BaseAction {
 			where.put("basicId", article.getBasicId());
 			// 遍历字段的信息
 			Map param = this.checkField(listField, request, article.getBasicId());
-			ContentModelEntity contentModel = (ContentModelEntity) contentBiz.getEntity(column.getColumnContentModelId());
+			ContentModelEntity contentModel = (ContentModelEntity) contentBiz
+					.getEntity(column.getColumnContentModelId());
 			if (contentModel != null) {
 				// 遍历所有的字段实体,得到字段名列表信息
 				List<String> listFieldName = new ArrayList<String>();
 				listFieldName.add("basicId");
 				// 查询新增字段的信息
 				List fieldLists = fieldBiz.queryBySQL(contentModel.getCmTableName(), listFieldName, where);
-			
+
 				// 判断新增字段表中是否存在该文章，不存在则保存，否则更新
-				if (fieldLists == null || fieldLists.size()==0) {
+				if (fieldLists == null || fieldLists.size() == 0) {
 					fieldBiz.insertBySQL(contentModel.getCmTableName(), param);
 				} else {
 					fieldBiz.updateBySQL(contentModel.getCmTableName(), param, where);
@@ -464,14 +463,15 @@ public class ArticleAction extends BaseAction {
 			}
 		}
 
-		switch(column.getColumnType()) {
+		switch (column.getColumnType()) {
 		case ColumnEntity.COLUMN_TYPE_COVER:
-			this.outJson(response, ModelCode.CMS_ARTICLE, true,column.getCategoryId()+"","");
+			this.outJson(response, ModelCode.CMS_ARTICLE, true, column.getCategoryId() + "", "");
 			break;
 		case ColumnEntity.COLUMN_TYPE_LIST:
-			this.outJson(response, ModelCode.CMS_ARTICLE, true,column.getCategoryId()+"",this.redirectBack(request,false));
+			this.outJson(response, ModelCode.CMS_ARTICLE, true, column.getCategoryId() + "",
+					this.redirectBack(request, false));
 		}
-		
+
 	}
 
 	/**
@@ -485,24 +485,24 @@ public class ArticleAction extends BaseAction {
 
 		// 如果_categoryId大于0表示是编辑封面栏目，应该先查询分类下面的唯一一篇文章
 		String categoryTitle = request.getParameter("categoryTitle");
-		//板块id
-		int categoryId = this.getInt(request, "categoryId",0);
+		// 板块id
+		int categoryId = this.getInt(request, "categoryId", 0);
 
 		ArticleEntity articleEntity = null;
 		int appId = this.getAppId(request);
 		model.addAttribute("appId", appId);
-		if (categoryId > 0) { //分类获取文章
-			articleEntity =  articleBiz.getByCategoryId(categoryId);
+		if (categoryId > 0) { // 分类获取文章
+			articleEntity = articleBiz.getByCategoryId(categoryId);
 			model.addAttribute("article", articleEntity);
 			// 文章属性
 			model.addAttribute("articleType", articleType());
-			
-			model.addAttribute("categoryTitle",categoryTitle);
-			model.addAttribute("categoryId", categoryId);//编辑封面
-			model.addAttribute("isEditCategory", true);//编辑封面
-			return Const.VIEW+"/cms/article/article";
-		} else if(id>0){ //文章id获取
-			//允许编辑文章时更改分类
+
+			model.addAttribute("categoryTitle", categoryTitle);
+			model.addAttribute("categoryId", categoryId);// 编辑封面
+			model.addAttribute("isEditCategory", true);// 编辑封面
+			return view("/cms/article/article");
+		} else if (id > 0) { // 文章id获取
+			// 允许编辑文章时更改分类
 			List<ColumnEntity> list = columnBiz.queryAll(appId, this.getModelCodeId(request, ModelCode.CMS_COLUMN));
 			JSONObject ja = new JSONObject();
 			@SuppressWarnings("static-access")
@@ -510,98 +510,45 @@ public class ArticleAction extends BaseAction {
 			request.setAttribute("listColumn", listJsonString);
 			// 文章属性
 			model.addAttribute("articleType", articleType());
-			
+
 			articleEntity = (ArticleEntity) articleBiz.getEntity(id);
 			model.addAttribute("article", articleEntity);
-			//判断是否是封面类型的栏目，如果是封面类型的栏目有些信息需要屏蔽，例如分类
+			// 判断是否是封面类型的栏目，如果是封面类型的栏目有些信息需要屏蔽，例如分类
 			ColumnEntity column = articleEntity.getColumn();
-			if (column.getColumnType()==ColumnEntity.COLUMN_TYPE_COVER) {
-				model.addAttribute("categoryTitle",categoryTitle);
-				model.addAttribute("categoryId", column.getCategoryId());//编辑封面
-				model.addAttribute("isEditCategory", true);//编辑封面
+			if (column.getColumnType() == ColumnEntity.COLUMN_TYPE_COVER) {
+				model.addAttribute("categoryTitle", categoryTitle);
+				model.addAttribute("categoryId", column.getCategoryId());// 编辑封面
+				model.addAttribute("isEditCategory", true);// 编辑封面
 			} else {
-				model.addAttribute("categoryTitle",articleEntity.getColumn().getCategoryTitle());
-				model.addAttribute("isEditCategory", false);//编辑文章
-			} 
-			model.addAttribute("categoryId", column.getCategoryId());//编辑封面
-			return Const.VIEW+"/cms/article/article";
-		} else {//非法
-			//return Const.VIEW+"/cms/article/article";
-			return this.redirectBack(request,true);
+				model.addAttribute("categoryTitle", articleEntity.getColumn().getCategoryTitle());
+				model.addAttribute("isEditCategory", false);// 编辑文章
+			}
+			model.addAttribute("categoryId", column.getCategoryId());// 编辑封面
+			return view("/cms/article/article");
+		} else {// 非法
+			// return view("/cms/article/article");
+			return this.redirectBack(request, true);
 		}
 	}
 
-	
 	/**
 	 * 删除文章
+	 * 
 	 * @param request
 	 * @param response
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public void delete(HttpServletRequest request, HttpServletResponse response){
+	public void delete(HttpServletRequest request, HttpServletResponse response) {
 		int appId = this.getAppId(request);
-		String [] ids = request.getParameterValues("ids");
-		if(ids.length==0 || ids ==null){
-			this.outJson(response, ModelCode.CMS_ARTICLE, false,"",this.redirectBack(request,false));
+		String[] ids = request.getParameterValues("ids");
+		if (ids.length == 0 || ids == null) {
+			this.outJson(response, ModelCode.CMS_ARTICLE, false, "", this.redirectBack(request, false));
 			return;
 		}
-		//删除多个帖子
-		articleBiz.deletes(ids);
-		this.outJson(response, ModelCode.CMS_ARTICLE, true,"",this.redirectBack(request,false));
-	}
-
-	/**
-	 * 查询单页栏目是否绑定了文章
-	 * 
-	 * @param article
-	 *            文章对象
-	 */
-	@RequestMapping("/{id}/queryColumnArticle")
-	public void queryColumnArticle(@PathVariable int id, HttpServletResponse response) {
-		List articls = articleBiz.queryListByColumnId(id);
-		if (articls == null || articls.size() == 0) {
-			this.outJson(response, ModelCode.CMS_ARTICLE, true, null);
-		} else {
-			this.outJson(response, ModelCode.CMS_ARTICLE, false, null);
-		}
-	}
-
-	/**
-	 * 通用查询文章
-	 * 
-	 * @param mode
-	 * @param response
-	 */
-	@RequestMapping("/queryArticleJson")
-	@ResponseBody
-	public void queryArticleJson(HttpServletRequest request, HttpServletResponse response) {
-		String categoryId = request.getParameter("categoryId"); // 分类编号
-		String flag = request.getParameter("flag"); // 文章属性
-		String noFlag = request.getParameter("noFlag"); // 文章不允许属性
-		String pageNo = request.getParameter("pageNo");
-		String pageSize = request.getParameter("pageSize");
-		String orderBy = request.getParameter("orderBy");
-		String order = request.getParameter("order");
-		int _categoryId = 0;
-		if (StringUtil.isInteger(categoryId)) {
-			_categoryId = Integer.parseInt(categoryId);
-		}
-		int _pageNO = 1;
-		if (StringUtil.isInteger(pageNo)) {
-			_pageNO = Integer.parseInt(pageNo);
-		}
-		int _pageSize = 1;
-		if (StringUtil.isInteger(pageSize)) {
-			_pageSize = Integer.parseInt(pageSize);
-		}
-
-		int appId = this.getAppId(request);
-		List<ArticleEntity> articleList = articleBiz.queryList(appId, _categoryId, flag, noFlag, ((_pageNO > 1 ? _pageNO : 1) - 1) * _pageSize,
-				_pageSize, orderBy, true);
-		int count = articleBiz.count(appId, _categoryId, flag, noFlag,null);
-		ListJson json = new ListJson(count, articleList);
-		this.outJson(response, JSONObject.toJSONString(json));
+		// 删除多个帖子
+		articleBiz.delete(StringUtil.stringsToInts(ids));
+		this.outJson(response, ModelCode.CMS_ARTICLE, true, "", this.redirectBack(request, false));
 	}
 
 	/**
@@ -644,46 +591,21 @@ public class ArticleAction extends BaseAction {
 		}
 		return mapParams;
 	}
-	
+
 	/**
-	 * 通用查询，带关键字，返回json数据
-	 * @param request
-	 * @param response
+	 * 查询单页栏目是否绑定了文章
+	 * 
+	 * @param article
+	 *            文章对象
 	 */
-	@RequestMapping("/queryArticle")
-	@ResponseBody
-	public void queryArticle(HttpServletRequest request,HttpServletResponse response){
-		//获取栏目ID
-		String categoryId = request.getParameter("categoryId");
-		int categoryIdInt = 0;
-		if (StringUtil.isInteger(categoryId)) {
-			categoryIdInt = Integer.parseInt(categoryId);
+	@RequestMapping("/{id}/queryColumnArticle")
+	public void queryColumnArticle(@PathVariable int id, HttpServletResponse response) {
+		List articls = articleBiz.queryListByColumnId(id);
+		if (articls == null || articls.size() == 0) {
+			this.outJson(response, ModelCode.CMS_ARTICLE, true, null);
+		} else {
+			this.outJson(response, ModelCode.CMS_ARTICLE, false, null);
 		}
-		String categoryTitle = request.getParameter("categoryTitle");//栏目名
-		String articleType = request.getParameter("articleType");//文章类型
-		String keyword = request.getParameter("keyword");//关键字
-		//判断关键字是否为null 
-		if(StringUtil.isBlank(keyword)){
-			keyword = null;
-		}
-		String flag = request.getParameter("flag"); // 文章属性
-		String noFlag = request.getParameter("noFlag"); // 文章不允许属性
-		// 获取站点id
-		int appId =  this.getAppId(request);		
-		// 查询数据表中记录集合总数
-		int count = articleBiz.count(appId, categoryIdInt, flag, noFlag,keyword);	
-		// 当前页面
-		int pageNo = this.getPageNo(request);
-		if( !(pageNo>1) ){
-			pageNo = 1;
-		}
-		String url =  "/manager/cms/article/queryArticle.do?categoryTitle="+StringUtil.encodeStringByUTF8(categoryTitle)+"&articleType="+(articleType==null?"":articleType)+"&keyword="+(keyword==null?"":keyword);
-		// 分页集合
-		PageUtil page = new PageUtil(pageNo,count, getUrl(request) + url);
-		// 实例化对象
-		List<ArticleEntity> listArticle = articleBiz.queryList(page, "a.ARTICLE_BASICID", true, keyword, articleType, categoryIdInt, appId);
-		ListJson json = new ListJson(count, listArticle);
-		this.outJson(response, JSONObject.toJSONString(json));
 	}
-	
+
 }

@@ -45,6 +45,11 @@ public class PeopleAddressEntity extends BaseEntity{
 	String peopleAddressDistrict;
 	
 	/**
+	 * 街道
+	 */
+	private int peopleAddressStreet;
+	
+	/**
 	 * 收货人的详细收货地址
 	 */
 	String peopleAddressAddress;
@@ -167,6 +172,14 @@ public class PeopleAddressEntity extends BaseEntity{
 
 	public void setPeopleAddressAppId(int peopleAddressAppId) {
 		this.peopleAddressAppId = peopleAddressAppId;
+	}
+
+	public int getPeopleAddressStreet() {
+		return peopleAddressStreet;
+	}
+
+	public void setPeopleAddressStreet(int peopleAddressStreet) {
+		this.peopleAddressStreet = peopleAddressStreet;
 	}
 	
 	

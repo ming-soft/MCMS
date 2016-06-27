@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mingsoft.people.dao.IBasicPeopleDao">
+
+	<resultMap id="resultMap" type="com.mingsoft.people.entity.BasicPeopleEntity">
+		<result column="bp_id" property="bpId" /><!--信息编号 -->
+		<result column="bp_basic_id" property="bpBasicId" /><!--信息编号 -->
+		<result column="bp_people_id" property="bpPeopleId" /><!--用户编号 -->
+		<result column="bp_datetime" property="bpDatetime" /><!--创建时间 -->
+	</resultMap>
+
+	<!--保存 -->
+	<insert id="saveEntity" keyProperty="bpId" keyColumn="bp_id" useGeneratedKeys="true">
+		insert into basic_people
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="bpBasicId != null">bp_basic_id,</if>
+			<if test="bpPeopleId != null">bp_people_id,</if>
+			<if test="bpDatetime != null">bp_datetime,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="bpBasicId != null">#{bpBasicId},</if>
+			<if test="bpPeopleId != null">#{bpPeopleId},</if>
+			<if test="bpDatetime != null">#{bpDatetime},</if>
+		</trim>
+	</insert>
+
+	<insert id="deleteByEntity">
+		delete from basic_people
+		<where>
+			1=1
+			<if test="bpBasicId &gt; 0 ">
+				AND bp_basic_id=#{bpBasicId}
+			</if>
+			<if test="bpPeopleId &gt; 0 ">
+				AND bp_people_id=#{bpPeopleId}
+			</if>
+		</where>
+	</insert>
+
+	<!--条件查询 -->
+	<select id="query" resultMap="resultMap">
+		select * from basic_people
+		<where>
+			<if test="bpBasicId != null"> and bp_basic_id=#{bpBasicId} </if>
+			<if test="bpPeopleId != null"> and bp_people_id=#{bpPeopleId} </if>
+			<if test="bpDatetime != null"> and bp_datetime=#{bpDatetime} </if>
+		</where>
+		order by desc
+	</select>
+
+</mapper>

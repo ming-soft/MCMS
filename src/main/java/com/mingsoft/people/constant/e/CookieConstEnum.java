@@ -6,7 +6,11 @@ public enum CookieConstEnum implements BaseCookieEnum {
 	/**
 	 * 用户的cookie
 	 */
-	PEOPLE_COOKIE("people_cookie");
+	PEOPLE_COOKIE("people_cookie"),
+	/**
+	 * 用户登录地址
+	 */
+	PEOPLE_LOGIN_URL("people_login_url");
 
 	/**
 	 * 设置session常量

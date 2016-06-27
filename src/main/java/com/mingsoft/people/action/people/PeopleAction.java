@@ -47,6 +47,7 @@ public class PeopleAction extends BaseAction {
 	 * @param people
 	 *            用户信息<br/>
 	 *            <i>people参数包含字段信息参考：</i><br/>
+	 *            peopleOldPassword 用户旧密码<br/>
 	 *            peoplePassword 用户新密码<br/>
 	 *            <dt><span class="strong">返回</span></dt><br/>
 	 *            {code:"错误编码",<br/>
@@ -64,16 +65,30 @@ public class PeopleAction extends BaseAction {
 					this.getResString("err.empty", this.getResString("people.password")));
 			return;
 		}
+		 
+		if (StringUtil.isBlank(people.getPeopleOldPassword())) {
+			// 用户或密码不能为空
+			this.outJson(response, ModelCode.PEOPLE, false,
+					this.getResString("err.empty", this.getResString("people.old.password")));
+			return;
+		}
 
 		// 验证新密码的长度
-		if (StringUtil.checkLength(people.getPeoplePassword(), 6, 30)) {
+		if (!StringUtil.checkLength(people.getPeoplePassword(), 6, 30)) {
 			this.outJson(response, ModelCode.PEOPLE, false,
 					this.getResString("err.length", this.getResString("people.password"), "6", "20"));
 			return;
 		}
-
+		
 		// 获取用户session
 		PeopleEntity _people = this.getPeopleBySession(request);
+		PeopleEntity curPeople = peopleBiz.getByPeople(_people, this.getAppId(request)); 
+		if (!curPeople.getPeoplePassword().equals(StringUtil.Md5(people.getPeopleOldPassword()))) {
+			// 用户或密码不能为空
+			this.outJson(response, ModelCode.PEOPLE, false,
+					this.getResString("err.error", this.getResString("people.password")));
+			return;
+		}
 		// 将用户输入的原始密码用MD5加密再和数据库中的进行比对
 		String peoplePassWord = StringUtil.Md5(people.getPeoplePassword(), Const.UTF8);
 		// 执行修改
@@ -227,7 +242,7 @@ public class PeopleAction extends BaseAction {
 	 * 
 	 * @param key
 	 */
-	@RequestMapping("/{diy}")
+	@RequestMapping(value="/{diy}",method=RequestMethod.GET)
 	public void diy(@PathVariable(value = "diy") String diy, HttpServletRequest req, HttpServletResponse resp) {
 		String content = this.generaterPage("people/" + diy, peopleParser, req);
 		this.outString(resp, content);

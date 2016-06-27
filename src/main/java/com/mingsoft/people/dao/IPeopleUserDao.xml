@@ -5,12 +5,12 @@
 	<!-- 表字段开始-->
 	<sql id="column_list">
 	 	PU.PU_PEOPLE_ID,PU.PU_REAL_NAME,PU.PU_ADDRESS,PU.PU_ICON,PU.PU_CARD,
-	 	PU.PU_NICKNAME,PU.PU_SEX,PU.PU_BIRTHDAY,PU.PU_APP_ID
+	 	PU.PU_NICKNAME,PU.PU_SEX,PU.PU_BIRTHDAY,PU.PU_APP_ID,PU.PU_PROVINCE,PU.PU_CITY,PU.PU_DISTRICT,PU.PU_STREET
 	</sql>
 	
 	<sql id="column_people_list">
-	 	PU.PU_PEOPLE_ID,PU.PU_REAL_NAME,PU.PU_ADDRESS,PU.PU_ICON,PU.PU_NICKNAME,PU.PU_SEX,PU.PU_BIRTHDAY,PU.PU_APP_ID,PU.PU_CARD,
-		P.PEOPLE_ID,P.PEOPLE_PHONE,P.PEOPLE_NAME,P.PEOPLE_PASSWORD,P.PEOPLE_DATETIME,P.PEOPLE_APP_ID,P.PEOPLE_MAIL,P.PEOPLE_PHONECHECK,P.PEOPLE_MAILLCHECK	 		
+	 	PU.PU_PEOPLE_ID,PU.PU_REAL_NAME,PU.PU_ADDRESS,PU.PU_ICON,PU.PU_NICKNAME,PU.PU_SEX,PU.PU_BIRTHDAY,PU.PU_APP_ID,PU.PU_CARD,PU.PU_PROVINCE,PU.PU_CITY,PU.PU_DISTRICT,PU.PU_STREET,
+		P.PEOPLE_ID,P.PEOPLE_STATE,P.PEOPLE_PHONE,P.PEOPLE_NAME,P.PEOPLE_PASSWORD,P.PEOPLE_DATETIME,P.PEOPLE_APP_ID,P.PEOPLE_MAIL,P.PEOPLE_PHONECHECK,P.PEOPLE_MAILLCHECK	 		
 	</sql>
 	<!-- 表字段结束 -->
 	
@@ -25,6 +25,11 @@
 		<result column="PU_BIRTHDAY" property="peopleUserBirthday"/><!-- 用户生日 -->
 		<result column="PU_APP_ID" property="peopleUserAppId"/><!-- 用户应用ID -->	
 		<result column="PU_CARD" property="peopleUserCard"/><!-- 用户身份证号码 -->	
+		<result column="PU_PROVINCE" property="peopleUserProvince"/><!-- 省 -->	
+		<result column="PU_CITY" property="peopleUserCity"/><!-- 市 -->	
+		<result column="PU_DISTRICT" property="peopleUserDistrict"/><!-- 区县 -->	
+		<result column="PU_STREET" property="peopleUserStreet"/><!-- 街道&镇 -->	
+		
 		<result column="PEOPLE_ID" property="peopleId"/><!-- 将实体的ID属性与表的ID字段对接 -->
 		<result column="PEOPLE_PHONE" property="peoplePhone"/><!-- 将实体的peoplePhone属性与表的peoplePhone字段对接 -->
 		<result column="PEOPLE_NAME" property="peopleName"/><!-- 将实体的peopleName属性与表的peopleName字段对接 -->
@@ -32,8 +37,6 @@
 		<result column="PEOPLE_DATETIME" property="peopleDateTime"/><!-- 将实体的peopleDateTime属性与表的peopleDateTime字段对接 -->
 		<result column="PEOPLE_APP_ID" property="peopleAppId"/><!-- 用户所属的应用ID -->
 		<result column="PEOPLE_MAIL" property="peopleMail"/><!-- 用户邮箱 -->	
-		<result column="PEOPLE_MAILLCHECK" property="peopleMailCheck"/><!-- 用户邮箱 -->	
-		<result column="PEOPLE_PHONECHECK" property="peoplePhoneCheck"/><!-- 用户邮箱 -->	
 	</resultMap>
 	<!-- 将实体属性与表字段对接结束 -->
 	
@@ -50,6 +53,10 @@
 			<if test="peopleUserBirthday != null">PU_BIRTHDAY,</if>
 			<if test="peopleUserAppId != null">PU_APP_ID,</if>
 			<if test="peopleUserCard != null">PU_CARD,</if>
+			<if test="peopleUserProvince != null">PU_PROVINCE,</if>
+			<if test="peopleUserCity != null">PU_CITY,</if>
+			<if test="peopleUserDistrict != null">PU_DISTRICT,</if>
+			<if test="peopleUserStreet != null">PU_STREET,</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="peopleId != null">#{peopleId},</if>
@@ -61,6 +68,10 @@
 			<if test="peopleUserBirthday != null">#{peopleUserBirthday},</if>
 			<if test="peopleUserAppId != null">#{peopleUserAppId},</if>
 			<if test="peopleUserCard != null">#{peopleUserCard},</if>
+			<if test="peopleUserProvince != null">#{peopleUserProvince},</if>
+			<if test="peopleUserCity != null">#{peopleUserCity},</if>
+			<if test="peopleUserDistrict != null">#{peopleUserDistrict},</if>
+			<if test="peopleUserStreet != null">#{peopleUserStreet},</if>
 		</trim>
 	</insert>
 	<!-- 新增用户信息结束 -->
@@ -69,7 +80,6 @@
 	<update id="updateEntity" parameterType="com.mingsoft.base.entity.BaseEntity">
 		update people_user
 		<set>
-			<if test="peopleId != null">PU_PEOPLE_ID=#{peopleId},</if>
 			<if test="peopleUserRealName != null">PU_REAL_NAME=#{peopleUserRealName},</if>
 			<if test="peopleUserAddress != null">PU_ADDRESS=#{peopleUserAddress},</if>
 			<if test="peopleUserIcon != null">PU_ICON=#{peopleUserIcon},</if>
@@ -77,6 +87,10 @@
 			<if test="peopleUserSex != null">PU_SEX=#{peopleUserSex},</if>
 			<if test="peopleUserBirthday != null">PU_BIRTHDAY=#{peopleUserBirthday},</if>
 			<if test="peopleUserCard != null">PU_CARD=#{peopleUserCard},</if>
+			<if test="peopleUserProvince != null">PU_PROVINCE=#{peopleUserProvince},</if>
+			<if test="peopleUserCity != null">PU_CITY=#{peopleUserCity},</if>
+			<if test="peopleUserDistrict != null">PU_DISTRICT=#{peopleUserDistrict},</if>
+			<if test="peopleUserStreet != null">PU_STREET=#{peopleUserStreet},</if>
 		</set>
 		where PU_PEOPLE_ID = #{peopleId}
 	</update>

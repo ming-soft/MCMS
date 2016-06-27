@@ -13,15 +13,20 @@
                http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
                http://www.springframework.org/schema/mvc
         		http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-	<context:property-placeholder location="classpath:config.properties" />
+
+	<context:property-placeholder location="classpath:ms.properties" />
+	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
 	<context:component-scan
-		base-package="com.mingsoft.**.biz.impl,com.mingsoft.**.aop,com.**.parser">
-	</context:component-scan>
+		base-package="com.mingsoft.**.action,net.mingsoft.**.action" />
+	<context:component-scan
+		base-package="com.mingsoft.**.biz.impl,com.mingsoft.**.aop,com.**.parser,net.mingsoft.**.biz.impl,net.mingsoft.**.aop,net.**.parser" />
 	<!-- 打开aop 注解 -->
 	<aop:aspectj-autoproxy proxy-target-class="true" />
-	<!-- 自动扫描controller包下的所有类，使其认为spring mvc的控制器 -->
-	<context:component-scan base-package="com.mingsoft.**.action" />
 	<mvc:annotation-driven conversion-service="conversionService" />
+	<!-- 静态资源映射 -->
+	<mvc:resources mapping="/static/**" location="/static/"
+		cache-period="31536000" />
+
 	<bean id="conversionService"
 		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
 	</bean>
@@ -45,13 +50,10 @@
 		</property>
 	</bean>
 
-	<!-- 对模型视图名称的解析，即在模型视图名称添加前后缀 -->
-	<!-- bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" 
-		p:prefix="/" p:suffix=".jsp" / -->
 
 	<!-- freemarker的配置 -->
 	<bean id="freemarkerConfig"
-		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		class="com.mingsoft.basic.configurer.ShiroTagFreeMarkderConfigurer">
 		<property name="templateLoaderPath" value="/" />
 		<property name="defaultEncoding" value="utf-8" />
 		<property name="freemarkerSettings">
@@ -61,11 +63,11 @@
 				<prop key="datetime_format">yyyy-MM-dd</prop>
 				<prop key="date_format">yyyy-MM-dd</prop>
 				<prop key="number_format">#.##</prop>
-			      <prop key="auto_import">/manager/include/macro.ftl as ms</prop>  				
+				<prop key="auto_import">${managerViewPath}/include/macro.ftl as ms</prop>
 			</props>
 		</property>
 	</bean>
-	
+
 	<!-- FreeMarker视图解析 如返回student。。在这里配置后缀名ftl和视图解析器。。 -->
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
@@ -75,7 +77,7 @@
 
 		<property name="suffix" value=".ftl" />
 		<property name="contentType" value="text/html;charset=utf-8" />
-		<property name="allowRequestOverride" value="true" /> 
+		<property name="allowRequestOverride" value="true" />
 		<property name="exposeRequestAttributes" value="true" />
 		<property name="exposeSessionAttributes" value="true" />
 		<property name="exposeSpringMacroHelpers" value="true" />
@@ -94,31 +96,36 @@
 			<value>4096</value>
 		</property>
 	</bean>
-	
-	<!-- 系统错误转发配置[并记录错误日志]   -->
-	<bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="defaultErrorView" value="/errors/500"></property>   <!-- 默认为500，系统错误(error.jsp)  -->
+
+	<!-- 系统错误转发配置[并记录错误日志] -->
+	<bean
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="defaultErrorView" value="/errors/500"></property>   <!-- 默认为500，系统错误(error.jsp) -->
 		<property name="defaultStatusCode" value="500"></property>
 		<property name="statusCodes"><!-- 配置多个statusCode -->
-		  <props>    
-		      <prop key="/errors/500">500</prop>  <!-- error.jsp -->
-		      <prop key="/errors/404">404</prop>    <!-- error1.jsp -->
-		  </props>    
-		</property>    
+			<props>
+				<prop key="/errors/500">500</prop>  <!-- error.jsp -->
+				<prop key="/errors/404">404</prop>    <!-- error1.jsp -->
+			</props>
+		</property>
 		<property name="exceptionMappings">
 			<props>
 				<!-- 这里你可以根据需要定义N多个错误异常转发 -->
-				<!-- prop key="java.sql.SQLException">dbError</prop --> <!-- 数据库错误(dbError.jsp) -->
+				<prop key="java.lang.Exception">errors/404</prop>
 			</props>
 		</property>
-		 <!-- 设置日志输出级别，不定义则默认不输出警告等错误日志信息 -->   
-		<property name="warnLogCategory" value="WARN"></property>  
+		<!-- 设置日志输出级别，不定义则默认不输出警告等错误日志信息 -->
+		<property name="warnLogCategory" value="WARN"></property>
 	</bean>
 
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<bean class="com.mingsoft.basic.interceptor.ActionInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/people/**" />
+			<bean class="com.mingsoft.people.interceptor.ActionInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
 </beans>

@@ -54,7 +54,7 @@ import com.mingsoft.util.StringUtil;
  * </p>
  */
 @Controller
-@RequestMapping("/manager/people/student")
+@RequestMapping("/${managerPath}/people/student")
 public class PeopleStudentAction extends BaseAction{
 	
 	/**
@@ -97,7 +97,7 @@ public class PeopleStudentAction extends BaseAction{
 		List<PeopleStudentEntity> listPeopleStudent = this.peopleStudentBiz.queryByMap(appId, page,map);
 		mode.addAttribute("listPeopleStudent", listPeopleStudent);
 		mode.addAttribute("page", page);
-		return Const.VIEW+"/people/student/people_student_list";
+		return view("/people/student/people_student_list");
 	}
 	
 	/**
@@ -130,7 +130,7 @@ public class PeopleStudentAction extends BaseAction{
 		//获取用户实体信息
 		PeopleStudentEntity peopleStudent = peopleStudentBiz.getPeopleStudent(peopleId);
 		request.setAttribute("peopleStudent", peopleStudent);
-		return Const.VIEW+"/people/student/people_student";
+		return view("/people/student/people_student");
 	}	
 	
 	@RequestMapping("/update") 

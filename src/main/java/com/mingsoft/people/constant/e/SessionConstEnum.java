@@ -35,7 +35,12 @@ public enum SessionConstEnum implements BaseSessionEnum {
 	/**
 	 * 用户更改手机号码的session
 	 */
-	PEOPEL_SET_PHONE_SESSION("people_set_phone_seesion");
+	PEOPEL_SET_PHONE_SESSION("people_set_phone_seesion"),
+	
+	/**
+	 * 用户发送验证码
+	 */
+	SEND_CODE_SESSION("send_code_seesion");
 
 	/**
 	 * 设置session常量

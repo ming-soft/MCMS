@@ -21,44 +21,44 @@ import java.util.Date;
  * 
  * @version 300-001-001
  * 
- * <p>
- * 版权所有 铭飞科技
- * </p>
- *  
- * <p>
- * Comments:用户基础信息
- * </p>
- *  
- * <p>
- * Create Date:2014-9-4
- * </p>
+ *          <p>
+ *          版权所有 铭飞科技
+ *          </p>
+ * 
+ *          <p>
+ *          Comments:用户基础信息
+ *          </p>
+ * 
+ *          <p>
+ *          Create Date:2014-9-4
+ *          </p>
  *
- * <p>
- * Modification history:
- * </p>
+ *          <p>
+ *          Modification history:
+ *          </p>
  */
 public class PeopleUserEntity extends PeopleEntity {
-	
+
 	/**
 	 * 用户地址
 	 */
 	private String peopleUserAddress;
-	
+
 	/**
 	 * 用户所属应用ID
 	 */
 	private int peopleUserAppId;
-	
+
 	/**
 	 * 用户生日
 	 */
 	private Date peopleUserBirthday;
-	
+
 	/**
 	 * 用户身份证号码
 	 */
 	private String peopleUserCard;
-	
+
 	/**
 	 * 用户头像
 	 */
@@ -67,20 +67,35 @@ public class PeopleUserEntity extends PeopleEntity {
 	/**
 	 * 用户昵称
 	 */
-	private String peopleUserNickName; 
-	
+	private String peopleUserNickName;
+
 	/**
 	 * 关联用户编号
 	 */
 	private int peopleUserPeopleId;
-	
+
 	/**
 	 * 用户的真实名称
 	 */
 	private String peopleUserRealName;
-	
 
-	
+	/**
+	 * 省
+	 */
+	private int peopleUserProvince;
+	/**
+	 * 城市
+	 */
+	private int peopleUserCity;
+	/**
+	 * 区
+	 */
+	private int peopleUserDistrict;
+	/**
+	 * 街道
+	 */
+	private int peopleUserStreet;
+
 	/**
 	 * 用户性别</br>
 	 * 0.未知</br>
@@ -88,10 +103,11 @@ public class PeopleUserEntity extends PeopleEntity {
 	 * 2.女</br>
 	 */
 	private int peopleUserSex = 1;
-	
+
 	/**
 	 * 获取peopleUserAddress
-	 * @return  peopleUserAddress
+	 * 
+	 * @return peopleUserAddress
 	 */
 	public String getPeopleUserAddress() {
 		return peopleUserAddress;
@@ -99,7 +115,8 @@ public class PeopleUserEntity extends PeopleEntity {
 
 	/**
 	 * 获取peopleUserAppId
-	 * @return  peopleUserAppId
+	 * 
+	 * @return peopleUserAppId
 	 */
 	public int getPeopleUserAppId() {
 		return peopleUserAppId;
@@ -107,7 +124,8 @@ public class PeopleUserEntity extends PeopleEntity {
 
 	/**
 	 * 获取peopleUserBirthday
-	 * @return  peopleUserBirthday
+	 * 
+	 * @return peopleUserBirthday
 	 */
 	public Date getPeopleUserBirthday() {
 		return peopleUserBirthday;
@@ -115,6 +133,7 @@ public class PeopleUserEntity extends PeopleEntity {
 
 	/**
 	 * 获取用户身份证号码
+	 * 
 	 * @return
 	 */
 	public String getPeopleUserCard() {
@@ -123,7 +142,8 @@ public class PeopleUserEntity extends PeopleEntity {
 
 	/**
 	 * 获取peopleUserIcon
-	 * @return  peopleUserIcon
+	 * 
+	 * @return peopleUserIcon
 	 */
 	public String getPeopleUserIcon() {
 		return peopleUserIcon;
@@ -131,7 +151,8 @@ public class PeopleUserEntity extends PeopleEntity {
 
 	/**
 	 * 获取peopleUserNickName
-	 * @return  peopleUserNickName
+	 * 
+	 * @return peopleUserNickName
 	 */
 	public String getPeopleUserNickName() {
 		return peopleUserNickName;
@@ -139,6 +160,7 @@ public class PeopleUserEntity extends PeopleEntity {
 
 	/**
 	 * 设置xu
+	 * 
 	 * @return
 	 */
 	public int getPeopleUserPeopleId() {
@@ -147,7 +169,8 @@ public class PeopleUserEntity extends PeopleEntity {
 
 	/**
 	 * 获取peopleUserRealName
-	 * @return  peopleUserRealName
+	 * 
+	 * @return peopleUserRealName
 	 */
 	public String getPeopleUserRealName() {
 		return peopleUserRealName;
@@ -155,7 +178,8 @@ public class PeopleUserEntity extends PeopleEntity {
 
 	/**
 	 * 获取peopleUserSex
-	 * @return  peopleUserSex
+	 * 
+	 * @return peopleUserSex
 	 */
 	public int getPeopleUserSex() {
 		return peopleUserSex;
@@ -163,6 +187,7 @@ public class PeopleUserEntity extends PeopleEntity {
 
 	/**
 	 * 设置peopleUserAddress
+	 * 
 	 * @param peopleUserAddress
 	 */
 	public void setPeopleUserAddress(String peopleUserAddress) {
@@ -171,6 +196,7 @@ public class PeopleUserEntity extends PeopleEntity {
 
 	/**
 	 * 设置peopleUserAppId
+	 * 
 	 * @param peopleUserAppId
 	 */
 	public void setPeopleUserAppId(int peopleUserAppId) {
@@ -179,6 +205,7 @@ public class PeopleUserEntity extends PeopleEntity {
 
 	/**
 	 * 设置peopleUserBirthday
+	 * 
 	 * @param peopleUserBirthday
 	 */
 	public void setPeopleUserBirthday(Date peopleUserBirthday) {
@@ -186,7 +213,8 @@ public class PeopleUserEntity extends PeopleEntity {
 	}
 
 	/**
-	 *设置用户身份证号码
+	 * 设置用户身份证号码
+	 * 
 	 * @param peopleUserCard
 	 */
 	public void setPeopleUserCard(String peopleUserCard) {
@@ -195,14 +223,16 @@ public class PeopleUserEntity extends PeopleEntity {
 
 	/**
 	 * 设置peopleUserIcon
+	 * 
 	 * @param peopleUserIcon
 	 */
 	public void setPeopleUserIcon(String peopleUserIcon) {
 		this.peopleUserIcon = peopleUserIcon;
 	}
-	
+
 	/**
 	 * 设置peopleUserNickName
+	 * 
 	 * @param peopleUserNickName
 	 */
 	public void setPeopleUserNickName(String peopleUserNickName) {
@@ -212,28 +242,61 @@ public class PeopleUserEntity extends PeopleEntity {
 	public void setPeopleUserPeopleId(int peopleUserPeopleId) {
 		this.peopleUserPeopleId = peopleUserPeopleId;
 	}
-	
+
 	/**
 	 * 设置peopleUserRealName
+	 * 
 	 * @param peopleUserRealName
 	 */
 	public void setPeopleUserRealName(String peopleUserRealName) {
 		this.peopleUserRealName = peopleUserRealName;
 	}
-	
+
 	/**
 	 * 设置peopleUserSex
+	 * 
 	 * @param peopleUserSex
 	 */
 	public void setPeopleUserSex(int peopleUserSex) {
-		if (peopleUserSex%2==0) {
+		if (peopleUserSex % 2 == 0) {
 			this.peopleUserSex = 2;
 		} else {
 			this.peopleUserSex = 1;
 		}
-		
+
 	}
 
-	
+	public int getPeopleUserProvince() {
+		return peopleUserProvince;
+	}
+
+	public void setPeopleUserProvince(int peopleUserProvince) {
+		this.peopleUserProvince = peopleUserProvince;
+	}
+
+	public int getPeopleUserCity() {
+		return peopleUserCity;
+	}
+
+	public void setPeopleUserCity(int peopleUserCity) {
+		this.peopleUserCity = peopleUserCity;
+	}
+
+	public int getPeopleUserDistrict() {
+		return peopleUserDistrict;
+	}
+
+	public void setPeopleUserDistrict(int peopleUserDistrict) {
+		this.peopleUserDistrict = peopleUserDistrict;
+	}
+
+	public int getPeopleUserStreet() {
+		return peopleUserStreet;
+	}
+
+	public void setPeopleUserStreet(int peopleUserStreet) {
+		this.peopleUserStreet = peopleUserStreet;
+	}
+
 	
 }

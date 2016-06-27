@@ -20,4 +20,5 @@ public final class Const {
 	 */
 	public static final ResourceBundle ARTICLE_ATTRIBUTE_RESOURCE = ResourceBundle.getBundle("com.mingsoft.cms.resources.article_attribute");
 	
+	public static final String LOGIN_URL = "login_url";
 }

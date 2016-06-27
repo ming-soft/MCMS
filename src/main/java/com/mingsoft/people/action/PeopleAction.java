@@ -42,7 +42,7 @@ import com.mingsoft.people.entity.PeopleEntity;
  * </p>
  */
 @Controller
-@RequestMapping("/manager/people")
+@RequestMapping("/${managerPath}/people")
 public class PeopleAction extends BaseAction{
 	
 	/**

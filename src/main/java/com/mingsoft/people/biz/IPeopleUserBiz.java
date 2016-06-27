@@ -49,7 +49,7 @@ public interface IPeopleUserBiz extends IPeopleBiz {
 	public int savePeopleUser(PeopleUserEntity peopleEntity);
 	
 	/**
-	 * 更新用户信息</br>
+	 * 更新用户信息,</br>
 	 * 只能在有子类时调用</br>
 	 * @param peopleEntity 用户信息
 	 */

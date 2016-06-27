@@ -126,4 +126,13 @@ public interface IPeopleDao extends IBaseDao {
 	 * @return 用户总数
 	 */
 	int getCountByAppIdAndMap(@Param("appId")int appId,@Param("whereMap")Map whereMap);
+
+
+	/**
+	 * 用户查询
+	 * @param appId 应用编号
+	 * @param where 查询条件
+	 * @return
+	 */
+	public List<PeopleEntity> query(@Param("appId")int appId, @Param("where")Map where);
 }

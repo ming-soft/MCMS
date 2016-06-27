@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.mingsoft.base.entity.BaseEntity;
+import com.mingsoft.basic.entity.AppEntity;
 import com.mingsoft.basic.entity.ColumnEntity;
 import com.mingsoft.cms.constant.e.ColumnTypeEnum;
 import com.mingsoft.cms.entity.ArticleEntity;
@@ -41,10 +42,13 @@ import com.mingsoft.util.StringUtil;
  * [field.typeid/]:分类编号,文章所属分类的编号,<br/>
  * [field.typelink/]:分类连接,点击连接连接到当前分类的列表,<br/>
  * [field.link/]:内容链接,点击显示文章具体的内容地址,<br/>
+ * [field.hit/]:信息点击预览数,<br/>
  * 
  * @author 成卫雄 QQ:330216230 技术支持：景德镇铭飞科技 官网：www.ming-soft.com
  */
 public class ListParser extends com.mingsoft.mdiy.parser.ListParser {
+	
+	protected static final String FIELD_HIT = "\\[field.hit/\\]";
 
 	/**
 	 * 新增字段业务层
@@ -53,6 +57,8 @@ public class ListParser extends com.mingsoft.mdiy.parser.ListParser {
 	
 	
 	protected IContentModelBiz contentBiz;
+	
+	protected AppEntity app;
 	
 	/**
 	 * 列表解析构造,
@@ -68,7 +74,8 @@ public class ListParser extends com.mingsoft.mdiy.parser.ListParser {
 	 * @param listProperty
 	 *            　当前标签属性
 	 */
-	public ListParser(String htmlCotent, List<ArticleEntity> articles,String websiteUrl, Map<String, String> listProperty, boolean isPaging,IContentModelFieldBiz fieldBiz,IContentModelBiz contentBiz) {
+	public ListParser(AppEntity app,String htmlCotent, List<ArticleEntity> articles,String websiteUrl, Map<String, String> listProperty, boolean isPaging,IContentModelFieldBiz fieldBiz,IContentModelBiz contentBiz) {
+		this.app = app;
 		String tabTmpContent = "";
 		if (isPaging) {
 			// 在HTML模版中标记出要用内容替换的标签
@@ -84,6 +91,7 @@ public class ListParser extends com.mingsoft.mdiy.parser.ListParser {
 		super.htmlCotent = tabTmpContent;
 		
 	}
+
 	
 	
 	/**
@@ -132,6 +140,8 @@ public class ListParser extends com.mingsoft.mdiy.parser.ListParser {
 					htmlList = tabContent(htmlList, StringUtil.null2String(article.getArticleAuthor()),AUTHOR_FIELD_LIST);
 					// 文章来源。
 					htmlList = tabContent(htmlList, StringUtil.null2String(article.getArticleSource()),SOURCE_FIELD_LIST);
+					// 文章来源。
+					htmlList = tabContent(htmlList, "<script src='"+app.getAppHostUrl()+"/basic/"+article.getBasicId()+"/hit.do?isShow=true'></script>",FIELD_HIT);
 					// 文章发布时间(非必填),
 					htmlList = new DateParser(htmlList,article.getBasicDateTime()).parse();//tabContent(htmlList, date(article.getBasicUpdateTime(), htmlList),DATE_FIELD_LIST);
 					

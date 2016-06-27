@@ -24,7 +24,6 @@ import com.mingsoft.cms.parser.impl.ArticleContentParser;
 import com.mingsoft.cms.parser.impl.ArticleDateParser;
 import com.mingsoft.cms.parser.impl.ArticleDescripParser;
 import com.mingsoft.cms.parser.impl.ArticleHistoryParser;
-import com.mingsoft.cms.parser.impl.ArticleHitParser;
 import com.mingsoft.cms.parser.impl.ArticleIdParser;
 import com.mingsoft.cms.parser.impl.ArticleKeywordParser;
 import com.mingsoft.cms.parser.impl.ArticleLinkParser;
@@ -36,6 +35,7 @@ import com.mingsoft.cms.parser.impl.ArticleTypeLinkParser;
 import com.mingsoft.cms.parser.impl.ArticleTypeTitleParser;
 import com.mingsoft.cms.parser.impl.ChannelParser;
 import com.mingsoft.cms.parser.impl.ColumnParser;
+import com.mingsoft.cms.parser.impl.HitParser;
 import com.mingsoft.mdiy.biz.IContentModelBiz;
 import com.mingsoft.mdiy.biz.IContentModelFieldBiz;
 import com.mingsoft.mdiy.entity.ContentModelEntity;
@@ -49,6 +49,8 @@ import com.mingsoft.parser.impl.general.PageNumParser;
 import com.mingsoft.parser.impl.general.PageParser;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
+
+import net.mingsoft.basic.util.BasicUtil;
 
 /**
  * 替换标签类
@@ -184,6 +186,9 @@ public class CmsParser extends IGeneralParser {
 				if (o instanceof ArticleEntity) { //显示文章内容的时候必须存在
 					article = (ArticleEntity)o;
 				}
+				if (o instanceof AppEntity) { //显示文章内容的时候必须存在
+					app = (AppEntity)o;
+				}
 				if (o instanceof PageUtil) { //显示 文章搜索的时候必须存在
 					page = (PageUtil)o;
 				}
@@ -211,12 +216,16 @@ public class CmsParser extends IGeneralParser {
 		}
 		String isPaging = property.get(ListParser.LIST_ISPAGING);
 		if (!StringUtil.isBlank(isPaging) && isPaging.equals("true")) {
-			List<Integer> columnIds = new ArrayList<Integer>();
+			int[] columnIds = null;
 			if(column!=null){
 				// 取出当前栏目下的子栏目Id
 				if (column.getCategoryId() != 0) {
-					columnIds = columnBiz.queryChildIdsByColumnId(column.getCategoryId(), app.getAppId());
-					columnIds.add(column.getCategoryId());
+					int[] _columnIds = columnBiz.queryChildIdsByColumnId(column.getCategoryId(), app.getAppId());
+					columnIds = new int [_columnIds.length+1]; 
+					if (_columnIds.length>0) {
+						System.arraycopy(_columnIds, 0, columnIds, 0, _columnIds.length-1);
+					}
+					columnIds[_columnIds.length] = column.getCategoryId();
 				}
 			}
 			// 列表每页显示的数量
@@ -226,7 +235,8 @@ public class CmsParser extends IGeneralParser {
 			// 显示文章的形式noflag属性
 			String noFlag = property.get(ListParser.LIST_NOFLAG);
 			// 数据库中该栏目下文章的总数
-			int articleCount = articleBiz.getCountByColumnId(website.getAppId(), columnIds, flag, noFlag);
+			;
+			int articleCount = articleBiz.count(website.getAppId(), columnIds, flag, noFlag, null);
 			// 当用户知道的显示数量小于0或大于文章实际总数时
 			if (size <= 0 || size > articleCount) {
 				size = articleCount;
@@ -261,7 +271,6 @@ public class CmsParser extends IGeneralParser {
 			Map<String, String> property = ListParser.listProperty(super.htmlContent, false);
 			// 取当前标签下的栏目ID
 			int columnId = StringUtil.string2Int(property.get(ListParser.LIST_TYPEID));
-			List<Integer> columnIds = new ArrayList<Integer>();
 			// 列表每页显示的数量
 			int size = StringUtil.string2Int(property.get(ListParser.LIST_SIZE));
 			// 显示文章的形式flag属性
@@ -272,9 +281,15 @@ public class CmsParser extends IGeneralParser {
 			String orderBy = property.get(ListParser.LIST_ORDERBY);
 			String order = property.get(ListParser.LIST_ORDER);
 			// 取出当前栏目下的子栏目Id
+			int[] columnIds = null;
 			if (columnId != 0) {
-				columnIds = columnBiz.queryChildIdsByColumnId(columnId, app.getAppId());
-				columnIds.add(columnId);
+				int[] _columnIds = columnBiz.queryChildIdsByColumnId(columnId, app.getAppId());
+				columnIds = new int[_columnIds.length+1];
+				if (_columnIds.length>0) {
+					System.arraycopy(_columnIds, 0, columnIds, 0, _columnIds.length);
+				}
+				
+				columnIds[_columnIds.length]=columnId;
 			} else {
 				columnId = this.curColumnId;
 				columnIds = columnBiz.queryChildrenCategoryIds(columnId, app.getAppId(),modelId);
@@ -295,11 +310,13 @@ public class CmsParser extends IGeneralParser {
 					order = "desc";
 				}
 				// 从数据库取出文章列表数组
-				List<ArticleEntity> listArticles = articleBiz.queryList(app.getAppId(), columnIds, flag, noFlag, 0, size, orderBy, order.equals("desc") ? true : false);
+				BasicUtil.startPage(0,size,false);
+				List<ArticleEntity> listArticles = articleBiz.query(app.getAppId(), columnIds, flag, noFlag,orderBy, order.equals("desc") ? true : false,null);
+				BasicUtil.endPage(listArticles);
 				// 替换列表标签
-				htmlContent = new com.mingsoft.cms.parser.impl.ListParser(htmlContent, listArticles,  this.getWebsiteUrl(), property, false, fieldBiz, contentBiz).parse();
+				htmlContent = new com.mingsoft.cms.parser.impl.ListParser(app,htmlContent, listArticles,  this.getWebsiteUrl(), property, false, fieldBiz, contentBiz).parse();
 			}else{
-				htmlContent = new com.mingsoft.cms.parser.impl.ListParser(htmlContent, null,  this.getWebsiteUrl(), property, false, fieldBiz, contentBiz).parse();
+				htmlContent = new com.mingsoft.cms.parser.impl.ListParser(app,htmlContent, null,  this.getWebsiteUrl(), property, false, fieldBiz, contentBiz).parse();
 			}
 		}
 		return htmlContent;
@@ -339,7 +356,7 @@ public class CmsParser extends IGeneralParser {
 		htmlContent = new ArticleTitleParser(htmlContent, article.getBasicTitle()).parse();
 
 		// 替换文章点击数标签： {ms:field.hit/}
-		htmlContent = new ArticleHitParser(htmlContent, article.getBasicHit()+"").parse();
+		htmlContent = new HitParser(htmlContent,"<script type='text/javascript' src='"+app.getAppHostUrl()+"/basic/"+article.getBasicId()+"/hit.do' ></script>").parse();
 				
 		// 替换文章id标签： {ms:field.id/}
 		htmlContent = new ArticleIdParser(htmlContent, article.getBasicId() + "").parse();
@@ -584,10 +601,15 @@ public class CmsParser extends IGeneralParser {
 		}
 		String isPaging = property.get(ListParser.LIST_ISPAGING);
 		if (isPaging != null && isPaging.equals("true")) {
-			List<Integer> columnIds = new ArrayList<Integer>();
+			int[] columnIds = null;
 			if (column!=null) {
 				this.curColumnId = column.getCategoryId();
-				columnIds = columnBiz.queryChildrenCategoryIds(curColumnId, app.getAppId(),modelId);
+				int[] _columnIds = columnBiz.queryChildrenCategoryIds(curColumnId, app.getAppId(),modelId);
+				columnIds = new int[_columnIds.length+1];
+				if (_columnIds.length>0) {
+					System.arraycopy(_columnIds, 0, columnIds, 0, _columnIds.length);
+				}
+				columnIds[_columnIds.length]=curColumnId;
 				// 取出当前栏目下的子栏目Id
 				// 列表每页显示的数量
 				int size = StringUtil.string2Int(property.get(ListParser.LIST_SIZE));
@@ -598,7 +620,6 @@ public class CmsParser extends IGeneralParser {
 				// 排序
 				String orderBy = property.get(ListParser.LIST_ORDERBY);
 				String order = property.get(ListParser.LIST_ORDER);
-				columnIds.add(curColumnId);
 				// 数据库中该栏目下文章的总数
 				int articleCount = articleBiz.getCountByColumnId(app.getAppId(), columnIds, flag, noFlag);
 				// 如果没有指定文章每页显示数量则显示所有数量
@@ -616,12 +637,14 @@ public class CmsParser extends IGeneralParser {
 					if (StringUtil.isBlank(order)) {
 						order = "desc";
 					}
+					
+					BasicUtil.startPage(page.getPageNo(),page.getPageSize(),false);
 					// 从数据库取出文章列表数组
-					List<ArticleEntity> listArticles = articleBiz.queryList(this.app.getAppId(), columnIds, flag, noFlag, (page.getPageNo() * page.getPageSize()), page.getPageSize(), orderBy, order.equals("desc") ? true : false);
+					List<ArticleEntity> listArticles = articleBiz.query(this.app.getAppId(), columnIds, flag, noFlag,  orderBy, order.equals("desc") ? true : false,null);
 					// 替换列表标签
-					htmlContent = new com.mingsoft.cms.parser.impl.ListParser(htmlContent, listArticles,  this.getWebsiteUrl(), property, true, fieldBiz, contentBiz).parse();
+					htmlContent = new com.mingsoft.cms.parser.impl.ListParser(app,htmlContent, listArticles,  this.getWebsiteUrl(), property, true, fieldBiz, contentBiz).parse();
 				}else{
-					htmlContent = new com.mingsoft.cms.parser.impl.ListParser(htmlContent, null,  this.getWebsiteUrl(), property, true, fieldBiz, contentBiz).parse();
+					htmlContent = new com.mingsoft.cms.parser.impl.ListParser(app,htmlContent, null,  this.getWebsiteUrl(), property, true, fieldBiz, contentBiz).parse();
 				}
 			}
 		}
@@ -675,7 +698,7 @@ public class CmsParser extends IGeneralParser {
 					order = "desc";
 				}
 				// 替换列表标签
-				htmlContent = new com.mingsoft.cms.parser.impl.ListParser(htmlContent, listArticles,  this.getWebsiteUrl(), property, true, fieldBiz, contentBiz).parse();
+				htmlContent = new com.mingsoft.cms.parser.impl.ListParser(app,htmlContent, listArticles,  this.getWebsiteUrl(), property, true, fieldBiz, contentBiz).parse();
 			}
 		}
 		return htmlContent;

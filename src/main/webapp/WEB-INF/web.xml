@@ -6,7 +6,7 @@
 	<display-name>mybatis</display-name>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath:spring-mvc.xml,classpath:spring-mybatis.xml,classpath:spring-shiro.xml</param-value>
+		<param-value>classpath:spring-*.xml</param-value>
 	</context-param>
 	<filter>
 		<description>字符集过滤器</description>
@@ -22,8 +22,19 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-
+	<!-- Apache Shiro -->
+	<filter>
+		<filter-name>shiroFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>shiroFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	<listener>
 		<description>spring监听器</description>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -48,8 +59,36 @@
 		<servlet-name>springMvc</servlet-name>
 		<url-pattern>*.do</url-pattern>
 	</servlet-mapping>
-
-
+	<!-- Druid,监控数据库,以及WEB访问连接信息 -->
+	<!-- 参考: https://github.com/alibaba/druid/wiki/%E9%85%8D%E7%BD%AE_%E9%85%8D%E7%BD%AEWebStatFilter -->
+	<filter>
+		<filter-name>DruidWebStatFilter</filter-name>
+		<filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
+		<init-param>
+			<param-name>exclusions</param-name>
+			<param-value>*.js,*.gif,*.jpg,*.png,*.css,*.ico,*.jsp,/druid/*,/download/*</param-value>
+		</init-param>
+		<init-param>
+			<param-name>sessionStatMaxCount</param-name>
+			<param-value>2000</param-value>
+		</init-param>
+		<init-param>
+			<param-name>sessionStatEnable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>principalSessionName</param-name>
+			<param-value>session_user_key</param-value>
+		</init-param>
+		<init-param>
+			<param-name>profileEnable</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>DruidWebStatFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	<welcome-file-list>
 		<welcome-file>index</welcome-file>
 		<welcome-file>default.html</welcome-file>
@@ -59,12 +98,13 @@
 		<welcome-file>login.do</welcome-file>
 	</welcome-file-list>
 	<!-- 配置session超时时间，单位分钟 -->
-
-
-
 	<error-page>
 		<error-code>404</error-code>
 		<location>/error/404.do</location>
+	</error-page>
+	<error-page>
+		<error-code>405</error-code>
+		<location>/error/405.do</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>

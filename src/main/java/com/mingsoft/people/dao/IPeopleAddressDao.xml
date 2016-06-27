@@ -18,6 +18,7 @@
 		<result column="pa_province" property="peopleAddressProvince"/><!--收货人所在的省 -->
 		<result column="pa_city" property="peopleAddressCity"/><!--收货人所在的市 -->
 		<result column="pa_district" property="peopleAddressDistrict"/><!--收货人所在区 -->
+		<result column="pa_street" property="peopleAddressStreet"/><!--街道 -->
 		<result column="pa_address" property="peopleAddressAddress"/><!--收货人的详细收货地址-->
 		<result column="pa_mail" property="peopleAddressMail"/><!--收货人邮箱-->
 		<result column="pa_phone" property="peopleAddressPhone"/><!--收货人手机-->
@@ -36,6 +37,7 @@
 			<if test="peopleAddressCity != null">pa_city,</if>
 			<if test="peopleAddressDistrict != null">pa_district,</if>
 			<if test="peopleAddressAddress != null">pa_address,</if>
+			<if test="peopleAddressStreet != null">pa_street,</if>
 			<if test="peopleAddressMail != null">pa_mail,</if>
 			<if test="peopleAddressPhone != null">pa_phone,</if>
 			<if test="peopleAddressDefault != null">pa_default,</if>
@@ -48,6 +50,7 @@
 			<if test="peopleAddressCity != null">#{peopleAddressCity},</if>
 			<if test="peopleAddressDistrict != null">#{peopleAddressDistrict},</if>
 			<if test="peopleAddressAddress != null">#{peopleAddressAddress},</if>
+			<if test="peopleAddressStreet != null">#{peopleAddressStreet},</if>
 			<if test="peopleAddressMail != null">#{peopleAddressMail},</if>
 			<if test="peopleAddressPhone != null">#{peopleAddressPhone},</if>
 			<if test="peopleAddressDefault != null">#{peopleAddressDefault},</if>
@@ -65,6 +68,7 @@
 			<if test="peopleAddressCity != null">pa_city=#{peopleAddressCity},</if>
 			<if test="peopleAddressDistrict != null">pa_district=#{peopleAddressDistrict},</if>
 			<if test="peopleAddressAddress != null">pa_address=#{peopleAddressAddress},</if>
+			<if test="peopleAddressStreet != null">pa_street=#{peopleAddressStreet},</if>
 			<if test="peopleAddressMail != null">pa_mail=#{peopleAddressMail},</if>
 			<if test="peopleAddressPhone != null">pa_phone=#{peopleAddressPhone},</if>
 			<if test="peopleAddressDefault != null">pa_default=#{peopleAddressDefault},</if>

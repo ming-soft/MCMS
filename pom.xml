@@ -4,7 +4,7 @@
 	<groupId>com.mingsoft</groupId>
 	<artifactId>mcms</artifactId>
 	<packaging>war</packaging>
-	<version>4.5.7</version>
+	<version>4.5.8</version>
 	<name>铭飞MCMS开源系统</name>
 	<url>http://ms.ming-soft.com</url>
 	<repositories>
@@ -33,13 +33,13 @@
 	</repositories>
 	<properties>
 		<ms.util.version>1.0.0</ms.util.version>
-		<ms.base.version>1.0.0</ms.base.version>
+		<ms.base.version>1.0.2-SNAPSHOT</ms.base.version>
 		<ms.proxy.version>1.0.0</ms.proxy.version>
 		<ms.parser.version>1.0.0</ms.parser.version>
 		<ms.ueditor.version>1.0.0-SNAPSHOT</ms.ueditor.version>
 		<shiro-freemarker-tags.version>0.2-SNAPSHOT</shiro-freemarker-tags.version>
-		<ms.basic.version>1.0.2-SNAPSHOT</ms.basic.version>
-		<ms.mdiy.version>1.0.1-SNAPSHOT</ms.mdiy.version>
+		<ms.basic.version>1.0.3-SNAPSHOT</ms.basic.version>
+		<ms.mdiy.version>1.0.2-SNAPSHOT</ms.mdiy.version>
 	</properties>
 	<dependencies>
 		<!-- MAVEN源码加载 -->

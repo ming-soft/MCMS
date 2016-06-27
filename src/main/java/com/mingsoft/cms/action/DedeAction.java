@@ -68,7 +68,7 @@ import com.mingsoft.util.StringUtil;
  *          </p>
  */
 @Controller
-@RequestMapping("/manager/cms/dede")
+@RequestMapping("/${managerPath}/cms/dede")
 public class DedeAction extends BaseAction {
 
 	/**
@@ -112,7 +112,7 @@ public class DedeAction extends BaseAction {
 		// 获取本地栏目
 		List<ColumnEntity> localColumnList = columnBiz.queryColumnListByWebsiteId(managerSession.getBasicId());
 		model.addAttribute("localColumnList", JSONArray.toJSONString(localColumnList));
-		return Const.VIEW+"/cms/dede/dede";
+		return view("/cms/dede/dede");
 	}
 
 	/**
