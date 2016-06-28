@@ -242,7 +242,7 @@ public class PeopleAction extends BaseAction {
 	 * 
 	 * @param key
 	 */
-	@RequestMapping(value="/{diy}",method=RequestMethod.GET)
+	@RequestMapping(value="/{diy}")
 	public void diy(@PathVariable(value = "diy") String diy, HttpServletRequest req, HttpServletResponse resp) {
 		String content = this.generaterPage("people/" + diy, peopleParser, req);
 		this.outString(resp, content);

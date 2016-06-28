@@ -638,7 +638,7 @@ public class CmsParser extends IGeneralParser {
 						order = "desc";
 					}
 					
-					BasicUtil.startPage(page.getPageNo(),page.getPageSize(),false);
+					BasicUtil.startPage(page.getPageNo()+1,page.getPageSize(),false);
 					// 从数据库取出文章列表数组
 					List<ArticleEntity> listArticles = articleBiz.query(this.app.getAppId(), columnIds, flag, noFlag,  orderBy, order.equals("desc") ? true : false,null);
 					// 替换列表标签

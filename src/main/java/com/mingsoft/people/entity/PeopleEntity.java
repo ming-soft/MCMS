@@ -116,7 +116,7 @@ public class PeopleEntity extends SessionEntity {
 	/**
 	 * 用户状态 1.已审核 0.未审核
 	 */
-	private int peopleState;
+	private Integer peopleState;
 
 	/**
 	 * 用户真信息
@@ -220,7 +220,7 @@ public class PeopleEntity extends SessionEntity {
 	 * 
 	 * @return peopleState
 	 */
-	public int getPeopleState() {
+	public Integer getPeopleState() {
 		return peopleState;
 	}
 
@@ -355,7 +355,7 @@ public class PeopleEntity extends SessionEntity {
 	 * @see setPeopleState(BaseEnum e)
 	 * @param peopleState
 	 */
-	public void setPeopleState(int peopleState) {
+	public void setPeopleState(Integer peopleState) {
 		this.peopleState = peopleState;
 	}
 

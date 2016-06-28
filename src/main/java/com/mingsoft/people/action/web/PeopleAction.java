@@ -222,6 +222,8 @@ public class PeopleAction extends BaseAction {
 
 		}
 
+		LOG.debug(_people.getPeoplePhoneCheck()+":"+PeopleEnum.PHONE_CHECK.toInt());
+		LOG.debug(_people.getPeopleCode()+":"+people.getPeopleCode());
 		// 判断用户验证是否通过\判断用户输入对邮箱验证码是否与系统发送对一致\判断验证码对有效时间
 		if (_people.getPeoplePhoneCheck() == PeopleEnum.PHONE_CHECK.toInt()
 				&& _people.getPeopleCode().equals(people.getPeopleCode())) {
@@ -257,8 +259,8 @@ public class PeopleAction extends BaseAction {
 	@ResponseBody
 	public void isExists(@ModelAttribute PeopleEntity people, HttpServletRequest request,
 			HttpServletResponse response) {
-
-		if (StringUtil.isBlank(people.getPeopleName())) {
+		LOG.debug(JSONObject.toJSONString(people)); 
+		if (StringUtil.isBlank(people.getPeopleName()) && StringUtil.isBlank(people.getPeoplePhone()) && StringUtil.isBlank(people.getPeopleMail())) {
 			this.outJson(response, ModelCode.PEOPLE, false,
 					this.getResString("err.empty", this.getResString("people.name")));
 			return;
@@ -425,6 +427,7 @@ public class PeopleAction extends BaseAction {
 	 *            用户信息<br/>
 	 *            <i>people参数包含字段信息参考：</i><br/>
 	 *            peoplePassword 用户新密码<br/>
+	 *            peopleCode 验证码<br/>
 	 *            <dt><span class="strong">返回</span></dt><br/>
 	 *            {code:"错误编码",<br/>
 	 *            result:"true｜false",<br/>
@@ -463,9 +466,11 @@ public class PeopleAction extends BaseAction {
 				&& _people.getPeopleCode().equals(people.getPeopleCode())) {
 			_people.setPeoplePassword(MD5Util.MD5Encode(people.getPeoplePassword(), Const.UTF8));
 			peopleBiz.updateEntity(_people);
+			LOG.debug("更新密码成功");
 			this.outJson(response, ModelCode.PEOPLE, true,
 					this.getResString("success", this.getResString("people.get.password")));
 		} else {
+			LOG.debug("更新密码失败");
 			this.outJson(response, ModelCode.PEOPLE, false,
 					this.getResString("fail", this.getResString("people.get.password")));
 		}
@@ -600,6 +605,10 @@ public class PeopleAction extends BaseAction {
 		// 更新该实体
 		this.peopleBiz.updateEntity(people);
 
+		PeopleEntity _people = (PeopleEntity) this.getSession(request, SessionConstEnum.PEOPLE_EXISTS_SESSION);
+		if (_people!=null) {
+			this.setSession(request, SessionConstEnum.PEOPLE_EXISTS_SESSION, people);
+		}
 		if (StringUtil.isMobile(receive)) {
 			Result rs = Proxy.post(this.getUrl(request) + "/sms/send.do", null, params, Const.UTF8);
 			this.outJson(response, rs.getContent());

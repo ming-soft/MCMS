@@ -7,7 +7,7 @@
 <body>	
 <@ms.content>
 <@ms.contentBody >
-	<@ms.contentNav title="栏目管理" ></@ms.contentNav >
+	<@ms.contentNav title="栏目管理 " ></@ms.contentNav >
 	<@ms.contentPanel>
 		<@ms.panelNav>
 			<@ms.panelNavBtnGroup>

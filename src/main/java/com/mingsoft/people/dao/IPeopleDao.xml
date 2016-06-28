@@ -93,6 +93,7 @@
 	<update id="updateEntity" parameterType="com.mingsoft.base.entity.BaseEntity">
 		update people
 		<set>
+			PEOPLE_ID=#{peopleId},
 			<if test="peoplePhone != null">PEOPLE_PHONE=#{peoplePhone},</if>
 			<if test="peopleName != null">PEOPLE_NAME=#{peopleName},</if>
 			<if test="peoplePassword != null">PEOPLE_PASSWORD=#{peoplePassword},</if>

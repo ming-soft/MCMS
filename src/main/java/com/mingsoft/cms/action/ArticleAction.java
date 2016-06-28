@@ -176,6 +176,7 @@ public class ArticleAction extends BaseAction {
 		mode.addAttribute("articleType", articleType);
 		mode.addAttribute("categoryTitle", categoryTitle);
 		mode.addAttribute("categoryId", categoryId);
+		BasicUtil.removeUrlParams(new String[]{"pageNo"});
 		return view("/cms/article/article_list");
 	}
 
