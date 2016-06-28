@@ -1,9 +1,9 @@
     <div class="bottom">
         <div class="container">
             <ul class="nav bottom-about">
-                <li><a href="{ms:global.url/}/18/index.html"   target="_blank">合作代理</a></li>
-                <li><a href="{ms:global.url/}/19/index.html"  target="_blank" >关于我们</a></li>
-                <li><a href="{ms:global.url/}/16/index.html" target="_blank">产品服务</a></li>
+                <li><a href="{ms:global.url/}/53/133/index.html"   target="_blank">合作代理</a></li>
+                <li><a href="{ms:global.url/}/53/134/index.html"  target="_blank" >关于我们</a></li>
+                <li><a href="{ms:global.url/}/53/135/index.html" target="_blank">产品服务</a></li>
                 <li><a href="" target="_blank" >去官网看</a></li>
                 <li><a href="" target="_blank" >联系我们</a></li>
             </ul>
@@ -16,7 +16,57 @@
   </div>
    
 
+    <script src="{ms:globalskin.url/}/js/jquery.cookies.2.2.0.js" type="text/javascript"></script>
+    <script src="http://cdn.mingsoft.net/plugins/seajs/3.0.0/sea.js"></script>
+    <script src="http://mooc.mb.mstore.mingsoft.net/cdn/model/1.0.0/main.min.js"></script>    
+    <script>ms.config({
+		    	base:"{ms:global.host/}",
+		    
+			    filter: {
+			  		people:{
+			  			loginUrl:'http://www.wellegal.com/login.do'
+			  		}
+			    }
+		  	});
+    </script>
   
+   <script>  
+    //登录后显示用户名
+    $(function(){    
+      //退出登录
+      ms.load(["ms","ms.people"],function(ms,people) {
+          //获取用户是否登陆
+          people.checkLoginStatus(function(json){
+            if(json.result){
+              var noticeHTML = $("#navbarNotice");
+              var settingHTML = $("#navbarSettings");
+              $(".navbar-sign").html(noticeHTML);
+              $(".navbar-login").html(settingHTML);
+              $(".quitLogin").click(function(){
+                $.cookies.del('PEOPLE_COOKIE');
+                people.people.quit();
+                location.href="{ms:global.host/}";
+              });
+
+          }
+        })
+      })
+   });
+    //导航栏跳转样式保留
+    $(document).ready(function(){  
+      $(".nav ul li a").each(function(){  
+          $this = $(this);  
+          if($this[0].href==String(window.location)){  
+              $this.parent("li").addClass("showColor");  
+          }  
+      });  
+    });
+    //点击显示用户下拉菜单
+    $(".dropdown-toggle").click(function(){
+      $("#settingsBlock").css("width","88px");
+      $("#settingsBlock").toggle();              
+    });
+</script>
    
  
   

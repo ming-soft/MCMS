@@ -7,10 +7,6 @@
     <link rel="stylesheet" href="{ms:globalskin.url/}/css/login-reg.css">
     <link rel="stylesheet" href="{ms:globalskin.url/}/css/list.css">
     <link rel="stylesheet" href="{ms:globalskin.url/}/css/index.css" >
-    <script type="text/javascript" src="{ms:globalskin.url/}/js/jquery-1.9.1.min.js"></script>
-    <script src="http://static.ming-soft.net/base/ms.base.min.js"></script> 
-    <script src="http://static.ming-soft.net/util/ms.util.min.js"></script>
-    <script src="http://static.ming-soft.net/people/ms.people.min.js" type="text/javascript"></script> 
 </head>
 <body>
     {ms:include filename=head.htm/} 
@@ -28,10 +24,10 @@
             <h1>欢迎登录</h1>
             <form class="gform" id="loginForm" method="POST" >
                 <p class="gform-box">           
-                    <input class="gbtxt" id="username" maxlength="15" name="userName" placeholder=请输入用户名     type="text" value="">
+                    <input class="gbtxt" id="username" maxlength="15" name="peopleName" placeholder=请输入用户名 type="text">
                 </p>
                 <p class="gform-box" style="margin-bottom:15px;">
-                    <input class="gbtxt" id="password" name="passWord" placeholder="密码" type="password" value="">
+                    <input class="gbtxt" id="password" name="peoplePassword" placeholder="密码" type="password">
                 </p>    
                 <p class="gform-box" style="margin-bottom:0px">
                     <input type="hidden" name="isImgCode" value="true" />
@@ -66,17 +62,16 @@
     	}
     });
     $("#login-button").click(function () {
+      ms.load(["ms","ms.people"], function(ms,mpeople) {
         $("span").remove();
-        ms.people.web.checkLogin($("#loginForm").serialize(),{"func":function(json){//调用方法
-           if(json.result == false){
-              if(json.resultMsg=="验证码错误!"){
-                  $(".infor-tips").html("<span style='margin-left:3px' class='tip'>"+json.resultMsg+"</span>");
-              }else{
-                  userName.after("<span class='tip'>"+json.resultMsg+"</span>"); 
-              }
-           }else{
-                location.href="{ms:global.url/}/index.html";
-           }
-       }});
+        mpeople.checkLogin($("#loginForm").serialize(),function(json){//调用方法
+          if(json.result){
+            ms.alert("登录成功")
+            location.href="{ms:global.host/}";
+          }else{
+            ms.alert(json.resultMsg)
+          }
+        })
+      });
     })
 </script>

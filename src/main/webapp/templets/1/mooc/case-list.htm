@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="no-js screen-scroll">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -181,7 +181,7 @@
             </li>
         </ul>
         <ul class="course_list card_list" id="courseList">
-        	{ms:arclist size=5 ispaging=true}
+        	{ms:arclist size=8 ispaging=true}
         	<li>
                 <a class="course-img" href="[field.link/]" target="_blank" >
                     <div class="shade">
@@ -214,11 +214,10 @@
 	        <li data-type="next"><a href="{ms:page.next/}">下一页</a> </li>
 	        <li data-type="last"><a href="{ms:page.last/}">最末页</a></li>
 		</ul>
-		
-      </div>
+	  </div>
       {ms:include filename=footer.htm/}
        <!-- 后台生成的自定义搜索代码 -->
-      <form id="searchForm" action="{ms:global.url/}/9/search.do" method="post">
+      <form id="searchForm" action="{ms:global.url/}/1/search.do" method="post">
 		<!--表单的name值不能改变-->
 	 	<input type="hidden" name="categoryId" value="{ms:field.typeid/}"/><!-- 当前栏目的栏目id值 -->
 	 	<input type="hidden" name="school" value=""/>
