@@ -145,7 +145,7 @@ $(function(){
 					   				alert("保存文章成功，并已生成" );
 					   			</#if>
 				   				if (obj.resultData!="") {
-				   					location.href=base+obj.resultData;
+				   					location.href=managerPath+"/cms/article/"+obj.resultData+"/list.do";
 				   				} 
 				   				$("#saveUpdate").removeAttr("disabled");
 				   			}else{
@@ -155,7 +155,7 @@ $(function(){
 				   			}
 						}});
 								if (obj.resultData!="") {
-				   					location.href=base+obj.resultData;
+				   					location.href=managerPath+"/cms/article/"+obj.resultData+"/list.do";
 				   				} 
 				   				<@ms.notify msg="文章保存成功" type="success"/>
 				   				$("#saveUpdate").removeAttr("disabled");
