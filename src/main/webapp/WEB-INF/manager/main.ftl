@@ -18,7 +18,7 @@ body{  height: 100%;}
     height: 300px;
     padding-top: 200px;
     vertical-align: middle;
-"><h2>欢迎进入MS系统</h2><p>欢迎加群： 221335098 或到<a href="http://ms.ming-soft.com/mbbs/main.do" target="_blank"  style="
+"><h2>欢迎进入MS系统</h2><p>欢迎加群： 221335098 或到<a href="http://ms.mingsoft.net/mbbs/main.do" target="_blank"  style="
     text-decoration: none;
 ">官方论坛进行技术交流</a></p></div>
 </body>
