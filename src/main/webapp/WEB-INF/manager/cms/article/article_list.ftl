@@ -149,6 +149,7 @@
 			$(this).request({url:base+"${baseManager}/cms/article/delete.do",type:"json",data:ids,method:"post",func:function(msg) {
 				if (msg.result) {
 					alert("删除成功！")
+					location.reload();
 				} else {
 					alert("删除失败");
 				}
