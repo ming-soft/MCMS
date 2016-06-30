@@ -22,7 +22,7 @@
 			$(function(){
 				var URL="${managerPath}/template/queryTemplateFileForColumn.do";
 				var DATA = "";
-				$(this).request({url:URL,data:DATA,type:"json",method:"post",func:function(msg) {
+				$(this).request({url:URL,data:DATA,type:"json",method:"get",func:function(msg) {
 					if(msg.length==0){
 						$("#select_id").append("<option value='' >暂无文件</option>")
 					}
