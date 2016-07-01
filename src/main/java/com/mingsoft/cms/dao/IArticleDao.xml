@@ -242,7 +242,16 @@
 		</if>
 		<if test="flag != null">and a.ARTICLE_TYPE like CONCAT('%',#{flag},'%')</if>
 		<if test="noFlag != null">and a.ARTICLE_TYPE not like CONCAT('%',#{noFlag},'%')</if>
-		<if test="orderBy != null">order by ${orderBy}</if>
+		<if test="orderBy != null">
+			order by
+			<if test='orderBy=="sort"'>basic_sort</if>
+			<if test='orderBy=="date"'>basic_datetime</if>
+			<if test='orderBy=="hit"'>basic_hit</if>
+			<if test='orderBy=="date"'>basic_datetime</if>
+			<if test='orderBy=="updatedate"'>basic_updatedate</if>
+			<if test='orderBy=="id"'>basic_id</if>
+		</if>
+
 		<if test="orderBy==null">
 			order by b.basic_id
 		</if>
@@ -577,8 +586,8 @@
 			and basic_categoryId = #{basicCategoryId}
 		</if>
 	</select>
-	
-	
+
+
 	<!--视图查询开始 -->
 	<select id="queryPageByCategoryId" resultMap="resultMap">
 		select * from v_article
