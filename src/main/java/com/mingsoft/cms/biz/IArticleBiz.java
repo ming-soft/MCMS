@@ -257,4 +257,27 @@ public interface IArticleBiz extends IBasicBiz {
 	 */
 	public void updateArticle(ArticleEntity article, List<BasicCategoryEntity> basicCategoryList);
 
+	/**
+	 * 显示本网站下文章列表
+	 * 
+	 * @param webId网站id
+	 * @param page
+	 *            PageUtil对象，主要封装分页的方法 <br/>
+	 * @param orderBy
+	 *            排序字段 <br/>
+	 * @param order
+	 *            排序方式true:asc false:desc <br/>
+	 * @return 返回所查询的文章集合
+	 */
+	@Deprecated
+	public List<ArticleEntity> queryPageListByWebsiteId(int webId, PageUtil page, String orderBy, boolean order);
+	/**
+	 * 查询本网站下文章列表数目
+	 * 
+	 * @param webId网站id
+	 * @return 文章条数
+	 */
+	@Deprecated
+	public int getCountByWebsiteId(int webId);
+
 }

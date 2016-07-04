@@ -652,6 +652,50 @@
 		</where>
 	</delete>
 
+	<!--过期方法 查询本站点下文章条数 并进行分页 开始 -->
+	<select id="queryPageListByWebsiteId" resultMap="resultMap">
+		select
+		<include refid="column_list" />
+		,c.CATEGORY_TITLE,cl.column_path,c.CATEGORY_id,cl.COLUMN_CONTENTMODELID,cl.column_type
+		FROM
+		basic b
+		LEFT JOIN
+		category c ON b.BASIC_CATEGORYID = c.CATEGORY_ID
+		LEFT JOIN cms_column
+		cl ON c.CATEGORY_ID = cl.COLUMN_CATEGORYID
+		LEFT
+		JOIN cms_article a ON
+		a.ARTICLE_BASICID = b.BASIC_ID
+		where
+		a.ARTICLE_WEBID = #{webId}
+		<if test="orderBy != null">order by ${orderBy}</if>
+		<if test="order == true">asc</if>
+		<if test="order == false">desc</if>
+		limit ${pageNo*pageSize},#{pageSize};
+	</select>
+	<!-- 查询本站点下文章条数 并进行分页 结束 -->
+
+
+	<!-- 过期方法 查询本站点下文章条数 开始 -->
+	<select id="getCountByWebsiteId" resultType="int">
+		select count(*)
+		from
+		cms_article a left join basic b on b.basic_id=a.ARTICLE_BASICID
+		where
+		a.ARTICLE_WEBID=#{webId}
+	</select>
+	<!-- 查询本站点下文章条数 结束 -->
+	<!--过期方法 根据文章ID集合查询文章集合开始 -->
+	<select id="queryListByArticleIds" resultMap="resultMap">
+		select *
+		from v_article where ARTICLE_BASICID = 0
+		<foreach item="id" index="index" collection="articleIds" open=""
+			separator="" close="">
+			UNION ALL (select * from v_article where
+			ARTICLE_BASICID=#{id})
+		</foreach>
+	</select>
+	<!-- 根据文章ID集合查询文章集合 结束 -->
 
 
 </mapper>

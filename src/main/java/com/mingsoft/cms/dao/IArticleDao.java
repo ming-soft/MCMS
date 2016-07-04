@@ -232,4 +232,43 @@ public interface IArticleDao extends IBaseDao {
 			@Param("page") PageUtil page, @Param("websiteId") int websiteId, @Param("ids") List ids,
 			@Param("sortMap") Map sortMap);
 
+	/**
+	 * 根据站点获取文章列表
+	 * 
+	 * @param webId
+	 *            站点id
+	 * @param pageNo
+	 * @param pageSize
+	 * @param orderBy
+	 *            排序字段 <br/>
+	 * @param order
+	 *            排序方式true:asc false:desc <br/>
+	 * @return 文章集合
+	 */
+	@Deprecated
+	public List<ArticleEntity> queryPageListByWebsiteId(@Param("webId") int webId, @Param("pageNo") int pageNo, @Param("pageSize") int pageSize,
+			@Param("orderBy") String orderBy, @Param("order") boolean order);
+	
+	/**
+	 * 获取站点下文章总条数
+	 * 
+	 * @param webId
+	 *            webId 站点id<br/>
+	 * @return 返回查询总条数
+	 */
+	@Deprecated
+	public int getCountByWebsiteId(@Param("webId") int webId);
+	
+	/**
+	 * 根据文章ID集合查询文章实体集合
+	 * 
+	 * @param articleIds
+	 *            文章ID集合
+	 * @return 文章实体集合
+	 */
+	@Deprecated
+	@SuppressWarnings("rawtypes")
+	public List<ArticleEntity> queryListByArticleIds(@Param("articleIds") List articleIds);
+
+
 }
