@@ -247,7 +247,6 @@
 			<if test='orderBy=="sort"'>basic_sort</if>
 			<if test='orderBy=="date"'>basic_datetime</if>
 			<if test='orderBy=="hit"'>basic_hit</if>
-			<if test='orderBy=="date"'>basic_datetime</if>
 			<if test='orderBy=="updatedate"'>basic_updatedate</if>
 			<if test='orderBy=="id"'>basic_id</if>
 		</if>
