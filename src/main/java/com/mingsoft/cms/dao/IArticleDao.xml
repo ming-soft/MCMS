@@ -244,11 +244,16 @@
 		<if test="noFlag != null">and a.ARTICLE_TYPE not like CONCAT('%',#{noFlag},'%')</if>
 		<if test="orderBy != null">
 			order by
-			<if test='orderBy=="sort"'>basic_sort</if>
-			<if test='orderBy=="date"'>basic_datetime</if>
-			<if test='orderBy=="hit"'>basic_hit</if>
-			<if test='orderBy=="updatedate"'>basic_updatedate</if>
-			<if test='orderBy=="id"'>basic_id</if>
+			<choose>
+				<when test='orderBy=="sort"'>basic_sort</when>
+				<when test='orderBy=="date"'>basic_datetime</when>
+				<when test='orderBy=="hit"'>basic_hit</when>
+				<when test='orderBy=="updatedate"'>basic_updatedate</when>
+				<when test='orderBy=="id"'>basic_id</when>
+				<otherwise>
+					${orderBy}
+				</otherwise>
+			</choose>
 		</if>
 
 		<if test="orderBy==null">
