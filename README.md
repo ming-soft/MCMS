@@ -59,15 +59,14 @@ QQ交流群号1：221335098<br/>
 * .externalToolBuilders eclipse缓存文件
 * .settings  eclipse配置缓存文件
 * doc  项目文档文件夹，里面有数据库文件
-* libs  项目依赖的jar包，方便开发者在非maven环境下配置
 * src/main maven结构的项目源代码  
 * java/com/mingsoft java源代码文件
 * resources 项目的资源配置文件
 * webapp<br/>
    	 META-INF <br/>
 	 WEB-INF <br/>
+	 	 manager <br/>
 	 html/1 <font color="red">默认生成的静态代码，实际项目需要删除，只是提供给开发者快速预览生成后的静态页面</font><br/>
-	 manager <br/>
 	 templets/1/mooc  <font color="red">默认模版</font><br/>
 	 upload  <br/>
 *   target  临时文件，可以删除让maven自动生成
