@@ -153,8 +153,8 @@ $(function(){
 				   				alert("生成文件失败");
 				   				$("#saveUpdate").removeAttr("disabled");
 				   			}
-						}});
-				   		location.href=managerPath+"/cms/article/"+obj.resultData+"/list.do";
+						}}); 
+				   		location.href=managerPath+"/cms/article/${categoryId?default(0)}/list.do";
 				   		<@ms.notify msg="文章保存成功" type="success"/>
 				   		$("#saveUpdate").removeAttr("disabled");
 					}else{
