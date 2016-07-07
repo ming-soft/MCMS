@@ -154,11 +154,9 @@ $(function(){
 				   				$("#saveUpdate").removeAttr("disabled");
 				   			}
 						}});
-								if (obj.resultData!="") {
-				   					location.href=managerPath+"/cms/article/"+obj.resultData+"/list.do";
-				   				} 
-				   				<@ms.notify msg="文章保存成功" type="success"/>
-				   				$("#saveUpdate").removeAttr("disabled");
+				   		location.href=managerPath+"/cms/article/"+obj.resultData+"/list.do";
+				   		<@ms.notify msg="文章保存成功" type="success"/>
+				   		$("#saveUpdate").removeAttr("disabled");
 					}else{
 				   		alert(obj.resultMsg);
 				   		$("#saveUpdate").removeAttr("disabled");
