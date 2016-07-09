@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -111,6 +112,9 @@ public class GeneraterAction extends BaseAction {
 	 */
 	@Autowired
 	private CmsParser cmsParser;
+	
+	@Value("${managerPath}")
+	private String managerPath;
 
 	/**
 	 * 一键更新所有
@@ -622,10 +626,10 @@ public class GeneraterAction extends BaseAction {
 			cookie += c.getName() + "=" + c.getValue() + ";";
 		}
 		header.setCookie(cookie);
-		Result re = Proxy.get(this.getUrl(request) + "/manager/cms/generate/" + columnId + "/generateArticle.do", header, parms);
+		Result re = Proxy.get(this.getUrl(request) + managerPath + "/cms/generate/" + columnId + "/generateArticle.do", header, parms);
 		ColumnEntity column = (ColumnEntity) columnBiz.getEntity(columnId);
 		if (column != null && column.getColumnType() == ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {
-			Proxy.get(this.getUrl(request) + "/manager/cms/generate/" + columnId + "/genernateColumn.do", header, null);
+			Proxy.get(this.getUrl(request) + managerPath + "/cms/generate/" + columnId + "/genernateColumn.do", header, null);
 		}
 		// 2、更新栏目
 		// Proxy.get(this.getUrl(request)+"/manager/cms/generate/"+columnId+"/genernateColumn.do",
@@ -635,7 +639,7 @@ public class GeneraterAction extends BaseAction {
 		Map map = new HashMap();
 		map.put("url", IParserRegexConstant.REGEX_INDEX_HTML);
 		map.put("position", IParserRegexConstant.HTML_INDEX);
-		Proxy.get(this.getUrl(request) + "/manager/cms/generate/generateIndex.do", header, map);
+		Proxy.get(this.getUrl(request) + managerPath + "/cms/generate/generateIndex.do", header, map);
 
 		this.outJson(response, ModelCode.CMS_GENERATE_ARTICLE, true);
 	}

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -69,6 +70,10 @@ public class PeopleStudentAction extends BaseAction{
 	@Autowired
 	private IModelBiz modelBiz;
 	
+	@Value("${managerPath}")
+	private String managerPath;
+	
+	
 	@RequestMapping("/list")
 	public String list(ModelMap mode,HttpServletRequest request,HttpServletResponse response){
 		Map map = assemblyRequestMap(request);
@@ -93,7 +98,7 @@ public class PeopleStudentAction extends BaseAction{
 		JSONObject ja = new JSONObject();
 		mode.addAttribute("listCategory", listCategory);
 		//分页通用类
-		PageUtil page=new PageUtil(pageNo,peopleCount,getUrl(request)+"/manager/people/student/list.do");
+		PageUtil page=new PageUtil(pageNo,peopleCount,getUrl(request)+ managerPath + "/people/student/list.do");
 		List<PeopleStudentEntity> listPeopleStudent = this.peopleStudentBiz.queryByMap(appId, page,map);
 		mode.addAttribute("listPeopleStudent", listPeopleStudent);
 		mode.addAttribute("page", page);
