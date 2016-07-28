@@ -34,7 +34,7 @@
 		<result column="BASIC_CATEGORYID" property="basicCategoryId" />	<!-- 文章所属主栏目id -->
 		<result column="BASIC_SORT" property="basicSort" />
 		<!-- 一对一关联栏目 -->
-		<association property="column" column="BASIC_CATEGORYID"
+		<association property="column" column="COLUMN_CATEGORYID"
 			javaType="com.mingsoft.basic.entity.ColumnEntity">
 			<result property="columnPath" column="column_path" />
 			<result property="categoryTitle" column="category_title" />
@@ -69,7 +69,7 @@
 		<result column="BASIC_CATEGORYID" property="basicCategoryId" />	<!-- 文章所属主栏目id -->
 		<result column="BASIC_SORT" property="basicSort" />
 		<!-- 一对一关联栏目 -->
-		<association property="column" column="BASIC_CATEGORYID"
+		<association property="column"
 			javaType="com.mingsoft.basic.entity.ColumnEntity">
 			<result property="columnPath" column="column_path" />
 			<result property="categoryTitle" column="category_title" />
@@ -222,11 +222,12 @@
 	<select id="query" resultMap="resultMap">
 		select
 		<include refid="column_list" />
-		,c.CATEGORY_TITLE,cl.column_path,c.CATEGORY_id,cl.COLUMN_CONTENTMODELID,cl.column_type
-		FROM basic b LEFT JOIN category c ON b.BASIC_CATEGORYID =
-		c.CATEGORY_ID LEFT JOIN cms_column cl ON c.CATEGORY_ID =
-		cl.COLUMN_CATEGORYID LEFT JOIN cms_article a ON a.ARTICLE_BASICID =
-		b.BASIC_ID where a.ARTICLE_WEBID = #{webId}
+		,c.CATEGORY_TITLE,c.CATEGORY_ID
+		,cl.COLUMN_PATH,cl.COLUMN_CONTENTMODELID,cl.COLUMN_TYPE,cl.COLUMN_CATEGORYID 
+		FROM cms_article a LEFT JOIN basic b  ON a.ARTICLE_BASICID = b.BASIC_ID 
+		LEFT JOIN cms_column cl ON b.BASIC_CATEGORYID = cl.COLUMN_CATEGORYID 
+		LEFT JOIN category c ON c.CATEGORY_ID = cl.COLUMN_CATEGORYID
+		where a.ARTICLE_WEBID = #{webId}
 		<if test="article != null ">
 			<if test="article.basicTitle != null">
 				and b.BASIC_TITLE like
