@@ -907,8 +907,8 @@ CREATE TABLE `mdiy_search` (
 -- ----------------------------
 -- Records of mdiy_search
 -- ----------------------------
-INSERT INTO `mdiy_search` VALUES ('1', '头部', 'search.htm', '1');
-INSERT INTO `mdiy_search` VALUES ('9', '列表页面搜索', 'search-list.htm', '1');
+INSERT INTO `mdiy_search` VALUES ('1', '头部', 'search.htm', '1', 'cms');
+INSERT INTO `mdiy_search` VALUES ('9', '列表页面搜索', 'search-list.htm', '1', 'cms');
 
 -- ----------------------------
 -- Table structure for `model`
