@@ -80,6 +80,31 @@ QQ交流群号1：221335098<br/>
 * 铭飞MCms 部署视频 http://ms.mingsoft.net/mbbs/13988/detail.do
 * MCms环境配置常见问题  http://ms.mingsoft.net/mbbs/13000/detail.do
 * MStore使用方式：http://ms.mingsoft.net/mbbs/13008/detail.do
+#开源说明
+* 系统100%开源
+* 铭飞MCms是铭飞MS平台的一个子模块，同时铭飞MCms所依赖的模块都是用maven方式提供了源码获取方式
+		<!-- MAVEN源码加载 -->
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-base</artifactId>
+			<version>${ms.base.version}</version>
+			<classifier>sources</classifier>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-basic</artifactId>
+			<version>${ms.basic.version}</version>
+			<classifier>sources</classifier>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mdiy</artifactId>
+			<version>${ms.mdiy.version}</version>
+			<classifier>sources</classifier>
+			<scope>provided</scope>
+		</dependency>    
 
 #系统美图
 ![输入图片说明](http://git.oschina.net/uploads/images/2015/1029/110523_6727b755_542665.jpeg "铭飞模版商城，模版商城")
