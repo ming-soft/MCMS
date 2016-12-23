@@ -26,6 +26,9 @@ import javax.servlet.http.HttpServletRequest;
 import com.mingsoft.people.constant.e.SessionConstEnum;
 import com.mingsoft.people.entity.PeopleEntity;
 
+import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.basic.util.SpringUtil;
+
 /**
  * 
  * 
@@ -87,6 +90,18 @@ public class BaseAction extends com.mingsoft.mdiy.action.BaseAction {
 		}
 		return null;
 	}
+	
+	/**
+	 * 获取用户session.没有返回null
+	 */
+	protected PeopleEntity getPeopleBySession() {
+		Object obj = this.getSession(SpringUtil.getRequest(), SessionConstEnum.PEOPLE_SESSION);
+		if (obj != null) {
+			return (PeopleEntity) obj;
+		}
+		return null;
+	}
+
 
 	/**
 	 * 设置用户session
