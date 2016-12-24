@@ -4,9 +4,9 @@
 	<groupId>com.mingsoft</groupId>
 	<artifactId>mcms</artifactId>
 	<packaging>war</packaging>
-	<version>4.5.9</version>
+	<version>4.6.0</version>
 	<name>铭飞MCMS开源系统</name>
-	<url>http://ms.ming-soft.com</url>
+	<url>http://ms.mingsoft.net</url>
 	<repositories>
 		<repository>
 			<id>sonatype-nexus-snapshots</id>
@@ -52,14 +52,6 @@
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mdiy</artifactId>
-			<version>${ms.mdiy.version}</version>
-			<classifier>sources</classifier>
-			<scope>provided</scope>
-		</dependency>
-
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-base</artifactId>
