@@ -180,7 +180,9 @@ public class ArticleAction extends BaseAction {
 		String articleType = request.getParameter("articleType");
 		int[] basicCategoryIds = columnBiz.queryChildrenCategoryIds(categoryId, BasicUtil.getAppId(),
 				BasicUtil.getModelCodeId(ModelCode.CMS_COLUMN));
-
+		if(basicCategoryIds.length==0) {
+			basicCategoryIds = new int[]{categoryId};
+		}
 		int appId = BasicUtil.getAppId();
 		BasicUtil.startPage();
 		List<ArticleEntity> listArticle = articleBiz.query(appId, basicCategoryIds, null, null, null, true, article);
