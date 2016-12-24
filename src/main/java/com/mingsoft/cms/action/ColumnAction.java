@@ -129,7 +129,7 @@ public class ColumnAction extends BaseAction {
 		ColumnEntity columnSuper = new ColumnEntity();
 		model.addAttribute("columnSuper", columnSuper);
 		model.addAttribute("column",new ColumnEntity());
-		model.addAttribute("listColumn", JSONObject.toJSON(list).toString());
+		model.addAttribute("listColumn", JSONArray.toJSONString(list));
 		model.addAttribute("listCm", listCm);
 		return view("/cms/column/column");
 	}
@@ -180,7 +180,7 @@ public class ColumnAction extends BaseAction {
 		list = columnBiz.queryChild(categoryId, websiteId,this.getModelCodeId(request),null);
 		//设置编码格式
 		response.setCharacterEncoding("utf-8");
-		this.outJson(response, ModelCode.CMS_COLUMN, true, "", JSONObject.toJSON(list).toString());
+		this.outJson(response, ModelCode.CMS_COLUMN, true, "", JSONArray.toJSONString(list));
 	}
 
 	/**
@@ -195,7 +195,7 @@ public class ColumnAction extends BaseAction {
 		int websiteId = this.getAppId(request);
 		List<ColumnEntity> list  = columnBiz.queryColumnListByWebsiteId(websiteId);
 		response.setCharacterEncoding("utf-8");
-		this.outJson(response, ModelCode.CMS_COLUMN, true, "", JSONObject.toJSON(list).toString());
+		this.outJson(response, ModelCode.CMS_COLUMN, true, "", JSONArray.toJSONString(list));
 	}
 	
 	/**
@@ -307,7 +307,7 @@ public class ColumnAction extends BaseAction {
 			columnSuper = (ColumnEntity) columnBiz.getEntity(column.getCategoryCategoryId());
 		}
 		model.addAttribute("columnSuper", columnSuper);
-		model.addAttribute("listColumn", JSONObject.toJSON(list).toString());
+		model.addAttribute("listColumn", JSONArray.toJSONString(list));
 		return view("/cms/column/column");
 	}
 	
@@ -352,7 +352,7 @@ public class ColumnAction extends BaseAction {
 		//获取所有的内容管理栏目
 		List<ColumnEntity> list  = columnBiz.queryAll(websiteId,modelId);
 		response.setCharacterEncoding("utf-8");
-		this.outJson(response, ModelCode.CMS_COLUMN, true, "", JSONObject.toJSON(list).toString());
+		this.outJson(response, ModelCode.CMS_COLUMN, true, "", JSONArray.toJSONString(list));
 	}
 	
 	

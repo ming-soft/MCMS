@@ -162,8 +162,7 @@ public class ArticleAction extends BaseAction {
 		// 获取站点id
 		int appId = this.getAppId(request);
 		List<ColumnEntity> list = columnBiz.queryAll(appId, this.getModelCodeId(request, ModelCode.CMS_COLUMN));
-		JSONObject ja = new JSONObject();
-		request.setAttribute("listColumn", ja.toJSON(list).toString());
+		request.setAttribute("listColumn", JSONArray.toJSONString(list));
 		// 返回路径
 		return view("/cms/article/index"); // 这里表示显示/manager/cms/article/article_list.ftl
 	}
@@ -221,9 +220,8 @@ public class ArticleAction extends BaseAction {
 		// 站点ID
 		int appId = this.getAppId(request);
 		List<ColumnEntity> list = columnBiz.queryAll(appId, this.getModelCodeId(request, ModelCode.CMS_COLUMN));
-		JSONObject ja = new JSONObject();
 		mode.addAttribute("appId", appId);
-		mode.addAttribute("listColumn", ja.toJSON(list).toString());
+		mode.addAttribute("listColumn", JSONArray.toJSONString(list));
 		boolean isEditCategory = false; // 新增，不是单篇
 		// 获取栏目id
 		ColumnEntity column = (ColumnEntity) columnBiz.getEntity(categoryId);
@@ -526,9 +524,8 @@ public class ArticleAction extends BaseAction {
 		} else if (id > 0) { // 文章id获取
 			// 允许编辑文章时更改分类
 			List<ColumnEntity> list = columnBiz.queryAll(appId, this.getModelCodeId(request, ModelCode.CMS_COLUMN));
-			JSONObject ja = new JSONObject();
 			@SuppressWarnings("static-access")
-			String listJsonString = ja.toJSON(list).toString();
+			String listJsonString = JSONArray.toJSONString(list);
 			request.setAttribute("listColumn", listJsonString);
 			// 文章属性
 			model.addAttribute("articleType", articleType());

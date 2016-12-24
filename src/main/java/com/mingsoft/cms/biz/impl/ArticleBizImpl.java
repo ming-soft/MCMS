@@ -189,8 +189,11 @@ public class ArticleBizImpl extends BasicBizImpl implements IArticleBiz {
 	 */
 	@Override
 	public int getCountByColumnId(int webId,int[] basicCategoryIds, String flag, String noFlag) {
+		if(basicCategoryIds==null || basicCategoryIds.length==0 ) {
+			return 0;
+		}
 		return articleDao.getCountByColumnId(webId, basicCategoryIds, flag, noFlag);
-	}
+	} 
 
 
 	/**
