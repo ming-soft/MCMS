@@ -4,7 +4,7 @@
 <#include "${managerViewPath}/include/macro.ftl"/>
 <#include "${managerViewPath}/include/meta.ftl"/>
 </head>
-<body>
+<body class="over-hide">
 <@ms.content>
  	<@ms.contentMenu>
 		 <!-- 树形模块菜单开始 -->

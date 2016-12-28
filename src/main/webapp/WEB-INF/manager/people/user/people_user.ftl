@@ -4,7 +4,7 @@
 	</@ms.nav>
 	<@ms.panel>
 		<@ms.form isvalidation=true name="peopleForm" action="${managerPath}/people/user/${autoCURD}.do" redirect="${managerPath}/people/user/list.do?${params}">
-			<@ms.text name="peopleUserNickName" width="300" label="用户昵称"	title="用户昵称" size="5"  placeholder="请输入文章标题"  value="${peopleUser.peopleUserNickName?default('')}" validation={"data-bv-stringlength":"true","data-bv-stringlength-max":"12","data-bv-stringlength-message":"昵称不能超过12个字符"}/>
+			<@ms.text name="peopleUserNickName" width="300" label="用户昵称"	title="用户昵称" size="5"  placeholder="请输入用户昵称"  value="${peopleUser.peopleUserNickName?default('')}" validation={"data-bv-stringlength":"true","data-bv-stringlength-max":"12","data-bv-stringlength-message":"昵称不能超过12个字符"}/>
 			<@ms.text name="peopleName" label="用户名" placeholder="请输入用户名"  title="" size="5" width="300"  value="${peopleUser.peopleName?default('')}" validation={"data-bv-stringlength":"true","data-bv-stringlength-max":"12","data-bv-stringlength-message":"用户名长度不能超过12个字符"}/>
 			<@ms.password name="peoplePassword" label="密码"   title="" size="5" width="300"  validation={"data-bv-stringlength":"true","data-bv-stringlength-max":"20","data-bv-stringlength-message":"密码长度不能超过20个字符","data-bv-regexp":"true","data-bv-regexp-regexp":'^[A-Za-z0-9_]+$',"data-bv-regexp-message":"密码只能由英文字母，数字，下划线组成!"}/>
 			<@ms.text name="peoplePhone" label="手机号" placeholder="请输入手机号" title="" size="5" width="300" value="${peopleUser.peoplePhone?default('')}" validation={"maxlength":"18","data-bv-stringlength":"true","data-bv-stringlength-max":"18","data-bv-stringlength-message":"手机号码长度不能超过18个字符","data-bv-regexp":"true", "data-bv-regexp-regexp":'^[1][1-8][0-9]{9}',"data-bv-regexp-message":"手机号码格式错误"}/>
