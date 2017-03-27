@@ -102,6 +102,7 @@
 			<if test="peopleState != null">PEOPLE_STATE=#{peopleState},</if>
 			<if test="peopleCode != null">PEOPLE_CODE=#{peopleCode},</if>
 			<if test="peopleCodeSendDate != null">PEOPLE_CODESENDDATE=#{peopleCodeSendDate},</if>
+			<if test="peopleMailCheck != null">PEOPLE_MAILLCHECK=#{peopleMailCheck},</if>
 		</set>
 		where PEOPLE_ID = #{peopleId}
 	</update>
