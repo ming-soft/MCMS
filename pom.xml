@@ -35,6 +35,7 @@
 		<ms.base.version>1.0.2-SNAPSHOT</ms.base.version>
 		<ms.basic.version>1.0.3-SNAPSHOT</ms.basic.version>
 		<ms.mdiy.version>1.0.2-SNAPSHOT</ms.mdiy.version>
+		<ms.mpeople.version>1.0.0-SNAPSHOT</ms.mpeople.version>
 	</properties>
 	<dependencies>
 		<!-- MAVEN源码加载 -->
@@ -45,6 +46,7 @@
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-basic</artifactId>
@@ -81,6 +83,27 @@
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mdiy</artifactId>
 			<version>${ms.mdiy.version}</version>
+			<type>war</type>
+		</dependency>
+
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mpeople</artifactId>
+			<version>${ms.mpeople.version}</version>
+			<classifier>sources</classifier>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mpeople</artifactId>
+			<version>${ms.mpeople.version}</version>
+			<classifier>classes</classifier>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mpeople</artifactId>
+			<version>${ms.mpeople.version}</version>
 			<type>war</type>
 		</dependency>
 
