@@ -171,7 +171,8 @@ QQ交流群号1：221335098<br/>
 			<version>${ms.mpeople.version}</version>
 			<classifier>classes</classifier>
 			<scope>provided</scope>
-		</dependency>```
+		</dependency>
+```
 #系统美图
 ![输入图片说明](http://git.oschina.net/uploads/images/2015/1029/110523_6727b755_542665.jpeg "铭飞模版商城，模版商城")
 ![输入图片说明](http://git.oschina.net/uploads/images/2015/1108/143215_21e5f30a_542665.png "铭飞模版商城，插件商城")
