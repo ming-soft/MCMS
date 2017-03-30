@@ -38,7 +38,13 @@
 		<ms.mpeople.version>1.0.0-SNAPSHOT</ms.mpeople.version>
 	</properties>
 	<dependencies>
-		<!-- MAVEN源码加载 -->
+
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-base</artifactId>
+			<version>${ms.base.version}</version>
+		</dependency>
+		<!-- ms-base源码jar包 -->
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-base</artifactId>
@@ -46,7 +52,15 @@
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
-		
+
+		<!-- ms-basic基础模块war包，包含后台管理的基础功能 -->
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-basic</artifactId>
+			<version>${ms.basic.version}</version>
+			<type>war</type>
+		</dependency>
+		<!-- ms-basic源码jar包 -->
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-basic</artifactId>
@@ -54,38 +68,48 @@
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-base</artifactId>
-			<version>${ms.base.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-basic</artifactId>
-			<version>${ms.basic.version}</version>
-			<type>war</type>
-		</dependency>
+
+		<!-- ms-basic开发依赖，主要方便业务开发 -->
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-basic</artifactId>
 			<version>${ms.basic.version}</version>
 			<classifier>classes</classifier>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mdiy</artifactId>
-			<version>${ms.mdiy.version}</version>
-			<classifier>classes</classifier>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mdiy</artifactId>
-			<version>${ms.mdiy.version}</version>
-			<type>war</type>
 		</dependency>
 
+		<!-- ms-mdiy自定义模块，自定义表单、自定义搜索、自定义页面等 -->
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mdiy</artifactId>
+			<version>${ms.mdiy.version}</version>
+			<type>war</type>
+		</dependency>
+		<!-- ms-mdiy自定义模块源码 -->
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mdiy</artifactId>
+			<version>${ms.mdiy.version}</version>
+			<classifier>sources</classifier>
+			<scope>provided</scope>
+		</dependency>
+		<!-- ms-mdiy开发依赖，主要方便业务开发 -->
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mdiy</artifactId>
+			<version>${ms.mdiy.version}</version>
+			<classifier>classes</classifier>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- ms-mpeople用户模块，包含用户的常规功能，详细描述见MStore -->
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mpeople</artifactId>
+			<version>${ms.mpeople.version}</version>
+			<type>war</type>
+		</dependency>
+		<!-- ms-mpeople用户模块源码 -->
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
@@ -93,6 +117,7 @@
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 		</dependency>
+		<!-- ms-mpeople开发依赖，主要方便业务开发 -->
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
@@ -100,14 +125,9 @@
 			<classifier>classes</classifier>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mpeople</artifactId>
-			<version>${ms.mpeople.version}</version>
-			<type>war</type>
-		</dependency>
 
-		<!-- 铭飞升级器 -->
+
+		<!-- 铭飞升级器，如果不需要MStore的内容支持可以删除该依赖，这部为MStore客户端代码不提供开源jar包 -->
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-upgrader</artifactId>
