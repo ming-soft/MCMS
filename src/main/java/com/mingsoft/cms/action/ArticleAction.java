@@ -40,6 +40,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -48,6 +49,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.mingsoft.basic.action.BaseAction;
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.base.entity.ListJson;
+import com.mingsoft.base.filter.DateValueFilter;
+import com.mingsoft.base.filter.DoubleValueFilter;
 import com.mingsoft.basic.entity.BasicCategoryEntity;
 import com.mingsoft.cms.biz.IArticleBiz;
 import com.mingsoft.basic.biz.IColumnBiz;
@@ -65,7 +68,7 @@ import com.mingsoft.mdiy.entity.ContentModelFieldEntity;
 import com.mingsoft.parser.IParserRegexConstant;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
-
+import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.util.BasicUtil;
 
 /**
@@ -99,7 +102,8 @@ import net.mingsoft.basic.util.BasicUtil;
  *          </p>
  * 
  *          <p>
- *          Modification history:
+ *          Modification history:bootstrap-table修改
+ *          2017-4-2
  *          </p>
  */
 @Controller
@@ -168,16 +172,34 @@ public class ArticleAction extends BaseAction {
 	}
 
 	/**
+	 * 返回一个文章列表框架和一些基础数据
+	 * @param article
+	 * @param request
+	 * @param mode
+	 * @param response
+	 * @param categoryId
+	 * @return 返回一个文章列表界面
+	 */
+	@RequestMapping("/{categoryId}/articleList")
+	public String articleList(@ModelAttribute ArticleEntity article, HttpServletRequest request, ModelMap mode,
+			HttpServletResponse response, @PathVariable int categoryId) {
+		String articleType = request.getParameter("articleType");
+		mode.addAttribute("articleTypeList", articleType());
+		mode.addAttribute("articleType", articleType);
+		mode.addAttribute("categoryId", categoryId);
+		//返回文章页面显示地址
+		return view("/cms/article/article_list");
+	}
+	
+	/**
 	 * 加载页面显示所有文章信息
 	 * 
 	 * @param request
-	 * @return 返回文章页面显示地址
+	 * @return 返回文章页面显示数据
 	 */
 	@RequestMapping("/{categoryId}/list")
-	public String list(@ModelAttribute ArticleEntity article, HttpServletRequest request, ModelMap mode,
+	public void list(@ModelAttribute ArticleEntity article, HttpServletRequest request, ModelMap mode,
 			HttpServletResponse response, @PathVariable int categoryId) {
-		String categoryTitle = request.getParameter("categoryTitle");
-		String articleType = request.getParameter("articleType");
 		int[] basicCategoryIds = columnBiz.queryChildrenCategoryIds(categoryId, BasicUtil.getAppId(),
 				BasicUtil.getModelCodeId(ModelCode.CMS_COLUMN));
 		if(basicCategoryIds.length==0) {
@@ -185,21 +207,12 @@ public class ArticleAction extends BaseAction {
 		}
 		int appId = BasicUtil.getAppId();
 		BasicUtil.startPage();
-		List<ArticleEntity> listArticle = articleBiz.query(appId, basicCategoryIds, null, null, null, true, article);
-		BasicUtil.endPage(listArticle);
-
-		// 返回文章类型
-		// 文章属性
-		mode.addAttribute("articleTypeList", articleType());
-		// 实例化对象
-		mode.addAttribute("listArticle", listArticle);
-		mode.addAttribute("articleShow", "");
-		// 将搜索的参数再传回页面
-		mode.addAttribute("articleType", articleType);
-		mode.addAttribute("categoryTitle", categoryTitle);
-		mode.addAttribute("categoryId", categoryId);
-		BasicUtil.removeUrlParams(new String[]{"pageNo"});
-		return view("/cms/article/article_list");
+		//查询文章列表
+		List<ArticleEntity> articleList = articleBiz.query(appId, basicCategoryIds, null, null, null, true, article);
+		EUListBean _list = new EUListBean(articleList, (int) BasicUtil.endPage(articleList).getTotal());
+		//将数据以json数据的形式返回
+		this.outJson(response, net.mingsoft.base.util.JSONArray.toJSONString(_list, new DoubleValueFilter(),new DateValueFilter("yyyy-MM-dd")));
+		
 	}
 
 	/**
@@ -560,15 +573,20 @@ public class ArticleAction extends BaseAction {
 	 * @return
 	 */
 	@RequestMapping("/delete")
-	public void delete(HttpServletRequest request, HttpServletResponse response) {
+	public void delete(@RequestBody List<ArticleEntity> article, HttpServletRequest request, HttpServletResponse response) {
 		int appId = this.getAppId(request);
-		String[] ids = request.getParameterValues("ids");
+		int[] ids = new int[article.size()];
+		//循环获取id数据
+		for(int i=0;i<article.size();i++){
+			ids[i] = article.get(i).getArticleID();
+		}
+		
 		if (ids.length == 0 || ids == null) {
 			this.outJson(response, ModelCode.CMS_ARTICLE, false, "", this.redirectBack(request, false));
 			return;
 		}
 		// 删除多个帖子
-		articleBiz.delete(StringUtil.stringsToInts(ids));
+		articleBiz.delete(ids);
 		this.outJson(response, ModelCode.CMS_ARTICLE, true, "", this.redirectBack(request, false));
 	}
 

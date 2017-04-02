@@ -219,7 +219,7 @@
 	<!-- 列表查询结束 -->
 
 	<!-- 列表查询开始 -->
-	<select id="query" resultMap="resultMap">
+	<select id="query" resultMap="resultMap" parameterType="com.mingsoft.cms.entity.ArticleEntity">
 		select
 		<include refid="column_list" />
 		,c.CATEGORY_TITLE,c.CATEGORY_ID

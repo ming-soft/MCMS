@@ -129,7 +129,7 @@ $(function(){
 	   		var vobj = $("#articleForm").data('bootstrapValidator').validate();
 			if(vobj.isValid()){
 				if(isNaN($("input[name=basicSort]").val())){
-					alert("自定义排序必须是数字");
+					<@ms.notify msg="自定义排序必须是数字" type="warning"/>
 					$("input[name=basicSort]").val(0);
 					return;
 				}
@@ -140,31 +140,31 @@ $(function(){
 						$(this).request({url:generateUrl,loadingText:"生成中....",method:"post",type:"json",func:function(re) {
 							if(re.result){
 				   				<#if article.basicId !=0>
-					   				alert("更新文章成功，并已生成" );
+				   					<@ms.notify msg="更新文章成功，并已生成" type="success"/>
 					   			<#else>
-					   				alert("保存文章成功，并已生成" );
+					   				<@ms.notify msg="更新文章成功，并已生成" type="success"/>
 					   			</#if>
 				   				if (obj.resultData!="") {
-				   					location.href=managerPath+"/cms/article/"+obj.resultData+"/list.do";
+				   					location.href=managerPath+"/cms/article/"+obj.resultData+"/articleList.do";
 				   				} 
 				   				$("#saveUpdate").removeAttr("disabled");
 				   			}else{
 				   				//生产失败则将按钮信息返回默认
-				   				alert("生成文件失败");
+				   				<@ms.notify msg="生成文件失败" type="fail"/>
 				   				$("#saveUpdate").removeAttr("disabled");
 				   			}
 						}}); 
-				   		location.href=managerPath+"/cms/article/${categoryId?default(0)}/list.do";
+				   		location.href=managerPath+"/cms/article/${categoryId?default(0)}/articleList.do";
 				   		<@ms.notify msg="文章保存成功" type="success"/>
 				   		$("#saveUpdate").removeAttr("disabled");
 					}else{
-				   		alert(obj.resultMsg);
+						<@ms.notify msg="操作失败" type="fail"/>
 				   		$("#saveUpdate").removeAttr("disabled");
 					}
 				}});
 			}
 		}else{
-			alert("请选择文章所属栏目");
+			<@ms.notify msg="请选择文章所属栏目" type="warning"/>
 			$("#saveUpdate").removeAttr("disabled");
 		}
 	});	

@@ -17,7 +17,7 @@
 	</@ms.contentMenu>
 	<@ms.contentBody width="85%" style="overflow-y: hidden;">
 		<@ms.contentPanel  style="margin:0;padding:0;overflow-y: hidden;">
-		<iframe src="${managerPath}/cms/article/0/list.do" style="width:100%;maring:0;padding:0;border:none;height:100%;background-image: url(${skin_manager_loadding});  background-repeat: no-repeat;  background-position: center;" id="listFrame" target="listFrame" ></iframe>
+		<iframe src="${managerPath}/cms/article/0/articleList.do" style="width:100%;maring:0;padding:0;border:none;height:100%;background-image: url(${skin_manager_loadding});  background-repeat: no-repeat;  background-position: center;" id="listFrame" target="listFrame" ></iframe>
 		</@ms.contentPanel>
 	</@ms.contentBody>
 </@ms.content>
@@ -25,7 +25,7 @@
 //树形结点
 function getZtreeId(event,treeId,treeNode){
 	if (treeNode.columnType==1) {
-		$("#listFrame").attr("src","${managerPath}/cms/article/"+treeNode.categoryId+"/list.do?categoryTitle="+encodeURIComponent(treeNode.categoryTitle));
+		$("#listFrame").attr("src","${managerPath}/cms/article/"+treeNode.categoryId+"/articleList.do?categoryTitle="+encodeURIComponent(treeNode.categoryTitle));
 	} else if(treeNode.columnType==2){
 		//判断该单篇栏目是否存在文章
 		$.ajax({ 
@@ -42,7 +42,7 @@ function getZtreeId(event,treeId,treeNode){
 			},
 		});
 	} else if(treeNode.columnType=="" || treeNode.columnType == undefined){
-		$("#listFrame").attr("src","${managerPath}/cms/article/0/list.do"); 
+		$("#listFrame").attr("src","${managerPath}/cms/article/0/articleList.do"); 
 	}
 }
 </script>
