@@ -180,15 +180,15 @@ public class ArticleAction extends BaseAction {
 	 * @param categoryId
 	 * @return 返回一个文章列表界面
 	 */
-	@RequestMapping("/{categoryId}/articleList")
-	public String articleList(@ModelAttribute ArticleEntity article, HttpServletRequest request, ModelMap mode,
+	@RequestMapping("/{categoryId}/main")
+	public String main(@ModelAttribute ArticleEntity article, HttpServletRequest request, ModelMap mode,
 			HttpServletResponse response, @PathVariable int categoryId) {
 		String articleType = request.getParameter("articleType");
 		mode.addAttribute("articleTypeList", articleType());
 		mode.addAttribute("articleType", articleType);
 		mode.addAttribute("categoryId", categoryId);
 		//返回文章页面显示地址
-		return view("/cms/article/article_list");
+		return view("/cms/article/article_main");
 	}
 	
 	/**
@@ -254,7 +254,7 @@ public class ArticleAction extends BaseAction {
 		ArticleEntity article = new ArticleEntity();
 		mode.addAttribute("article", article);
 		// 返回路径
-		return view("/cms/article/article"); // 这里表示显示/manager/cms/article/article_save.ftl
+		return view("/cms/article/article_form"); // 这里表示显示/manager/cms/article/article_save.ftl
 	}
 
 	/**
@@ -535,7 +535,7 @@ public class ArticleAction extends BaseAction {
 			model.addAttribute("categoryTitle", categoryTitle);
 			model.addAttribute("categoryId", categoryId);// 编辑封面
 			model.addAttribute("isEditCategory", true);// 编辑封面
-			return view("/cms/article/article");
+			return view("/cms/article/article_form");
 		} else if (id > 0) { // 文章id获取
 			// 允许编辑文章时更改分类
 			List<ColumnEntity> list = columnBiz.queryAll(appId, this.getModelCodeId(request, ModelCode.CMS_COLUMN));
@@ -558,9 +558,9 @@ public class ArticleAction extends BaseAction {
 				model.addAttribute("isEditCategory", false);// 编辑文章
 			}
 			model.addAttribute("categoryId", column.getCategoryId());// 编辑封面
-			return view("/cms/article/article");
+			return view("/cms/article/article_form");
 		} else {// 非法
-			// return view("/cms/article/article");
+			// return view("/cms/article/article_form");
 			return this.redirectBack(request, true);
 		}
 	}

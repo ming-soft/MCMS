@@ -145,7 +145,7 @@ $(function(){
 					   				<@ms.notify msg="更新文章成功，并已生成" type="success"/>
 					   			</#if>
 				   				if (obj.resultData!="") {
-				   					location.href=managerPath+"/cms/article/"+obj.resultData+"/articleList.do";
+				   					location.href=managerPath+"/cms/article/"+obj.resultData+"/main.do";
 				   				} 
 				   				$("#saveUpdate").removeAttr("disabled");
 				   			}else{
@@ -154,7 +154,7 @@ $(function(){
 				   				$("#saveUpdate").removeAttr("disabled");
 				   			}
 						}}); 
-				   		location.href=managerPath+"/cms/article/${categoryId?default(0)}/articleList.do";
+				   		location.href=managerPath+"/cms/article/${categoryId?default(0)}/main.do";
 				   		<@ms.notify msg="文章保存成功" type="success"/>
 				   		$("#saveUpdate").removeAttr("disabled");
 					}else{
