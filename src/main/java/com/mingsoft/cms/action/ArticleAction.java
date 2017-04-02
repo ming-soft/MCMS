@@ -200,10 +200,13 @@ public class ArticleAction extends BaseAction {
 	@RequestMapping("/{categoryId}/list")
 	public void list(@ModelAttribute ArticleEntity article, HttpServletRequest request, ModelMap mode,
 			HttpServletResponse response, @PathVariable int categoryId) {
-		int[] basicCategoryIds = columnBiz.queryChildrenCategoryIds(categoryId, BasicUtil.getAppId(),
-				BasicUtil.getModelCodeId(ModelCode.CMS_COLUMN));
-		if(basicCategoryIds.length==0) {
-			basicCategoryIds = new int[]{categoryId};
+		int[] basicCategoryIds = null;
+		if(categoryId > 0){
+			 basicCategoryIds = columnBiz.queryChildrenCategoryIds(categoryId, BasicUtil.getAppId(),
+					BasicUtil.getModelCodeId(ModelCode.CMS_COLUMN));
+			if(basicCategoryIds.length==0) {
+				basicCategoryIds = new int[]{categoryId};
+			}
 		}
 		int appId = BasicUtil.getAppId();
 		BasicUtil.startPage();
