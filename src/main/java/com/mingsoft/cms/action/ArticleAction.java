@@ -204,9 +204,6 @@ public class ArticleAction extends BaseAction {
 		if(categoryId > 0){
 			 basicCategoryIds = columnBiz.queryChildrenCategoryIds(categoryId, BasicUtil.getAppId(),
 					BasicUtil.getModelCodeId(ModelCode.CMS_COLUMN));
-			if(basicCategoryIds.length==0) {
-				basicCategoryIds = new int[]{categoryId};
-			}
 		}
 		int appId = BasicUtil.getAppId();
 		BasicUtil.startPage();

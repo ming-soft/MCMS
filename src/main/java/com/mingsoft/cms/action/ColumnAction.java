@@ -48,6 +48,7 @@ import com.mingsoft.basic.entity.ManagerEntity;
 import com.mingsoft.basic.biz.IColumnBiz;
 import com.mingsoft.cms.constant.e.ColumnTypeEnum;
 import com.mingsoft.mdiy.biz.IContentModelBiz;
+import com.mingsoft.basic.entity.CategoryEntity;
 import com.mingsoft.basic.entity.ColumnEntity;
 import com.mingsoft.parser.IParserRegexConstant;
 import com.mingsoft.util.StringUtil;
@@ -377,6 +378,15 @@ public class ColumnAction extends BaseAction {
 		if(column.getColumnType()==ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()){
 			column.setColumnListUrl(null);
 		}
+		if(column.getCategoryCategoryId()>0) {
+			CategoryEntity category = columnBiz.getCategory(column.getCategoryCategoryId());
+			if(StringUtil.isBlank(category.getCategoryParentId())) {
+				column.setCategoryParentId(column.getCategoryCategoryId()+"");
+			} else {
+				column.setCategoryParentId(category.getCategoryParentId()+","+column.getCategoryCategoryId());
+			}
+			
+		}
 		columnBiz.saveCategory(column);
 		this.columnPath(request,column);
 		this.outJson(response, ModelCode.CMS_COLUMN, true,null,JSONArray.toJSONString(column.getCategoryId()));
@@ -402,6 +412,17 @@ public class ColumnAction extends BaseAction {
 		if(column.getColumnType()==ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()){
 			column.setColumnListUrl(null);
 		}
+		
+		if(column.getCategoryCategoryId()>0) {
+			CategoryEntity category = columnBiz.getCategory(column.getCategoryCategoryId());
+			if(StringUtil.isBlank(category.getCategoryParentId())) {
+				column.setCategoryParentId(column.getCategoryCategoryId()+"");
+			} else {
+				column.setCategoryParentId(category.getCategoryParentId()+","+column.getCategoryCategoryId());
+			}
+			
+		}
+		
 		column.setCategoryManagerId(getManagerBySession(request).getManagerId());
 		column.setColumnWebsiteId(websiteId);
 		columnBiz.updateCategory(column);
