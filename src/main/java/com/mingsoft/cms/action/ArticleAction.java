@@ -201,6 +201,7 @@ public class ArticleAction extends BaseAction {
 	public void list(@ModelAttribute ArticleEntity article, HttpServletRequest request, ModelMap mode,
 			HttpServletResponse response, @PathVariable int categoryId) {
 		int[] basicCategoryIds = null;
+		String articleType = article.getArticleType();
 		if(categoryId > 0){
 			 basicCategoryIds = columnBiz.queryChildrenCategoryIds(categoryId, BasicUtil.getAppId(),
 					BasicUtil.getModelCodeId(ModelCode.CMS_COLUMN));
@@ -208,7 +209,7 @@ public class ArticleAction extends BaseAction {
 		int appId = BasicUtil.getAppId();
 		BasicUtil.startPage();
 		//查询文章列表
-		List<ArticleEntity> articleList = articleBiz.query(appId, basicCategoryIds, null, null, null, true, article);
+		List<ArticleEntity> articleList = articleBiz.query(appId, basicCategoryIds, articleType, null, null, true, article);
 		EUListBean _list = new EUListBean(articleList, (int) BasicUtil.endPage(articleList).getTotal());
 		//将数据以json数据的形式返回
 		this.outJson(response, net.mingsoft.base.util.JSONArray.toJSONString(_list, new DoubleValueFilter(),new DateValueFilter("yyyy-MM-dd")));
