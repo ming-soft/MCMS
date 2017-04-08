@@ -378,15 +378,6 @@ public class ColumnAction extends BaseAction {
 		if(column.getColumnType()==ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()){
 			column.setColumnListUrl(null);
 		}
-		if(column.getCategoryCategoryId()>0) {
-			CategoryEntity category = columnBiz.getCategory(column.getCategoryCategoryId());
-			if(StringUtil.isBlank(category.getCategoryParentId())) {
-				column.setCategoryParentId(column.getCategoryCategoryId()+"");
-			} else {
-				column.setCategoryParentId(category.getCategoryParentId()+","+column.getCategoryCategoryId());
-			}
-			
-		}
 		columnBiz.saveCategory(column);
 		this.columnPath(request,column);
 		this.outJson(response, ModelCode.CMS_COLUMN, true,null,JSONArray.toJSONString(column.getCategoryId()));
@@ -412,17 +403,6 @@ public class ColumnAction extends BaseAction {
 		if(column.getColumnType()==ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()){
 			column.setColumnListUrl(null);
 		}
-		
-		if(column.getCategoryCategoryId()>0) {
-			CategoryEntity category = columnBiz.getCategory(column.getCategoryCategoryId());
-			if(StringUtil.isBlank(category.getCategoryParentId())) {
-				column.setCategoryParentId(column.getCategoryCategoryId()+"");
-			} else {
-				column.setCategoryParentId(category.getCategoryParentId()+","+column.getCategoryCategoryId());
-			}
-			
-		}
-		
 		column.setCategoryManagerId(getManagerBySession(request).getManagerId());
 		column.setColumnWebsiteId(websiteId);
 		columnBiz.updateCategory(column);
