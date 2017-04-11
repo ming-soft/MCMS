@@ -36,8 +36,6 @@
 		<ms.basic.version>1.0.3-SNAPSHOT</ms.basic.version>
 		<ms.mdiy.version>1.0.2-SNAPSHOT</ms.mdiy.version>
 		<ms.mpeople.version>1.0.0-SNAPSHOT</ms.mpeople.version>
-		<ms.mcomment.version>1.0.0-SNAPSHOT</ms.mcomment.version>
-		<ms.mattention.version>1.0.0-SNAPSHOT</ms.mattention.version>
 	</properties>
 	<dependencies>
 
@@ -127,51 +125,6 @@
 			<classifier>classes</classifier>
 			<scope>provided</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mattention</artifactId>
-			<version>${ms.mattention.version}</version>
-			<classifier>classes</classifier>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mattention</artifactId>
-			<version>${ms.mattention.version}</version>
-			<classifier>sources</classifier>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mattention</artifactId>
-			<version>${ms.mattention.version}</version>
-			<type>war</type>
-		</dependency>
-
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mcomment</artifactId>
-			<version>${ms.mcomment.version}</version>
-			<classifier>classes</classifier>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mcomment</artifactId>
-			<version>${ms.mcomment.version}</version>
-			<classifier>sources</classifier>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mcomment</artifactId>
-			<version>${ms.mcomment.version}</version>
-			<type>war</type>
-		</dependency>
-						
-		
-		
 		<!-- 铭飞升级器，如果不需要MStore的内容支持可以删除该依赖，这部为MStore客户端代码不提供开源jar包 -->
 		<dependency>
 			<groupId>net.mingsoft</groupId>
