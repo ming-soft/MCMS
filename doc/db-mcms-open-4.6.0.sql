@@ -1,18 +1,3 @@
-/*
-Navicat MySQL Data Transfer
-
-Source Server         : localhost
-Source Server Version : 50716
-Source Host           : localhost:3306
-Source Database       : db-mcms-open-3-30
-
-Target Server Type    : MYSQL
-Target Server Version : 50716
-File Encoding         : 65001
-
-Date: 2017-04-02 14:58:00
-*/
-
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
@@ -41,7 +26,7 @@ CREATE TABLE `app` (
 -- ----------------------------
 -- Records of app
 -- ----------------------------
-INSERT INTO `app` VALUES ('1', 'MCMS-OPEN', 'http://localhost:8080/mcms', '', '', '', 'mooc', '50', '', null, 'm', null, '', '0', '0');
+INSERT INTO `app` VALUES ('1', 'MCMS-OPEN', 'http://localhost:8080/mcms\r\n', '', '', '', 'Show1731', '50', '', null, 'm', null, '', '0', '0');
 
 -- ----------------------------
 -- Table structure for basic
@@ -707,7 +692,7 @@ CREATE TABLE `cms_column` (
 -- ----------------------------
 -- Records of cms_column
 -- ----------------------------
-INSERT INTO `cms_column` VALUES ('19', '', '', '2', 'about.htm', 'contact.htm', null, '1', '/19', '0');
+INSERT INTO `cms_column` VALUES ('19', '', '', '2', 'contact.htm', 'contact.htm', null, '1', '/19', '0');
 INSERT INTO `cms_column` VALUES ('23', '', '', '1', 'about.htm', 'liebiao.htm', null, '1', '/23', '0');
 INSERT INTO `cms_column` VALUES ('33', '', '', '1', 'detail.htm', 'list.htm', null, '1', '/33', '0');
 INSERT INTO `cms_column` VALUES ('52', '', '', '2', 'about.htm', 'about.htm', null, '1', '/52', '0');
@@ -715,7 +700,7 @@ INSERT INTO `cms_column` VALUES ('53', '', '', '2', 'about.htm', 'about.htm', nu
 INSERT INTO `cms_column` VALUES ('59', '', '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '1', 'news-show.htm', 'news-list.htm', null, '1', '/59', '0');
 INSERT INTO `cms_column` VALUES ('61', '', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'case-show.htm', 'case-list.htm', null, '1', '/61', '0');
 INSERT INTO `cms_column` VALUES ('62', '', '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '1', 'news-show.htm', 'news-list.htm', null, '1', '/62', '0');
-INSERT INTO `cms_column` VALUES ('63', '建站资源共享学习平台!', '我们为您提供网站策划、网页设计、程序开发、网站推广、域名注册、虚拟主机、企业邮箱等网站建设相关服务；为您提供iOS/Android/Windows Phone等移动平台的APP应用开发；为您提供办公系统、客户关系管理系统、电子政务系统等行业应用系统的开发；为您提供软件定制开发和系统集成服务。', '2', 'about.htm', 'service.htm', null, '1', '/63', '0');
+INSERT INTO `cms_column` VALUES ('63', '建站资源共享学习平台!', '我们为您提供网站策划、网页设计、程序开发、网站推广、域名注册、虚拟主机、企业邮箱等网站建设相关服务；为您提供iOS/Android/Windows Phone等移动平台的APP应用开发；为您提供办公系统、客户关系管理系统、电子政务系统等行业应用系统的开发；为您提供软件定制开发和系统集成服务。', '2', 'service.htm', 'service.htm', null, '1', '/63', '0');
 INSERT INTO `cms_column` VALUES ('65', '精选案例展示', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'case-show.htm', 'case-list.htm', null, '1', '/61/65', '0');
 INSERT INTO `cms_column` VALUES ('66', '精选案例展示', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'case-show.htm', 'case-list.htm', null, '1', '/61/66', '0');
 INSERT INTO `cms_column` VALUES ('67', '精选案例展示', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'case-show.htm', 'case-list.htm', null, '1', '/61/67', '0');
@@ -724,33 +709,33 @@ INSERT INTO `cms_column` VALUES ('69', '', '', '1', 'news-show.htm', 'news-list.
 INSERT INTO `cms_column` VALUES ('70', '', '新闻中心', '1', 'news-show.htm', 'news-list.htm', null, '1', '/59/70', '0');
 INSERT INTO `cms_column` VALUES ('83', '', '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '1', 'news-show.htm', 'news-list.htm', null, '1', '/62/83', '0');
 INSERT INTO `cms_column` VALUES ('84', '专业提供网站模板，网页模板，教程培训，程序插件，网站素材等建站资源。我们致力于打造一个优秀的建站资源共享学习平台！', '专业提供网站模板，网页模板，教程培训，程序插件，网站素材等建站资源。设计者：如果您是模板设计师，插件制作者。我们致力于打造一个优秀的建站资源共享学习平台！您可以在这里放心出售您的模板和插件，我们提供版权保护。购买者：购买本站资源，我们提供“三重保障”(担保交易+人工介入+售后服务)，保障购买者的合法权益。织梦猫已经上路，我们将为此不懈努', '1', 'news-show.htm', 'news-list.htm', null, '1', '/62/84', '0');
-INSERT INTO `cms_column` VALUES ('87', '', '', '2', 'about.htm', 'about.htm', null, '1', '/87', '0');
+INSERT INTO `cms_column` VALUES ('87', '', '', '2', 'solution.htm', 'about.htm', null, '1', '/87', '0');
 INSERT INTO `cms_column` VALUES ('93', '关于我们', '关于我们', '2', 'about.htm', 'about.htm', null, '1', '/93', '0');
 INSERT INTO `cms_column` VALUES ('94', '关于我们', '关于我们', '2', 'about.htm', 'about.htm', null, '1', '/93/94', '0');
 INSERT INTO `cms_column` VALUES ('95', '关于我们', '关于我们', '2', 'about.htm', 'about-list.htm', null, '1', '/93/95', '0');
 INSERT INTO `cms_column` VALUES ('96', '', '', '2', 'about.htm', 'news-list.htm', null, '1', '/93/96', '0');
 INSERT INTO `cms_column` VALUES ('97', '', '', '2', 'about.htm', 'about.htm', null, '1', '/93/97', '0');
 INSERT INTO `cms_column` VALUES ('98', '关于我们', '生态农庄', '2', 'about.htm', 'about.htm', null, '1', '/93/98', '0');
-INSERT INTO `cms_column` VALUES ('99', '', '', '2', 'about.htm', 'product.htm', null, '1', '/99', '0');
+INSERT INTO `cms_column` VALUES ('99', '', '', '2', 'service.htm', 'product.htm', null, '1', '/99', '0');
 INSERT INTO `cms_column` VALUES ('100', '', '', '1', 'about.htm', 'about.htm', null, '1', '/100', '0');
-INSERT INTO `cms_column` VALUES ('101', '专业服务', '品牌策划年度服务是岳派品牌机构的主要服务方式之一，以一年或更长时间作为服务周期，为企业进行有计划、有步骤的策划、设计、执行等，进行一体化品牌策划推广服务。', '2', 'about.htm', 'about-list.htm', null, '1', '/99/101', '0');
-INSERT INTO `cms_column` VALUES ('102', '专业服务', 'LOGO 标志设计 VIS设计 宣传物料设计视觉是人们接受外部信息的最重要和最主要的通道。设计科学、实施有利的视觉识别，是传播企业经营理念、建立企业知名度、塑造企业形象的快速便捷之途', '2', 'about.htm', 'about-list.htm', null, '1', '/99/102', '0');
-INSERT INTO `cms_column` VALUES ('103', '专业服务', '竞争的优势不仅在于产品，也源于产品包装的设计，一个产品的包装直接影响顾客购买心理，产品的包装是最直接的广告 ,由表及里是自然界认识事物不变的定律。', '2', 'about.htm', 'news-list.htm', null, '1', '/99/103', '0');
-INSERT INTO `cms_column` VALUES ('104', '专业服务', '连锁店的CI和一般企业的作法有相当大的差异，最主要的因素就是与目标接触的场合不同。连锁店与消费者之间最常发生的接触就是在门店，创造视觉的个性化与标准化，来\r\n加深人们的印象', '2', 'about.htm', 'news-list.htm', null, '1', '/99/104', '0');
+INSERT INTO `cms_column` VALUES ('101', '专业服务', '品牌策划年度服务是岳派品牌机构的主要服务方式之一，以一年或更长时间作为服务周期，为企业进行有计划、有步骤的策划、设计、执行等，进行一体化品牌策划推广服务。', '2', 'servise.htm', 'about-list.htm', null, '1', '/99/101', '0');
+INSERT INTO `cms_column` VALUES ('102', '专业服务', 'LOGO 标志设计 VIS设计 宣传物料设计视觉是人们接受外部信息的最重要和最主要的通道。设计科学、实施有利的视觉识别，是传播企业经营理念、建立企业知名度、塑造企业形象的快速便捷之途', '2', 'servise.htm', 'about-list.htm', null, '1', '/99/102', '0');
+INSERT INTO `cms_column` VALUES ('103', '专业服务', '竞争的优势不仅在于产品，也源于产品包装的设计，一个产品的包装直接影响顾客购买心理，产品的包装是最直接的广告 ,由表及里是自然界认识事物不变的定律。', '2', 'servise.htm', 'news-list.htm', null, '1', '/99/103', '0');
+INSERT INTO `cms_column` VALUES ('104', '专业服务', '连锁店的CI和一般企业的作法有相当大的差异，最主要的因素就是与目标接触的场合不同。连锁店与消费者之间最常发生的接触就是在门店，创造视觉的个性化与标准化，来\r\n加深人们的印象', '2', 'servise.htm', 'news-list.htm', null, '1', '/99/104', '0');
 INSERT INTO `cms_column` VALUES ('106', '我们的作品', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'product-show.htm', 'product-list.htm', null, '1', '/106', '0');
 INSERT INTO `cms_column` VALUES ('107', '我们的作品', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'product-show.htm', 'product-list.htm', null, '1', '/106/107', '0');
 INSERT INTO `cms_column` VALUES ('108', '', '', '1', 'product-show.htm', 'product-list.htm', null, '1', '/106/108', '0');
-INSERT INTO `cms_column` VALUES ('115', '', '', '1', 'about.htm', 'about.htm', null, '1', '/115', '0');
+INSERT INTO `cms_column` VALUES ('115', '', '', '1', 'show.htm', 'service.htm', null, '1', '/115', '0');
 INSERT INTO `cms_column` VALUES ('133', '网站设计 网站制作 网站维护 网站改版', '关于我们', '2', 'about.htm', null, null, '1', '/53/133', '0');
 INSERT INTO `cms_column` VALUES ('134', '网站整站优化 网页结构优化 网站关键词优化', '', '2', 'about.htm', null, null, '1', '/53/134', '0');
 INSERT INTO `cms_column` VALUES ('135', '英文国际域名 英文国内域名 中文国际域名 中文国内域名', '关于我们', '2', 'about.htm', null, null, '1', '/53/135', '0');
 INSERT INTO `cms_column` VALUES ('136', '', '联系我们', '2', 'about.htm', 'about.htm', null, '1', '/52/136', '0');
-INSERT INTO `cms_column` VALUES ('138', '', '我们为您提供网站策划、网页设计、程序开发、网站推广、域名注册、虚拟主机、企业邮箱等网站建设相关服务；为您提供iOS/Android/Windows Phone等移动平台的APP应用开发；为您提供办公系统、客户关系管理系统、电子政务系统等行业应用系统的开发；为您提供软件定制开发和系统集成服务。', '2', 'about.htm', 'service.htm', null, '1', '/63/138', '0');
-INSERT INTO `cms_column` VALUES ('141', '', '', '2', 'about.htm', 'contact.htm', null, '1', '/19/141', '0');
-INSERT INTO `cms_column` VALUES ('142', '', '', '2', 'about.htm', null, null, '1', '/19/142', '0');
-INSERT INTO `cms_column` VALUES ('146', '', '', '2', 'about.htm', 'about.htm', null, '1', '/146', '0');
-INSERT INTO `cms_column` VALUES ('147', '', '', '1', 'about.htm', 'about.htm', null, '1', '/100/147', '0');
-INSERT INTO `cms_column` VALUES ('148', '', '', '1', 'about.htm', 'about.htm', null, '1', '/100/148', '0');
+INSERT INTO `cms_column` VALUES ('138', '', '我们为您提供网站策划、网页设计、程序开发、网站推广、域名注册、虚拟主机、企业邮箱等网站建设相关服务；为您提供iOS/Android/Windows Phone等移动平台的APP应用开发；为您提供办公系统、客户关系管理系统、电子政务系统等行业应用系统的开发；为您提供软件定制开发和系统集成服务。', '2', 'service.htm', 'service.htm', null, '1', '/63/138', '0');
+INSERT INTO `cms_column` VALUES ('141', '', '', '2', 'contact.htm', 'contact.htm', null, '1', '/19/141', '0');
+INSERT INTO `cms_column` VALUES ('142', '', '', '2', 'advice.htm', null, null, '1', '/19/142', '0');
+INSERT INTO `cms_column` VALUES ('146', '', '', '2', 'advertises.htm', 'about.htm', null, '1', '/146', '0');
+INSERT INTO `cms_column` VALUES ('147', '', '', '1', 'index.html', 'index.html', null, '1', '/100/147', '0');
+INSERT INTO `cms_column` VALUES ('148', '', '', '1', 'index.html', 'index.html', null, '1', '/100/148', '0');
 
 -- ----------------------------
 -- Table structure for comment
@@ -799,7 +784,7 @@ CREATE TABLE `dict` (
   KEY `dict_value` (`dict_value`),
   KEY `dict_label` (`dict_label`),
   KEY `dict_del` (`dict_del`)
-) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='字典表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='字典表';
 
 -- ----------------------------
 -- Records of dict
@@ -1199,11 +1184,10 @@ CREATE TABLE `system_skin_manager` (
 -- View structure for v_article
 -- ----------------------------
 DROP VIEW IF EXISTS `v_article`;
-CREATE VIEW `v_article` AS select `cms_article`.`ARTICLE_BASICID` AS `ARTICLE_BASICID`,`basic`.`BASIC_ID` AS `BASIC_ID`,`basic`.`BASIC_CATEGORYID` AS `BASIC_CATEGORYID`,`basic`.`BASIC_TITLE` AS `BASIC_TITLE`,`basic`.`BASIC_DESCRIPTION` AS `BASIC_DESCRIPTION`,`basic`.`BASIC_THUMBNAILS` AS `BASIC_THUMBNAILS`,`basic`.`BASIC_HIT` AS `BASIC_HIT`,`basic`.`BASIC_DATETIME` AS `BASIC_DATETIME`,`basic`.`BASIC_UPDATETIME` AS `BASIC_UPDATETIME`,`basic`.`BASIC_PEOPLEID` AS `BASIC_PEOPLEID`,`cms_article`.`ARTICLE_AUTHOR` AS `ARTICLE_AUTHOR`,`cms_article`.`ARTICLE_CONTENT` AS `ARTICLE_CONTENT`,`cms_article`.`ARTICLE_TYPE` AS `ARTICLE_TYPE`,`cms_article`.`ARTICLE_SOURCE` AS `ARTICLE_SOURCE`,`cms_article`.`ARTICLE_URL` AS `ARTICLE_URL`,`cms_article`.`ARTICLE_KEYWORD` AS `ARTICLE_KEYWORD`,`cms_article`.`ARTICLE_FREEORDER` AS `ARTICLE_FREEORDER`,`cms_article`.`ARTICLE_WEBID` AS `ARTICLE_WEBID`,`cms_column`.`COLUMN_KEYWORD` AS `COLUMN_KEYWORD`,`cms_column`.`COLUMN_DESCRIP` AS `COLUMN_DESCRIP`,`cms_column`.`COLUMN_TYPE` AS `COLUMN_TYPE`,`cms_column`.`COLUMN_URL` AS `COLUMN_URL`,`cms_column`.`COLUMN_LISTURL` AS `COLUMN_LISTURL`,`cms_column`.`COLUMN_TENTMODELID` AS `COLUMN_TENTMODELID`,`cms_column`.`COLUMN_WEBSITEID` AS `COLUMN_WEBSITEID`,`cms_column`.`COLUMN_PATH` AS `column_path`,`cms_column`.`COLUMN_CONTENTMODELID` AS `COLUMN_CONTENTMODELID`,`category`.`CATEGORY_TITLE` AS `CATEGORY_TITLE`,`category`.`CATEGORY_APPID` AS `CATEGORY_APPID`,`cms_column`.`COLUMN_CATEGORYID` AS `COLUMN_CATEGORYID`,`category`.`CATEGORY_ID` AS `CATEGORY_ID`,`basic`.`BASIC_SORT` AS `BASIC_SORT` from (((`basic` join `cms_article` on((`basic`.`BASIC_ID` = `cms_article`.`ARTICLE_BASICID`))) join `cms_column` on((`basic`.`BASIC_CATEGORYID` = `cms_column`.`COLUMN_CATEGORYID`))) join `category` on((`cms_column`.`COLUMN_CATEGORYID` = `category`.`CATEGORY_ID`))) ;
+CREATE  VIEW `v_article` AS select `cms_article`.`ARTICLE_BASICID` AS `ARTICLE_BASICID`,`basic`.`BASIC_ID` AS `BASIC_ID`,`basic`.`BASIC_CATEGORYID` AS `BASIC_CATEGORYID`,`basic`.`BASIC_TITLE` AS `BASIC_TITLE`,`basic`.`BASIC_DESCRIPTION` AS `BASIC_DESCRIPTION`,`basic`.`BASIC_THUMBNAILS` AS `BASIC_THUMBNAILS`,`basic`.`BASIC_HIT` AS `BASIC_HIT`,`basic`.`BASIC_DATETIME` AS `BASIC_DATETIME`,`basic`.`BASIC_UPDATETIME` AS `BASIC_UPDATETIME`,`basic`.`BASIC_PEOPLEID` AS `BASIC_PEOPLEID`,`cms_article`.`ARTICLE_AUTHOR` AS `ARTICLE_AUTHOR`,`cms_article`.`ARTICLE_CONTENT` AS `ARTICLE_CONTENT`,`cms_article`.`ARTICLE_TYPE` AS `ARTICLE_TYPE`,`cms_article`.`ARTICLE_SOURCE` AS `ARTICLE_SOURCE`,`cms_article`.`ARTICLE_URL` AS `ARTICLE_URL`,`cms_article`.`ARTICLE_KEYWORD` AS `ARTICLE_KEYWORD`,`cms_article`.`ARTICLE_FREEORDER` AS `ARTICLE_FREEORDER`,`cms_article`.`ARTICLE_WEBID` AS `ARTICLE_WEBID`,`cms_column`.`COLUMN_KEYWORD` AS `COLUMN_KEYWORD`,`cms_column`.`COLUMN_DESCRIP` AS `COLUMN_DESCRIP`,`cms_column`.`COLUMN_TYPE` AS `COLUMN_TYPE`,`cms_column`.`COLUMN_URL` AS `COLUMN_URL`,`cms_column`.`COLUMN_LISTURL` AS `COLUMN_LISTURL`,`cms_column`.`COLUMN_TENTMODELID` AS `COLUMN_TENTMODELID`,`cms_column`.`COLUMN_WEBSITEID` AS `COLUMN_WEBSITEID`,`cms_column`.`COLUMN_PATH` AS `column_path`,`cms_column`.`COLUMN_CONTENTMODELID` AS `COLUMN_CONTENTMODELID`,`category`.`CATEGORY_TITLE` AS `CATEGORY_TITLE`,`category`.`CATEGORY_APPID` AS `CATEGORY_APPID`,`cms_column`.`COLUMN_CATEGORYID` AS `COLUMN_CATEGORYID`,`category`.`CATEGORY_ID` AS `CATEGORY_ID`,`basic`.`BASIC_SORT` AS `BASIC_SORT` from (((`basic` join `cms_article` on((`basic`.`BASIC_ID` = `cms_article`.`ARTICLE_BASICID`))) join `cms_column` on((`basic`.`BASIC_CATEGORYID` = `cms_column`.`COLUMN_CATEGORYID`))) join `category` on((`cms_column`.`COLUMN_CATEGORYID` = `category`.`CATEGORY_ID`))) ;
 
 -- ----------------------------
 -- View structure for v_people_user
 -- ----------------------------
 DROP VIEW IF EXISTS `v_people_user`;
-CREATE VIEW `v_people_user` AS select `people`.`PEOPLE_ID` AS `PEOPLE_ID`,`people`.`PEOPLE_PHONE` AS `PEOPLE_PHONE`,`people`.`PEOPLE_NAME` AS `PEOPLE_NAME`,`people`.`PEOPLE_PASSWORD` AS `PEOPLE_PASSWORD`,`people`.`PEOPLE_DATETIME` AS `PEOPLE_DATETIME`,`people`.`PEOPLE_APP_ID` AS `PEOPLE_APP_ID`,`people`.`PEOPLE_MAIL` AS `PEOPLE_MAIL`,`people`.`PEOPLE_STATE` AS `PEOPLE_STATE`,`people`.`PEOPLE_CODE` AS `PEOPLE_CODE`,`people`.`PEOPLE_CODESENDDATE` AS `PEOPLE_CODESENDDATE`,`people`.`PEOPLE_PHONECHECK` AS `PEOPLE_PHONECHECK`,`people`.`PEOPLE_MAILLCHECK` AS `PEOPLE_MAILLCHECK`,`people_user`.`PU_PEOPLE_ID` AS `PU_PEOPLE_ID`,`people_user`.`PU_REAL_NAME` AS `PU_REAL_NAME`,`people_user`.`PU_ADDRESS` AS `PU_ADDRESS`,`people_user`.`PU_ICON` AS `PU_ICON`,`people_user`.`PU_NICKNAME` AS `PU_NICKNAME`,`people_user`.`PU_SEX` AS `PU_SEX`,`people_user`.`PU_BIRTHDAY` AS `PU_BIRTHDAY`,`people_user`.`PU_CARD` AS `PU_CARD`,`people_user`.`PU_APP_ID` AS `PU_APP_ID` from (`people` left join `people_user` on((`people`.`PEOPLE_ID` = `people_user`.`PU_PEOPLE_ID`))) ;
-
+CREATE  VIEW `v_people_user` AS select `people`.`PEOPLE_ID` AS `PEOPLE_ID`,`people`.`PEOPLE_PHONE` AS `PEOPLE_PHONE`,`people`.`PEOPLE_NAME` AS `PEOPLE_NAME`,`people`.`PEOPLE_PASSWORD` AS `PEOPLE_PASSWORD`,`people`.`PEOPLE_DATETIME` AS `PEOPLE_DATETIME`,`people`.`PEOPLE_APP_ID` AS `PEOPLE_APP_ID`,`people`.`PEOPLE_MAIL` AS `PEOPLE_MAIL`,`people`.`PEOPLE_STATE` AS `PEOPLE_STATE`,`people`.`PEOPLE_CODE` AS `PEOPLE_CODE`,`people`.`PEOPLE_CODESENDDATE` AS `PEOPLE_CODESENDDATE`,`people`.`PEOPLE_PHONECHECK` AS `PEOPLE_PHONECHECK`,`people`.`PEOPLE_MAILLCHECK` AS `PEOPLE_MAILLCHECK`,`people_user`.`PU_PEOPLE_ID` AS `PU_PEOPLE_ID`,`people_user`.`PU_REAL_NAME` AS `PU_REAL_NAME`,`people_user`.`PU_ADDRESS` AS `PU_ADDRESS`,`people_user`.`PU_ICON` AS `PU_ICON`,`people_user`.`PU_NICKNAME` AS `PU_NICKNAME`,`people_user`.`PU_SEX` AS `PU_SEX`,`people_user`.`PU_BIRTHDAY` AS `PU_BIRTHDAY`,`people_user`.`PU_CARD` AS `PU_CARD`,`people_user`.`PU_APP_ID` AS `PU_APP_ID` from (`people` left join `people_user` on((`people`.`PEOPLE_ID` = `people_user`.`PU_PEOPLE_ID`))) ;
