@@ -304,7 +304,7 @@ public class CmsParser extends IGeneralParser {
 			// 取出当前栏目下的子栏目Id
 			int[] columnIds = null;
 			if (columnId != 0) {
-				int[] _columnIds = columnBiz.queryChildIdsByColumnId(columnId, app.getAppId());
+				int[] _columnIds = columnBiz.queryChildrenCategoryIds(columnId, app.getAppId(),modelId);
 				columnIds = new int[_columnIds.length+1];
 				if (_columnIds.length>0) {
 					System.arraycopy(_columnIds, 0, columnIds, 0, _columnIds.length);
