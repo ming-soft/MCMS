@@ -74,7 +74,7 @@
 var columnId="";
 $(function(){
 	$("#addButton").on("click",function(){
-		location.href=base+"${baseManager}/cms/column/add.do";
+		location.href=base+"${baseManager}/cms/column/add.do?modelId=${Session.model_id_session?default(0)}&modelTitle=${Session.model_title_session?default('栏目')}";
 	});
 	//确认删除
 	$(".rightDelete").on("click",function(){

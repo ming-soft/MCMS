@@ -33,6 +33,7 @@
 				<#assign columnModelUrls=[{"id":"0","name":"暂无文件"}]>
 				<@ms.select name="columnListUrl" width="300" id="columnListUrlModel"  list=columnModelUrls  listKey="id" listValue="name" label="列表模版"  value="${column.columnListUrl?default('')}"  select2=true/>
 				<@ms.select name="columnUrl" width="300" id="columnUrlModel" default="暂无文件"  list=columnModelUrls  listKey="id" listValue="name" label="内容模版"  value="${column.columnUrl?default('')}"  select2=true/>
+				<@ms.hidden name="modelId"  value="${Session.model_id_session?default('0')}" />
 			</@ms.form>
 		</@ms.contentPanel>
 	</@ms.contentBody>

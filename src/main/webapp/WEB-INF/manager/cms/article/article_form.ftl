@@ -26,6 +26,7 @@
 			</div>
 			<@ms.hidden name="articleTypeJson" />
 			<@ms.editor colSm="2" name="articleContent" label="文章内容" content="${article.articleContent?default('')}"  appId="${appId?default(0)}"/>			
+			<@ms.hidden name="modelId"  value="${Session.model_id_session?default('0')}" />
 		</@ms.form>
 	</@ms.panel>
 </@ms.html5>	      
