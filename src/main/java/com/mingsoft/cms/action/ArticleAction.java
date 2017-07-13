@@ -296,7 +296,7 @@ public class ArticleAction extends BaseAction {
 		// 添加文章所属的站点id
 		article.setArticleWebId(appId);
 		// 绑定模块编号
-		article.setBasicModelId(BasicUtil.getInt(request.getParameter("modelId")));
+		article.setBasicModelId(BasicUtil.getInt("modelId"));
 		// 保存文章实体
 
 		String articleType = request.getParameter("articleTypeJson");

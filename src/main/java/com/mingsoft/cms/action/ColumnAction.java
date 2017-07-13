@@ -126,7 +126,7 @@ public class ColumnAction extends BaseAction {
 		ManagerEntity managerSession = (ManagerEntity) getSession(request, SessionConstEnum.MANAGER_SESSION);
 		// 站点ID
 		int appId =this.getAppId(request);
-		List<ColumnEntity> list = columnBiz.queryAll(appId, BasicUtil.getInt(request.getParameter("modelId")));
+		List<ColumnEntity> list = columnBiz.queryAll(appId, BasicUtil.getInt("modelId"));
 		// 查询属于当前管理员的内容模型
 		List<BaseEntity> listCm = contentModelBiz.queryByManagerId(managerSession.getManagerId());
 		ColumnEntity columnSuper = new ColumnEntity();
@@ -376,7 +376,7 @@ public class ColumnAction extends BaseAction {
 		column.setColumnWebsiteId(this.getAppId(request));
 		column.setCategoryManagerId(getManagerBySession(request).getManagerId());
 		column.setCategoryDateTime(new Timestamp(System.currentTimeMillis()));
-		column.setCategoryModelId(BasicUtil.getInt(request.getParameter("modelId")));
+		column.setCategoryModelId(BasicUtil.getInt("modelId"));
 		if(column.getColumnType()==ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()){
 			column.setColumnListUrl(null);
 		}
