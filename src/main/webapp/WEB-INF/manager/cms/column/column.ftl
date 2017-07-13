@@ -7,10 +7,9 @@
 <body>	
 <@ms.content>
 	<@ms.contentBody>
-		<@ms.contentNav title="栏目管理" >
-			<@ms.savebutton  id="saveUpdate" value=""/>
-			<@ms.button class="btn btn-default returnList" value="返回列表" />
-		</@ms.contentNav >
+		<@ms.nav title="栏目管理" back=true>
+			<@ms.saveButton  id="saveUpdate" value="" /> 
+		</@ms.nav>
 		<@ms.contentPanel>
 			<@ms.form name="columnForm" isvalidation=true  action="" method="post" >
 				<#if column.categoryId!=0>
@@ -97,12 +96,6 @@ $(function(){
 			$("#columnUrlModel").parent().prev().text("内容模板:");
 		}
 	});
-	
-	//返回栏目列表
-	$(".returnList").click(function(){
-		location.href = base+"${baseManager}/cms/column/list.do";
-	});
-	
 	
 	//栏目保存提交事件
 	$("#saveUpdate").click(function(){
