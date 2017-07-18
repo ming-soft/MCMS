@@ -86,6 +86,15 @@
 		BASIC_TITLE,BASIC_DESCRIPTION,BASIC_THUMBNAILS,BASIC_HIT,BASIC_DATETIME,BASIC_UPDATETIME,BASIC_PEOPLEID,BASIC_CATEGORYID,BASIC_SORT
 	</sql>
 	<!-- 表栏目名结束 -->
+	
+	<!-- 文章基础数据返回数据列表 开始 -->
+	<sql id="basic_data_list">
+		BASIC_ID,BASIC_CATEGORYID,BASIC_TITLE,BASIC_DESCRIPTION,BASIC_THUMBNAILS,BASIC_HIT,BASIC_DATETIME,BASIC_UPDATETIME,BASIC_PEOPLEID,BASIC_SORT,
+		ARTICLE_BASICID,ARTICLE_AUTHOR,ARTICLE_CONTENT,ARTICLE_TYPE,ARTICLE_SOURCE,ARTICLE_URL,ARTICLE_KEYWORD,ARTICLE_FREEORDER,ARTICLE_WEBID,
+		COLUMN_KEYWORD,COLUMN_DESCRIP,COLUMN_TYPE,COLUMN_URL,COLUMN_LISTURL,COLUMN_TENTMODELID,COLUMN_WEBSITEID,COLUMN_PATH,COLUMN_CONTENTMODELID,COLUMN_CATEGORYID,
+		CATEGORY_TITLE,CATEGORY_APPID,CATEGORY_ID
+	</sql>
+	<!-- 文章基础数据返回数据列表结束 -->
 
 	<!-- 通过查询文章bean开始 -->
 	<resultMap type="com.mingsoft.cms.bean.ArticleBean" id="articleBeanMap">
@@ -501,11 +510,19 @@
 	<select id="countByCategoryId" resultType="int">
 		select count(basic_id)
 		from
-		v_article where BASIC_CATEGORYID=#{categoryId};
+		(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
+			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
+	 	where BASIC_CATEGORYID=#{categoryId};
 	</select>
 
 	<select id="getById" resultMap="viewResultMap">
-		select * from v_article
+		select 
+		<include refid="basic_data_list" /> 
+		from 
+		(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
+			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
 		<if test="contentModelTableName!=null">
 			left join ${contentModelTableName} cmt on
 			cmt.basicid=basic_id
@@ -558,7 +575,14 @@
 
 	<!-- 查找上一篇下一篇 -->
 	<select id="getNextOrPrevious" resultMap="resultMap">
-		select * from v_article where category_appid=#{appId}
+		select 
+		<include refid="basic_data_list" />
+		from 
+		(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
+			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
+		
+		 where category_appid=#{appId}
 		<if test="flag==false">
 			and basic_id &lt; ${basicId}
 
@@ -583,7 +607,13 @@
 		limit 0,1;
 	</select>
 	<select id="queryListByTime" resultMap="resultMap">
-		select * from v_article where article_webid=#{appId}
+		select 
+		<include refid="basic_data_list" />
+		 from 
+		(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
+			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
+		 where article_webid=#{appId}
 		<if test="dateTime!=null">
 			and basic_updatetime > #{dateTime}
 		</if>
@@ -595,7 +625,12 @@
 
 	<!--视图查询开始 -->
 	<select id="queryPageByCategoryId" resultMap="resultMap">
-		select * from v_article
+		select 
+		<include refid="basic_data_list" />
+		 from 
+		(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
+			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
 		<if test="contentModelTableName!=null">
 			left join ${contentModelTableName} cmt on
 			cmt.basicid=basic_id
@@ -607,7 +642,13 @@
 		<if test="categoryIds!=null">
 			<foreach item="category" index="index" collection="categoryIds"
 				open="" separator="" close="">
-				UNION ALL (select * from v_article where
+				UNION ALL (select 
+				<include refid="basic_data_list" />
+				 from 
+				(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
+					JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+					JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID)) 
+					where
 				BASIC_CATEGORYID=#{category.categoryId} order by basic_id desc limit
 				${page.pageNo*page.pageSize},#{page.pageSize})
 			</foreach>
@@ -615,7 +656,12 @@
 	</select>
 
 	<select id="getByCategoryId" resultMap="resultMap">
-		select * from v_article
+		select 
+		<include refid="basic_data_list" />
+		 from 
+		(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
+			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
 		where basic_categoryId=#{categoryId} order by basic_id desc limit 1;
 	</select>
 
@@ -623,7 +669,9 @@
 	<select id="queryByCategoryForBean" resultMap="articleBeanMap">
 		select
 		<include refid="bean_column_list" />
-		from v_article
+		from (((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
+			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
 		<if test="contentModelTableName!=null">
 			left join ${contentModelTableName} cmt on
 			cmt.basicid=basic_id
@@ -634,7 +682,11 @@
 				open="" separator="" close="">
 				UNION ALL (select
 				<include refid="bean_column_list" />
-				from v_article where
+				from 
+				(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
+					JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+					JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
+				where
 				BASIC_CATEGORYID=#{category.categoryId} order by
 				basic_id desc limit
 				${page.pageNo*page.pageSize},#{page.pageSize})
@@ -692,11 +744,22 @@
 	<!-- 查询本站点下文章条数 结束 -->
 	<!--过期方法 根据文章ID集合查询文章集合开始 -->
 	<select id="queryListByArticleIds" resultMap="resultMap">
-		select *
-		from v_article where ARTICLE_BASICID = 0
+		select 
+		<include refid="basic_data_list" />
+		 from 
+		(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
+			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
+		where ARTICLE_BASICID = 0
 		<foreach item="id" index="index" collection="articleIds" open=""
 			separator="" close="">
-			UNION ALL (select * from v_article where
+			UNION ALL (select 
+			<include refid="basic_data_list" />
+			 from 
+			(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
+				JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+				JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
+			 where
 			ARTICLE_BASICID=#{id})
 		</foreach>
 	</select>
