@@ -94,7 +94,7 @@ $(function(){
 
 function editclumnTree(obj){
 	var categoryId = $(obj).attr("data-id");
-	location.href=base+"${baseManager}/cms/column/"+categoryId+"/edit.do";
+	location.href=base+"${baseManager}/cms/column/"+categoryId+"/edit.do?modelId=${Session.model_id_session?default(0)}&modelTitle=${Session.model_title_session?default('栏目')}";
 }
 
 function deleteclumnTree(obj){
