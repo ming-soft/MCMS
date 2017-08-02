@@ -51,7 +51,6 @@ import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.base.entity.ListJson;
 import com.mingsoft.base.filter.DateValueFilter;
 import com.mingsoft.base.filter.DoubleValueFilter;
-import com.mingsoft.basic.entity.BasicCategoryEntity;
 import com.mingsoft.cms.biz.IArticleBiz;
 import com.mingsoft.basic.biz.IColumnBiz;
 import com.mingsoft.basic.biz.impl.CategoryBizImpl;
@@ -299,15 +298,7 @@ public class ArticleAction extends BaseAction {
 		article.setBasicModelId(BasicUtil.getInt("modelId"));
 		// 保存文章实体
 
-		String articleType = request.getParameter("articleTypeJson");
-		if (!StringUtil.isBlank(articleType)) {
-			// 将JSON字符串转换为数组
-			List<BasicCategoryEntity> basicCategoryList = JSONArray.parseArray(articleType, BasicCategoryEntity.class);
-			articleBiz.saveArticle(article, basicCategoryList);
-		} else {
-			// 更新文章信息
-			articleBiz.saveBasic(article);
-		}
+		articleBiz.saveBasic(article);
 		if (column.getColumnType() == ColumnTypeEnum.COLUMN_TYPE_LIST.toInt()) {// 列表
 			article.setArticleUrl(column.getColumnPath() + File.separator + article.getBasicId() + ".html");
 		} else if (column.getColumnType() == ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {// 单篇
@@ -461,14 +452,7 @@ public class ArticleAction extends BaseAction {
 		article.setBasicUpdateTime(new Date());
 
 		String articleType = request.getParameter("articleTypeJson");
-		if (!StringUtil.isBlank(articleType)) {
-			// 将JSON字符串转换为数组
-			List<BasicCategoryEntity> basicCategoryList = JSONArray.parseArray(articleType, BasicCategoryEntity.class);
-			articleBiz.updateArticle(article, basicCategoryList);
-		} else {
-			// 更新文章信息
-			articleBiz.updateBasic(article);
-		}
+		articleBiz.updateBasic(article);
 
 		// 判断该文章是否存在新增字段
 		if (column.getColumnContentModelId() != 0) {

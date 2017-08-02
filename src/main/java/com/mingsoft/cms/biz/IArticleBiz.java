@@ -29,7 +29,6 @@ import org.apache.ibatis.annotations.Param;
 
 import com.mingsoft.base.entity.BaseEntity;
 import com.mingsoft.basic.biz.IBasicBiz;
-import com.mingsoft.basic.entity.BasicCategoryEntity;
 import com.mingsoft.cms.entity.ArticleEntity;
 import com.mingsoft.mdiy.entity.ContentModelEntity;
 import com.mingsoft.util.PageUtil;
@@ -258,25 +257,6 @@ public interface IArticleBiz extends IBasicBiz {
 	@Deprecated
 	public List<BaseEntity> queryPageByCategoryId(int categoryId, int appId, PageUtil page, boolean _isHasChilds);
 
-	/**
-	 * 保存文章以及属性信息
-	 * 
-	 * @param article
-	 *            文章实体
-	 * @param basicCategoryList
-	 *            基础表和分类关联实体
-	 */
-	public void saveArticle(ArticleEntity article, List<BasicCategoryEntity> basicCategoryList);
-
-	/**
-	 * 保存文章以及属性信息
-	 * 
-	 * @param article
-	 *            文章实体
-	 * @param basicCategoryList
-	 *            基础表和分类关联实体
-	 */
-	public void updateArticle(ArticleEntity article, List<BasicCategoryEntity> basicCategoryList);
 
 	/**
 	 * 显示本网站下文章列表

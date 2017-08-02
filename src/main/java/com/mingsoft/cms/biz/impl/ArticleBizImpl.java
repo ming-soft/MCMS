@@ -33,12 +33,10 @@ import org.springframework.stereotype.Service;
 
 import com.mingsoft.base.dao.IBaseDao;
 import com.mingsoft.base.entity.BaseEntity;
-import com.mingsoft.basic.biz.IBasicCategoryBiz;
 import com.mingsoft.basic.biz.ICategoryBiz;
 import com.mingsoft.basic.biz.IColumnBiz;
 import com.mingsoft.basic.biz.IModelBiz;
 import com.mingsoft.basic.biz.impl.BasicBizImpl;
-import com.mingsoft.basic.entity.BasicCategoryEntity;
 import com.mingsoft.basic.entity.ColumnEntity;
 import com.mingsoft.cms.biz.IArticleBiz;
 import com.mingsoft.cms.constant.ModelCode;
@@ -96,16 +94,10 @@ public class ArticleBizImpl extends BasicBizImpl implements IArticleBiz {
 	
 
 	/**
-	 * 
-	 */
-	@Autowired
-	private IBasicCategoryBiz basicCategoryBiz;
-
-	/**
 	 * 栏目业务处理
 	 */
 	@Autowired
-	private ICategoryBiz categoryBiz;
+	private ICategoryBiz categoryBiz; 
 
 	/**
 	 * 自定类型义业务处理
@@ -320,24 +312,6 @@ public class ArticleBizImpl extends BasicBizImpl implements IArticleBiz {
 	}
 
 
-	@Override
-	public void saveArticle(ArticleEntity article, List<BasicCategoryEntity> basicCategoryList) {
-		// TODO Auto-generated method stub
-		this.saveBasic(article);
-		List<BasicCategoryEntity> newBasicCategoryList = new ArrayList<BasicCategoryEntity>();
-		for(int i=0;i<basicCategoryList.size();i++){
-			BasicCategoryEntity basicCategory= basicCategoryList.get(i);
-			basicCategory.setBcBasicId(article.getBasicId());
-			newBasicCategoryList.add(basicCategory);
-			
-		}
-		if(newBasicCategoryList!=null &&newBasicCategoryList.size()>0){
-			this.basicCategoryBiz.deleteEntity(article.getBasicId());
-			this.basicCategoryBiz.saveBatch(newBasicCategoryList);
-		}
-		
-	}
-
 	/**
 	 * 设置Article的持久化层
 	 * 
@@ -346,21 +320,6 @@ public class ArticleBizImpl extends BasicBizImpl implements IArticleBiz {
 	@Autowired
 	public void setArticleDao(IArticleDao articleDao) {
 		this.articleDao = articleDao;
-	}
-
-	@Override
-	public void updateArticle(ArticleEntity article, List<BasicCategoryEntity> basicCategoryList) {
-		// TODO Auto-generated method stub
-		this.updateBasic(article);
-		if(article!=null){
-			
-			if(basicCategoryList!=null &&basicCategoryList.size()>0){
-				this.basicCategoryBiz.deleteEntity(article.getBasicId());
-				this.basicCategoryBiz.saveBatch(basicCategoryList);
-			}
-			
-		}
-		
 	}
 	
 	/**
