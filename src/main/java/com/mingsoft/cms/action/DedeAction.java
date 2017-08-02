@@ -40,12 +40,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.mingsoft.basic.action.BaseAction;
 import com.mingsoft.basic.biz.IColumnBiz;
-import com.mingsoft.basic.constant.Const;
 import com.mingsoft.basic.entity.ColumnEntity;
 import com.mingsoft.basic.entity.ManagerSessionEntity;
 import com.mingsoft.cms.biz.IArticleBiz;
@@ -128,12 +128,15 @@ public class DedeAction extends BaseAction {
 	 * @return 返回页面
 	 */
 	@RequestMapping("/dede")
-	public String dede(ModelMap model, HttpServletRequest request) {
+	public String dede(ModelMap model, HttpServletRequest request,RedirectAttributes ra) {
 		ManagerSessionEntity managerSession = getManagerBySession(request);
 		// 获取本地栏目
 		List<ColumnEntity> localColumnList = columnBiz.queryColumnListByWebsiteId(managerSession.getBasicId());
 		model.addAttribute("localColumnList", JSONArray.toJSONString(localColumnList));
-		return view("/cms/dede/dede");
+		//return view("/cms/dede/dede");
+		ra.addAttribute("a", "abc");
+		ra.addFlashAttribute("b", "123");
+		return "redirect:/mcms/login.do";  
 	}
 
 	/**

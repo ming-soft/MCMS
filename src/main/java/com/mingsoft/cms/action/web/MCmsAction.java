@@ -22,6 +22,8 @@ The MIT License (MIT) * Copyright (c) 2016 铭飞科技(mingsoft.net)
 package com.mingsoft.cms.action.web;
 
 
+import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -94,6 +96,11 @@ public class MCmsAction extends com.mingsoft.mdiy.action.BaseAction{
 		if (StringUtil.isBlank(content)) {
 			this.outString(resp, this.getResString("err.not.exist","mcms/"+diy));
 			return;
+		}
+		Enumeration<String> names = req.getAttributeNames();
+		while (names.hasMoreElements()) {
+			System.out.println(req.getAttribute(names.nextElement()));
+			
 		}
 		//增加时间
 		content =  content.replace(date, StringUtil.getDateSimpleStr());

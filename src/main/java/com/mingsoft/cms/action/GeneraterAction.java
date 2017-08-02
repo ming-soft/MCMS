@@ -680,7 +680,7 @@ public class GeneraterAction extends BaseAction {
 		FileUtil.createFolder(generatePath);
 		String tmpPath = getRealPath(request, IParserRegexConstant.REGEX_SAVE_TEMPLATE) + File.separator + app.getAppId() + File.separator + app.getAppStyle(); // 网站风格物理路径
 		String url = app.getAppHostUrl() + File.separator + IParserRegexConstant.HTML_SAVE_PATH + File.separator + app.getAppId() + File.separator; // 文章地址前缀
-		ArticleEntity article = (ArticleEntity) articleBiz.getBasicEntity(articleId);
+		ArticleEntity article = (ArticleEntity) articleBiz.getBasic(articleId);
 		ColumnEntity tempColumn = article.getColumn();
 		FileUtil.createFolder(generatePath + tempColumn.getColumnPath());
 		String writePath = null;
