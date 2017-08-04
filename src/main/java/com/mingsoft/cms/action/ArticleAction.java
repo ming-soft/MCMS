@@ -571,7 +571,7 @@ public class ArticleAction extends BaseAction {
 			return;
 		}
 		// 删除多个帖子
-		articleBiz.delete(ids);
+		articleBiz.deleteBasic(ids);
 		this.outJson(response, ModelCode.CMS_ARTICLE, true, "", this.redirectBack(request, false));
 	}
 
