@@ -993,7 +993,7 @@ INSERT INTO `model` VALUES ('8', '文章管理', '02980000', '1', 'cms/article/i
 INSERT INTO `model` VALUES ('22', '会员中心', '07000000', '0', '', '2014-09-08 08:11:28', '&#xe6b6;', '0', null, '1');
 INSERT INTO `model` VALUES ('23', '权限管理', '01000000', '0', '', '2014-09-08 08:12:22', '&#xe950;', '0', null, null);
 INSERT INTO `model` VALUES ('35', '自定义模型', '02060000', '84', 'mdiy/contentModel/list.do', '2014-10-13 18:27:23', '', '0', null, null);
-INSERT INTO `model` VALUES ('36', '自定义搜索', '02050000', '1', 'mdiy/search/list.do?modelName=cms', '2014-10-13 18:28:34', '', '0', null, null);
+INSERT INTO `model` VALUES ('36', '自定义搜索', '02050000', '1', 'mdiy/search/index.do', '2014-10-13 18:28:34', '', '0', null, null);
 INSERT INTO `model` VALUES ('79', '生成器', '11000000', '0', '', '2014-12-18 11:36:16', '&#xe6cc;', '0', null, null);
 INSERT INTO `model` VALUES ('80', '生成主页', '11010000', '79', 'cms/generate/index.do', '2014-12-18 11:37:15', '', '0', null, null);
 INSERT INTO `model` VALUES ('81', '生成栏目', '11020000', '79', 'cms/generate/column.do', '2014-12-18 11:37:53', '', '0', null, null);
