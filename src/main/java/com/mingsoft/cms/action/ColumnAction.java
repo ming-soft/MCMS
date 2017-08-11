@@ -129,9 +129,7 @@ public class ColumnAction extends BaseAction {
 		int appId =this.getAppId(request);
 		List<ColumnEntity> list = columnBiz.queryAll(appId, BasicUtil.getInt("modelId"));
 		// 查询属于当前管理员的内容模型
-		ContentModelEntity contentModel = new ContentModelEntity();
-		contentModel.setCmManagerId(managerSession.getManagerId());
-		List<BaseEntity> listCm = contentModelBiz.query(contentModel);
+		List<BaseEntity> listCm = contentModelBiz.query();
 		ColumnEntity columnSuper = new ColumnEntity();
 		model.addAttribute("columnSuper", columnSuper);
 		model.addAttribute("column",new ColumnEntity());
@@ -303,9 +301,7 @@ public class ColumnAction extends BaseAction {
 		//查询当前栏目实体
 		ColumnEntity column = (ColumnEntity) columnBiz.getEntity(columnId);
 		// 查询属于当前管理员的内容模型
-		ContentModelEntity contentModel = new ContentModelEntity();
-		contentModel.setCmManagerId(managerSession.getManagerId());
-		List<BaseEntity> listCm = contentModelBiz.query(contentModel);
+		List<BaseEntity> listCm = contentModelBiz.query();
 		model.addAttribute("column", column);
 		model.addAttribute("columnc", column.getCategoryId());
 		model.addAttribute("listCm", listCm);
