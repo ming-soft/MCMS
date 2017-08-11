@@ -48,6 +48,7 @@ import com.mingsoft.basic.entity.ManagerEntity;
 import com.mingsoft.basic.biz.IColumnBiz;
 import com.mingsoft.cms.constant.e.ColumnTypeEnum;
 import com.mingsoft.mdiy.biz.IContentModelBiz;
+import com.mingsoft.mdiy.entity.ContentModelEntity;
 import com.mingsoft.basic.entity.CategoryEntity;
 import com.mingsoft.basic.entity.ColumnEntity;
 import com.mingsoft.parser.IParserRegexConstant;
@@ -128,7 +129,9 @@ public class ColumnAction extends BaseAction {
 		int appId =this.getAppId(request);
 		List<ColumnEntity> list = columnBiz.queryAll(appId, BasicUtil.getInt("modelId"));
 		// 查询属于当前管理员的内容模型
-		List<BaseEntity> listCm = contentModelBiz.queryByManagerId(managerSession.getManagerId());
+		ContentModelEntity contentModel = new ContentModelEntity();
+		contentModel.setCmManagerId(managerSession.getManagerId());
+		List<BaseEntity> listCm = contentModelBiz.query(contentModel);
 		ColumnEntity columnSuper = new ColumnEntity();
 		model.addAttribute("columnSuper", columnSuper);
 		model.addAttribute("column",new ColumnEntity());
@@ -300,7 +303,9 @@ public class ColumnAction extends BaseAction {
 		//查询当前栏目实体
 		ColumnEntity column = (ColumnEntity) columnBiz.getEntity(columnId);
 		// 查询属于当前管理员的内容模型
-		List<BaseEntity> listCm = contentModelBiz.queryByManagerId(managerSession.getManagerId());
+		ContentModelEntity contentModel = new ContentModelEntity();
+		contentModel.setCmManagerId(managerSession.getManagerId());
+		List<BaseEntity> listCm = contentModelBiz.query(contentModel);
 		model.addAttribute("column", column);
 		model.addAttribute("columnc", column.getCategoryId());
 		model.addAttribute("listCm", listCm);
