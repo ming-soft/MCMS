@@ -129,7 +129,7 @@ public class ColumnAction extends BaseAction {
 		int appId =this.getAppId(request);
 		List<ColumnEntity> list = columnBiz.queryAll(appId, BasicUtil.getInt("modelId"));
 		// 查询属于当前管理员的内容模型
-		List<BaseEntity> listCm = contentModelBiz.query();
+		List listCm = contentModelBiz.query();
 		ColumnEntity columnSuper = new ColumnEntity();
 		model.addAttribute("columnSuper", columnSuper);
 		model.addAttribute("column",new ColumnEntity());
