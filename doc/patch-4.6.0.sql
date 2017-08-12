@@ -3,7 +3,11 @@ UPDATE model  SET MODEL_URL = 'mdiy/page/index.do' WHERE MODEL_URL = 'mdiy/model
 UPDATE model  SET MODEL_URL = 'mdiy/contentModel/index.do' WHERE MODEL_URL = 'mdiy/contentModel/list.do';
 UPDATE model  SET MODEL_URL = 'column/index.do' WHERE MODEL_URL = 'cms/column/list.do';
 UPDATE model  SET MODEL_URL = 'mall/column/index.do' WHERE MODEL_URL = 'cms/column/list.do' AND MODEL_CODE='06990000';
+
 ALTER TABLE cms_column RENAME TO basic_column;
+ALTER TABLE basic_column CHANGE COLUMN_CATEGORYID `COLUMN_CATEGORY_ID` int(22) NOT NULL DEFAULT '0' COMMENT '关联category表（类别表ID）';
+ALTER TABLE basic_column CHANGE COLUMN_CONTENTMODELID `COLUMN_CM_ID` int(11) DEFAULT '0' COMMENT '栏目管理的内容模型id';
+
 ALTER TABLE model_template RENAME TO mdiy_page;
 ALTER TABLE mdiy_page CHANGE mt_id page_id int(11)  NOT NULL AUTO_INCREMENT COMMENT '自增长id';
 ALTER TABLE mdiy_page CHANGE mt_modelID page_model_id  int(11) DEFAULT NULL COMMENT '模块id';
@@ -43,4 +47,8 @@ ALTER TABLE `mdiy_form_field` ADD COLUMN `CREATE_DATE` datetime  COMMENT '创建
 ALTER TABLE `mdiy_form_field` ADD COLUMN `UPDATE_BY` int(11)  DEFAULT '0' COMMENT '更新者';
 ALTER TABLE `mdiy_form_field` ADD COLUMN `UPDATE_DATE` datetime  COMMENT '更新时间';
 
-ALTER TABLE mdiy_search CHANGE SEARCH_WEBSITEID `SEARCH_APP_ID` int(11) NOT NULL COMMENT '搜索管理的应用id',
+ALTER TABLE mdiy_search CHANGE SEARCH_WEBSITEID `SEARCH_APP_ID` int(11) NOT NULL COMMENT '搜索管理的应用id';
+
+ALTER TABLE basic_attention CHANGE SEARCH_WEBSITEID ba_people_id `ba_peopleID` int(11) DEFAULT NULL COMMENT '用户id';
+ALTER TABLE basic_attention CHANGE SEARCH_WEBSITEID ba_app_id `ba_appID` int(11) DEFAULT NULL COMMENT '用户应用id';
+ALTER TABLE basic_attention CHANGE SEARCH_WEBSITEID ba_basic_id `ba_basicID` int(11) DEFAULT NULL COMMENT '用户收藏关联的基础id';
