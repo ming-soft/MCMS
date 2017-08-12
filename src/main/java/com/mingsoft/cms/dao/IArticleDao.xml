@@ -184,7 +184,7 @@
 		basic b
 		LEFT JOIN
 		category c ON b.BASIC_CATEGORYID = c.CATEGORY_ID
-		LEFT JOIN cms_column
+		LEFT JOIN basic_column
 		cl ON c.CATEGORY_ID = cl.COLUMN_CATEGORYID
 		LEFT
 		JOIN cms_article a ON
@@ -201,7 +201,7 @@
 		select count(basic_id) FROM basic b
 		LEFT JOIN category c ON
 		b.BASIC_CATEGORYID = c.CATEGORY_ID
-		LEFT JOIN cms_column cl ON
+		LEFT JOIN basic_column cl ON
 		c.CATEGORY_ID = cl.COLUMN_CATEGORYID
 		LEFT JOIN cms_article a ON
 		a.ARTICLE_BASICID = b.BASIC_ID
@@ -234,7 +234,7 @@
 		,c.CATEGORY_TITLE,c.CATEGORY_ID
 		,cl.COLUMN_PATH,cl.COLUMN_CONTENTMODELID,cl.COLUMN_TYPE,cl.COLUMN_CATEGORYID 
 		FROM cms_article a LEFT JOIN basic b  ON a.ARTICLE_BASICID = b.BASIC_ID 
-		LEFT JOIN cms_column cl ON b.BASIC_CATEGORYID = cl.COLUMN_CATEGORYID 
+		LEFT JOIN basic_column cl ON b.BASIC_CATEGORYID = cl.COLUMN_CATEGORYID 
 		LEFT JOIN category c ON c.CATEGORY_ID = cl.COLUMN_CATEGORYID
 		where a.ARTICLE_WEBID = #{webId}
 		<if test="article != null ">
@@ -320,7 +320,7 @@
 		basic b
 		LEFT JOIN
 		category c ON b.BASIC_CATEGORYID = c.CATEGORY_ID
-		LEFT JOIN cms_column
+		LEFT JOIN basic_column
 		cl ON c.CATEGORY_ID = cl.COLUMN_CATEGORYID
 		LEFT
 		JOIN cms_article a ON
@@ -371,7 +371,7 @@
 		left join category c
 		ON b.BASIC_CATEGORYID = c.CATEGORY_ID
 		left join
-		cms_column cl
+		basic_column cl
 		on c.CATEGORY_ID = cl.COLUMN_CATEGORYID
 		<if test="tableName!=null">left join ${tableName} d on d.basicId=a.ARTICLE_BASICID
 		</if>
@@ -445,7 +445,7 @@
 		left join category c
 		ON b.BASIC_CATEGORYID
 		= c.CATEGORY_ID
-		left join cms_column cl
+		left join basic_column cl
 		on c.CATEGORY_ID =
 		cl.COLUMN_CATEGORYID
 		<if test="tableName!=null">left join ${tableName} d on d.basicId=a.ARTICLE_BASICID
@@ -511,7 +511,7 @@
 		select count(basic_id)
 		from
 		(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
-			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN basic_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
 			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
 	 	where BASIC_CATEGORYID=#{categoryId};
 	</select>
@@ -521,7 +521,7 @@
 		<include refid="basic_data_list" /> 
 		from 
 		(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
-			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN basic_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
 			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
 		<if test="contentModelTableName!=null">
 			left join ${contentModelTableName} cmt on
@@ -534,7 +534,7 @@
 		<include refid="column_list" />
 		,c.CATEGORY_TITLE,cl.column_path,c.CATEGORY_id,cl.COLUMN_CONTENTMODELID,cl.column_type
 		FROM basic b LEFT JOIN category c ON b.BASIC_CATEGORYID =
-		c.CATEGORY_ID LEFT JOIN cms_column cl ON c.CATEGORY_ID =
+		c.CATEGORY_ID LEFT JOIN basic_column cl ON c.CATEGORY_ID =
 		cl.COLUMN_CATEGORYID LEFT JOIN cms_article a ON a.ARTICLE_BASICID =
 		b.BASIC_ID where a.ARTICLE_WEBID = #{webId}
 		b.BASIC_ID=#{basicId}
@@ -545,7 +545,7 @@
 				<include refid="column_list" />
 				,c.CATEGORY_TITLE,cl.column_path,c.CATEGORY_id,cl.COLUMN_CONTENTMODELID,cl.column_type
 				FROM basic b LEFT JOIN category c ON b.BASIC_CATEGORYID =
-				c.CATEGORY_ID LEFT JOIN cms_column cl ON c.CATEGORY_ID =
+				c.CATEGORY_ID LEFT JOIN basic_column cl ON c.CATEGORY_ID =
 				cl.COLUMN_CATEGORYID LEFT JOIN cms_article a ON a.ARTICLE_BASICID =
 				b.BASIC_ID where a.ARTICLE_WEBID = #{webId} and
 				BASIC_ID=#{id})
@@ -579,7 +579,7 @@
 		<include refid="basic_data_list" />
 		from 
 		(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
-			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN basic_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
 			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
 		
 		 where category_appid=#{appId}
@@ -611,7 +611,7 @@
 		<include refid="basic_data_list" />
 		 from 
 		(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
-			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN basic_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
 			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
 		 where article_webid=#{appId}
 		<if test="dateTime!=null">
@@ -629,7 +629,7 @@
 		<include refid="basic_data_list" />
 		 from 
 		(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
-			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN basic_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
 			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
 		<if test="contentModelTableName!=null">
 			left join ${contentModelTableName} cmt on
@@ -646,7 +646,7 @@
 				<include refid="basic_data_list" />
 				 from 
 				(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
-					JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+					JOIN basic_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
 					JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID)) 
 					where
 				BASIC_CATEGORYID=#{category.categoryId} order by basic_id desc limit
@@ -660,7 +660,7 @@
 		<include refid="basic_data_list" />
 		 from 
 		(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
-			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN basic_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
 			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
 		where basic_categoryId=#{categoryId} order by basic_id desc limit 1;
 	</select>
@@ -670,7 +670,7 @@
 		select
 		<include refid="bean_column_list" />
 		from (((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
-			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN basic_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
 			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
 		<if test="contentModelTableName!=null">
 			left join ${contentModelTableName} cmt on
@@ -684,7 +684,7 @@
 				<include refid="bean_column_list" />
 				from 
 				(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
-					JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+					JOIN basic_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
 					JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
 				where
 				BASIC_CATEGORYID=#{category.categoryId} order by
@@ -718,7 +718,7 @@
 		basic b
 		LEFT JOIN
 		category c ON b.BASIC_CATEGORYID = c.CATEGORY_ID
-		LEFT JOIN cms_column
+		LEFT JOIN basic_column
 		cl ON c.CATEGORY_ID = cl.COLUMN_CATEGORYID
 		LEFT
 		JOIN cms_article a ON
@@ -748,7 +748,7 @@
 		<include refid="basic_data_list" />
 		 from 
 		(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
-			JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+			JOIN basic_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
 			JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
 		where ARTICLE_BASICID = 0
 		<foreach item="id" index="index" collection="articleIds" open=""
@@ -757,7 +757,7 @@
 			<include refid="basic_data_list" />
 			 from 
 			(((basic JOIN cms_article ON (BASIC_ID = ARTICLE_BASICID))
-				JOIN cms_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
+				JOIN basic_column ON (BASIC_CATEGORYID = COLUMN_CATEGORYID))
 				JOIN category ON (COLUMN_CATEGORYID = CATEGORY_ID))
 			 where
 			ARTICLE_BASICID=#{id})
