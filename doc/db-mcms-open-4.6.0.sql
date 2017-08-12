@@ -791,17 +791,21 @@ CREATE TABLE `dict` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for diy_form
+-- Table structure for mdiy_form
 -- ----------------------------
-DROP TABLE IF EXISTS `diy_form`;
-CREATE TABLE `diy_form` (
-  `DF_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
-  `DF_TIPSNAME` varchar(30) NOT NULL COMMENT '自定义表单提示文字',
-  `DF_TABLENAME` varchar(20) NOT NULL COMMENT '自定义表单表名',
+DROP TABLE IF EXISTS `mdiy_form`;
+CREATE TABLE `mdiy_form` (
+  `FORM_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
+  `FORM_TIPS_NAME` varchar(30) NOT NULL COMMENT '自定义表单提示文字',
+  `FORM_TABLE_NAME` varchar(20) NOT NULL COMMENT '自定义表单表名',
   `DF_MANAGERID` int(11) NOT NULL COMMENT '自定义表单关联的关联员id',
-  `DF_APPID` int(11) DEFAULT NULL COMMENT '自定义表单关联的应用编号',
-  PRIMARY KEY (`DF_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义表单表';
+  `FORM_APP_ID` int(11) DEFAULT NULL COMMENT '自定义表单关联的应用编号',
+  `CREATE_BY` int(11) DEFAULT '0' COMMENT '创建者',
+  `UPDATE_BY` int(11) DEFAULT '0' COMMENT '更新者',
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`FORM_ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义表单表';
 
 -- ----------------------------
 -- Records of diy_form
@@ -810,17 +814,21 @@ CREATE TABLE `diy_form` (
 -- ----------------------------
 -- Table structure for diy_form_field
 -- ----------------------------
-DROP TABLE IF EXISTS `diy_form_field`;
-CREATE TABLE `diy_form_field` (
-  `DFF_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '字段自增长id',
-  `DFF_TIPSNAME` varchar(30) DEFAULT NULL COMMENT '字段提示文字',
-  `DFF_FIELDNAME` varchar(20) DEFAULT NULL COMMENT '字段名称',
-  `DFF_TYPE` int(11) DEFAULT NULL COMMENT '字段类型（如1.单行，2.多行，3.图片，等）',
-  `DFF_DEFAULT` varchar(250) DEFAULT NULL COMMENT '字段的默认值',
-  `DFF_ISNULL` int(11) DEFAULT NULL COMMENT '字段是否为空',
-  `DFF_SORT` int(11) DEFAULT NULL COMMENT '自定义表单的排序',
-  `DFF_FORMID` int(11) DEFAULT NULL COMMENT '字段管理的表单id',
-  PRIMARY KEY (`DFF_ID`)
+DROP TABLE IF EXISTS `mdiy_form_field`;
+CREATE TABLE `mdiy_form_field` (
+  `FF_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '字段自增长id',
+  `FF_TIPSNAME` varchar(30) DEFAULT NULL COMMENT '字段提示文字',
+  `FF_FIELDNAME` varchar(20) DEFAULT NULL COMMENT '字段名称',
+  `FF_TYPE` int(11) DEFAULT NULL COMMENT '字段类型（如1.单行，2.多行，3.图片，等）',
+  `FF_DEFAULT` varchar(250) DEFAULT NULL COMMENT '字段的默认值',
+  `FF_ISNULL` int(11) DEFAULT NULL COMMENT '字段是否为空',
+  `FF_SORT` int(11) DEFAULT NULL COMMENT '自定义表单的排序',
+  `FF_FORMID` int(11) DEFAULT NULL COMMENT '字段管理的表单id',
+  `CREATE_BY` int(11) DEFAULT '0' COMMENT '创建者',
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `UPDATE_BY` int(11) DEFAULT '0' COMMENT '更新者',
+  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`FF_ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义表单字段表';
 
 -- ----------------------------
