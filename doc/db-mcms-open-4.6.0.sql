@@ -1033,10 +1033,10 @@ CREATE TABLE `mdiy_page` (
 -- ----------------------------
 -- Records of model_template
 -- ----------------------------
-INSERT INTO `model_template` VALUES ('1', '0', '1', 'people/register.htm', '注册', 'register');
-INSERT INTO `model_template` VALUES ('2', '0', '1', 'people/login.htm', '登录', 'login');
-INSERT INTO `model_template` VALUES ('3', '0', '1', 'people/center.htm', '个人中心', 'people/center');
-INSERT INTO `model_template` VALUES ('4', '0', '1', 'people/change-passWord.htm', '修改密码', 'people/changePassWord');
+INSERT INTO `mdiy_page` VALUES ('1', '0', '1', 'people/register.htm', '注册', 'register');
+INSERT INTO `mdiy_page` VALUES ('2', '0', '1', 'people/login.htm', '登录', 'login');
+INSERT INTO `mdiy_page` VALUES ('3', '0', '1', 'people/center.htm', '个人中心', 'people/center');
+INSERT INTO `mdiy_page` VALUES ('4', '0', '1', 'people/change-passWord.htm', '修改密码', 'people/changePassWord');
 
 -- ----------------------------
 -- Table structure for people
