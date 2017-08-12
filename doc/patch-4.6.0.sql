@@ -15,5 +15,6 @@ ALTER TABLE mdiy_page
 RENAME INDEX `mt_key` TO `page_key`,
 RENAME INDEX `mt_appID` TO `page_app_id`,
 RENAME INDEX `mt_modelID` TO `page_model_id`;
-ALTER TABLE `mdiy_content_model` 
-ADD COLUMN `CM_APP_ID` int(0) COMMENT '应用编号' AFTER `CM_MODEL_ID`
+ALTER TABLE `mdiy_content_model` ADD COLUMN `CM_APP_ID` int(0) COMMENT '应用编号' AFTER `CM_MODEL_ID`;
+ALTER TABLE `mdiy_content_model` CHANGE CM_TIPSNAME CM_TIPS_NAME varchar(30) NOT NULL COMMENT '表单提示文字';
+ALTER TABLE `mdiy_content_model` CHANGE CM_TABLENAME CM_TABLE_NAME  varchar(20) NOT NULL COMMENT '表单名称';
