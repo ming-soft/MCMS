@@ -211,7 +211,7 @@ public class ColumnAction extends BaseAction {
 	 */
 	private void columnPath(HttpServletRequest request,ColumnEntity column){
 		String columnPath = "";
-		String file = this.getRealPath(request,null)+IParserRegexConstant.HTML_SAVE_PATH+File.separator+ column.getColumnWebsiteId();
+		String file = this.getRealPath(request,null)+IParserRegexConstant.HTML_SAVE_PATH+File.separator+ column.getAppId();
 		String delFile = "";
 		//修改栏目路径时，删除已存在的文件夹
 		column = (ColumnEntity) columnBiz.getEntity(column.getCategoryId());
@@ -378,7 +378,7 @@ public class ColumnAction extends BaseAction {
 			return;
 		}
 		column.setCategoryAppId( this.getAppId(request));
-		column.setColumnWebsiteId(this.getAppId(request));
+		column.setAppId(this.getAppId(request));
 		column.setCategoryManagerId(getManagerBySession(request).getManagerId());
 		column.setCategoryDateTime(new Timestamp(System.currentTimeMillis()));
 		column.setCategoryModelId(BasicUtil.getInt("modelId"));
@@ -411,7 +411,7 @@ public class ColumnAction extends BaseAction {
 			column.setColumnListUrl(null);
 		}
 		column.setCategoryManagerId(getManagerBySession(request).getManagerId());
-		column.setColumnWebsiteId(websiteId);
+		column.setAppId(websiteId);
 		columnBiz.updateCategory(column);
 		this.columnPath(request,column);
 		//查询当前栏目是否有子栏目，
@@ -421,7 +421,7 @@ public class ColumnAction extends BaseAction {
 			for(int i=0;i<childList.size();i++){
 				childList.get(i).setCategoryCategoryId(column.getCategoryId());
 				childList.get(i).setCategoryManagerId(getManagerBySession(request).getManagerId());
-				childList.get(i).setColumnWebsiteId(websiteId);
+				childList.get(i).setAppId(websiteId);
 				columnBiz.updateCategory(childList.get(i));
 				//组织子栏目链接地址
 				this.columnPath(request, childList.get(i));

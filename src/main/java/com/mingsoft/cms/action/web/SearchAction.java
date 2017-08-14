@@ -61,6 +61,8 @@ import com.mingsoft.util.FileUtil;
 import com.mingsoft.util.PageUtil;
 import com.mingsoft.util.StringUtil;
 
+import net.mingsoft.basic.util.BasicUtil;
+
 /**
  * 
  * 
@@ -158,7 +160,10 @@ public class SearchAction extends BaseAction {
 		Map<String, String> basicField = getMapByProperties(com.mingsoft.mdiy.constant.Const.BASIC_FIELD);
 		Map<String, String[]> field = new HashMap<String, String[]>();
 		AppEntity app = this.getApp(request);
-		SearchEntity search = (SearchEntity) searchBiz.getByIdAndAppId(searchId, app.getAppId()); // 获取对应搜索模型
+		SearchEntity _search = new SearchEntity();
+		_search.setAppId(BasicUtil.getAppId());
+		_search.setSearchId(searchId);
+		SearchEntity search = (SearchEntity) searchBiz.getEntity(_search); // 获取对应搜索模型
 		if (search==null) {
 			this.outJson(response, false);
 		}
