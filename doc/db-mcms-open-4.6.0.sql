@@ -672,10 +672,10 @@ INSERT INTO `cms_class_50` VALUES ('6', '2', '1');
 INSERT INTO `cms_class_50` VALUES ('7', '1', '1');
 
 -- ----------------------------
--- Table structure for basic_column
+-- Table structure for cms_column
 -- ----------------------------
-DROP TABLE IF EXISTS `basic_column`;
-CREATE TABLE `basic_column` (
+DROP TABLE IF EXISTS `cms_column`;
+CREATE TABLE `cms_column` (
   `COLUMN_CATEGORYID` int(22) NOT NULL DEFAULT '0' COMMENT '关联category表（类别表ID）',
   `COLUMN_KEYWORD` varchar(300) DEFAULT NULL COMMENT '栏目简介',
   `COLUMN_DESCRIP` varchar(500) DEFAULT NULL COMMENT '栏目关键字的扩展',
@@ -690,52 +690,52 @@ CREATE TABLE `basic_column` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='栏目表';
 
 -- ----------------------------
--- Records of basic_column
+-- Records of cms_column
 -- ----------------------------
-INSERT INTO `basic_column` VALUES ('19', '', '', '2', 'contact.htm', 'contact.htm', null, '1', '/19', '0');
-INSERT INTO `basic_column` VALUES ('23', '', '', '1', 'about.htm', 'liebiao.htm', null, '1', '/23', '0');
-INSERT INTO `basic_column` VALUES ('33', '', '', '1', 'detail.htm', 'list.htm', null, '1', '/33', '0');
-INSERT INTO `basic_column` VALUES ('52', '', '', '2', 'about.htm', 'about.htm', null, '1', '/52', '0');
-INSERT INTO `basic_column` VALUES ('53', '', '', '2', 'about.htm', 'about.htm', null, '1', '/53', '0');
-INSERT INTO `basic_column` VALUES ('59', '', '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '1', 'news-show.htm', 'news-list.htm', null, '1', '/59', '0');
-INSERT INTO `basic_column` VALUES ('61', '', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'case-show.htm', 'case-list.htm', null, '1', '/61', '0');
-INSERT INTO `basic_column` VALUES ('62', '', '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '1', 'news-show.htm', 'news-list.htm', null, '1', '/62', '0');
-INSERT INTO `basic_column` VALUES ('63', '建站资源共享学习平台!', '我们为您提供网站策划、网页设计、程序开发、网站推广、域名注册、虚拟主机、企业邮箱等网站建设相关服务；为您提供iOS/Android/Windows Phone等移动平台的APP应用开发；为您提供办公系统、客户关系管理系统、电子政务系统等行业应用系统的开发；为您提供软件定制开发和系统集成服务。', '2', 'service.htm', 'service.htm', null, '1', '/63', '0');
-INSERT INTO `basic_column` VALUES ('65', '精选案例展示', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'case-show.htm', 'case-list.htm', null, '1', '/61/65', '0');
-INSERT INTO `basic_column` VALUES ('66', '精选案例展示', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'case-show.htm', 'case-list.htm', null, '1', '/61/66', '0');
-INSERT INTO `basic_column` VALUES ('67', '精选案例展示', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'case-show.htm', 'case-list.htm', null, '1', '/61/67', '0');
-INSERT INTO `basic_column` VALUES ('68', '', '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '1', 'news-show.htm', 'news-list.htm', null, '1', '/59/68', '0');
-INSERT INTO `basic_column` VALUES ('69', '', '', '1', 'news-show.htm', 'news-list.htm', null, '1', '/59/69', '0');
-INSERT INTO `basic_column` VALUES ('70', '', '新闻中心', '1', 'news-show.htm', 'news-list.htm', null, '1', '/59/70', '0');
-INSERT INTO `basic_column` VALUES ('83', '', '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '1', 'news-show.htm', 'news-list.htm', null, '1', '/62/83', '0');
-INSERT INTO `basic_column` VALUES ('84', '专业提供网站模板，网页模板，教程培训，程序插件，网站素材等建站资源。我们致力于打造一个优秀的建站资源共享学习平台！', '专业提供网站模板，网页模板，教程培训，程序插件，网站素材等建站资源。设计者：如果您是模板设计师，插件制作者。我们致力于打造一个优秀的建站资源共享学习平台！您可以在这里放心出售您的模板和插件，我们提供版权保护。购买者：购买本站资源，我们提供“三重保障”(担保交易+人工介入+售后服务)，保障购买者的合法权益。织梦猫已经上路，我们将为此不懈努', '1', 'news-show.htm', 'news-list.htm', null, '1', '/62/84', '0');
-INSERT INTO `basic_column` VALUES ('87', '', '', '2', 'solution.htm', 'about.htm', null, '1', '/87', '0');
-INSERT INTO `basic_column` VALUES ('93', '关于我们', '关于我们', '2', 'about.htm', 'about.htm', null, '1', '/93', '0');
-INSERT INTO `basic_column` VALUES ('94', '关于我们', '关于我们', '2', 'about.htm', 'about.htm', null, '1', '/93/94', '0');
-INSERT INTO `basic_column` VALUES ('95', '关于我们', '关于我们', '2', 'about.htm', 'about-list.htm', null, '1', '/93/95', '0');
-INSERT INTO `basic_column` VALUES ('96', '', '', '2', 'about.htm', 'news-list.htm', null, '1', '/93/96', '0');
-INSERT INTO `basic_column` VALUES ('97', '', '', '2', 'about.htm', 'about.htm', null, '1', '/93/97', '0');
-INSERT INTO `basic_column` VALUES ('98', '关于我们', '生态农庄', '2', 'about.htm', 'about.htm', null, '1', '/93/98', '0');
-INSERT INTO `basic_column` VALUES ('99', '', '', '2', 'service.htm', 'product.htm', null, '1', '/99', '0');
-INSERT INTO `basic_column` VALUES ('100', '', '', '1', 'about.htm', 'about.htm', null, '1', '/100', '0');
-INSERT INTO `basic_column` VALUES ('101', '专业服务', '品牌策划年度服务是岳派品牌机构的主要服务方式之一，以一年或更长时间作为服务周期，为企业进行有计划、有步骤的策划、设计、执行等，进行一体化品牌策划推广服务。', '2', 'servise.htm', 'about-list.htm', null, '1', '/99/101', '0');
-INSERT INTO `basic_column` VALUES ('102', '专业服务', 'LOGO 标志设计 VIS设计 宣传物料设计视觉是人们接受外部信息的最重要和最主要的通道。设计科学、实施有利的视觉识别，是传播企业经营理念、建立企业知名度、塑造企业形象的快速便捷之途', '2', 'servise.htm', 'about-list.htm', null, '1', '/99/102', '0');
-INSERT INTO `basic_column` VALUES ('103', '专业服务', '竞争的优势不仅在于产品，也源于产品包装的设计，一个产品的包装直接影响顾客购买心理，产品的包装是最直接的广告 ,由表及里是自然界认识事物不变的定律。', '2', 'servise.htm', 'news-list.htm', null, '1', '/99/103', '0');
-INSERT INTO `basic_column` VALUES ('104', '专业服务', '连锁店的CI和一般企业的作法有相当大的差异，最主要的因素就是与目标接触的场合不同。连锁店与消费者之间最常发生的接触就是在门店，创造视觉的个性化与标准化，来\r\n加深人们的印象', '2', 'servise.htm', 'news-list.htm', null, '1', '/99/104', '0');
-INSERT INTO `basic_column` VALUES ('106', '我们的作品', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'product-show.htm', 'product-list.htm', null, '1', '/106', '0');
-INSERT INTO `basic_column` VALUES ('107', '我们的作品', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'product-show.htm', 'product-list.htm', null, '1', '/106/107', '0');
-INSERT INTO `basic_column` VALUES ('108', '', '', '1', 'product-show.htm', 'product-list.htm', null, '1', '/106/108', '0');
-INSERT INTO `basic_column` VALUES ('115', '', '', '1', 'show.htm', 'service.htm', null, '1', '/115', '0');
-INSERT INTO `basic_column` VALUES ('133', '网站设计 网站制作 网站维护 网站改版', '关于我们', '2', 'about.htm', null, null, '1', '/53/133', '0');
-INSERT INTO `basic_column` VALUES ('134', '网站整站优化 网页结构优化 网站关键词优化', '', '2', 'about.htm', null, null, '1', '/53/134', '0');
-INSERT INTO `basic_column` VALUES ('135', '英文国际域名 英文国内域名 中文国际域名 中文国内域名', '关于我们', '2', 'about.htm', null, null, '1', '/53/135', '0');
-INSERT INTO `basic_column` VALUES ('136', '', '联系我们', '2', 'about.htm', 'about.htm', null, '1', '/52/136', '0');
-INSERT INTO `basic_column` VALUES ('138', '', '我们为您提供网站策划、网页设计、程序开发、网站推广、域名注册、虚拟主机、企业邮箱等网站建设相关服务；为您提供iOS/Android/Windows Phone等移动平台的APP应用开发；为您提供办公系统、客户关系管理系统、电子政务系统等行业应用系统的开发；为您提供软件定制开发和系统集成服务。', '2', 'service.htm', 'service.htm', null, '1', '/63/138', '0');
-INSERT INTO `basic_column` VALUES ('141', '', '', '2', 'contact.htm', 'contact.htm', null, '1', '/19/141', '0');
-INSERT INTO `basic_column` VALUES ('142', '', '', '2', 'advice.htm', null, null, '1', '/19/142', '0');
-INSERT INTO `basic_column` VALUES ('146', '', '', '2', 'advertises.htm', 'about.htm', null, '1', '/146', '0');
-INSERT INTO `basic_column` VALUES ('147', '', '', '1', 'index.html', 'index.html', null, '1', '/100/147', '0');
-INSERT INTO `basic_column` VALUES ('148', '', '', '1', 'index.html', 'index.html', null, '1', '/100/148', '0');
+INSERT INTO `cms_column` VALUES ('19', '', '', '2', 'contact.htm', 'contact.htm', null, '1', '/19', '0');
+INSERT INTO `cms_column` VALUES ('23', '', '', '1', 'about.htm', 'liebiao.htm', null, '1', '/23', '0');
+INSERT INTO `cms_column` VALUES ('33', '', '', '1', 'detail.htm', 'list.htm', null, '1', '/33', '0');
+INSERT INTO `cms_column` VALUES ('52', '', '', '2', 'about.htm', 'about.htm', null, '1', '/52', '0');
+INSERT INTO `cms_column` VALUES ('53', '', '', '2', 'about.htm', 'about.htm', null, '1', '/53', '0');
+INSERT INTO `cms_column` VALUES ('59', '', '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '1', 'news-show.htm', 'news-list.htm', null, '1', '/59', '0');
+INSERT INTO `cms_column` VALUES ('61', '', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'case-show.htm', 'case-list.htm', null, '1', '/61', '0');
+INSERT INTO `cms_column` VALUES ('62', '', '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '1', 'news-show.htm', 'news-list.htm', null, '1', '/62', '0');
+INSERT INTO `cms_column` VALUES ('63', '建站资源共享学习平台!', '我们为您提供网站策划、网页设计、程序开发、网站推广、域名注册、虚拟主机、企业邮箱等网站建设相关服务；为您提供iOS/Android/Windows Phone等移动平台的APP应用开发；为您提供办公系统、客户关系管理系统、电子政务系统等行业应用系统的开发；为您提供软件定制开发和系统集成服务。', '2', 'service.htm', 'service.htm', null, '1', '/63', '0');
+INSERT INTO `cms_column` VALUES ('65', '精选案例展示', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'case-show.htm', 'case-list.htm', null, '1', '/61/65', '0');
+INSERT INTO `cms_column` VALUES ('66', '精选案例展示', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'case-show.htm', 'case-list.htm', null, '1', '/61/66', '0');
+INSERT INTO `cms_column` VALUES ('67', '精选案例展示', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'case-show.htm', 'case-list.htm', null, '1', '/61/67', '0');
+INSERT INTO `cms_column` VALUES ('68', '', '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '1', 'news-show.htm', 'news-list.htm', null, '1', '/59/68', '0');
+INSERT INTO `cms_column` VALUES ('69', '', '', '1', 'news-show.htm', 'news-list.htm', null, '1', '/59/69', '0');
+INSERT INTO `cms_column` VALUES ('70', '', '新闻中心', '1', 'news-show.htm', 'news-list.htm', null, '1', '/59/70', '0');
+INSERT INTO `cms_column` VALUES ('83', '', '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '1', 'news-show.htm', 'news-list.htm', null, '1', '/62/83', '0');
+INSERT INTO `cms_column` VALUES ('84', '专业提供网站模板，网页模板，教程培训，程序插件，网站素材等建站资源。我们致力于打造一个优秀的建站资源共享学习平台！', '专业提供网站模板，网页模板，教程培训，程序插件，网站素材等建站资源。设计者：如果您是模板设计师，插件制作者。我们致力于打造一个优秀的建站资源共享学习平台！您可以在这里放心出售您的模板和插件，我们提供版权保护。购买者：购买本站资源，我们提供“三重保障”(担保交易+人工介入+售后服务)，保障购买者的合法权益。织梦猫已经上路，我们将为此不懈努', '1', 'news-show.htm', 'news-list.htm', null, '1', '/62/84', '0');
+INSERT INTO `cms_column` VALUES ('87', '', '', '2', 'solution.htm', 'about.htm', null, '1', '/87', '0');
+INSERT INTO `cms_column` VALUES ('93', '关于我们', '关于我们', '2', 'about.htm', 'about.htm', null, '1', '/93', '0');
+INSERT INTO `cms_column` VALUES ('94', '关于我们', '关于我们', '2', 'about.htm', 'about.htm', null, '1', '/93/94', '0');
+INSERT INTO `cms_column` VALUES ('95', '关于我们', '关于我们', '2', 'about.htm', 'about-list.htm', null, '1', '/93/95', '0');
+INSERT INTO `cms_column` VALUES ('96', '', '', '2', 'about.htm', 'news-list.htm', null, '1', '/93/96', '0');
+INSERT INTO `cms_column` VALUES ('97', '', '', '2', 'about.htm', 'about.htm', null, '1', '/93/97', '0');
+INSERT INTO `cms_column` VALUES ('98', '关于我们', '生态农庄', '2', 'about.htm', 'about.htm', null, '1', '/93/98', '0');
+INSERT INTO `cms_column` VALUES ('99', '', '', '2', 'service.htm', 'product.htm', null, '1', '/99', '0');
+INSERT INTO `cms_column` VALUES ('100', '', '', '1', 'about.htm', 'about.htm', null, '1', '/100', '0');
+INSERT INTO `cms_column` VALUES ('101', '专业服务', '品牌策划年度服务是岳派品牌机构的主要服务方式之一，以一年或更长时间作为服务周期，为企业进行有计划、有步骤的策划、设计、执行等，进行一体化品牌策划推广服务。', '2', 'servise.htm', 'about-list.htm', null, '1', '/99/101', '0');
+INSERT INTO `cms_column` VALUES ('102', '专业服务', 'LOGO 标志设计 VIS设计 宣传物料设计视觉是人们接受外部信息的最重要和最主要的通道。设计科学、实施有利的视觉识别，是传播企业经营理念、建立企业知名度、塑造企业形象的快速便捷之途', '2', 'servise.htm', 'about-list.htm', null, '1', '/99/102', '0');
+INSERT INTO `cms_column` VALUES ('103', '专业服务', '竞争的优势不仅在于产品，也源于产品包装的设计，一个产品的包装直接影响顾客购买心理，产品的包装是最直接的广告 ,由表及里是自然界认识事物不变的定律。', '2', 'servise.htm', 'news-list.htm', null, '1', '/99/103', '0');
+INSERT INTO `cms_column` VALUES ('104', '专业服务', '连锁店的CI和一般企业的作法有相当大的差异，最主要的因素就是与目标接触的场合不同。连锁店与消费者之间最常发生的接触就是在门店，创造视觉的个性化与标准化，来\r\n加深人们的印象', '2', 'servise.htm', 'news-list.htm', null, '1', '/99/104', '0');
+INSERT INTO `cms_column` VALUES ('106', '我们的作品', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'product-show.htm', 'product-list.htm', null, '1', '/106', '0');
+INSERT INTO `cms_column` VALUES ('107', '我们的作品', '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '1', 'product-show.htm', 'product-list.htm', null, '1', '/106/107', '0');
+INSERT INTO `cms_column` VALUES ('108', '', '', '1', 'product-show.htm', 'product-list.htm', null, '1', '/106/108', '0');
+INSERT INTO `cms_column` VALUES ('115', '', '', '1', 'show.htm', 'service.htm', null, '1', '/115', '0');
+INSERT INTO `cms_column` VALUES ('133', '网站设计 网站制作 网站维护 网站改版', '关于我们', '2', 'about.htm', null, null, '1', '/53/133', '0');
+INSERT INTO `cms_column` VALUES ('134', '网站整站优化 网页结构优化 网站关键词优化', '', '2', 'about.htm', null, null, '1', '/53/134', '0');
+INSERT INTO `cms_column` VALUES ('135', '英文国际域名 英文国内域名 中文国际域名 中文国内域名', '关于我们', '2', 'about.htm', null, null, '1', '/53/135', '0');
+INSERT INTO `cms_column` VALUES ('136', '', '联系我们', '2', 'about.htm', 'about.htm', null, '1', '/52/136', '0');
+INSERT INTO `cms_column` VALUES ('138', '', '我们为您提供网站策划、网页设计、程序开发、网站推广、域名注册、虚拟主机、企业邮箱等网站建设相关服务；为您提供iOS/Android/Windows Phone等移动平台的APP应用开发；为您提供办公系统、客户关系管理系统、电子政务系统等行业应用系统的开发；为您提供软件定制开发和系统集成服务。', '2', 'service.htm', 'service.htm', null, '1', '/63/138', '0');
+INSERT INTO `cms_column` VALUES ('141', '', '', '2', 'contact.htm', 'contact.htm', null, '1', '/19/141', '0');
+INSERT INTO `cms_column` VALUES ('142', '', '', '2', 'advice.htm', null, null, '1', '/19/142', '0');
+INSERT INTO `cms_column` VALUES ('146', '', '', '2', 'advertises.htm', 'about.htm', null, '1', '/146', '0');
+INSERT INTO `cms_column` VALUES ('147', '', '', '1', 'index.html', 'index.html', null, '1', '/100/147', '0');
+INSERT INTO `cms_column` VALUES ('148', '', '', '1', 'index.html', 'index.html', null, '1', '/100/148', '0');
 
 -- ----------------------------
 -- Table structure for comment
@@ -791,21 +791,17 @@ CREATE TABLE `dict` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for mdiy_form
+-- Table structure for diy_form
 -- ----------------------------
-DROP TABLE IF EXISTS `mdiy_form`;
-CREATE TABLE `mdiy_form` (
-  `FORM_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
-  `FORM_TIPS_NAME` varchar(30) NOT NULL COMMENT '自定义表单提示文字',
-  `FORM_TABLE_NAME` varchar(20) NOT NULL COMMENT '自定义表单表名',
+DROP TABLE IF EXISTS `diy_form`;
+CREATE TABLE `diy_form` (
+  `DF_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
+  `DF_TIPSNAME` varchar(30) NOT NULL COMMENT '自定义表单提示文字',
+  `DF_TABLENAME` varchar(20) NOT NULL COMMENT '自定义表单表名',
   `DF_MANAGERID` int(11) NOT NULL COMMENT '自定义表单关联的关联员id',
-  `FORM_APP_ID` int(11) DEFAULT NULL COMMENT '自定义表单关联的应用编号',
-  `CREATE_BY` int(11) DEFAULT '0' COMMENT '创建者',
-  `UPDATE_BY` int(11) DEFAULT '0' COMMENT '更新者',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`FORM_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义表单表';
+  `DF_APPID` int(11) DEFAULT NULL COMMENT '自定义表单关联的应用编号',
+  PRIMARY KEY (`DF_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义表单表';
 
 -- ----------------------------
 -- Records of diy_form
@@ -814,21 +810,17 @@ CREATE TABLE `mdiy_form` (
 -- ----------------------------
 -- Table structure for diy_form_field
 -- ----------------------------
-DROP TABLE IF EXISTS `mdiy_form_field`;
-CREATE TABLE `mdiy_form_field` (
-  `FF_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '字段自增长id',
-  `FF_TIPSNAME` varchar(30) DEFAULT NULL COMMENT '字段提示文字',
-  `FF_FIELDNAME` varchar(20) DEFAULT NULL COMMENT '字段名称',
-  `FF_TYPE` int(11) DEFAULT NULL COMMENT '字段类型（如1.单行，2.多行，3.图片，等）',
-  `FF_DEFAULT` varchar(250) DEFAULT NULL COMMENT '字段的默认值',
-  `FF_ISNULL` int(11) DEFAULT NULL COMMENT '字段是否为空',
-  `FF_SORT` int(11) DEFAULT NULL COMMENT '自定义表单的排序',
-  `FF_FORMID` int(11) DEFAULT NULL COMMENT '字段管理的表单id',
-  `CREATE_BY` int(11) DEFAULT '0' COMMENT '创建者',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  `UPDATE_BY` int(11) DEFAULT '0' COMMENT '更新者',
-  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`FF_ID`)
+DROP TABLE IF EXISTS `diy_form_field`;
+CREATE TABLE `diy_form_field` (
+  `DFF_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '字段自增长id',
+  `DFF_TIPSNAME` varchar(30) DEFAULT NULL COMMENT '字段提示文字',
+  `DFF_FIELDNAME` varchar(20) DEFAULT NULL COMMENT '字段名称',
+  `DFF_TYPE` int(11) DEFAULT NULL COMMENT '字段类型（如1.单行，2.多行，3.图片，等）',
+  `DFF_DEFAULT` varchar(250) DEFAULT NULL COMMENT '字段的默认值',
+  `DFF_ISNULL` int(11) DEFAULT NULL COMMENT '字段是否为空',
+  `DFF_SORT` int(11) DEFAULT NULL COMMENT '自定义表单的排序',
+  `DFF_FORMID` int(11) DEFAULT NULL COMMENT '字段管理的表单id',
+  PRIMARY KEY (`DFF_ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义表单字段表';
 
 -- ----------------------------
@@ -1001,7 +993,7 @@ INSERT INTO `model` VALUES ('8', '文章管理', '02980000', '1', 'cms/article/i
 INSERT INTO `model` VALUES ('22', '会员中心', '07000000', '0', '', '2014-09-08 08:11:28', '&#xe6b6;', '0', null, '1');
 INSERT INTO `model` VALUES ('23', '权限管理', '01000000', '0', '', '2014-09-08 08:12:22', '&#xe950;', '0', null, null);
 INSERT INTO `model` VALUES ('35', '自定义模型', '02060000', '84', 'mdiy/contentModel/list.do', '2014-10-13 18:27:23', '', '0', null, null);
-INSERT INTO `model` VALUES ('36', '自定义搜索', '02050000', '1', 'mdiy/search/index.do', '2014-10-13 18:28:34', '', '0', null, null);
+INSERT INTO `model` VALUES ('36', '自定义搜索', '02050000', '1', 'mdiy/search/list.do?modelName=cms', '2014-10-13 18:28:34', '', '0', null, null);
 INSERT INTO `model` VALUES ('79', '生成器', '11000000', '0', '', '2014-12-18 11:36:16', '&#xe6cc;', '0', null, null);
 INSERT INTO `model` VALUES ('80', '生成主页', '11010000', '79', 'cms/generate/index.do', '2014-12-18 11:37:15', '', '0', null, null);
 INSERT INTO `model` VALUES ('81', '生成栏目', '11020000', '79', 'cms/generate/column.do', '2014-12-18 11:37:53', '', '0', null, null);
@@ -1014,29 +1006,29 @@ INSERT INTO `model` VALUES ('90', '自定义表单', '12050000', '84', 'mdiy/diy
 INSERT INTO `model` VALUES ('91', '模板管理', '12020000', '84', 'template/queryTemplateSkin.do', null, null, null, null, null);
 
 -- ----------------------------
--- Table structure for mdiy_page
+-- Table structure for model_template
 -- ----------------------------
-DROP TABLE IF EXISTS `mdiy_page`;
-CREATE TABLE `mdiy_page` (
-  `page_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
-  `page_model_id` int(11) DEFAULT NULL COMMENT '模块id',
-  `page_app_id` int(11) DEFAULT NULL COMMENT '应用id',
-  `page_path` varchar(255) DEFAULT NULL COMMENT '自定义页面绑定模板的路径',
-  `page_title` varchar(255) DEFAULT NULL COMMENT '自定义页面标题',
-  `page_key` varchar(255) DEFAULT NULL COMMENT '自定义页面访问路径',
-  PRIMARY KEY (`page_id`),
-  KEY `page_key` (`page_key`) USING BTREE,
-  KEY `page_app_id` (`page_app_id`),
-  KEY `page_model_id` (`page_model_id`) USING BTREE
+DROP TABLE IF EXISTS `model_template`;
+CREATE TABLE `model_template` (
+  `mt_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
+  `mt_modelID` int(11) DEFAULT NULL COMMENT '模块id',
+  `mt_appID` int(11) DEFAULT NULL COMMENT '应用id',
+  `mt_path` varchar(255) DEFAULT NULL COMMENT '自定义页面绑定模板的路径',
+  `mt_title` varchar(255) DEFAULT NULL COMMENT '自定义页面标题',
+  `mt_key` varchar(255) DEFAULT NULL COMMENT '自定义页面访问路径',
+  PRIMARY KEY (`mt_id`),
+  KEY `mt_key` (`mt_key`) USING BTREE,
+  KEY `mt_appID` (`mt_appID`),
+  KEY `mt_modelID` (`mt_modelID`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='自定义页面表';
 
 -- ----------------------------
 -- Records of model_template
 -- ----------------------------
-INSERT INTO `mdiy_page` VALUES ('1', '0', '1', 'people/register.htm', '注册', 'register');
-INSERT INTO `mdiy_page` VALUES ('2', '0', '1', 'people/login.htm', '登录', 'login');
-INSERT INTO `mdiy_page` VALUES ('3', '0', '1', 'people/center.htm', '个人中心', 'people/center');
-INSERT INTO `mdiy_page` VALUES ('4', '0', '1', 'people/change-passWord.htm', '修改密码', 'people/changePassWord');
+INSERT INTO `model_template` VALUES ('1', '0', '1', 'people/register.htm', '注册', 'register');
+INSERT INTO `model_template` VALUES ('2', '0', '1', 'people/login.htm', '登录', 'login');
+INSERT INTO `model_template` VALUES ('3', '0', '1', 'people/center.htm', '个人中心', 'people/center');
+INSERT INTO `model_template` VALUES ('4', '0', '1', 'people/change-passWord.htm', '修改密码', 'people/changePassWord');
 
 -- ----------------------------
 -- Table structure for people
@@ -1192,7 +1184,7 @@ CREATE TABLE `system_skin_manager` (
 -- View structure for v_article
 -- ----------------------------
 DROP VIEW IF EXISTS `v_article`;
-CREATE  VIEW `v_article` AS select `cms_article`.`ARTICLE_BASICID` AS `ARTICLE_BASICID`,`basic`.`BASIC_ID` AS `BASIC_ID`,`basic`.`BASIC_CATEGORYID` AS `BASIC_CATEGORYID`,`basic`.`BASIC_TITLE` AS `BASIC_TITLE`,`basic`.`BASIC_DESCRIPTION` AS `BASIC_DESCRIPTION`,`basic`.`BASIC_THUMBNAILS` AS `BASIC_THUMBNAILS`,`basic`.`BASIC_HIT` AS `BASIC_HIT`,`basic`.`BASIC_DATETIME` AS `BASIC_DATETIME`,`basic`.`BASIC_UPDATETIME` AS `BASIC_UPDATETIME`,`basic`.`BASIC_PEOPLEID` AS `BASIC_PEOPLEID`,`cms_article`.`ARTICLE_AUTHOR` AS `ARTICLE_AUTHOR`,`cms_article`.`ARTICLE_CONTENT` AS `ARTICLE_CONTENT`,`cms_article`.`ARTICLE_TYPE` AS `ARTICLE_TYPE`,`cms_article`.`ARTICLE_SOURCE` AS `ARTICLE_SOURCE`,`cms_article`.`ARTICLE_URL` AS `ARTICLE_URL`,`cms_article`.`ARTICLE_KEYWORD` AS `ARTICLE_KEYWORD`,`cms_article`.`ARTICLE_FREEORDER` AS `ARTICLE_FREEORDER`,`cms_article`.`ARTICLE_WEBID` AS `ARTICLE_WEBID`,`basic_column`.`COLUMN_KEYWORD` AS `COLUMN_KEYWORD`,`basic_column`.`COLUMN_DESCRIP` AS `COLUMN_DESCRIP`,`basic_column`.`COLUMN_TYPE` AS `COLUMN_TYPE`,`basic_column`.`COLUMN_URL` AS `COLUMN_URL`,`basic_column`.`COLUMN_LISTURL` AS `COLUMN_LISTURL`,`basic_column`.`COLUMN_TENTMODELID` AS `COLUMN_TENTMODELID`,`basic_column`.`COLUMN_WEBSITEID` AS `COLUMN_WEBSITEID`,`basic_column`.`COLUMN_PATH` AS `column_path`,`basic_column`.`COLUMN_CONTENTMODELID` AS `COLUMN_CONTENTMODELID`,`category`.`CATEGORY_TITLE` AS `CATEGORY_TITLE`,`category`.`CATEGORY_APPID` AS `CATEGORY_APPID`,`basic_column`.`COLUMN_CATEGORYID` AS `COLUMN_CATEGORYID`,`category`.`CATEGORY_ID` AS `CATEGORY_ID`,`basic`.`BASIC_SORT` AS `BASIC_SORT` from (((`basic` join `cms_article` on((`basic`.`BASIC_ID` = `cms_article`.`ARTICLE_BASICID`))) join `basic_column` on((`basic`.`BASIC_CATEGORYID` = `basic_column`.`COLUMN_CATEGORYID`))) join `category` on((`basic_column`.`COLUMN_CATEGORYID` = `category`.`CATEGORY_ID`))) ;
+CREATE  VIEW `v_article` AS select `cms_article`.`ARTICLE_BASICID` AS `ARTICLE_BASICID`,`basic`.`BASIC_ID` AS `BASIC_ID`,`basic`.`BASIC_CATEGORYID` AS `BASIC_CATEGORYID`,`basic`.`BASIC_TITLE` AS `BASIC_TITLE`,`basic`.`BASIC_DESCRIPTION` AS `BASIC_DESCRIPTION`,`basic`.`BASIC_THUMBNAILS` AS `BASIC_THUMBNAILS`,`basic`.`BASIC_HIT` AS `BASIC_HIT`,`basic`.`BASIC_DATETIME` AS `BASIC_DATETIME`,`basic`.`BASIC_UPDATETIME` AS `BASIC_UPDATETIME`,`basic`.`BASIC_PEOPLEID` AS `BASIC_PEOPLEID`,`cms_article`.`ARTICLE_AUTHOR` AS `ARTICLE_AUTHOR`,`cms_article`.`ARTICLE_CONTENT` AS `ARTICLE_CONTENT`,`cms_article`.`ARTICLE_TYPE` AS `ARTICLE_TYPE`,`cms_article`.`ARTICLE_SOURCE` AS `ARTICLE_SOURCE`,`cms_article`.`ARTICLE_URL` AS `ARTICLE_URL`,`cms_article`.`ARTICLE_KEYWORD` AS `ARTICLE_KEYWORD`,`cms_article`.`ARTICLE_FREEORDER` AS `ARTICLE_FREEORDER`,`cms_article`.`ARTICLE_WEBID` AS `ARTICLE_WEBID`,`cms_column`.`COLUMN_KEYWORD` AS `COLUMN_KEYWORD`,`cms_column`.`COLUMN_DESCRIP` AS `COLUMN_DESCRIP`,`cms_column`.`COLUMN_TYPE` AS `COLUMN_TYPE`,`cms_column`.`COLUMN_URL` AS `COLUMN_URL`,`cms_column`.`COLUMN_LISTURL` AS `COLUMN_LISTURL`,`cms_column`.`COLUMN_TENTMODELID` AS `COLUMN_TENTMODELID`,`cms_column`.`COLUMN_WEBSITEID` AS `COLUMN_WEBSITEID`,`cms_column`.`COLUMN_PATH` AS `column_path`,`cms_column`.`COLUMN_CONTENTMODELID` AS `COLUMN_CONTENTMODELID`,`category`.`CATEGORY_TITLE` AS `CATEGORY_TITLE`,`category`.`CATEGORY_APPID` AS `CATEGORY_APPID`,`cms_column`.`COLUMN_CATEGORYID` AS `COLUMN_CATEGORYID`,`category`.`CATEGORY_ID` AS `CATEGORY_ID`,`basic`.`BASIC_SORT` AS `BASIC_SORT` from (((`basic` join `cms_article` on((`basic`.`BASIC_ID` = `cms_article`.`ARTICLE_BASICID`))) join `cms_column` on((`basic`.`BASIC_CATEGORYID` = `cms_column`.`COLUMN_CATEGORYID`))) join `category` on((`cms_column`.`COLUMN_CATEGORYID` = `category`.`CATEGORY_ID`))) ;
 
 -- ----------------------------
 -- View structure for v_people_user
