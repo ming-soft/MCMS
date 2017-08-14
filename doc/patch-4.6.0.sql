@@ -57,6 +57,7 @@ ALTER TABLE basic_attention CHANGE ba_peopleID ba_people_id  int(11) DEFAULT NUL
 ALTER TABLE basic_attention CHANGE ba_appID ba_app_id  int(11) DEFAULT NULL COMMENT '用户应用id';
 ALTER TABLE basic_attention CHANGE ba_basicID ba_basic_id  int(11) DEFAULT NULL COMMENT '用户收藏关联的基础id';
 
+ALTER TABLE `comment` ENGINE = InnoDB;
 ALTER TABLE `cms_article` ENGINE = InnoDB;
 ALTER TABLE `app` ENGINE = InnoDB;
 ALTER TABLE `basic_attention` ENGINE = InnoDB;
@@ -176,3 +177,9 @@ ALTER TABLE .`comment` ADD CONSTRAINT `fk_comment` FOREIGN KEY (`COMMENT_BASICID
 ALTER TABLE .`comment` ADD CONSTRAINT `fk_comment_people_1` FOREIGN KEY (`COMMENT_PEOPLEID`) REFERENCES .`people` (`PEOPLE_ID`) ON DELETE CASCADE ON UPDATE NO ACTION;
 ALTER TABLE .`people` MODIFY COLUMN `PEOPLE_MAILLCHECK` int(1) NULL DEFAULT 0 COMMENT '1邮箱验证通过' AFTER `PEOPLE_PHONECHECK`;
 ALTER TABLE .`cms_article` ADD CONSTRAINT `fk_cms_article_basic_1` FOREIGN KEY (`ARTICLE_BASICID`) REFERENCES .`basic` (`BASIC_ID`) ON DELETE CASCADE ON UPDATE NO ACTION;
+DROP TABLE `system_skin_manager`;
+DROP TABLE `system_main_page`;
+DROP TABLE `basic_child`;
+DROP TABLE `basic_category`;
+DROP TABLE `basic_type`;
+set FOREIGN_KEY_CHECKS=1;
