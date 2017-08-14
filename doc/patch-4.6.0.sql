@@ -183,4 +183,7 @@ DROP TABLE `system_main_page`;
 DROP TABLE `basic_child`;
 DROP TABLE `basic_category`;
 DROP TABLE `basic_type`;
+DROP VIEW `v_article`;
+DROP VIEW `v_people_user`;
+DROP TABLE `dict`;
 set FOREIGN_KEY_CHECKS=1;
