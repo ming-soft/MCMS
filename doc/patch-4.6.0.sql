@@ -1,6 +1,7 @@
-UPDATE model  SET MODEL_URL = 'mdiy/search/index.do?modelName=cms' WHERE MODEL_URL = 'mdiy/search/list.do';
+UPDATE model  SET MODEL_URL = 'mdiy/search/index.do?modelName=cms' WHERE MODEL_URL = 'mdiy/search/list.do' OR MODEL_URL='mdiy/search/list.do?modelName=cms';
 UPDATE model  SET MODEL_URL = 'mdiy/page/index.do' WHERE MODEL_URL = 'mdiy/modeltemplate/list.do';
 UPDATE model  SET MODEL_URL = 'mdiy/contentModel/index.do' WHERE MODEL_URL = 'mdiy/contentModel/list.do';
+UPDATE model  SET MODEL_URL = 'mdiy/form/index.do' WHERE MODEL_URL = 'mdiy/diyForm/form/list.do';
 UPDATE model  SET MODEL_URL = 'column/index.do' WHERE MODEL_URL = 'cms/column/list.do';
 UPDATE model  SET MODEL_URL = 'mall/column/index.do' WHERE MODEL_URL = 'cms/column/list.do' AND MODEL_CODE='06990000';
 
