@@ -26,6 +26,7 @@ ALTER TABLE mdiy_page ADD INDEX index_page_app_id(page_app_id);
 ALTER TABLE mdiy_page DROP INDEX mt_modelID;
 ALTER TABLE mdiy_page add INDEX index_page_model_id(page_model_id);
 ALTER TABLE `mdiy_content_model` ADD COLUMN `CM_APP_ID` int(0) COMMENT '应用编号' AFTER `CM_MODEL_ID`;
+ALTER TABLE `mdiy_content_model` DROP COLUMN `CM_MANAGERID`;
 ALTER TABLE `mdiy_content_model` CHANGE CM_TIPSNAME CM_TIPS_NAME varchar(30) NOT NULL COMMENT '表单提示文字';
 ALTER TABLE `mdiy_content_model` CHANGE CM_TABLENAME CM_TABLE_NAME  varchar(20) NOT NULL COMMENT '表单名称';
 
