@@ -133,6 +133,7 @@ public class ColumnAction extends BaseAction {
 		cme.setAppId(BasicUtil.getAppId());
 		List listCm = contentModelBiz.query(cme);
 		ColumnEntity columnSuper = new ColumnEntity();
+		model.addAttribute("appId",appId);
 		model.addAttribute("columnSuper", columnSuper);
 		model.addAttribute("column",new ColumnEntity());
 		model.addAttribute("listColumn", JSONArray.toJSONString(list));
@@ -306,6 +307,7 @@ public class ColumnAction extends BaseAction {
 		ContentModelEntity cme = new ContentModelEntity();
 		cme.setAppId(BasicUtil.getAppId());
 		List listCm = contentModelBiz.query(cme);
+		model.addAttribute("appId",appId);
 		model.addAttribute("column", column);
 		model.addAttribute("columnc", column.getCategoryId());
 		model.addAttribute("listCm", listCm);
