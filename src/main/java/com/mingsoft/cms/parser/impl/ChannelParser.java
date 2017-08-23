@@ -98,6 +98,12 @@ public class ChannelParser extends IParser {
 	 * 获取栏目id
 	 */
 	private final static String CHANNEL_FIELE_ID="\\[field.typeid/\\]";
+	
+	
+	/**
+	 * 获取栏目缩略图 
+	 */
+	private final static String CHANNEL_TYPE_LITPIC="\\[field.typelitpic/\\]";
 
 	/**
 	 * 分类选中样式
@@ -302,6 +308,8 @@ public class ChannelParser extends IParser {
 				htmlList = tabContent(htmlList, articleType.getColumnKeyword(), CHANNEL_KEYWORD);
 				// 替换栏目描述标签
 				htmlList = tabContent(htmlList, articleType.getColumnDescrip(), CHANNEL_DESCRIP);
+				//替换缩略图
+				htmlList = tabContent(htmlList, articleType.getCategorySmallImg(), CHANNEL_TYPE_LITPIC);
 				//替换栏目id标签
 				htmlList = tabContent(htmlList, articleType.getCategoryId()+"", CHANNEL_FIELE_ID);
 				if (this.curColumnId == articleType.getCategoryId() && !StringUtil.isBlank(className)) {
