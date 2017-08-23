@@ -85,7 +85,7 @@
 
 
 	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		class="net.mingsoft.base.resolver.MultipartResolver">
 		<property name="defaultEncoding">
 			<value>UTF-8</value>
 		</property>
@@ -95,6 +95,7 @@
 		<property name="maxInMemorySize">
 			<value>4096</value>
 		</property>
+		<property name="excludeUrls" value="upload"/>  
 	</bean>
 
 	<!-- 系统错误转发配置[并记录错误日志] -->

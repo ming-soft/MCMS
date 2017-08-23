@@ -10,7 +10,7 @@
 				<@ms.checkboxlist colSm="2" name="checkbox" label="文章属性" list=articleType listKey="key"  listValue="value" />
 			</#if>
 			<@ms.formRow colSm="2" label="文章缩略图" width="400" >
-					<@ms.uploadImg path="upload/article/${appId}/" inputName="basicThumbnails" size="1" msg="提示:文章缩略图,支持jpg格式"  maxSize="2" imgs="${article.basicThumbnails?default('')}"  />
+					<@ms.uploadImg path="article" inputName="basicThumbnails" size="1" msg="提示:文章缩略图,支持jpg格式"  imgs="${article.basicThumbnails?default('')}"  />
 			</@ms.formRow>
 			<@ms.text name="articleSource" colSm="2" width="200" label="文章来源" title="文章来源" size="5"  placeholder="请输入文章来源"  value="${article.articleSource?default('')}" />
 			<@ms.text name="articleAuthor" colSm="2" width="200" label="文章作者" title="文章作者" size="5"  placeholder="请输入文章作者"  value="${article.articleAuthor?default('')}" />
