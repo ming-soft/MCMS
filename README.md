@@ -81,6 +81,11 @@ QQ交流群号1：221335098<br/>
 * MCms环境配置常见问题  http://ms.mingsoft.net/mbbs/13000/detail.do
 * MStore使用方式：http://ms.mingsoft.net/mbbs/13008/detail.do
 
+#文档
+* MCms标签手册 http://doc.ms.mingsoft.net/mcms-tag-guide
+* 快速开发手册 http://doc.ms.mingsoft.net/dev-guide/
+
+
 #开源说明
 * 系统100%开源
 * 铭飞MCms是铭飞MS平台的一个子模块，同时铭飞MCms所依赖的模块都是用maven方式提供了源码获取方式,具体看pom.xml
