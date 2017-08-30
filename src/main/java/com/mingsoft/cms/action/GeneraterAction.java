@@ -162,7 +162,6 @@ public class GeneraterAction extends BaseAction {
 		List<ColumnEntity> list  = columnBiz.queryAll(websiteId,modelId);
 		model.addAttribute("list",  JSONArray.toJSONString(list));
 		model.addAttribute("now", new Date());
-		model.addAttribute("list",  JSONArray.toJSONString(list));
 		return view("/cms/generate/generate_index");
 	}
 
