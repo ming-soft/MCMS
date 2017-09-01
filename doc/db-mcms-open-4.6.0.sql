@@ -1,27 +1,27 @@
-SET FOREIGN_KEY_CHECKS=0;
+set foreign_key_checks=0;
 
 -- ----------------------------
--- Table structure for app
+-- table structure for app
 -- ----------------------------
-DROP TABLE IF EXISTS `app`;
-CREATE TABLE `app` (
-  `APP_ID` int(22) NOT NULL AUTO_INCREMENT COMMENT '站点ID，关联基础表BasicId',
-  `APP_NAME` varchar(60) NOT NULL COMMENT '站点名称',
-  `APP_URL` varchar(200) NOT NULL COMMENT '站点域名，多个回车换行显示',
-  `APP_LOGO` varchar(120) DEFAULT NULL COMMENT '网站logo',
-  `APP_KEYWORD` varchar(500) DEFAULT NULL COMMENT '站点关键字',
-  `APP_COPYRIGHT` varchar(500) DEFAULT NULL COMMENT '站点版权信息',
-  `APP_STYLE` varchar(50) DEFAULT NULL COMMENT '站点风格',
-  `APP_MANAGERID` int(11) DEFAULT NULL COMMENT '站点对于管理员编号',
-  `APP_DESCRIPTION` varchar(500) DEFAULT NULL COMMENT '描述',
-  `APP_DATETIME` datetime DEFAULT NULL COMMENT '创建时间',
-  `APP_MOBILE_STYLE` varchar(11) DEFAULT NULL COMMENT '移动端风格',
-  `APP_PAY_DATE` datetime DEFAULT NULL COMMENT '应用续费时间',
-  `APP_PAY` varchar(300) DEFAULT NULL COMMENT '费用清单',
-  `APP_STATE` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '0运行中 1已停止  ',
-  `APP_MOBILE_STATE` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '0启用 1停用',
-  PRIMARY KEY (`APP_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=1550 DEFAULT CHARSET=utf8 COMMENT='应用表';
+drop table if exists `app`;
+create table `app` (
+  `app_id` int(22) not null auto_increment comment '站点id，关联基础表basicid',
+  `app_name` varchar(60) not null comment '站点名称',
+  `app_url` varchar(200) not null comment '站点域名，多个回车换行显示',
+  `app_logo` varchar(120) default null comment '网站logo',
+  `app_keyword` varchar(500) default null comment '站点关键字',
+  `app_copyright` varchar(500) default null comment '站点版权信息',
+  `app_style` varchar(50) default null comment '站点风格',
+  `app_managerid` int(11) default null comment '站点对于管理员编号',
+  `app_description` varchar(500) default null comment '描述',
+  `app_datetime` datetime default null comment '创建时间',
+  `app_mobile_style` varchar(11) default null comment '移动端风格',
+  `app_pay_date` datetime default null comment '应用续费时间',
+  `app_pay` varchar(300) default null comment '费用清单',
+  `app_state` int(1) unsigned not null default '0' comment '0运行中 1已停止  ',
+  `app_mobile_state` int(1) unsigned not null default '0' comment '0启用 1停用',
+  primary key (`app_id`)
+) engine=myisam auto_increment=1550 default charset=utf8 comment='应用表';
 
 -- ----------------------------
 -- Records of app
@@ -29,34 +29,34 @@ CREATE TABLE `app` (
 INSERT INTO `app` VALUES ('1', 'MCMS-OPEN', 'http://localhost:8080/mcms\r\n', '', '', '', 'Show1731', '50', '', null, 'm', null, '', '0', '0');
 
 -- ----------------------------
--- Table structure for basic
+-- table structure for basic
 -- ----------------------------
-DROP TABLE IF EXISTS `basic`;
-CREATE TABLE `basic` (
-  `BASIC_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长ID',
-  `BASIC_TITLE` varchar(300) DEFAULT NULL COMMENT '标题',
-  `BASIC_DESCRIPTION` text COMMENT '描述',
-  `BASIC_THUMBNAILS` varchar(1000) DEFAULT NULL COMMENT '缩略图',
-  `BASIC_HIT` bigint(22) DEFAULT NULL COMMENT '点击次数',
-  `BASIC_SORT` int(11) DEFAULT NULL COMMENT '排序',
-  `BASIC_DATETIME` datetime DEFAULT NULL COMMENT ' 发布时间',
-  `BASIC_UPDATETIME` datetime DEFAULT NULL COMMENT '更新时间',
-  `BASIC_PEOPLEID` int(22) DEFAULT NULL COMMENT '用户编号',
-  `BASIC_CATEGORYID` int(22) DEFAULT NULL COMMENT '所属分类编号',
-  `BASIC_APPID` int(11) DEFAULT NULL COMMENT '应用编号',
-  `BASIC_MODELID` int(11) DEFAULT NULL COMMENT '模块编号',
-  `BASIC_COMMENT` int(11) DEFAULT NULL COMMENT '评论次数',
-  `BASIC_COLLECT` int(11) DEFAULT NULL COMMENT '收藏次数',
-  `BASIC_SHARE` int(11) DEFAULT NULL COMMENT '分享次数',
-  `BASIC_TYPE` varchar(255) DEFAULT NULL COMMENT '属性',
-  PRIMARY KEY (`BASIC_ID`),
-  UNIQUE KEY `SYS_C009068` (`BASIC_ID`),
-  KEY `BASIC_TITLE` (`BASIC_TITLE`(255)),
-  KEY `BASIC_APPID` (`BASIC_APPID`) USING BTREE,
-  KEY `BASIC_MODELID` (`BASIC_MODELID`) USING BTREE,
-  KEY `BASIC_CATEGORYID` (`BASIC_CATEGORYID`) USING BTREE,
-  KEY `BASIC_DATETIME` (`BASIC_DATETIME`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=220 DEFAULT CHARSET=utf8 COMMENT='基础表';
+drop table if exists `basic`;
+create table `basic` (
+  `basic_id` int(11) not null auto_increment comment '自增长id',
+  `basic_title` varchar(300) default null comment '标题',
+  `basic_description` text comment '描述',
+  `basic_thumbnails` varchar(1000) default null comment '缩略图',
+  `basic_hit` bigint(22) default null comment '点击次数',
+  `basic_sort` int(11) default null comment '排序',
+  `basic_datetime` datetime default null comment ' 发布时间',
+  `basic_updatetime` datetime default null comment '更新时间',
+  `basic_peopleid` int(22) default null comment '用户编号',
+  `basic_categoryid` int(22) default null comment '所属分类编号',
+  `basic_appid` int(11) default null comment '应用编号',
+  `basic_modelid` int(11) default null comment '模块编号',
+  `basic_comment` int(11) default null comment '评论次数',
+  `basic_collect` int(11) default null comment '收藏次数',
+  `basic_share` int(11) default null comment '分享次数',
+  `basic_type` varchar(255) default null comment '属性',
+  primary key (`basic_id`),
+  unique key `sys_c009068` (`basic_id`),
+  key `basic_title` (`basic_title`(255)),
+  key `basic_appid` (`basic_appid`) using btree,
+  key `basic_modelid` (`basic_modelid`) using btree,
+  key `basic_categoryid` (`basic_categoryid`) using btree,
+  key `basic_datetime` (`basic_datetime`) using btree
+) engine=innodb auto_increment=220 default charset=utf8 comment='基础表';
 
 -- ----------------------------
 -- Records of basic
@@ -263,74 +263,74 @@ INSERT INTO `basic` VALUES ('218', '孙建东', '锐诚PPT培训部总监', '/up
 INSERT INTO `basic` VALUES ('219', '梅幸', '锐诚PPT金牌设计师', '/upload/article/1638/1464860570155.png', '0', '0', '2016-06-02 17:42:27', '2016-06-03 15:47:27', '0', '115', '1', '8', null, null, null, null);
 
 -- ----------------------------
--- Table structure for basic_attention
+-- table structure for basic_attention
 -- ----------------------------
-DROP TABLE IF EXISTS `basic_attention`;
-CREATE TABLE `basic_attention` (
-  `ba_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长ID',
-  `ba_peopleID` int(11) DEFAULT NULL COMMENT '用户id',
-  `ba_appID` int(11) DEFAULT NULL COMMENT '用户应用id',
-  `ba_basicID` int(11) DEFAULT NULL COMMENT '用户收藏关联的基础id',
-  `ba_type` int(11) DEFAULT NULL COMMENT '收藏类型 1： 收藏  2：顶',
-  `ba_datetime` datetime DEFAULT NULL COMMENT '用户收藏文章，帖子或商品时的时间',
-  `ba_url` varchar(200) DEFAULT NULL COMMENT '收藏的文章,帖子，商品的链接地址',
-  PRIMARY KEY (`ba_id`),
-  KEY `BA_PEOPLEID` (`ba_peopleID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户收藏表';
+drop table if exists `basic_attention`;
+create table `basic_attention` (
+  `ba_id` int(11) not null auto_increment comment '自增长id',
+  `ba_peopleid` int(11) default null comment '用户id',
+  `ba_appid` int(11) default null comment '用户应用id',
+  `ba_basicid` int(11) default null comment '用户收藏关联的基础id',
+  `ba_type` int(11) default null comment '收藏类型 1： 收藏  2：顶',
+  `ba_datetime` datetime default null comment '用户收藏文章，帖子或商品时的时间',
+  `ba_url` varchar(200) default null comment '收藏的文章,帖子，商品的链接地址',
+  primary key (`ba_id`),
+  key `ba_peopleid` (`ba_peopleid`)
+) engine=myisam default charset=utf8 row_format=dynamic comment='用户收藏表';
 
 -- ----------------------------
 -- Records of basic_attention
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for basic_category
+-- table structure for basic_category
 -- ----------------------------
-DROP TABLE IF EXISTS `basic_category`;
-CREATE TABLE `basic_category` (
-  `bc_basic_id` int(11) NOT NULL COMMENT '文章编号',
-  `bc_category_id` int(11) NOT NULL COMMENT '分类编号',
-  UNIQUE KEY `bc_basic_id` (`bc_basic_id`,`bc_category_id`),
-  KEY `bc_category_id` (`bc_category_id`),
-  KEY `bc_category_id_2` (`bc_category_id`),
-  KEY `bc_category_id_3` (`bc_category_id`),
-  CONSTRAINT `basic_category_ibfk_1` FOREIGN KEY (`bc_basic_id`) REFERENCES `basic` (`BASIC_ID`) ON DELETE CASCADE,
-  CONSTRAINT `basic_category_ibfk_2` FOREIGN KEY (`bc_category_id`) REFERENCES `category` (`CATEGORY_ID`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='文章多分类表';
+drop table if exists `basic_category`;
+create table `basic_category` (
+  `bc_basic_id` int(11) not null comment '文章编号',
+  `bc_category_id` int(11) not null comment '分类编号',
+  unique key `bc_basic_id` (`bc_basic_id`,`bc_category_id`),
+  key `bc_category_id` (`bc_category_id`),
+  key `bc_category_id_2` (`bc_category_id`),
+  key `bc_category_id_3` (`bc_category_id`),
+  constraint `basic_category_ibfk_1` foreign key (`bc_basic_id`) references `basic` (`basic_id`) on delete cascade,
+  constraint `basic_category_ibfk_2` foreign key (`bc_category_id`) references `category` (`category_id`) on delete cascade
+) engine=innodb default charset=utf8 comment='文章多分类表';
 
 -- ----------------------------
 -- Records of basic_category
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for basic_child
+-- table structure for basic_child
 -- ----------------------------
-DROP TABLE IF EXISTS `basic_child`;
-CREATE TABLE `basic_child` (
-  `bc_basic_Id` int(11) NOT NULL COMMENT '基础basicId',
-  `bc_basic_child_Id` int(11) DEFAULT NULL COMMENT '基础basicId关联的子id',
-  PRIMARY KEY (`bc_basic_Id`),
-  KEY `bc_basic_Id` (`bc_basic_Id`) USING BTREE,
-  KEY `bc_basic_child_Id` (`bc_basic_child_Id`) USING BTREE,
-  CONSTRAINT `basic_child_ibfk_1` FOREIGN KEY (`bc_basic_Id`) REFERENCES `basic` (`BASIC_ID`),
-  CONSTRAINT `basic_child_ibfk_2` FOREIGN KEY (`bc_basic_child_Id`) REFERENCES `basic` (`BASIC_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='基础表之间的子父关联表';
+drop table if exists `basic_child`;
+create table `basic_child` (
+  `bc_basic_id` int(11) not null comment '基础basicid',
+  `bc_basic_child_id` int(11) default null comment '基础basicid关联的子id',
+  primary key (`bc_basic_id`),
+  key `bc_basic_id` (`bc_basic_id`) using btree,
+  key `bc_basic_child_id` (`bc_basic_child_id`) using btree,
+  constraint `basic_child_ibfk_1` foreign key (`bc_basic_id`) references `basic` (`basic_id`),
+  constraint `basic_child_ibfk_2` foreign key (`bc_basic_child_id`) references `basic` (`basic_id`)
+) engine=innodb default charset=utf8 row_format=compact comment='基础表之间的子父关联表';
 
 -- ----------------------------
 -- Records of basic_child
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for basic_log
+-- table structure for basic_log
 -- ----------------------------
-DROP TABLE IF EXISTS `basic_log`;
-CREATE TABLE `basic_log` (
-  `bl_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `bl_basic_id` int(11) NOT NULL COMMENT '引用编号',
-  `bl_ip` varchar(20) NOT NULL COMMENT 'ip地址',
-  `bl_datetime` datetime NOT NULL COMMENT '记录时间',
-  `bl_is_mobile` int(1) NOT NULL DEFAULT '0' COMMENT '1移动端 0默认pc',
-  PRIMARY KEY (`bl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='信息访问日志';
+drop table if exists `basic_log`;
+create table `basic_log` (
+  `bl_id` int(11) not null auto_increment comment '编号',
+  `bl_basic_id` int(11) not null comment '引用编号',
+  `bl_ip` varchar(20) not null comment 'ip地址',
+  `bl_datetime` datetime not null comment '记录时间',
+  `bl_is_mobile` int(1) not null default '0' comment '1移动端 0默认pc',
+  primary key (`bl_id`)
+) engine=innodb auto_increment=15 default charset=utf8 row_format=compact comment='信息访问日志';
 
 -- ----------------------------
 -- Records of basic_log
@@ -351,47 +351,47 @@ INSERT INTO `basic_log` VALUES ('13', '73', '192.168.1.165', '2016-06-12 11:31:1
 INSERT INTO `basic_log` VALUES ('14', '73', '192.168.1.152', '2016-06-13 19:53:50', '0');
 
 -- ----------------------------
--- Table structure for basic_type
+-- table structure for basic_type
 -- ----------------------------
-DROP TABLE IF EXISTS `basic_type`;
-CREATE TABLE `basic_type` (
-  `bt_basic_id` int(11) NOT NULL DEFAULT '0' COMMENT '基础信息',
-  `bt_type` int(11) NOT NULL DEFAULT '0' COMMENT '属性',
-  UNIQUE KEY `st_basic_id` (`bt_basic_id`,`bt_type`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='通用信息属性';
+drop table if exists `basic_type`;
+create table `basic_type` (
+  `bt_basic_id` int(11) not null default '0' comment '基础信息',
+  `bt_type` int(11) not null default '0' comment '属性',
+  unique key `st_basic_id` (`bt_basic_id`,`bt_type`) using btree
+) engine=innodb default charset=utf8 row_format=compact comment='通用信息属性';
 
 -- ----------------------------
 -- Records of basic_type
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for category
+-- table structure for category
 -- ----------------------------
-DROP TABLE IF EXISTS `category`;
-CREATE TABLE `category` (
-  `CATEGORY_ID` int(22) NOT NULL AUTO_INCREMENT COMMENT '类别ID',
-  `CATEGORY_TITLE` varchar(50) DEFAULT NULL COMMENT '类别标题',
-  `CATEGORY_SORT` int(10) DEFAULT NULL COMMENT '类别排序',
-  `CATEGORY_DATETIME` datetime DEFAULT NULL COMMENT '类别发布时间',
-  `CATEGORY_MANAGERID` int(22) DEFAULT NULL COMMENT '发布用户ID',
-  `CATEGORY_MODELID` int(11) DEFAULT NULL COMMENT '所属模块ID',
-  `CATEGORY_CATEGORYID` int(22) DEFAULT NULL COMMENT '父类别编号',
-  `CATEGORY_SMALLIMG` varchar(120) DEFAULT NULL COMMENT '略缩图',
-  `CATEGORY_APPID` int(11) DEFAULT NULL COMMENT '应用编号',
-  `CATEGORY_DESCRIPTION` varchar(45) DEFAULT NULL COMMENT '栏目描述',
-  `CATEGORY_PARENT_ID` varchar(255) DEFAULT NULL COMMENT '父类型编号',
-  `CATEGORY_DICT_ID` int(11) DEFAULT '0' COMMENT '字典对应编号',
-  `CATEGORY_CREATE_BY` int(11) DEFAULT '0' COMMENT '创建人',
-  `CATEGORY_CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  `CATEGORY_UPDATE_BY` int(11) DEFAULT '0' COMMENT '更新人',
-  `CATEGORY_UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-  `CATEGORY_DEL` int(11) NOT NULL DEFAULT '0' COMMENT '删除状态',
-  PRIMARY KEY (`CATEGORY_ID`),
-  KEY `CATEGORY_APPID` (`CATEGORY_APPID`),
-  KEY `CATEGORY_MANAGERID` (`CATEGORY_MANAGERID`),
-  KEY `CATEGORY_MODELID` (`CATEGORY_MODELID`),
-  KEY `CATEGORY_CATEGORYID` (`CATEGORY_CATEGORYID`)
-) ENGINE=InnoDB AUTO_INCREMENT=149 DEFAULT CHARSET=utf8 COMMENT='分类表';
+drop table if exists `category`;
+create table `category` (
+  `category_id` int(22) not null auto_increment comment '类别id',
+  `category_title` varchar(50) default null comment '类别标题',
+  `category_sort` int(10) default null comment '类别排序',
+  `category_datetime` datetime default null comment '类别发布时间',
+  `category_managerid` int(22) default null comment '发布用户id',
+  `category_modelid` int(11) default null comment '所属模块id',
+  `category_categoryid` int(22) default null comment '父类别编号',
+  `category_smallimg` varchar(120) default null comment '略缩图',
+  `category_appid` int(11) default null comment '应用编号',
+  `category_description` varchar(45) default null comment '栏目描述',
+  `category_parent_id` varchar(255) default null comment '父类型编号',
+  `category_dict_id` int(11) default '0' comment '字典对应编号',
+  `category_create_by` int(11) default '0' comment '创建人',
+  `category_create_date` datetime default null comment '创建时间',
+  `category_update_by` int(11) default '0' comment '更新人',
+  `category_update_date` datetime default null comment '更新时间',
+  `category_del` int(11) not null default '0' comment '删除状态',
+  primary key (`category_id`),
+  key `category_appid` (`category_appid`),
+  key `category_managerid` (`category_managerid`),
+  key `category_modelid` (`category_modelid`),
+  key `category_categoryid` (`category_categoryid`)
+) engine=innodb auto_increment=149 default charset=utf8 comment='分类表';
 
 -- ----------------------------
 -- Records of category
@@ -442,23 +442,23 @@ INSERT INTO `category` VALUES ('147', '长图', '0', '2016-06-02 17:23:49', '50'
 INSERT INTO `category` VALUES ('148', '短图', '0', '2016-06-02 17:24:21', '50', '7', '100', null, '1', null, '100', '0', '0', null, '0', null, '0');
 
 -- ----------------------------
--- Table structure for cms_article
+-- table structure for cms_article
 -- ----------------------------
-DROP TABLE IF EXISTS `cms_article`;
-CREATE TABLE `cms_article` (
-  `ARTICLE_BASICID` int(20) NOT NULL DEFAULT '0' COMMENT '文章ID',
-  `ARTICLE_AUTHOR` varchar(20) DEFAULT NULL COMMENT '文章作者',
-  `ARTICLE_CONTENT` longtext COMMENT '文章内容',
-  `ARTICLE_TYPE` varchar(100) DEFAULT NULL COMMENT '文章类型',
-  `ARTICLE_SOURCE` varchar(300) DEFAULT NULL COMMENT '文章来源',
-  `ARTICLE_URL` varchar(200) DEFAULT NULL COMMENT '文章跳转链接地址',
-  `ARTICLE_KEYWORD` varchar(300) DEFAULT NULL COMMENT '文章关键字',
-  `ARTICLE_FREEORDER` int(255) DEFAULT NULL COMMENT '文章自定义显示顺序',
-  `ARTICLE_WEBID` int(11) DEFAULT NULL COMMENT '文章管理的应用id',
-  PRIMARY KEY (`ARTICLE_BASICID`),
-  UNIQUE KEY `ARTICLE_BASICID` (`ARTICLE_BASICID`) USING BTREE,
-  KEY `ARTICLE_WEBID` (`ARTICLE_WEBID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='文章表';
+drop table if exists `cms_article`;
+create table `cms_article` (
+  `article_basicid` int(20) not null default '0' comment '文章id',
+  `article_author` varchar(20) default null comment '文章作者',
+  `article_content` longtext comment '文章内容',
+  `article_type` varchar(100) default null comment '文章类型',
+  `article_source` varchar(300) default null comment '文章来源',
+  `article_url` varchar(200) default null comment '文章跳转链接地址',
+  `article_keyword` varchar(300) default null comment '文章关键字',
+  `article_freeorder` int(255) default null comment '文章自定义显示顺序',
+  `article_webid` int(11) default null comment '文章管理的应用id',
+  primary key (`article_basicid`),
+  unique key `article_basicid` (`article_basicid`) using btree,
+  key `article_webid` (`article_webid`)
+) engine=myisam default charset=utf8 comment='文章表';
 
 -- ----------------------------
 -- Records of cms_article
@@ -651,15 +651,15 @@ INSERT INTO `cms_article` VALUES ('218', '', '<p>锐诚PPT培训部总监，17�
 INSERT INTO `cms_article` VALUES ('219', '', '<p>锐诚PPT金牌设计师，毕业于上海美术学院视觉传达专业，曾在国内某知名4A广告公司任职，五年动画和PPT设计经验，拥有丰富的高端定制设计经验，专注于企业展示/工作汇报/品牌宣讲/竞聘/路演等高端PPT设计，设计理念：创意是设计的灵魂！在动画、质感和版式的设计上力求完美。</p><p><br/></p>', 'f,', '', '/115\\219.html', '', '0', '1');
 
 -- ----------------------------
--- Table structure for cms_class_50
+-- table structure for cms_class_50
 -- ----------------------------
-DROP TABLE IF EXISTS `cms_class_50`;
-CREATE TABLE `cms_class_50` (
-  `basicId` int(11) NOT NULL,
-  `school` varchar(220) DEFAULT NULL,
-  `platform` varchar(220) DEFAULT NULL,
-  PRIMARY KEY (`basicId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+drop table if exists `cms_class_50`;
+create table `cms_class_50` (
+  `basicid` int(11) not null,
+  `school` varchar(220) default null,
+  `platform` varchar(220) default null,
+  primary key (`basicid`)
+) engine=innodb default charset=utf8;
 
 -- ----------------------------
 -- Records of cms_class_50
@@ -672,22 +672,22 @@ INSERT INTO `cms_class_50` VALUES ('6', '2', '1');
 INSERT INTO `cms_class_50` VALUES ('7', '1', '1');
 
 -- ----------------------------
--- Table structure for cms_column
+-- table structure for cms_column
 -- ----------------------------
-DROP TABLE IF EXISTS `cms_column`;
-CREATE TABLE `cms_column` (
-  `COLUMN_CATEGORYID` int(22) NOT NULL DEFAULT '0' COMMENT '关联category表（类别表ID）',
-  `COLUMN_KEYWORD` varchar(300) DEFAULT NULL COMMENT '栏目简介',
-  `COLUMN_DESCRIP` varchar(500) DEFAULT NULL COMMENT '栏目关键字的扩展',
-  `COLUMN_TYPE` int(2) DEFAULT NULL COMMENT '1,代表最终列表栏目。2，代表频道封面。3，带表外部链接',
-  `COLUMN_URL` varchar(50) DEFAULT NULL COMMENT '如果是外部链接，则保持外部链接地址。如果为最终列表栏目，就保存文章显示列表',
-  `COLUMN_LISTURL` varchar(50) DEFAULT NULL COMMENT '最终列表栏目的列表模板地址',
-  `COLUMN_TENTMODELID` int(22) DEFAULT NULL COMMENT '栏目类型,直接影响栏目发布的表单样式',
-  `COLUMN_WEBSITEID` int(22) DEFAULT NULL COMMENT '栏目所属站点ID',
-  `COLUMN_PATH` varchar(150) DEFAULT NULL COMMENT '栏目路径',
-  `COLUMN_CONTENTMODELID` int(11) DEFAULT '0' COMMENT '栏目管理的内容模型id',
-  PRIMARY KEY (`COLUMN_CATEGORYID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='栏目表';
+drop table if exists `cms_column`;
+create table `cms_column` (
+  `column_categoryid` int(22) not null default '0' comment '关联category表（类别表id）',
+  `column_keyword` varchar(300) default null comment '栏目简介',
+  `column_descrip` varchar(500) default null comment '栏目关键字的扩展',
+  `column_type` int(2) default null comment '1,代表最终列表栏目。2，代表频道封面。3，带表外部链接',
+  `column_url` varchar(50) default null comment '如果是外部链接，则保持外部链接地址。如果为最终列表栏目，就保存文章显示列表',
+  `column_listurl` varchar(50) default null comment '最终列表栏目的列表模板地址',
+  `column_tentmodelid` int(22) default null comment '栏目类型,直接影响栏目发布的表单样式',
+  `column_websiteid` int(22) default null comment '栏目所属站点id',
+  `column_path` varchar(150) default null comment '栏目路径',
+  `column_contentmodelid` int(11) default '0' comment '栏目管理的内容模型id',
+  primary key (`column_categoryid`)
+) engine=innodb default charset=utf8 comment='栏目表';
 
 -- ----------------------------
 -- Records of cms_column
@@ -738,109 +738,109 @@ INSERT INTO `cms_column` VALUES ('147', '', '', '1', 'index.html', 'index.html',
 INSERT INTO `cms_column` VALUES ('148', '', '', '1', 'index.html', 'index.html', null, '1', '/100/148', '0');
 
 -- ----------------------------
--- Table structure for comment
+-- table structure for comment
 -- ----------------------------
-DROP TABLE IF EXISTS `comment`;
-CREATE TABLE `comment` (
-  `COMMENT_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '评论ID（主键）',
-  `COMMENT_COMMENTID` int(11) NOT NULL COMMENT '父评论ID',
-  `COMMENT_CONTENT` text NOT NULL COMMENT '评论的内容',
-  `COMMENT_PICTURE` varchar(300) DEFAULT NULL COMMENT '评论时发布的图片，可上传多张图片',
-  `COMMENT_TIME` datetime NOT NULL COMMENT '评论时间',
-  `COMMENT_TYPE` int(11) NOT NULL DEFAULT '2' COMMENT '评论的类型：1 匿名，2 公开，默认为公开',
-  `COMMENT_PEOPLEID` int(11) DEFAULT '0' COMMENT '评论者ID，默认为非会员用户（即游客）',
-  `COMMENT_POINTS` int(11) DEFAULT '0' COMMENT '评价打分（-1至5分）',
-  `COMMENT_BASICID` int(11) NOT NULL COMMENT '（文章、商品...）绑定basicId（外键）',
-  `COMMENT_APPID` int(11) DEFAULT NULL COMMENT '(文章、商品）绑定的应用编号',
-  `COMMENT_FILE_NAME` varchar(255) DEFAULT NULL COMMENT '附件文件名称',
-  `COMMENT_FILE_PATH` varchar(255) DEFAULT NULL COMMENT '附件文件路径',
-  PRIMARY KEY (`COMMENT_ID`),
-  KEY `index2` (`COMMENT_BASICID`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=78 DEFAULT CHARSET=utf8 COMMENT='评论表';
+drop table if exists `comment`;
+create table `comment` (
+  `comment_id` int(11) not null auto_increment comment '评论id（主键）',
+  `comment_commentid` int(11) not null comment '父评论id',
+  `comment_content` text not null comment '评论的内容',
+  `comment_picture` varchar(300) default null comment '评论时发布的图片，可上传多张图片',
+  `comment_time` datetime not null comment '评论时间',
+  `comment_type` int(11) not null default '2' comment '评论的类型：1 匿名，2 公开，默认为公开',
+  `comment_peopleid` int(11) default '0' comment '评论者id，默认为非会员用户（即游客）',
+  `comment_points` int(11) default '0' comment '评价打分（-1至5分）',
+  `comment_basicid` int(11) not null comment '（文章、商品...）绑定basicid（外键）',
+  `comment_appid` int(11) default null comment '(文章、商品）绑定的应用编号',
+  `comment_file_name` varchar(255) default null comment '附件文件名称',
+  `comment_file_path` varchar(255) default null comment '附件文件路径',
+  primary key (`comment_id`),
+  key `index2` (`comment_basicid`) using btree
+) engine=myisam auto_increment=78 default charset=utf8 comment='评论表';
 
 -- ----------------------------
 -- Records of comment
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for dict
+-- table structure for dict
 -- ----------------------------
-DROP TABLE IF EXISTS `dict`;
-CREATE TABLE `dict` (
-  `dict_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `dict_value` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '数据值',
-  `dict_label` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '标签名',
-  `dict_type` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '类型',
-  `dict_description` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '描述',
-  `dict_sort` int(10) NOT NULL DEFAULT '0' COMMENT '排序（升序）',
-  `dict_parent_id` varchar(64) COLLATE utf8_bin DEFAULT '0' COMMENT '父级编号',
-  `dict_create_by` int(64) NOT NULL DEFAULT '0' COMMENT '创建者',
-  `dict_create_date` datetime NOT NULL COMMENT '创建时间',
-  `dict_update_by` int(64) DEFAULT '0' COMMENT '更新者',
-  `dict_update_date` datetime DEFAULT NULL COMMENT '更新时间',
-  `dict_remarks` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '备注信息',
-  `dict_del` int(1) NOT NULL DEFAULT '0' COMMENT '删除标记',
-  PRIMARY KEY (`dict_id`),
-  KEY `dict_value` (`dict_value`),
-  KEY `dict_label` (`dict_label`),
-  KEY `dict_del` (`dict_del`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='字典表';
+drop table if exists `dict`;
+create table `dict` (
+  `dict_id` int(11) not null auto_increment comment '编号',
+  `dict_value` varchar(100) collate utf8_bin not null comment '数据值',
+  `dict_label` varchar(100) collate utf8_bin not null comment '标签名',
+  `dict_type` varchar(100) collate utf8_bin not null comment '类型',
+  `dict_description` varchar(100) collate utf8_bin not null comment '描述',
+  `dict_sort` int(10) not null default '0' comment '排序（升序）',
+  `dict_parent_id` varchar(64) collate utf8_bin default '0' comment '父级编号',
+  `dict_create_by` int(64) not null default '0' comment '创建者',
+  `dict_create_date` datetime not null comment '创建时间',
+  `dict_update_by` int(64) default '0' comment '更新者',
+  `dict_update_date` datetime default null comment '更新时间',
+  `dict_remarks` varchar(255) collate utf8_bin default null comment '备注信息',
+  `dict_del` int(1) not null default '0' comment '删除标记',
+  primary key (`dict_id`),
+  key `dict_value` (`dict_value`),
+  key `dict_label` (`dict_label`),
+  key `dict_del` (`dict_del`)
+) engine=innodb default charset=utf8 collate=utf8_bin comment='字典表';
 
 -- ----------------------------
 -- Records of dict
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for diy_form
+-- table structure for diy_form
 -- ----------------------------
-DROP TABLE IF EXISTS `diy_form`;
-CREATE TABLE `diy_form` (
-  `DF_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
-  `DF_TIPSNAME` varchar(30) NOT NULL COMMENT '自定义表单提示文字',
-  `DF_TABLENAME` varchar(20) NOT NULL COMMENT '自定义表单表名',
-  `DF_MANAGERID` int(11) NOT NULL COMMENT '自定义表单关联的关联员id',
-  `DF_APPID` int(11) DEFAULT NULL COMMENT '自定义表单关联的应用编号',
-  PRIMARY KEY (`DF_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义表单表';
+drop table if exists `diy_form`;
+create table `diy_form` (
+  `df_id` int(11) not null auto_increment comment '自增长id',
+  `df_tipsname` varchar(30) not null comment '自定义表单提示文字',
+  `df_tablename` varchar(20) not null comment '自定义表单表名',
+  `df_managerid` int(11) not null comment '自定义表单关联的关联员id',
+  `df_appid` int(11) default null comment '自定义表单关联的应用编号',
+  primary key (`df_id`)
+) engine=myisam default charset=utf8 row_format=dynamic comment='自定义表单表';
 
 -- ----------------------------
 -- Records of diy_form
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for diy_form_field
+-- table structure for diy_form_field
 -- ----------------------------
-DROP TABLE IF EXISTS `diy_form_field`;
-CREATE TABLE `diy_form_field` (
-  `DFF_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '字段自增长id',
-  `DFF_TIPSNAME` varchar(30) DEFAULT NULL COMMENT '字段提示文字',
-  `DFF_FIELDNAME` varchar(20) DEFAULT NULL COMMENT '字段名称',
-  `DFF_TYPE` int(11) DEFAULT NULL COMMENT '字段类型（如1.单行，2.多行，3.图片，等）',
-  `DFF_DEFAULT` varchar(250) DEFAULT NULL COMMENT '字段的默认值',
-  `DFF_ISNULL` int(11) DEFAULT NULL COMMENT '字段是否为空',
-  `DFF_SORT` int(11) DEFAULT NULL COMMENT '自定义表单的排序',
-  `DFF_FORMID` int(11) DEFAULT NULL COMMENT '字段管理的表单id',
-  PRIMARY KEY (`DFF_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义表单字段表';
+drop table if exists `diy_form_field`;
+create table `diy_form_field` (
+  `dff_id` int(11) not null auto_increment comment '字段自增长id',
+  `dff_tipsname` varchar(30) default null comment '字段提示文字',
+  `dff_fieldname` varchar(20) default null comment '字段名称',
+  `dff_type` int(11) default null comment '字段类型（如1.单行，2.多行，3.图片，等）',
+  `dff_default` varchar(250) default null comment '字段的默认值',
+  `dff_isnull` int(11) default null comment '字段是否为空',
+  `dff_sort` int(11) default null comment '自定义表单的排序',
+  `dff_formid` int(11) default null comment '字段管理的表单id',
+  primary key (`dff_id`)
+) engine=myisam default charset=utf8 row_format=dynamic comment='自定义表单字段表';
 
 -- ----------------------------
 -- Records of diy_form_field
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for manager
+-- table structure for manager
 -- ----------------------------
-DROP TABLE IF EXISTS `manager`;
-CREATE TABLE `manager` (
-  `MANAGER_ID` bigint(22) NOT NULL AUTO_INCREMENT COMMENT '管理员ID(主键)',
-  `MANAGER_NAME` varchar(15) DEFAULT NULL COMMENT '管理员用户名',
-  `MANAGER_NICKNAME` varchar(15) DEFAULT NULL COMMENT '管理员昵称',
-  `MANAGER_PASSWORD` varchar(45) DEFAULT NULL COMMENT '管理员密码',
-  `MANAGER_ROLEID` bigint(22) DEFAULT NULL COMMENT '角色编号',
-  `MANAGER_PEOPLEID` bigint(22) DEFAULT '0' COMMENT '用户编号即商家编号',
-  `MANAGER_TIME` datetime DEFAULT NULL COMMENT '管理员创建时间',
-  PRIMARY KEY (`MANAGER_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COMMENT='管理员表';
+drop table if exists `manager`;
+create table `manager` (
+  `manager_id` bigint(22) not null auto_increment comment '管理员id(主键)',
+  `manager_name` varchar(15) default null comment '管理员用户名',
+  `manager_nickname` varchar(15) default null comment '管理员昵称',
+  `manager_password` varchar(45) default null comment '管理员密码',
+  `manager_roleid` bigint(22) default null comment '角色编号',
+  `manager_peopleid` bigint(22) default '0' comment '用户编号即商家编号',
+  `manager_time` datetime default null comment '管理员创建时间',
+  primary key (`manager_id`)
+) engine=innodb auto_increment=51 default CHARSET=utf8 COMMENT='管理员表';
 
 -- ----------------------------
 -- Records of manager
@@ -848,14 +848,14 @@ CREATE TABLE `manager` (
 INSERT INTO `manager` VALUES ('50', 'msopen', 'msopen', '9d8622060de5f24937b60585c3f4d66b', '48', '0', '2015-09-18 11:54:36');
 
 -- ----------------------------
--- Table structure for manager_model_page
+-- table structure for manager_model_page
 -- ----------------------------
-DROP TABLE IF EXISTS `manager_model_page`;
-CREATE TABLE `manager_model_page` (
-  `mmp_managerID` int(11) DEFAULT NULL COMMENT '自增长id',
-  `mmp_modelID` int(11) DEFAULT NULL COMMENT '模块编号',
-  `mmp_url` varchar(255) DEFAULT NULL COMMENT '默认后台显示的主界面'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='后台主界面管理表';
+drop table if exists `manager_model_page`;
+create table `manager_model_page` (
+  `mmp_managerid` int(11) default null comment '自增长id',
+  `mmp_modelid` int(11) default null comment '模块编号',
+  `mmp_url` varchar(255) default null comment '默认后台显示的主界面'
+) engine=innodb default charset=utf8 row_format=compact comment='后台主界面管理表';
 
 -- ----------------------------
 -- Records of manager_model_page
@@ -864,15 +864,15 @@ CREATE TABLE `manager_model_page` (
 -- ----------------------------
 -- Table structure for mdiy_content_model
 -- ----------------------------
-DROP TABLE IF EXISTS `mdiy_content_model`;
-CREATE TABLE `mdiy_content_model` (
-  `CM_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
-  `CM_TIPSNAME` varchar(30) NOT NULL COMMENT '表单提示文字',
-  `CM_TABLENAME` varchar(20) NOT NULL COMMENT '表单名称',
-  `CM_MANAGERID` int(11) NOT NULL COMMENT '表单管理员ID',
-  `CM_MODEL_ID` int(11) DEFAULT NULL COMMENT '模块编号',
-  PRIMARY KEY (`CM_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义模型表';
+drop table if exists `mdiy_content_model`;
+create table `mdiy_content_model` (
+  `cm_id` int(11) not null auto_increment comment '自增长id',
+  `cm_tipsname` varchar(30) not null comment '表单提示文字',
+  `cm_tablename` varchar(20) not null comment '表单名称',
+  `cm_managerid` int(11) not null comment '表单管理员id',
+  `cm_model_id` int(11) default null comment '模块编号',
+  primary key (`cm_id`)
+) engine=myisam auto_increment=4 default charset=utf8 row_format=dynamic comment='自定义模型表';
 
 -- ----------------------------
 -- Records of mdiy_content_model
@@ -882,22 +882,22 @@ INSERT INTO `mdiy_content_model` VALUES ('2', '商品品牌', 'mdiy_brand_2', '2
 INSERT INTO `mdiy_content_model` VALUES ('3', '自定义', 'mdiy_mooc_50', '50', '0');
 
 -- ----------------------------
--- Table structure for mdiy_content_mode_field
+-- table structure for mdiy_content_mode_field
 -- ----------------------------
-DROP TABLE IF EXISTS `mdiy_content_mode_field`;
-CREATE TABLE `mdiy_content_mode_field` (
-  `FIELD_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '字段自增长id',
-  `FIELD_TIPSNAME` varchar(30) DEFAULT NULL COMMENT '字段提示文字',
-  `FIELD_FIELDNAME` varchar(20) DEFAULT NULL COMMENT '字段名称',
-  `FIELD_TYPE` int(11) DEFAULT NULL COMMENT '字段类型（如1.单行，2.多行，3.图片，等）',
-  `FIELD_DEFAULT` varchar(250) DEFAULT NULL COMMENT '字段默认值',
-  `FIELD_ISNULL` int(11) DEFAULT NULL COMMENT '字段是否为空 0:必填 1:可选',
-  `FIELD_CMID` int(11) DEFAULT NULL COMMENT '关联内容模型表id',
-  `FIELD_SORT` int(11) DEFAULT NULL COMMENT '字段排序',
-  `FIELD_ISSEARCH` int(255) DEFAULT NULL COMMENT '字段是否支持后台搜索0：不支持，1：支持',
-  `FIELD_LENGTH` int(11) DEFAULT '1' COMMENT '字段长度',
-  PRIMARY KEY (`FIELD_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义内容模型关联字段表';
+drop table if exists `mdiy_content_mode_field`;
+create table `mdiy_content_mode_field` (
+  `field_id` int(11) not null auto_increment comment '字段自增长id',
+  `field_tipsname` varchar(30) default null comment '字段提示文字',
+  `field_fieldname` varchar(20) default null comment '字段名称',
+  `field_type` int(11) default null comment '字段类型（如1.单行，2.多行，3.图片，等）',
+  `field_default` varchar(250) default null comment '字段默认值',
+  `field_isnull` int(11) default null comment '字段是否为空 0:必填 1:可选',
+  `field_cmid` int(11) default null comment '关联内容模型表id',
+  `field_sort` int(11) default null comment '字段排序',
+  `field_issearch` int(255) default null comment '字段是否支持后台搜索0：不支持，1：支持',
+  `field_length` int(11) default '1' comment '字段长度',
+  primary key (`field_id`)
+) engine=myisam auto_increment=13 default charset=utf8 row_format=dynamic comment='自定义内容模型关联字段表';
 
 -- ----------------------------
 -- Records of mdiy_content_mode_field
@@ -911,20 +911,20 @@ INSERT INTO `mdiy_content_mode_field` VALUES ('5', '产品参数', 'detail', '2'
 INSERT INTO `mdiy_content_mode_field` VALUES ('11', '描述4', 'descripFo', '2', null, '1', '3', null, '0', '1');
 
 -- ----------------------------
--- Table structure for mdiy_mooc_50
+-- table structure for mdiy_mooc_50
 -- ----------------------------
-DROP TABLE IF EXISTS `mdiy_mooc_50`;
-CREATE TABLE `mdiy_mooc_50` (
-  `basicId` int(11) NOT NULL,
-  `images` varchar(225) DEFAULT NULL,
-  `descripone` varchar(225) DEFAULT NULL,
-  `descriptwo` varchar(225) DEFAULT NULL,
-  `descripTh` varchar(225) DEFAULT NULL,
-  `descripFo` varchar(225) DEFAULT NULL,
-  `descripFi` varchar(225) DEFAULT NULL,
-  PRIMARY KEY (`basicId`),
-  CONSTRAINT `fk_mdiy_mooc_50_basicId` FOREIGN KEY (`basicId`) REFERENCES `basic` (`BASIC_ID`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+drop table if exists `mdiy_mooc_50`;
+create table `mdiy_mooc_50` (
+  `basicid` int(11) not null,
+  `images` varchar(225) default null,
+  `descripone` varchar(225) default null,
+  `descriptwo` varchar(225) default null,
+  `descripth` varchar(225) default null,
+  `descripfo` varchar(225) default null,
+  `descripfi` varchar(225) default null,
+  primary key (`basicid`),
+  constraint `fk_mdiy_mooc_50_basicid` foreign key (`basicid`) references `basic` (`basic_id`) on delete cascade
+) engine=innodb default charset=utf8;
 
 -- ----------------------------
 -- Records of mdiy_mooc_50
@@ -943,17 +943,17 @@ INSERT INTO `mdiy_mooc_50` VALUES ('62', '/upload/article/1638/1464835856964.jpg
 INSERT INTO `mdiy_mooc_50` VALUES ('63', '/upload/article/1638/1464835842429.jpg|/upload/article/1638/1464835842841.jpeg|/upload/article/1638/1464835842898.jpg|/upload/article/1638/1464835842964.jpeg', '一幅好照片要把观众的注意力吸引到趣味中心&mdash;&mdash;被摄主体上。无论是拍什么 类型的照片，都会有一个主体你喜欢拍人物，拍生态，这些都不是问题，但是一旦主体被模糊，欣赏照片时就会忽略照片的主体', '这样的照片是不失败不完美的，因 为真正想让观众看的东西并没有一眼看到。例如婚纱照，主体肯定是人物新娘和新郎。如果目光都被新娘后面的景色吸引，而不是新娘，这肯定不会是我们想照的', '网页设计师的重要任务不是根据内容做出网页，而是根据用户需求设计出让用户喜欢并积极使用的网页，能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo', '有让用户点击或者传播的欲望？突出设计 的重点就如同突出摄影的被摄主体一样，把控视觉的重点，你的设计一定会非常精彩。', '能够让用户知道并去使用网站的新产品or关键点 or有价值的信息，那么如何突出这些点？如何让用户看到网页的&ldquo;G点&rdquo;，有让用户点击或者传播的欲望？');
 
 -- ----------------------------
--- Table structure for mdiy_search
+-- table structure for mdiy_search
 -- ----------------------------
-DROP TABLE IF EXISTS `mdiy_search`;
-CREATE TABLE `mdiy_search` (
-  `SEARCH_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长ID',
-  `SEARCH_NAME` varchar(20) NOT NULL COMMENT '搜索名称',
-  `SEARCH_TEMPLETS` varchar(50) NOT NULL COMMENT '搜索结果模版',
-  `SEARCH_WEBSITEID` int(11) NOT NULL COMMENT '搜索管理的应用id',
-  `SEARCH_TYPE` varchar(255) DEFAULT 'cms' COMMENT '搜索类型',
-  PRIMARY KEY (`SEARCH_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='自定义搜索表';
+drop table if exists `mdiy_search`;
+create table `mdiy_search` (
+  `search_id` int(11) not null auto_increment comment '自增长id',
+  `search_name` varchar(20) not null comment '搜索名称',
+  `search_templets` varchar(50) not null comment '搜索结果模版',
+  `search_websiteid` int(11) not null comment '搜索管理的应用id',
+  `search_type` varchar(255) default 'cms' comment '搜索类型',
+  primary key (`search_id`)
+) engine=innodb auto_increment=10 default charset=utf8 comment='自定义搜索表';
 
 -- ----------------------------
 -- Records of mdiy_search
@@ -962,25 +962,25 @@ INSERT INTO `mdiy_search` VALUES ('1', '头部', 'search.htm', '1', 'cms');
 INSERT INTO `mdiy_search` VALUES ('9', '列表页面搜索', 'search-list.htm', '1', 'cms');
 
 -- ----------------------------
--- Table structure for model
+-- table structure for model
 -- ----------------------------
-DROP TABLE IF EXISTS `model`;
-CREATE TABLE `model` (
-  `MODEL_ID` int(22) NOT NULL AUTO_INCREMENT COMMENT '模块自增长id',
-  `MODEL_TITLE` varchar(150) DEFAULT NULL COMMENT '模块标题',
-  `MODEL_CODE` varchar(255) DEFAULT NULL COMMENT '模块编码',
-  `MODEL_MODELID` int(22) DEFAULT NULL COMMENT '模块的父模块id',
-  `MODEL_URL` varchar(255) DEFAULT NULL COMMENT '模块连接地址',
-  `MODEL_DATETIME` datetime DEFAULT NULL,
-  `MODEL_ICON` varchar(120) DEFAULT NULL COMMENT '模块图标',
-  `MODEL_MODELMANAGERID` int(11) DEFAULT NULL COMMENT '模块关联的关联员id',
-  `MODEL_SORT` int(11) DEFAULT NULL COMMENT '模块的排序',
-  `MODEL_ISMENU` int(1) DEFAULT NULL COMMENT '模块是否是菜单',
-  PRIMARY KEY (`MODEL_ID`),
-  UNIQUE KEY `SYS_C009201` (`MODEL_ID`),
-  KEY `MODEL_MODELID` (`MODEL_MODELID`),
-  KEY `model_code` (`MODEL_CODE`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8 COMMENT='模块表';
+drop table if exists `model`;
+create table `model` (
+  `model_id` int(22) not null auto_increment comment '模块自增长id',
+  `model_title` varchar(150) default null comment '模块标题',
+  `model_code` varchar(255) default null comment '模块编码',
+  `model_modelid` int(22) default null comment '模块的父模块id',
+  `model_url` varchar(255) default null comment '模块连接地址',
+  `model_datetime` datetime default null,
+  `model_icon` varchar(120) default null comment '模块图标',
+  `model_modelmanagerid` int(11) default null comment '模块关联的关联员id',
+  `model_sort` int(11) default null comment '模块的排序',
+  `model_ismenu` int(1) default null comment '模块是否是菜单',
+  primary key (`model_id`),
+  unique key `sys_c009201` (`model_id`),
+  key `model_modelid` (`model_modelid`),
+  key `model_code` (`model_code`) using btree
+) engine=innodb auto_increment=92 default charset=utf8 comment='模块表';
 
 -- ----------------------------
 -- Records of model
@@ -1006,21 +1006,21 @@ INSERT INTO `model` VALUES ('90', '自定义表单', '12050000', '84', 'mdiy/diy
 INSERT INTO `model` VALUES ('91', '模板管理', '12020000', '84', 'template/queryTemplateSkin.do', null, null, null, null, null);
 
 -- ----------------------------
--- Table structure for model_template
+-- table structure for model_template
 -- ----------------------------
-DROP TABLE IF EXISTS `model_template`;
-CREATE TABLE `model_template` (
-  `mt_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长id',
-  `mt_modelID` int(11) DEFAULT NULL COMMENT '模块id',
-  `mt_appID` int(11) DEFAULT NULL COMMENT '应用id',
-  `mt_path` varchar(255) DEFAULT NULL COMMENT '自定义页面绑定模板的路径',
-  `mt_title` varchar(255) DEFAULT NULL COMMENT '自定义页面标题',
-  `mt_key` varchar(255) DEFAULT NULL COMMENT '自定义页面访问路径',
-  PRIMARY KEY (`mt_id`),
-  KEY `mt_key` (`mt_key`) USING BTREE,
-  KEY `mt_appID` (`mt_appID`),
-  KEY `mt_modelID` (`mt_modelID`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='自定义页面表';
+drop table if exists `model_template`;
+create table `model_template` (
+  `mt_id` int(11) not null auto_increment comment '自增长id',
+  `mt_modelid` int(11) default null comment '模块id',
+  `mt_appid` int(11) default null comment '应用id',
+  `mt_path` varchar(255) default null comment '自定义页面绑定模板的路径',
+  `mt_title` varchar(255) default null comment '自定义页面标题',
+  `mt_key` varchar(255) default null comment '自定义页面访问路径',
+  primary key (`mt_id`),
+  key `mt_key` (`mt_key`) using btree,
+  key `mt_appid` (`mt_appid`),
+  key `mt_modelid` (`mt_modelid`) using btree
+) engine=myisam auto_increment=5 default charset=utf8 comment='自定义页面表';
 
 -- ----------------------------
 -- Records of model_template
@@ -1031,50 +1031,50 @@ INSERT INTO `model_template` VALUES ('3', '0', '1', 'people/center.htm', '个人
 INSERT INTO `model_template` VALUES ('4', '0', '1', 'people/change-passWord.htm', '修改密码', 'people/changePassWord');
 
 -- ----------------------------
--- Table structure for people
+-- table structure for people
 -- ----------------------------
-DROP TABLE IF EXISTS `people`;
-CREATE TABLE `people` (
-  `PEOPLE_ID` int(11) NOT NULL AUTO_INCREMENT COMMENT '增长自ID',
-  `PEOPLE_PHONE` varchar(30) DEFAULT NULL COMMENT '手机号码',
-  `PEOPLE_NAME` varchar(30) DEFAULT NULL COMMENT '陆登账号',
-  `PEOPLE_PASSWORD` varchar(50) DEFAULT NULL COMMENT '陆登密码',
-  `PEOPLE_DATETIME` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '注册时间',
-  `PEOPLE_APP_ID` int(11) NOT NULL COMMENT '用户所属用户ID',
-  `PEOPLE_MAIL` varchar(120) DEFAULT NULL COMMENT '用户邮箱',
-  `PEOPLE_STATE` int(2) DEFAULT '0' COMMENT '用户状态',
-  `PEOPLE_CODE` varchar(15) DEFAULT NULL COMMENT '随机验证码',
-  `PEOPLE_CODESENDDATE` datetime DEFAULT NULL,
-  `PEOPLE_PHONECHECK` int(1) DEFAULT NULL,
-  `PEOPLE_MAILLCHECK` int(1) DEFAULT NULL,
-  PRIMARY KEY (`PEOPLE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='户用基础表';
+drop table if exists `people`;
+create table `people` (
+  `people_id` int(11) not null auto_increment comment '增长自id',
+  `people_phone` varchar(30) default null comment '手机号码',
+  `people_name` varchar(30) default null comment '陆登账号',
+  `people_password` varchar(50) default null comment '陆登密码',
+  `people_datetime` timestamp not null default current_timestamp on update current_timestamp comment '注册时间',
+  `people_app_id` int(11) not null comment '用户所属用户id',
+  `people_mail` varchar(120) default null comment '用户邮箱',
+  `people_state` int(2) default '0' comment '用户状态',
+  `people_code` varchar(15) default null comment '随机验证码',
+  `people_codesenddate` datetime default null,
+  `people_phonecheck` int(1) default null,
+  `people_maillcheck` int(1) default null,
+  primary key (`people_id`)
+) engine=innodb default charset=utf8 comment='户用基础表';
 
 -- ----------------------------
 -- Records of people
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for people_user
+-- table structure for people_user
 -- ----------------------------
-DROP TABLE IF EXISTS `people_user`;
-CREATE TABLE `people_user` (
-  `PU_PEOPLE_ID` int(11) NOT NULL COMMENT '用户ID关联people表的（people_id）',
-  `PU_REAL_NAME` varchar(50) DEFAULT NULL COMMENT '用户真实名称',
-  `PU_ADDRESS` varchar(200) DEFAULT NULL COMMENT '用户地址',
-  `PU_ICON` varchar(200) DEFAULT NULL COMMENT '用户头像图标地址',
-  `PU_NICKNAME` varchar(50) DEFAULT NULL COMMENT '用户昵称',
-  `PU_SEX` int(2) DEFAULT NULL COMMENT '用户性别(0.未知、1.男、2.女)',
-  `PU_BIRTHDAY` date DEFAULT NULL COMMENT '用户出生年月日',
-  `PU_CARD` varchar(255) DEFAULT NULL COMMENT '身份证',
-  `PU_APP_ID` int(11) NOT NULL COMMENT '用户所属应用ID',
-  `PU_PROVINCE` int(11) DEFAULT '0' COMMENT '省',
-  `PU_CITY` int(11) DEFAULT '0' COMMENT '城市',
-  `PU_DISTRICT` int(11) DEFAULT '0' COMMENT '区',
-  `PU_STREET` int(11) DEFAULT '0' COMMENT '街道',
-  PRIMARY KEY (`PU_PEOPLE_ID`),
-  KEY `PU_PEOPLE_ID` (`PU_PEOPLE_ID`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户基础信息表';
+drop table if exists `people_user`;
+create table `people_user` (
+  `pu_people_id` int(11) not null comment '用户id关联people表的（people_id）',
+  `pu_real_name` varchar(50) default null comment '用户真实名称',
+  `pu_address` varchar(200) default null comment '用户地址',
+  `pu_icon` varchar(200) default null comment '用户头像图标地址',
+  `pu_nickname` varchar(50) default null comment '用户昵称',
+  `pu_sex` int(2) default null comment '用户性别(0.未知、1.男、2.女)',
+  `pu_birthday` date default null comment '用户出生年月日',
+  `pu_card` varchar(255) default null comment '身份证',
+  `pu_app_id` int(11) not null comment '用户所属应用id',
+  `pu_province` int(11) default '0' comment '省',
+  `pu_city` int(11) default '0' comment '城市',
+  `pu_district` int(11) default '0' comment '区',
+  `pu_street` int(11) default '0' comment '街道',
+  primary key (`pu_people_id`),
+  key `pu_people_id` (`pu_people_id`) using btree
+) engine=innodb default charset=utf8 comment='用户基础信息表';
 
 -- ----------------------------
 -- Records of people_user
@@ -1083,13 +1083,13 @@ CREATE TABLE `people_user` (
 -- ----------------------------
 -- Table structure for role
 -- ----------------------------
-DROP TABLE IF EXISTS `role`;
-CREATE TABLE `role` (
-  `ROLE_ID` bigint(22) NOT NULL AUTO_INCREMENT COMMENT '角色ID，自增长',
-  `ROLE_NAME` varchar(30) DEFAULT NULL COMMENT '角色名',
-  `ROLE_MANAGERID` bigint(22) DEFAULT '0' COMMENT '角色管理员编号',
-  PRIMARY KEY (`ROLE_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 COMMENT='角色表';
+drop table if exists `role`;
+create table `role` (
+  `role_id` bigint(22) not null auto_increment comment '角色id，自增长',
+  `role_name` varchar(30) default null comment '角色名',
+  `role_managerid` bigint(22) default '0' comment '角色管理员编号',
+  primary key (`role_id`)
+) engine=innodb auto_increment=49 default charset=utf8 comment='角色表';
 
 -- ----------------------------
 -- Records of role
@@ -1097,16 +1097,16 @@ CREATE TABLE `role` (
 INSERT INTO `role` VALUES ('48', 'msopen', '50');
 
 -- ----------------------------
--- Table structure for role_model
+-- table structure for role_model
 -- ----------------------------
-DROP TABLE IF EXISTS `role_model`;
-CREATE TABLE `role_model` (
-  `RM_MODELID` int(22) DEFAULT NULL COMMENT '模块编号',
-  `RM_ROLEID` int(22) DEFAULT NULL COMMENT '角色编号',
-  UNIQUE KEY `index` (`RM_MODELID`,`RM_ROLEID`) USING BTREE,
-  KEY `RM_MODELID` (`RM_MODELID`) USING BTREE,
-  CONSTRAINT `role_model_ibfk_1` FOREIGN KEY (`RM_MODELID`) REFERENCES `model` (`MODEL_ID`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色模块关联表';
+drop table if exists `role_model`;
+create table `role_model` (
+  `rm_modelid` int(22) default null comment '模块编号',
+  `rm_roleid` int(22) default null comment '角色编号',
+  unique key `index` (`rm_modelid`,`rm_roleid`) using btree,
+  key `rm_modelid` (`rm_modelid`) using btree,
+  constraint `role_model_ibfk_1` foreign key (`rm_modelid`) references `model` (`model_id`) on delete cascade
+) engine=innodb default charset=utf8 comment='角色模块关联表';
 
 -- ----------------------------
 -- Records of role_model
@@ -1132,62 +1132,62 @@ INSERT INTO `role_model` VALUES ('90', '48');
 INSERT INTO `role_model` VALUES ('91', '48');
 
 -- ----------------------------
--- Table structure for system_main_page
+-- table structure for system_main_page
 -- ----------------------------
-DROP TABLE IF EXISTS `system_main_page`;
-CREATE TABLE `system_main_page` (
-  `smp_appID` int(11) DEFAULT NULL COMMENT '自增长ID',
-  `smp_url` varchar(255) DEFAULT NULL COMMENT '默认后台显示的主界面',
-  `smp_modelID` int(11) DEFAULT NULL COMMENT '模块编号',
-  `smp_managerID` int(11) DEFAULT NULL COMMENT '管理员编号'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='后台主界面管理界面';
+drop table if exists `system_main_page`;
+create table `system_main_page` (
+  `smp_appid` int(11) default null comment '自增长id',
+  `smp_url` varchar(255) default null comment '默认后台显示的主界面',
+  `smp_modelid` int(11) default null comment '模块编号',
+  `smp_managerid` int(11) default null comment '管理员编号'
+) engine=innodb default charset=utf8 row_format=compact comment='后台主界面管理界面';
 
 -- ----------------------------
--- Records of system_main_page
+-- records of system_main_page
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for system_skin
+-- table structure for system_skin
 -- ----------------------------
-DROP TABLE IF EXISTS `system_skin`;
-CREATE TABLE `system_skin` (
-  `ss_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增长ID',
-  `ss_loginpage` varchar(255) DEFAULT NULL COMMENT '登陆页面',
-  `ss_backgroundimg` varchar(255) DEFAULT NULL COMMENT '背景图片',
-  `ss_color` varchar(255) DEFAULT NULL COMMENT '字体颜色',
-  `ss_css` varchar(255) DEFAULT NULL COMMENT '样式',
-  `ss_datetime` datetime DEFAULT NULL COMMENT '生成时间',
-  `ss_appID` int(11) DEFAULT NULL COMMENT '0后台发布大于０表示是应用自定义',
-  `ss_categoryID` int(11) DEFAULT NULL COMMENT '主题分类',
-  PRIMARY KEY (`ss_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='后台皮肤管理表';
+drop table if exists `system_skin`;
+create table `system_skin` (
+  `ss_id` int(11) not null auto_increment comment '自增长id',
+  `ss_loginpage` varchar(255) default null comment '登陆页面',
+  `ss_backgroundimg` varchar(255) default null comment '背景图片',
+  `ss_color` varchar(255) default null comment '字体颜色',
+  `ss_css` varchar(255) default null comment '样式',
+  `ss_datetime` datetime default null comment '生成时间',
+  `ss_appid` int(11) default null comment '0后台发布大于０表示是应用自定义',
+  `ss_categoryid` int(11) default null comment '主题分类',
+  primary key (`ss_id`)
+) engine=innodb default charset=utf8 row_format=compact comment='后台皮肤管理表';
 
 -- ----------------------------
 -- Records of system_skin
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for system_skin_manager
+-- table structure for system_skin_manager
 -- ----------------------------
-DROP TABLE IF EXISTS `system_skin_manager`;
-CREATE TABLE `system_skin_manager` (
-  `ssm_managerID` int(11) NOT NULL DEFAULT '0' COMMENT '系统管理员编号',
-  `ssm_system_skin_ID` int(11) DEFAULT NULL COMMENT '系统皮肤管理员编号',
-  PRIMARY KEY (`ssm_managerID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统皮肤与管理员关联表';
+drop table if exists `system_skin_manager`;
+create table `system_skin_manager` (
+  `ssm_managerid` int(11) not null default '0' comment '系统管理员编号',
+  `ssm_system_skin_id` int(11) default null comment '系统皮肤管理员编号',
+  primary key (`ssm_managerid`)
+) engine=innodb default charset=utf8 row_format=compact comment='系统皮肤与管理员关联表';
 
 -- ----------------------------
 -- Records of system_skin_manager
 -- ----------------------------
 
 -- ----------------------------
--- View structure for v_article
+-- view structure for v_article
 -- ----------------------------
-DROP VIEW IF EXISTS `v_article`;
-CREATE  VIEW `v_article` AS select `cms_article`.`ARTICLE_BASICID` AS `ARTICLE_BASICID`,`basic`.`BASIC_ID` AS `BASIC_ID`,`basic`.`BASIC_CATEGORYID` AS `BASIC_CATEGORYID`,`basic`.`BASIC_TITLE` AS `BASIC_TITLE`,`basic`.`BASIC_DESCRIPTION` AS `BASIC_DESCRIPTION`,`basic`.`BASIC_THUMBNAILS` AS `BASIC_THUMBNAILS`,`basic`.`BASIC_HIT` AS `BASIC_HIT`,`basic`.`BASIC_DATETIME` AS `BASIC_DATETIME`,`basic`.`BASIC_UPDATETIME` AS `BASIC_UPDATETIME`,`basic`.`BASIC_PEOPLEID` AS `BASIC_PEOPLEID`,`cms_article`.`ARTICLE_AUTHOR` AS `ARTICLE_AUTHOR`,`cms_article`.`ARTICLE_CONTENT` AS `ARTICLE_CONTENT`,`cms_article`.`ARTICLE_TYPE` AS `ARTICLE_TYPE`,`cms_article`.`ARTICLE_SOURCE` AS `ARTICLE_SOURCE`,`cms_article`.`ARTICLE_URL` AS `ARTICLE_URL`,`cms_article`.`ARTICLE_KEYWORD` AS `ARTICLE_KEYWORD`,`cms_article`.`ARTICLE_FREEORDER` AS `ARTICLE_FREEORDER`,`cms_article`.`ARTICLE_WEBID` AS `ARTICLE_WEBID`,`cms_column`.`COLUMN_KEYWORD` AS `COLUMN_KEYWORD`,`cms_column`.`COLUMN_DESCRIP` AS `COLUMN_DESCRIP`,`cms_column`.`COLUMN_TYPE` AS `COLUMN_TYPE`,`cms_column`.`COLUMN_URL` AS `COLUMN_URL`,`cms_column`.`COLUMN_LISTURL` AS `COLUMN_LISTURL`,`cms_column`.`COLUMN_TENTMODELID` AS `COLUMN_TENTMODELID`,`cms_column`.`COLUMN_WEBSITEID` AS `COLUMN_WEBSITEID`,`cms_column`.`COLUMN_PATH` AS `column_path`,`cms_column`.`COLUMN_CONTENTMODELID` AS `COLUMN_CONTENTMODELID`,`category`.`CATEGORY_TITLE` AS `CATEGORY_TITLE`,`category`.`CATEGORY_APPID` AS `CATEGORY_APPID`,`cms_column`.`COLUMN_CATEGORYID` AS `COLUMN_CATEGORYID`,`category`.`CATEGORY_ID` AS `CATEGORY_ID`,`basic`.`BASIC_SORT` AS `BASIC_SORT` from (((`basic` join `cms_article` on((`basic`.`BASIC_ID` = `cms_article`.`ARTICLE_BASICID`))) join `cms_column` on((`basic`.`BASIC_CATEGORYID` = `cms_column`.`COLUMN_CATEGORYID`))) join `category` on((`cms_column`.`COLUMN_CATEGORYID` = `category`.`CATEGORY_ID`))) ;
+drop view if exists `v_article`;
+create  view `v_article` as select `cms_article`.`article_basicid` as `article_basicid`,`basic`.`basic_id` as `basic_id`,`basic`.`basic_categoryid` as `basic_categoryid`,`basic`.`basic_title` as `basic_title`,`basic`.`basic_description` as `basic_description`,`basic`.`basic_thumbnails` as `basic_thumbnails`,`basic`.`basic_hit` as `basic_hit`,`basic`.`basic_datetime` as `basic_datetime`,`basic`.`basic_updatetime` as `basic_updatetime`,`basic`.`basic_peopleid` as `basic_peopleid`,`cms_article`.`article_author` as `article_author`,`cms_article`.`article_content` as `article_content`,`cms_article`.`article_type` as `article_type`,`cms_article`.`article_source` as `article_source`,`cms_article`.`article_url` as `article_url`,`cms_article`.`article_keyword` as `article_keyword`,`cms_article`.`article_freeorder` as `article_freeorder`,`cms_article`.`article_webid` as `article_webid`,`cms_column`.`column_keyword` as `column_keyword`,`cms_column`.`column_descrip` as `column_descrip`,`cms_column`.`column_type` as `column_type`,`cms_column`.`column_url` as `column_url`,`cms_column`.`column_listurl` as `column_listurl`,`cms_column`.`column_tentmodelid` as `column_tentmodelid`,`cms_column`.`column_websiteid` as `column_websiteid`,`cms_column`.`column_path` as `column_path`,`cms_column`.`column_contentmodelid` as `column_contentmodelid`,`category`.`category_title` as `category_title`,`category`.`category_appid` as `category_appid`,`cms_column`.`column_categoryid` as `column_categoryid`,`category`.`category_id` as `category_id`,`basic`.`basic_sort` as `basic_sort` from (((`basic` join `cms_article` on((`basic`.`basic_id` = `cms_article`.`article_basicid`))) join `cms_column` on((`basic`.`basic_categoryid` = `cms_column`.`column_categoryid`))) join `category` on((`cms_column`.`column_categoryid` = `category`.`category_id`))) ;
 
 -- ----------------------------
--- View structure for v_people_user
+-- view structure for v_people_user
 -- ----------------------------
-DROP VIEW IF EXISTS `v_people_user`;
-CREATE  VIEW `v_people_user` AS select `people`.`PEOPLE_ID` AS `PEOPLE_ID`,`people`.`PEOPLE_PHONE` AS `PEOPLE_PHONE`,`people`.`PEOPLE_NAME` AS `PEOPLE_NAME`,`people`.`PEOPLE_PASSWORD` AS `PEOPLE_PASSWORD`,`people`.`PEOPLE_DATETIME` AS `PEOPLE_DATETIME`,`people`.`PEOPLE_APP_ID` AS `PEOPLE_APP_ID`,`people`.`PEOPLE_MAIL` AS `PEOPLE_MAIL`,`people`.`PEOPLE_STATE` AS `PEOPLE_STATE`,`people`.`PEOPLE_CODE` AS `PEOPLE_CODE`,`people`.`PEOPLE_CODESENDDATE` AS `PEOPLE_CODESENDDATE`,`people`.`PEOPLE_PHONECHECK` AS `PEOPLE_PHONECHECK`,`people`.`PEOPLE_MAILLCHECK` AS `PEOPLE_MAILLCHECK`,`people_user`.`PU_PEOPLE_ID` AS `PU_PEOPLE_ID`,`people_user`.`PU_REAL_NAME` AS `PU_REAL_NAME`,`people_user`.`PU_ADDRESS` AS `PU_ADDRESS`,`people_user`.`PU_ICON` AS `PU_ICON`,`people_user`.`PU_NICKNAME` AS `PU_NICKNAME`,`people_user`.`PU_SEX` AS `PU_SEX`,`people_user`.`PU_BIRTHDAY` AS `PU_BIRTHDAY`,`people_user`.`PU_CARD` AS `PU_CARD`,`people_user`.`PU_APP_ID` AS `PU_APP_ID` from (`people` left join `people_user` on((`people`.`PEOPLE_ID` = `people_user`.`PU_PEOPLE_ID`))) ;
+drop view if exists `v_people_user`;
+create  view `v_people_user` as select `people`.`people_id` as `people_id`,`people`.`people_phone` as `people_phone`,`people`.`people_name` as `people_name`,`people`.`people_password` as `people_password`,`people`.`people_datetime` as `people_datetime`,`people`.`people_app_id` as `people_app_id`,`people`.`people_mail` as `people_mail`,`people`.`people_state` as `people_state`,`people`.`people_code` as `people_code`,`people`.`people_codesenddate` as `people_codesenddate`,`people`.`people_phonecheck` as `people_phonecheck`,`people`.`people_maillcheck` as `people_maillcheck`,`people_user`.`pu_people_id` as `pu_people_id`,`people_user`.`pu_real_name` as `pu_real_name`,`people_user`.`pu_address` as `pu_address`,`people_user`.`pu_icon` as `pu_icon`,`people_user`.`pu_nickname` as `pu_nickname`,`people_user`.`pu_sex` as `pu_sex`,`people_user`.`pu_birthday` as `pu_birthday`,`people_user`.`pu_card` as `pu_card`,`people_user`.`pu_app_id` as `pu_app_id` from (`people` left join `people_user` on((`people`.`people_id` = `people_user`.`pu_people_id`))) ;
