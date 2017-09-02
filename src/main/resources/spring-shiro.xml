@@ -36,17 +36,40 @@
 		</property>
 	</bean>
 
-	<!-- Shiro's main business-tier object for web-enabled applications -->
+	<!-- 安全管理器配置 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="baseAuthRealm" />
 		<property name="sessionManager" ref="sessionManager" />
 		<property name="cacheManager" ref="cacheManager" />
 	</bean>
 
-	<!-- 自定义会话管理配置 -->
-	<bean id="sessionManager" class="net.mingsoft.basic.security.session.SessionManager">
-		<property name="sessionDAO" ref="sessionDAO" />
+	<!-- 用户授权信息Cache -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
+	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>
 
+	<!-- 項目自定义的Realm -->
+	<bean id="baseAuthRealm" class="com.mingsoft.basic.security.BaseAuthRealm">
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>
+	<!-- 设置系统SESSIONID, 默认为: JSESSIONID -->
+	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg name="name" value="ms.session.id" />
+	</bean>
+	<!-- ID生成器 -->
+	<bean id="sessionIdGenerator"
+		class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator" />
+	<!-- session持久化 -->
+	<bean id="sessionDAO" class="net.mingsoft.basic.security.session.CacheSessionDAO">
+		<property name="sessionIdGenerator" ref="sessionIdGenerator" />
+		<property name="activeSessionsCacheName" value="activeSessionsCache" />
+		<property name="cacheManager" ref="cacheManager" />
+	</bean>
+
+	<!-- 会话管理配置 -->
+	<bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<property name="sessionDAO" ref="sessionDAO" />
 		<!-- 会话超时时间，单位：毫秒 -->
 		<property name="globalSessionTimeout" value="${session.timeout}" />
 
@@ -57,26 +80,10 @@
 		<property name="sessionIdCookieEnabled" value="true" />
 	</bean>
 
-	<!-- 指定本系统SESSIONID, 默认为: JSESSIONID 问题: 与SERVLET容器名冲突, 如JETTY, TOMCAT 等默认JSESSIONID, 
-		当跳出SHIRO SERVLET时如ERROR-PAGE容器会为JSESSIONID重新分配值导致登录会话丢失! -->
-	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-		<constructor-arg name="name" value="ms.session.id" />
-	</bean>
-	<bean id="sessionIdGenerator"
-		class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator" />
-	<bean id="sessionDAO" class="net.mingsoft.basic.security.session.CacheSessionDAO">
-		<property name="sessionIdGenerator" ref="sessionIdGenerator" />
-		<property name="activeSessionsCacheName" value="activeSessionsCache" />
-		<property name="cacheManager" ref="cacheManager" />
-	</bean>
-	<bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-		<property name="cacheManager" ref="cacheManager" />
-	</bean>
-
 	<!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 
-	<!-- AOP式方法级权限检查 -->
+	<!-- 开启Shiro的注释 -->
 	<bean
 		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
 		depends-on="lifecycleBeanPostProcessor">
@@ -87,13 +94,5 @@
 		<property name="securityManager" ref="securityManager" />
 	</bean>
 
-
-	<!-- 用户授权信息Cache -->
-	<bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
-
-	<!-- 項目自定义的Realm -->
-	<bean id="baseAuthRealm" class="com.mingsoft.basic.security.BaseAuthRealm">
-		<property name="cacheManager" ref="cacheManager" />
-	</bean>
 
 </beans>

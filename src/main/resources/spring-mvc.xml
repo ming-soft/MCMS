@@ -99,25 +99,7 @@
 	</bean>
 
 	<!-- 系统错误转发配置[并记录错误日志] -->
-	<bean
-		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		<property name="defaultErrorView" value="/errors/500"></property>   <!-- 默认为500，系统错误(error.jsp) -->
-		<property name="defaultStatusCode" value="500"></property>
-		<property name="statusCodes"><!-- 配置多个statusCode -->
-			<props>
-				<prop key="/errors/500">500</prop>  <!-- error.jsp -->
-				<prop key="/errors/404">404</prop>    <!-- error1.jsp -->
-			</props>
-		</property>
-		<property name="exceptionMappings">
-			<props>
-				<!-- 这里你可以根据需要定义N多个错误异常转发 -->
-				<prop key="java.lang.Exception">errors/404</prop>
-			</props>
-		</property>
-		<!-- 设置日志输出级别，不定义则默认不输出警告等错误日志信息 -->
-		<property name="warnLogCategory" value="WARN"></property>
-	</bean>
+	<bean class="net.mingsoft.basic.exception.SimpleMappingExceptionResolver"/>
 
 	<mvc:interceptors>
 		<mvc:interceptor>

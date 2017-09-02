@@ -103,6 +103,14 @@
 		<location>/error/404.do</location>
 	</error-page>
 	<error-page>
+		<error-code>400</error-code>
+		<location>/error/400.do</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/error/403.do</location>
+	</error-page>
+	<error-page>
 		<error-code>405</error-code>
 		<location>/error/405.do</location>
 	</error-page>
