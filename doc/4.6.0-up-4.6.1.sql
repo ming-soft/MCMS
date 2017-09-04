@@ -22,4 +22,4 @@ update model  set model_ismenu = 1;
 update model  set model_modelid = null where model_modelid=0;
 
 delete from model where model_url = 'cms/generate/column.do' or model_url='cms/generate/article.do';
-delete from model where model_code = '11000000';
+delete from model where model_code = '11000000' or  model_code = '12030100' or  model_code = '12050000' or  model_code = '02060000'  or  model_code = '02050000' ;
