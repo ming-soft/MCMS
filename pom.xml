@@ -33,7 +33,7 @@
 	</repositories>
 	<properties>
 		<ms.base.version>1.0.2-SNAPSHOT</ms.base.version>
-		<ms.basic.version>1.0.3-SNAPSHOT</ms.basic.version>
+		<ms.basic.version>1.0.4-SNAPSHOT</ms.basic.version>
 		<ms.mdiy.version>1.0.2-SNAPSHOT</ms.mdiy.version>
 		<ms.mpeople.version>1.0.0-SNAPSHOT</ms.mpeople.version>
 	</properties>
