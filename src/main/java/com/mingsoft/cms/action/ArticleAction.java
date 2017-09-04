@@ -35,6 +35,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -264,6 +265,7 @@ public class ArticleAction extends BaseAction {
 	 *            文章对象
 	 */
 	@RequestMapping("/save")
+	@RequiresPermissions("article:save")
 	public void save(@ModelAttribute ArticleEntity article, HttpServletRequest request, HttpServletResponse response) {
 		// 获取站点id
 		int appId = this.getAppId(request);
@@ -399,6 +401,7 @@ public class ArticleAction extends BaseAction {
 	 * @param response
 	 */
 	@RequestMapping("/{basicId}/update")
+	@RequiresPermissions("article:update")
 	public void update(@PathVariable int basicId, @ModelAttribute ArticleEntity article, HttpServletRequest request,
 			HttpServletResponse response) {
 		// 获取站点id
@@ -558,6 +561,7 @@ public class ArticleAction extends BaseAction {
 	 * @return
 	 */
 	@RequestMapping("/delete")
+	@RequiresPermissions("article:del")
 	public void delete(@RequestBody List<ArticleEntity> article, HttpServletRequest request, HttpServletResponse response) {
 		int appId = this.getAppId(request);
 		int[] ids = new int[article.size()];

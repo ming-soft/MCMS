@@ -21,7 +21,13 @@
 					<input type="hidden" name="url"/>				
 			</@ms.formRow>
 			<@ms.text  id="position" label="选择主页位置	" width="300" value="index.html" placeholder="输入主页位置" name="position"  help="注:主页位置htm文件名一般为index.html或default.html"/>
-			<div class="form-group ms-form-group"><div class="col-sm-2"></div><div class="col-sm-9 ms-from-group-input ms-form-input"><@ms.button class="btn btn-primary" id="updateIndex" value="生成主页" /> 	<@ms.panelNavBtnSave title="" id="viewIndex" value="预览主页" /></div></div>
+			<div class="form-group ms-form-group"><div class="col-sm-2"></div><div class="col-sm-9 ms-from-group-input ms-form-input">
+			<@shiro.hasPermission name="cms:generate:index">	  
+				<@ms.button class="btn btn-primary" id="updateIndex" value="生成主页" /> 	
+				<@ms.panelNavBtnSave title="" id="viewIndex" value="预览主页" />
+			</@shiro.hasPermission>
+			</div>
+			</div>
 			
 		</@ms.form>
 		
@@ -34,7 +40,11 @@
 						<@ms.treeInput treeId="errorTree" buttonText="暂无数据" />
 					</#if>
 			</@ms.formRow>
-			<div class="form-group ms-form-group"><div class="col-sm-2"></div><div class="col-sm-9 ms-from-group-input ms-form-input"><@ms.button class="btn btn-primary" id="updateColumn" value="生成栏目" /></div></div>
+			<div class="form-group ms-form-group"><div class="col-sm-2"></div><div class="col-sm-9 ms-from-group-input ms-form-input">
+			<@shiro.hasPermission name="cms:generate:column">
+				<@ms.button class="btn btn-primary" id="updateColumn" value="生成栏目" />
+			</@shiro.hasPermission>
+			</div></div>
 		</@ms.form>
 
 		
@@ -47,7 +57,11 @@
     				</#if>	
     		</@ms.formRow>
             <@ms.date name="dateTime" label="指定时间" single=true readonly="readonly" width="300" value="${now?string('yyyy-MM-dd')}" validation={"required":"true", "data-bv-notempty-message":"必填项目"} placeholder="点击该框选择时间段"  />
-			<div class="form-group ms-form-group"><div class="col-sm-2"></div><div class="col-sm-9 ms-from-group-input ms-form-input"><@ms.button class="btn btn-primary" id="updateArticle" value="生成文章" /></div></div>
+			<div class="form-group ms-form-group"><div class="col-sm-2"></div><div class="col-sm-9 ms-from-group-input ms-form-input">
+			<@shiro.hasPermission name="cms:generate:article">
+				<@ms.button class="btn btn-primary" id="updateArticle" value="生成文章" />
+			</@shiro.hasPermission>
+			</div></div>
 		</@ms.form>	
 	</@ms.panel>
 </@ms.html5>	
@@ -86,10 +100,10 @@
 		
 		$(this).request({url:URL,data:DATA,type:"json",method:"post",func:function(msg) {
 			$("#updateIndex").html("更新主页").removeAttr("disabled");
-			if(msg){
-				alert("更新成功");
+			if(msg.result){
+				<@ms.notify msg="更新成功" type="warning"/>
 			}else{
-				alert("更新失败,模版路径不存在");
+				alert(msg.resultMsg);
 			}
 			$("#updateIndex").html("更新主页")
 		}});
@@ -117,10 +131,10 @@
 		$(this).request({url:URL,data:columnId,type:"json",method:"post",func:function(msg) {
 			$("#updateColumn").html("更新栏目").removeAttr("disabled");
 			//回调处理方式
-			if (msg) {
-				alert("更新栏目成功");
-			} else {
-				alert("更新栏目失败");
+			if(msg.result){
+				<@ms.notify msg="更新成功" type="warning"/>
+			}else{
+				alert(msg.resultMsg);
 			}
 		}});
 		
@@ -143,10 +157,10 @@
 			$(this).request({url:URL,data:DATA,type:"json",method:"post",func:function(msg) {
 				$("#updateArticle").html("更新文档").removeAttr("disabled");
 				//回调处理方式
-				if (msg) {
-					alert("更新文档成功");
-				} else {
-					alert("更新文档失败");
+				if(msg.result){
+					<@ms.notify msg="更新成功" type="warning"/>
+				}else{
+					alert(msg.resultMsg);
 				}
 			}});
 			

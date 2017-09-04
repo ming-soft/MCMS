@@ -13,8 +13,8 @@
 	</@ms.searchForm>
 	<div id="toolbar">
 		<@ms.panelNavBtnGroup>
-			<@ms.panelNavBtnAdd title=""/>
-			<@ms.panelNavBtnDel title=""/>
+			<@shiro.hasPermission name="article:save"><@ms.panelNavBtnAdd title=""/></@shiro.hasPermission> 
+			<@shiro.hasPermission name="article:del"><@ms.panelNavBtnDel title=""/></@shiro.hasPermission> 
 		</@ms.panelNavBtnGroup>
 	</div>
 	<@ms.panel>
@@ -54,8 +54,14 @@
 	        field: 'basicTitle',
 	        title: '文章标题',
 	        formatter: function (value, row, index){
+				<@shiro.hasPermission name="article:update">	        
 	        	var url='${managerPath}/cms/article/'+row.articleID+"/edit.do";
 	    		return "<a href="+url+" target='_self' >"+value+"</a>";
+	    		</@shiro.hasPermission> 
+	    		<@shiro.lacksPermission name="article:update">
+	    			return value;
+	    		</@shiro.lacksPermission> 
+	    		
 	    	}
 	    }, {
 	        field: 'column.categoryTitle',

@@ -32,6 +32,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -162,7 +163,7 @@ public class GeneraterAction extends BaseAction {
 		List<ColumnEntity> list  = columnBiz.queryAll(websiteId,modelId);
 		model.addAttribute("list",  JSONArray.toJSONString(list));
 		model.addAttribute("now", new Date());
-		return view("/cms/generate/generate_index");
+		return view("/cms/generate/index");
 	}
 
 	/**
@@ -172,8 +173,9 @@ public class GeneraterAction extends BaseAction {
 	 * @param response
 	 */
 	@RequestMapping("/generateIndex")
+	@RequiresPermissions("cms:generate:index")
 	@ResponseBody
-	public boolean generateIndex(HttpServletRequest request, HttpServletResponse response) {
+	public void generateIndex(HttpServletRequest request, HttpServletResponse response) {
 		String tmpFileName = request.getParameter("url"); // 模版文件名称
 		String generateFileName = request.getParameter("position");// 生成后的文件名称
 
@@ -199,7 +201,7 @@ public class GeneraterAction extends BaseAction {
 
 		// 判断文件是否存在，若不存在弹出返回信息
 		if (!file.exists()) {
-			return false;
+			this.outJson(response, false,"模板不存在");
 		} else {
 			// 当前模版的物理路径
 			String htmlContent = FileUtil.readFile(tmpFilePath); // 读取模版文件内容
@@ -213,12 +215,8 @@ public class GeneraterAction extends BaseAction {
 				// 解析HTML上的标签
 				FileUtil.writeFile(htmlContent, generatePath, FileUtil.URF8);
 				FileUtil.writeFile(mobileHtmlContent, generateMobilePath, FileUtil.URF8);
-				return true;
-			} else {
-				// 提示错误：未找到模版
-				htmlContent = webSiteTmpPath + File.separator + tmpFileName ;
-			}
-			return false;
+				this.outJson(response, true);
+			} 
 		}
 	}
 
@@ -230,8 +228,9 @@ public class GeneraterAction extends BaseAction {
 	 * @param columnId
 	 */
 	@RequestMapping("/{columnId}/genernateColumn")
+	@RequiresPermissions("cms:generate:column")
 	@ResponseBody
-	public boolean genernateColumn(HttpServletRequest request, HttpServletResponse response, @PathVariable int columnId) {
+	public void genernateColumn(HttpServletRequest request, HttpServletResponse response, @PathVariable int columnId) {
 		// 获取站点id
 		AppEntity app = BasicUtil.getApp();
 		String mobileStyle = app.getAppMobileStyle(); // 手机端模版
@@ -395,7 +394,7 @@ public class GeneraterAction extends BaseAction {
 				break;
 			}
 		}
-		return true;
+		this.outJson(response, true);
 	}
 
 	/**
@@ -437,8 +436,9 @@ public class GeneraterAction extends BaseAction {
 	 * @param columnId
 	 */
 	@RequestMapping("/{columnId}/generateArticle")
+	@RequiresPermissions("cms:generate:article")
 	@ResponseBody
-	public boolean generateArticle(HttpServletRequest request, HttpServletResponse response, @PathVariable int columnId) {
+	public void generateArticle(HttpServletRequest request, HttpServletResponse response, @PathVariable int columnId) {
 		String dateTime = request.getParameter("dateTime");
 		AppEntity app = this.getApp(request);
 		String mobileStyle = null;
@@ -630,7 +630,7 @@ public class GeneraterAction extends BaseAction {
 			 * break; } }
 			 */
 		}
-		return true;
+		this.outJson(response, true);
 	}
 
 	/**
@@ -681,7 +681,7 @@ public class GeneraterAction extends BaseAction {
 	 */
 	@RequestMapping("/{articleId}/generateArticleByArticleId")
 	@ResponseBody
-	public boolean generateArticleByArticleId(HttpServletRequest request, HttpServletResponse response, @PathVariable int articleId) {
+	public void generateArticleByArticleId(HttpServletRequest request, HttpServletResponse response, @PathVariable int articleId) {
 		AppEntity app = this.getApp(request);
 		String generatePath = getRealPath(request, IParserRegexConstant.HTML_SAVE_PATH) + File.separator + app.getAppId() + File.separator;// 站点生成后保存的html地址
 		FileUtil.createFolder(generatePath);
@@ -751,7 +751,7 @@ public class GeneraterAction extends BaseAction {
 			FileUtil.writeFile(coverContent, writePath, FileUtil.URF8);// 写文件
 			break;
 		}
-		return true;
+		this.outJson(response, true);
 	}
 
 	/**
