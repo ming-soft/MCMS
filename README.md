@@ -1,5 +1,5 @@
 #铭飞MCMS内容管理系统完整开源版J2EE代码
-当前版本:4.6.0<br/>
+当前版本:4.6.1<br/>
 铭飞MS官网:http://ms.mingsoft.net<br/>
 官网同时提供一键运行版本下载，请步移官网....<br/>
 QQ交流群号1：221335098<br/>
@@ -32,7 +32,7 @@ QQ交流群号1：221335098<br/>
 * 富文本：Ueditor
 
 #系统结构
-![输入图片说明](http://git.oschina.net/uploads/images/2016/0504/145856_afbb9ca3_542665.jpeg "在这里输入图片标题")
+![输入图片说明](http://doc.ms.mingsoft.net/dev-guide/%E9%93%AD%E9%A3%9E%E5%BA%95%E5%B1%82%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84%E5%9B%BE/%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84.png "铭飞系统结构")
 
 #开发环境
 建议开发者使用以下环境，这样避免版本带来的问题
