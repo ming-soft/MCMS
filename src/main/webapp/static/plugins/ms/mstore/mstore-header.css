@@ -1,0 +1,84 @@
+  img{border:none;}
+  .mstore-menu a,.mstore-menu a:hover,.mstore-menu a:active,.mstore-menu a:link{
+    text-decoration: none;
+    color: #757575;
+  }
+  #mstore-header{
+    height:30px;
+    background: #fcfcfc;
+    z-index: 10000000;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    min-width: 1100px;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    font-family: arial,'hiragino sans gb','microsoft yahei',Simsun;
+  }
+  .mstore-headbody{
+    max-width: 1170px;
+    background: #fcfcfc;
+    height: 100%;
+    line-height: 30px;
+    margin: 0px auto;
+  }
+  .mstore-title{
+    float: left;
+    font-weight: bold;
+  }
+  .mstore-logo img{
+    width: 75%;
+  }
+  .mstore-menu{
+    float: right;
+    margin: 0px;
+  }
+  .mstore-menu li,.mstore-menu li a{
+    float: left;
+    color: #757575;
+    font-size: 12px;
+    margin-left: 30px;    
+    list-style:none;
+  }
+  .mstore-title,.mstore-menu li span,.mstore-menu li,.mstore-menu li a{
+    line-height: 29px;
+    font-family: arial,'hiragino sans gb','microsoft yahei',Simsun;
+    color: #444;    
+    font-size: 12px;
+    list-style:none;
+  }
+  .mstore-menu li span{
+    float: left;
+  }
+  .mstore-menu li img.mstore-user-head{
+    width: 24px;
+    border-radius: 50%;
+    float: left;
+    margin-right: 5px;
+    margin-top: 3px;
+  }
+  .mstore-support{
+    position: relative;
+    cursor: pointer;
+  }
+  .alipay-img{
+    width: 15px;
+    height: 15px;    
+    margin-right: 5px;
+    float: left;
+    margin-top: 7px;
+  }
+  .mstore-support-pay{
+    position: absolute;
+    width: 150px;
+    height: 150px;    
+    left: -48px;
+    border: 1px solid #ddd;
+    display: none;    
+    z-index: 100000000;
+    background: #fff
+  }
+  .mstore-support-pay img{
+    width: 100%;
+    float: left;
+  }
