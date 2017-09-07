@@ -208,14 +208,18 @@ var Ms = {
 			dataType : 'json',
 			data : params,
 			beforeSend : function() {
-				_target.msg("加载中...");
+				try{
+					_target.msg("加载中...");
+				}catch(e){}
 			},
 
 			success : function(json) {
 				func(json);
 			},
 			error : function(xhr, type) { // 服务器异常提示
-				_target.msg("服务器繁忙稍后重试！");
+				try{
+					_target.msg("服务器繁忙稍后重试！");
+				}catch(e){}
 			}
 		});
 	},
