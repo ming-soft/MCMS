@@ -647,11 +647,12 @@ public class CmsParser extends IGeneralParser {
 				if (size <= 0 || size > articleCount) {
 					size = articleCount;
 				}
+				//设置page实例，防止该栏目下没有文章时，page标签不渲染
+				if (page==null)  {
+					page = new PageUtilHtml(curPageNo, size, articleCount, listLinkPath);
+				}
 				// 当数据库中该栏目下没有该文章时不取数据
 				if (articleCount != 0) {
-					if (page==null)  {
-						page = new PageUtilHtml(curPageNo, size, articleCount, listLinkPath);
-					}
 					/**
 					 * 判断文章列表的orderby属性
 					 */
