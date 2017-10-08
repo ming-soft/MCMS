@@ -4,7 +4,7 @@
 	<groupId>com.mingsoft</groupId>
 	<artifactId>ms-mcms</artifactId>
 	<packaging>war</packaging>
-	<version>4.6.0</version>
+	<version>4.6.1</version>
 	<name>铭飞MCMS开源系统</name>
 	<url>http://ms.mingsoft.net</url>
 	<repositories>
@@ -35,7 +35,7 @@
 		<ms.base.version>1.0.2-SNAPSHOT</ms.base.version>
 		<ms.basic.version>1.0.4-SNAPSHOT</ms.basic.version>
 		<ms.mdiy.version>1.0.2-SNAPSHOT</ms.mdiy.version>
-		<ms.mpeople.version>1.0.0-SNAPSHOT</ms.mpeople.version>
+		<ms.mpeople.version>1.0.2-SNAPSHOT</ms.mpeople.version>
 	</properties>
 	<dependencies>
 
@@ -129,9 +129,8 @@
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-upgrader</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>1.0.3-SNAPSHOT</version>
 		</dependency>
-
 	</dependencies>
 
 	<build>
