@@ -37,7 +37,7 @@ QQ交流群号1：221335098<br/>
 #开发环境
 建议开发者使用以下环境，这样避免版本带来的问题
 * IDE:eclipse
-* DB:Mysql5.5
+* DB:Mysql5.5及以上
 * JDK:JAVA 7、J2EE6
 * WEB:Tomcat8
 
