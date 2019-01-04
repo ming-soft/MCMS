@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="ms-mcms">
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+        <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/webapp"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module deploy-path="/" handle="module:/overlay/prj/ms-basic?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
+        <dependent-module deploy-path="/" handle="module:/overlay/slf/?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
+            <dependency-type>consumes</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/ms-mcms/target/classes"/>
+        <property name="context-root" value="ms-mcms"/>
+        <property name="component.exclusion.patterns" value="ms.install,html/,static/,temp,upgrader,WEB-INF/web.xml,WEB-INF/lib/,templets/,upload/,WEB-INF/classes/*.xml,WEB-INF/classes/*.properties,*.sh"/>
+    </wb-module>
+</project-modules>

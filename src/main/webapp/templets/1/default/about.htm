@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <#include "head-file.htm"/>
+    </head>
+
+    <body>
+        <#include "head.htm"/>
+        <div class="ms-banner" style="background:url({ms:global.host/}/{ms:global.style/}images/about_us.jpg) no-repeat center;">
+            <p class="banner_tit_about animated fadeInLeft">关于我们</p>
+            <p class="banner_tit_about_des animated fadeInRight">About us</p>
+        </div>
+        <div class="ms-content-about">
+            <div class="ms-content-main">
+                <#include "menu-left.htm"/>
+                <div class="ms-content-right">
+                    <div class="ms-content-right-position">
+                        <a href="{ms:global.host/}">首页</a>
+                        <span>></span>
+                        <a href="{ms:field.typelink/}">{ms:field.typetitle/}</a>
+                    </div>
+                    <div class="ms-content-right-main">
+                        <div class="ms-content-right-main-title">{ms:field.title/}</div>
+                        <div class="ms-content-right-main-content">{ms:field.content/}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <#include "footer.htm"/>
+    </body>
+</html>

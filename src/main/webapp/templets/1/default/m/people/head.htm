@@ -1,0 +1,45 @@
+			<!--头部导航条-->
+			<div class="ms-people-heard">
+				<ul class="am-list admin-sidebar-list ms-admin-sidebar-list" id="collapase-nav-1">
+					<li class="am-panel">
+						<div data-am-widget="titlebar" class="am-titlebar am-titlebar-default ms-header">
+							<a :href="backBtn">
+								<h2 class="iconfont">&#xe80d;</h2>
+							</a>
+							<nav class="am-titlebar-nav ms-titlebar-nav">
+								<p class="" v-text="title">加载中</p>
+							</nav>
+							<h2 class="iconfont" data-am-collapse="{parent: '#collapase-nav-1', target: '#user-nav'}">&#xe80c;</h2>
+						</div>
+						<ul class="am-list am-collapse " id="user-nav">
+							<div class="am-g ms-g">
+								<div class="am-u-sm-3">
+									<a href="{ms:global.host/}">
+										<span class="am-icon-btn"><i class="iconfont">&#xe818;</i></span>
+										<div class="ms-icon-btn-font">首页</div>
+									</a>
+								</div>
+								<div class="am-u-sm-3">
+									<a href="{ms:global.host/}/people/favorite.do">
+										<span class="am-icon-btn"><i class="iconfont">&#xe8de;</i></span>
+										<div class="ms-icon-btn-font">收藏</div>
+									</a>
+								</div>
+								<div class="am-u-sm-3">
+									<a href="{ms:global.host/}/people/cart.do">
+										<span class="am-icon-btn"><i class="iconfont">&#xe957;</i></span>
+										<div class="ms-icon-btn-font">购物车</div>
+									</a>
+								</div>
+								<div class="am-u-sm-3">
+									<a href="{ms:global.host/}/people/center.do">
+										<span class="am-icon-btn "><i class="iconfont">&#xe93e;</i></span>
+										<div class="ms-icon-btn-font">个人中心</div>
+									</a>
+								</div>
+							</div>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <#include "m/head-file.htm"/>
+    <body>
+		<#include "m/head.htm"/>
+        <div class="ms-banner">
+            <img src="{ms:global.host/}/{ms:global.style/}/images/case.png" class="am-img-responsive" alt=""/>
+        </div>
+        <div class="ms-news-list">
+            <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+                <div class="am-list-news-bd">
+                    <ul class="am-list">
+                        {ms:arclist ispaging=true size=3}
+	                        <li class="am-g am-list-item-dated">
+	                            <a href="{ms:global.url/}[field.link/]" class="am-list-item-hd ">[field.title/]</a>
+	                            <span class="am-list-date">[field.date?string("yyyy-mm-dd")/]</span>
+	                        </li>
+                       {/ms:arclist}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <#include "m/footer.htm"/>
+    </body>
+</html>

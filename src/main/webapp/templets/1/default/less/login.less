@@ -1,0 +1,224 @@
+html,body,#login{
+    height: 100%;
+}
+body{
+    background-color: #ffffff;
+}
+body,p{
+    margin: 0;
+}
+input:focus,textarea:focus {
+    outline: none;
+}
+#login{
+    display: flex;
+    flex-direction:column;
+    height: 893px;
+    min-width: 1200px;
+    background:url("../images/pic.png") no-repeat;
+    background-position: 50%;
+    .ms-none{
+        display: none !important;
+    }
+    .ms-login-float{
+        float: left;
+    }
+    .ms-head,.ms-footer,.ms-content-form,.ms-content-code{
+        background-color: #ffffff;
+    }
+    .ms-head-line,.ms-head-welcome-login,.ms-footer{
+        color: #999999;
+    }
+    .ms-head-welcome-login,.ms-login-english-title,.ms-login-remmember-password,.ms-footer{
+        font-size: 12px;
+    }
+    .ms-head{
+    	a{
+    		width: 147px;	
+    	}
+        vertical-align: middle;
+        height: 22px;
+        padding: 34px 46px;
+        display: flex;
+        align-content: center;
+        img{
+            height: 100%;
+        }
+        .ms-head-welcome-login{
+            margin-top: 4px;
+            font-size: 1rem !important;
+        }
+        .ms-head-line{
+            margin: 0 12px;
+            border-left: 1px solid #999;
+        }
+    }
+    .ms-content{
+        flex:1;
+        position: relative;
+        .ms-content-form,.ms-content-code{
+            width: 280px;
+            height: 215px;
+            padding: 24px 20px;
+            position: absolute;
+            right: 160px;
+            top: 25%;
+            box-shadow: 2px 2px 8px 6px rgb(59, 177, 255);
+        }
+        #ms-content-form-register{
+            height: 260px;
+        }
+        .ms-login-chinese-title{
+            color: #0099ff;
+            font-size: 16px;
+            line-height: 15px;
+        }
+        .ms-login-code{
+            position: absolute;
+            top: 4px;
+            right: 4px;
+        }
+        .ms-login-code-title{
+            color: #0099ff;
+            font-size: 12px;
+        }
+        .ms-content-form{
+            .ms-login-title{
+                line-height: 13px;
+            }
+            .ms-login-english-title,.ms-login-remmember-password,.ms-login-code-text{
+                color: #999999;
+            }
+            .ms-login-people-name,.ms-login-remmember-password{
+                margin-bottom: 12px;
+            }
+            .ms-login-error-text{
+                height: 15px;
+                font-size: 12px;
+                color: #e4393c;
+                display: flex;
+                align-items: center;
+                padding: 5px 0;
+                img{
+                    padding-right: 5px;
+                }
+            }
+            input{
+                border: 1px solid #eeeeee;
+                border-radius: 3px;
+                color: #555555;
+                outline-color: #0099ff;
+                &::-webkit-input-placeholder {
+                	color: #999999;
+                }
+                &::-moz-placeholder {
+                	color: #999999;
+                }
+            }
+            .ms-login-people-name{
+                width: 260px;
+                height: 20px;
+                padding: 5px 10px;
+            }
+            .ms-error{
+                border:1px solid #e4393c;
+            }
+            .ms-login-remmember-password{
+                display: flex;
+                line-height: 13px;
+                align-items: center;
+                height: 13px;
+            }
+            .ms-login-remmember-password input[type="checkbox"]{
+                margin:0 6px 0 0;
+            }
+            .ms-login-button{
+            	pointer-events:none;
+                background-color:#fafafa;
+                color:#ddd;
+                width: 100%;
+                height: 34px;
+                line-height: 34px;
+                font-size: 14px;
+                /*color: #ffffff;*/
+                text-align: center;
+                /*background-color: #009aff;*/
+                cursor: pointer;
+                border-radius: 4px;
+            }
+            .login-code{
+                overflow: hidden;
+                margin-bottom: 12px;
+                .login-code-input{
+                    width: 120px;
+                    height: 12px;
+                    padding:10px;
+                }
+                .login-code-input,.login-code-img{
+                    margin-right: 11px;
+                }
+                .login-code-img{
+                    height: 34px;
+                }
+                .login-code-text{
+                    font-size: 10px;
+                }
+                .login-code-change{
+                    cursor: pointer;
+                     color: #0099ff;
+                }
+                .login-code-rompt{
+                    color: #999;
+                }
+            }
+            .ms-login-rand-code{
+                width: 110px;
+                height: 12px;
+                padding:10px;
+            }
+            .ms-login-rand-code-img{
+                height: 34px;
+            }
+        }
+        .ms-content-code{
+            .ms-computer-title{
+                background: url(../images/frame.png) no-repeat;
+                position: absolute;
+                top: 10px;
+                background-size: 100% 100%;
+                color: #ffffff;
+                font-size: 10px;
+                width: 90px;
+                right: 45px;
+            }
+            .ms-login-weixin{
+                text-align: center;
+                img{
+                    margin: auto;
+                    display: block;
+                    margin-top: 18px;
+                    margin-bottom: 16px;
+                }
+            }
+        }
+        .ms-login-button:hover,.ms-login-button:active{
+            background-color: #0086ff;
+        }
+    }
+    .ms-footer{
+    	a:link{color:#999999;text-decoration:none}
+		a:visited{color:#999999;text-decoration:none}
+		a:active{color:#999999;text-decoration:none}
+		a:hover{color:#0099ff;text-decoration:none}
+        height: 40px;
+        padding: 40px 0;
+        text-align: center;
+        p{
+            margin: 0 0 18px 0;
+            line-height: 11px;
+            &:last-child{
+                margin:0;
+            }
+        }
+    }
+}
