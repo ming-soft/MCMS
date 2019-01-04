@@ -14,12 +14,21 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
+import com.mingsoft.basic.configurer.ShiroTagFreeMarkderConfigurer;
+
+import net.mingsoft.basic.security.BaseAuthRealm;
+
 
 @Configuration
 public class ShiroConfig {
 
 	@Value("managerPath")
 	private String managerPath;
+	
+	@Bean
+	public ShiroTagFreeMarkderConfigurer freemarkerConfig() {
+		return new ShiroTagFreeMarkderConfigurer();
+	}
 
 	@Bean
 	public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
@@ -63,17 +72,17 @@ public class ShiroConfig {
 		return hashedCredentialsMatcher;
 	}
 
-//	@Bean
-//	public BaseAuthRealm myShiroRealm() {
-//		BaseAuthRealm myShiroRealm = new BaseAuthRealm();
-//		myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
-//		return myShiroRealm;
-//	}
+	@Bean
+	public BaseAuthRealm myShiroRealm() {
+		BaseAuthRealm myShiroRealm = new BaseAuthRealm();
+		myShiroRealm.setCredentialsMatcher(hashedCredentialsMatcher());
+		return myShiroRealm;
+	}
 
 	@Bean
 	public SecurityManager securityManager() {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-		//securityManager.setRealm(myShiroRealm());
+		securityManager.setRealm(myShiroRealm());
 		return securityManager;
 	}
 
