@@ -2,15 +2,26 @@ server:
   port: 8081
   tomcat:
     max-http-header-size: 10240     #单位：字节
-
 ms: 
- manager: ms
- view: 
-  path: /WEB-INF/manager
-  
-  
-managerPath: /ms
-
+ manager: 
+  path: ms
+  view: 
+   path: /WEB-INF/manager
+ session: 
+  timeout: 1800000 #会话超时， 单位：毫秒， 20m=1200000ms, 30m=1800000ms, 60m=3600000ms
+  validation.interval: 120000 #会话清理间隔时间， 单位：毫秒，2m=120000ms
+ upload: 
+  floder: 
+   path: /upload
+  file: 
+   denied: exe
+   allowed: jpg
+  max:
+   size: 1
+   in: 
+    memory: 
+     size: 4096
+     
 spring:
   profiles:
     active: dev
@@ -53,10 +64,6 @@ mybatis:
   configuration: 
    database-id: mysql
 
-session: 
-  timeout: 1800000 #会话超时， 单位：毫秒， 20m=1200000ms, 30m=1800000ms, 60m=3600000ms
-  validation.interval: 120000 #会话清理间隔时间， 单位：毫秒，2m=120000ms
-
 # slf4j日志配置
 logging:
  # 配置级别
@@ -66,14 +73,3 @@ logging:
   com.mingsoft: trace
 
 
-upload: 
- floder: 
-  path: /upload
- file: 
-  denied: exe
-  allowed: jpg
- max:
-  size: 1
-  in: 
-   memory: 
-    size: 4096
