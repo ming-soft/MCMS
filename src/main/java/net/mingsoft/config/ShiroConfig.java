@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 
-import com.mingsoft.basic.configurer.ShiroTagFreeMarkderConfigurer;
+import net.mingsoft.basic.configurer.ShiroTagFreeMarkderConfigurer;
 
 import net.mingsoft.basic.security.BaseAuthRealm;
 

@@ -21,7 +21,7 @@ import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import com.alibaba.druid.support.spring.stat.BeanTypeAutoProxyCreator;
 import com.alibaba.druid.support.spring.stat.DruidStatInterceptor;
-import com.mingsoft.basic.interceptor.ActionInterceptor;
+import net.mingsoft.basic.interceptor.ActionInterceptor;
 
 import cn.hutool.core.collection.CollectionUtil;
 
