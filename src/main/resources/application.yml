@@ -2,23 +2,6 @@ server:
   port: 8081
   tomcat:
     max-http-header-size: 10240     #单位：字节
-ms:
- manager: 
-  path: ms
-  view: 
-   path: /WEB-INF/manager
- session: 
-  timeout: 1800000 #会话超时， 单位：毫秒， 20m=1200000ms, 30m=1800000ms, 60m=3600000ms
-  validation.interval: 120000 #会话清理间隔时间， 单位：毫秒，2m=120000ms
- upload: 
-   path: /upload 
-   denied: exe
-   allowed: jpg
-   max:
-    size: 1
-   memory:
-    size: 4096
-     
 spring:
   profiles:
     active: dev
@@ -68,5 +51,20 @@ logging:
   #分包配置级别，即不同的目录下可以使用不同的级别
   net.mingsoft: trace
   com.mingsoft: trace
-
-
+      
+ms:
+ manager: 
+  path: /ms
+  view:  #已过期
+   path:  
+ session: 
+  timeout: 1800000 #会话超时， 单位：毫秒， 20m=1200000ms, 30m=1800000ms, 60m=3600000ms
+  validation.interval: 120000 #会话清理间隔时间， 单位：毫秒，2m=120000ms
+ upload: 
+   path: /upload 
+   denied: exe
+   allowed: jpg
+   max:
+    size: 1
+   memory:
+    size: 4096

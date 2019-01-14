@@ -4,3 +4,4 @@ spring:
     username: root
     password: root
     filters: wall,mergeStat
+    type: com.alibaba.druid.pool.DruidDataSource

@@ -1,0 +1,2 @@
+var url = "${managerPath}/${model?default("")}/category/form.do?categoryId="+row.categoryId+"&modelId=${modelId?default('0')}&modelTitle=${modelTitle?default('0')}" ;
+return "<a href=" +url+ " target='_self'>" + value + "</a>";

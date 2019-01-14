@@ -7,9 +7,9 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.mingsoft","net.mingsoft"})
+@ComponentScan(basePackages = {"net.mingsoft"})
 @MapperScan(basePackages={"**.dao"})
-@ServletComponentScan(basePackages = {"com.mingsoft","net.mingsoft"})
+@ServletComponentScan(basePackages = {"net.mingsoft"})
 public class MSApplication {
 
 	public static void main(String[] args) {
@@ -17,5 +17,3 @@ public class MSApplication {
 	}
 
 }
-
-	
