@@ -31,24 +31,13 @@
 			<classifier>classes</classifier>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mdiy</artifactId>
-			<version>1.0.7-SNAPSHOT</version>
-			<type>war</type>
-		</dependency>
+
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mdiy</artifactId>
 			<version>1.0.7-SNAPSHOT</version>
 			<classifier>classes</classifier>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mpeople</artifactId>
-			<version>1.0.7-SNAPSHOT</version>
-			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
@@ -120,7 +109,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
-					<packagingExcludes>ms.install,html/,static/,temp,upgrader,WEB-INF/web.xml,WEB-INF/lib/,templets/,upload/,WEB-INF/classes/*.xml,WEB-INF/classes/*.properties,*.sh</packagingExcludes>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin><!-- 打包成war使用 -->
