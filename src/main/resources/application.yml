@@ -53,7 +53,7 @@ spring:
     expose-request-attributes: true
     expose-session-attributes: true
     expose-spring-macro-helpers: true
-    prefer-file-system-access: true
+    prefer-file-system-access: false
     template-loader-path: classpath:/WEB-INF/manager
     settings: 
       template_update_delay: 1
