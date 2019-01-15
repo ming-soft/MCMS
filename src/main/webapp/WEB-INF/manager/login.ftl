@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<#include "${managerViewPath}/include/meta.ftl"/>
+<#include "/include/meta.ftl"/>
 <title><#if app?has_content>${app.appName}<#else>MS</#if>管理系统${managerViewPath}</title>
 <link rel="shortcut icon" href="${static}/global/images/ms.ico"/>     
 <link rel="bookmark" href="${static}/global/images/ms.icoo"/> 

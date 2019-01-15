@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  	<#include "${managerViewPath}/include/macro.ftl"/>
-  	<#include "${managerViewPath}/include/meta.ftl"/>   
+  	<#include "/include/macro.ftl"/>
+  	<#include "/include/meta.ftl"/>   
 </head>
 <body>
 <@ms.content>

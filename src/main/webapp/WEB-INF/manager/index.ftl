@@ -3,8 +3,8 @@
 <head>
 <title><#if app?has_content>${app.basicTitle}<#else>MS</#if>管理系统</title>
 <link rel="bookmark" href="favicon.ico"/> 
-<#include "${managerViewPath}/include/macro.ftl"/>
-<#include "${managerViewPath}/include/meta.ftl"/>
+<#include "/include/macro.ftl"/>
+<#include "/include/meta.ftl"/>
 <script src="http://cdn.mingsoft.net/model/4.6.0/ms.mstore.client.min.js"></script>
 </head>
 <script type="text/javascript">

@@ -1,4 +1,5 @@
 <#include "/include/ui/index.ftl"/>
+<#include "/include/manager.ftl"/>
 <#global autoCURD=""/>
 <#macro autoCURD>
 	<#local url=baseUrl?split("?")?first?split("/")?last/>
@@ -8,7 +9,7 @@
 		<#global autoCURD="update">
 	</#if>
 </#macro>
-<@autoCURD/>
+<@ms.autoCURD/>
 
 <#--权限控制-->
 <#--link:必须 type:add/del/edit/query class:样式 id,value:显示文字-->

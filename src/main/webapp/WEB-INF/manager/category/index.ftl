@@ -10,7 +10,7 @@
 		<div id="toolbar">
 			<@ms.panelNav>
 				<@ms.buttonGroup>
-					<#include "${managerViewPath}/${model?default('')}/category/shiro-button.ftl"/>					
+					<#include "/${model?default('')}/category/shiro-button.ftl"/>					
 				</@ms.buttonGroup>
 			</@ms.panelNav>
 		</div>
@@ -56,7 +56,7 @@
 				        	field: 'categoryTitle',
 				        	title: '${modelTitle}标题',
 				        	formatter:function(value,row,index) {
-				        		<#include "${managerViewPath}/${model?default('')}/category/shiro-update.ftl"/>
+				        		<#include "/${model?default('')}/category/shiro-update.ftl"/>
 				        	}
 				    	},							    	{
 				        	field: 'categoryDescription',

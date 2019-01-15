@@ -267,7 +267,7 @@
 <#elseif type=="default"> <#--默认调用方式在4.5.5将废弃-->
 <!-- 初始化样式开始 -->
 	<div class="form-group ms-form-group ">	
-		<#include "control.ftl"/><#rt/>
+		<#include "/include/ui/control.ftl"/><#rt/>
 		<div  class="ms-form-control <#if label!="">col-sm-9</#if>">	
 			<ul class="ztree" id="treeDome${treeId}">
 			</ul>

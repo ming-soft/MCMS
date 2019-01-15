@@ -71,7 +71,7 @@
   
 
        
-  <#include "${managerViewPath}/include/macro.ftl"/>
+  <#include "/include/macro.ftl"/>
   <script>
     var basePath = "${basePath}";
     var base = "${base}";

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<#include "${managerViewPath}/include/meta.ftl"/> <!--调用head内样式信息-->
+<#include "/include/meta.ftl"/> <!--调用head内样式信息-->
 <script type="text/javascript" src="${base}/jquery/zTree_v3/jquery.ztree.all-3.5.min.js"></script>
 <link rel="stylesheet" href="${base}/jquery/zTree_v3/zTreeStyle.css" type="text/css">
 </head>

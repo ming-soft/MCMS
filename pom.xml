@@ -6,7 +6,7 @@
 	<groupId>net.mingsoft</groupId>
 	<artifactId>mcms</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>mcms</name>
+	<name>mcms1</name>
 	<packaging>war</packaging>
 	<properties>
 		<java.version>1.8</java.version>

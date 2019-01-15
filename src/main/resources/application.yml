@@ -17,21 +17,18 @@ spring:
     multipart:
       max-request-size: 100MB
   freemarker:
-    allow-request-override: false
-    allow-session-override: false
-    cache: false
+    suffix: .ftl
     charset: UTF-8
-    check-template-location: true
     content-type: text/html
-    enabled: true
-    expose-request-attributes: false
-    expose-session-attributes: false
+    allow-request-override: true
+    allow-session-override: true
+    expose-request-attributes: true
+    expose-session-attributes: true
     expose-spring-macro-helpers: true
     prefer-file-system-access: true
-    suffix: .ftl
-    template-loader-path: classpath:/WEB-INF/manager/
+    template-loader-path: classpath:/WEB-INF/manager
     settings: 
-      template_update_delay: 0
+      template_update_delay: 1
       default_encoding: UTF-8
       classic_compatible: true
       date_format: yyyy-MM-dd
@@ -56,7 +53,7 @@ ms:
  manager: 
   path: /ms
   view:  #已过期
-   path:  
+   path:  /WEB-INF/manager
  session: 
   timeout: 1800000 #会话超时， 单位：毫秒， 20m=1200000ms, 30m=1800000ms, 60m=3600000ms
   validation.interval: 120000 #会话清理间隔时间， 单位：毫秒，2m=120000ms

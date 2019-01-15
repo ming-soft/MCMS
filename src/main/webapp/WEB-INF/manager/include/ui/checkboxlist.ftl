@@ -12,7 +12,7 @@
 	help=""
 	>
 <div class="form-group ms-form-group">	
-	<#include "control.ftl"/><#rt/>
+	<#include "/include/ui/control.ftl"/><#rt/>
 	<div class="col-sm-10" <#if width!=""> style="${width}px"</#if><#rt/>>
 		<#if list?is_sequence>
 			<#if listKey!="" && listValue!="">
@@ -21,7 +21,7 @@
 					<#local rvalue=item[listValue]>
 					<#local index=item_index>
 					<#local hasNext=item_has_next>
-					<#include "checkboxlist-item.ftl"><#t/>
+					<#include "/include/ui/checkboxlist-item.ftl"><#t/>
 				</#list>
 			<#else>
 				<#list list as item>
@@ -29,7 +29,7 @@
 					<#local rvalue=item>
 					<#local index=item_index>
 					<#local hasNext=item_has_next>
-					<#include "checkboxlist-item.ftl"><#t/>
+					<#include "/include/ui/checkboxlist-item.ftl"><#t/>
 				</#list>
 			</#if>
 		<#else>
@@ -38,7 +38,7 @@
 				<#local rvalue=list[key]/>
 				<#local index=key_index>
 				<#local hasNext=key_has_next>
-				<#include "checkboxlist-item.ftl"><#t/>
+				<#include "/include/ui/checkboxlist-item.ftl"><#t/>
 			</#list>
 		</#if>
 	</div>

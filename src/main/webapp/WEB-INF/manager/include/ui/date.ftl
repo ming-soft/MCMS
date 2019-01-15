@@ -9,7 +9,7 @@
 	helpDirection=""
 	>
 <div class="form-group ms-form-group">	
-	<#include "control.ftl"/><#rt/>
+	<#include "/include/ui/control.ftl"/><#rt/>
 			<div class="control-group col-sm-9 ms-from-group-input has-feedback" style="min-width:200px;<#if width!=""> width:${width}px"</#if>"<#rt/>>
 		            <div class="controls">
 			             <div class="input-prepend input-group">
@@ -19,7 +19,7 @@
 							<#if maxlength!=""> maxlength="${maxlength}"</#if><#rt/>
 							<#if readonly!=""> readonly="${readonly}"</#if><#rt/>
 							<#if value?? && value?string!=""> value="${value?html}"</#if><#rt/>
-							<#include "common-attributes.ftl"/><#rt/>
+							<#include "/include/ui/common-attributes.ftl"/><#rt/>
 							/><#rt/> 
 			             </div>
 		            </div>

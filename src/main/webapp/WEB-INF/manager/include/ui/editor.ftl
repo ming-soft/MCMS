@@ -4,7 +4,7 @@
 <#--content:初始化内容-->
 <#macro editor name label=""  content="" validation="" width="100%" height="480" labelStyle="" appId="" help="" helpDirection="" colSm=""> 
 <div class="form-group ms-form-group">	
-	<#include "control.ftl"/><#rt/>	
+	<#include "/include/ui/control.ftl"/><#rt/>	
 	<div class="ms-form-control ms-from-group-input col-sm-9 has-feedback">
 	<script type="text/plain" id="editor_${name}" name="${name}" style="width:${width}px;height:${height}px">${content?default('')}</script>
 	<script type="text/javascript">

@@ -7,13 +7,13 @@
 	id="" name="" class="" style="" size="" title="" disabled="" tabindex="" accesskey="" labelStyle=""
 	onclick="" ondblclick="" onmousedown="" onmouseup="" onmouseover="" onmousemove="" onmouseout="" onfocus="" onblur="" onkeypress="" onkeydown="" onkeyup="" onselect="" onchange=""
 	>
-<#include "control.ftl"/><#rt/>
+<#include "/include/ui/control.ftl"/><#rt/>
 <input type="file"<#rt/>
 <#if id!=""> id="${id}"</#if><#rt/>
 <#if accept!=""> accept="${accept}"</#if><#rt/>
 <#if value!=""> value="${value}"</#if><#rt/>
-<#include "common-attributes.ftl"/><#rt/>
-<#include "scripting-events.ftl"/><#rt/>
+<#include "/include/ui/common-attributes.ftl"/><#rt/>
+<#include "/include/ui/scripting-events.ftl"/><#rt/>
 />
-<#include "control-close.ftl"/><#rt/>
+<#include "/include/ui/control-close.ftl"/><#rt/>
 </#macro>

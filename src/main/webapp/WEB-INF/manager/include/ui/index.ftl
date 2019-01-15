@@ -9,7 +9,6 @@
 <#include "/include/ui/editor.ftl"/>
 <#include "/include/ui/time.ftl"/>
 <#include "/include/ui/tree.ftl"/>
-<#include "/include/manager.ftl"/>
 <#include "/include/ui/page.ftl"/>
 <#include "/include/ui/table.ftl"/>
 <#include "/include/ui/modal.ftl"/>
