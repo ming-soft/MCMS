@@ -1,7 +1,5 @@
 package net.mingsoft.config;
 
-import java.util.Arrays;
-
 import org.springframework.aop.Advisor;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.JdkRegexpMethodPointcut;
@@ -11,8 +9,9 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestContextListener;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -21,30 +20,54 @@ import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 import com.alibaba.druid.support.spring.stat.BeanTypeAutoProxyCreator;
 import com.alibaba.druid.support.spring.stat.DruidStatInterceptor;
-import net.mingsoft.basic.interceptor.ActionInterceptor;
 
-import cn.hutool.core.collection.CollectionUtil;
+import net.mingsoft.basic.interceptor.ActionInterceptor;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-	
+
 	@Bean
 	public ActionInterceptor actionInterceptor() {
 		return new ActionInterceptor();
 	}
+	
 
+	@Override
+	public void configurePathMatch(PathMatchConfigurer configurer) {
+		//启用.do后缀
+		configurer.setUseRegisteredSuffixPatternMatch(true);
+	}
+	
 	/**
 	 * 增加对rest api鉴权的spring mvc拦截器
 	 */
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// 排除配置
-		registry.addInterceptor(actionInterceptor()).excludePathPatterns(CollectionUtil.newLinkedList("/static/**"));
+		registry.addInterceptor(actionInterceptor()).excludePathPatterns("/static/**","/app/**","/webjars/**","/*.html","/*.htm");
 	}
+
+	
+	@Bean
+    public ServletRegistrationBean servletRegistrationBean(DispatcherServlet dispatcherServlet) {
+        //只拦截.do的请求
+		ServletRegistrationBean<DispatcherServlet> servletServletRegistrationBean = new ServletRegistrationBean<>(dispatcherServlet);
+        servletServletRegistrationBean.addUrlMappings("*.do","/v2/api-docs","/swagger-resources","/swagger-resources/configuration/security","/swagger-resources/configuration/ui");
+        return servletServletRegistrationBean;
+    }
+
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		// swagger
+		registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+
+		registry.addResourceHandler("/html/**").addResourceLocations("classpath:/html/");
+		registry.addResourceHandler("/app/**").addResourceLocations("classpath:/app/");
 		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+
 	}
 
 	/**
@@ -84,7 +107,7 @@ public class WebConfig implements WebMvcConfigurer {
 	@Bean
 	public JdkRegexpMethodPointcut druidStatPointcut() {
 		JdkRegexpMethodPointcut druidStatPointcut = new JdkRegexpMethodPointcut();
-		String patterns = "cn.stylefeng.guns.modular.*.service.*";
+		String patterns = "net.mingsoft.*.biz.*";
 		// 可以set多个
 		druidStatPointcut.setPatterns(patterns);
 		return druidStatPointcut;
@@ -111,17 +134,18 @@ public class WebConfig implements WebMvcConfigurer {
 		return new DefaultPointcutAdvisor(druidStatPointcut(), druidStatInterceptor());
 	}
 
-//	/**
-//	 * xssFilter注册
-//	 */
-//	@Bean
-//	public FilterRegistrationBean xssFilterRegistration() {
-//		XssFilter xssFilter = new XssFilter();
-//		xssFilter.setUrlExclusion(Arrays.asList("/static/"));
-//		FilterRegistrationBean registration = new FilterRegistrationBean(xssFilter);
-//		registration.addUrlPatterns("/*");
-//		return registration;
-//	}
+	// /**
+	// * xssFilter注册
+	// */
+	// @Bean
+	// public FilterRegistrationBean xssFilterRegistration() {
+	// XssFilter xssFilter = new XssFilter();
+	// xssFilter.setUrlExclusion(Arrays.asList("/static/"));
+	// FilterRegistrationBean registration = new
+	// FilterRegistrationBean(xssFilter);
+	// registration.addUrlPatterns("/*");
+	// return registration;
+	// }
 
 	/**
 	 * RequestContextListener注册

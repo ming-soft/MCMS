@@ -6,12 +6,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.ComponentScan;
 
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+ 
 @SpringBootApplication
-@ComponentScan(basePackages = {"net.mingsoft"})
+@ComponentScan(basePackages = {"springfox","net.mingsoft"})
 @MapperScan(basePackages={"**.dao"})
 @ServletComponentScan(basePackages = {"net.mingsoft"})
+@EnableSwagger2
 public class MSApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(MSApplication.class, args);
 	}
