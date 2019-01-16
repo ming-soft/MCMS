@@ -1,7 +1,7 @@
 #服务配置
 server:
   #端口
-  port: 8081
+  port: 8080
   #项目名称
   servlet.context-path: /ms-mcms
   
