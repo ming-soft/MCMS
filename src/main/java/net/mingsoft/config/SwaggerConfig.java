@@ -40,7 +40,7 @@ public class SwaggerConfig {
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
 				// 自行修改为自己的包路径
-				.apis(RequestHandlerSelectors.basePackage("net.mingsoft.*.action.web")).paths(PathSelectors.any())
+				.apis(RequestHandlerSelectors.basePackage("net.mingsoft")).paths(PathSelectors.any())
 				.build();
 	}
 
