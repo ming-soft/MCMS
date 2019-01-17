@@ -1,27 +1,18 @@
-#服务配置
 server:
-  #端口
   port: 8080
-  #项目名称
   servlet.context-path: /ms-mcms
   
-# slf4j日志配置
 logging:
- # 配置级别
  level:
-  #分包配置级别，即不同的目录下可以使用不同的级别
   net.mingsoft: trace
-#铭飞配置      
 ms:
  manager: 
   path: /ms
   view-path: /WEB-INF/manager
- #session配置 
  session: 
-  timeout: 1800000 #会话超时， 单位：毫秒， 20m=1200000ms, 30m=1800000ms, 60m=3600000ms
-  validation-interval: 120000 #会话清理间隔时间， 单位：毫秒，2m=120000ms
+  timeout: 1800000 
+  validation-interval: 120000 
   
- #上传配置
  upload: 
    path: /upload 
    denied: exe
@@ -29,7 +20,6 @@ ms:
    max-size: 1
    memory-size: 4096
       
-#spring配置
 spring:
   profiles:
     active: dev
