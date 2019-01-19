@@ -29,29 +29,35 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+
+import io.swagger.annotations.ApiOperation;
+import net.mingsoft.base.filter.DateValueFilter;
+
+import io.swagger.annotations.ApiOperation;
+import net.mingsoft.base.filter.DateValueFilter;
 import net.mingsoft.basic.action.BaseAction;
+import net.mingsoft.basic.bean.ListBean;
 import net.mingsoft.basic.biz.IColumnBiz;
 import net.mingsoft.basic.entity.ColumnEntity;
+import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.biz.IArticleBiz;
 import net.mingsoft.cms.entity.ArticleEntity;
 import net.mingsoft.mdiy.biz.IContentModelBiz;
 import net.mingsoft.mdiy.biz.IContentModelFieldBiz;
 import net.mingsoft.mdiy.entity.ContentModelEntity;
-import org.apache.commons.lang3.StringUtils;
-
-import cn.hutool.core.util.ObjectUtil;
-import net.mingsoft.base.filter.DateValueFilter;
-import net.mingsoft.basic.bean.ListBean;
-import net.mingsoft.basic.util.BasicUtil;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * 
@@ -101,37 +107,36 @@ public class ArticleAction extends BaseAction {
 	 *            basicDateTime:"发布时间",basicUpdateTime:"更新时间","basicHit":点击数,
 	 *            "basicId":编号 articleContent:"文章内容","basicSort":排序,[自定义模型字段]}
 	 */
-	@RequestMapping("/{basicId}/detail")
+	@GetMapping("/{basicId}/detail")
 	@ResponseBody
 	public void detail(@PathVariable int basicId, HttpServletRequest request, HttpServletResponse response) {
-		System.out.println(BasicUtil.getSession("xxx"));
-		//ArticleEntity article = articleBiz.getById(basicId);
-//		if (article == null) {
-//			this.outJson(response, "");
-//			return;
-//		}
-//		// 获取文章栏目id获取栏目实体
-//		ColumnEntity column = (ColumnEntity) columnBiz.getEntity(article.getBasicCategoryId());
-//		ContentModelEntity contentModel = (ContentModelEntity) contentModelBiz
-//				.getEntity(column.getColumnContentModelId());
-//
-//		// 判断内容模型的值
-//		if (contentModel != null) {
-//			Map where = new HashMap();
-//			// 压入basicId字段的值
-//			where.put("basicId", basicId);
-//			// 遍历所有的字段实体,得到字段名列表信息
-//			List<String> listFieldName = new ArrayList<String>();
-//			listFieldName.add("basicId");
-//			// 查询新增字段的信息
-//			List fieldLists = fieldBiz.queryBySQL(contentModel.getCmTableName(), listFieldName, where);
-//			if (fieldLists.size() > 0) {
-//				Map map = (Map) fieldLists.get(0);
-//				article.setExtendsFields(map);
-//			}
-//		}
-//
-//		this.outJson(response, JSONObject.toJSONStringWithDateFormat(article, "yyyy-MM-dd hh:mm:ss"));
+		ArticleEntity article = articleBiz.getById(basicId);
+		if (article == null) {
+			this.outJson(response, "");
+			return;
+		}
+		// 获取文章栏目id获取栏目实体
+		ColumnEntity column = (ColumnEntity) columnBiz.getEntity(article.getBasicCategoryId());
+		ContentModelEntity contentModel = (ContentModelEntity) contentModelBiz
+				.getEntity(column.getColumnContentModelId());
+
+		// 判断内容模型的值
+		if (contentModel != null) {
+			Map where = new HashMap();
+			// 压入basicId字段的值
+			where.put("basicId", basicId);
+			// 遍历所有的字段实体,得到字段名列表信息
+			List<String> listFieldName = new ArrayList<String>();
+			listFieldName.add("basicId");
+			// 查询新增字段的信息
+			List fieldLists = fieldBiz.queryBySQL(contentModel.getCmTableName(), listFieldName, where);
+			if (fieldLists.size() > 0) {
+				Map map = (Map) fieldLists.get(0);
+				article.setExtendsFields(map);
+			}
+		}
+
+		this.outJson(response, JSONObject.toJSONStringWithDateFormat(article, "yyyy-MM-dd hh:mm:ss"));
 	}
 
 
@@ -183,9 +188,10 @@ public class ArticleAction extends BaseAction {
 	 * 				"total":总记录数量
 	 * 				}
 	 */
-	@RequestMapping(value = "/list")
+	@RequestMapping(value = "/list",method= RequestMethod.GET)
+	@ApiOperation(value="文章列表信息")
 	@ResponseBody
-	public void list(@ModelAttribute ArticleEntity article, HttpServletRequest request, HttpServletResponse response) {
+	public void list(@ModelAttribute @ApiIgnore ArticleEntity article, HttpServletRequest request, HttpServletResponse response) {
 		int appId = BasicUtil.getAppId();
 		int[] ids = null;
 		if (article.getBasicCategoryId()>0) {
