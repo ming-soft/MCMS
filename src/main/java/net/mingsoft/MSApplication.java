@@ -10,7 +10,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
  
 @SpringBootApplication
-@ComponentScan(basePackages = {"springfox","net.mingsoft"})
+@ComponentScan(basePackages = {"net.mingsoft"})
 @MapperScan(basePackages={"**.dao"})
 @ServletComponentScan(basePackages = {"net.mingsoft"})
 @EnableSwagger2
