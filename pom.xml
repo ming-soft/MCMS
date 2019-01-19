@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
@@ -48,7 +49,12 @@
 			<classifier>classes</classifier>
 			<scope>provided</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-basic</artifactId>
+			<version>1.0.8.1-SNAPSHOT</version>
+			<type>war</type>
+		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mdiy</artifactId>
@@ -58,11 +64,25 @@
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mdiy</artifactId>
+			<version>1.0.7-SNAPSHOT</version>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
 			<version>1.0.7-SNAPSHOT</version>
 			<classifier>classes</classifier>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mpeople</artifactId>
+			<version>1.0.7-SNAPSHOT</version>
+			<type>war</type>
+		</dependency>
+		
+		<!-- swagger2接口文档依赖 -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
@@ -120,7 +140,6 @@
 			<version>2.9.2</version>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<finalName>ms-mcms</finalName>
 		<plugins>
@@ -144,7 +163,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<fork>true</fork><!-- 如果没有该项配置，肯呢个devtools不会起作用，即应用不会restart -->
+					<fork>true</fork>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -157,8 +176,7 @@
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
-			</plugin><!-- 打包成war使用 -->
-
+			</plugin>
 		</plugins>
 		<resources>
 			<resource>

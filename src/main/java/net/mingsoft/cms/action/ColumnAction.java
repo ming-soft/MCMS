@@ -80,7 +80,7 @@ public class ColumnAction extends BaseAction{
 	 */
 	@RequestMapping("/add")
 	public String add(HttpServletRequest request,ModelMap model) {
-		ManagerEntity managerSession = (ManagerEntity) getSession(request, SessionConstEnum.MANAGER_SESSION);
+		ManagerEntity managerSession = (ManagerEntity) BasicUtil.getSession( SessionConstEnum.MANAGER_SESSION);
 		// 站点ID
 		int appId =this.getAppId(request);
 		List<ColumnEntity> list = columnBiz.queryAll(appId, this.getModelCodeId(request));
@@ -192,7 +192,7 @@ public class ColumnAction extends BaseAction{
 	@RequestMapping("/{columnId}/edit")
 	public String edit(@PathVariable int columnId, HttpServletRequest request,ModelMap model) {
 		// 获取管理实体
-		ManagerEntity managerSession = (ManagerEntity) getSession(request, SessionConstEnum.MANAGER_SESSION);
+		ManagerEntity managerSession = (ManagerEntity) BasicUtil.getSession( SessionConstEnum.MANAGER_SESSION);
 		// 站点ID
 		int appId = this.getAppId(request);
 		List<ColumnEntity> list = new ArrayList<ColumnEntity>();
