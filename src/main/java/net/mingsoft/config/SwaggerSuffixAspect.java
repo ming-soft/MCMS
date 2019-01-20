@@ -1,4 +1,4 @@
-package net.mingsoft;
+package net.mingsoft.config;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -20,7 +20,7 @@ import io.swagger.models.Swagger;
 @Aspect
 @EnableAspectJAutoProxy
 @Component
-public class SwaggerApiSuffixAspect {
+public class SwaggerSuffixAspect {
     
     @AfterReturning(pointcut="execution(public io.swagger.models.Swagger springfox.documentation.swagger2.mappers.ServiceModelToSwagger2MapperImpl.mapDocumentation(..))",
             returning="swagger")
