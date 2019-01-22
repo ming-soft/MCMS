@@ -434,7 +434,11 @@ public class ArticleAction extends BaseAction {
 				}
 			}
 		}
-
+		//判断是否修改了所属栏目
+		if(oldArticle.getBasicCategoryId()!=article.getBasicCategoryId()){
+			//拼接栏目路径和文章编号及文件后缀
+			article.setArticleUrl(column.getColumnPath() + File.separator + article.getBasicId() + ParserUtil.HTML_SUFFIX);
+		}
 		// 添加文章所属的站点id
 		article.setArticleWebId(appId);
 		// 设置文章所属的栏目实体
