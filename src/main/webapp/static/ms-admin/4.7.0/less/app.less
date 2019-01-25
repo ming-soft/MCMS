@@ -1,0 +1,61 @@
+@import "base/style.less";
+@import "base/mixin.less";
+html,
+body {
+    min-height: 100vh;
+    background-color: @backgroundColor;
+    margin: 0;
+    .ms-font(@defalutSize, @defalutColor) !important; //默认字体样式
+    * {
+        text-decoration: none !important;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        box-sizing: border-box;
+    }
+}
+
+@headHeight: 50px;
+//超文本隐藏 
+.ms-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+
+//垂直居中
+.ms-align-center {
+    display: flex;
+    align-items: center;
+}
+
+//修改描述字体颜色
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    .ms-font(@auxiliarySize, @auxiliaryColor);
+    resize: none;
+}
+
+//设置滚动条样式
+*::-webkit-scrollbar {
+    .ms-width-height(8px);
+}
+
+
+/*定义滚动条轨道 内阴影+圆角*/
+
+*::-webkit-scrollbar-track {
+    border-radius: 10px;
+    /*滚动条的背景区域的圆角*/
+    background-color: @backgroundColor;
+    /*滚动条的背景颜色*/
+}
+
+
+/*定义滑块 内阴影+圆角*/
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    /*滚动条的圆角*/
+    background-color: @borderColor;
+    /*滚动条的背景颜色*/
+}
