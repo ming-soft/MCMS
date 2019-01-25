@@ -4,8 +4,9 @@
 <head>
     <title></title>
     <!-- <#include "/include/head-file.ftl"/> -->
-    <!--#include virtual="include/head-file.ftl" --> 
     <!-- <link rel="stylesheet" href="${base}/static/ms-admin/4.7.0/css/login.css"> -->
+    
+    <!--#include virtual="include/head-file.ftl" --> 
     <link rel="stylesheet" href="../../../static/ms-admin/4.7.0/css/login.css">
 </head>
 
@@ -26,7 +27,7 @@
                         <el-form-item prop="code" class="ms-admin-form-item ms-admin-form-item-code">
                             <el-input type="text" placeholder='验证码' v-model="loginForm.rand_code" autocomplete="off"></el-input>
                             <img :src="code" class="code-img" @click="code" />
-                            <p><span>看不清?</span><span>换一张</span></p>
+                            <p><span>看不清?</span><span @click="code">换一张</span></p>
                         </el-form-item>
                         <el-form-item class="ms-admin-form-item ms-admin-form-item-checkout">
                             <el-checkbox v-model="rememberPass">记住密码</el-checkbox>

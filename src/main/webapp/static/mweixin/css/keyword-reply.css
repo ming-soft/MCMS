@@ -96,5 +96,80 @@ textarea::-webkit-input-placeholder {
   margin-left: 0;
 }
 .keyword-reply {
-  padding: 14px;
+  padding-bottom: 20px;
+}
+.keyword-reply .el-select .el-input {
+  width: 90px;
+}
+.keyword-reply .el-select .el-input > input {
+  padding: 0 10px !important;
+}
+.keyword-reply .ms-keyword-input {
+  margin-bottom: 15px !important;
+}
+.keyword-reply .ms-keyword-input .el-input__suffix {
+  line-height: 28px;
+}
+.keyword-reply .ms-keyword-input .el-icon-plus {
+  margin-left: 20px;
+  font-weight: bold;
+  font-size: 14px;
+  color: #0099ff;
+}
+.keyword-reply .ms-keyword-input .el-icon-plus:hover {
+  cursor: pointer;
+}
+.keyword-reply .ms-keyword-reply-content {
+  margin: 0;
+}
+.keyword-reply .ms-keyword-reply-content .keyword-reply-tabs {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 4px 4px 0 0 !important;
+  min-height: 226px;
+}
+.keyword-reply .ms-keyword-reply-content .keyword-reply-tabs .el-tabs__header {
+  margin: 0 !important;
+}
+.keyword-reply .ms-keyword-reply-content .keyword-reply-tabs .el-tabs__header .el-tabs__nav-scroll {
+  padding: 0 20px;
+}
+.keyword-reply .ms-keyword-reply-content .el-form-item__content {
+  position: relative;
+}
+.keyword-reply .ms-keyword-reply-content .el-form-item__content .el-icon-delete {
+  position: absolute;
+  right: 5px;
+  bottom: 66px;
+  font-weight: initial;
+  font-size: 12px;
+  color: #999;
+}
+.keyword-reply .ms-keyword-reply-content .el-form-item__content .el-icon-delete:hover {
+  cursor: pointer;
+}
+.keyword-reply .ms-keyword-reply-content .el-form-item__content textarea {
+  height: 127px !important;
+  border: none !important;
+  border-bottom: 1px solid #ddd !important;
+}
+.keyword-reply .ms-keyword-reply-content .el-form-item__content .footer {
+  height: 58px;
+  padding: 0 14px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.keyword-reply .ms-keyword-reply-content .el-form-item__content .footer i {
+  margin-right: 12px;
+  font-size: 16px;
+}
+.keyword-reply .ms-keyword-reply-content .el-form-item__content .footer a {
+  font-weight: initial;
+  font-size: 14px;
+  color: #0099ff;
+}
+.keyword-reply .ms-keyword-reply-content .el-form-item__content .footer i:hover,
+.keyword-reply .ms-keyword-reply-content .el-form-item__content .footer a:hover {
+  cursor: pointer;
 }
