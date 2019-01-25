@@ -101,7 +101,7 @@ var loginVue = new Vue({
                         message: '登录成功',
                         type: 'success'
                     });
-                    location.href = ms.base+"/index.ftl";
+                    location.href = ms.manager+"/index.do";
                 } else {
                     that.$notify({
                         title: '失败',

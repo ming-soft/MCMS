@@ -143,7 +143,7 @@ textarea::-webkit-input-placeholder {
   cursor: pointer;
 }
 .ms-message-reply .message-reply-tabs .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content textarea {
-  height: 110px !important;
+  height: 127px !important;
   border: none !important;
   border-bottom: 1px solid #ddd !important;
 }
