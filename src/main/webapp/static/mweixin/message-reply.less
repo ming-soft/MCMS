@@ -1,0 +1,43 @@
+@import "../ms-admin/4.7.0/less/app.less";
+// 消息回复 && 关注回复
+.ms-message-reply{
+    .ms-flex(flex-start);
+    padding:20px;
+    >div:first-child{
+        margin-right:10px;
+        line-height: 40px;
+    }
+    // 导航切换
+    .message-reply-tabs{
+        flex: 1;
+        .el-tabs{
+            border: 1px solid @borderColor;
+            .el-tabs__header{
+                background: #f2f2f6;
+                border-radius:4px 4px 0 0 !important;
+                margin: 0 !important;
+                .el-tabs__nav-scroll{
+                    padding: 0 20px;
+                }
+            }
+            .el-tab-pane{
+                padding: 20px;
+                .ms-width-height(100%,220px);
+                .ms-flex();
+                >.el-form{
+                    .ms-message-reply-content{
+                        .el-form-item__content{
+                            position: relative;
+                            >.el-icon-delete{
+                                position: absolute;
+                                right: 5px;
+                                bottom: 5px;
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+}
