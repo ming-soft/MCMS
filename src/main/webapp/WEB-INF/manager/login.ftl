@@ -3,7 +3,8 @@
 
 <head>
     <title></title>
-	<#include "/include/head-file.ftl"/>
+    <!-- <#include "/include/head-file.ftl"/> -->
+    <!--#include virtual="include/head-file.ftl" --> 
 </head>
 
 <body>
@@ -11,7 +12,7 @@
         <el-container class="ms-admin-login-container">
             <el-main class="ms-admin-login-main">
                 <div class="ms-admin-login-warp">
-                    <img :src="ms.base+'/static/ms-admin/4.7.0/images/login-slogn.png'">
+                    <img :src="ms.manager+'/static/ms-admin/4.7.0/images/login-slogn.png'">
                     <el-form :model="loginForm" status-icon :rules="loginFormRule" ref="loginForm" label-width="100px" class="ms-admin-login-form">
                         <h1><span>账户登录 / </span>User login</h1>
                         <el-form-item prop="name" class="ms-admin-form-item">
@@ -117,9 +118,8 @@ var loginVue = new Vue({
         },
 
     },
-    mounted: {
-
-
+    mounted:function(){
+        this.code = ms.base + "/code?t=" + new Date().getTime()
     }
 })
 </script>

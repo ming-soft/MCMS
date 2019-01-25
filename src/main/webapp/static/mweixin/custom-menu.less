@@ -1,0 +1,96 @@
+@import "../ms-admin/4.7.0/less/app.less";
+// 自定义菜单
+.ms-custom-menu{
+    color: rgb(242, 242, 246);
+    .ms-custom-container{
+        margin: 10px;
+        .ms-flex();
+        // 侧边
+        .el-aside{
+            background: #fff;
+            .ms-width-height(280px,470px) !important;
+            // 微信界面
+            .el-container{
+                // 头部
+                .el-header{
+                    .ms-line-height(40px) !important;
+                    .ms-font(16px,#fff);
+                    text-align: center;
+                    background: #323232;
+                }
+                .el-main{
+                    padding: 0;
+                    .ms-width-height(280px,379px) !important;
+                }
+                .el-footer{
+                    white-space: nowrap;
+                    padding: 0;
+                    font-size: 0;
+                    background-color: #FAFAFA;
+                    .ms-width-height(280px,50px) !important;
+                    .ms-flex(flex-start);
+                    border-top: 1px solid @borderColor !important;
+                    >.el-button{
+                        .ms-width-height(40px,50px) !important;
+                        padding:0 !important;
+                        border: none !important;
+                        border-right: 1px solid @borderColor !important;
+                    }
+                    .el-button{
+                        border-radius: 0 !important;
+                        height:50px !important;
+                        background: transparent !important;
+                    }
+                    .ms-create-menu{
+                        flex: 1;
+                        font-size: 0;
+                      .ms-flex(space-between);
+                      .el-button,.el-dropdown{
+                          flex: 1;
+                          border: none !important;
+                          background: transparent !important;
+                          span{
+                              color:#333;
+                          }
+                      }
+                      .el-dropdown{
+                        flex: .5;
+                        >.el-button{
+                            width: 100%;
+                        }
+                      }
+                    //  添加菜单
+                      .el-button--default{
+                          border-left: 1px solid @borderColor !important;
+                          padding:0 !important;
+                          flex: .5;
+                      }
+                    }
+                }
+            }
+        }
+        // 内容
+        .el-main{
+            padding: 0 20px;
+            flex: 1;
+            height: 470px;
+            // 内容区域卡片
+            .custom-menu-card{
+                // 内容菜单表单
+                .ms-custom-menu-name{
+                    .el-form-item__content{
+                        .el-input{
+                            .ms-width-height(153px,30px) !important;
+                        }
+                        .ms-flex(flex-start);
+                        span{
+                            margin-left: 10px;
+                            .ms-font(@auxiliarySize,@auxiliaryColor);
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}
