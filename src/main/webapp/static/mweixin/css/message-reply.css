@@ -106,30 +106,63 @@ textarea::-webkit-input-placeholder {
 }
 .ms-message-reply .message-reply-tabs {
   flex: 1;
-}
-.ms-message-reply .message-reply-tabs .el-tabs {
   border: 1px solid #ddd;
-}
-.ms-message-reply .message-reply-tabs .el-tabs .el-tabs__header {
-  background: #f2f2f6;
   border-radius: 4px 4px 0 0 !important;
+}
+.ms-message-reply .message-reply-tabs .el-tabs__header {
   margin: 0 !important;
 }
-.ms-message-reply .message-reply-tabs .el-tabs .el-tabs__header .el-tabs__nav-scroll {
+.ms-message-reply .message-reply-tabs .el-tabs__header .el-tabs__nav-scroll {
   padding: 0 20px;
 }
-.ms-message-reply .message-reply-tabs .el-tabs .el-tab-pane {
-  padding: 20px;
+.ms-message-reply .message-reply-tabs .el-tab-pane {
+  padding: 0 !important;
   width: 100%;
-  height: 220px;
   display: flex;
   justify-content: space-between;
 }
-.ms-message-reply .message-reply-tabs .el-tabs .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content {
+.ms-message-reply .message-reply-tabs .el-tab-pane > .el-form {
+  width: 100%;
+}
+.ms-message-reply .message-reply-tabs .el-tab-pane > .el-form .ms-message-reply-content {
+  margin: 0;
+}
+.ms-message-reply .message-reply-tabs .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content {
   position: relative;
 }
-.ms-message-reply .message-reply-tabs .el-tabs .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content > .el-icon-delete {
+.ms-message-reply .message-reply-tabs .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content .el-icon-delete {
   position: absolute;
   right: 5px;
-  bottom: 5px;
+  bottom: 66px;
+  font-weight: initial;
+  font-size: 12px;
+  color: #999;
+}
+.ms-message-reply .message-reply-tabs .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content .el-icon-delete:hover {
+  cursor: pointer;
+}
+.ms-message-reply .message-reply-tabs .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content textarea {
+  height: 110px !important;
+  border: none !important;
+  border-bottom: 1px solid #ddd !important;
+}
+.ms-message-reply .message-reply-tabs .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content .footer {
+  height: 58px;
+  padding: 0 14px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.ms-message-reply .message-reply-tabs .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content .footer i {
+  margin-right: 12px;
+  font-size: 16px;
+}
+.ms-message-reply .message-reply-tabs .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content .footer a {
+  font-weight: initial;
+  font-size: 14px;
+  color: #0099ff;
+}
+.ms-message-reply .message-reply-tabs .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content .footer i:hover,
+.ms-message-reply .message-reply-tabs .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content .footer a:hover {
+  cursor: pointer;
 }

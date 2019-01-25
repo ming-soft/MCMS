@@ -23,8 +23,8 @@
                             resize='none'
                             >
                         </el-input>
-                        <i class="el-icon-delete"></i>
-                        <div>
+                        <i class="el-icon-delete" @click="messageReplyForm.reply = ''"></i>
+                        <div class="footer">
                             <i class="el-icon-star-off"></i>
                             <a>插入超链接</a>
                         </div>
