@@ -12,7 +12,7 @@
         <el-container class="ms-admin-login-container">
             <el-main class="ms-admin-login-main">
                 <div class="ms-admin-login-warp">
-                    <img :src="ms.manager+'/static/ms-admin/4.7.0/images/login-slogn.png'">
+                    <img :src="ms.base+'/static/ms-admin/4.7.0/images/login-slogn.png'">
                     <el-form :model="loginForm" status-icon :rules="loginFormRule" ref="loginForm" label-width="100px" class="ms-admin-login-form">
                         <h1><span>账户登录 / </span>User login</h1>
                         <el-form-item prop="name" class="ms-admin-form-item">
@@ -49,7 +49,7 @@ var loginVue = new Vue({
             managerPassword: "",
             rand_code: '',
         },
-        code: ms.base + "/code?t=" + new Date().getTime(),
+        code: ms.manager + "/code?t=" + new Date().getTime(),
         rememberPass: '',
         loginFormRule: {
             managerName: [{
@@ -101,7 +101,7 @@ var loginVue = new Vue({
                         message: '登录成功',
                         type: 'success'
                     });
-                    location.href = ms.manager+"/index.do";
+                    location.href = ms.base+"/index.do";
                 } else {
                     that.$notify({
                         title: '失败',
@@ -114,12 +114,12 @@ var loginVue = new Vue({
             })
         },
         code: function() {
-            code: ms.base + "/code?t=" + new Date().getTime();
+            code: ms.manager + "/code?t=" + new Date().getTime();
         },
 
     },
     mounted:function(){
-        this.code = ms.base + "/code?t=" + new Date().getTime()
+        this.code = ms.manager + "/code?t=" + new Date().getTime()
     }
 })
 </script>

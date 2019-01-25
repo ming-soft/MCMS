@@ -25,6 +25,7 @@
     <script>
         // ms.base = "${base}";
         // ms.manager = "${managerPath}";
-        ms.manager = "http://192.168.0.54:82";
-        ms.base = "http://192.168.0.54:82/apis";
+
+        ms.base = "http://192.168.0.54:82";
+        ms.manager = "http://192.168.0.54:82/apis";
     </script>
