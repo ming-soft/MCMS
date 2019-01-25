@@ -5,6 +5,8 @@
     <title></title>
     <!-- <#include "/include/head-file.ftl"/> -->
     <!--#include virtual="../include/head-file.ftl" --> 
+    <!-- <link rel="stylesheet" href="${base}/static/mweixin/css/custom-menu.css"> -->
+    <link rel="stylesheet" href="../../../static/mweixin/css/custom-menu.css">
 </head>
 <body>
     <div id="custom-menu" class="ms-custom-menu">

@@ -6,6 +6,7 @@
     <!-- <#include "/include/head-file.ftl"/> -->
     <!--#include virtual="../include/head-file.ftl" -->
     <link rel="stylesheet" href="../../../static/mweixin/css/keyword-reply.css">
+    <!-- <link rel="stylesheet" href="${base}/static/mweixin/css/keyword-reply.css"> -->
 </head>
 
 <body>
