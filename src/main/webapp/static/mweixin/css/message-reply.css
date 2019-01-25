@@ -99,6 +99,7 @@ textarea::-webkit-input-placeholder {
   display: flex;
   justify-content: flex-start;
   padding: 20px;
+  height: 267px;
 }
 .ms-message-reply > div:first-child {
   margin-right: 10px;

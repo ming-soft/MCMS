@@ -17,7 +17,6 @@
                     <el-form-item class="ms-message-reply-content">
                         <el-input 
                             type="textarea" 
-                            placeholder="请输入内容" 
                             v-model="messageReplyForm.reply"
                             :autosize="{ minRows: 4, maxRows: 4}"
                             resize='none'

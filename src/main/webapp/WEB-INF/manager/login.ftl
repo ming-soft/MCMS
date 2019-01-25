@@ -94,14 +94,14 @@ var loginVue = new Vue({
         // 登录
         checkLogin: function(form) {
             var that = this;
-            ms.http.post(ms.base + "/ms/checkLogin.do", form).then(function(data) {
+            ms.http.post(ms.manager + "/ms/checkLogin.do", form).then(function(data) {
                 if (data.result) {
                     that.$notify({
                         title: '成功',
                         message: '登录成功',
                         type: 'success'
                     });
-                    location.href = ms.base+"/index.do";
+                    location.href = ms.base+"/index.ftl";
                 } else {
                     that.$notify({
                         title: '失败',
