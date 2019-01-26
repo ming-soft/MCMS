@@ -33,11 +33,11 @@
                      <el-tab-pane label="图片" name="picture">
                         <span slot="label">
                            <i class="el-icon-picture"></i>图片</span>
-                        <div @click="open('store')">
+                        <div onclick="materialBankFormVue.open()">
                            <i class="el-icon-picture-outline"></i>
                            <span>从素材库选择</span>
                         </div>
-                        <div @click="open('new')">
+                        <div onclick="newPicFormVue.open()">
                            <i class="el-icon-plus"></i>
                            <span>新建图片</span>
                         </div>
@@ -78,13 +78,7 @@
          activeName: 'picture'
       },
       methods: {
-         open: function(type) {
-            if(type == 'store') {
-               // 素材库
-            } else {
-               // 新建图片
-            }
-         }
+         
       }
 
    })

@@ -1,6 +1,6 @@
 <!-- 新建图文 -->
 <link rel="stylesheet" href="../../../../static/mweixin/css/article.css">
-<div id='article' class="ms-article ms-container" v-if="menuVue.menuActive == '新建图文'">
+<div id='article' class="ms-article ms-container" v-show="menuVue.menuActive == '新建图文'">
     <el-container>
         <el-aside width="280px">
             <div class="ms-main-article">

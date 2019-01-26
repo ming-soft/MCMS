@@ -114,3 +114,7 @@ textarea::-webkit-input-placeholder {
 .ms-weixin-dialog .el-dialog__footer {
   border-top: 1px solid #ddd;
 }
+.material-bank-form > .el-dialog {
+  width: 890px;
+  height: 600px;
+}

@@ -97,3 +97,19 @@ textarea::-webkit-input-placeholder {
 .ms-weixin-content{
     width: ~'calc(100% - 140px)';
 }
+
+// 弹出框样式
+.ms-weixin-dialog{
+    .el-dialog__header{
+        height: 55px;
+        box-sizing: border-box;
+        padding: 10px 10px 25px 10px;
+        border-bottom: 1px solid @borderColor;
+        .el-dialog__title{
+            .ms-font(@defalutSize,@defalutColor,bold);
+        }
+    }
+    .el-dialog__footer{
+        border-top: 1px solid @borderColor;
+    }
+}

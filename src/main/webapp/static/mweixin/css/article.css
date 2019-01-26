@@ -109,6 +109,7 @@ textarea::-webkit-input-placeholder {
 .ms-article .el-container .el-aside {
   padding: 14px;
   background: #fff;
+  height: 475px;
 }
 .ms-article .el-container .el-aside .ms-main-article {
   position: relative;
