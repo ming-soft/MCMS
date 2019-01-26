@@ -97,7 +97,7 @@ var loginVue = new Vue({
         // 登录
         checkLogin: function() {
             var that = this;
-            ms.http.post(ms.manager + "/ms/checkLogin.do", that.loginForm).then(function(data) {
+            ms.http.post(ms.manager + "/checkLogin.do", that.loginForm).then(function(data) {
                 if (data.result) {
                     that.$notify({
                         title: '成功',
