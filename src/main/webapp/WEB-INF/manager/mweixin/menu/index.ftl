@@ -1,6 +1,6 @@
 <!-- 自定义菜单 -->
 <link rel="stylesheet" href="../../../../static/mweixin/css/custom-menu.css">
-<div id="custom-menu" class="ms-custom-menu" v-if="menuVue.menuActive == '自定义菜单'">
+<div id="custom-menu" class="ms-custom-menu ms-content" v-if="menuVue.menuActive == '自定义菜单'">
    <el-container class="ms-custom-container">
       <el-aside>
          <el-container>

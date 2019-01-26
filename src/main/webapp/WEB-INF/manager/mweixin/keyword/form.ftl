@@ -1,7 +1,7 @@
 <!-- 关键词回复 -->
 <link rel="stylesheet" href="../../../../static/mweixin/css/keyword-reply.css">
 
-<div id="keyword-reply" class="keyword-reply ms-container" v-if="menuVue.menuActive == '关键词表单'">
+<div id="keyword-reply" class="keyword-reply ms-container ms-content" v-if="menuVue.menuActive == '关键词表单'">
    <el-form :model="keywordReplyForm" status-icon :rules="keywordReplyFormRules" ref="keywordReplyForm" label-width="100px">
       <el-form-item label="关键词" prop="keyword" class="ms-keyword-input">
          <el-row type='flex' justify='space-between' align='center'>

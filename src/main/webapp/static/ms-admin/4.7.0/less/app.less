@@ -3,6 +3,7 @@
 html,
 body {
     min-height: 100vh;
+    width: 100vw;
     background-color: @backgroundColor;
     margin: 0;
     display: flex;
@@ -63,7 +64,7 @@ textarea::-webkit-input-placeholder {
 
 .ms-container {
     margin: 12px;
-    height: 100%;
+    height: ~'calc(100% - 24px)';
     padding: 14px 14px 0 14px;
     background: #fff;
 }
@@ -91,4 +92,8 @@ textarea::-webkit-input-placeholder {
 
 .el-button+.el-button {
     margin-left: 0
+}
+
+.ms-content{
+    width: ~'calc(100% - 200px)';
 }

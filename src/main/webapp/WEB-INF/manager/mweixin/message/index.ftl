@@ -1,6 +1,6 @@
 <!-- 消息回复 && 关注回复 -->
 <link rel="stylesheet" href="../../../../static/mweixin/css/message-reply.css">
-<div id="message-reply" class="ms-message-reply ms-container" v-if="menuVue.menuActive == '消息回复'||menuVue.menuActive == '关注时回复'">
+<div id="message-reply" class="ms-message-reply ms-container ms-content" v-if="menuVue.menuActive == '消息回复'||menuVue.menuActive == '关注时回复'">
    <div>回复内容</div>
    <el-tabs v-model="activeName" @tab-click="" class="message-reply-tabs">
       <el-tab-pane label="文字" name="text">

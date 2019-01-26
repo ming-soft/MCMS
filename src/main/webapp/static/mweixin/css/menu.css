@@ -22,6 +22,7 @@
 html,
 body {
   min-height: 100vh;
+  width: 100vw;
   background-color: #eee;
   margin: 0;
   display: flex;
@@ -72,7 +73,7 @@ textarea::-webkit-input-placeholder {
 }
 .ms-container {
   margin: 12px;
-  height: 100%;
+  height: calc(100% - 24px);
   padding: 14px 14px 0 14px;
   background: #fff;
 }
@@ -96,15 +97,42 @@ textarea::-webkit-input-placeholder {
 .el-button + .el-button {
   margin-left: 0;
 }
-.ms-admin-title {
-  height: 50px;
+.ms-content {
+  width: calc(100% - 200px);
+}
+.ms-admin-menu {
+  min-height: 100vh;
+  min-width: 200px;
+}
+.ms-admin-menu .ms-header {
+  border-right: solid 1px #e6e6e6;
+}
+.ms-admin-menu .ms-header div {
+  height: 100%;
   display: flex;
   align-items: center;
 }
-.ms-admin-menu {
+.ms-admin-menu .ms-header div i {
+  display: inline-block;
+  text-align: center;
+  line-height: 1.4em;
+  width: 1.4em;
+  height: 1.4em;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1.4em;
+  background: #02CF5D;
+}
+.ms-admin-menu .ms-header div span {
+  margin: auto;
+}
+.ms-admin-menu .el-main {
+  padding: 0;
+}
+.ms-admin-menu .el-main .ms-admin-menu-menu {
   min-height: calc(100vh - 50px);
   background: #fff;
 }
-.ms-admin-menu-item {
+.ms-admin-menu .el-main .ms-admin-menu-menu-item {
   min-width: 100% !important;
 }
