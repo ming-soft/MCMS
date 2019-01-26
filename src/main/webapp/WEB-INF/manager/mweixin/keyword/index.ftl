@@ -4,8 +4,8 @@
 <head>
     <title></title>
     <!-- <#include "/include/head-file.ftl"/> -->
-    <!--#include virtual="../include/head-file.ftl" -->
-    <link rel="stylesheet" href="../../../static/mweixin/css/keyword-list.css">
+    <!--#include virtual="../../include/head-file.ftl" -->
+    <link rel="stylesheet" href="../../../../static/mweixin/css/keyword-list.css">
     <!-- <link rel="stylesheet" href="${base}/static/mweixin/css/keyword-list.css"> -->
 </head>
 
