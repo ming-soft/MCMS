@@ -24,20 +24,20 @@
             <el-button type="primary" icon="el-icon-search" size="small">查询</el-button>
          </el-header>
          <!--素材列表-->
-         <el-main class="ms-admin-material-list ms-container">
+         <el-main class="ms-admin-material-list">
             <div class="ms-admin-material-item" v-for="material in materialList">
-               <div>
+               <div class="head">
                   <span v-text="'更新于'+material.date"></span>
                   <i class="iconfont icon-weixin"></i>
                </div>
-               <div>
-                  <span></span>
-                  <img />
-                  <p></p>
+               <div class="body">
+                  <span v-text="material.title"></span>
+                  <img v-lazy="material.img" />
+                  <p v-text="material.det"></p>
                </div>
-               <div>
-                  <i></i>
-                  <i></i>
+               <div class="footer">
+                  <i class="el-icon-edit"></i>
+                  <i class="el-icon-delete"></i>
                </div>
             </div>
          </el-main>
@@ -60,11 +60,18 @@
          value1: '全部图片',
          value2: '',
          materialList: [{
-            date: '12月27日',
-            title: 'HUAWEI Mate 20 6GB+64GB 全网最低价...',
-            img: '',
-            det: '传播名HUAWEI Mate 20 6GB+64GB 全网最低价，后置摄像头后置莱卡散射，12000万亿像素（光脚，1/1.6光圈）+1200万像素（超广角），......'
-         }],
+               date: '12月27日',
+               title: 'HUAWEI Mate 20 6GB+64GB 全网最低价...',
+               img: '',
+               det: '传播名HUAWEI Mate 20 6GB+64GB 全网最低价，后置摄像头后置莱卡散射，12000万亿像素（光脚，1/1.6光圈）+1200万像素（超广角），......'
+            },
+            {
+               date: '12月27日',
+               title: 'HUAWEI Mate 20 6GB+64GB 全网最低价...',
+               img: '',
+               det: '传播名HUAWEI Mate 20 6GB+64GB 全网最低价，后置摄像头后置莱卡散射，12000万亿像素（光脚，1/1.6光圈）+1200万像素（超广角），......'
+            }
+         ],
       },
       methods: {},
       mounted: function() {}

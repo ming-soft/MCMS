@@ -101,6 +101,33 @@ textarea::-webkit-input-placeholder {
   width: calc(100% - 140px);
 }
 .ms-admin-material-list {
-  margin: 15px;
-  padding: 10px;
+  background: #fff;
+  margin: 12px;
+  padding: 14px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.ms-admin-material-list .ms-admin-material-item {
+  margin: 0 24px 0 0;
+  padding: 0 10px;
+  width: 230px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e6e6e6;
+  border-radius: 4px;
+}
+.ms-admin-material-list .ms-admin-material-item .head {
+  border-bottom: 1px solid #e6e6e6;
+  padding: 10px 0;
+}
+.ms-admin-material-list .ms-admin-material-item .body {
+  display: flex;
+  flex-direction: column;
+}
+.ms-admin-material-list .ms-admin-material-item .footer {
+  display: flex;
+  padding: 14px 0;
+}
+.ms-admin-material-list .ms-admin-material-item .footer i {
+  margin: auto;
 }
