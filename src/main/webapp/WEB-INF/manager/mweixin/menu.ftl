@@ -2,14 +2,16 @@
 <html>
    <head>
       <title></title>
-      <#include "/include/head-file.ftl"/>
+      <!-- <#include "/include/head-file.ftl"/> -->
+      <link rel="stylesheet" href="../../../static/mweixin/css/menu.css">
+      <!--#include virtual="../include/head-file.ftl" -->
    </head>
    <body>
       <div id="app">
          <el-container>
             <!--左侧-->
             <el-aside width="140px">
-               <div class="weixin">
+               <div class="ms-weixin-title">
                   <i></i> 吕小布微信号
                </div>
                <el-menu class="ms-admin-menu" default-active="0">
@@ -17,6 +19,9 @@
                      <template slot="title">
                         <span v-text="menu.title"></span>
                      </template>
+                     <el-menu-item-group>
+                        <el-menu-item class="ms-weixin-menu-item" :index="i+'-'+index" v-for="(sub,index) in menu.sub" v-text="sub.title"></el-menu-item>
+                     </el-menu-item-group>
                   </el-submenu>
                </el-menu>
             </el-aside>
@@ -26,7 +31,7 @@
 
                   </el-header>
                   <el-main>
-                  	
+
                   </el-main>
                </el-container>
             </el-main>
