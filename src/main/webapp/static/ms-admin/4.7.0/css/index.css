@@ -320,7 +320,10 @@ textarea::-webkit-input-placeholder {
 .ms-admin-container > .ms-admin-main .ms-admin-tabs {
   height: 100%;
 }
-.ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tab-pane {
+.ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__content {
+  height: 100%;
+}
+.ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__content .el-tab-pane {
   height: 100%;
 }
 .ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__nav-scroll {
