@@ -2,15 +2,15 @@
 
 <div id="menu-vue">
    <!--左侧-->
-   <el-container>
+   <el-container class="am-admin-menu">
       <!--右侧头部-->
       <el-header height="50px">
-         <div class="ms-admin-title">
+         <div class="ms-admin-menu-title">
             <i></i> 吕小布微信号
          </div>
       </el-header>
-      <el-main> 
-         <el-menu class="ms-weixin-menu" default-active="0-0">
+      <el-main>
+         <el-menu class="ms-admin-menu-menu" default-active="0-0">
             <template v-for="(menu,i) in menuList">
                <!--单个选项-->
                <el-menu-item :index="i" @click="menuActive = menu.title" v-if="!menu.sub" v-text="menu.title"></el-menu-item>
@@ -20,7 +20,7 @@
                      <span v-text="menu.title"></span>
                   </template>
                   <el-menu-item-group>
-                     <el-menu-item class="ms-weixin-menu-item" @click="menuActive = sub.title" :index="i+'-'+index" v-for="(sub,index) in menu.sub" v-text="sub.title"></el-menu-item>
+                     <el-menu-item class="ms-admin-menu-menu-item" @click="menuActive = sub.title" :index="i+'-'+index" v-for="(sub,index) in menu.sub" v-text="sub.title"></el-menu-item>
                   </el-menu-item-group>
                </el-submenu>
             </template>

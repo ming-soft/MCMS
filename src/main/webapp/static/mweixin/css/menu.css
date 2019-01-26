@@ -24,6 +24,7 @@ body {
   min-height: 100vh;
   background-color: #eee;
   margin: 0;
+  display: flex;
   font-weight: initial !important;
   font-size: 14px !important;
   color: #333 !important;
@@ -100,10 +101,10 @@ textarea::-webkit-input-placeholder {
   display: flex;
   align-items: center;
 }
-.ms-weixin-menu {
+.ms-admin-menu {
   min-height: calc(100vh - 50px);
   background: #fff;
 }
-.ms-weixin-menu-item {
+.ms-admin-menu-item {
   min-width: 100% !important;
 }
