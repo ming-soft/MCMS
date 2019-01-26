@@ -10,7 +10,7 @@
 <script type="text/javascript" charset="utf-8" src="http://mpm.mingsoft.net/static/plugins/ueditor/1.4.3.1/ueditor.all.js"></script>
 <script type="text/javascript" charset="utf-8" src="http://mpm.mingsoft.net/static/plugins/ueditor/1.4.3.1/lang/zh-cn/zh-cn.js"></script>
 <!-- v-if="menuVue.menuActive == '新建图文'" -->
-<div id='article' class="ms-article">
+<div id='article' class="ms-article ms-container">
     <el-container>
         <el-aside width="280px">
             <div class="ms-main-article">
@@ -30,7 +30,7 @@
         </el-aside>
         <el-main>
             <div class="ms-main-header">
-                <el-upload class="avatar-uploader" :show-file-list="false">
+                <el-upload class="ms-pic-uploader" :show-file-list="false">
                     <img v-if="false" :src="false" class="avatar">
                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                 </el-upload>

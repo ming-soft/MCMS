@@ -101,6 +101,7 @@ textarea::-webkit-input-placeholder {
   display: flex;
   justify-content: space-between;
   width: 100%;
+  background: transparent !important;
 }
 .ms-article .el-container .el-aside {
   padding: 14px;
@@ -179,4 +180,6 @@ textarea::-webkit-input-placeholder {
 }
 .ms-article .el-container .el-main {
   flex: 1;
+  background: #fff;
+  margin-left: 14px;
 }
