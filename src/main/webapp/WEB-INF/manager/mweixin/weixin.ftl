@@ -8,7 +8,11 @@
    </head>
    <body>
       <!--#include virtual="menu.ftl" -->
-      <!--#include virtual="material/index.ftl" --> 
-      <!--#include virtual="article/index.ftl" --> 
+      <!--#include virtual="metarial/index.ftl" -->
+      <!--#include virtual="keyword/index.ftl" -->
+      <!--#include virtual="keyword/form.ftl" -->
+      <!--#include virtual="menu/index.ftl" -->
+      <!--#include virtual="message/index.ftl" -->
+      <!--#include virtual="article/index.ftl" -->
    </body>
 </html>
