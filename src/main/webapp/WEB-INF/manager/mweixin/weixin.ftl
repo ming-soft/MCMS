@@ -13,5 +13,6 @@
       <!--#include virtual="keyword/form.ftl" -->
       <!--#include virtual="menu/index.ftl" -->
       <!--#include virtual="message/index.ftl" -->
+      <!--#include virtual="article/index.ftl" -->
    </body>
 </html>

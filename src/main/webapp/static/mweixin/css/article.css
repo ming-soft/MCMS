@@ -22,7 +22,7 @@
 html,
 body {
   min-height: 100vh;
-  width: 100%;
+  width: 100vw;
   background-color: #eee;
   margin: 0;
   display: flex;
@@ -73,7 +73,7 @@ textarea::-webkit-input-placeholder {
 }
 .ms-container {
   margin: 12px;
-  height: 100%;
+  height: calc(100% - 24px);
   padding: 14px 14px 0 14px;
   background: #fff;
 }
@@ -96,6 +96,9 @@ textarea::-webkit-input-placeholder {
 }
 .el-button + .el-button {
   margin-left: 0;
+}
+.ms-weixin-content {
+  width: calc(100% - 140px);
 }
 .ms-article {
   display: flex;
@@ -180,6 +183,80 @@ textarea::-webkit-input-placeholder {
 }
 .ms-article .el-container .el-main {
   flex: 1;
-  background: #fff;
   margin-left: 14px;
+  padding: 0 !important;
+}
+.ms-article .el-container .el-main .ms-main-header {
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  height: 180px;
+  padding: 20px;
+  padding-bottom: 24px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #ddd;
+}
+.ms-article .el-container .el-main .ms-main-header .ms-pic-upload {
+  width: 140px;
+  height: 140px;
+  border-radius: 4px;
+  border: 1px dashed #ddd;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-right: 20px;
+}
+.ms-article .el-container .el-main .ms-main-header .ms-pic-upload .el-upload {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+.ms-article .el-container .el-main .ms-main-header .ms-pic-upload .el-upload span {
+  font-weight: initial;
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
+}
+.ms-article .el-container .el-main .ms-main-header .ms-pic-upload .el-upload i {
+  font-weight: initial;
+  font-size: 18px;
+  color: #999;
+}
+.ms-article .el-container .el-main .ms-main-header .el-form {
+  flex: 1;
+  margin: 0 !important;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.ms-article .el-container .el-main .ms-main-header .el-form .el-form-item {
+  margin-bottom: 0 !important;
+}
+.ms-article .el-container .el-main .ms-main-header .el-form .el-input__suffix {
+  top: -3px !important;
+}
+.ms-article .el-container .el-main .ms-main-body {
+  height: calc(100% - 180px);
+  background: #fff;
+}
+.ms-article .el-container .el-main .ms-main-body .edui-editor {
+  height: 100%;
+}
+.ms-article .el-container .el-main .ms-main-body .edui-editor .edui-editor-toolbarboxouter {
+  background-color: none !important;
+  background-image: none !important;
+}
+.ms-article .el-container .el-main .ms-main-body .edui-editor .edui-editor {
+  border: none !important;
+}
+.ms-article .el-container .el-main .ms-main-body .edui-editor .edui-editor .edui-editor-toolbarbox {
+  box-shadow: none !important;
+}
+.ms-article .el-container .el-main .ms-main-body .edui-editor .edui-editor .edui-editor-toolbarbox .edui-editor-toolbarboxouter {
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }

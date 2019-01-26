@@ -1,77 +1,139 @@
 // 新建图文
 @import "../ms-admin/4.7.0/less/app.less";
-.ms-article{
+.ms-article {
     .ms-flex();
     width: 100%;
     background: transparent !important;
-    .el-container{
+    .el-container {
         // 侧边
-        .el-aside{
-            padding:14px;
-            background: #fff;
-            // 主文章
-            .ms-main-article{
+        .el-aside {
+            padding: 14px;
+            background: #fff; // 主文章
+            .ms-main-article {
                 position: relative;
-                img{
-                    .ms-width-height(100%,146px);
+                img {
+                    .ms-width-height(100%, 146px);
                 }
-                .ms-main-article-mask{
+                .ms-main-article-mask {
                     background: #000;
                     opacity: .2;
-                    .ms-width-height(100%,146px);
+                    .ms-width-height(100%, 146px);
                     position: absolute;
                     top: 0;
                     left: 0;
                 }
-                span{
+                span {
                     position: absolute;
                     bottom: 0;
                     padding: 15px;
                     color: #fff;
                     .ms-ellipsis-clamp(2);
                 }
-            }
-            // 子文章
-            .ms-article-item{
-                .ms-width-height(100%,70px);
+            } // 子文章
+            .ms-article-item {
+                .ms-width-height(100%, 70px);
                 .ms-flex();
-                padding:10px 0;
+                padding: 10px 0;
                 border-bottom: 1px solid @borderColor;
-                p{
+                p {
                     margin: 0 10px 0 0;
                     .ms-flex();
                     align-items: center;
-                    span{
+                    span {
                         width: 100%;
                         display: inline-block;
                         .ms-ellipsis-clamp(1);
                     }
                 }
-                img{
+                img {
                     .ms-width-height(50px);
                 }
-                &:hover{
+                &:hover {
                     cursor: pointer;
                 }
-            }
-            // 尾部
-            .ms-article-footer{
+            } // 尾部
+            .ms-article-footer {
                 background: #fff;
-                padding-top:20px;
-                .el-button{
+                padding-top: 20px;
+                .el-button {
                     width: 100%;
                     background: rgb(242, 242, 246);
-                    i,span{
-                    .ms-font(@auxiliarySize,@auxiliaryColor);
+                    i,
+                    span {
+                        .ms-font(@auxiliarySize, @auxiliaryColor);
                     }
                 }
             }
-        }
-        // 内容区域
-        .el-main{
-            flex:1;
-            background: #fff;
+        } // 内容区域
+        .el-main {
+            flex: 1;
             margin-left: 14px;
+            padding: 0 !important;
+            .ms-main-header {
+                background: #fff;
+                .ms-flex();
+                height: 180px;
+                padding: 20px;
+                padding-bottom: 24px;
+                box-sizing: border-box;
+                border-bottom: 1px solid @borderColor; // 图片上传
+                .ms-pic-upload {
+                    .ms-width-height(140px);
+                    border-radius: 4px;
+                    border: 1px dashed @borderColor;
+                    .ms-flex(center);
+                    flex-direction: column;
+                    margin-right: 20px;
+                    .el-upload {
+                        .ms-flex();
+                        flex-direction: column;
+                        align-items: center;
+                        span {
+                            .ms-font(@auxiliarySize, @auxiliaryColor);
+                            margin-top: 4px;
+                        }
+                        i {
+                            .ms-font(18px, @auxiliaryColor);
+                        }
+                    }
+                } // 表单
+                .el-form {
+                    flex: 1;
+                    margin: 0 !important;
+                    .ms-flex();
+                    flex-direction: column;
+                    .el-form-item {
+                        margin-bottom: 0 !important;
+                    }
+                    .el-input__suffix {
+                        top: -3px !important;
+                    }
+                }
+            }
+            .ms-main-body {
+                height: calc(~'100% - 180px');
+                background: #fff;
+                .edui-editor {
+                    height: 100%;
+                    .edui-editor-toolbarboxouter {
+                        background-color: none !important;
+                        background-image: none !important;
+                    } // 编辑器样式
+                    .edui-editor {
+                        border: none !important;
+                        .edui-editor-toolbarbox {
+                            box-shadow: none !important;
+                            .edui-editor-toolbarboxouter {
+                                background-color: transparent !important;
+                                background-image: none !important;
+                                border: none !important;
+                                border-radius: 0 !important;
+                                box-shadow: none !important;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
