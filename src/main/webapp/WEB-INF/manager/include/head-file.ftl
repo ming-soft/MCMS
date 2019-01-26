@@ -16,6 +16,14 @@
     <script src="http://cdn.mingsoft.net/ms/1.0/ms.js"></script>
     <script src="http://cdn.mingsoft.net/ms/1.0/ms.http.js"></script>
     <script src="http://cdn.mingsoft.net/ms/1.0/ms.util.js"></script>
+
+    <!--jquery-->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!--百度富文本-->
+    <script type="text/javascript" charset="utf-8" src="http://mpm.mingsoft.net/static/plugins/ueditor/1.4.3.1/ueditor.parse.js"></script>
+    <script type="text/javascript" charset="utf-8" src="http://mpm.mingsoft.net/static/plugins/ueditor/1.4.3.1/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="http://mpm.mingsoft.net/static/plugins/ueditor/1.4.3.1/ueditor.all.js"></script>
+    <script type="text/javascript" charset="utf-8" src="http://mpm.mingsoft.net/static/plugins/ueditor/1.4.3.1/lang/zh-cn/zh-cn.js"></script>
     
     <!-- <link rel="stylesheet" href="${base}/static/ms-admin/4.7.0/css/login.css"> -->
     <!-- <link rel="stylesheet" href="${base}/static/mweixin/css/custom-menu.css"> -->

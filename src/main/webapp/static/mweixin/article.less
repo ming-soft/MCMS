@@ -1,10 +1,14 @@
 // 新建图文
 @import "../ms-admin/4.7.0/less/app.less";
 .ms-article{
+    .ms-flex();
+    width: 100%;
+    background: transparent !important;
     .el-container{
         // 侧边
         .el-aside{
             padding:14px;
+            background: #fff;
             // 主文章
             .ms-main-article{
                 position: relative;
@@ -46,7 +50,28 @@
                 img{
                     .ms-width-height(50px);
                 }
+                &:hover{
+                    cursor: pointer;
+                }
             }
+            // 尾部
+            .ms-article-footer{
+                background: #fff;
+                padding-top:20px;
+                .el-button{
+                    width: 100%;
+                    background: rgb(242, 242, 246);
+                    i,span{
+                    .ms-font(@auxiliarySize,@auxiliaryColor);
+                    }
+                }
+            }
+        }
+        // 内容区域
+        .el-main{
+            flex:1;
+            background: #fff;
+            margin-left: 14px;
         }
     }
 }
