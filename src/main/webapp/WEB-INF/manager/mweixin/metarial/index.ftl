@@ -1,6 +1,6 @@
 <!--图文素材页-->
 <link rel="stylesheet" href="../../../static/mweixin/css/material-list.css">
-<div id="material-list-vue" v-if="menuVue.menuActive == '图文'" class="ms-content">
+<div id="material-list-vue" v-if="menuVue.menuActive == '图文'" class="ms-weixin-content">
    <el-container>
       <!--右侧头部-->
       <el-header class="ms-header" height="52px">

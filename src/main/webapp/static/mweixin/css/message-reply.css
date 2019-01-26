@@ -97,8 +97,8 @@ textarea::-webkit-input-placeholder {
 .el-button + .el-button {
   margin-left: 0;
 }
-.ms-content {
-  width: calc(100% - 200px);
+.ms-weixin-content {
+  width: calc(100% - 140px);
 }
 .ms-message-reply {
   display: flex;

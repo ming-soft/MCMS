@@ -64,7 +64,7 @@ var articleBasicId=0;
 $(function(){
 	//页面标题
 	var articleTitle="<#if categoryTitle?has_content>${categoryTitle}&nbsp;</#if><#if article.basicId !=0><small>编辑文章</small><#else><small>添加文章</small></#if>";
-	$(".ms-content-body-title>span").html(articleTitle);	
+	$(".ms-weixin-content-body-title>span").html(articleTitle);	
 	//隐藏跳转地址
 	$("input[name='articleUrl']").parent().hide();
 	

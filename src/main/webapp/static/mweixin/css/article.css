@@ -22,8 +22,10 @@
 html,
 body {
   min-height: 100vh;
+  width: 100vw;
   background-color: #eee;
   margin: 0;
+  display: flex;
   font-weight: initial !important;
   font-size: 14px !important;
   color: #333 !important;
@@ -71,7 +73,7 @@ textarea::-webkit-input-placeholder {
 }
 .ms-container {
   margin: 12px;
-  height: 100%;
+  height: calc(100% - 24px);
   padding: 14px 14px 0 14px;
   background: #fff;
 }
@@ -95,6 +97,9 @@ textarea::-webkit-input-placeholder {
 .el-button + .el-button {
   margin-left: 0;
 }
+.ms-weixin-content {
+  width: calc(100% - 140px);
+}
 .ms-article .el-container .el-aside {
   padding: 14px;
 }
@@ -107,7 +112,7 @@ textarea::-webkit-input-placeholder {
 }
 .ms-article .el-container .el-aside .ms-main-article .ms-main-article-mask {
   background: #000;
-  opacity: .2;
+  opacity: 0.2;
   width: 100%;
   height: 146px;
   position: absolute;
