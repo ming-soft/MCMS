@@ -26,7 +26,7 @@
                         </el-form-item>
                         <el-form-item prop="code" class="ms-admin-form-item ms-admin-form-item-code">
                             <el-input type="text" placeholder='验证码' v-model="loginForm.rand_code" autocomplete="off"></el-input>
-                            <img :src="code" class="code-img" @click="code" />
+                            <img :src="verifCode" class="code-img" @click="code" />
                             <p><span>看不清?</span><span @click="code">换一张</span></p>
                         </el-form-item>
                         <el-form-item class="ms-admin-form-item ms-admin-form-item-checkout">
@@ -52,7 +52,7 @@ var loginVue = new Vue({
             managerPassword: "",
             rand_code: '',
         },
-        code: ms.manager + "/code?t=" + new Date().getTime(),
+        verifCode: ms.manager + "/code?t=" + new Date().getTime(),
         rememberPass: '',
         loginFormRule: {
             managerName: [{
@@ -97,7 +97,7 @@ var loginVue = new Vue({
         // 登录
         checkLogin: function() {
             var that = this;
-            ms.http.post(ms.manager + "/ms/checkLogin.do", that.loginForm).then(function(data) {
+            ms.http.post(ms.manager + "/checkLogin.do", that.loginForm).then(function(data) {
                 if (data.result) {
                     that.$notify({
                         title: '成功',
@@ -117,12 +117,12 @@ var loginVue = new Vue({
             })
         },
         code: function() {
-            code: ms.manager + "/code?t=" + new Date().getTime();
+            this.verifCode = ms.manager + "/code?t=" + new Date().getTime();
         },
 
     },
     mounted:function(){
-        this.code = ms.manager + "/code?t=" + new Date().getTime()
+        this.verifCode = ms.manager + "/code?t=" + new Date().getTime()
     }
 })
 </script>

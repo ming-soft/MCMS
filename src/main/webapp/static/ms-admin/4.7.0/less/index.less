@@ -221,6 +221,13 @@
         background-color: #fff;
         //选项卡
         .ms-admin-tabs {
+            height: 100%;
+            .el-tabs__content{
+                height: 100%;
+                .el-tab-pane{
+                    height: 100%;
+                }
+            }
             .el-tabs__nav-scroll {
                 background: #fafafa;
                 .el-tabs__nav {
@@ -228,6 +235,11 @@
                     border-radius: 0;
                 }
             }
+        }
+        // 嵌套iframe
+        iframe{
+            .ms-width-height(100%);
+            border: none !important;
         }
     }
 }

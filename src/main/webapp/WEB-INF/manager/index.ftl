@@ -118,7 +118,7 @@
                         :label="item.title" 
                         :name="item.title"
                     >
-                        {{item.content}}
+                        <iframe :src='ms.manager+"/"+item.url'></iframe>
                      </el-tab-pane>
                   </el-tabs>
                </el-main>
