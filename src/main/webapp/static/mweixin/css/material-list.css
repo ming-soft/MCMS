@@ -1,0 +1,101 @@
+/*
+*这里的值严格按照UI设计图标注值来进行设置
+*/
+/*
+*颜色
+*/
+/*
+*页面的边距
+*/
+/*
+*字体
+*/
+/*
+*头像
+*/
+/*
+ * 按钮
+ */
+/*
+*对常见的多行样式进行了方法封装，方便调用，加快开发效率
+*/
+html,
+body {
+  min-height: 100vh;
+  background-color: #eee;
+  margin: 0;
+  font-weight: initial !important;
+  font-size: 14px !important;
+  color: #333 !important;
+}
+html *,
+body * {
+  text-decoration: none !important;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+.ms-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+.ms-align-center {
+  display: flex;
+  align-items: center;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  font-weight: initial;
+  font-size: 12px;
+  color: #999;
+  resize: none;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+/*定义滚动条轨道 内阴影+圆角*/
+*::-webkit-scrollbar-track {
+  border-radius: 10px;
+  /*滚动条的背景区域的圆角*/
+  background-color: #eee;
+  /*滚动条的背景颜色*/
+}
+/*定义滑块 内阴影+圆角*/
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  /*滚动条的圆角*/
+  background-color: #ddd;
+  /*滚动条的背景颜色*/
+}
+.ms-container {
+  margin: 12px;
+  height: 100%;
+  padding: 14px 14px 0 14px;
+  background: #fff;
+}
+.ms-header {
+  padding: 10px;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+  height: 50px;
+}
+.ms-pagination {
+  padding: 20px 0;
+  text-align: right;
+}
+.ms-fr {
+  float: right;
+}
+.ms-tr {
+  text-align: right;
+}
+.el-button + .el-button {
+  margin-left: 0;
+}
+.ms-admin-material-list {
+  margin: 15px;
+  padding: 10px;
+}

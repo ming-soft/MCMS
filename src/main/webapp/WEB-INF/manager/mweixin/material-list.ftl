@@ -16,11 +16,17 @@
                <!--#include virtual="../include/menu.ftl" -->
             </el-aside>
             <el-container>
-               <el-header>
-                  <!--#include virtual="../include/head.ftl" -->
+               <el-header height="50px">
+                  <el-row class="ms-fr">
+                     <el-button type="success">保存</el-button>
+                     <el-button>更新</el-button>
+                     <el-button>返回</el-button>
+                  </el-row>
                </el-header>
-               <el-main>
-                  <!--#include virtual="../include/head.ftl" -->
+               <el-main class="ms-admin-material-list">
+                  <div class="ms-admin-material-item">
+
+                  </div>
                </el-main>
             </el-container>
          </el-container>
