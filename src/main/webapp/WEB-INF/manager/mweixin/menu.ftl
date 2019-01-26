@@ -1,34 +1,25 @@
-<!DOCTYPE html>
-<html>
-   <head>
-      <title></title>
-      <!-- <#include "/include/head-file.ftl"/> -->
-      <!--#include virtual="../include/head-file.ftl" -->
-      <link rel="stylesheet" href="../../../static/mweixin/css/menu.css">
-   </head>
-   <body>
-      <div id="app">
-         <!--左侧-->
-         <div class="ms-admin-title">
-            <i></i> 吕小布微信号
-         </div>
-         <el-menu class="ms-weixin-menu" default-active="0">
-            <el-submenu :index="i+''" v-for="(menu,i) in menuList" @click="menuActive = menu">
-               <template slot="title">
-                  <span v-text="menu.title"></span>
-               </template>
-               <el-menu-item-group>
-                  <el-menu-item class="ms-weixin-menu-item" :index="i+'-'+index" v-for="(sub,index) in menu.sub" v-text="sub.title"></el-menu-item>
-               </el-menu-item-group>
-            </el-submenu>
-         </el-menu>
-      </div>
-   </body>
-</html>
+<link rel="stylesheet" href="../../../static/mweixin/css/menu.css">
+
+<div id="menu-vue">
+   <!--左侧-->
+   <div class="ms-admin-title">
+      <i></i> 吕小布微信号
+   </div>
+   <el-menu class="ms-weixin-menu" default-active="0">
+      <el-submenu :index="i+''" v-for="(menu,i) in menuList" @click="menuActive = menu">
+         <template slot="title">
+            <span v-text="menu.title"></span>
+         </template>
+         <el-menu-item-group>
+            <el-menu-item class="ms-weixin-menu-item" :index="i+'-'+index" v-for="(sub,index) in menu.sub" v-text="sub.title"></el-menu-item>
+         </el-menu-item-group>
+      </el-submenu>
+   </el-menu>
+</div>
 
 <script>
-   new Vue({
-      el: "#app",
+   var menuVue = new Vue({
+      el: "#menu-vue",
       data: {
          menuList: [{
             title: '图文素材',
