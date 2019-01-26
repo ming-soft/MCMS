@@ -9,7 +9,7 @@
             <i></i> 吕小布微信号
          </div>
       </el-header>
-      <el-main>
+      <el-main> 
          <el-menu class="ms-weixin-menu" default-active="0-0">
             <template v-for="(menu,i) in menuList">
                <!--单个选项-->
