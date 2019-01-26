@@ -1,7 +1,7 @@
 <!-- 关键字列表 -->
 <link rel="stylesheet" href="../../../../static/mweixin/css/keyword-list.css">
 
-<div id="keyword-list" class="keyword-list ms-container" v-if="menuVue.menuActive == '关键词回复'">
+<div id="keyword-list" class="keyword-list ms-container ms-weixin-content" v-if="menuVue.menuActive == '关键词回复'">
    <el-table :data="tableData" border style="width: 100%">
       <el-table-column prop="date" label="规则名" width="180" align='center'>
       </el-table-column>

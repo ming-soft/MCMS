@@ -73,7 +73,7 @@ textarea::-webkit-input-placeholder {
 }
 .ms-container {
   margin: 12px;
-  height: 100%;
+  height: calc(100% - 24px);
   padding: 14px 14px 0 14px;
   background: #fff;
 }
@@ -96,4 +96,7 @@ textarea::-webkit-input-placeholder {
 }
 .el-button + .el-button {
   margin-left: 0;
+}
+.ms-weixin-content {
+  width: calc(100% - 140px);
 }

@@ -2,11 +2,14 @@
 
 <div id="menu-vue">
    <!--左侧-->
-   <el-container class="am-admin-menu">
+   <el-container class="ms-admin-menu">
       <!--右侧头部-->
-      <el-header height="50px">
-         <div class="ms-admin-menu-title">
-            <i></i> 吕小布微信号
+      <el-header class="ms-header" height="50px">
+         <div>
+            <i class="el-icon-arrow-left"></i>
+            <span>
+               吕小布微信号
+            </span>
          </div>
       </el-header>
       <el-main>
@@ -19,9 +22,7 @@
                   <template slot="title">
                      <span v-text="menu.title"></span>
                   </template>
-                  <el-menu-item-group>
-                     <el-menu-item class="ms-admin-menu-menu-item" @click="menuActive = sub.title" :index="i+'-'+index" v-for="(sub,index) in menu.sub" v-text="sub.title"></el-menu-item>
-                  </el-menu-item-group>
+                  <el-menu-item class="ms-admin-menu-menu-item" @click="menuActive = sub.title" :index="i+'-'+index" v-for="(sub,index) in menu.sub" v-text="sub.title"></el-menu-item>
                </el-submenu>
             </template>
          </el-menu>
