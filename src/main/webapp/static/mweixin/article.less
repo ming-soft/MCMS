@@ -1,0 +1,52 @@
+// 新建图文
+@import "../ms-admin/4.7.0/less/app.less";
+.ms-article{
+    .el-container{
+        // 侧边
+        .el-aside{
+            padding:14px;
+            // 主文章
+            .ms-main-article{
+                position: relative;
+                img{
+                    .ms-width-height(100%,146px);
+                }
+                .ms-main-article-mask{
+                    background: #000;
+                    opacity: .2;
+                    .ms-width-height(100%,146px);
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                }
+                span{
+                    position: absolute;
+                    bottom: 0;
+                    padding: 15px;
+                    color: #fff;
+                    .ms-ellipsis-clamp(2);
+                }
+            }
+            // 子文章
+            .ms-article-item{
+                .ms-width-height(100%,70px);
+                .ms-flex();
+                padding:10px 0;
+                border-bottom: 1px solid @borderColor;
+                p{
+                    margin: 0 10px 0 0;
+                    .ms-flex();
+                    align-items: center;
+                    span{
+                        width: 100%;
+                        display: inline-block;
+                        .ms-ellipsis-clamp(1);
+                    }
+                }
+                img{
+                    .ms-width-height(50px);
+                }
+            }
+        }
+    }
+}
