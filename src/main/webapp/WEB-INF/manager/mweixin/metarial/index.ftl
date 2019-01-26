@@ -5,34 +5,67 @@
       <!--右侧头部-->
       <el-header class="ms-header" height="52px">
          <el-row>
-            <el-button type="primary" size="small">
-               <i class="el-icon-plus"></i>添加</el-button>
-            <el-button class="ms-fr" size="small">
-               <i class="el-icon-refresh"></i>刷新</el-button>
+            <el-button type="primary" size="small" icon="el-icon-plus">添加</el-button>
+            <el-button class="ms-fr" size="small" icon="el-icon-refresh">刷新</el-button>
             <el-button class="ms-fr" size="small">同步微信素材</el-button>
          </el-row>
       </el-header>
-      <el-main>
-         <!--内容同步-->
-         <el-container>
-            <el-header class="ms-tr ms-header">
-
-            </el-header>
-            <!--素材列表-->
-            <el-main class="ms-admin-material-list">
-               <div class="ms-admin-material-item">
-
+      <el-container>
+         <!--内容头部-->
+         <el-header class="ms-tr ms-header">
+            <el-select v-model="value1" placeholder="请选择" size="small">
+               <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
+               </el-option>
+            </el-select>
+            <el-select v-model="value2" placeholder="请选择" size="small">
+               <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
+               </el-option>
+            </el-select>
+            <el-button type="primary" icon="el-icon-search" size="small">查询</el-button>
+         </el-header>
+         <!--素材列表-->
+         <el-main class="ms-admin-material-list ms-container">
+            <div class="ms-admin-material-item" v-for="material in materialList">
+               <div>
+                  <span v-text="'更新于'+material.date"></span>
+                  <i class="iconfont icon-weixin"></i>
                </div>
-            </el-main>
-         </el-container>
-      </el-main>
+               <div>
+                  <span></span>
+                  <img />
+                  <p></p>
+               </div>
+               <div>
+                  <i></i>
+                  <i></i>
+               </div>
+            </div>
+         </el-main>
+      </el-container>
    </el-container>
 </div>
 
 <script>
    new Vue({
       el: "#material-list-vue",
-      data: {},
+      data: {
+         options1: [{
+            value: '全部图片',
+            label: '全部图片'
+         }],
+         options2: [{
+            value: '全部图片',
+            label: '全部图片'
+         }],
+         value1: '全部图片',
+         value2: '',
+         materialList: [{
+            date: '12月27日',
+            title: 'HUAWEI Mate 20 6GB+64GB 全网最低价...',
+            img: '',
+            det: '传播名HUAWEI Mate 20 6GB+64GB 全网最低价，后置摄像头后置莱卡散射，12000万亿像素（光脚，1/1.6光圈）+1200万像素（超广角），......'
+         }],
+      },
       methods: {},
       mounted: function() {}
    })
