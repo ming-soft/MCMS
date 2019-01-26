@@ -8,6 +8,6 @@
    </head>
    <body>
       <!--#include virtual="menu.ftl" -->
-      <!--#include virtual="material/material-list.ftl" -->
+      <!--#include virtual="material/index.ftl" -->
    </body>
 </html>
