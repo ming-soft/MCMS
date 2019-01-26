@@ -9,5 +9,6 @@
    <body>
       <!--#include virtual="menu.ftl" -->
       <!--#include virtual="material/index.ftl" --> 
+      <!--#include virtual="article/index.ftl" --> 
    </body>
 </html>
