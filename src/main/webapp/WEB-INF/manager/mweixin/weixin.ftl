@@ -4,10 +4,11 @@
       <meta charset="UTF-8">
       <title></title>
       <!-- <#include "/include/head-file.ftl"/> -->
-      <!--#include virtual="../../include/head-file.ftl" -->
+      <!--#include virtual="../include/head-file.ftl" -->
    </head>
    <body>
       <!--#include virtual="menu.ftl" -->
-      <!--#include virtual="material/index.ftl" -->
+      <!--#include virtual="material/index.ftl" --> 
+      <!--#include virtual="article/index.ftl" --> 
    </body>
 </html>

@@ -129,7 +129,7 @@ public class ArticleAction extends BaseAction {
 		List<ColumnEntity> list = columnBiz.queryAll(appId, this.getModelCodeId(request, ModelCode.CMS_COLUMN));
 		request.setAttribute("listColumn", JSONArray.toJSONString(list));
 		// 返回路径
-		return view("/cms/article/index"); // 这里表示显示/manager/cms/article/article_list.ftl
+		return "/cms/article/index"; // 这里表示显示/manager/cms/article/article_list.ftl
 	}
 
 	/**
@@ -152,7 +152,7 @@ public class ArticleAction extends BaseAction {
 		mode.addAttribute("articleType", articleType);
  		mode.addAttribute("categoryId", categoryId);
 		//返回文章页面显示地址
-		return view("/cms/article/article_main");
+		return "/cms/article/article_main";
 	}
 	
 	/**
@@ -230,7 +230,7 @@ public class ArticleAction extends BaseAction {
 		ArticleEntity article = new ArticleEntity();
 		mode.addAttribute("article", article);
 		// 返回路径
-		return view("/cms/article/article_form"); // 这里表示显示/manager/cms/article/article_save.ftl
+		return "/cms/article/article_form"; // 这里表示显示/manager/cms/article/article_save.ftl
 	}
 
 	/**
@@ -298,7 +298,7 @@ public class ArticleAction extends BaseAction {
 					.getEntity(column.getColumnContentModelId());
 			if (contentModel != null) {
 				// 保存新增字段的信息
-				Map param = this.checkField(listField, request, article.getBasicId());
+				Map<String, Object> param = this.checkField(listField, request, article.getBasicId());
 				fieldBiz.insertBySQL(contentModel.getCmTableName(), param);
 			}
 
@@ -416,7 +416,7 @@ public class ArticleAction extends BaseAction {
 				ContentModelEntity contentModel = (ContentModelEntity) contentBiz
 						.getEntity(oldColumn.getColumnContentModelId());
 				// 删除旧的内容模型中保存的值
-				Map wheres = new HashMap();
+				Map<String, Integer> wheres = new HashMap<String, Integer>();
 				wheres.put("basicId", article.getBasicId());
 				if (contentModel != null) {
 					fieldBiz.deleteBySQL(contentModel.getCmTableName(), wheres);
@@ -428,13 +428,17 @@ public class ArticleAction extends BaseAction {
 					ContentModelEntity newContentModel = (ContentModelEntity) contentBiz
 							.getEntity(column.getColumnContentModelId());
 					if (newContentModel != null) {
-						Map param = this.checkField(listField, request, article.getBasicId());
+						Map<String, Object> param = this.checkField(listField, request, article.getBasicId());
 						fieldBiz.insertBySQL(newContentModel.getCmTableName(), param);
 					}
 				}
 			}
 		}
-
+		//判断是否修改了所属栏目
+		if(oldArticle.getBasicCategoryId()!=article.getBasicCategoryId()){
+			//拼接栏目路径和文章编号及文件后缀
+			article.setArticleUrl(column.getColumnPath() + File.separator + article.getBasicId() + ParserUtil.HTML_SUFFIX);
+		}
 		// 添加文章所属的站点id
 		article.setArticleWebId(appId);
 		// 设置文章所属的栏目实体
@@ -450,11 +454,11 @@ public class ArticleAction extends BaseAction {
 			// 保存所有的字段信息
 			List<BaseEntity> listField = fieldBiz.queryListByCmid(column.getColumnContentModelId());
 			// // update中的where条件
-			Map where = new HashMap();
+			Map<String, Integer> where = new HashMap<String, Integer>();
 			// 压入默认的basicId字段
 			where.put("basicId", article.getBasicId());
 			// 遍历字段的信息
-			Map param = this.checkField(listField, request, article.getBasicId());
+			Map<String, Object> param = this.checkField(listField, request, article.getBasicId());
 			ContentModelEntity contentModel = (ContentModelEntity) contentBiz
 					.getEntity(column.getColumnContentModelId());
 			if (contentModel != null) {
@@ -513,7 +517,7 @@ public class ArticleAction extends BaseAction {
 			model.addAttribute("categoryId", categoryId);// 编辑封面
 			model.addAttribute("isEditCategory", true);// 编辑封面
 			model.addAttribute("columnType", columnType);
-			return view("/cms/article/article_form");
+			return "/cms/article/article_form";
 		} else if (id > 0) { // 文章id获取
 			// 允许编辑文章时更改分类
 			List<ColumnEntity> list = columnBiz.queryAll(appId, this.getModelCodeId(request, ModelCode.CMS_COLUMN));
@@ -528,7 +532,7 @@ public class ArticleAction extends BaseAction {
 			// 判断是否是封面类型的栏目，如果是封面类型的栏目有些信息需要屏蔽，例如分类
 			ColumnEntity column = articleEntity.getColumn();
 			int columnType = column.getColumnType();
-			if (column.getColumnType() == ColumnEntity.COLUMN_TYPE_COVER) {
+			if (column.getColumnType() == ColumnEntity.ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {
 				model.addAttribute("categoryTitle", categoryTitle);
 				model.addAttribute("categoryId", column.getCategoryId());// 编辑封面
 				model.addAttribute("isEditCategory", true);// 编辑封面
@@ -538,9 +542,9 @@ public class ArticleAction extends BaseAction {
 			}
 			model.addAttribute("columnType", columnType);
 			model.addAttribute("categoryId", column.getCategoryId());// 编辑封面
-			return view("/cms/article/article_form");
+			return "/cms/article/article_form";
 		} else {// 非法
-			// return view("/cms/article/article_form");
+			// return "/cms/article/article_form");
 			return this.redirectBack(request, true);
 		}
 	}
@@ -583,7 +587,7 @@ public class ArticleAction extends BaseAction {
 	 * @return 字段信息
 	 */
 	private Map checkField(List<BaseEntity> listField, HttpServletRequest request, int articleId) {
-		Map mapParams = new HashMap();
+		Map<String, Object> mapParams = new HashMap();
 		// 压入默认的basicId字段
 		mapParams.put("basicId", articleId);
 		// 遍历字段名
