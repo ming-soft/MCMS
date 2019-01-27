@@ -22,7 +22,7 @@ ms:
       
 spring:
   profiles:
-    active: dev
+    active: test
   mvc:
     pathmatch: 
      use-suffix-pattern: true
