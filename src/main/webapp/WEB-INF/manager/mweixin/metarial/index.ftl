@@ -32,11 +32,12 @@
                </div>
                <div class="body">
                   <span v-text="material.title"></span>
-                  <img v-lazy="material.img" />
+                  <img :src="material.img" />
                   <p v-text="material.det"></p>
                </div>
                <div class="footer">
                   <i class="el-icon-edit"></i>
+                  <em></em>
                   <i class="el-icon-delete"></i>
                </div>
             </div>
@@ -62,13 +63,13 @@
          materialList: [{
                date: '12月27日',
                title: 'HUAWEI Mate 20 6GB+64GB 全网最低价...',
-               img: '',
+               img: '../images/data/img.png',
                det: '传播名HUAWEI Mate 20 6GB+64GB 全网最低价，后置摄像头后置莱卡散射，12000万亿像素（光脚，1/1.6光圈）+1200万像素（超广角），......'
             },
             {
                date: '12月27日',
                title: 'HUAWEI Mate 20 6GB+64GB 全网最低价...',
-               img: '',
+               img: '../images/data/img.png',
                det: '传播名HUAWEI Mate 20 6GB+64GB 全网最低价，后置摄像头后置莱卡散射，12000万亿像素（光脚，1/1.6光圈）+1200万像素（超广角），......'
             }
          ],
