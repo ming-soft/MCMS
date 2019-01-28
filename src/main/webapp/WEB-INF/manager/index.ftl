@@ -4,8 +4,9 @@
       <title></title>
       <!-- <#include "/include/head-file.ftl"/> -->
      <!-- <link rel="stylesheet" href="${base}/static/ms-admin/4.7.0/css/index.css"> -->
-
     <!--#include virtual="include/head-file.ftl" --> 
+    <!--#include virtual="./reset-password.ftl" --> 
+    <!--#include virtual="./exit-system.ftl" --> 
     <link rel="stylesheet" href="../../../static/ms-admin/4.7.0/css/index.css">
 
    </head>
@@ -52,9 +53,9 @@
                   <el-dropdown trigger="click" class="ms-admin-login" placement="top-start" @visible-change="loginDown = !loginDown">
                      <span class="el-dropdown-link" :class="{'active':loginDown}">
                         <img src="http://cdn.mingsoft.net/global/static/ms-admin/4.7.0//msheader.png" />
-                        <span>管理员</span>
+                        <span v-text='peopleInfo.managerName'></span>
                      </span>
-                     <el-dropdown-menu class="ms-admin-login-down" slot="dropdown">
+                     <el-dropdown-menu class="ms-admin-login-down" slot="dropdown" @click.native='openModal'>
                         <el-dropdown-item>修改密码</el-dropdown-item>
                         <el-dropdown-item>退出</el-dropdown-item>
                      </el-dropdown-menu>
@@ -127,9 +128,8 @@
       </div>
    </body>
 </html>
-
 <script>
-   new Vue({
+   var indexVue = new Vue({
       el: "#app",
       data: {
         // 预置菜单图标
@@ -154,6 +154,10 @@
         collapseMenu:false,//菜单折叠，false不折叠
         currentTab:'',//当前激活tab的name
         tabIndex: 2,
+        //登录用户信息
+        peopleInfo:{
+        	managerName:''//账号
+        },
       },
       watch:{
           menuList:function(n,o){
@@ -170,11 +174,11 @@
         // 菜单列表
         list:function(){
             var that = this;
-            ms.http.get(ms.base + "/ms/model/list.do")
+            ms.http.get(ms.manager + "/model/list.do")
                 .then((data)=>{
                     that.menuList = data.rows
                 }, (err) => {
-                    that.$message.error(data.resultMsg);
+                    that.$message.error(err);
                 })	
         },
         // 菜单打开页面
@@ -232,11 +236,28 @@
              setTimeout(function(){
                 that.shortcutMenu = false
              },50)
+         },
+         managerGet:function(){
+         	var that = this;
+         	ms.http.get(ms.manager + "/basic/manager/get.do")
+               .then((data)=>{
+                   that.peopleInfo = data
+               }, (err) => {
+                   that.$message.error(err);
+               })	
+         },
+        //  打开修改密码，退出的模态框
+         openModal:function(){
+             console.log('event.target',event.target.innerText);
+            event.target.innerText.indexOf('修改密码')>-1
+            ? resetPasswordVue.isShow=true : exitSystemVue.isShow=true
          }
       },
       mounted:function(){
             // 菜单列表
             this.list();
+            //获取登录用户信息
+            this.managerGet();
       },
    })
 </script>
