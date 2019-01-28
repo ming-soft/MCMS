@@ -6,9 +6,9 @@
 
 	<groupId>net.mingsoft</groupId>
 	<artifactId>mcms</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>mcms1</name>
-	<packaging>war</packaging>
+	<version>4.7.0-SNAPSHOT</version>
+	<name>ms-mcms</name>
+	<packaging>jar</packaging>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
@@ -51,22 +51,10 @@
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-basic</artifactId>
-			<version>1.0.8.1-SNAPSHOT</version>
-			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mdiy</artifactId>
 			<version>1.0.7-SNAPSHOT</version>
 			<classifier>classes</classifier>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mdiy</artifactId>
-			<version>1.0.7-SNAPSHOT</version>
-			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
@@ -75,16 +63,89 @@
 			<classifier>classes</classifier>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- swagger2接口文档依赖 -->
 		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mpeople</artifactId>
-			<version>1.0.7-SNAPSHOT</version>
-			<type>war</type>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-beans</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context-support</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-aop</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-tx</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-orm</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-jdbc</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-web</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-webmvc</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-oxm</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
 		</dependency>
 	</dependencies>
 	<build>
 		<finalName>ms-mcms</finalName>
 		<plugins>
+		    <!-- docker部署 
+		     
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>1.2.0</version>
+				<configuration>
+					<dockerHost>http://localhost</dockerHost>
+					<imageName>ms-mcms</imageName>
+					<baseImage>java</baseImage>
+					<entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+					<resources>
+						<resource>
+							<targetPath>/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
+			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

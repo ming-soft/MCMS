@@ -1,16 +1,6 @@
 <!-- 新建图文 -->
-<!--#include virtual="../../include/head-file.ftl" -->
-<script src="//cdn.jsdelivr.net/npm/sortablejs@1.7.0/Sortable.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.17.0/vuedraggable.min.js"></script>
 <link rel="stylesheet" href="../../../../static/mweixin/css/article.css">
-<!--jquery-->
-<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="http://mpm.mingsoft.net/static/plugins/ueditor/1.4.3.1/ueditor.parse.js"></script>
-<script type="text/javascript" charset="utf-8" src="http://mpm.mingsoft.net/static/plugins/ueditor/1.4.3.1/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="http://mpm.mingsoft.net/static/plugins/ueditor/1.4.3.1/ueditor.all.js"></script>
-<script type="text/javascript" charset="utf-8" src="http://mpm.mingsoft.net/static/plugins/ueditor/1.4.3.1/lang/zh-cn/zh-cn.js"></script>
-<!-- v-if="menuVue.menuActive == '新建图文'" -->
-<div id='article' class="ms-article ms-container">
+<div id='article' class="ms-article ms-container" v-show="menuVue.menuActive == '新建图文'">
     <el-container>
         <el-aside width="280px">
             <div class="ms-main-article">
@@ -30,23 +20,33 @@
         </el-aside>
         <el-main>
             <div class="ms-main-header">
-                <el-upload class="ms-pic-uploader" :show-file-list="false">
+                <el-upload class="ms-pic-upload" :show-file-list="false">
                     <img v-if="false" :src="false" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    <i v-else class="el-icon-picture"></i>
+                    <span>添加封面</span>
                 </el-upload>
-                <el-form>
-                    <el-form-item label="标题" prop="name">
-                        <el-input size='mini' placeholder="请输入图文标题">
+                <el-form label-width='40px'>
+                    <el-form-item label="标题" prop="">
+                        <el-input size='small' placeholder="请输入图文标题" v-model='articleForm.basicTitle' @input="resetWordNum('title')">
                             <span slot='suffix' v-text="titleWordNumber+'/64'"></span>
                         </el-input>
                     </el-form-item>
-                    <el-form-item label="作者" prop="region">
-                        <el-input size='mini' placeholder="请输入图文作者">
+                    <el-form-item label="作者" prop="">
+                        <el-input size='small' placeholder="请输入图文作者" v-model='articleForm.articleAuthor' @input="resetWordNum('author')">
                             <span slot='suffix' v-text="authorWordNumber+'/8'"></span>
                         </el-input>
                     </el-form-item>
-                    <el-form-item label="摘要" prop="region">
-                        <el-input size='mini' type='textarea' placeholder="选填，如果不写会默认抓取正文前54个字">
+                    <el-form-item label="摘要" prop="">
+                        <el-input 
+                            size='small'
+                            type='textarea' 
+                            placeholder="选填，如果不写会默认抓取正文前54个字"
+                            :autosize="{ minRows: 2, maxRows: 2}"
+                            resize='none'
+                            v-model='articleForm.basicDescription'
+                            @input="resetWordNum('desc')"
+                        >
+                        <span slot='suffix' v-text="descWordNumber+'/54'"></span>
                         </el-input>
                     </el-form-item>
                 </el-form>
@@ -77,13 +77,15 @@
                 basicTitle: '没有奇迹，国足0-3不敌伊朗止步八强!',
                 basicThumbnailsl: 'https://img03.sogoucdn.com/app/a/100520091/20190125113148'
             }],
-            titleWordNumber: '', //图文标题剩余字数
-            authorWordNumber: '', //图文作者剩余字数
+            titleWordNumber: 64, //图文标题剩余字数
+            authorWordNumber: 8, //图文作者剩余字数
+            descWordNumber:54,//摘要
             editor: null, //富文本实例
-        },
-        watch: {
-            subArticleList: function (n, o) {
-                console.log('n', n);
+            articleForm:{
+                basicTitle:'',//标题
+                articleAuthor:'',//作者
+                basicDescription:'', //摘要
+                articleContent:'', //正文
             }
         },
         methods: {
@@ -93,6 +95,10 @@
                     basicTitle: '新增文章标题',
                     basicThumbnailsl: 'https://img03.sogoucdn.com/app/a/100520091/20190125113148'
                 })
+            },
+            // 计算剩余字数
+            resetWordNum:function(type){
+               
             }
         },
         mounted: function () {
@@ -122,8 +128,8 @@
                     zIndex: 10000,
                     elementPathEnabled: false,
                     wordCount: false,
-                    initialFrameWidth: 600,
-                    initialFrameHeight: 240,
+                    initialFrameWidth: '100%',
+                    initialFrameHeight: 500,
                 });
                 this.editor.ready(function () {
                     var a = $("#ueditor_0").contents()[0].activeElement;

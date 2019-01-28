@@ -115,3 +115,17 @@ textarea::-webkit-input-placeholder {
   border-top: 1px solid #ddd;
   padding: 15px !important;
 }
+.new-pic-form dl {
+  margin: 0;
+}
+.new-pic-form dd,
+.new-pic-form dt {
+  line-height: 1;
+  font-weight: initial;
+  font-size: 12px;
+  color: #999;
+}
+.new-pic-form dt {
+  display: inline-block;
+  margin-bottom: 8px;
+}
