@@ -15,16 +15,39 @@
         .head {
             border-bottom: 1px solid #e6e6e6;
             padding: 10px 0;
+            span {
+                color: @contentColor;
+            }
         }
         .body {
             display: flex;
             flex-direction: column;
+            line-height: 2em;
+            span {
+                .ms-ellipsis;
+            }
+            img {
+                .ms-width-height(170px, 110px);
+                margin: 0.5em auto;
+                object-fit: cover;
+            }
+            p {
+                margin: 0;
+                color: @contentColor;
+                .ms-ellipsis-clamp(3);
+            }
         }
         .footer {
             display: flex;
             padding: 14px 0;
             i {
+                color: @contentColor;
                 margin: auto;
+                cursor: pointer;
+            }
+            em {
+                .ms-width-height(1px, 1em);
+                background: #e6e6e6;
             }
         }
     }
