@@ -4,6 +4,7 @@
     .ms-flex();
     width: 100%;
     background: transparent !important;
+    padding: 0 !important;
     .el-container {
         // 侧边
         .el-aside {
@@ -115,22 +116,23 @@
             .ms-main-body {
                 height: calc(~'100% - 180px');
                 background: #fff;
-                .edui-editor {
-                    height: 100%;
-                    .edui-editor-toolbarboxouter {
-                        background-color: none !important;
-                        background-image: none !important;
-                    } // 编辑器样式
+                .edui-default{
                     .edui-editor {
-                        border: none !important;
-                        .edui-editor-toolbarbox {
-                            box-shadow: none !important;
-                            .edui-editor-toolbarboxouter {
-                                background-color: transparent !important;
-                                background-image: none !important;
-                                border: none !important;
-                                border-radius: 0 !important;
+                        .edui-editor-toolbarboxouter {
+                            background-color: none !important;
+                            background-image: none !important;
+                        } // 编辑器样式
+                        .edui-editor {
+                            border: none !important;
+                            .edui-editor-toolbarbox {
                                 box-shadow: none !important;
+                                .edui-editor-toolbarboxouter {
+                                    background-color: transparent !important;
+                                    background-image: none !important;
+                                    border: none !important;
+                                    border-radius: 0 !important;
+                                    box-shadow: none !important;
+                                }
                             }
                         }
                     }

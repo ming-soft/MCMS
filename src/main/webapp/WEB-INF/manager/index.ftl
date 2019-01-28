@@ -11,7 +11,7 @@
 
    </head>
    <body>
-      <div id="app">
+      <div id="app" class="index">
          <el-container>
             <!--头部-->
             <el-header class="ms-admin-header">
