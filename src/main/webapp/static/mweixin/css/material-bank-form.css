@@ -113,8 +113,48 @@ textarea::-webkit-input-placeholder {
 }
 .ms-weixin-dialog .el-dialog__footer {
   border-top: 1px solid #ddd;
+  padding: 15px !important;
 }
-.material-bank-form > .el-dialog {
-  width: 890px;
-  height: 600px;
+.material-bank-form > .el-dialog__wrapper > .el-dialog {
+  width: 895px !important;
+  height: 587px !important;
+}
+.material-bank-form > .el-dialog__wrapper > .el-dialog > .el-dialog__body {
+  width: 100% !important;
+  height: 469px !important;
+  padding: 0 !important;
+}
+.material-bank-form > .el-dialog__wrapper > .el-dialog > .el-dialog__body > .el-tabs {
+  height: 100%;
+}
+.material-bank-form > .el-dialog__wrapper > .el-dialog > .el-dialog__body > .el-tabs .el-tabs__header {
+  width: 150px !important;
+  box-sizing: border-box;
+  margin: 0 !important;
+}
+.material-bank-form > .el-dialog__wrapper > .el-dialog > .el-dialog__body > .el-tabs .el-tabs__header .el-tabs__nav-scroll {
+  padding: 20px 10px;
+}
+.material-bank-form > .el-dialog__wrapper > .el-dialog > .el-dialog__body > .el-tabs .el-tabs__header .el-tabs__nav-wrap::after {
+  width: 1px !important;
+}
+.material-bank-form > .el-dialog__wrapper > .el-dialog > .el-dialog__body > .el-tabs .el-tabs__content {
+  height: 100%;
+  box-sizing: border-box;
+  padding: 20px 20px 10px 20px;
+}
+.material-bank-form > .el-dialog__wrapper > .el-dialog > .el-dialog__body > .el-tabs .el-tabs__content .el-tab-pane {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.material-bank-form > .el-dialog__wrapper > .el-dialog > .el-dialog__body > .el-tabs .el-tabs__content .el-tab-pane > div:first-child {
+  flex: 1;
+}
+.material-bank-form > .el-dialog__wrapper > .el-dialog > .el-dialog__body > .el-tabs .is-active {
+  background-color: #e9eaf0;
+  font-weight: initial;
+  font-size: 14px;
+  color: #333;
 }

@@ -111,6 +111,10 @@ textarea::-webkit-input-placeholder {
   font-size: 14px;
   color: #333;
 }
+.ms-weixin-dialog .el-dialog__footer {
+  border-top: 1px solid #ddd;
+  padding: 15px !important;
+}
 .new-pic-form dl {
   margin: 0;
 }
