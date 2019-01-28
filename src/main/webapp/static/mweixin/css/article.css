@@ -74,7 +74,7 @@ textarea::-webkit-input-placeholder {
 .ms-container {
   margin: 12px;
   height: calc(100% - 24px);
-  padding: 14px 14px 0 14px;
+  padding: 14px;
   background: #fff;
 }
 .ms-header {
@@ -83,6 +83,9 @@ textarea::-webkit-input-placeholder {
   border-bottom: 1px solid #ddd;
   background: #fff;
   height: 50px;
+}
+.ms-header button {
+  height: 30px;
 }
 .ms-pagination {
   padding: 20px 0;
@@ -93,9 +96,6 @@ textarea::-webkit-input-placeholder {
 }
 .ms-tr {
   text-align: right;
-}
-.el-button + .el-button {
-  margin-left: 0;
 }
 .ms-weixin-content {
   width: calc(100% - 140px);
@@ -115,6 +115,14 @@ textarea::-webkit-input-placeholder {
   border-top: 1px solid #ddd;
   padding: 15px !important;
 }
+.ms-hover {
+  cursor: pointer;
+}
+.ms-hover:hover {
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
+}
 .ms-article {
   display: flex;
   justify-content: space-between;
@@ -122,10 +130,14 @@ textarea::-webkit-input-placeholder {
   background: transparent !important;
   padding: 0 !important;
 }
+.ms-article .el-container .ms-container {
+  padding: 0;
+  background: transparent;
+  align-items: flex-start;
+}
 .ms-article .el-container .el-aside {
   padding: 14px;
   background: #fff;
-  height: 475px;
 }
 .ms-article .el-container .el-aside .ms-main-article {
   position: relative;
@@ -136,7 +148,7 @@ textarea::-webkit-input-placeholder {
 }
 .ms-article .el-container .el-aside .ms-main-article .ms-main-article-mask {
   background: #000;
-  opacity: .2;
+  opacity: 0.2;
   width: 100%;
   height: 146px;
   position: absolute;
@@ -174,7 +186,7 @@ textarea::-webkit-input-placeholder {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }
 .ms-article .el-container .el-aside .ms-article-item img {
@@ -256,6 +268,9 @@ textarea::-webkit-input-placeholder {
 .ms-article .el-container .el-main .ms-main-body {
   height: calc(100% - 180px);
   background: #fff;
+}
+.ms-article .el-container .el-main .ms-main-body .edui-default {
+  border: none;
 }
 .ms-article .el-container .el-main .ms-main-body .edui-default .edui-editor .edui-editor-toolbarboxouter {
   background-color: none !important;

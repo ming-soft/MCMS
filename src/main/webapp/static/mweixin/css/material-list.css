@@ -84,6 +84,9 @@ textarea::-webkit-input-placeholder {
   background: #fff;
   height: 50px;
 }
+.ms-header button {
+  height: 30px;
+}
 .ms-pagination {
   padding: 20px 0;
   text-align: right;
@@ -94,11 +97,31 @@ textarea::-webkit-input-placeholder {
 .ms-tr {
   text-align: right;
 }
-.el-button + .el-button {
-  margin-left: 0;
-}
 .ms-weixin-content {
   width: calc(100% - 140px);
+}
+.ms-weixin-dialog .el-dialog__header {
+  height: 55px;
+  box-sizing: border-box;
+  padding: 10px 10px 25px 10px;
+  border-bottom: 1px solid #ddd;
+}
+.ms-weixin-dialog .el-dialog__header .el-dialog__title {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+.ms-weixin-dialog .el-dialog__footer {
+  border-top: 1px solid #ddd;
+  padding: 15px !important;
+}
+.ms-hover {
+  cursor: pointer;
+}
+.ms-hover:hover {
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
 }
 .ms-admin-material-list {
   background: #fff;
@@ -133,11 +156,17 @@ textarea::-webkit-input-placeholder {
   text-overflow: ellipsis;
   white-space: nowrap;
   display: block;
+  cursor: pointer;
+}
+.ms-admin-material-list .ms-admin-material-item .body span:hover {
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
 }
 .ms-admin-material-list .ms-admin-material-item .body img {
   width: 170px;
   height: 110px;
-  margin: 0.5em auto;
+  margin: 0 auto;
   object-fit: cover;
 }
 .ms-admin-material-list .ms-admin-material-item .body p {
@@ -157,6 +186,11 @@ textarea::-webkit-input-placeholder {
   color: #999;
   margin: auto;
   cursor: pointer;
+}
+.ms-admin-material-list .ms-admin-material-item .footer i:hover {
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
 }
 .ms-admin-material-list .ms-admin-material-item .footer em {
   width: 1px;

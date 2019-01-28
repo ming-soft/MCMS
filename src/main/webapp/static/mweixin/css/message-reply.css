@@ -74,7 +74,7 @@ textarea::-webkit-input-placeholder {
 .ms-container {
   margin: 12px;
   height: calc(100% - 24px);
-  padding: 14px 14px 0 14px;
+  padding: 14px;
   background: #fff;
 }
 .ms-header {
@@ -83,6 +83,9 @@ textarea::-webkit-input-placeholder {
   border-bottom: 1px solid #ddd;
   background: #fff;
   height: 50px;
+}
+.ms-header button {
+  height: 30px;
 }
 .ms-pagination {
   padding: 20px 0;
@@ -93,9 +96,6 @@ textarea::-webkit-input-placeholder {
 }
 .ms-tr {
   text-align: right;
-}
-.el-button + .el-button {
-  margin-left: 0;
 }
 .ms-weixin-content {
   width: calc(100% - 140px);
@@ -115,11 +115,24 @@ textarea::-webkit-input-placeholder {
   border-top: 1px solid #ddd;
   padding: 15px !important;
 }
+.ms-hover {
+  cursor: pointer;
+}
+.ms-hover:hover {
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
+}
+.ms-admin-message-reply .ms-container {
+  display: flex;
+}
+.ms-admin-message-reply .ms-container .message-reply-tabs {
+  padding-left: 12px;
+}
 .ms-message-reply {
   display: flex;
   justify-content: flex-start;
-  padding: 20px;
-  height: 267px;
+  height: auto;
 }
 .ms-message-reply > div:first-child {
   margin-right: 10px;
@@ -157,14 +170,17 @@ textarea::-webkit-input-placeholder {
 }
 .ms-message-reply .message-reply-tabs .el-tabs__content .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content .el-icon-delete {
   position: absolute;
-  right: 5px;
+  right: 7px;
   bottom: 66px;
   font-weight: initial;
   font-size: 12px;
   color: #aaa;
+  cursor: pointer;
 }
 .ms-message-reply .message-reply-tabs .el-tabs__content .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content .el-icon-delete:hover {
-  cursor: pointer;
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
 }
 .ms-message-reply .message-reply-tabs .el-tabs__content .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content textarea {
   height: 127px !important;
@@ -181,6 +197,12 @@ textarea::-webkit-input-placeholder {
 .ms-message-reply .message-reply-tabs .el-tabs__content .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content .footer i {
   margin-right: 12px;
   font-size: 16px;
+  cursor: pointer;
+}
+.ms-message-reply .message-reply-tabs .el-tabs__content .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content .footer i:hover {
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
 }
 .ms-message-reply .message-reply-tabs .el-tabs__content .el-tab-pane > .el-form .ms-message-reply-content .el-form-item__content .footer a {
   font-weight: initial;

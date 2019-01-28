@@ -2,55 +2,64 @@
 <link rel="stylesheet" href="../../../../static/mweixin/css/custom-menu.css">
 <div id="custom-menu" class="ms-custom-menu ms-weixin-content" v-if="menuVue.menuActive == '自定义菜单'">
    <el-container class="ms-custom-container">
-      <el-aside>
-         <el-container>
-            <el-header>公众号</el-header>
-            <el-main></el-main>
-            <el-footer>
-               <el-button icon="el-icon-date"></el-button>
-               <div class="ms-create-menu">
-                  <div class="ms-create-sub-menu">
-                     <el-button type="primary" @click='addSubMenuShow = !addSubMenuShow'>新建菜单</el-button>
-                     <el-button icon="el-icon-plus" v-show='addSubMenuShow'></el-button>
+      <el-header class="ms-header" height="50px">
+         <el-row>
+            <el-button type="danger" size="small" icon="el-icon-delet">删除</el-button>
+            <el-button class="ms-fr" size="small" icon="el-icon-refresh">重置</el-button>
+            <el-button type="success" class="ms-fr" size="small" icon="el-icon-tickets">保存</el-button>
+         </el-row>
+      </el-header>
+      <el-container class="ms-container">
+         <el-aside>
+            <el-container>
+               <el-header>公众号</el-header>
+               <el-main></el-main>
+               <el-footer>
+                  <el-button icon="el-icon-date"></el-button>
+                  <div class="ms-create-menu">
+                     <div class="ms-create-sub-menu">
+                        <el-button type="primary" @click='addSubMenuShow = !addSubMenuShow'>新建菜单</el-button>
+                        <el-button icon="el-icon-plus" v-show='addSubMenuShow'></el-button>
+                     </div>
+                     <el-button icon="el-icon-plus"></el-button>
                   </div>
-                  <el-button icon="el-icon-plus"></el-button>
+               </el-footer>
+            </el-container>
+         </el-aside>
+         <el-main>
+            <el-card class="custom-menu-card" shadow="never">
+               <div slot="header" class="clearfix">
+                  <span>新建菜单</span>
                </div>
-            </el-footer>
-         </el-container>
-      </el-aside>
-      <el-main>
-         <el-card class="custom-menu-card" shadow="never">
-            <div slot="header" class="clearfix">
-               <span>新建菜单</span>
-            </div>
-            <el-form ref="customMenuForm" :rule='customMenuFormRules' :model="customMenuForm" label-width="80px">
-               <el-form-item label="菜单名称" prop='name' class="ms-custom-menu-name">
-                  <el-input v-model="customMenuForm.name" size='mini'></el-input>
-                  <span>菜单名称字数不多于5个汉字或10个字母</span>
-               </el-form-item>
-               <el-form-item label="菜单内容" class="ms-custom-menu-content">
-                  <el-tabs v-model="activeName" @tab-click="">
-                     <el-tab-pane label="图片" name="picture">
-                        <span slot="label">
-                           <i class="el-icon-picture"></i>图片</span>
-                        <div onclick="materialBankFormVue.open()">
-                           <i class="el-icon-picture-outline"></i>
-                           <span>从素材库选择</span>
-                        </div>
-                        <div onclick="newPicFormVue.open()">
-                           <i class="el-icon-plus"></i>
-                           <span>新建图片</span>
-                        </div>
-                     </el-tab-pane>
-                     <el-tab-pane label="图文管理" name="article">
-                        <span slot="label">
-                           <i class="el-icon-picture"></i>图文管理</span>
-                     </el-tab-pane>
-                  </el-tabs>
-               </el-form-item>
-            </el-form>
-         </el-card>
-      </el-main>
+               <el-form ref="customMenuForm" :rule='customMenuFormRules' :model="customMenuForm" label-width="80px">
+                  <el-form-item label="菜单名称" prop='name' class="ms-custom-menu-name">
+                     <el-input v-model="customMenuForm.name" size='mini'></el-input>
+                     <span>菜单名称字数不多于5个汉字或10个字母</span>
+                  </el-form-item>
+                  <el-form-item label="菜单内容" class="ms-custom-menu-content">
+                     <el-tabs v-model="activeName" @tab-click="">
+                        <el-tab-pane label="图片" name="picture">
+                           <span slot="label">
+                              <i class="el-icon-picture"></i>图片</span>
+                           <div onclick="materialBankFormVue.open()">
+                              <i class="el-icon-picture-outline"></i>
+                              <span>从素材库选择</span>
+                           </div>
+                           <div onclick="newPicFormVue.open()">
+                              <i class="el-icon-plus"></i>
+                              <span>新建图片</span>
+                           </div>
+                        </el-tab-pane>
+                        <el-tab-pane label="图文管理" name="article">
+                           <span slot="label">
+                              <i class="el-icon-picture"></i>图文管理</span>
+                        </el-tab-pane>
+                     </el-tabs>
+                  </el-form-item>
+               </el-form>
+            </el-card>
+         </el-main>
+      </el-container>
    </el-container>
 </div>
 <script>
@@ -78,7 +87,7 @@
          activeName: 'picture'
       },
       methods: {
-         
+
       }
 
    })

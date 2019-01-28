@@ -65,7 +65,7 @@ textarea::-webkit-input-placeholder {
 .ms-container {
     margin: 12px;
     height: ~'calc(100% - 24px)';
-    padding: 14px 14px 0 14px;
+    padding: 14px;
     background: #fff;
 }
 
@@ -74,7 +74,10 @@ textarea::-webkit-input-placeholder {
     margin: 0;
     border-bottom: 1px solid #ddd;
     background: #fff;
-    height: 50px
+    height: 50px;
+    button{
+        height: 30px;
+    }
 }
 
 .ms-pagination {
@@ -91,7 +94,7 @@ textarea::-webkit-input-placeholder {
 }
 
 .el-button+.el-button {
-    margin-left: 0
+//  margin-left: 0
 }
 
 .ms-weixin-content{
@@ -112,5 +115,15 @@ textarea::-webkit-input-placeholder {
     .el-dialog__footer{
         border-top: 1px solid @borderColor;
         padding: 15px !important;
+    }
+}
+
+//选中样式
+.ms-hover{
+    cursor: pointer;
+    &:hover{
+        color: @themeColor;
+        background: #fff;
+        border-color: @themeColor;
     }
 }

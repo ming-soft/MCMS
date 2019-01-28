@@ -1,72 +1,79 @@
 @import "../ms-admin/4.7.0/less/app.less";
+.ms-admin-message-reply {
+    .ms-container {
+        display: flex;
+        .message-reply-tabs {
+            padding-left: 12px;
+        }
+    }
+}
+
 // 消息回复 && 关注回复
-.ms-message-reply{
+.ms-message-reply {
     .ms-flex(flex-start);
-    padding:20px;
-    height: 267px; 
-    >div:first-child{
-        margin-right:10px;
-        line-height: 40px; 
+    height: auto;
+    >div:first-child {
+        margin-right: 10px;
+        line-height: 40px;
     }
     // 导航切换 
-    .message-reply-tabs{
+    .message-reply-tabs {
         flex: 1;
-        border-radius:4px 4px 0 0 !important;
+        border-radius: 4px 4px 0 0 !important;
         border: none !important;
-        .el-tabs__header{
+        .el-tabs__header {
             // background: #f2f2f6;
             margin: 0 !important;
-            .el-tabs__nav-scroll{
+            .el-tabs__nav-scroll {
                 padding: 0 20px;
-                border:1px solid @borderColor;
+                border: 1px solid @borderColor;
             }
         }
-        .el-tabs__content{
-            border:1px solid @borderColor;
-            .el-tab-pane{
+        .el-tabs__content {
+            border: 1px solid @borderColor;
+            .el-tab-pane {
                 padding: 0 !important;
                 width: 100%;
                 .ms-flex();
-                >.el-form{
+                >.el-form {
                     width: 100%;
-                    .ms-message-reply-content{
+                    .ms-message-reply-content {
                         margin: 0;
-                        .el-form-item__content{
+                        .el-form-item__content {
                             position: relative;
-                            .el-icon-delete{
+                            .el-icon-delete {
                                 position: absolute;
-                                right: 5px;
+                                right: 7px;
                                 bottom: 66px;
-                                .ms-font(@auxiliarySize,@auxiliaryColor);
-                                &:hover{
-                                    cursor: pointer;
-                                }
+                                .ms-font(@auxiliarySize, @auxiliaryColor);
+                                .ms-hover;
                             }
-                            textarea{
+                            textarea {
                                 height: 127px !important;
                                 border: none !important;
                                 border-bottom: 1px solid @borderColor !important;
                             }
-                            .footer{
+                            .footer {
                                 height: 58px;
                                 padding: 0 14px;
                                 .ms-flex(flex-start);
                                 align-items: center;
-                                i{
+                                i {
                                     margin-right: 12px;
                                     font-size: 16px;
+                                    .ms-hover;
                                 }
-                                a{
-                                    .ms-font(@defalutSize,@themeColor);
+                                a {
+                                    .ms-font(@defalutSize, @themeColor);
                                 }
-                                i,a{
-                                    &:hover{
+                                i,
+                                a {
+                                    &:hover {
                                         cursor: pointer;
                                     }
                                 }
                             }
                         }
-                        
                     }
                 }
             }

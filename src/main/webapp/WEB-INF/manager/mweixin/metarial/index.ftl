@@ -3,9 +3,9 @@
 <div id="material-list-vue" v-if="menuVue.menuActive == '图文'" class="ms-weixin-content">
    <el-container>
       <!--右侧头部-->
-      <el-header class="ms-header" height="52px">
+      <el-header class="ms-header" height="50px">
          <el-row>
-            <el-button type="primary" size="small" icon="el-icon-plus">添加</el-button>
+            <el-button type="primary" size="small" icon="el-icon-plus" @click="menuVue.menuActive = '新建图文'">添加</el-button>
             <el-button class="ms-fr" size="small" icon="el-icon-refresh">刷新</el-button>
             <el-button class="ms-fr" size="small">同步微信素材</el-button>
          </el-row>
@@ -36,7 +36,7 @@
                   <p v-text="material.det"></p>
                </div>
                <div class="footer">
-                  <i class="el-icon-edit"></i>
+                  <i class="el-icon-edit" @click="menuVue.menuActive = '新建图文'"></i>
                   <em></em>
                   <i class="el-icon-delete"></i>
                </div>

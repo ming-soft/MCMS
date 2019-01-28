@@ -1,9 +1,9 @@
 <!--图文素材页-->
 <link rel="stylesheet" href="../../../static/mweixin/css/picture-list.css">
 <div id="picture-list-vue" v-if="menuVue.menuActive == '图片'" class="ms-weixin-content">
-   <el-container>
+   <el-container class="ms-admin-picture">
       <!--右侧头部-->
-      <el-header class="ms-header" height="52px">
+      <el-header class="ms-header" height="50px">
          <el-row>
             <el-button type="primary" size="small" icon="el-icon-plus">添加</el-button>
             <el-button class="ms-fr" size="small" icon="el-icon-refresh">刷新</el-button>
@@ -25,22 +25,42 @@
          </el-header>
          <!--素材列表-->
          <el-main class="ms-admin-picture-list">
-            <div class="ms-admin-picture-item" v-for="picture in pictureList">
-               <div class="body">
-                  <img :src="picture.img" />
-                  <div>
-                     <input type="checkbox" />
-                     <span v-text="picture.title"></span>
+            <el-container>
+               <el-aside class="ms-admin-picture-item">
+                  <div v-for="picture in pictureList">
+                     <div class="body">
+                        <img :src="picture.img" />
+                        <div>
+                           <input type="checkbox" />
+                           <span v-text="picture.title"></span>
+                        </div>
+                     </div>
+                     <div class="footer">
+                        <i class="el-icon-edit"></i>
+                        <em></em>
+                        <i class="el-icon-download"></i>
+                        <em></em>
+                        <i class="el-icon-delete"></i>
+                     </div>
                   </div>
-               </div>
-               <div class="footer">
-                  <i class="el-icon-edit"></i>
-                  <em></em>
-                  <i class="el-icon-delete"></i>
-                  <em></em>
-                  <i class="el-icon-delete"></i>
-               </div>
-            </div>
+               </el-aside>
+               <el-main class="ms-admin-picture-show">
+                  <span>全部图片（6）</span>
+                  <div>
+                     <span>小米（1）</span>
+                     <i class="el-icon-edit"></i>
+                     <i class="el-icon-delete"></i>
+                  </div>
+                  <div>
+                     <span>小米（1）</span>
+                     <i class="el-icon-edit"></i>
+                     <i class="el-icon-delete"></i>
+                  </div>
+                  <p>
+                     <i class="el-icon-plus"></i>新建分组</p>
+               </el-main>
+            </el-container>
+
          </el-main>
       </el-container>
    </el-container>

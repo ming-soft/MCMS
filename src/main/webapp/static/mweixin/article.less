@@ -6,11 +6,15 @@
     background: transparent !important;
     padding: 0 !important;
     .el-container {
+        .ms-container {
+            padding: 0;
+            background: transparent;
+            align-items: flex-start;
+        }
         // 侧边
         .el-aside {
             padding: 14px;
-            background: #fff; 
-            height: 475px;
+            background: #fff;
             // 主文章
             .ms-main-article {
                 position: relative;
@@ -45,7 +49,7 @@
                     span {
                         width: 100%;
                         display: inline-block;
-                        .ms-ellipsis-clamp(1);
+                        .ms-ellipsis-clamp(2);
                     }
                 }
                 img {
@@ -116,7 +120,8 @@
             .ms-main-body {
                 height: calc(~'100% - 180px');
                 background: #fff;
-                .edui-default{
+                .edui-default {
+                    border: none;
                     .edui-editor {
                         .edui-editor-toolbarboxouter {
                             background-color: none !important;

@@ -1,42 +1,53 @@
 <!-- 关键词回复 -->
 <link rel="stylesheet" href="../../../../static/mweixin/css/keyword-reply.css">
 
-<div id="keyword-reply" class="keyword-reply ms-container ms-weixin-content" v-if="menuVue.menuActive == '关键词表单'">
-   <el-form :model="keywordReplyForm" status-icon :rules="keywordReplyFormRules" ref="keywordReplyForm" label-width="100px">
-      <el-form-item label="关键词" prop="keyword" class="ms-keyword-input">
-         <el-row type='flex' justify='space-between' align='center'>
-            <el-col :span='12'>
-               <el-input placeholder="请输入内容" v-model="keywordReplyForm.keyword" class="input-with-select" size='mini' maxlength='30' @input='resetWord'>
-                  <el-select v-model="keywordReplyForm.select" slot="prepend" placeholder="请选择">
-                     <el-option label="模糊匹配" value="1"></el-option>
-                     <el-option label="全匹配" value="2"></el-option>
-                  </el-select>
-                  <span slot='suffix' v-text="wordNumber+'/30'"></span>
-               </el-input>
-            </el-col>
-            <el-col>
-               <i class="el-icon-plus" @click='addKeyWord'></i>
-            </el-col>
+<div id="keyword-reply" class="keyword-reply ms-weixin-content" v-if="menuVue.menuActive == '关键词表单'">
+   <el-container>
+      <el-header class="ms-header" height="50px">
+         <el-row>
+            <el-button class="ms-fr" size="small" icon="el-icon-arrow-left" @click="menuVue.menuActive = '关键词回复'">返回</el-button>
+            <el-button class="ms-fr" size="small" icon="el-icon-refresh">重置</el-button>
+            <el-button class="ms-fr" type="success" size="small" icon="el-icon-tickets" @click="menuVue.menuActive = '关键词回复'">保存</el-button>
          </el-row>
-      </el-form-item>
-      <el-form-item class="ms-keyword-reply-content" label="回复内容">
-         <el-tabs v-model="activeName" @tab-click="" class="keyword-reply-tabs">
-            <el-tab-pane label="文字" name="text">
-               <el-input type="textarea" v-model="keywordReplyForm.reply" :autosize="{ minRows: 4, maxRows: 4}" resize='none'>
-               </el-input>
-               <i class="el-icon-delete" @click="keywordReplyForm.reply = ''"></i>
-               <div class="footer">
-                  <i class="el-icon-star-off"></i>
-                  <a>插入超链接</a>
-               </div>
-            </el-tab-pane>
-            <el-tab-pane label="图片" name="picture">
-            </el-tab-pane>
-            <el-tab-pane label="图文" name="article">
-            </el-tab-pane>
-         </el-tabs>
-      </el-form-item>
-   </el-form>
+      </el-header>
+      <el-main class="ms-container" width="100%">
+         <el-form :model="keywordReplyForm" status-icon :rules="keywordReplyFormRules" ref="keywordReplyForm" label-width="100px">
+            <el-form-item label="关键词" prop="keyword" class="ms-keyword-input">
+               <el-row type='flex' justify='space-between' align='center'>
+                  <el-col :span='12'>
+                     <el-input placeholder="请输入内容" v-model="keywordReplyForm.keyword" class="input-with-select" size='mini' maxlength='30' @input='resetWord'>
+                        <el-select v-model="keywordReplyForm.select" slot="prepend" placeholder="请选择">
+                           <el-option label="模糊匹配" value="1"></el-option>
+                           <el-option label="全匹配" value="2"></el-option>
+                        </el-select>
+                        <span slot='suffix' v-text="wordNumber+'/30'"></span>
+                     </el-input>
+                  </el-col>
+                  <el-col>
+                     <i class="el-icon-plus" @click='addKeyWord'></i>
+                  </el-col>
+               </el-row>
+            </el-form-item>
+            <el-form-item class="ms-keyword-reply-content" label="回复内容">
+               <el-tabs v-model="activeName" @tab-click="" class="keyword-reply-tabs">
+                  <el-tab-pane label="文字" name="text">
+                     <el-input type="textarea" v-model="keywordReplyForm.reply" :autosize="{ minRows: 4, maxRows: 4}" resize='none'>
+                     </el-input>
+                     <i class="el-icon-delete" @click="keywordReplyForm.reply = ''"></i>
+                     <div class="footer">
+                        <i class="el-icon-star-off"></i>
+                        <a>插入超链接</a>
+                     </div>
+                  </el-tab-pane>
+                  <el-tab-pane label="图片" name="picture">
+                  </el-tab-pane>
+                  <el-tab-pane label="图文" name="article">
+                  </el-tab-pane>
+               </el-tabs>
+            </el-form-item>
+         </el-form>
+      </el-main>
+   </el-container>
 </div>
 
 <script>

@@ -84,6 +84,9 @@ textarea::-webkit-input-placeholder {
   background: #fff;
   height: 50px;
 }
+.ms-header button {
+  height: 30px;
+}
 .ms-pagination {
   padding: 20px 0;
   text-align: right;
@@ -93,9 +96,6 @@ textarea::-webkit-input-placeholder {
 }
 .ms-tr {
   text-align: right;
-}
-.el-button + .el-button {
-  margin-left: 0;
 }
 .ms-weixin-content {
   width: calc(100% - 140px);
@@ -115,14 +115,30 @@ textarea::-webkit-input-placeholder {
   border-top: 1px solid #ddd;
   padding: 15px !important;
 }
+.ms-hover {
+  cursor: pointer;
+}
+.ms-hover:hover {
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
+}
+.ms-admin-picture {
+  height: 100%;
+}
 .ms-admin-picture-list {
   background: #fff;
   margin: 12px;
   padding: 14px;
   display: flex;
-  flex-wrap: wrap;
 }
 .ms-admin-picture-list .ms-admin-picture-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: calc(100% - 220px) !important;
+}
+.ms-admin-picture-list .ms-admin-picture-item > div {
   margin: 0 24px 0 0;
   padding: 10px 10px 0 10px;
   width: 230px;
@@ -131,38 +147,94 @@ textarea::-webkit-input-placeholder {
   border: 1px solid #e6e6e6;
   border-radius: 4px;
 }
-.ms-admin-picture-list .ms-admin-picture-item .body {
+.ms-admin-picture-list .ms-admin-picture-item > div .body {
   display: flex;
   flex-direction: column;
   line-height: 2em;
 }
-.ms-admin-picture-list .ms-admin-picture-item .body div {
+.ms-admin-picture-list .ms-admin-picture-item > div .body div {
   margin-top: 0.5em;
   display: flex;
   align-items: center;
 }
-.ms-admin-picture-list .ms-admin-picture-item .body div span {
+.ms-admin-picture-list .ms-admin-picture-item > div .body div span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   display: block;
+  cursor: pointer;
 }
-.ms-admin-picture-list .ms-admin-picture-item .body img {
+.ms-admin-picture-list .ms-admin-picture-item > div .body div span:hover {
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
+}
+.ms-admin-picture-list .ms-admin-picture-item > div .body img {
   width: 100%;
-  height: 110px;
+  height: 130px;
   object-fit: cover;
 }
-.ms-admin-picture-list .ms-admin-picture-item .footer {
+.ms-admin-picture-list .ms-admin-picture-item > div .footer {
   display: flex;
   padding: 14px 0;
 }
-.ms-admin-picture-list .ms-admin-picture-item .footer i {
+.ms-admin-picture-list .ms-admin-picture-item > div .footer i {
   color: #999;
   margin: auto;
   cursor: pointer;
 }
-.ms-admin-picture-list .ms-admin-picture-item .footer em {
+.ms-admin-picture-list .ms-admin-picture-item > div .footer i:hover {
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
+}
+.ms-admin-picture-list .ms-admin-picture-item > div .footer em {
   width: 1px;
   height: 1em;
   background: #e6e6e6;
+}
+.ms-admin-picture-list .ms-admin-picture-show {
+  min-width: 220px;
+  height: 100%;
+  margin: -14px 0;
+  padding: 14px;
+  border-left: 1px solid #e6e6e6;
+}
+.ms-admin-picture-list .ms-admin-picture-show > span {
+  padding: 10px;
+  display: flex;
+  background: #f2f2f6;
+  font-weight: bold;
+}
+.ms-admin-picture-list .ms-admin-picture-show > div {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  font-size: 14px;
+}
+.ms-admin-picture-list .ms-admin-picture-show > div span {
+  margin-right: auto;
+}
+.ms-admin-picture-list .ms-admin-picture-show > div i {
+  margin-left: 10px;
+  cursor: pointer;
+}
+.ms-admin-picture-list .ms-admin-picture-show > div i:hover {
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
+}
+.ms-admin-picture-list .ms-admin-picture-show > p {
+  margin: 0;
+  padding: 10px;
+  border: 1px solid #e6e6e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.ms-admin-picture-list .ms-admin-picture-show > p:hover {
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
 }
