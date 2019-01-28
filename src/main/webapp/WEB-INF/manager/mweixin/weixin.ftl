@@ -9,6 +9,7 @@
    <body>
       <!--#include virtual="menu.ftl" -->
       <!--#include virtual="metarial/index.ftl" -->
+      <!--#include virtual="picture/index.ftl" -->
       <!--#include virtual="keyword/index.ftl" -->
       <!--#include virtual="keyword/form.ftl" -->
       <!--#include virtual="menu/index.ftl" -->
