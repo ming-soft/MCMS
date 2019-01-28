@@ -2,12 +2,14 @@
 <html>
    <head>
       <title></title>
-      <!-- <#include "/include/head-file.ftl"/> -->
-     <!-- <link rel="stylesheet" href="${base}/static/ms-admin/4.7.0/css/index.css"> -->
+      <#include "/include/head-file.ftl"/>
+      <#include "/reset-password.ftl"/>
+      <#include "/exit-system.ftl"/>
+     <link rel="stylesheet" href="${base}/static/ms-admin/4.7.0/css/index.css">
     <!--#include virtual="include/head-file.ftl" --> 
     <!--#include virtual="./reset-password.ftl" --> 
     <!--#include virtual="./exit-system.ftl" --> 
-    <link rel="stylesheet" href="../../../static/ms-admin/4.7.0/css/index.css">
+    <!--<link rel="stylesheet" href="../../../static/ms-admin/4.7.0/css/index.css">-->
 
    </head>
    <body>
@@ -174,7 +176,7 @@
         // 菜单列表
         list:function(){
             var that = this;
-            ms.http.get(ms.manager + "/model/list.do")
+            ms.http.post(ms.manager + "/model/list.do")
                 .then((data)=>{
                     that.menuList = data.rows
                 }, (err) => {
@@ -242,6 +244,7 @@
          	ms.http.get(ms.manager + "/basic/manager/get.do")
                .then((data)=>{
                    that.peopleInfo = data
+                   resetPasswordVue.resetPasswordForm.managerName = that.peopleInfo.managerName
                }, (err) => {
                    that.$message.error(err);
                })	

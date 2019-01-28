@@ -3,15 +3,15 @@
 
 <head>
     <title></title>
-    <!-- <#include "/include/head-file.ftl"/> -->
-    <!-- <link rel="stylesheet" href="${base}/static/ms-admin/4.7.0/css/login.css"> -->
+    <#include "/include/head-file.ftl"/>
+    <link rel="stylesheet" href="${base}/static/ms-admin/4.7.0/css/login.css">
     
     <!--#include virtual="include/head-file.ftl" --> 
-    <link rel="stylesheet" href="../../../static/ms-admin/4.7.0/css/login.css">
+    <!--<link rel="stylesheet" href="../../../static/ms-admin/4.7.0/css/login.css">-->
 </head>
 
 <body>
-    <div id="login" class="login">
+    <div id="login" class="login" @keydown.enter="checkLogin">
         <el-container class="ms-admin-login-container">
             <el-main class="ms-admin-login-main">
                 <div class="ms-admin-login-warp">
@@ -33,7 +33,7 @@
                             <el-checkbox v-model="rememberPass">记住密码</el-checkbox>
                         </el-form-item>
                         <el-form-item class="ms-admin-form-item">
-                            <el-button type="primary" @click="checkLogin" class="ms-admin-login-btn">登录</el-button>
+                            <el-button type="primary" @click='checkLogin'  class="ms-admin-login-btn">登录</el-button>
                         </el-form-item>
                     </el-form>
                 </div>
@@ -52,7 +52,7 @@ var loginVue = new Vue({
             managerPassword: "",
             rand_code: '',
         },
-        verifCode: ms.manager + "/code?t=" + new Date().getTime(),
+        verifCode: ms.base + "/code?t=" + new Date().getTime(),
         rememberPass: '',
         loginFormRule: {
             managerName: [{
@@ -117,12 +117,12 @@ var loginVue = new Vue({
             })
         },
         code: function() {
-            this.verifCode = ms.manager + "/code?t=" + new Date().getTime();
+            this.verifCode = ms.base + "/code?t=" + new Date().getTime();
         },
 
     },
     mounted:function(){
-        this.verifCode = ms.manager + "/code?t=" + new Date().getTime()
+        this.verifCode = ms.base + "/code?t=" + new Date().getTime()
     }
 })
 </script>

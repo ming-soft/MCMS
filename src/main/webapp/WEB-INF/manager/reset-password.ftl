@@ -14,7 +14,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="isShow = false">取 消</el-button>
-                <el-button type="primary" @click="update">更新密码</el-button>
+                <el-button type="primary" @click="updatePassword">更新密码</el-button>
             </div>
     </el-dialog>
 </div>
@@ -27,13 +27,21 @@
             resetPasswordForm: {
                 managerName: '',
                 oldManagerPassword: '',
-                newManagerPassword: "",
+                newManagerPassword: '',
             }
         },
         methods: {
             // 更新密码
-            update: function () {
-                isShow = false
+            updatePassword: function () {
+            	var that = this;
+            	ms.http.post(ms.manager + "/updatePassword.do",that.resetPasswordForm)
+               .then((data)=>{
+                	that.resetPasswordForm.oldManagerPassword = '';
+                	that.resetPasswordForm.newManagerPassword = '';
+                	that.isShow = false;
+               }, (err) => {
+                   that.$message.error(err);
+               })	
             }
         }
     })
