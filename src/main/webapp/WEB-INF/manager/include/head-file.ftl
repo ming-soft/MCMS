@@ -43,9 +43,6 @@
     <script>
         // ms.base = "${base}";
         // ms.manager = "${managerPath}";
-
-        ms.base = "http://192.168.0.54:82";
-        ms.manager = "http://192.168.0.54:82/apis/ms";
         //图片懒加载
 			  Vue.use(VueLazyload, {
 			    error: ms.base + '/images/ic_image_deault.png',
