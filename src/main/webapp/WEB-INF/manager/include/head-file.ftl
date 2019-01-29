@@ -5,6 +5,7 @@
     <script type="text/javascript" src="https://unpkg.com/vue@2.5.21/dist/vue.min.js"></script>
     <!--小图标-->
     <link rel="stylesheet" href="//at.alicdn.com/t/font_847907_mkdvd7gopsg.css">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1035189_ddqz6fpwzxb.css">
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- 引入组件库 -->

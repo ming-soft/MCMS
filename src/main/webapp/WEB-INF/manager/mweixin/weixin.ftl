@@ -19,3 +19,14 @@
       <!--#include virtual="message/index.ftl" -->
    </body>
 </html>
+<script>
+    // 测试使用 ==> 微信其他接口走之前需要先走这几个接口
+    (function(){
+        ms.http.get(ms.manager + "/mweixin/11/function.do")
+        .then((res)=>{
+            console.log('res',true);
+        }, (err) => {
+            console.log(err)
+        })
+    })()
+</script>

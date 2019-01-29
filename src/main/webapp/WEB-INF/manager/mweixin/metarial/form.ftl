@@ -13,7 +13,7 @@
       <el-container class=" ms-container">
          <el-aside width="280px">
             <div class="ms-main-article">
-               <img :src='mainArticle.basicPic'>
+               <img :src='mainArticle.basicPic ||　'>
                <div class="ms-main-article-mask"></div>
                <span v-text='mainArticle.basicTitle'></span>
             </div>
@@ -22,7 +22,7 @@
                   <p>
                      <span v-text='element.basicTitle'></span>
                   </p>
-                  <img :src='element.basicThumbnailsl'>
+                  <img :src='element.basicThumbnails'>
                </div>
             </draggable>
             <div class="ms-article-footer">
@@ -67,20 +67,10 @@
       el: '#article',
       data: {
          mainArticle: {
-            basicPic: 'https://img03.sogoucdn.com/app/a/100520091/20190125112329', //主图
-            basicTitle: '国足0-3不敌伊朗被淘汰，赛后还有一个消息', //标题
+            basicPic: '', //主图
+            basicTitle: '', //标题
          },
-         // 文章列表
-         subArticleList: [{
-            basicTitle: '硬核！年会当着老板面唱，“干活的干不过写PPT的……',
-            basicThumbnailsl: 'https://img01.sogoucdn.com/app/a/100520091/20190125112509'
-         }, {
-            basicTitle: '知否知否，党组织犯错，处理有多严?',
-            basicThumbnailsl: 'https://img01.sogoucdn.com/app/a/100520091/20190125112509'
-         }, {
-            basicTitle: '没有奇迹，国足0-3不敌伊朗止步八强!',
-            basicThumbnailsl: 'https://img03.sogoucdn.com/app/a/100520091/20190125113148'
-         }],
+         subArticleList: [],// 子文章列表
          titleWordNumber: 64, //图文标题剩余字数
          authorWordNumber: 8, //图文作者剩余字数
          descWordNumber: 54, //摘要
@@ -93,6 +83,16 @@
          }
       },
       methods: {
+          open:function(material){
+                menuVue.menuActive = '新建图文';
+                if(material && material.newsId>0){
+                    // 编辑
+                    this.subArticleList = material.articleList
+                }else{
+                    // 新增
+                }
+                console.log('"material',material);
+          },
          // 添加文章
          addArticle: function() {
             if(this.subArticleList.length > 6) {

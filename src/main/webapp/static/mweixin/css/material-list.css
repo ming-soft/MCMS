@@ -50,7 +50,7 @@ input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
   font-weight: initial;
   font-size: 12px;
-  color: #aaa;
+  color: #999;
   resize: none;
 }
 *::-webkit-scrollbar {
@@ -68,13 +68,13 @@ textarea::-webkit-input-placeholder {
 *::-webkit-scrollbar-thumb {
   border-radius: 10px;
   /*滚动条的圆角*/
-  background-color: #ddd;
+  background-color: #e6e6e6;
   /*滚动条的背景颜色*/
 }
 .ms-container {
   margin: 12px;
   height: calc(100% - 24px);
-  padding: 14px 14px 0 14px;
+  padding: 14px;
   background: #fff;
 }
 .ms-header {
@@ -104,7 +104,7 @@ textarea::-webkit-input-placeholder {
   height: 55px;
   box-sizing: border-box;
   padding: 10px 10px 25px 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e6e6e6;
 }
 .ms-weixin-dialog .el-dialog__header .el-dialog__title {
   font-weight: bold;
@@ -112,7 +112,7 @@ textarea::-webkit-input-placeholder {
   color: #333;
 }
 .ms-weixin-dialog .el-dialog__footer {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #e6e6e6;
   padding: 15px !important;
 }
 .ms-hover {
@@ -123,15 +123,18 @@ textarea::-webkit-input-placeholder {
   background: #fff;
   border-color: #0099ff;
 }
-.ms-admin-material-list {
+.ms-weixin-content .ms-header > .el-select--small:first-child {
+  width: 100px !important;
+}
+.ms-weixin-content .ms-admin-material-list {
   background: #fff;
   margin: 12px;
   padding: 14px;
   display: flex;
   flex-wrap: wrap;
 }
-.ms-admin-material-list .ms-admin-material-item {
-  margin: 0 24px 0 0;
+.ms-weixin-content .ms-admin-material-list .ms-admin-material-item {
+  margin: 0 24px 24px 0;
   padding: 0 10px;
   width: 230px;
   display: flex;
@@ -139,60 +142,68 @@ textarea::-webkit-input-placeholder {
   border: 1px solid #e6e6e6;
   border-radius: 4px;
 }
-.ms-admin-material-list .ms-admin-material-item .head {
+.ms-weixin-content .ms-admin-material-list .ms-admin-material-item .head {
   border-bottom: 1px solid #e6e6e6;
   padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.ms-admin-material-list .ms-admin-material-item .head span {
-  color: #999;
+.ms-weixin-content .ms-admin-material-list .ms-admin-material-item .head span {
+  color: #333;
 }
-.ms-admin-material-list .ms-admin-material-item .body {
+.ms-weixin-content .ms-admin-material-list .ms-admin-material-item .head .icon-weixin {
+  font-weight: initial;
+  font-size: 16px;
+  color: #9acd32;
+}
+.ms-weixin-content .ms-admin-material-list .ms-admin-material-item .body {
   display: flex;
   flex-direction: column;
   line-height: 2em;
 }
-.ms-admin-material-list .ms-admin-material-item .body span {
+.ms-weixin-content .ms-admin-material-list .ms-admin-material-item .body span {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   display: block;
   cursor: pointer;
 }
-.ms-admin-material-list .ms-admin-material-item .body span:hover {
+.ms-weixin-content .ms-admin-material-list .ms-admin-material-item .body span:hover {
   color: #0099ff;
   background: #fff;
   border-color: #0099ff;
 }
-.ms-admin-material-list .ms-admin-material-item .body img {
+.ms-weixin-content .ms-admin-material-list .ms-admin-material-item .body img {
   width: 170px;
   height: 110px;
   margin: 0 auto;
   object-fit: cover;
 }
-.ms-admin-material-list .ms-admin-material-item .body p {
+.ms-weixin-content .ms-admin-material-list .ms-admin-material-item .body p {
   margin: 0;
-  color: #999;
+  color: #333;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
-.ms-admin-material-list .ms-admin-material-item .footer {
+.ms-weixin-content .ms-admin-material-list .ms-admin-material-item .footer {
   display: flex;
   padding: 14px 0;
 }
-.ms-admin-material-list .ms-admin-material-item .footer i {
-  color: #999;
+.ms-weixin-content .ms-admin-material-list .ms-admin-material-item .footer i {
+  color: #333;
   margin: auto;
   cursor: pointer;
 }
-.ms-admin-material-list .ms-admin-material-item .footer i:hover {
+.ms-weixin-content .ms-admin-material-list .ms-admin-material-item .footer i:hover {
   color: #0099ff;
   background: #fff;
   border-color: #0099ff;
 }
-.ms-admin-material-list .ms-admin-material-item .footer em {
+.ms-weixin-content .ms-admin-material-list .ms-admin-material-item .footer em {
   width: 1px;
   height: 1em;
   background: #e6e6e6;
