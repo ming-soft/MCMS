@@ -1,0 +1,291 @@
+/*
+*这里的值严格按照UI设计图标注值来进行设置
+*/
+/*
+*颜色
+*/
+/*
+*页面的边距
+*/
+/*
+*字体
+*/
+/*
+*头像
+*/
+/*
+ * 按钮
+ */
+/*
+*对常见的多行样式进行了方法封装，方便调用，加快开发效率
+*/
+html,
+body {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #eee;
+  margin: 0;
+  display: flex;
+  font-weight: initial !important;
+  font-size: 14px !important;
+  color: #333 !important;
+}
+html *,
+body * {
+  text-decoration: none !important;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+.ms-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+.ms-align-center {
+  display: flex;
+  align-items: center;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  font-weight: initial;
+  font-size: 12px;
+  color: #aaa;
+  resize: none;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+/*定义滚动条轨道 内阴影+圆角*/
+*::-webkit-scrollbar-track {
+  border-radius: 10px;
+  /*滚动条的背景区域的圆角*/
+  background-color: #eee;
+  /*滚动条的背景颜色*/
+}
+/*定义滑块 内阴影+圆角*/
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  /*滚动条的圆角*/
+  background-color: #ddd;
+  /*滚动条的背景颜色*/
+}
+.ms-container {
+  margin: 12px;
+  height: calc(100% - 24px);
+  padding: 14px;
+  background: #fff;
+}
+.ms-header {
+  padding: 10px;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+  height: 50px;
+}
+.ms-header button {
+  height: 30px;
+}
+.ms-pagination {
+  padding: 20px 0;
+  text-align: right;
+}
+.ms-fr {
+  float: right;
+}
+.ms-tr {
+  text-align: right;
+}
+.ms-weixin-content {
+  width: calc(100% - 140px);
+}
+.ms-weixin-dialog .el-dialog__header {
+  height: 55px;
+  box-sizing: border-box;
+  padding: 10px 10px 25px 10px;
+  border-bottom: 1px solid #ddd;
+}
+.ms-weixin-dialog .el-dialog__header .el-dialog__title {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+.ms-weixin-dialog .el-dialog__footer {
+  border-top: 1px solid #ddd;
+  padding: 15px !important;
+}
+.ms-hover {
+  cursor: pointer;
+}
+.ms-hover:hover {
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
+}
+.ms-article {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background: transparent !important;
+  padding: 0 !important;
+}
+.ms-article .el-container .ms-container {
+  padding: 0;
+  background: transparent;
+  align-items: flex-start;
+}
+.ms-article .el-container .el-aside {
+  padding: 14px;
+  background: #fff;
+}
+.ms-article .el-container .el-aside .ms-main-article {
+  position: relative;
+}
+.ms-article .el-container .el-aside .ms-main-article img {
+  width: 100%;
+  height: 146px;
+}
+.ms-article .el-container .el-aside .ms-main-article .ms-main-article-mask {
+  background: #000;
+  opacity: 0.2;
+  width: 100%;
+  height: 146px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.ms-article .el-container .el-aside .ms-main-article span {
+  position: absolute;
+  bottom: 0;
+  padding: 15px;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.ms-article .el-container .el-aside .ms-article-item {
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ddd;
+}
+.ms-article .el-container .el-aside .ms-article-item p {
+  margin: 0 10px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.ms-article .el-container .el-aside .ms-article-item p span {
+  width: 100%;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.ms-article .el-container .el-aside .ms-article-item img {
+  width: 50px;
+  height: 50px;
+}
+.ms-article .el-container .el-aside .ms-article-item:hover {
+  cursor: pointer;
+}
+.ms-article .el-container .el-aside .ms-article-footer {
+  background: #fff;
+  padding-top: 20px;
+}
+.ms-article .el-container .el-aside .ms-article-footer .el-button {
+  width: 100%;
+  background: #f2f2f6;
+}
+.ms-article .el-container .el-aside .ms-article-footer .el-button i,
+.ms-article .el-container .el-aside .ms-article-footer .el-button span {
+  font-weight: initial;
+  font-size: 12px;
+  color: #aaa;
+}
+.ms-article .el-container .el-main {
+  flex: 1;
+  margin-left: 14px;
+  padding: 0 !important;
+}
+.ms-article .el-container .el-main .ms-main-header {
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  height: 180px;
+  padding: 20px;
+  padding-bottom: 24px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #ddd;
+}
+.ms-article .el-container .el-main .ms-main-header .ms-pic-upload {
+  width: 140px;
+  height: 140px;
+  border-radius: 4px;
+  border: 1px dashed #ddd;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-right: 20px;
+}
+.ms-article .el-container .el-main .ms-main-header .ms-pic-upload .el-upload {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+.ms-article .el-container .el-main .ms-main-header .ms-pic-upload .el-upload span {
+  font-weight: initial;
+  font-size: 12px;
+  color: #aaa;
+  margin-top: 4px;
+}
+.ms-article .el-container .el-main .ms-main-header .ms-pic-upload .el-upload i {
+  font-weight: initial;
+  font-size: 18px;
+  color: #aaa;
+}
+.ms-article .el-container .el-main .ms-main-header .el-form {
+  flex: 1;
+  margin: 0 !important;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+.ms-article .el-container .el-main .ms-main-header .el-form .el-form-item {
+  margin-bottom: 0 !important;
+}
+.ms-article .el-container .el-main .ms-main-header .el-form .el-input__suffix {
+  top: -3px !important;
+}
+.ms-article .el-container .el-main .ms-main-body {
+  height: calc(100% - 180px);
+  background: #fff;
+}
+.ms-article .el-container .el-main .ms-main-body .edui-default {
+  border: none;
+}
+.ms-article .el-container .el-main .ms-main-body .edui-default .edui-editor .edui-editor-toolbarboxouter {
+  background-color: none !important;
+  background-image: none !important;
+}
+.ms-article .el-container .el-main .ms-main-body .edui-default .edui-editor .edui-editor {
+  border: none !important;
+}
+.ms-article .el-container .el-main .ms-main-body .edui-default .edui-editor .edui-editor .edui-editor-toolbarbox {
+  box-shadow: none !important;
+}
+.ms-article .el-container .el-main .ms-main-body .edui-default .edui-editor .edui-editor .edui-editor-toolbarbox .edui-editor-toolbarboxouter {
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}

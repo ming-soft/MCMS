@@ -1,0 +1,278 @@
+/*
+*这里的值严格按照UI设计图标注值来进行设置
+*/
+/*
+*颜色
+*/
+/*
+*页面的边距
+*/
+/*
+*字体
+*/
+/*
+*头像
+*/
+/*
+ * 按钮
+ */
+/*
+*对常见的多行样式进行了方法封装，方便调用，加快开发效率
+*/
+html,
+body {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #eee;
+  margin: 0;
+  display: flex;
+  font-weight: initial !important;
+  font-size: 14px !important;
+  color: #333 !important;
+}
+html *,
+body * {
+  text-decoration: none !important;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+.ms-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+.ms-align-center {
+  display: flex;
+  align-items: center;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  font-weight: initial;
+  font-size: 12px;
+  color: #aaa;
+  resize: none;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+/*定义滚动条轨道 内阴影+圆角*/
+*::-webkit-scrollbar-track {
+  border-radius: 10px;
+  /*滚动条的背景区域的圆角*/
+  background-color: #eee;
+  /*滚动条的背景颜色*/
+}
+/*定义滑块 内阴影+圆角*/
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  /*滚动条的圆角*/
+  background-color: #ddd;
+  /*滚动条的背景颜色*/
+}
+.ms-container {
+  margin: 12px;
+  height: calc(100% - 24px);
+  padding: 14px 14px 0 14px;
+  background: #fff;
+}
+.ms-header {
+  padding: 10px;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+  height: 50px;
+}
+.ms-header button {
+  height: 30px;
+}
+.ms-pagination {
+  padding: 20px 0;
+  text-align: right;
+}
+.ms-fr {
+  float: right;
+}
+.ms-tr {
+  text-align: right;
+}
+.ms-weixin-content {
+  width: calc(100% - 140px);
+}
+.ms-weixin-dialog .el-dialog__header {
+  height: 55px;
+  box-sizing: border-box;
+  padding: 10px 10px 25px 10px;
+  border-bottom: 1px solid #ddd;
+}
+.ms-weixin-dialog .el-dialog__header .el-dialog__title {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+.ms-weixin-dialog .el-dialog__footer {
+  border-top: 1px solid #ddd;
+  padding: 15px !important;
+}
+.ms-hover {
+  cursor: pointer;
+}
+.ms-hover:hover {
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
+}
+.ms-custom-menu {
+  color: #f2f2f6;
+}
+.ms-custom-menu .ms-custom-container {
+  display: flex;
+  justify-content: space-between;
+}
+.ms-custom-menu .ms-custom-container > .ms-container {
+  padding: 0;
+  background: transparent;
+}
+.ms-custom-menu .ms-custom-container .el-aside {
+  background: #fff;
+  width: 280px !important;
+  height: 470px !important;
+}
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-header {
+  height: 40px !important;
+  line-height: 40px !important;
+  font-weight: initial;
+  font-size: 16px;
+  color: #fff;
+  text-align: center;
+  background: #323232;
+}
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-main {
+  padding: 0;
+  width: 280px !important;
+  height: 379px !important;
+}
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer {
+  white-space: nowrap;
+  padding: 0;
+  font-size: 0;
+  background-color: #FAFAFA;
+  width: 280px !important;
+  height: 50px !important;
+  display: flex;
+  justify-content: flex-start;
+  border-top: 1px solid #ddd !important;
+}
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer > .el-button {
+  width: 40px !important;
+  height: 50px !important;
+  padding: 0 !important;
+  border: none !important;
+  border-right: 1px solid #ddd !important;
+}
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .el-button {
+  border-radius: 0 !important;
+  height: 50px !important;
+  background: transparent !important;
+}
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .ms-create-menu {
+  flex: 1;
+  font-size: 0;
+  display: flex;
+  justify-content: space-between;
+}
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .ms-create-menu .el-button {
+  flex: 1;
+  border: none !important;
+  background: transparent !important;
+}
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .ms-create-menu .el-button span {
+  color: #333;
+}
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .ms-create-menu .ms-create-sub-menu {
+  flex: 1;
+  position: relative;
+}
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .ms-create-menu .ms-create-sub-menu > .el-button:first-child {
+  width: 100%;
+}
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .ms-create-menu .ms-create-sub-menu > .el-button:last-child {
+  position: absolute;
+  top: -60px;
+  left: 0;
+  border: 1px solid #ddd !important;
+  width: 100%;
+}
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .ms-create-menu .el-button--default {
+  border-left: 1px solid #ddd !important;
+  padding: 0 !important;
+  flex: 1;
+}
+.ms-custom-menu .ms-custom-container .el-main {
+  padding: 0;
+  padding-left: 20px;
+  flex: 1;
+  height: 470px;
+}
+.ms-custom-menu .ms-custom-container .el-main .custom-menu-card {
+  height: 100%;
+}
+.ms-custom-menu .ms-custom-container .el-main .custom-menu-card .ms-custom-menu-name .el-form-item__content {
+  display: flex;
+  justify-content: flex-start;
+}
+.ms-custom-menu .ms-custom-container .el-main .custom-menu-card .ms-custom-menu-name .el-form-item__content .el-input {
+  width: 153px !important;
+  height: 30px !important;
+}
+.ms-custom-menu .ms-custom-container .el-main .custom-menu-card .ms-custom-menu-name .el-form-item__content span {
+  margin-left: 10px;
+  font-weight: initial;
+  font-size: 12px;
+  color: #aaa;
+}
+.ms-custom-menu .ms-custom-container .el-main .custom-menu-card .ms-custom-menu-content .el-tabs {
+  border: 1px solid #ddd;
+}
+.ms-custom-menu .ms-custom-container .el-main .custom-menu-card .ms-custom-menu-content .el-tabs .el-tabs__header {
+  background: #f2f2f6;
+  border-radius: 4px 4px 0 0 !important;
+  margin: 0 !important;
+}
+.ms-custom-menu .ms-custom-container .el-main .custom-menu-card .ms-custom-menu-content .el-tabs .el-tabs__header .el-tabs__nav-scroll {
+  padding: 0 20px;
+}
+.ms-custom-menu .ms-custom-container .el-main .custom-menu-card .ms-custom-menu-content .el-tabs .el-tabs__header .el-tabs__nav-scroll i {
+  margin-right: 8px;
+}
+.ms-custom-menu .ms-custom-container .el-main .custom-menu-card .ms-custom-menu-content .el-tabs .el-tab-pane {
+  padding: 20px;
+  width: 100%;
+  height: 220px;
+  display: flex;
+  justify-content: space-between;
+}
+.ms-custom-menu .ms-custom-container .el-main .custom-menu-card .ms-custom-menu-content .el-tabs .el-tab-pane > div {
+  flex: 1;
+  border: 1px dashed #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.ms-custom-menu .ms-custom-container .el-main .custom-menu-card .ms-custom-menu-content .el-tabs .el-tab-pane > div i {
+  font-weight: bolder;
+  font-size: 20px;
+  color: #0099ff;
+}
+.ms-custom-menu .ms-custom-container .el-main .custom-menu-card .ms-custom-menu-content .el-tabs .el-tab-pane > div span {
+  margin-top: 8px;
+  line-height: 1;
+}
+.ms-custom-menu .ms-custom-container .el-main .custom-menu-card .ms-custom-menu-content .el-tabs .el-tab-pane > div:hover {
+  cursor: pointer;
+}
+.ms-custom-menu .ms-custom-container .el-main .custom-menu-card .ms-custom-menu-content .el-tabs .el-tab-pane > div:last-child {
+  margin-left: 20px;
+}

@@ -1,0 +1,48 @@
+@import "../ms-admin/4.7.0/less/app.less";
+// 素材库表单
+.material-bank-form{
+    >.el-dialog__wrapper{
+        >.el-dialog{
+            .ms-width-height(895px,587px) !important;
+            >.el-dialog__body{
+                .ms-width-height(100%,469px) !important;
+                padding:0 !important; 
+                >.el-tabs{ 
+                    height: 100%;
+                    // 侧边导航
+                    .el-tabs__header{
+                        width: 150px !important;
+                        box-sizing: border-box;
+                        margin: 0 !important;
+                        .el-tabs__nav-scroll{
+                            padding:20px 10px;
+                        }
+                        .el-tabs__nav-wrap::after{
+                            width: 1px !important;
+                        }
+                        
+                    }
+                    // 导航内容
+                    .el-tabs__content{
+                        height: 100%;
+                        box-sizing: border-box;
+                        padding:20px 20px 10px 20px; 
+                        .el-tab-pane{
+                            height: 100%;
+                            .ms-flex();
+                            flex-direction: column;
+                            >div:first-child{
+                                flex: 1;
+                            }
+                        }
+                    }
+                    // tab选中的样式
+                    .is-active{
+                       background-color:rgb(233, 234, 240);
+                       .ms-font(@defalutSize,@defalutColor);
+                    }
+                }
+            }
+        }
+    }
+}
