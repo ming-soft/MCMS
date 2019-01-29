@@ -7,7 +7,7 @@
          <el-row>
             <el-button class="ms-fr" size="small" icon="el-icon-arrow-left" @click="menuVue.menuActive = '关键词回复'">返回</el-button>
             <el-button class="ms-fr" size="small" icon="el-icon-refresh">更新</el-button>
-            <el-button class="ms-fr" type="success" size="small" icon="el-icon-tickets" @click="menuVue.menuActive = '关键词回复'">保存</el-button>
+            <el-button class="ms-fr" type="success" size="small" icon="el-icon-tickets" @click="newsSave">保存</el-button>
          </el-row>
       </el-header>
       <el-container class=" ms-container">
@@ -39,10 +39,11 @@
                     :before-upload='beforeBasicPicUpload'
                     :action="ms.web + '/file/upload.do'"
                     :limit='1'
+                    :disabled='uploadDisable'
                     :data={uploadFloderPath:"/mweixin/news"}
                 >
                 <div class="ms-article-mask" v-show='headMask' @mouseover='headMask=true;' @mouseleave='headMask=false'>
-                    <i class="el-icon-delete" @click='delThumbnail'></i>
+                    <i class="el-icon-delete" @click="thumbnailUrl=mainArticle.basicPic='';uploadDisable=thumbnailShow=false"></i>
                 </div>
                 <img v-if="thumbnailShow" :src="thumbnailUrl"
                 class="article-thumbnail" @mouseover='headMask=true;' @mouseleave='headMask=false;'>
@@ -62,8 +63,9 @@
                         <span slot='suffix' v-text="authorWordNumber+'/8'"></span>
                      </el-input>
                   </el-form-item>
+                  <!-- @input="resetWordNum(120)" -->
                   <el-form-item label="摘要" prop="">
-                     <el-input size='small' type='textarea' placeholder="选填，如果不写会默认抓取正文前54个字" :autosize="{ minRows: 2, maxRows: 2}" resize='none' v-model='articleForm.basicDescription' @input="resetWordNum(120)">
+                     <el-input size='small' type='textarea' placeholder="选填，如果不写会默认抓取正文前54个字" :autosize="{ minRows: 2, maxRows: 2}" resize='none' v-model='articleForm.basicDescription'>
                         <span slot='suffix' v-text="descWordNumber+'/54'"></span>
                      </el-input>
                   </el-form-item>
@@ -101,6 +103,7 @@
          thumbnailShow:false,//显示缩略图
          thumbnailUrl:'',//缩略图路径
          headMask:false,//缩略图删除
+         uploadDisable:false,//是否禁止上传
       },
       watch:{
             articleForm:{
@@ -142,7 +145,7 @@
         },
         //   图片上传成功函数
         basicPicSuccess:function(url){
-            this.thumbnailShow = true
+            this.thumbnailShow = this.uploadDisable = true
             this.thumbnailUrl = ms.web + url
             this.mainArticle.basicPic = this.thumbnailUrl
 
@@ -162,16 +165,13 @@
                basicThumbnailsl: 'https://img03.sogoucdn.com/app/a/100520091/20190125113148'
             })
          },
-         delThumbnail:function(){
-
-         },
          // 计算剩余字数
          resetWordNum: function(type,limit) {
              var result = event.target.value;
              if(type.indexOf('Title') > -1){
-                this.titleWordNumber = this.titleWordNumber - result.length
+                this.titleWordNumber = limit - result.length
              }else{
-                 this.authorWordNumber = this.authorWordNumber - result.length
+                 this.authorWordNumber = limit - result.length
              }
              if(result.length >= limit){
                  this.$message.error('超出字数限制，请输入不超过'+limit+'字符');
@@ -179,7 +179,11 @@
                      this.articleForm[type] = result.slice(0,limit);
                  })
              }
-         }
+         },
+        //  保存微信文章
+        newsSave:function(){
+
+        }
       },
       mounted: function() {
          let that = this;
