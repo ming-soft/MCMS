@@ -1,0 +1,398 @@
+/**
+ * styling for DIVAS slider - skin dark focus
+ * @author Federica Sibella - Michela Chiucini
+ * @date 2014/08/01
+ * @version 0.1
+ * 
+ 1. RESET styles for Divas Slider
+ 2. SPINNER styles
+ 3. MANDATORY Divas Styles
+ 4. DEFAULT slider settings = SPECIFIC styles for demo
+ 5. GENERAL media queries
+ */
+/************************************************************************
+ * 1. RESET styles for Divas Slider
+ *************************************************************************/
+ 
+*,
+*:before,
+*:after {  -moz-box-sizing: border-box; -webkit-box-sizing: border-box;  box-sizing: border-box; }
+body { background: none repeat scroll 0 0 #fff; color: #313131;  font-family: 'Source Sans Pro',Helvetica,Arial,sans-serif; font-size: 62.5%; line-height: 1.4; min-width: 20em;  position: relative; width: 100%; margin: 0;}
+header, 
+section, 
+footer { position: relative; width: 100%; background: rgba(0, 0, 0, 0);  padding-top: 0;  height: auto; }
+ul, 
+ol { list-style: none outside none; }
+.esc { position: relative;	width: 100%; height: 1px; clear: both; }
+.clearfix:after {  content: "";  display: table;  clear: both; }
+
+/************************************************************************
+ * 2. SPINNER styles
+ *************************************************************************/
+
+@keyframes spin {
+    to {
+    	-webkit-transform: rotate(1turn);
+    	-moz-transform: rotate(1turn);
+    	-o-transform: rotate(1turn);
+    	-ms-transform: rotate(1turn); 
+    	transform: rotate(1turn); 
+    }
+}
+
+@keyframes extra-spin {
+    to { 
+    	-webkit-transform: rotate(1.125turn);
+    	-moz-transform: rotate(1.125turn);
+    	-o-transform: rotate(1.125turn);
+    	-ms-transform: rotate(1.125turn); 
+    	transform: rotate(1.125turn);  
+    }
+}
+
+.spin {
+    font-size: 36px;
+    text-align: center;
+    text-indent: -999em;
+}
+
+.spin:before,
+.spin:after {
+    content: "";
+    width: 0.5em;
+    height: 0.5em;
+    border-radius: 0.2em;
+    position: fixed;
+    top: 5em;
+    left: 50%;
+    display: inline-block;
+}
+
+.spin:before {
+    box-shadow:
+        /* 1 */
+        0 1em #eee,
+        0 1.125em #eee,
+        0 1.25em #eee,
+        0 1.375em #eee,
+        0 1.5em #eee,
+
+        /* 3 */
+        -1em 0 #aaa,
+        -1.125em 0 #aaa,
+        -1.25em 0 #aaa,
+        -1.375em 0 #aaa,
+        -1.5em 0 #aaa,
+
+        /* 5 */
+        0 -1em #666,
+        0 -1.125em #666,
+        0 -1.25em #666,
+        0 -1.375em #666,
+        0 -1.5em #666,
+
+        /* 7 */
+        1em 0 #222,
+        1.125em 0 #222,
+        1.25em 0 #222,
+        1.375em 0 #222,
+        1.5em 0 #222;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);    
+    transform: rotate(45deg);
+    -webkit-animation: extra-spin 1s infinite steps(8);
+    -moz-animation: extra-spin 1s infinite steps(8);
+    -o-animation: extra-spin 1s infinite steps(8);
+    animation: extra-spin 1s infinite steps(8);
+}
+
+.spin:after {
+    box-shadow:
+        /* 2 */
+        -1em 0 #ccc,
+        -1.125em 0 #ccc,
+        -1.25em 0 #ccc,
+        -1.375em 0 #ccc,
+        -1.5em 0 #ccc,
+
+        /* 4 */
+        0 -1em #888,
+        0 -1.125em #888,
+        0 -1.25em #888,
+        0 -1.375em #888,
+        0 -1.5em #888,
+
+        /* 6 */
+        1em 0 #444,
+        1.125em 0 #444,
+        1.25em 0 #444,
+        1.375em 0 #444,
+        1.5em 0 #444,
+
+        /* 8 */
+        0 1em #000,
+        0 1.125em #000,
+        0 1.25em #000,
+        0 1.375em #000,
+        0 1.5em #000;
+    -webkit-animation: spin 1s infinite steps(8);
+    -moz-animation: spin 1s infinite steps(8);
+    -o-animation: spin 1s infinite steps(8);    
+    animation: spin 1s infinite steps(8);
+}
+/*end of CSS spinner*/
+
+#loader {
+	position: fixed;
+	margin: 0;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 9999;
+	background: rgba(255,255,255,1);
+	display: block;
+	text-align: center;
+}
+
+#loader > div {
+	position: relative;
+	margin-top: 10%;
+}
+
+/************************************************************************
+ * 3. MANDATORY Divas styles
+ *************************************************************************/
+ 
+#slider_wrapper {
+	overflow: hidden;
+}
+
+.divas-slider {
+	position: relative;
+	margin: 0 auto;
+	padding: 0;
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+}
+
+.divas-slider-container {
+	position: relative;
+	margin: 0;
+	padding: 0;
+}
+
+.divas-slider-container:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.divas-slide {
+	position: relative;
+	margin: 0;
+	padding: 0;
+	float: left;
+	overflow: hidden;
+}
+
+.divas-slide img {
+	display: block;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: auto;
+	outline: 0 none;
+	-webkit-backface-visibility: hidden;
+  	-moz-backface-visibility: hidden;
+ 	-ms-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+
+/************************************************************************
+ * 4. DEFAULT slider settings
+ *************************************************************************/
+
+/*
+ * divas slide transitions
+ */
+.divas-slide-transition-left {    
+	 -webkit-transition: left 1s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+	 -moz-transition: left 1s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+	 -o-transition: left 1s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+	 transition: left 1s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+
+/*
+ * divas navigation buttons
+ */
+.divas-navigation {
+	clear: both;
+	position: absolute;
+	margin: 0px auto;
+	height: 0;
+	width: 100%;
+	text-align: center;
+	top: 47%;
+	top: calc(50% - 33px);
+}
+.divas-has-bullets .divas-navigation {
+    top: calc(50% - 61px);
+}
+
+.divas-navigation span {
+	height: 66px;
+	outline: 0 none; 
+	position: absolute;
+	width: 42px; 
+	z-index: 9999;
+	cursor: pointer;
+	margin: 0;
+	font-size: 3em;
+	color: #fff;
+}
+
+
+.divas-navigation span:hover {
+	color: #ffffff;
+}
+
+.divas-controls span.divas-start,
+.divas-controls span.divas-stop {
+	display: none;
+}
+
+.divas-navigation span.divas-prev {
+	left: 1em;
+	background: url("../images/prev.svg") no-repeat top center rgba(0, 0, 0, 0);
+}
+
+.divas-navigation span.divas-next {
+	right: 1em;
+	background: url("../images/next.svg") no-repeat top center rgba(0, 0, 0, 0);
+}
+
+@media screen and (max-width: 40em) {
+	.divas-navigation span.divas-prev,
+	.divas-navigation span.divas-next{
+		background-position:center center;
+		-webkit-background-size: 75% auto;
+		-moz-background-size: 75% auto;
+		-o-background-size: 75% auto;
+		background-size: 75% auto;
+	}
+	.divas-navigation span.divas-prev {
+		left: 0.5em;
+	}
+	.divas-navigation span.divas-next {
+		right: 0.5em;
+	}
+}	
+
+/*
+ * divas caption styling
+ */
+.divas-caption {
+	position: absolute;
+	top: 50%;
+	width: auto;
+	background: rgba(0,0,0,0.7);
+	color: #f7f7f7;
+	border: none;
+	padding: 1em 2em 1.6em;
+	margin: 0 2em;
+}
+
+
+/*
+ * divas caption transitions: left
+ */
+.divas-caption.divas-title-transition-left-start {
+	left: -999px;
+}
+
+.divas-caption.divas-title-transition-left {
+	-webkit-transition: left 1s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+	-moz-transition: left 1s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+	-o-transition: left 1s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+	transition: left 1s cubic-bezier(0.23, 1, 0.32, 1) 0s;
+}
+
+.divas-caption.divas-title-transition-left-stop {
+	left: 0px;
+}
+
+.divas-caption h1 {
+	font-weight: 900;
+	font-size: 4.8em;
+	line-height: 1.1;
+}
+
+.divas-caption p {
+	font-style: italic;
+	font-size: 1.6em;
+}
+
+/*
+ * divas navigation bullets
+ */
+.divas-bullets {
+	clear: both;
+	position: relative;
+	margin: 0 auto;
+	padding: 20px 0;
+	text-align: center;
+}
+
+.divas-bullets ul {
+	list-style: none;
+}
+
+.divas-bullet {
+  	background-color: rgba(0, 0, 0, 0.1);
+	border-radius: 1.5em;
+    display: inline-block;
+    height: 16px;
+    margin: 0 0.3em;
+    text-indent: -9999px;
+    width: 16px;
+}
+
+.divas-bullet-current {
+   	background-color: rgba(0, 0, 0, 0.25);
+}
+
+
+ 
+ /************************************************************************
+ * 5. GENERAL media queries
+ *************************************************************************/
+ 
+@media screen and (max-width: 87.5em) {
+	body {
+		font-size: 54.6875%;
+	}
+}	
+
+@media screen and (max-width: 75em) {
+	body {
+		font-size: 50.875%;
+	}
+}	
+
+@media screen and (max-width: 56.75em) {
+	body {
+		font-size: 45%;
+	}
+}
+
+@media screen and (max-width: 35em) {
+	.divas-caption {
+		display: none;
+	}
+}
+
+
