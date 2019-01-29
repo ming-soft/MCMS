@@ -5,7 +5,7 @@
 		<!--右侧头部-->
 		<el-header class="ms-header" height="50px">
 			<el-row>
-				<el-button type="primary" size="small" icon="el-icon-plus" @click="menuVue.menuActive = '新建图文'">添加</el-button>
+				<el-button type="primary" size="small" icon="el-icon-plus" onclick="articleVue.open()">添加</el-button>
 				<el-button class="ms-fr" size="small" icon="el-icon-refresh">刷新</el-button>
 				<el-button class="ms-fr" size="small" @click='sync'>同步微信素材</el-button>
 			</el-row>

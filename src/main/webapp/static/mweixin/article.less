@@ -5,6 +5,14 @@
     width: 100%;
     background: transparent !important;
     padding: 0 !important;
+    .ms-article-mask {
+        background: #000;
+        opacity: .2;
+        .ms-width-height(100%, 146px);
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
     .el-container {
         .ms-container {
             padding: 0;
@@ -20,14 +28,6 @@
                 position: relative;
                 img {
                     .ms-width-height(100%, 146px);
-                }
-                .ms-main-article-mask {
-                    background: #000;
-                    opacity: .2;
-                    .ms-width-height(100%, 146px);
-                    position: absolute;
-                    top: 0;
-                    left: 0;
                 }
                 span {
                     position: absolute;
@@ -77,6 +77,7 @@
             margin-left: 14px;
             padding: 0 !important;
             .ms-main-header {
+                position: relative;
                 background: #fff;
                 .ms-flex();
                 height: 180px;
@@ -102,8 +103,25 @@
                         i {
                             .ms-font(18px, @auxiliaryColor);
                         }
+                         // 文章缩略图
+                        .article-thumbnail{
+                            .ms-width-height(140px);
+                        }
+                        >.ms-article-mask{
+                            .ms-width-height(140px);
+                            .ms-flex(center);
+                            align-items: center;
+                            left: 21px;
+                            top: 20px;
+                            z-index: 99;
+                            opacity: .6;
+                            >i{
+                                .ms-font(19px,#fff);
+                            }
+                        }
                     }
-                } // 表单
+                }
+                // 表单
                 .el-form {
                     flex: 1;
                     margin: 0 !important;
@@ -111,9 +129,12 @@
                     flex-direction: column;
                     .el-form-item {
                         margin-bottom: 0 !important;
-                    }
-                    .el-input__suffix {
-                        top: -3px !important;
+                        .el-input__suffix {
+                            top: -3px !important;
+                            >input{
+                                padding-right: 50px !important;
+                            }
+                        }
                     }
                 }
             }

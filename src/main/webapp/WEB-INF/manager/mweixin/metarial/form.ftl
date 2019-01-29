@@ -12,9 +12,10 @@
       </el-header>
       <el-container class=" ms-container">
          <el-aside width="280px">
+             <!-- 主图文章 -->
             <div class="ms-main-article">
-               <img :src='mainArticle.basicPic ||　'>
-               <div class="ms-main-article-mask"></div>
+               <img :src="mainArticle.basicPic ||　ms.base+'/WEB-INF/manager/images/data/article-default.png'">
+               <div class="ms-article-mask"></div>
                <span v-text='mainArticle.basicTitle'></span>
             </div>
             <draggable v-model="subArticleList" :options="{draggable:'.ms-article-item'}">
@@ -31,24 +32,38 @@
          </el-aside>
          <el-main>
             <div class="ms-main-header">
-               <el-upload class="ms-pic-upload" :show-file-list="false">
-                  <img v-if="false" :src="false" class="avatar">
-                  <i v-else class="el-icon-picture"></i>
-                  <span>添加封面</span>
+               <el-upload 
+                    class="ms-pic-upload" 
+                    :show-file-list="false" 
+                    :on-success="basicPicSuccess"
+                    :before-upload='beforeBasicPicUpload'
+                    :action="ms.web + '/file/upload.do'"
+                    :limit='1'
+                    :data={uploadFloderPath:"/mweixin/news"}
+                >
+                <div class="ms-article-mask" v-show='headMask' @mouseover='headMask=true;' @mouseleave='headMask=false'>
+                    <i class="el-icon-delete" @click='delThumbnail'></i>
+                </div>
+                <img v-if="thumbnailShow" :src="thumbnailUrl"
+                class="article-thumbnail" @mouseover='headMask=true;' @mouseleave='headMask=false;'>
+                <template v-else>
+                    <i class="el-icon-picture"></i>
+                    <span>添加封面</span>
+                </template>
                </el-upload>
                <el-form label-width='40px'>
                   <el-form-item label="标题" prop="">
-                     <el-input size='small' placeholder="请输入图文标题" v-model='articleForm.basicTitle' @input="resetWordNum('title')">
+                     <el-input size='small' placeholder="请输入图文标题" v-model='articleForm.basicTitle' @input="resetWordNum('basicTitle',64)">
                         <span slot='suffix' v-text="titleWordNumber+'/64'"></span>
                      </el-input>
                   </el-form-item>
                   <el-form-item label="作者" prop="">
-                     <el-input size='small' placeholder="请输入图文作者" v-model='articleForm.articleAuthor' @input="resetWordNum('author')">
+                     <el-input size='small' placeholder="请输入图文作者" v-model='articleForm.articleAuthor' @input="resetWordNum('articleAuthor',8)">
                         <span slot='suffix' v-text="authorWordNumber+'/8'"></span>
                      </el-input>
                   </el-form-item>
                   <el-form-item label="摘要" prop="">
-                     <el-input size='small' type='textarea' placeholder="选填，如果不写会默认抓取正文前54个字" :autosize="{ minRows: 2, maxRows: 2}" resize='none' v-model='articleForm.basicDescription' @input="resetWordNum('desc')">
+                     <el-input size='small' type='textarea' placeholder="选填，如果不写会默认抓取正文前54个字" :autosize="{ minRows: 2, maxRows: 2}" resize='none' v-model='articleForm.basicDescription' @input="resetWordNum(120)">
                         <span slot='suffix' v-text="descWordNumber+'/54'"></span>
                      </el-input>
                   </el-form-item>
@@ -70,6 +85,7 @@
             basicPic: '', //主图
             basicTitle: '', //标题
          },
+         defaultMainArticle:'',//拷贝主图信息
          subArticleList: [],// 子文章列表
          titleWordNumber: 64, //图文标题剩余字数
          authorWordNumber: 8, //图文作者剩余字数
@@ -80,7 +96,19 @@
             articleAuthor: '', //作者
             basicDescription: '', //摘要
             articleContent: '', //正文
-         }
+         },
+         defaultArticleForm:'',//拷贝表单值
+         thumbnailShow:false,//显示缩略图
+         thumbnailUrl:'',//缩略图路径
+         headMask:false,//缩略图删除
+      },
+      watch:{
+            articleForm:{
+                handler:function(n,o){
+                    this.mainArticle.basicTitle = n.basicTitle
+                },
+                deep:true,
+            }
       },
       methods: {
           open:function(material){
@@ -88,11 +116,37 @@
                 if(material && material.newsId>0){
                     // 编辑
                     this.subArticleList = material.articleList
+                    this.mainArticle = material.newsArticle
                 }else{
                     // 新增
+                    console.log('this.defaultArticleForm',this.defaultArticleForm);
+                    this.articleForm = this.defaultArticleForm
+                    this.mainArticle = this.defaultMainArticle
                 }
                 console.log('"material',material);
           },
+        //   图片上传之前的钩子
+        beforeBasicPicUpload:function(file){
+            var fileType = false;
+	    	if(file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg'){
+	    		fileType = true;
+	    	}
+	        const isLt2M = file.size / 1024 / 1024 < 2;
+	        if (!fileType) {
+	          this.$message.error('文章配图只能是 JPG、JPEG、PNG 格式!');
+	        }
+	        if (!isLt2M) {
+	          this.$message.error('文章配图大小不能超过 2MB!');
+	        }
+	        return fileType && isLt2M;
+        },
+        //   图片上传成功函数
+        basicPicSuccess:function(url){
+            this.thumbnailShow = true
+            this.thumbnailUrl = ms.web + url
+            this.mainArticle.basicPic = this.thumbnailUrl
+
+        },
          // 添加文章
          addArticle: function() {
             if(this.subArticleList.length > 6) {
@@ -108,9 +162,23 @@
                basicThumbnailsl: 'https://img03.sogoucdn.com/app/a/100520091/20190125113148'
             })
          },
-         // 计算剩余字数
-         resetWordNum: function(type) {
+         delThumbnail:function(){
 
+         },
+         // 计算剩余字数
+         resetWordNum: function(type,limit) {
+             var result = event.target.value;
+             if(type.indexOf('Title') > -1){
+                this.titleWordNumber = this.titleWordNumber - result.length
+             }else{
+                 this.authorWordNumber = this.authorWordNumber - result.length
+             }
+             if(result.length >= limit){
+                 this.$message.error('超出字数限制，请输入不超过'+limit+'字符');
+                 this.$nextTick(function(){
+                     this.articleForm[type] = result.slice(0,limit);
+                 })
+             }
          }
       },
       mounted: function() {
@@ -150,6 +218,10 @@
                );
             });
          }
+
+        //  初始化默认值
+        this.defaultArticleForm = JSON.parse(JSON.stringify(this.articleForm))
+        this.defaultMainArticle = JSON.parse(JSON.stringify(this.mainArticle))
       }
    })
 </script>

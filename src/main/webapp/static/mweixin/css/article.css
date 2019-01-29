@@ -50,7 +50,7 @@ input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
   font-weight: initial;
   font-size: 12px;
-  color: #aaa;
+  color: #999;
   resize: none;
 }
 *::-webkit-scrollbar {
@@ -68,7 +68,7 @@ textarea::-webkit-input-placeholder {
 *::-webkit-scrollbar-thumb {
   border-radius: 10px;
   /*滚动条的圆角*/
-  background-color: #ddd;
+  background-color: #e6e6e6;
   /*滚动条的背景颜色*/
 }
 .ms-container {
@@ -104,7 +104,7 @@ textarea::-webkit-input-placeholder {
   height: 55px;
   box-sizing: border-box;
   padding: 10px 10px 25px 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e6e6e6;
 }
 .ms-weixin-dialog .el-dialog__header .el-dialog__title {
   font-weight: bold;
@@ -112,7 +112,7 @@ textarea::-webkit-input-placeholder {
   color: #333;
 }
 .ms-weixin-dialog .el-dialog__footer {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #e6e6e6;
   padding: 15px !important;
 }
 .ms-hover {
@@ -130,6 +130,15 @@ textarea::-webkit-input-placeholder {
   background: transparent !important;
   padding: 0 !important;
 }
+.ms-article .ms-article-mask {
+  background: #000;
+  opacity: .2;
+  width: 100%;
+  height: 146px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 .ms-article .el-container .ms-container {
   padding: 0;
   background: transparent;
@@ -145,15 +154,6 @@ textarea::-webkit-input-placeholder {
 .ms-article .el-container .el-aside .ms-main-article img {
   width: 100%;
   height: 146px;
-}
-.ms-article .el-container .el-aside .ms-main-article .ms-main-article-mask {
-  background: #000;
-  opacity: 0.2;
-  width: 100%;
-  height: 146px;
-  position: absolute;
-  top: 0;
-  left: 0;
 }
 .ms-article .el-container .el-aside .ms-main-article span {
   position: absolute;
@@ -172,7 +172,7 @@ textarea::-webkit-input-placeholder {
   display: flex;
   justify-content: space-between;
   padding: 10px 0;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e6e6e6;
 }
 .ms-article .el-container .el-aside .ms-article-item p {
   margin: 0 10px 0 0;
@@ -208,7 +208,7 @@ textarea::-webkit-input-placeholder {
 .ms-article .el-container .el-aside .ms-article-footer .el-button span {
   font-weight: initial;
   font-size: 12px;
-  color: #aaa;
+  color: #999;
 }
 .ms-article .el-container .el-main {
   flex: 1;
@@ -216,6 +216,7 @@ textarea::-webkit-input-placeholder {
   padding: 0 !important;
 }
 .ms-article .el-container .el-main .ms-main-header {
+  position: relative;
   background: #fff;
   display: flex;
   justify-content: space-between;
@@ -223,13 +224,13 @@ textarea::-webkit-input-placeholder {
   padding: 20px;
   padding-bottom: 24px;
   box-sizing: border-box;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e6e6e6;
 }
 .ms-article .el-container .el-main .ms-main-header .ms-pic-upload {
   width: 140px;
   height: 140px;
   border-radius: 4px;
-  border: 1px dashed #ddd;
+  border: 1px dashed #e6e6e6;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -244,13 +245,33 @@ textarea::-webkit-input-placeholder {
 .ms-article .el-container .el-main .ms-main-header .ms-pic-upload .el-upload span {
   font-weight: initial;
   font-size: 12px;
-  color: #aaa;
+  color: #999;
   margin-top: 4px;
 }
 .ms-article .el-container .el-main .ms-main-header .ms-pic-upload .el-upload i {
   font-weight: initial;
   font-size: 18px;
-  color: #aaa;
+  color: #999;
+}
+.ms-article .el-container .el-main .ms-main-header .ms-pic-upload .el-upload .article-thumbnail {
+  width: 140px;
+  height: 140px;
+}
+.ms-article .el-container .el-main .ms-main-header .ms-pic-upload .el-upload > .ms-article-mask {
+  width: 140px;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 21px;
+  top: 20px;
+  z-index: 99;
+  opacity: .6;
+}
+.ms-article .el-container .el-main .ms-main-header .ms-pic-upload .el-upload > .ms-article-mask > i {
+  font-weight: initial;
+  font-size: 19px;
+  color: #fff;
 }
 .ms-article .el-container .el-main .ms-main-header .el-form {
   flex: 1;
@@ -262,8 +283,11 @@ textarea::-webkit-input-placeholder {
 .ms-article .el-container .el-main .ms-main-header .el-form .el-form-item {
   margin-bottom: 0 !important;
 }
-.ms-article .el-container .el-main .ms-main-header .el-form .el-input__suffix {
+.ms-article .el-container .el-main .ms-main-header .el-form .el-form-item .el-input__suffix {
   top: -3px !important;
+}
+.ms-article .el-container .el-main .ms-main-header .el-form .el-form-item .el-input__suffix > input {
+  padding-right: 50px !important;
 }
 .ms-article .el-container .el-main .ms-main-body {
   height: calc(100% - 180px);
