@@ -54,11 +54,12 @@
          loginForm: {
             managerName: '',
             managerPassword: "",
-            rand_code: '',
+            rand_code: ''
          },
          verifCode: ms.manager + "/code?t=" + new Date().getTime(),
          rememberPass: '',
          loginFormRule: {
+
             managerName: [{
                   required: true,
                   message: '请输入用户名',
@@ -129,4 +130,5 @@
          this.verifCode = ms.manager + "/code?t=" + new Date().getTime()
       }
    })
+
 </script>
