@@ -5,8 +5,9 @@
       <title></title>
       <#include "/include/head-file.ftl"/> 
       <link rel="stylesheet" href="${base}/static/ms-admin/4.7.0/css/login.css">
-      <!--#include virtual="include/head-file.ftl"-->
-      <!-- <link rel="stylesheet" href="../../../static/ms-admin/4.7.0/css/login.css"> -->
+
+      <!--#include virtual="include/head-file.ftl" >
+      <link rel="stylesheet" href="../../../static/ms-admin/4.7.0/css/login.css"-->
    </head>
 
    <body>

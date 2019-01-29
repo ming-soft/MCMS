@@ -19,7 +19,7 @@
                <span v-text='mainArticle.basicTitle'></span>
             </div>
             <draggable v-model="subArticleList" :options="{draggable:'.ms-article-item'}">
-               <div v-for="(element,index) in subArticleList" :key="index" class="ms-article-item">
+               <div v-for="(element,index) in subArticleList" :key="index" class="ms-article-item" @click='addOrUpdateSubArticle(element)'>
                   <p>
                      <span v-text='element.basicTitle'></span>
                   </p>
@@ -104,6 +104,7 @@
          thumbnailUrl:'',//缩略图路径
          headMask:false,//缩略图删除
          uploadDisable:false,//是否禁止上传
+         newsCategoryId:'',//微信分类编号
       },
       watch:{
             articleForm:{
@@ -111,20 +112,34 @@
                     this.mainArticle.basicTitle = n.basicTitle
                 },
                 deep:true,
-            }
+            },
       },
       methods: {
           open:function(material){
                 menuVue.menuActive = '新建图文';
                 if(material && material.newsId>0){
                     // 编辑
-                    this.subArticleList = material.articleList
+                    this.subArticleList = material.articleList;
+                    console.log('子',material.articleList);
                     this.mainArticle = material.newsArticle
+                    // 默认显示头文章的详情
+                    this.articleForm.basicTitle = material.newsArticle.basicTitle
+                    this.articleForm.articleAuthor = material.newsArticle.articleAuthor
+                    this.articleForm.basicDescription = material.newsArticle.basicDescription
+                    this.articleForm.articleContent = material.newsArticle.articleContent
+                    this.thumbnailShow = true
+                    this.thumbnailUrl = material.newsArticle.basicPic
+                    this.editor.setContent(material.newsArticle.articleContent)
+                    this.$forceUpdate();
                 }else{
                     // 新增
                     console.log('this.defaultArticleForm',this.defaultArticleForm);
-                    this.articleForm = this.defaultArticleForm
-                    this.mainArticle = this.defaultMainArticle
+                    this.editor.setContent('')
+                    this.thumbnailShow = false
+                    this.thumbnailUrl = ''
+                    this.articleForm = {}
+                    this.subArticleList = [];
+                    this.mainArticle = {}
                 }
                 console.log('"material',material);
           },
@@ -165,6 +180,12 @@
                basicThumbnailsl: 'https://img03.sogoucdn.com/app/a/100520091/20190125113148'
             })
          },
+        //  更新或修改子文章
+         addOrUpdateSubArticle:function(element){
+             if(element.articleBasicId>0){
+                 
+             }
+         },
          // 计算剩余字数
          resetWordNum: function(type,limit) {
              var result = event.target.value;
@@ -182,7 +203,22 @@
          },
         //  保存微信文章
         newsSave:function(){
-
+            var that = this;
+            console.log('that.articleForm',that.articleForm);
+            console.log('that.articleList',that.articleList);
+            // 获取百度编辑器内容
+            this.editor.getContent();
+            ms.http.post(ms.manager + "/weixin/news/save.do",{
+                newsArticleBean:that.mainArticle,
+                articleList:JSON.stringify(that.articleList),
+                newsCategoryId:that.newsCategoryId,
+                newsIsSyn:false,
+                newsType:1
+            }).then(function (res) {
+                   console.log('res',res); 
+            }, function (err) {
+                that.$message.error(err);
+            })
         }
       },
       mounted: function() {
@@ -222,10 +258,6 @@
                );
             });
          }
-
-        //  初始化默认值
-        this.defaultArticleForm = JSON.parse(JSON.stringify(this.articleForm))
-        this.defaultMainArticle = JSON.parse(JSON.stringify(this.mainArticle))
       }
    })
 </script>
