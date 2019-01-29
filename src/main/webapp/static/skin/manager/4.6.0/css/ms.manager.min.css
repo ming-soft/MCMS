@@ -1,0 +1,1091 @@
+/*
+ *这里定义了一些经常使用的颜色高度
+ *在使用对应属性时直接使用设置的属性名即可
+ *该方便后续修改只需要改下面的属性即可
+ */
+html {
+  height: 100%;
+}
+/*滚动条*/
+::-webkit-scrollbar {
+  width: 3px;
+  height: 3px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #e1e3e4;
+  background-clip: content-box;
+  border-radius: 50px;
+}
+#mainFrame {
+  padding-right: 2px;
+}
+.has-feedback label ~ .form-control-feedback {
+  top: 0;
+}
+.form-horizontal .checkbox,
+.form-horizontal .checkbox-inline,
+.form-horizontal .radio,
+.form-horizontal .radio-inline {
+  padding-top: 4px;
+}
+body.over-hide {
+  overflow-y: hidden;
+  height: 100%;
+}
+body.theme-index {
+  height: 100%;
+  background: #3497db;
+}
+body {
+  width: 100%;
+  min-width: 900px;
+  background: #fcfcfc;
+  line-height: 21px;
+  color: #555;
+  height: 100%;
+  /*弹出框*/
+  /*内容超出部分隐藏*/
+  /*清除padding值*/
+  /*分页样式*/
+  /*顶部样式开始*/
+  /*顶部样式结束*/
+  /*页面左边部分样式开始*/
+  /*页面左边样式结束*/
+  /*右边主体部分开始*/
+  /*右边顶部样式*/
+  /*文章保存按钮*/
+  /*右边的左边栏目*/
+  /*右边的列表部分*/
+}
+body .btn-group .btn {
+  margin-right: 0px;
+}
+body ul,
+body ul li,
+body dl,
+body dl dt,
+body dl dd,
+body input,
+body ol,
+body ol li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+body .row {
+  margin: 0px;
+}
+body a,
+body a:link,
+body a:visited,
+body a:active {
+  text-decoration: none;
+  color: #2a6496;
+}
+body .modal-dialog {
+  width: 35%;
+  margin: 15px auto;
+  text-align: left;
+  margin-top: 10%;
+}
+body .modal-dialog .modal-content {
+  border-radius: 4px;
+}
+body .modal-dialog .modal-content .modal-body {
+  overflow: hidden;
+}
+body .modal-dialog .modal-content .modal-body .form-group label {
+  width: 25%;
+}
+body .modal-dialog .modal-content .modal-body .form-group div label {
+  width: 35%;
+}
+body .modal-dialog .modal-content .modal-body .ms-from-group-input {
+  width: 65%;
+}
+body .modal-dialog .modal-content .modal-header {
+  padding: 10px;
+  background-color: #f5f5f5;
+  color: #333;
+  border-radius: 4px;
+}
+body .modal-dialog .modal-content-show {
+  min-height: 450px;
+}
+body .ms-text-hide {
+  word-break: keep-all;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+body .ms-text2-hide {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+body .ms-text3-hide {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+body .padding-clear {
+  padding: 0px;
+}
+body .pageNav {
+  text-align: right;
+  margin-bottom: 30px;
+  padding-right: 8px;
+  overflow: hidden;
+}
+body .ms-top {
+  height: 50px;
+  width: 100%;
+  min-width: 900px;
+  background: none;
+  z-index: 10000;
+  font-family: arial, 'hiragino sans gb', 'microsoft yahei', Simsun;
+  /*顶部左边样式*/
+  /*顶部右边样式*/
+}
+body .ms-top .ms-top-logo {
+  width: 180px;
+  height: 50px;
+  float: left;
+  border-right: 1px solid #248cd3;
+}
+body .ms-top .ms-top-logo img {
+  width: 80px;
+  padding: 5px 0px 0px 10px;
+}
+body .ms-top .ms-top-logo .slideMenu {
+  width: 28px;
+  height: 50px;
+  line-height: 50px;
+  display: block;
+  color: #f9f9f9;
+  text-align: center;
+  float: right;
+  cursor: pointer;
+}
+body .ms-top .ms-top a:hover,
+body .ms-top .ms-top a:focus {
+  background: #e6e6e6;
+  color: #666666;
+}
+body .ms-top .ms-top-menu {
+  height: 100%;
+  float: left;
+  /*鼠标移到按钮上的样式*/
+}
+body .ms-top .ms-top-menu .ms-menu-list {
+  width: 425px;
+  float: left;
+}
+body .ms-top .ms-top-menu .menu-default {
+  height: 50px;
+  overflow: hidden;
+}
+body .ms-top .ms-top-menu .menu-show {
+  position: relative;
+  background: #ffffff;
+  z-index: 1000;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.175);
+}
+body .ms-top .ms-top-menu .menu-show .ms-menu-list li {
+  color: #666666;
+}
+body .ms-top .ms-top-menu .menu-show .ms-menu-list .active {
+  background: #ffffff;
+  color: #3497db;
+}
+body .ms-top .ms-top-menu .menu-show .openMenu {
+  color: #666666;
+}
+body .ms-top .ms-top-menu .ms-menu-list li {
+  float: left;
+  width: 85px;
+  color: #ffffff;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+}
+body .ms-top .ms-top-menu .ms-menu-list .active {
+  font-weight: bolder;
+  background: #248cd3;
+}
+body .ms-top .ms-top-menu .openMenu {
+  color: #f9f9f9;
+  line-height: 50px;
+  padding: 0px 20px;
+  cursor: pointer;
+  margin-top: -1px;
+  display: none;
+}
+body .ms-top .ms-top-menu .active-menu {
+  background: #545557;
+}
+body .ms-top .ms-top-menu .ms-top a:hover,
+body .ms-top .ms-top-menu .ms-top a:focus {
+  background: #e6e6e6;
+  color: #666666;
+}
+body .ms-top .ms-top-user {
+  float: right;
+  /*顶部设置按钮样式*/
+  /*顶部其他按钮样式*/
+}
+body .ms-top .ms-top-user .dropdown {
+  float: left;
+}
+body .ms-top .ms-top-user .ms-top-info {
+  box-shadow: none;
+  border: none;
+  height: 50px;
+  line-height: 50px;
+  text-shadow: none;
+  color: #ffffff;
+  padding: 0px 19px;
+  cursor: pointer;
+  background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+  background-image: none;
+  background-repeat: repeat-x;
+}
+body .ms-top .ms-top-user .ms-top-info .caret {
+  border-top: 4px dashed;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+body .ms-top .ms-top-user .open .dropdown-menu {
+  margin-top: 0px;
+  left: 0px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  min-width: 121px;
+  border: 0px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.175);
+}
+body .ms-top .ms-top-user .open .dropdown-menu li {
+  cursor: pointer;
+}
+body .ms-top .ms-top-user .open .ms-top-info {
+  box-shadow: none;
+  border: none;
+  height: 50px;
+  line-height: 50px;
+  text-shadow: none;
+  color: #f9f9f9;
+  padding: 0px 19px;
+  cursor: pointer;
+  color: #666666;
+  background: #ffffff;
+  background-image: none;
+  background-repeat: repeat-x;
+}
+body .ms-top .ms-top-user .open .ms-top-info .caret {
+  border-top: 4px dashed;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+body .ms-top .ms-top-user .ms-top-mstore {
+  height: 50px;
+  line-height: 50px;
+  float: right;
+  width: 50px;
+  color: #f9f9f9;
+  text-align: center;
+  cursor: pointer;
+  background: none;
+  position: relative;
+}
+body .ms-top .ms-top-user .ms-top-mstore .mstore-update {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 4px;
+  background: red;
+  line-height: 8px;
+  border-radius: 50px;
+  font-size: 10px;
+  display: none;
+}
+body .ms-top .ms-top-user .popover {
+  top: 44px;
+  right: 0px;
+  max-width: 130px;
+  left: auto;
+}
+body .ms-top .ms-top-user .popover .arrow {
+  left: 81%;
+}
+body .ms-menu-div {
+  height: 100%;
+  float: left;
+  width: 180px;
+  padding-top: 50px;
+  display: none;
+  background: none;
+  margin-right: 5px;
+  position: relative;
+}
+body .ms-menu-div .slideMenu {
+  position: absolute;
+  cursor: pointer;
+  top: 40%;
+  left: 180px;
+  height: 60px;
+  background: #666;
+  line-height: 60px;
+  opacity: .8;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+body .ms-menu-div .slideMenu .iconfont {
+  font-size: 12px;
+  color: #ddd;
+  font-weight: normal;
+}
+body .ms-menu {
+  background-color: #666666;
+  float: left;
+  width: 180px;
+  padding-top: 50px;
+  overflow-y: auto;
+  position: absolute;
+  display: none;
+  padding: 0px;
+  height: 100%;
+  padding-bottom: 55px;
+  top: 50px;
+  overflow-x: hidden;
+  left: 0px;
+  z-index: 10000;
+}
+body .ms-menu .ms-menu-none {
+  width: 100%;
+  height: 300px;
+  background-image: url(../images/share.png);
+  background-repeat: no-repeat;
+}
+body .ms-menu .ms-menu-parent {
+  border: none;
+  color: #f9f9f9;
+  padding-top: 1px;
+  border-radius: 2px;
+  display: none;
+  width: 180px;
+  float: left;
+}
+body .ms-menu .ms-menu-parent .ms-menu-parent-header {
+  background: #555555;
+  border: none;
+  color: #f9f9f9;
+  padding: 5px;
+  height: 34px;
+  /*左侧列表标题图标样式*/
+}
+body .ms-menu .ms-menu-parent .ms-menu-parent-header .icon-logo {
+  margin-right: 10px;
+  display: block;
+  float: left;
+  position: relative;
+  color: #f9f9f9;
+  font-size: 12px;
+  height: 25px;
+}
+body .ms-menu .ms-menu-parent .ms-menu-parent-header .ms-menu-parent-title {
+  font-size: 14px;
+  color: #f9f9f9;
+  cursor: pointer;
+  float: left;
+  width: 88%;
+}
+body .ms-menu .ms-menu-parent .ms-menu-parent-header .closeMenu {
+  display: none;
+  float: right;
+  font-size: 18px;
+  line-height: 24px;
+  width: 12%;
+  text-align: center;
+  cursor: pointer;
+}
+body .ms-menu .ms-menu-parent .ms-menu-child {
+  display: none;
+  border: none;
+  box-shadow: none;
+  position: relative;
+  margin: 0px;
+  border-radius: 0px;
+}
+body .ms-menu .ms-menu-parent .ms-menu-child li {
+  border: none;
+  padding: 5px 21px;
+  padding-right: 0px;
+}
+body .ms-menu .ms-menu-parent .ms-menu-child li a {
+  color: #f9f9f9;
+}
+body .ms-menu .ms-menu-parent .ms-menu-child li a .caret {
+  border-left: 4px dashed;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+body .ms-menu .ms-menu-parent .ms-menu-child li a.active,
+body .ms-menu .ms-menu-parent .ms-menu-child li a:hover,
+body .ms-menu .ms-menu-parent .ms-menu-child li a:focus {
+  color: #3497db;
+  text-decoration: none;
+  padding-left: 0px;
+}
+body .ms-content {
+  height: 100%;
+  overflow: hidden;
+  padding: 0px;
+  background: none;
+}
+body .ms-content .wellcome {
+  text-align: center;
+  color: #555;
+  background: #FCFCFC;
+  height: 300px;
+  padding-top: 200px;
+  vertical-align: middle;
+  border-top-left-radius: 2px;
+  height: 100%;
+}
+body .ms-content #mainFrame {
+  background-image: url(../images/loading.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+body .ms-content .easyui-tabs {
+  width: 100%;
+  height: 100%;
+  display: none;
+  padding-bottom: 36px;
+}
+body .ms-content .tabs-header {
+  padding: 0px;
+  width: 100%;
+  border: none;
+  background: none;
+}
+body .ms-content .tabs-header .tabs-wrap {
+  width: 100%;
+}
+body .ms-content .tabs-header .tabs {
+  padding: 0px;
+  border: none;
+}
+body .ms-content .tabs-header .tabs .tabs-p-tool {
+  right: 22px;
+  height: 27px;
+  top: 6px;
+  line-height: 28px;
+}
+body .ms-content .tabs-header .tabs li {
+  margin: 0px;
+}
+body .ms-content .tabs-header .tabs li .tabs-inner {
+  border-left: 0px;
+  border-top: 0px;
+  border-radius: 0px;
+  margin-right: 5px;
+  border-top-right-radius: 2px;
+  border-top-left-radius: 2px;
+  margin-bottom: -1px;
+  border-width: 0px;
+}
+body .ms-content .tabs-header .tabs li .tabs-close {
+  right: 10px;
+}
+body .ms-content .tabs-panels {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+body .ms-content .tabs-panels .panel {
+  height: 100%;
+  padding-bottom: 40px;
+}
+body .ms-content .panel-body {
+  border: none;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+body .row .caption {
+  text-align: center;
+}
+body .row .caption p {
+  height: 22px;
+  overflow: hidden;
+}
+body .ms-content-body-title {
+  border-bottom: 1px solid #d3d7db;
+  background: #ffffff;
+  color: #666666;
+  line-height: 45px;
+  height: 46px;
+  padding: 0px 10px;
+  width: 100%;
+  z-index: 1500;
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  text-align: right;
+}
+body .ms-content-body-title strong {
+  float: left;
+}
+body .ms-content-body-panel {
+  padding: 55px 10px 30px;
+  width: 100%;
+  min-width: 800px;
+  z-index: 999;
+  height: 100%;
+  min-height: 500px;
+  /*商品规格*/
+}
+body .ms-content-body-panel .ms-content-body-panel-nav {
+  background: #ffffff;
+}
+body .ms-content-body-panel form {
+  background: #fff;
+  padding: 10px 0px 30px 0px;
+  width: 100%;
+}
+body .ms-content-body-panel .ms-panel-nav {
+  width: 100%;
+  float: left;
+  margin-bottom: 10px;
+}
+body .ms-content-body-panel .ms-panel-nav .btn {
+  float: left;
+  margin-right: 5px;
+}
+body .ms-content-body-panel .ms-panel-nav .form-control {
+  width: 125px;
+  float: left;
+  margin-right: 5px;
+}
+body .ms-content-body-panel .ms-panel-nav .form-seach {
+  width: 200px;
+  float: left;
+  margin-right: 5px;
+}
+body .ms-content-body-panel .batch-set {
+  padding: 7px;
+  font-size: 12px;
+  border: 1px #ddd solid;
+}
+body .ms-content-body-panel .batch-set input {
+  width: 80px;
+  height: 28px;
+  padding: 4px 8px;
+  margin: 0px 5px;
+  font-size: 10px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+body .ms-content-body-panel .batch-set .all-price,
+body .ms-content-body-panel .batch-set .all-stock {
+  height: 28px;
+  line-height: 15px;
+  font-size: 12px;
+  border-radius: 4px;
+  margin-right: 20px;
+}
+body .ms-content-body-panel .goods-norms {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+body .ms-content-body-panel .goods-norms .norms-group {
+  margin-bottom: 10px;
+}
+body .ms-content-body-panel .goods-norms .norms-group .norms-title {
+  background: #f3f3f3;
+  padding: 5px;
+  position: relative;
+}
+body .ms-content-body-panel .goods-norms .norms-group .norms-title .norms-addpic {
+  margin-left: 20px;
+  font-size: 14px;
+  font-weight: normal;
+}
+body .ms-content-body-panel .goods-norms .norms-group .norms-title .delete-norms {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  font-size: 14px;
+  line-height: 16px;
+  background: rgba(153, 153, 153, 0.6);
+  border-radius: 10px;
+  text-indent: 0;
+  display: none;
+}
+body .ms-content-body-panel .goods-norms .norms-group .norms-list {
+  padding: 10px 5px;
+}
+body .ms-content-body-panel .goods-norms .norms-group .norms-list .add-norms {
+  color: #38f;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 10px;
+  position: relative;
+}
+body .ms-content-body-panel .goods-norms .norms-group .norms-list .add-norms-content {
+  margin-top: 10px;
+  display: none;
+  border: 1px #ddd solid;
+  width: 440px;
+  position: absolute;
+  left: -194px;
+  top: 26px;
+  background: #ffffff;
+  border-radius: 2px;
+  z-index: 2;
+  -webkit-box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.4);
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.4);
+}
+body .ms-content-body-panel .goods-norms .norms-group .norms-list .add-norms-content .norms-select {
+  position: relative;
+  background: #ffffff;
+  border-radius: 2px;
+  padding: 10px;
+  z-index: 2;
+}
+body .ms-content-body-panel .goods-norms .norms-group .norms-list .add-norms-content .norms-select select {
+  width: 300px;
+}
+body .ms-content-body-panel .goods-norms .norms-group .norms-list .add-norms-content .arrow {
+  left: 50%;
+  top: 0;
+  -webkit-transform: rotate(45deg) translateX(-50%) translateY(-50%);
+  -moz-transform: rotate(45deg) translateX(-50%) translateY(-50%);
+  -ms-transform: rotate(45deg) translateX(-50%) translateY(-50%);
+  transform: rotate(45deg) translateX(-50%) translateY(-50%);
+  -webkit-transform-origin: 0 0;
+  -moz-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  transform-origin: 0 0;
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #ffffff;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+body .ms-content-body-panel .goods-norms .norms-group .norms-list .norms-detail {
+  border: 1px solid #AAA;
+  padding: 4px;
+  display: inline-block;
+  margin: 5px 10px 5px 0px;
+  line-height: 13px;
+  width: 80px;
+  vertical-align: middle;
+  text-align: center;
+  position: relative;
+  border-radius: 4px;
+  cursor: pointer;
+}
+body .ms-content-body-panel .goods-norms .norms-group .norms-list .norms-detail span {
+  width: 74px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  display: block;
+}
+body .ms-content-body-panel .goods-norms .norms-group .norms-list .norms-detail .delete-norms {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  font-size: 14px;
+  line-height: 16px;
+  background: rgba(153, 153, 153, 0.6);
+  border-radius: 10px;
+  text-indent: 0;
+  display: none;
+}
+body .ms-content-body-panel .goods-norms .norms-group .norms-list .norms-detail .norms-pic {
+  position: relative;
+  top: 4px;
+  left: -5px;
+  border-top: 1px #ddd solid;
+  width: 80px;
+  text-align: center;
+  height: 80px;
+  line-height: 80px;
+  cursor: pointer;
+  display: none;
+}
+body .ms-content-body-panel .goods-norms .norms-group .norms-list .norms-detail .norms-pic img {
+  width: 74px;
+  height: 74px;
+}
+body .ms-content-menu {
+  width: 15%;
+  float: left;
+  color: #666666;
+  background: #ffffff;
+  height: 100%;
+  border-right: 1px solid #ccc;
+  overflow-y: auto;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+body .ms-content-menu .ms-static-top {
+  width: 100%;
+  height: 45px;
+}
+body .ms-content-menu .panel {
+  box-shadow: none;
+}
+body .ms-content-menu .easyui-panel {
+  border: 0px;
+  padding: 10px;
+}
+body .ms-content-body {
+  height: 100%;
+  float: right;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+body .ms-content-body .ms-static-top {
+  width: 100%;
+  height: 45px;
+}
+body .ms-content-body .updatePrompt {
+  margin: 20px;
+  border: 1px #e0e0e0 solid;
+  padding: 10px;
+  border-radius: 5px;
+}
+body .ms-content-body .updatePrompt span {
+  color: #0096fb;
+  margin-right: 10px;
+}
+body .ms-content-body h3 {
+  padding-left: 20px;
+}
+body .ms-content-body .ms-content-msPlug {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 30px;
+}
+body .ms-content-body .ms-content-msPlug .thumbnail {
+  margin-bottom: 30px;
+}
+body .ms-content-body .ms-content-msPlug .thumbnail img.lazy {
+  width: 100%;
+}
+body .ms-content-body .ms-content-msTemplet,
+body .ms-content-body .ms-content-msPlug {
+  margin: 15px 0px;
+  padding: 0px 10px;
+}
+body .ms-content-body .ms-content-msTemplet div,
+body .ms-content-body .ms-content-msPlug div {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail,
+body .ms-content-body .ms-content-msPlug div .thumbnail {
+  margin-bottom: 20px;
+  padding: 5px;
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-templateTitle,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-templateTitle,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-plugTitle,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-plugTitle {
+  text-align: left;
+  font-size: 20px;
+  color: #333;
+  height: 55px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0px;
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-templateTitle span,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-templateTitle span,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-plugTitle span,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-plugTitle span {
+  font-size: 12px;
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-templateTitle .ms-templateShareHead,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-templateTitle .ms-templateShareHead,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-plugTitle .ms-templateShareHead,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-plugTitle .ms-templateShareHead,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-templateTitle .ms-plugShareHead,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-templateTitle .ms-plugShareHead,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-plugTitle .ms-plugShareHead,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-plugTitle .ms-plugShareHead {
+  padding: 0px;
+  float: left;
+  margin-right: 10px;
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-templateTitle .ms-templateShareHead img,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-templateTitle .ms-templateShareHead img,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-plugTitle .ms-templateShareHead img,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-plugTitle .ms-templateShareHead img,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-templateTitle .ms-plugShareHead img,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-templateTitle .ms-plugShareHead img,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-plugTitle .ms-plugShareHead img,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-plugTitle .ms-plugShareHead img {
+  width: 50px;
+  border-radius: 100%;
+  height: 50px;
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-templateTitle .ms-templateShareHead .lazy,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-templateTitle .ms-templateShareHead .lazy,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-plugTitle .ms-templateShareHead .lazy,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-plugTitle .ms-templateShareHead .lazy,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-templateTitle .ms-plugShareHead .lazy,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-templateTitle .ms-plugShareHead .lazy,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-plugTitle .ms-plugShareHead .lazy,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-plugTitle .ms-plugShareHead .lazy {
+  background: url(http://static.ming-soft.net/msheader.jpg);
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-templateTitle .ms-templateShareName p,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-templateTitle .ms-templateShareName p,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-plugTitle .ms-templateShareName p,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-plugTitle .ms-templateShareName p,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-templateTitle .ms-plugShareVersion p,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-templateTitle .ms-plugShareVersion p,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-plugTitle .ms-plugShareVersion p,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-plugTitle .ms-plugShareVersion p {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-templateTitle .ms-plugShareName p,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-templateTitle .ms-plugShareName p,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-plugTitle .ms-plugShareName p,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-plugTitle .ms-plugShareName p {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-templateTitle .ms-plugShareBb,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-templateTitle .ms-plugShareBb,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-plugTitle .ms-plugShareBb,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-plugTitle .ms-plugShareBb {
+  float: left;
+  padding: 0px;
+  font-size: 12px;
+  color: #999;
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-templateTitle .ms-plugShareNew,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-templateTitle .ms-plugShareNew,
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-plugTitle .ms-plugShareNew,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-plugTitle .ms-plugShareNew {
+  float: right;
+  color: #ffffff;
+  background: red;
+  border-radius: 4px;
+  padding: 0px 3px;
+  margin-top: 0px;
+  border-bottom: #bb0000 2px solid;
+  margin-right: -10px;
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-templatePic,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-templatePic {
+  height: 180px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  padding: 0px;
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-templatePic img,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-templatePic img {
+  width: 100%;
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail .sharePic,
+body .ms-content-body .ms-content-msPlug div .thumbnail .sharePic {
+  height: 225px;
+  margin-bottom: 0px;
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail .ms-plugDescription,
+body .ms-content-body .ms-content-msPlug div .thumbnail .ms-plugDescription {
+  height: 60px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  word-break: break-all;
+  padding: 0px;
+  text-align: left;
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail .shareTitle,
+body .ms-content-body .ms-content-msPlug div .thumbnail .shareTitle {
+  text-align: center;
+  font-size: 20px;
+}
+body .ms-content-body .ms-content-msTemplet div .thumbnail .shareWelcome,
+body .ms-content-body .ms-content-msPlug div .thumbnail .shareWelcome {
+  height: 26px;
+  text-align: center;
+  font-size: 12px;
+}
+body .ms-content,
+body .ms-content-body {
+  /*列表表格样式（文章列表 栏目列表一起）*/
+}
+body .ms-content table,
+body .ms-content-body table {
+  width: 100%;
+  color: #666666;
+  border: none;
+  background-color: #ffffff;
+  padding: 10px 0px;
+  margin-bottom: 60px;
+  *box-shadow: 0 0px 1px #ccc;
+}
+body .ms-content table tbody tr,
+body .ms-content-body table tbody tr {
+  height: 30px;
+}
+body .ms-content table tbody tr .text-left,
+body .ms-content-body table tbody tr .text-left,
+body .ms-content table tbody tr .text-center,
+body .ms-content-body table tbody tr .text-center {
+  font-size: 12px;
+  display: table-cell;
+  vertical-align: middle;
+}
+body .ms-content .searchForm,
+body .ms-content-body .searchForm {
+  margin-bottom: 10px;
+  padding: 10px 0px;
+  position: fixed;
+  top: 46px;
+  width: 100%;
+  z-index: 1000;
+  background-color: #ffffff;
+  box-shadow: 2px 1px 5px #A1A1A1;
+}
+body .ms-content .searchForm .bv-hidden-submit,
+body .ms-content-body .searchForm .bv-hidden-submit {
+  display: none;
+  width: 0px;
+  height: 0px;
+}
+body .ms-content .searchForm .row,
+body .ms-content-body .searchForm .row {
+  margin-right: 0px;
+}
+body .ms-content .searchForm .row .col-md-3,
+body .ms-content-body .searchForm .row .col-md-3 {
+  padding: 0px 10px;
+}
+body .ms-content .searchForm .col-sm-2,
+body .ms-content-body .searchForm .col-sm-2 {
+  width: auto;
+}
+body .ms-content .searchForm .ms-form-input,
+body .ms-content-body .searchForm .ms-form-input {
+  line-height: 35px;
+}
+body .ms-content .searchForm .ms-from-group-input,
+body .ms-content-body .searchForm .ms-from-group-input {
+  padding-left: 0;
+  padding-right: 0;
+}
+body .ms-content .searchForm .ms-from-group-input input,
+body .ms-content-body .searchForm .ms-from-group-input input {
+  width: 100%;
+}
+body .ms-content .searchForm .ms-from-group-input input[type="radio"],
+body .ms-content-body .searchForm .ms-from-group-input input[type="radio"] {
+  width: auto;
+}
+body .ms-content .searchForm .ms-from-group-input input[type="checkbox"],
+body .ms-content-body .searchForm .ms-from-group-input input[type="checkbox"] {
+  width: auto;
+}
+body .ms-content .searchForm .ms-from-group-input select,
+body .ms-content-body .searchForm .ms-from-group-input select {
+  width: 100%;
+}
+body .ms-content .searchForm .ms-from-group-input .input-group,
+body .ms-content-body .searchForm .ms-from-group-input .input-group {
+  width: 100%;
+}
+body .ms-content .searchForm .control-label,
+body .ms-content-body .searchForm .control-label {
+  line-height: 35px;
+}
+body .ms-content .searchForm .form-group,
+body .ms-content-body .searchForm .form-group {
+  margin-bottom: 10px;
+}
+body .ms-content .searchForm .radio,
+body .ms-content-body .searchForm .radio {
+  margin-top: 4px;
+}
+body .ms-content .searchForm .checkbox,
+body .ms-content-body .searchForm .checkbox {
+  margin-top: 4px;
+}
+body .ms-content .searchForm .bottom,
+body .ms-content-body .searchForm .bottom {
+  text-align: right;
+  padding: 10px 10px 0 0;
+  border-top: 1px solid #EAE7E7;
+}
+body .ms-content .searchForm .bottom .close,
+body .ms-content-body .searchForm .bottom .close {
+  font-size: 2px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  height: 18px;
+  border-top-right-radius: 0px;
+  background: #ffffff;
+  width: 80px;
+  border-top-left-radius: 0px;
+  border-top: 0px;
+  position: absolute;
+  color: #ddd;
+  left: 48%;
+  bottom: -18px;
+  text-align: center;
+  line-height: 16px;
+  opacity: 1;
+}
+body .select2-container .select2-choice {
+  height: 34px;
+}
+body .select2-container {
+  border: none;
+  padding: 0;
+}
+body .select2-container .select2-container--default {  
+ 	height: 34px;  
+} 
+body .select2-container .select2-selection--single{
+	font: inherit;
+	border: 1px solid #ccc;
+    display: block;
+    height: 34px;
+    padding: 2px 3px;
+	font-size: 14px;
+	color: rgb(85, 85, 85);
+}
