@@ -25,30 +25,32 @@
     <script type="text/javascript" charset="utf-8" src="http://mpm.mingsoft.net/static/plugins/ueditor/1.4.3.1/ueditor.config.js"></script>
     <script type="text/javascript" charset="utf-8" src="http://mpm.mingsoft.net/static/plugins/ueditor/1.4.3.1/ueditor.all.js"></script>
     <script type="text/javascript" charset="utf-8" src="http://mpm.mingsoft.net/static/plugins/ueditor/1.4.3.1/lang/zh-cn/zh-cn.js"></script>
-
+    <!--图片懒加载-->
+	<script src="https://cdn.bootcss.com/vue-lazyload/1.2.6/vue-lazyload.js"></script>
+	
     <!-- 拖拽 -->
     <script src="//cdn.jsdelivr.net/npm/sortablejs@1.7.0/Sortable.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.17.0/vuedraggable.min.js"></script>
-    
-    <!-- <link rel="stylesheet" href="${base}/static/ms-admin/4.7.0/css/login.css"> -->
-    <!-- <link rel="stylesheet" href="${base}/static/mweixin/css/custom-menu.css"> -->
-    <!-- <link rel="stylesheet" href="${base}/static/mweixin/css/message-reply.css"> -->
-    
-    <!--图片懒加载-->
-		<script src="https://cdn.bootcss.com/vue-lazyload/1.2.6/vue-lazyload.js"></script>
+ 
+    <link rel="stylesheet" href="${base}/static/ms-admin/4.7.0/css/login.css"> 
+    <link rel="stylesheet" href="${base}/static/mweixin/css/custom-menu.css"> 
+    <link rel="stylesheet" href="${base}/static/mweixin/css/message-reply.css">     
+    <!-- 
 
     <link rel="stylesheet" href="../../../static/ms-admin/4.7.0/css/login.css">
     <link rel="stylesheet" href="../../../static/mweixin/css/custom-menu.css">
-    <link rel="stylesheet" href="../../../static/mweixin/css/message-reply.css">
+    <link rel="stylesheet" href="../../../static/mweixin/css/message-reply.css">    
+    -->
+   
     <script>
-        // ms.base = "${base}";
-        // ms.manager = "${managerPath}";
+        ms.base = "${base}";
+        ms.manager = "${managerPath}";
 
-        ms.base = "http://192.168.0.54:82";
-        ms.manager = "http://192.168.0.54:82/apis/ms";
+        //ms.base = "http://192.168.0.54:82";
+        //ms.manager = "http://192.168.0.54:82/apis/ms";
         //图片懒加载
-			  Vue.use(VueLazyload, {
-			    error: ms.base + '/images/ic_image_deault.png',
-			    loading: ms.base + '/images/ic_image_deault.png',
-			  })
+		  Vue.use(VueLazyload, {
+		    error: ms.base + '/images/ic_image_deault.png',
+		    loading: ms.base + '/images/ic_image_deault.png',
+		  })
     </script>
