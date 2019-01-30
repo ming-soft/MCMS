@@ -1,6 +1,6 @@
 server:
   port: 4000
-  servlet.context-path: /mcms
+  servlet.context-path: /
   
 spring:
   datasource:
