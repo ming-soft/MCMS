@@ -36,11 +36,11 @@ CREATE TABLE `mdiy_tag`  (
 -- ----------------------------
 INSERT INTO `mdiy_tag` VALUES (3, 'arclist', 3, '文章列表');
 INSERT INTO `mdiy_tag` VALUES (4, 'channel', 3, '通用栏目');
-INSERT INTO `mdiy_tag` VALUES (5, 'global', 3, '全局');
+INSERT INTO `mdiy_tag` VALUES (5, 'global', 2, '全局');
 INSERT INTO `mdiy_tag` VALUES (7, 'field', 3, '文章内容');
-INSERT INTO `mdiy_tag` VALUES (8, 'pre', 3, '文章上一篇');
-INSERT INTO `mdiy_tag` VALUES (9, 'page', 3, '通用分页');
-INSERT INTO `mdiy_tag` VALUES (10, 'next', 3, '文章下一篇');
+INSERT INTO `mdiy_tag` VALUES (8, 'pre', 0, '文章上一篇');
+INSERT INTO `mdiy_tag` VALUES (9, 'page', 2, '通用分页');
+INSERT INTO `mdiy_tag` VALUES (10, 'next', 0, '文章下一篇');
 INSERT INTO `mdiy_tag` VALUES (12, 'prclist', 3, '商品列表');
 INSERT INTO `mdiy_tag` VALUES (13, 'goods', 3, '商品详情');
 
