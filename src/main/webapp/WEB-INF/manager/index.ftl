@@ -2,9 +2,9 @@
 <html>
    <head>
       <title></title>
-          <#include "/include/head-file.ftl"/> 
+          <!-- <#include "/include/head-file.ftl"/> 
          <#include "/reset-password.ftl"/>
-        <#include "/exit-system.ftl"/> 
+        <#include "/exit-system.ftl"/>  -->
         <link rel="stylesheet" href="${base}/static/ms-admin/4.7.0/css/index.css">
      
     <!--#include virtual="include/head-file.ftl" -->
@@ -81,6 +81,7 @@
                     :collapse-transition='true' 
                     :unique-opened='true' 
                     ref='menu'
+                    :default-openeds='subMenuList'
                     >
                      <el-submenu 
                         :index="i+''" 
@@ -161,6 +162,7 @@
         peopleInfo:{
         	managerName:''//账号
         },
+        subMenuList:[],//
       },
       watch:{
           menuList:function(n,o){
@@ -172,6 +174,9 @@
           parentMenuList:function(n,o){
              this.mainParentMenuList = n.slice(0,5);
           },
+          subMenuList:function(n,o){
+              console.log('zicai',n);
+          }
       },
       methods: {
         // 菜单列表
@@ -252,7 +257,6 @@
          },
         //  打开修改密码，退出的模态框
          openModal:function(){
-             console.log('event.target',event.target.innerText);
             event.target.innerText.indexOf('修改密码')>-1
             ? resetPasswordVue.isShow=true : exitSystemVue.isShow=true
          }
