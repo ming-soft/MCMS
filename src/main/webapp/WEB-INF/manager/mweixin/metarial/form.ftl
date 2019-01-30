@@ -93,6 +93,7 @@
          authorWordNumber: 8, //图文作者剩余字数
          descWordNumber: 54, //摘要
          editor: null, //富文本实例
+         editorCurrentContent: null, //当前百度编辑器输入的内容
          articleForm: {
             basicTitle: '', //标题
             articleAuthor: '', //作者
@@ -113,49 +114,22 @@
                 },
                 deep:true,
             },
+            editorCurrentContent:function(n,o){
+                
+            }
       },
       methods: {
           open:function(material){
                 menuVue.menuActive = '新建图文';
-                if(material && material.newsId>0){
-                    // 编辑
-                    this.subArticleList = material.articleList;
-                    console.log('子',material.articleList);
-                    this.mainArticle = material.newsArticle
-                    // 默认显示头文章的详情
-                    this.articleForm.basicTitle = material.newsArticle.basicTitle
-                    this.articleForm.articleAuthor = material.newsArticle.articleAuthor
-                    this.articleForm.basicDescription = material.newsArticle.basicDescription
-                    this.articleForm.articleContent = material.newsArticle.articleContent
-                    this.thumbnailShow = true
-                    this.thumbnailUrl = material.newsArticle.basicPic
-                    this.editor.setContent(material.newsArticle.articleContent)
-                    this.$forceUpdate();
-                }else{
-                    // 新增
-                    console.log('this.defaultArticleForm',this.defaultArticleForm);
-                    this.editor.setContent('')
-                    this.thumbnailShow = false
-                    this.thumbnailUrl = ''
-                    this.articleForm = {}
-                    this.subArticleList = [];
-                    this.mainArticle = {}
-                }
-                console.log('"material',material);
+                material && material.newsId>0 ?　this.resetForm(material) : this.resetForm()
           },
-        //   图片上传之前的钩子
+        //   图片上传之前进行数据校验
         beforeBasicPicUpload:function(file){
-            var fileType = false;
-	    	if(file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg'){
-	    		fileType = true;
-	    	}
-	        const isLt2M = file.size / 1024 / 1024 < 2;
-	        if (!fileType) {
-	          this.$message.error('文章配图只能是 JPG、JPEG、PNG 格式!');
-	        }
-	        if (!isLt2M) {
-	          this.$message.error('文章配图大小不能超过 2MB!');
-	        }
+            var fileType = null;
+            ['image/jpeg','image/png','image/jpg'].indexOf(file.type)>-1 ? fileType = true : fileType = false
+	        var isLt2M = file.size / 1024 / 1024 < 2;
+	        !fileType && this.$message.error('文章配图只能是 JPG、JPEG、PNG 格式!');
+	        !isLt2M && this.$message.error('文章配图大小不能超过 2MB!');
 	        return fileType && isLt2M;
         },
         //   图片上传成功函数
@@ -163,7 +137,6 @@
             this.thumbnailShow = this.uploadDisable = true
             this.thumbnailUrl = ms.web + url
             this.mainArticle.basicPic = this.thumbnailUrl
-
         },
          // 添加文章
          addArticle: function() {
@@ -188,16 +161,11 @@
          },
          // 计算剩余字数
          resetWordNum: function(type,limit) {
-             var result = event.target.value;
-             if(type.indexOf('Title') > -1){
-                this.titleWordNumber = limit - result.length
-             }else{
-                 this.authorWordNumber = limit - result.length
-             }
-             if(result.length >= limit){
+             type.indexOf('Title') > -1 ? this.titleWordNumber = limit - event.target.value.length : this.authorWordNumber = limit - event.target.value.length
+             if(event.target.value.length >= limit){
                  this.$message.error('超出字数限制，请输入不超过'+limit+'字符');
                  this.$nextTick(function(){
-                     this.articleForm[type] = result.slice(0,limit);
+                     this.articleForm[type] = event.target.value.slice(0,limit);
                  })
              }
          },
@@ -207,9 +175,9 @@
             console.log('that.articleForm',that.articleForm);
             console.log('that.articleList',that.articleList);
             // 获取百度编辑器内容
-            this.editor.getContent();
+            // this.editorCurrentContent = ''
             ms.http.post(ms.manager + "/weixin/news/save.do",{
-                newsArticleBean:that.mainArticle,
+                newsArticle:that.mainArticle,
                 articleList:JSON.stringify(that.articleList),
                 newsCategoryId:that.newsCategoryId,
                 newsIsSyn:false,
@@ -219,6 +187,25 @@
             }, function (err) {
                 that.$message.error(err);
             })
+        },
+        // 表单重置
+        resetForm:function(material){
+            this.thumbnailShow = material ? true : false
+            this.thumbnailUrl = material ?  material.newsArticle.basicPic : ''
+
+            this.mainArticle.basicPic = material ? material.newsArticle.basicPic : ''
+            this.mainArticle.basicTitle = material ? material.newsArticle.basicTitle : ''
+
+            // 打开界面默认显示主文章详情
+            this.articleForm.basicTitle = material ? material.newsArticle.basicTitle : ''
+            this.articleForm.articleAuthor = material ? material.newsArticle.articleAuthor : ''
+            this.articleForm.basicDescription = material ? material.newsArticle.basicDescription : ''
+            var result = '';
+            result = (material && material.newsArticle.articleContent) ? material.newsArticle.articleContent : ''
+            this.editor.setContent(result)
+
+            this.subArticleList = material ? material.articleList : [];
+            this.$forceUpdate();  
         }
       },
       mounted: function() {
@@ -256,6 +243,10 @@
                $(a).addClass("ms-webkit-scrollbar").before(
                   "<style>.ms-webkit-scrollbar::-webkit-scrollbar,::-webkit-scrollbar{width:10px;/*滚动条宽度*/height:1.5%;/*滚动条高度*/}/*定义滚动条轨道内阴影+圆角*/.ms-webkit-scrollbar::-webkit-scrollbar-track,::-webkit-scrollbar-track{border-radius:10px;/*滚动条的背景区域的圆角*/background-color:#eeeeee;/*滚动条的背景颜色*/}.ms-task-content::-webkit-scrollbar-track{border-radius:10px;background-color:#FFFFFF;}/*定义滑块内阴影+圆角*/.ms-webkit-scrollbar::-webkit-scrollbar-thumb,::-webkit-scrollbar-thumb{border-radius:10px;/*滚动条的圆角*/background-color:#dddddd;/*滚动条的背景颜色*/}</style>"
                );
+            });
+            this.editor.addListener('contentChange',function() {
+                that.editorCurrentContent = that.editor.getContent();
+                that.$message.success(that.editor.getContent());
             });
          }
       }
