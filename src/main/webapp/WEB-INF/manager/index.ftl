@@ -10,7 +10,6 @@
     <!--#include virtual="include/head-file.ftl" -->
     <!--#include virtual="./reset-password.ftl" -->
     <!--#include virtual="./exit-system.ftl" --> 
-    <!--
     <link rel="stylesheet" href="../../../static/ms-admin/4.7.0/css/index.css">
 
    </head>
@@ -82,7 +81,6 @@
                     :collapse-transition='true' 
                     :unique-opened='true' 
                     ref='menu'
-                    :default-openeds='subMenuList'
                     >
                      <el-submenu 
                         :index="i+''" 
@@ -175,8 +173,8 @@
           parentMenuList:function(n,o){
              this.mainParentMenuList = n.slice(0,5);
           },
-          subMenuList:function(n,o){
-              console.log('zicai',n);
+          menuActive:function(n,o){
+              console.log('激活',n);
           }
       },
       methods: {

@@ -308,7 +308,7 @@ textarea::-webkit-input-placeholder {
   position: absolute;
   right: -34px;
   top: 50%;
-  z-index: 9999;
+  z-index: 999;
   cursor: pointer;
 }
 .ms-admin-menu-aside .ms-admin-menu .ms-menu-expand i {
