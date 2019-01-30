@@ -55,7 +55,7 @@
                   <!--登录-->
                   <el-dropdown trigger="click" class="ms-admin-login" placement="top-start" @visible-change="loginDown = !loginDown">
                      <span class="el-dropdown-link" :class="{'active':loginDown}">
-                        <img src="http://cdn.mingsoft.net/global/static/ms-admin/4.7.0//msheader.png" />
+                        <img src="${base}/static/ms-admin/4.7.0/images/default_handsome.jpg" />
                         <span v-text='peopleInfo.managerName'></span>
                      </span>
                      <el-dropdown-menu class="ms-admin-login-down" slot="dropdown" @click.native='openModal'>
