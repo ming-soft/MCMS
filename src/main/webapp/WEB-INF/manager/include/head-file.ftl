@@ -41,6 +41,7 @@
     <script>
         ms.base = "${base}";
         ms.manager = "${managerPath}";
+        ms.web = ms.base;
 
         // ms.base = "http://192.168.0.54:85";
         // ms.manager = "http://192.168.0.54:85/apis/ms";
