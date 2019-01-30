@@ -35,19 +35,15 @@
     <link rel="stylesheet" href="${base}/static/ms-admin/4.7.0/css/login.css"> 
     <link rel="stylesheet" href="${base}/static/mweixin/css/custom-menu.css"> 
     <link rel="stylesheet" href="${base}/static/mweixin/css/message-reply.css">
-    <!-- 
-    <link rel="stylesheet" href="../../../static/ms-admin/4.7.0/css/login.css">
-    <link rel="stylesheet" href="../../../static/mweixin/css/custom-menu.css">
-    <link rel="stylesheet" href="../../../static/mweixin/css/message-reply.css">    
-    -->
+
    
     <script>
         ms.base = "${base}";
         ms.manager = "${managerPath}";
 
-        // ms.base = "http://192.168.0.54:82";
-        // ms.manager = "http://192.168.0.54:82/apis/ms";
-        // ms.web = "http://192.168.0.54:82/apis";
+        // ms.base = "http://192.168.0.54:85";
+        // ms.manager = "http://192.168.0.54:85/apis/ms";
+        // ms.web = "http://192.168.0.54:85/apis";
         //图片懒加载
 		  Vue.use(VueLazyload, {
 		    error: ms.base + '/images/ic_image_deault.png',
