@@ -11,7 +11,6 @@
     <!--#include virtual="./reset-password.ftl" -->
     <!--#include virtual="./exit-system.ftl" --> 
     <link rel="stylesheet" href="../../../static/ms-admin/4.7.0/css/index.css">
-
    </head>
    <body>
       <div id="app" class="index">
