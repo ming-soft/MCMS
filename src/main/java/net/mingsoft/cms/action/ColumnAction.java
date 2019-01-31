@@ -80,17 +80,16 @@ public class ColumnAction extends BaseAction{
 	 */
 	@RequestMapping("/add")
 	public String add(HttpServletRequest request,ModelMap model) {
-		ManagerEntity managerSession = (ManagerEntity) BasicUtil.getSession( SessionConstEnum.MANAGER_SESSION);
 		// 站点ID
-		int appId =this.getAppId(request);
-		List<ColumnEntity> list = columnBiz.queryAll(appId, this.getModelCodeId(request));
+		int appId =BasicUtil.getAppId();
+		List<ColumnEntity> list = columnBiz.queryAll(appId, BasicUtil.getModelCodeId(net.mingsoft.cms.constant.ModelCode.CMS_COLUMN.toString()));
 		ColumnEntity columnSuper = new ColumnEntity();
 		model.addAttribute("appId",appId);
 		model.addAttribute("columnSuper", columnSuper);
 		model.addAttribute("column",new ColumnEntity());
 		model.addAttribute("listColumn", JSONArray.toJSONString(list));
 		model.addAttribute("model", "cms");
-		return view("/column/form");
+		return "/column/form";
 	}
 
 	/**
@@ -194,10 +193,10 @@ public class ColumnAction extends BaseAction{
 		// 获取管理实体
 		ManagerEntity managerSession = (ManagerEntity) BasicUtil.getSession( SessionConstEnum.MANAGER_SESSION);
 		// 站点ID
-		int appId = this.getAppId(request);
+		int appId = BasicUtil.getAppId();
 		List<ColumnEntity> list = new ArrayList<ColumnEntity>();
 		// 判断管理员权限,查询其管理的栏目集合
-		list = columnBiz.queryAll(appId, this.getModelCodeId(request));
+		list = columnBiz.queryAll(appId, BasicUtil.getModelCodeId(net.mingsoft.cms.constant.ModelCode.CMS_COLUMN.toString()));
 		//查询当前栏目实体
 		ColumnEntity column = (ColumnEntity) columnBiz.getEntity(columnId);
 		model.addAttribute("appId",appId);
@@ -211,7 +210,7 @@ public class ColumnAction extends BaseAction{
 		model.addAttribute("columnSuper", columnSuper);
 		model.addAttribute("listColumn", JSONArray.toJSONString(list));
 		model.addAttribute("model", "cms");
-		return view("/column/form");
+		return "/column/form";
 	}
 	
 	/**
@@ -222,9 +221,9 @@ public class ColumnAction extends BaseAction{
 	public void list(@ModelAttribute ColumnEntity column,HttpServletResponse response, HttpServletRequest request,ModelMap model) {
 
 		// 站点ID有session获取
-		int websiteId = this.getAppId(request);
+		int websiteId = BasicUtil.getAppId();
 		// 需要打开的栏目节点树的栏目ID
-		List list = columnBiz.queryAll(websiteId, this.getModelCodeId(request));
+		List list = columnBiz.queryAll(websiteId, BasicUtil.getModelCodeId(net.mingsoft.cms.constant.ModelCode.CMS_COLUMN.toString()));
 		EUListBean _list = new EUListBean(list, list.size());
 		this.outJson(response, net.mingsoft.base.util.JSONArray.toJSONString(_list));
 	}
@@ -241,11 +240,11 @@ public class ColumnAction extends BaseAction{
 		if(!checkForm(column,response)){
 			return;
 		}
-		column.setCategoryAppId( this.getAppId(request));
+		column.setCategoryAppId( BasicUtil.getAppId());
 		column.setAppId(BasicUtil.getAppId());
 		column.setCategoryManagerId(getManagerBySession(request).getManagerId());
 		column.setCategoryDateTime(new Timestamp(System.currentTimeMillis()));
-		column.setCategoryModelId(this.getModelCodeId(request));
+		column.setCategoryModelId(BasicUtil.getModelCodeId(net.mingsoft.cms.constant.ModelCode.CMS_COLUMN.toString()));
 		if(column.getColumnType()==ColumnEntity.ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()){
 			column.setColumnListUrl(null);
 		}
@@ -264,7 +263,7 @@ public class ColumnAction extends BaseAction{
 	@ResponseBody
 	public void update(@ModelAttribute ColumnEntity column,HttpServletRequest request,HttpServletResponse response) {
 		//获取站点ID
-		int websiteId = this.getAppId(request);
+		int websiteId = BasicUtil.getAppId();
 		//检测栏目信息是否合法
 		if(!checkForm(column,response)){
 			return;
@@ -278,7 +277,7 @@ public class ColumnAction extends BaseAction{
 		columnBiz.updateCategory(column);
 		this.columnPath(request,column);
 		//查询当前栏目是否有子栏目，
-		List<ColumnEntity> childList = columnBiz.queryChild(column.getCategoryId(), websiteId,this.getModelCodeId(request),null);
+		List<ColumnEntity> childList = columnBiz.queryChild(column.getCategoryId(), websiteId,BasicUtil.getModelCodeId(net.mingsoft.cms.constant.ModelCode.CMS_COLUMN.toString()),null);
 		if(childList != null && childList.size()>0){
 			//改变子栏目的顶级栏目ID为当前栏目的父级栏目ID
 			for(int i=0;i<childList.size();i++){
