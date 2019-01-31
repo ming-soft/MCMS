@@ -2,18 +2,15 @@
 <html>
    <head>
       <title></title>
-      <#include "/include/head-file.ftl"/> 
-      <#include "/reset-password.ftl"/>
-      <#include "/exit-system.ftl"/> 
-      <link rel="stylesheet" href="${base}/static/ms-admin/4.7.0/css/index.css">
+          <!-- <#include "/include/head-file.ftl"/> 
+         <#include "/reset-password.ftl"/>
+        <#include "/exit-system.ftl"/>  -->
+        <link rel="stylesheet" href="${base}/static/ms-admin/4.7.0/css/index.css">
      
     <!--#include virtual="include/head-file.ftl" -->
     <!--#include virtual="./reset-password.ftl" -->
     <!--#include virtual="./exit-system.ftl" --> 
-    <!--
     <link rel="stylesheet" href="../../../static/ms-admin/4.7.0/css/index.css">
-    -->
-
    </head>
    <body>
       <div id="app" class="index">
@@ -57,7 +54,7 @@
                   <!--登录-->
                   <el-dropdown trigger="click" class="ms-admin-login" placement="top-start" @visible-change="loginDown = !loginDown">
                      <span class="el-dropdown-link" :class="{'active':loginDown}">
-                        <img src="http://cdn.mingsoft.net/global/static/ms-admin/4.7.0//msheader.png" />
+                        <img src="${base}/static/ms-admin/4.7.0/images/default_handsome.jpg" />
                         <span v-text='peopleInfo.managerName'></span>
                      </span>
                      <el-dropdown-menu class="ms-admin-login-down" slot="dropdown" @click.native='openModal'>
@@ -163,6 +160,7 @@
         peopleInfo:{
         	managerName:''//账号
         },
+        subMenuList:[],//
       },
       watch:{
           menuList:function(n,o){
@@ -174,6 +172,9 @@
           parentMenuList:function(n,o){
              this.mainParentMenuList = n.slice(0,5);
           },
+          menuActive:function(n,o){
+              console.log('激活',n);
+          }
       },
       methods: {
         // 菜单列表
@@ -254,7 +255,6 @@
          },
         //  打开修改密码，退出的模态框
          openModal:function(){
-             console.log('event.target',event.target.innerText);
             event.target.innerText.indexOf('修改密码')>-1
             ? resetPasswordVue.isShow=true : exitSystemVue.isShow=true
          }
