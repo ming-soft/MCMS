@@ -24,6 +24,7 @@
                      <span v-text='element.basicTitle'></span>
                   </p>
                   <img :src='element.basicThumbnails'>
+                  <div class="ms-article-item-mask"><i class="el-icon-delete" @click='subArticleList.splice(index,1)'></i></div>
                </div>
             </draggable>
             <div class="ms-article-footer">

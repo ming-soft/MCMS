@@ -173,6 +173,7 @@ textarea::-webkit-input-placeholder {
   justify-content: space-between;
   padding: 10px 0;
   border-bottom: 1px solid #e6e6e6;
+  position: relative;
 }
 .ms-article .el-container .el-aside .ms-article-item p {
   margin: 0 10px 0 0;
@@ -193,8 +194,33 @@ textarea::-webkit-input-placeholder {
   width: 50px;
   height: 50px;
 }
+.ms-article .el-container .el-aside .ms-article-item .ms-article-item-mask {
+  visibility: hidden;
+  background: #7e7e7e;
+  opacity: .8;
+  width: 100%;
+  height: 50%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.ms-article .el-container .el-aside .ms-article-item .ms-article-item-mask > i {
+  font-weight: initial;
+  font-size: 14px;
+  color: #fff;
+  margin: 0 10px 0 auto;
+  display: none;
+}
 .ms-article .el-container .el-aside .ms-article-item:hover {
   cursor: pointer;
+}
+.ms-article .el-container .el-aside .ms-article-item:hover .ms-article-item-mask {
+  visibility: visible;
+}
+.ms-article .el-container .el-aside .ms-article-item:hover .ms-article-item-mask > i {
+  display: block;
 }
 .ms-article .el-container .el-aside .ms-article-footer {
   background: #fff;
