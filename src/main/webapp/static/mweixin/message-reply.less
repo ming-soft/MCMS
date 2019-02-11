@@ -2,6 +2,7 @@
 .ms-admin-message-reply {
     .ms-container {
         display: flex;
+        height: 256px;
         .message-reply-tabs {
             padding-left: 12px;
         }
@@ -31,10 +32,12 @@
         }
         .el-tabs__content {
             border: 1px solid @borderColor;
+            height: calc(~'100% - 42px');
             .el-tab-pane {
                 padding: 0 !important;
                 width: 100%;
                 .ms-flex();
+                // 文字回复
                 >.el-form {
                     width: 100%;
                     .ms-message-reply-content {
@@ -53,6 +56,7 @@
                                 border: none !important;
                                 border-bottom: 1px solid @borderColor !important;
                             }
+                            // 底部插入超链接
                             .footer {
                                 height: 58px;
                                 padding: 0 14px;
@@ -76,6 +80,35 @@
                         }
                     }
                 }
+            }
+            // 图片回复
+            .message-reply-picture,.message-reply-article{
+                padding:20px !important;
+                height: 100%;
+                >div {
+                    flex: 1;
+                    border: 1px dashed @borderColor;
+                    .ms-flex(center);
+                    align-items: center;
+                    flex-direction: column;
+                    i {
+                        .ms-font(20px, @themeColor, bolder);
+                    }
+                    span {
+                        margin-top: 8px;
+                        line-height: 1;
+                    }
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+                >div:last-child {
+                    margin-left: 20px;
+                }
+            }
+            // 图文回复
+            .message-reply-article{
+
             }
         }
     }
