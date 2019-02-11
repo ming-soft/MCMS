@@ -35,6 +35,7 @@
                     border-top: 1px solid @borderColor !important;
                     >.el-button {
                         .ms-width-height(40px, 50px) !important;
+                        min-width: 40px;
                         padding: 0 !important;
                         border: none !important;
                         border-right: 1px solid @borderColor !important;
@@ -45,7 +46,7 @@
                         background: transparent !important;
                     }
                     .ms-create-menu {
-                        flex: 1;
+                        width: 240px;
                         font-size: 0;
                         .ms-flex(space-between);
                         .el-button {
@@ -59,20 +60,39 @@
                         .ms-create-sub-menu {
                             flex: 1;
                             position: relative;
+                            // 主菜单
                             >.el-button:first-child {
                                 width: 100%;
+                                border-right:1px solid @borderColor !important;
+                                padding: 10px !important;
+                                .ms-ellipsis-clamp(1);
                             }
-                            >.el-button:last-child {
+                            // 添加子菜单
+                            .sub-menu-list{
                                 position: absolute;
-                                top: -60px;
+                                bottom:60px;
                                 left: 0;
                                 border: 1px solid @borderColor !important;
                                 width: 100%;
+                                .ms-flex(flex-start);
+                                flex-direction: column;
+                                >button{
+                                    margin-left: 0 !important;
+                                    border: none !important;
+                                    border-bottom: 1px solid @borderColor !important;
+                                }
+                                .ms-create-btn{
+                                    border-bottom: none !important;
+                                }
+                                // 子菜单列表
+                                .sub-menu-item{
+                                    .ms-ellipsis-clamp(1);
+                                    padding:10px !important;
+                                }
                             }
                         }
                         // 添加菜单
                         .el-button--default {
-                            border-left: 1px solid @borderColor !important;
                             padding: 0 !important;
                             flex: 1;
                         }

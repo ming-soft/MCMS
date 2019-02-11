@@ -167,6 +167,7 @@ textarea::-webkit-input-placeholder {
 .ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer > .el-button {
   width: 40px !important;
   height: 50px !important;
+  min-width: 40px;
   padding: 0 !important;
   border: none !important;
   border-right: 1px solid #e6e6e6 !important;
@@ -177,7 +178,7 @@ textarea::-webkit-input-placeholder {
   background: transparent !important;
 }
 .ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .ms-create-menu {
-  flex: 1;
+  width: 240px;
   font-size: 0;
   display: flex;
   justify-content: space-between;
@@ -196,16 +197,41 @@ textarea::-webkit-input-placeholder {
 }
 .ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .ms-create-menu .ms-create-sub-menu > .el-button:first-child {
   width: 100%;
+  border-right: 1px solid #e6e6e6 !important;
+  padding: 10px !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 }
-.ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .ms-create-menu .ms-create-sub-menu > .el-button:last-child {
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .ms-create-menu .ms-create-sub-menu .sub-menu-list {
   position: absolute;
-  top: -60px;
+  bottom: 60px;
   left: 0;
   border: 1px solid #e6e6e6 !important;
   width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .ms-create-menu .ms-create-sub-menu .sub-menu-list > button {
+  margin-left: 0 !important;
+  border: none !important;
+  border-bottom: 1px solid #e6e6e6 !important;
+}
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .ms-create-menu .ms-create-sub-menu .sub-menu-list .ms-create-btn {
+  border-bottom: none !important;
+}
+.ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .ms-create-menu .ms-create-sub-menu .sub-menu-list .sub-menu-item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  padding: 10px !important;
 }
 .ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer .ms-create-menu .el-button--default {
-  border-left: 1px solid #e6e6e6 !important;
   padding: 0 !important;
   flex: 1;
 }
