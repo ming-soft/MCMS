@@ -37,7 +37,9 @@
 							<span>菜单名称字数不多于5个汉字或10个字母</span>
 						</el-form-item>
 						<el-form-item label="菜单内容" class="ms-custom-menu-content">
-							<el-tabs v-model="activeName" @tab-click="">
+							<el-input v-model="customMenuForm.link" size='mini'></el-input>
+							<span>请输入菜单地址</span>
+							<!-- <el-tabs v-model="activeName" @tab-click="">
 								<el-tab-pane label="图片" name="picture">
 									<span slot="label">
 										<i class="el-icon-picture"></i>图片</span>
@@ -62,7 +64,7 @@
 										<span>新建图文</span>
 									</div>
 								</el-tab-pane>
-							</el-tabs>
+							</el-tabs> -->
 						</el-form-item>
 					</el-form>
 				</el-card>
@@ -76,6 +78,7 @@
 		data: {
 			customMenuForm: {
 				name: '',
+				link:'',
 			},
 			customMenuFormRules: {
 				name: [{

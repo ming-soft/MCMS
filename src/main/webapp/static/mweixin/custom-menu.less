@@ -90,7 +90,7 @@
             .custom-menu-card {
                 height: 100%;
                 // 内容菜单表单
-                .ms-custom-menu-name {
+                .ms-custom-menu-name,.ms-custom-menu-content {
                     .el-form-item__content {
                         .el-input {
                             .ms-width-height(153px, 30px) !important;
@@ -99,6 +99,13 @@
                         span {
                             margin-left: 10px;
                             .ms-font(@auxiliarySize, @auxiliaryColor);
+                        }
+                    }
+                }
+                .ms-custom-menu-content {
+                    .el-form-item__content {
+                        .el-input {
+                            .ms-width-height(306px, 30px) !important;
                         }
                     }
                 }
