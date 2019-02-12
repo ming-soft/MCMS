@@ -43,12 +43,20 @@
         ms.manager = "${managerPath}";
         ms.web = ms.base;
 
-        // ms.base = "http://192.168.0.54:85";
-        // ms.manager = "http://192.168.0.54:85/apis/ms";
-        // ms.web = "http://192.168.0.54:85/apis";
+        // ms.base = "http://192.168.0.54:82";
+        // ms.manager = "http://192.168.0.54:82/apis/ms";
+        // ms.web = "http://192.168.0.54:82/apis";
         //图片懒加载
 		  Vue.use(VueLazyload, {
 		    error: ms.base + '/images/ic_image_deault.png',
 		    loading: ms.base + '/images/ic_image_deault.png',
-		  })
+          })
+
+         // 测试使用 ==> 微信其他接口走之前需要先走这个接口
+         ms.http.get(ms.manager + "/mweixin/11/function.do")
+            .then((res) => {
+                console.log('微信登录接口', true);
+            }, (err) => {
+                console.log(err)
+        })
     </script>

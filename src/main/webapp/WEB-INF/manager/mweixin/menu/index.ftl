@@ -23,7 +23,7 @@
 									menu.menuTitle }}</el-button>
 								<div class="sub-menu-list" v-show="menu.addSubMenuShow">
 									<!-- 子菜单 -->
-									<el-button v-for="(sub,index) of menu.subMenuList" :key="index" v-text="sub.menuTitle" class="sub-menu-item"></el-button>
+									<el-button v-for="(sub,index) of currentSubMenuList" :key="index" v-text="sub.menuTitle" class="sub-menu-item"></el-button>
 									<!-- 添加子菜单的加号按钮 -->
 									<el-button icon="el-icon-plus" class="ms-create-btn" @click="addSubMenu"></el-button>
 								</div>
@@ -106,6 +106,7 @@
 			activeName: "picture", //导航切换  当前激活面板
 			mainMenuList: [],
 			subMenuList: [],//所有的子菜单
+			currentSubMenuList:[],//打开当前父菜单的子菜单列表
 		},
 		methods: {
 			menuList: function () {
@@ -156,9 +157,12 @@
 			openSubMenu(index,menu){
 				this.closeAllSubMenu(index);
 				this.$set(menu,'subMenuList',[])
+				console.log('menu',menu);
 				var that = this;
+				that.currentSubMenuList = [];
+				console.log('that.subMenuList',that.subMenuList);
 				that.subMenuList.forEach(function(item,index){
-					item.menuMenuId == menuId && that.subMenuList.push(item)
+					item.menuMenuId == menu.menuId && that.currentSubMenuList.push(item)
 				})
 			},
 			// 关闭所有的子菜单弹出层
