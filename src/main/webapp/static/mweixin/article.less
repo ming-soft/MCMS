@@ -5,13 +5,22 @@
     width: 100%;
     background: transparent !important;
     padding: 0 !important;
-    .ms-article-mask {
-        background: #000;
-        opacity: .2;
-        .ms-width-height(100%, 146px);
-        position: absolute;
-        top: 0;
-        left: 0;
+    // 主图文章
+    .ms-main-article{
+        &:hover{
+            cursor: pointer;
+        }
+        .ms-article-mask {
+            background: #000;
+            opacity: .2;
+            .ms-width-height(100%, 146px);
+            position: absolute;
+            top: 0;
+            left: 0;
+            &:hover{
+                cursor: pointer;
+            }
+        }
     }
     .el-container {
         .ms-container {

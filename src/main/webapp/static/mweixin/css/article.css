@@ -129,6 +129,13 @@ textarea::-webkit-input-placeholder {
 .ms-header-select > .el-select:nth-of-type(2) {
   margin: 0 10px;
 }
+.el-submenu .el-menu-item.is-active {
+  border-radius: 4px;
+}
+.el-card,
+.el-message {
+  border-radius: 0 !important;
+}
 .ms-article {
   display: flex;
   justify-content: space-between;
@@ -136,7 +143,10 @@ textarea::-webkit-input-placeholder {
   background: transparent !important;
   padding: 0 !important;
 }
-.ms-article .ms-article-mask {
+.ms-article .ms-main-article:hover {
+  cursor: pointer;
+}
+.ms-article .ms-main-article .ms-article-mask {
   background: #000;
   opacity: .2;
   width: 100%;
@@ -144,6 +154,9 @@ textarea::-webkit-input-placeholder {
   position: absolute;
   top: 0;
   left: 0;
+}
+.ms-article .ms-main-article .ms-article-mask:hover {
+  cursor: pointer;
 }
 .ms-article .el-container .ms-container {
   padding: 0;
