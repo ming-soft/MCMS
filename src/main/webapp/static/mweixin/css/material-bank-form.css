@@ -50,7 +50,7 @@ input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
   font-weight: initial;
   font-size: 12px;
-  color: #aaa;
+  color: #999;
   resize: none;
 }
 *::-webkit-scrollbar {
@@ -68,7 +68,7 @@ textarea::-webkit-input-placeholder {
 *::-webkit-scrollbar-thumb {
   border-radius: 10px;
   /*滚动条的圆角*/
-  background-color: #ddd;
+  background-color: #e6e6e6;
   /*滚动条的背景颜色*/
 }
 .ms-container {
@@ -104,7 +104,7 @@ textarea::-webkit-input-placeholder {
   height: 55px;
   box-sizing: border-box;
   padding: 10px 10px 25px 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e6e6e6;
 }
 .ms-weixin-dialog .el-dialog__header .el-dialog__title {
   font-weight: bold;
@@ -112,7 +112,7 @@ textarea::-webkit-input-placeholder {
   color: #333;
 }
 .ms-weixin-dialog .el-dialog__footer {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #e6e6e6;
   padding: 15px !important;
 }
 .ms-hover {
@@ -122,6 +122,19 @@ textarea::-webkit-input-placeholder {
   color: #0099ff;
   background: #fff;
   border-color: #0099ff;
+}
+.ms-header-select {
+  font-size: 0;
+}
+.ms-header-select > .el-select:nth-of-type(2) {
+  margin: 0 10px;
+}
+.el-submenu .el-menu-item.is-active {
+  border-radius: 4px;
+}
+.el-card,
+.el-message {
+  border-radius: 0 !important;
 }
 .material-bank-form > .el-dialog__wrapper > .el-dialog {
   width: 895px !important;
@@ -143,6 +156,13 @@ textarea::-webkit-input-placeholder {
 .material-bank-form > .el-dialog__wrapper > .el-dialog > .el-dialog__body > .el-tabs .el-tabs__header .el-tabs__nav-scroll {
   padding: 20px 10px;
 }
+.material-bank-form > .el-dialog__wrapper > .el-dialog > .el-dialog__body > .el-tabs .el-tabs__header .el-tabs__nav-scroll .el-tabs__nav .el-tabs__active-bar {
+  background-color: transparent !important;
+}
+.material-bank-form > .el-dialog__wrapper > .el-dialog > .el-dialog__body > .el-tabs .el-tabs__header .el-tabs__nav-scroll .el-tabs__nav .is-active {
+  color: #409EFF !important;
+  background-color: #ecf5ff;
+}
 .material-bank-form > .el-dialog__wrapper > .el-dialog > .el-dialog__body > .el-tabs .el-tabs__header .el-tabs__nav-wrap::after {
   width: 1px !important;
 }
@@ -161,7 +181,6 @@ textarea::-webkit-input-placeholder {
   flex: 1;
 }
 .material-bank-form > .el-dialog__wrapper > .el-dialog > .el-dialog__body > .el-tabs .is-active {
-  background-color: #e9eaf0;
   font-weight: initial;
   font-size: 14px;
   color: #333;

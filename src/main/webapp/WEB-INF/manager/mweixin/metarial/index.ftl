@@ -12,7 +12,7 @@
 		</el-header>
 		<el-container>
 			<!--内容头部-->
-			<el-header class="ms-tr ms-header">
+			<el-header class="ms-tr ms-header ms-header-select">
 				<el-select v-model="value1" placeholder="请选择" size="small">
 					<el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
 					</el-option>

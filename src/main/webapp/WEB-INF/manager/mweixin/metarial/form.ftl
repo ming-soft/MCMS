@@ -5,6 +5,8 @@
       <!--右侧头部-->
       <el-header class="ms-header" height="50px">
          <el-row>
+            <!-- 添加隐藏按钮，主要是为了产生间距 -->
+            <el-button size="small" type="text"></el-button>
             <el-button class="ms-fr" size="small" icon="el-icon-arrow-left" @click="menuVue.menuActive = '关键词回复'">返回</el-button>
             <el-button class="ms-fr" size="small" icon="el-icon-refresh">更新</el-button>
             <el-button class="ms-fr" type="success" size="small" icon="el-icon-tickets" @click="newsSave">保存</el-button>
@@ -14,7 +16,7 @@
          <el-aside width="280px">
              <!-- 主图文章 -->
             <div class="ms-main-article">
-               <img :src="mainArticle.basicPic ||　ms.base+'/WEB-INF/manager/images/data/article-default.png'">
+               <img :src="mainArticle.basicPic ||　ms.base+'/WEB-INF/manager/images/article-default.png'">
                <div class="ms-article-mask"></div>
                <span v-text='mainArticle.basicTitle'></span>
             </div>
@@ -23,7 +25,7 @@
                   <p>
                      <span v-text='element.basicTitle'></span>
                   </p>
-                  <img :src='element.basicThumbnails'>
+                  <img :src="element.basicThumbnails ||　ms.base+'/WEB-INF/manager/images/article-default-thumb.jpg'">
                   <div class="ms-article-item-mask"><i class="el-icon-delete" @click='subArticleList.splice(index,1)'></i></div>
                </div>
             </draggable>
@@ -55,12 +57,12 @@
                </el-upload>
                <el-form label-width='40px'>
                   <el-form-item label="标题" prop="">
-                     <el-input size='small' placeholder="请输入图文标题" v-model='articleForm.basicTitle' @input="resetWordNum('basicTitle',64)">
+                     <el-input size='small' placeholder="请输入图文标题" v-model='articleForm.basicTitle' class='basic-title-input' @input.stop.self="resetWordNum('basicTitle',64)">
                         <span slot='suffix' v-text="titleWordNumber+'/64'"></span>
                      </el-input>
                   </el-form-item>
                   <el-form-item label="作者" prop="">
-                     <el-input size='small' placeholder="请输入图文作者" v-model='articleForm.articleAuthor' @input="resetWordNum('articleAuthor',8)">
+                     <el-input size='small' placeholder="请输入图文作者" v-model='articleForm.articleAuthor' @input.stop.self="resetWordNum('articleAuthor',8)">
                         <span slot='suffix' v-text="authorWordNumber+'/8'"></span>
                      </el-input>
                   </el-form-item>
@@ -162,11 +164,14 @@
          },
          // 计算剩余字数
          resetWordNum: function(type,limit) {
+             var target = event.target
              type.indexOf('Title') > -1 ? this.titleWordNumber = limit - event.target.value.length : this.authorWordNumber = limit - event.target.value.length
              if(event.target.value.length >= limit){
                  this.$message.error('超出字数限制，请输入不超过'+limit+'字符');
                  this.$nextTick(function(){
-                     this.articleForm[type] = event.target.value.slice(0,limit);
+                    //  这里的event的type是message
+                     this.articleForm[type] = target.value.slice(0,limit-1);
+                     console.log('this.articleForm[type]',this.articleForm[type]);
                  })
              }
          },

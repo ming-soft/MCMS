@@ -41,11 +41,11 @@
 					</div>
 					<el-form ref="customMenuForm" :rule="customMenuFormRules" :model="customMenuForm" label-width="80px">
 						<el-form-item label="菜单名称" prop="name" class="ms-custom-menu-name">
-							<el-input v-model="customMenuForm.name" size="mini"></el-input>
+							<el-input v-model="customMenuForm.name" size="medium"></el-input>
 							<span>菜单名称字数不多于5个汉字或10个字母</span>
 						</el-form-item>
 						<el-form-item label="菜单内容" class="ms-custom-menu-content">
-							<el-input v-model="customMenuForm.link" size="mini"></el-input>
+							<el-input v-model="customMenuForm.link" size="medium"></el-input>
 							<span>请输入菜单地址</span>
 							<!-- <el-tabs v-model="activeName" @tab-click="">
 								<el-tab-pane label="图片" name="picture">

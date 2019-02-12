@@ -123,6 +123,18 @@ textarea::-webkit-input-placeholder {
   background: #fff;
   border-color: #0099ff;
 }
+.ms-header-select {
+  font-size: 0;
+}
+.ms-header-select > .el-select:nth-of-type(2) {
+  margin: 0 10px;
+}
+.el-submenu {
+  margin: 0 12px;
+}
+.el-submenu .el-menu-item.is-active {
+  border-radius: 4px;
+}
 .ms-custom-menu {
   color: #f2f2f6;
 }
@@ -139,6 +151,9 @@ textarea::-webkit-input-placeholder {
   width: 280px !important;
   height: 470px !important;
 }
+.ms-custom-menu .ms-custom-container .el-aside .el-container {
+  overflow: hidden;
+}
 .ms-custom-menu .ms-custom-container .el-aside .el-container .el-header {
   height: 40px !important;
   line-height: 40px !important;
@@ -151,7 +166,7 @@ textarea::-webkit-input-placeholder {
 .ms-custom-menu .ms-custom-container .el-aside .el-container .el-main {
   padding: 0;
   width: 280px !important;
-  height: 379px !important;
+  height: 380px !important;
 }
 .ms-custom-menu .ms-custom-container .el-aside .el-container .el-footer {
   white-space: nowrap;
