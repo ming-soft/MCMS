@@ -1,0 +1,103 @@
+@import "../../ms-admin/4.7.0/less/app.less";
+//表单页
+.ms-mdiy-model-form {
+    .ms-width-height(100%);
+    .el-container {
+        height: 100%;
+    }
+    .ms-row {
+        button {
+            margin-left: 10px;
+        }
+    }
+    .ms-header-title {
+        margin-bottom: 15px;
+    }
+    //左侧自定义表单项
+    .ms-editor-type-layout {
+        background: #fff;
+        min-width: 15%;
+        padding: 20px;
+        border-right: 1px solid @borderColor;
+        ul {
+            .ms-margin-padding(0);
+            .ms-flex();
+            flex-wrap: wrap;
+            li {
+                width: ~'calc(50% - 5px)';
+                .ms-margin-padding(0 0 5px 0, 5px);
+                list-style: none;
+                background: #E6F7FF;
+                border: 1px solid @borderColor;
+                cursor: pointer;
+                i {
+                    color: #999;
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+    //中间排序
+    .ms-editor-body-layout {
+        background: #fff;
+        margin: 8px;
+    }
+    //右侧选项属性
+    .ms-editor-attr-layout {
+        background: #fff;
+        min-width: 20%;
+        padding: 20px;
+        .ms-header-title {
+            border-left: 1px solid @borderColor;
+        }
+        .ms-editor-attr {
+            display: flex;
+            flex-direction: column;
+            .form {
+                padding: 15px;
+                height: ~'calc(100vh - 200px)';
+                overflow: auto;
+                .el-form-item__label {
+                    line-height: 1.4em;
+                }
+                .el-form-item {
+                    margin-bottom: 14px;
+                }
+                //下拉排序添加选项
+                .ms-down-list {
+                    .ms-margin-padding(0);
+                    li {
+                        .ms-align-center;
+                        list-style: none;
+                        margin-bottom: 12px;
+                        i {
+                            cursor: pointer;
+                            .ms-hover;
+                            font-size: 14px;
+                        }
+                        .ms-input,
+                        .ms-radio,
+                        .icon-tuodong {
+                            margin-right: 6px;
+                            line-height: initial;
+                        }
+                    }
+                    .ms-plus {
+                        .ms-hover;
+                        i {
+                            margin-right: 6px;
+                        }
+                    }
+                }
+            }
+            .footer {
+                margin-top: auto;
+                border-top: 1px solid @borderColor;
+                height: 60px;
+                .ms-align-center;
+                justify-content: flex-end;
+                padding-right: 10px;
+            }
+        }
+    }
+}

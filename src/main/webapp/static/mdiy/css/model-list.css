@@ -1,0 +1,141 @@
+/*
+*这里的值严格按照UI设计图标注值来进行设置
+*/
+/*
+*颜色
+*/
+/*
+*页面的边距
+*/
+/*
+*字体
+*/
+/*
+*头像
+*/
+/*
+ * 按钮
+ */
+/*
+*对常见的多行样式进行了方法封装，方便调用，加快开发效率
+*/
+html,
+body {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #eee;
+  margin: 0;
+  display: flex;
+  font-weight: initial !important;
+  font-size: 14px !important;
+  color: #333 !important;
+}
+html *,
+body * {
+  text-decoration: none !important;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+.ms-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+.ms-align-center {
+  display: flex;
+  align-items: center;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  font-weight: initial;
+  font-size: 12px;
+  color: #999;
+  resize: none;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+/*定义滚动条轨道 内阴影+圆角*/
+*::-webkit-scrollbar-track {
+  border-radius: 10px;
+  /*滚动条的背景区域的圆角*/
+  background-color: #eee;
+  /*滚动条的背景颜色*/
+}
+/*定义滑块 内阴影+圆角*/
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  /*滚动条的圆角*/
+  background-color: #e6e6e6;
+  /*滚动条的背景颜色*/
+}
+.ms-container {
+  margin: 12px;
+  height: calc(100% - 24px);
+  padding: 14px;
+  background: #fff;
+}
+.ms-header {
+  padding: 10px;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+  height: 50px;
+}
+.ms-header button {
+  height: 30px;
+}
+.ms-pagination {
+  padding: 20px 0;
+  text-align: right;
+}
+.ms-fr {
+  float: right;
+}
+.ms-tr {
+  text-align: right;
+}
+.ms-weixin-content {
+  width: calc(100% - 140px);
+}
+.ms-weixin-dialog .el-dialog__header {
+  height: 55px;
+  box-sizing: border-box;
+  padding: 10px 10px 25px 10px;
+  border-bottom: 1px solid #e6e6e6;
+}
+.ms-weixin-dialog .el-dialog__header .el-dialog__title {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+.ms-weixin-dialog .el-dialog__footer {
+  border-top: 1px solid #e6e6e6;
+  padding: 15px !important;
+}
+.ms-hover {
+  cursor: pointer;
+}
+.ms-hover:hover {
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
+}
+.ms-header-select {
+  font-size: 0;
+}
+.ms-header-select > .el-select:nth-of-type(2) {
+  margin: 0 10px;
+}
+.el-submenu .el-menu-item.is-active {
+  border-radius: 4px;
+}
+.el-card,
+.el-message {
+  border-radius: 0 !important;
+}
+.ms-mdiy-model-list {
+  width: 100%;
+}
