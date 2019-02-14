@@ -149,6 +149,9 @@ textarea::-webkit-input-placeholder {
 .ms-mdiy-model-form .ms-header-title {
   margin-bottom: 15px;
 }
+.ms-mdiy-model-form .el-checkbox-group {
+  font-size: inherit !important;
+}
 .ms-mdiy-model-form .ms-editor-type-layout {
   background: #fff;
   min-width: 15%;
@@ -172,12 +175,39 @@ textarea::-webkit-input-placeholder {
   cursor: pointer;
 }
 .ms-mdiy-model-form .ms-editor-type-layout ul li i {
+  font-weight: initial;
+  font-size: 1em;
   color: #999;
-  margin-right: 5px;
+  margin: 0 5px;
 }
 .ms-mdiy-model-form .ms-editor-body-layout {
   background: #fff;
   margin: 8px;
+}
+.ms-mdiy-model-form .ms-editor-body-layout .ms-form-item {
+  padding: 5px 40px;
+  border: 1px solid transparent;
+}
+.ms-mdiy-model-form .ms-editor-body-layout .ms-form-item .unit-input {
+  width: calc(100% - 41px) !important;
+}
+.ms-mdiy-model-form .ms-editor-body-layout .ms-form-item .el-form-item__content {
+  display: flex;
+  align-items: flex-start;
+}
+.ms-mdiy-model-form .ms-editor-body-layout .ms-form-item .el-form-item__content .del-but {
+  visibility: hidden;
+  padding-left: 15px;
+  margin-left: auto;
+}
+.ms-mdiy-model-form .ms-editor-body-layout .ms-form-item .el-radio {
+  line-height: inherit;
+}
+.ms-mdiy-model-form .ms-editor-body-layout .active {
+  border-color: #0099ff;
+}
+.ms-mdiy-model-form .ms-editor-body-layout .active .del-but {
+  visibility: visible !important;
 }
 .ms-mdiy-model-form .ms-editor-attr-layout {
   background: #fff;
@@ -192,7 +222,6 @@ textarea::-webkit-input-placeholder {
   flex-direction: column;
 }
 .ms-mdiy-model-form .ms-editor-attr-layout .ms-editor-attr .form {
-  padding: 15px;
   height: calc(100vh - 200px);
   overflow: auto;
 }
@@ -237,6 +266,15 @@ textarea::-webkit-input-placeholder {
 }
 .ms-mdiy-model-form .ms-editor-attr-layout .ms-editor-attr .form .ms-down-list .ms-plus i {
   margin-right: 6px;
+}
+.ms-mdiy-model-form .ms-editor-attr-layout .ms-editor-attr .form .sortable-ghost {
+  opacity: 0.3;
+  background: #ccc;
+}
+.ms-mdiy-model-form .ms-editor-attr-layout .ms-editor-attr .form .sortable-ghost * {
+  background: #ccc !important;
+  border-color: transparent !important;
+  color: transparent !important;
 }
 .ms-mdiy-model-form .ms-editor-attr-layout .ms-editor-attr .footer {
   margin-top: auto;

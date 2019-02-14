@@ -13,6 +13,9 @@
     .ms-header-title {
         margin-bottom: 15px;
     }
+    .el-checkbox-group {
+        font-size: inherit !important;
+    }
     //左侧自定义表单项
     .ms-editor-type-layout {
         background: #fff;
@@ -31,8 +34,8 @@
                 border: 1px solid @borderColor;
                 cursor: pointer;
                 i {
-                    color: #999;
-                    margin-right: 5px;
+                    .ms-font(1em, #999);
+                    margin: 0 5px;
                 }
             }
         }
@@ -41,6 +44,32 @@
     .ms-editor-body-layout {
         background: #fff;
         margin: 8px;
+        .ms-form-item {
+            padding: 5px 40px;
+            border: 1px solid transparent;
+            //单位输入框
+            .unit-input {
+                width: ~'calc(100% - 41px)' !important;
+            }
+            .el-form-item__content {
+                display: flex;
+                align-items: flex-start;
+                .del-but {
+                    visibility: hidden;
+                    padding-left: 15px;
+                    margin-left: auto;
+                }
+            }
+            .el-radio {
+                line-height: inherit;
+            }
+        }
+        .active {
+            border-color: @themeColor;
+            .del-but {
+                visibility: visible !important;
+            }
+        }
     }
     //右侧选项属性
     .ms-editor-attr-layout {
@@ -54,7 +83,6 @@
             display: flex;
             flex-direction: column;
             .form {
-                padding: 15px;
                 height: ~'calc(100vh - 200px)';
                 overflow: auto;
                 .el-form-item__label {
@@ -87,6 +115,15 @@
                         i {
                             margin-right: 6px;
                         }
+                    }
+                }
+                .sortable-ghost {
+                    opacity: .3;
+                    background: #ccc;
+                    * {
+                        background: #ccc !important;
+                        border-color: transparent !important;
+                        color: transparent !important;
                     }
                 }
             }

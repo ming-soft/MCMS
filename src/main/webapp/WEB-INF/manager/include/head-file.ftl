@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="//at.alicdn.com/t/font_847907_mkdvd7gopsg.css">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_974973_42u7cwycwta.css">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_1035189_ddqz6fpwzxb.css">
+    <!--自定义模型-->
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_997125_lflqkedj6s9.css">
+
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- 引入组件库 -->
