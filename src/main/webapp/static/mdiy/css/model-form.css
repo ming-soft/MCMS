@@ -222,6 +222,7 @@ textarea::-webkit-input-placeholder {
 }
 .ms-mdiy-model-form .ms-editor-body-layout .sortable-ghost {
   margin-bottom: 18px;
+  min-height: 40px;
 }
 .ms-mdiy-model-form .ms-editor-attr-layout {
   background: #fff;

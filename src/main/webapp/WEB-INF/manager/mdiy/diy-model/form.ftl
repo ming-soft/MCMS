@@ -11,7 +11,7 @@
          <el-aside class="ms-editor-type-layout">
             <div class="ms-header-title">自定义表单项</div>
             <div id="ms-type-list" class="ms-type-list">
-               <li v-for="type in typeList" :data-id="type.id" :data-title="type.title" @click="formItemList.push({id: type.id,title: type.title,downList: [],downActiveList: [],set: [],unit: '',fieldType: ''})">
+               <li v-for="type in typeList" :data-type="type.id" :data-title="type.title" @click="formItemList.push({type: type.id,title: type.title,downList: [],downActiveList: [],set: [],unit: '',fieldType: ''})">
                   <i class="iconfont" :class="type.icon"></i>
                   <span v-text="type.title"></span>
                </li>
@@ -20,26 +20,27 @@
          <el-main class="ms-editor-body-layout">
             <el-form id="ms-input-list" size="mini" class="form">
                <!--控件类型下拉-->
-               <el-form-item @click.native="formItemActive = formItem;formItemActive.index = index" class="ms-form-item" :class="{'active':formItemActive == formItem}" :label="formItem.title" :label-width="'90px'" v-for="(formItem,index) in formItemList">
+               <!--绑定一个自增长ID否则富文本会无法渲染-->
+               <el-form-item @click.native="formItemActive = formItem;formItemActive.id = index" class="ms-form-item" :class="{'active':formItemActive == formItem}" :label="formItem.title" :label-width="'90px'" v-for="(formItem,index) in formItemList">
                   <!--单行-->
-                  <el-input v-if="formItem.id == '1' && formItem.fieldType != '1-2' && formItem.fieldType != '1-3'" maxlength="20" type="text" v-model="formItem.default" placeholder="选填，1-20，字符" autocomplete="off"></el-input>
+                  <el-input v-if="formItem.type == '1' && formItem.fieldType != '1-2' && formItem.fieldType != '1-3'" maxlength="20" type="text" v-model="formItem.default" placeholder="选填，1-20，字符" autocomplete="off"></el-input>
                   <!--多行-->
                   <el-input v-if="formItem.fieldType == '1-2'" maxlength="20" type="textarea" :rows="4" v-model="formItem.default" placeholder="选填，1-20，字符" autocomplete="off"></el-input>
                   <div v-show="formItem.fieldType == '1-3'" style="width: 100%;">
-                     <script :id="'ms-ueditor-'+index" type="text/plain" name="taskDescription"></script>
+                     <script :id="'ms-ueditor-'+formItemActive.id" type="text/plain" name="taskDescription"></script>
                   </div>
                   <!--号码-->
-                  <el-input v-if="formItem.id == '2'" maxlength="11" type="text" v-model="formItem.default" placeholder="选填，1-11，数字" autocomplete="off"></el-input>
+                  <el-input v-if="formItem.type == '2'" maxlength="11" type="text" v-model="formItem.default" placeholder="选填，1-11，数字" autocomplete="off"></el-input>
                   <!--金额-->
-                  <el-input class="unit-input" v-if="formItem.id == '3'" maxlength="20" type="number" v-model="formItem.default" placeholder="选填" autocomplete="off">
+                  <el-input class="unit-input" v-if="formItem.type == '3'" maxlength="20" type="number" v-model="formItem.default" placeholder="选填" autocomplete="off">
                      <template :slot="formItem.fieldType == '3-1'?'prepend':'append'">{{formItem.unit}}</template>
                   </el-input>
 
                   <!--数值-->
-                  <el-input v-if="formItem.id == '4'" max="9999" type="number" v-model="formItem.default" placeholder="选填，数字" autocomplete="off"></el-input>
+                  <el-input v-if="formItem.type == '4'" max="9999" type="number" v-model="formItem.default" placeholder="选填，数字" autocomplete="off"></el-input>
 
                   <!--日期和时间-->
-                  <el-date-picker v-if="formItem.id == '5' && formItem.fieldType != '5-2' && formItem.fieldType != '5-3'" style="width: 100%;" v-model="formItem.default" type="datetime" placeholder="选择日期时间">
+                  <el-date-picker v-if="formItem.type == '5' && formItem.fieldType != '5-2' && formItem.fieldType != '5-3'" style="width: 100%;" v-model="formItem.default" type="datetime" placeholder="选择日期时间">
                   </el-date-picker>
                   <!--仅日期-->
                   <el-date-picker v-if="formItem.fieldType == '5-2'" style="width: 100%;" v-model="formItem.default" type="date" placeholder="选择日期">
@@ -50,7 +51,7 @@
 
                   <!--选项-->
                   <!--单选-->
-                  <template v-if="formItem.id == '6' && formItem.fieldType != '6-2'">
+                  <template v-if="formItem.type == '6' && formItem.fieldType != '6-2'">
                      <el-radio v-for="(down,index) in formItem.downList" v-model="formItem.downActive" :label="index">{{down.value}}</el-radio>
                   </template>
 
@@ -60,7 +61,7 @@
                   </el-checkbox-group>
                   <!--下拉菜单-->
                   <!--单选-->
-                  <el-select style="width: 100%;" v-model="formItem.downActive" placeholder="请选择" v-if="formItem.id == '7' && formItem.fieldType != '7-2'">
+                  <el-select style="width: 100%;" v-model="formItem.downActive" placeholder="请选择" v-if="formItem.type == '7' && formItem.fieldType != '7-2'">
                      <el-option v-for="(down,index) in formItem.downList" :value="index" :label="down.value">
                      </el-option>
                   </el-select>
@@ -72,12 +73,12 @@
                   </el-select>
 
                   <!--上传图片-->
-                  <el-upload v-if="formItem.id == '8'" action="https://jsonplaceholder.typicode.com/posts/" multiple>
+                  <el-upload v-if="formItem.type == '8'" action="https://jsonplaceholder.typicode.com/posts/" multiple>
                      <el-button icon="el-icon-upload">上传附件</el-button>
                   </el-upload>
 
                   <!--上传附件-->
-                  <el-upload v-if="formItem.id == '9'" action="https://jsonplaceholder.typicode.com/posts/" multiple list-type="picture-card">
+                  <el-upload v-if="formItem.type == '9'" action="https://jsonplaceholder.typicode.com/posts/" multiple list-type="picture-card">
                      <i class="el-icon-plus"></i>
                   </el-upload>
                   <!--删除按钮-->
@@ -95,18 +96,18 @@
 
                   <!--数字类型-->
                   <!--数值-->
-                  <el-form-item label="默认值" :label-width="'70px'" v-if="formItemActive.id === '4'">
+                  <el-form-item label="默认值" :label-width="'70px'" v-if="formItemActive.type === '4'">
                      <el-input max="9999" type="number" v-model="formItemActive.default" placeholder="选填，数字" autocomplete="off"></el-input>
                   </el-form-item>
 
                   <!--时间类型-->
-                  <el-form-item label="字段类型" :label-width="'70px'" v-if="formItemActive.id === '5'">
+                  <el-form-item label="字段类型" :label-width="'70px'" v-if="formItemActive.type === '5'">
                      <el-radio v-model="formItemActive.fieldType" label="5-1">日期和时间</el-radio>
                      <el-radio v-model="formItemActive.fieldType" label="5-2">仅日期</el-radio>
                      <el-radio v-model="formItemActive.fieldType" label="5-3">仅时间</el-radio>
                   </el-form-item>
                   <!--日期和时间-->
-                  <el-form-item label="默认值" :label-width="'70px'" v-if="formItemActive.id === '5' && formItemActive.fieldType != '5-2' && formItemActive.fieldType != '5-3'">
+                  <el-form-item label="默认值" :label-width="'70px'" v-if="formItemActive.type === '5' && formItemActive.fieldType != '5-2' && formItemActive.fieldType != '5-3'">
                      <el-date-picker style="width: 100%;" v-model="formItemActive.default" type="datetime" placeholder="选择日期时间">
                      </el-date-picker>
                   </el-form-item>
@@ -123,24 +124,24 @@
 
                   <!--字符串类型-->
                   <!--文本-->
-                  <el-form-item label="字段类型" :label-width="'70px'" v-if="formItemActive.id === '1'">
+                  <el-form-item label="字段类型" :label-width="'70px'" v-if="formItemActive.type === '1'">
                      <el-radio v-model="formItemActive.fieldType" label="1-1">单行</el-radio>
                      <el-radio v-model="formItemActive.fieldType" label="1-2">多行</el-radio>
                      <el-radio v-model="formItemActive.fieldType" label="1-3">带格式</el-radio>
                   </el-form-item>
-                  <el-form-item label="默认值" :label-width="'70px'" v-if="formItemActive.id === '1'">
+                  <el-form-item label="默认值" :label-width="'70px'" v-if="formItemActive.type === '1'">
                      <!--输入框判断选中的是多行还是单行-->
                      <el-input v-if="formItemActive.fieldType != '1-2' && formItemActive.fieldType != '1-3'" maxlength="20" type="text" v-model="formItemActive.default" placeholder="选填，1-20，字符" autocomplete="off"></el-input>
                      <el-input v-if="formItemActive.fieldType == '1-2' || formItemActive.fieldType == '1-3'" maxlength="20" type="textarea" :rows="4" v-model="formItemActive.default" placeholder="选填，1-20，字符" autocomplete="off"></el-input>
                   </el-form-item>
 
                   <!--号码-->
-                  <el-form-item label="默认值" :label-width="'70px'" v-if="formItemActive.id === '2'">
+                  <el-form-item label="默认值" :label-width="'70px'" v-if="formItemActive.type === '2'">
                      <el-input maxlength="11" type="text" v-model="formItemActive.default" placeholder="选填，1-11，数字" autocomplete="off"></el-input>
                   </el-form-item>
 
                   <!--金额-->
-                  <el-form-item label="单位" :label-width="'70px'" v-if="formItemActive.id === '3'">
+                  <el-form-item label="单位" :label-width="'70px'" v-if="formItemActive.type === '3'">
                      <el-input autocomplete="off" placeholder="选填" maxlength="20" type="text" v-model="formItemActive.unit" class="input-with-select">
                         <el-select v-model="formItemActive.fieldType" slot="append" placeholder="请选择">
                            <el-option label="前缀" value="3-1"></el-option>
@@ -148,30 +149,30 @@
                         </el-select>
                      </el-input>
                   </el-form-item>
-                  <el-form-item label="保留几位小数" :label-width="'70px'" v-if="formItemActive.id === '3'">
+                  <el-form-item label="保留几位小数" :label-width="'70px'" v-if="formItemActive.type === '3'">
                      <el-input min="0" max="9" type="number" v-model="formItemActive.data4" placeholder="选填，数字" autocomplete="off"></el-input>
                   </el-form-item>
-                  <el-form-item label="默认值" :label-width="'70px'" v-if="formItemActive.id === '3'">
+                  <el-form-item label="默认值" :label-width="'70px'" v-if="formItemActive.type === '3'">
                      <el-input max="9999" type="number" v-model="formItemActive.default" placeholder="选填，数字" autocomplete="off"></el-input>
                   </el-form-item>
 
                   <!--选项和下拉菜单-->
-                  <el-form-item label="字段类型" :label-width="'70px'" v-if="formItemActive.id === '6' || formItemActive.id === '7'">
-                     <el-radio v-model="formItemActive.fieldType" :label="formItemActive.id+'-1'">单选</el-radio>
-                     <el-radio v-model="formItemActive.fieldType" :label="formItemActive.id+'-2'">多选</el-radio>
+                  <el-form-item label="字段类型" :label-width="'70px'" v-if="formItemActive.type === '6' || formItemActive.type === '7'">
+                     <el-radio v-model="formItemActive.fieldType" :label="formItemActive.type+'-1'">单选</el-radio>
+                     <el-radio v-model="formItemActive.fieldType" :label="formItemActive.type+'-2'">多选</el-radio>
                   </el-form-item>
 
-                  <el-form-item label="添加选项" :label-width="'70px'" v-show="(formItemActive.id === '6' || formItemActive.id === '7') && (formItemActive.fieldType == formItemActive.id+'-1' || formItemActive.fieldType == formItemActive.id+'-2')">
+                  <el-form-item label="添加选项" :label-width="'70px'" v-show="(formItemActive.type === '6' || formItemActive.type === '7') && (formItemActive.fieldType == formItemActive.type+'-1' || formItemActive.fieldType == formItemActive.type+'-2')">
                      <ul class="ms-down-list" id="ms-down-list">
                         <!--单选-->
-                        <li class="ms-down-item" v-for="(down,index) in formItemActive.downList" v-show="formItemActive.fieldType == formItemActive.id+'-1'">
+                        <li class="ms-down-item" v-for="(down,index) in formItemActive.downList" v-show="formItemActive.fieldType == formItemActive.type+'-1'">
                            <i class="iconfont icon-tuodong"></i>
                            <el-radio class="ms-radio" v-model="formItemActive.downActive" :label="index">默认</el-radio>
                            <el-input maxlength="20" class="ms-input" v-model="down.value" placeholder="选填，1-20，字符" autocomplete="off"></el-input>
                            <i class="el-icon-delete" @click="formItemActive.downList.splice(index,1)"></i>
                         </li>
                         <!--多选-->
-                        <el-checkbox-group id="ms-down-checkbox-list" v-model="formItemActive.downActiveList" v-show="formItemActive.fieldType == formItemActive.id+'-2'">
+                        <el-checkbox-group id="ms-down-checkbox-list" v-model="formItemActive.downActiveList" v-show="formItemActive.fieldType == formItemActive.type+'-2'">
                            <li class="ms-down-item" v-for="(down,index) in formItemActive.downList">
                               <i class="iconfont icon-tuodong"></i>
                               <el-checkbox class="ms-radio" :label="index">默认</el-checkbox>
@@ -179,14 +180,14 @@
                               <i class="el-icon-delete" @click="formItemActive.downList.splice(index,1)"></i>
                            </li>
                         </el-checkbox-group>
-                        <div class="ms-plus" @click="formItemActive.downList.push({})" v-if="formItemActive.fieldType == formItemActive.id+'-1' || formItemActive.fieldType == formItemActive.id+'-2'">
+                        <div class="ms-plus" @click="formItemActive.downList.push({})" v-if="formItemActive.fieldType == formItemActive.type+'-1' || formItemActive.fieldType == formItemActive.type+'-2'">
                            <i class="el-icon-plus"></i>添加
                         </div>
                      </ul>
                   </el-form-item>
 
                   <!--上传图片-->
-                  <el-form-item label="图片数量限制" :label-width="'70px'" v-if="formItemActive.id === '9'">
+                  <el-form-item label="图片数量限制" :label-width="'70px'" v-if="formItemActive.type === '9'">
                      <el-input max="9" type="number" v-model="formItemActive.default" placeholder="选填，数字" autocomplete="off"></el-input>
                   </el-form-item>
 
@@ -198,7 +199,7 @@
                   <el-form-item label="设置" :label-width="'70px'">
                      <el-checkbox-group v-model="formItemActive.set">
                         <el-checkbox label="必填"></el-checkbox>
-                        <el-checkbox label="唯一" v-if="formItemActive.id != 5"></el-checkbox>
+                        <el-checkbox label="唯一" v-if="formItemActive.type != 5"></el-checkbox>
                      </el-checkbox-group>
                   </el-form-item>
 
@@ -258,11 +259,11 @@
             title: "图片",
             icon: "icon-tupian",
             id: "9",
-         }],
+         }], //右侧表单项类型
          formItemList: [{
-            title: "文本",
-            value: "",
-            id: "1",
+            title: "文本", //标题
+            value: "", //内容
+            type: "1", //表单项的类型
             downList: [], //下拉列表
             downActiveList: [], //多选列表
             set: [], //设置
@@ -271,7 +272,7 @@
          }, {
             title: "号码",
             value: "",
-            id: "2",
+            type: "2",
             downList: [],
             downActiveList: [],
             set: [],
@@ -280,7 +281,7 @@
          }, {
             title: "金额",
             value: "",
-            id: "3",
+            type: "3",
             downList: [],
             downActiveList: [],
             set: [],
@@ -289,7 +290,7 @@
          }, {
             title: "数值",
             value: "",
-            id: "4",
+            type: "4",
             downList: [],
             downActiveList: [],
             set: [],
@@ -298,7 +299,7 @@
          }, {
             title: "日期和时间",
             value: "",
-            id: "5",
+            type: "5",
             downList: [],
             downActiveList: [],
             set: [],
@@ -307,7 +308,7 @@
          }, {
             title: "选项",
             value: "",
-            id: "6",
+            type: "6",
             downList: [],
             downActiveList: [],
             set: [],
@@ -316,7 +317,7 @@
          }, {
             title: "下拉菜单",
             value: "",
-            id: "7",
+            type: "7",
             downList: [],
             downActiveList: [],
             set: [],
@@ -325,7 +326,7 @@
          }, {
             title: "附件",
             value: "",
-            id: "8",
+            type: "8",
             downList: [],
             downActiveList: [],
             set: [],
@@ -334,7 +335,7 @@
          }, {
             title: "图片",
             value: "",
-            id: "9",
+            type: "9",
             downList: [],
             downActiveList: [],
             set: [],
@@ -366,7 +367,8 @@
                //富文本加载
                var URL = window.UEDITOR_HOME_URL || "http://mpm.mingsoft.net/static/plugins/ueditor/1.4.3.1/";
                if(this.formItemActive.editor == null) {
-                  this.formItemActive.editor = UE.getEditor('ms-ueditor-' + this.formItemActive.index, {
+                  //保存这个示例以免在次执行
+                  this.formItemActive.editor = UE.getEditor('ms-ueditor-' + this.formItemActive.id, {
                      toolbars: [
                         ['fullscreen', 'undo', 'redo', '|', 'bold', 'italic', 'underline', 'strikethrough',
                            'removeformat', 'blockquote',
@@ -394,7 +396,7 @@
          //监听切换表单元素
          formItemActive: function(data) {
             //切换控件类型时
-            if(data.id == '6' || data.id == '7') {
+            if(data.type == '6' || data.type == '7') {
                this.$nextTick(function() {
                   if(this.downListSortable == null) {
                      this.downListSortable = new Sortable(document.getElementById("ms-down-list"), {

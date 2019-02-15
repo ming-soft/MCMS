@@ -67,7 +67,7 @@
                      onStart: function(event) {
                         //准备拖动时保存拖动选项的数据
                         that.addInputType = {
-                           id: event.item.dataset.id,
+                           type: event.item.dataset.type,
                            title: event.item.dataset.title,
                            downList: [], //下拉列表
                            downActiveList: [], //多选列表
