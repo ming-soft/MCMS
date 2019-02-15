@@ -45,7 +45,7 @@
         background: #fff;
         margin: 8px;
         .ms-form-item {
-            padding: 6px 15px 6px 30px;
+            padding: 6px 20px 6px 20px;
             border: 1px solid transparent;
             //单位输入框
             .unit-input {
@@ -56,7 +56,7 @@
                 align-items: flex-start;
                 .del-but {
                     visibility: hidden;
-                    padding-left: 15px;
+                    padding-left: 20px;
                     margin-left: auto;
                 }
             }
@@ -80,14 +80,18 @@
     .ms-editor-attr-layout {
         background: #fff;
         min-width: 20%;
-        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
         .ms-header-title {
             border-left: 1px solid @borderColor;
+            width: 100%;
         }
         .ms-editor-attr {
+            width: 100%;
             display: flex;
             flex-direction: column;
             .form {
+                padding: 15px;
                 height: ~'calc(100vh - 200px)';
                 overflow: auto;
                 .el-form-item__label {

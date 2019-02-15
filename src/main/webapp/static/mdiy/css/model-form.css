@@ -196,7 +196,7 @@ textarea::-webkit-input-placeholder {
   margin: 8px;
 }
 .ms-mdiy-model-form .ms-editor-body-layout .ms-form-item {
-  padding: 6px 15px 6px 30px;
+  padding: 6px 20px 6px 20px;
   border: 1px solid transparent;
 }
 .ms-mdiy-model-form .ms-editor-body-layout .ms-form-item .unit-input {
@@ -208,7 +208,7 @@ textarea::-webkit-input-placeholder {
 }
 .ms-mdiy-model-form .ms-editor-body-layout .ms-form-item .el-form-item__content .del-but {
   visibility: hidden;
-  padding-left: 15px;
+  padding-left: 20px;
   margin-left: auto;
 }
 .ms-mdiy-model-form .ms-editor-body-layout .ms-form-item .el-radio {
@@ -226,16 +226,20 @@ textarea::-webkit-input-placeholder {
 .ms-mdiy-model-form .ms-editor-attr-layout {
   background: #fff;
   min-width: 20%;
-  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
 }
 .ms-mdiy-model-form .ms-editor-attr-layout .ms-header-title {
   border-left: 1px solid #e6e6e6;
+  width: 100%;
 }
 .ms-mdiy-model-form .ms-editor-attr-layout .ms-editor-attr {
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
 .ms-mdiy-model-form .ms-editor-attr-layout .ms-editor-attr .form {
+  padding: 15px;
   height: calc(100vh - 200px);
   overflow: auto;
 }
