@@ -48,8 +48,54 @@
             data: '兵不匹配移动端',
             name: '王小虎',
          }],
-         href: '列表', //
+         href: '列表', //切换页面
+         addInputType: {}, //添加中的表单项
       },
-      methods: {}
+      watch: {
+         href: function(data) {
+            var that = this;
+            if(data == '表单') {
+               this.$nextTick(function() {
+                  new Sortable(document.getElementById("ms-type-list"), {
+                     group: {
+                        name: 'shared',
+                        pull: 'clone',
+                        ghostClass: 'sortable-ghost', //设置拖动时候显示的样式
+                     },
+                     animation: 150,
+                     sort: false,
+                     onStart: function(event) {
+                        //准备拖动时保存拖动选项的数据
+                        that.addInputType = {
+                           id: event.item.dataset.id,
+                           title: event.item.dataset.title,
+                           downList: [], //下拉列表
+                           downActiveList: [], //多选列表
+                           set: [], //设置
+                           unit: '', //金额单位
+                           fieldType: '', //字段类型
+                        };
+                     },
+                  });
+                  new Sortable(document.getElementById("ms-input-list"), {
+                     group: {
+                        name: 'shared',
+                        pull: false,
+                        ghostClass: 'sortable-ghost', //设置拖动时候显示的样式
+                     },
+                     animation: 150,
+                     onAdd: function(event) {
+                        //拖动成功后删除拖动过来的元素
+                        event.item.parentNode.removeChild(event.item);
+                        //想素组添加拖动过来的选项选项
+                        modelFormVue.selectedList.push(that.addInputType);
+                        //modelFormVue.selectedList.splice(0, 0, that.addInputType);
+                     },
+                  });
+               })
+            }
+         }
+      },
+      methods: {},
    })
 </script>
