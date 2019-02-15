@@ -88,8 +88,7 @@
                         //拖动成功后删除拖动过来的元素
                         event.item.parentNode.removeChild(event.item);
                         //想素组添加拖动过来的选项选项
-                        modelFormVue.selectedList.push(that.addInputType);
-                        //modelFormVue.selectedList.splice(0, 0, that.addInputType);
+                        modelFormVue.selectedList.splice(event.newIndex, 0, that.addInputType);
                      },
                   });
                })

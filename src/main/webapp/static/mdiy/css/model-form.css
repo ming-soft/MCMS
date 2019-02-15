@@ -148,8 +148,8 @@ textarea::-webkit-input-placeholder {
   color: transparent !important;
 }
 .ms-mdiy-model-form {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
 }
 .ms-mdiy-model-form .el-container {
   height: 100%;
@@ -169,14 +169,14 @@ textarea::-webkit-input-placeholder {
   padding: 20px;
   border-right: 1px solid #e6e6e6;
 }
-.ms-mdiy-model-form .ms-editor-type-layout ul {
+.ms-mdiy-model-form .ms-editor-type-layout .ms-type-list {
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
 }
-.ms-mdiy-model-form .ms-editor-type-layout ul li {
+.ms-mdiy-model-form .ms-editor-type-layout .ms-type-list li {
   width: calc(50% - 5px);
   margin: 0 0 5px 0;
   padding: 5px;
@@ -185,7 +185,7 @@ textarea::-webkit-input-placeholder {
   border: 1px solid #e6e6e6;
   cursor: pointer;
 }
-.ms-mdiy-model-form .ms-editor-type-layout ul li i {
+.ms-mdiy-model-form .ms-editor-type-layout .ms-type-list li i {
   font-weight: initial;
   font-size: 1em;
   color: #999;
@@ -219,6 +219,9 @@ textarea::-webkit-input-placeholder {
 }
 .ms-mdiy-model-form .ms-editor-body-layout .active .del-but {
   visibility: visible !important;
+}
+.ms-mdiy-model-form .ms-editor-body-layout .sortable-ghost {
+  margin-bottom: 18px;
 }
 .ms-mdiy-model-form .ms-editor-attr-layout {
   background: #fff;

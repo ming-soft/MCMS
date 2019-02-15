@@ -10,12 +10,12 @@
       <el-container>
          <el-aside class="ms-editor-type-layout">
             <div class="ms-header-title">自定义表单项</div>
-            <ul id="ms-type-list">
+            <div id="ms-type-list" class="ms-type-list">
                <li v-for="type in typeList" :data-id="type.id" :data-title="type.title">
                   <i class="iconfont" :class="type.icon"></i>
                   <span v-text="type.title"></span>
                </li>
-            </ul>
+            </div>
          </el-aside>
          <el-main class="ms-editor-body-layout">
             <el-form id="ms-input-list" size="mini" class="form">
@@ -209,6 +209,7 @@
                      </el-input>
                   </el-form-item>
                </el-form>
+
                <div class="footer">
                   <el-button size="mini" type="primary">保存</el-button>
                </div>
