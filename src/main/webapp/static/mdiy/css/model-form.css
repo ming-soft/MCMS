@@ -242,6 +242,14 @@ textarea::-webkit-input-placeholder {
 .ms-mdiy-model-form .ms-editor-attr-layout .ms-editor-attr .form .el-form-item {
   margin-bottom: 14px;
 }
+.ms-mdiy-model-form .ms-editor-attr-layout .ms-editor-attr .form .el-form-item .input-with-select .el-input-group__append {
+  width: 90px;
+}
+.ms-mdiy-model-form .ms-editor-attr-layout .ms-editor-attr .form .el-form-item .input-with-select .el-input-group__append .el-input input {
+  background-color: #fff;
+  border-top: 1px solid #dcdfe6;
+  border-bottom: 1px solid #dcdfe6;
+}
 .ms-mdiy-model-form .ms-editor-attr-layout .ms-editor-attr .form .ms-down-list {
   margin: 0;
   padding: 0;

@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="../../../static/mdiy/css/model-form.css">
-
 <div id="model-form" class="ms-mdiy-model-form" v-if="modelListVue.href == '表单'">
    <el-container>
       <el-header class="ms-header" height="50px">
@@ -143,9 +142,12 @@
 
                   <!--金额-->
                   <el-form-item label="单位" :label-width="'70px'" v-if="controlTypeActive.id === '3'">
-                     <el-input maxlength="20" type="text" v-model="controlTypeActive.unit" placeholder="选填" autocomplete="off"></el-input>
-                     <el-radio v-model="controlTypeActive.fieldType" label="3-1">前缀</el-radio>
-                     <el-radio v-model="controlTypeActive.fieldType" label="3-2">后缀</el-radio>
+                     <el-input autocomplete="off" placeholder="选填" maxlength="20" type="text" v-model="controlTypeActive.unit" class="input-with-select">
+                        <el-select v-model="controlTypeActive.fieldType" slot="append" placeholder="请选择">
+                           <el-option label="前缀" value="3-1"></el-option>
+                           <el-option label="后缀" value="3-2"></el-option>
+                        </el-select>
+                     </el-input>
                   </el-form-item>
                   <el-form-item label="保留几位小数" :label-width="'70px'" v-if="controlTypeActive.id === '3'">
                      <el-input min="0" max="9" type="number" v-model="controlTypeActive.data4" placeholder="选填，数字" autocomplete="off"></el-input>
