@@ -1,0 +1,35 @@
+<div class="ms-content-left">
+    <div class="ms-content-left-title">走进铭飞</div>
+    <ul class="ms-content-left-ul">
+       	<a target="_blank" href='{ms:global.url/}/53/index.html'>
+       		<li>关于我们<span class="ms-content-left-li-more">></span></li>
+       	</a>
+        <a target="_blank" href='{ms:global.url/}/59/index.html'>
+        	<li>公司动态<span class="ms-content-left-li-more">></span></li>
+        </a>
+        <a target="_blank" href='http://mingsoft.net/html/1//5527/index.html#faz'>
+        	<li>发展历程<span class="ms-content-left-li-more">></span></li>
+        </a>
+        <a target="_blank" href='http://mingsoft.net/html/1//5527/index.html#lianx'>
+        	<li>加入我们<span class="ms-content-left-li-more">></span></li>
+        </a>
+        <a target="_blank" href={ms:global.url/}/19/141/index.html>
+        	<li>联系我们<span class="ms-content-left-li-more">></span></li>
+        </a>
+    </ul>
+</div>
+<script>
+$(function(){
+    var r=location.href;
+      if(r.match("53")){
+      $(".ms-content-left-ul a").removeClass("ms-content-left-li-first");
+      $(".ms-content-left-ul a").eq(0).addClass("ms-content-left-li-first");
+    }else if(r.match("19")){
+      $(".ms-content-left-ul a").removeClass("ms-content-left-li-first");
+      $(".ms-content-left-ul a").eq(4).addClass("ms-content-left-li-first");
+    }else if(r.match("59")){
+      $(".ms-content-left-ul a").removeClass("ms-content-left-li-first");
+      $(".ms-content-left-ul a").eq(1).addClass("ms-content-left-li-first");
+    }
+  })
+</script>

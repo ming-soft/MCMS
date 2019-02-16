@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <#include "m/head-file.htm"/>
+        <link rel="stylesheet" type="text/css" href="{ms:global.host/}/{ms:global.style/}/css/jquery.sinaemotion.css" />
+        <script type="text/javascript" src="{ms:global.host/}/{ms:global.style/}/js/jquery.sinaEmotion.js"></script>
+    </head>
+    <body>
+        <#include "m/head.htm"/>
+        <div class="ms-banner">
+            <img src="{ms:global.host/}/{ms:global.style/}/images/case.png" class="am-img-responsive" alt="" />
+        </div>
+        <div class="ms-news-show" id="news-show-vue">
+            <article class="am-article">
+                <div class="am-article-hd ms-news-show-main">
+                    <div class="ms-news-show-title">{ms:field.title/}</div>
+                    <p class="am-article-meta">
+                        <div class="ms-news-show-icon">
+                            <div class="ms-news-show-icon-source"><lable class="ms-news-show-icon-title">来源：</lable><lable class="ms-news-show-icon-con">{ms:field.source/}</lable>
+                                <span>|</span>
+                            </div>
+                            <div class="ms-news-show-icon-time">
+                                <span>|</span>
+                            </div>
+                            <div class="ms-news-show-icon-clicks"></div>
+                            <div class="ms-news-show-icon-num">{ms:field.hit/}
+                                <span>|</span>
+                            </div>
+                            <!-- <div class="ms-news-show-icon-comment"></div>
+                            <div class="ms-news-show-icon-num">52<span>|</span></div> -->
+                            <div class="ms-news-show-icon-Fabulous"></div>
+                            <div class="ms-news-show-icon-num" v-text="attentionNum"></div>
+                        </div>
+                    </p>
+                </div>
+                <div class="am-article-bd ms-news-show-content">{ms:field.content/}</div>
+                <div class="metfield">
+			        <p>上一篇：<a href="{ms:pre.link/}">{ms:pre.title/}</a></p>
+			        <p>下一篇：<a href="{ms:next.link/}">{ms:next.title/}</a></p>
+			    </div>
+            </article>
+            <div class="ms-news-show-comment">
+                <div class="ms-news-show-comment-top">
+                    <div class="ms-news-show-comment-top-icon" @click="attentionNews" :class="{'ms-is-attention':isAttention}"></div>
+                </div>
+                <div class="ms-news-show-comment-bottom">
+                    <div class="ms-news-show-comment-input">
+                        <textarea v-model='isButAttention' class="emotion" type="text" name="comments" placeholder="我有话说..."></textarea>
+                        <div class="ms-news-show-comment-button">
+                            <div class="ms-news-show-comment-expression" id="ms-face"></div>
+                            <div class="ms-news-show-comment-submit" :class="{'ms-submit-comments-css':isButAttention.length > 0}" @click="submitComments()">提交</div>
+                        </div>
+                    </div>
+                    <div class="ms-news-show-comment-whole">全部评论</div>
+                    <div class="ms-news-show-comment-list">
+                        <template v-for="(comments,index) in commentsList">
+                            <div class="ms-news-show-comment-list-div" v-if="index <= listNum">
+                                <div class="ms-news-show-comment-list-left">
+                                    <div class="ms-news-show-comment-list-portrait">
+                                        <img :src="'{ms:global.host/}'+ comments.puIcon" onerror="this.src='http://cdn.mingsoft.net/global/images/msheader.png'">
+                                    </div>
+                                    <div class="ms-news-show-comment-list-content">
+                                        <div class="ms-news-show-comment-list-top">
+                                            <div class="ms-news-show-comment-list-name" v-text="comments.puNickname"></div>
+                                            <!-- <div class="ms-news-show-comment-list-right">
+                                                <div class="ms-news-show-main-icon-Fabulous"></div>
+                                                <div class="ms-news-show-main-icon-num">28</div>
+                                            </div> -->
+                                        </div>
+                                        <div class="ms-news-show-comment-list-bottom">
+                                            <div class="ms-news-show-comment-list-comment" v-html="vueAnalyticEmotion(comments.commentContent)"></div>
+                                            <div class="ms-news-show-comment-list-time" v-text="comments.commentTime"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        <div class="ms-news-show-comment-more" @click="listNum = listNum +4" v-show="listNum < commentsList.length">查看更多评论</div>
+                        <div class="ms-news-show-comment-more" v-show="listNum >= commentsList.length && commentsList.length != 0">没有更多评论</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <#include "m/footer.htm"/>
+    </body>
+    <script>
+        var newsShowVue = new Vue({
+            el: "#news-show-vue",
+            data: {
+                commentsList: [], //评论列表
+                attentionNum: 0, //点赞数
+                isAttention: false, //点赞状态
+                isButAttention: '', //按钮状态
+                listNum: 4, //列表数
+                loginStatus: '', //登录状态
+                vueAnalyticEmotion: function(val) {
+                    return AnalyticEmotion(val);
+                },
+            },
+            methods: {
+                //关注或者取消
+                attentionNews: function() {
+                    var obj = this;
+                    if(this.loginStatus != true) {
+                        alert("请先登录后重试");
+                        return;
+                    }
+                    //判断关注还是取关
+                    if(obj.isAttention == false) {
+                        $.ajax({
+                            type: "POST",
+                            data: "basicAttentionBasicId={ms:field.id/}&basicAttentionType=2",
+                            url: "{ms:global.host/}/people/attention/save.do",
+                            success: function(msg) {
+                                if(msg.result) {
+                                    obj.attentionNum++;
+                                    obj.isAttention = true;
+                                }
+                            },
+                            error: function() {
+                                alert("操作失败，请检查是否已经安装关注插件");
+                            }
+                        })
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            data: "basicId={ms:field.id/}&basicAttentionType=2",
+                            url: "{ms:global.host/}/people/attention/delete.do",
+                            success: function(msg) {
+                                if(msg.result) {
+                                    obj.attentionNum--;
+                                    obj.isAttention = false;
+                                }
+                            },
+                            error: function() {
+                                alert("操作失败，请检查是否已经安装关注插件");
+                            }
+                        })
+                    }
+                },
+                //关注
+                list: function() {
+                    var obj = this;
+                    $.ajax({
+                        type: "POST",
+                        data: "commentBasicId={ms:field.id/}",
+                        url: "{ms:global.host/}/comment/list.do",
+                        success: function(msg) {
+                            obj.commentsList = msg.list;
+                        }
+                    })
+                },
+                //提交
+                submitComments: function() {
+                    if(this.isButAttention == '') {
+                        return;
+                    }
+                    if(this.loginStatus != true) {
+                        alert("请先登录后重试");
+                        return;
+                    }
+                    var obj = this;
+                    $.ajax({
+                        type: "POST",
+                        data: "commentContent=" + $("textarea[name=comments]").val() + "&isCode=false&commentBasicId={ms:field.id/}",
+                        url: "{ms:global.host/}/people/comment/save.do",
+                        success: function(msg) {
+                            if(msg.result) {
+                                alert("评论成功");
+                                obj.list();
+                            } else {
+                                alert(msg.resultMsg);
+                            }
+                            obj.isButAttention = '';
+                        },
+                        error: function() {
+                            alert("操作失败，请检查是否已经安装评论插件");
+                        }
+                    })
+                }
+            },
+            mounted: function() {
+                //调用表情
+                $('#ms-face').SinaEmotion($('.emotion'));
+                var obj = this;
+                //验证登录
+                $.ajax({
+                    type: "POST",
+                    url: "{ms:global.host/}/checkLoginStatus.do",
+                    success: function(msg) {
+                        obj.loginStatus = msg.result;
+                    }
+                })
+                //关注数
+                $.ajax({
+                    type: "POST",
+                    data: "basicAttentionBasicId={ms:field.id/}&basicAttentionType=2",
+                    url: "{ms:global.host/}/attention/count.do",
+                    success: function(msg) {
+                        obj.attentionNum = msg;
+                    }
+                })
+                //是否关注了
+                $.ajax({
+                    type: "POST",
+                    data: "basicAttentionBasicId={ms:field.id/}&basicAttentionType=2",
+                    url: "{ms:global.host/}/people/attention/isExists.do",
+                    success: function(msg) {
+                        obj.isAttention = msg.result;
+                    }
+                })
+            },
+            beforeCreate: function() {
+                var obj = this;
+                var app_id = '1362404091';
+                //获取标签列表
+                $.ajax({
+                    async: true,
+                    dataType: 'jsonp',
+                    url: 'https://api.weibo.com/2/emotions.json?source=' + app_id,
+                    success: function(response) {
+                        var data = response.data;
+                        for(var i in data) {
+                            if(data[i].category == '') {
+                                data[i].category = '默认';
+                            }
+                            if(emotions[data[i].category] == undefined) {
+                                emotions[data[i].category] = new Array();
+                                categorys.push(data[i].category);
+                            }
+                            emotions[data[i].category].push({
+                                name: data[i].phrase,
+                                icon: data[i].icon
+                            });
+                            uSinaEmotionsHt.put(data[i].phrase, data[i].icon);
+                        }
+                        obj.list();
+                    }
+                });
+            },
+        })
+    </script>
+
+</html>

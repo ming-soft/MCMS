@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <#include "head-file.htm"/>
+    </head>
+    <body>
+        <#include "head.htm"/>
+        <div class="ms-banner" style="background:url({ms:global.host/}/{ms:global.style/}images/talk_online.jpeg) no-repeat center;">
+            <p class="banner_tit_other animated fadeInLeft">在线留言</p>
+            <p class="banner_tit_other_des animated fadeInRight">Talk online</p>
+        </div>
+        <div class="ms-content-advice">
+            <div class="ms-content-form-background">
+                <form class="ms-content-form" method="post" id="postForm">
+                    <input class="ms-content-form-name" type="text" name="name" placeholder="姓名">
+                    <input class="ms-content-form-phone" type="text" name="phone" placeholder="手机">
+                    <textarea class="ms-content-form-message" name="content" placeholder="留言"></textarea>
+                    <div class="ms-login-button">提交</div>
+                </form>
+            </div>
+        </div>
+        <#include "footer.htm"/>
+    </body>
+</html>
+<script>
+    /* 表单提交 */
+    var flag = false;
+    $(".ms-login-button").click(function() {
+        if(!flag) {
+            $.ajax({
+                type: "POST",
+                url: "{ms:global.host/}/mdiy/diyForm/f2c131968438246e885e0feed7256dbc.do",
+                data: $("#postForm").serialize(),
+                success: function(msg) {
+                    flag = true;
+                    alert("提交成功");
+                    location.reload();
+                }
+            });
+        } else {
+            alert("您已经提交过了！");
+        }
+    })
+
+    /* 表单验证 */
+    function verification() {
+        if($('input[name="name"]').val().length > 0 && $('input[name="phone"]').val().length > 0 && $('.ms-content-form-message').val().length > 0) {
+            $('.ms-login-button').css("background-color", "#009aff");
+            $('.ms-login-button').css("pointer-events", 'visible');
+            $('.ms-login-button').css("color", "#fff");
+        } else {
+            $('.ms-login-button').css("background-color", "#fafafa");
+            $('.ms-login-button').css('pointer-events', "none");
+            $('.ms-login-button').css("color", "#ddd");
+        }
+    }
+
+    $('input[name="name"]').keyup(function() {
+        verification();
+    })
+    $('input[name="phone"]').keyup(function() {
+        verification();
+    })
+    $('.ms-content-form-message').keyup(function() {
+        verification();
+    })
+</script>
