@@ -136,43 +136,6 @@ textarea::-webkit-input-placeholder {
 .el-message {
   border-radius: 0 !important;
 }
-.ms-admin-menu {
-  min-height: 100vh;
-  min-width: 140px;
-}
-.ms-admin-menu .ms-header {
-  border-right: solid 1px #e6e6e6;
-}
-.ms-admin-menu .ms-header div {
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-.ms-admin-menu .ms-header div i {
-  display: inline-block;
-  text-align: center;
-  line-height: 1.4em;
-  width: 1.4em;
-  height: 1.4em;
-  border-radius: 4px;
-  color: #fff;
-  font-size: 1.4em;
-  background: #02CF5D;
-}
-.ms-admin-menu .ms-header div span {
-  margin: auto;
-}
-.ms-admin-menu .el-main {
-  padding: 0;
-}
-.ms-admin-menu .el-main .ms-admin-menu-menu {
-  min-height: calc(100vh - 50px);
-  background: #fff;
-}
-.ms-admin-menu .el-main .ms-admin-menu-menu .el-menu-item {
-  min-width: 140px;
-  width: 140px;
-}
-.ms-admin-menu .el-main .ms-admin-material-item {
-  min-width: 100% !important;
+.ms-mdiy-model-list {
+  width: 100%;
 }

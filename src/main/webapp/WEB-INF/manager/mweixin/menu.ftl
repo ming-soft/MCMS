@@ -16,9 +16,9 @@
          <el-menu class="ms-admin-menu-menu" default-active="0-0">
             <template v-for="(menu,i) in menuList">
                <!--单个选项-->
-               <el-menu-item :index="i" @click="menuActive = menu.title" v-if="!menu.sub" v-text="menu.title"></el-menu-item>
+               <el-menu-item :index="i" @click="menuActive = menu.title" v-if="!menu.sub" v-text="menu.title" class="ms-admin-menu-menu-item"></el-menu-item>
                <!--多个选项-->
-               <el-submenu :index="i+''" v-if="menu.sub">
+               <el-submenu :index="i+''" v-if="menu.sub" class="ms-admin-submenu">
                   <template slot="title">
                      <span v-text="menu.title"></span>
                   </template>

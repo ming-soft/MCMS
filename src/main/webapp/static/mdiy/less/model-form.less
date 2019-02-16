@@ -1,0 +1,153 @@
+@import "../../ms-admin/4.7.0/less/app.less";
+//表单页
+.ms-mdiy-model-form {
+    .ms-width-height(100vw, 100vh);
+    .el-container {
+        height: 100%;
+    }
+    .ms-row {
+        button {
+            margin-left: 10px;
+        }
+    }
+    .ms-header-title {
+        margin-bottom: 15px;
+    }
+    .el-checkbox-group {
+        font-size: inherit !important;
+    }
+    //左侧自定义表单项
+    .ms-editor-type-layout {
+        background: #fff;
+        min-width: 15%;
+        padding: 20px;
+        border-right: 1px solid @borderColor;
+        .ms-type-list {
+            .ms-margin-padding(0);
+            .ms-flex();
+            flex-wrap: wrap;
+            li {
+                width: ~'calc(50% - 5px)';
+                .ms-margin-padding(0 0 5px 0, 5px);
+                list-style: none;
+                background: #E6F7FF;
+                border: 1px solid @borderColor;
+                cursor: pointer;
+                i {
+                    .ms-font(1em, #999);
+                    margin: 0 5px;
+                }
+            }
+        }
+    }
+    //中间排序
+    .ms-editor-body-layout {
+        background: #fff;
+        margin: 8px;
+        .ms-form-item {
+            padding: 6px 20px 6px 20px;
+            border: 1px solid transparent;
+            //单位输入框
+            .unit-input {
+                width: ~'calc(100% - 41px)' !important;
+            }
+            .el-form-item__content {
+                display: flex;
+                align-items: flex-start;
+                .del-but {
+                    visibility: hidden;
+                    padding-left: 20px;
+                    margin-left: auto;
+                }
+            }
+            .el-radio {
+                line-height: inherit;
+            }
+        }
+        //选中的表单元素
+        .active {
+            border-color: @themeColor;
+            .del-but {
+                visibility: visible !important;
+            }
+        }
+        //表单颜色默认下边距
+        .sortable-ghost {
+            margin-bottom: 18px;
+            min-height: 40px;
+        }
+    }
+    //右侧选项属性
+    .ms-editor-attr-layout {
+        background: #fff;
+        min-width: 20%;
+        display: flex;
+        flex-wrap: wrap;
+        .ms-header-title {
+            border-left: 1px solid @borderColor;
+            width: 100%;
+        }
+        .ms-editor-attr {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            .form {
+                padding: 15px;
+                height: ~'calc(100vh - 200px)';
+                overflow: auto;
+                .el-form-item__label {
+                    line-height: 1.4em;
+                }
+                .el-form-item {
+                    margin-bottom: 14px;
+                    .input-with-select {
+                        .el-input-group__append {
+                            width: 90px;
+                            .el-input {
+                                input {
+                                    background-color: #fff;
+                                    border-top: 1px solid #dcdfe6;
+                                    border-bottom: 1px solid #dcdfe6;
+                                }
+                            }
+                        }
+                    }
+                }
+                //下拉排序添加选项
+                .ms-down-list {
+                    .ms-margin-padding(0);
+                    li {
+                        .ms-align-center;
+                        list-style: none;
+                        margin-bottom: 12px;
+                        i {
+                            cursor: pointer;
+                            .ms-hover;
+                            font-size: 14px;
+                        }
+                        .ms-input,
+                        .ms-radio,
+                        .icon-tuodong {
+                            margin-right: 6px;
+                            line-height: initial;
+                        }
+                    }
+                    .ms-plus {
+                        .ms-hover;
+                        i {
+                            margin-right: 6px;
+                        }
+                    }
+                }
+            }
+            .footer {
+                margin-top: auto;
+                border-top: 1px solid @borderColor;
+                height: 60px;
+                .ms-align-center;
+                justify-content: flex-end;
+                padding-right: 10px;
+            }
+        }
+    }
+}

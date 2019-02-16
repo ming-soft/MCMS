@@ -123,6 +123,12 @@ textarea::-webkit-input-placeholder {
   background: #fff;
   border-color: #0099ff;
 }
+.ms-header-select {
+  font-size: 0;
+}
+.ms-header-select > .el-select:nth-of-type(2) {
+  margin: 0 10px;
+}
 .ms-weixin-content .ms-header > .el-select--small:first-child {
   width: 100px !important;
 }

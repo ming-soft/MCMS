@@ -16,6 +16,16 @@
                         margin: 0 !important;
                         .el-tabs__nav-scroll{
                             padding:20px 10px;
+                            .el-tabs__nav{
+                                // 取消 激活状态边框
+                                .el-tabs__active-bar{
+                                    background-color:transparent !important;
+                                }
+                                .is-active{
+                                    color: #409EFF !important;
+                                    background-color: #ecf5ff;
+                                }
+                            }
                         }
                         .el-tabs__nav-wrap::after{
                             width: 1px !important;
@@ -38,7 +48,6 @@
                     }
                     // tab选中的样式
                     .is-active{
-                       background-color:rgb(233, 234, 240);
                        .ms-font(@defalutSize,@defalutColor);
                     }
                 }

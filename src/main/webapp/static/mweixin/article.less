@@ -5,13 +5,22 @@
     width: 100%;
     background: transparent !important;
     padding: 0 !important;
-    .ms-article-mask {
-        background: #000;
-        opacity: .2;
-        .ms-width-height(100%, 146px);
-        position: absolute;
-        top: 0;
-        left: 0;
+    // 主图文章
+    .ms-main-article{
+        &:hover{
+            cursor: pointer;
+        }
+        .ms-article-mask {
+            background: #000;
+            opacity: .2;
+            .ms-width-height(100%, 146px);
+            position: absolute;
+            top: 0;
+            left: 0;
+            &:hover{
+                cursor: pointer;
+            }
+        }
     }
     .el-container {
         .ms-container {
@@ -32,9 +41,10 @@
                 span {
                     position: absolute;
                     bottom: 0;
-                    padding: 15px;
+                    margin: 15px;
                     color: #fff;
                     .ms-ellipsis-clamp(2);
+                    word-break: break-all;//数字单词的情况
                 }
             } // 子文章
             .ms-article-item {
@@ -42,6 +52,7 @@
                 .ms-flex();
                 padding: 10px 0;
                 border-bottom: 1px solid @borderColor;
+                position: relative;
                 p {
                     margin: 0 10px 0 0;
                     .ms-flex();
@@ -55,8 +66,33 @@
                 img {
                     .ms-width-height(50px);
                 }
+                // 遮罩
+                .ms-article-item-mask{
+                    visibility: hidden;
+                    background: rgb(126, 126, 126);
+                    opacity: .8;
+                    .ms-width-height(100%,50%);
+                    position: absolute;
+                    bottom:0;
+                    .ms-flex(flex-end);
+                    align-items: center;
+                    >i{
+                        .ms-font(14px,#fff);
+                        margin:0 10px 0 auto;
+                        display: none;
+
+                    }
+                }
                 &:hover {
                     cursor: pointer;
+                }
+                &:hover{
+                    .ms-article-item-mask{
+                        visibility: visible;
+                        >i{
+                            display: block;
+                        }
+                    }
                 }
             } // 尾部
             .ms-article-footer {
@@ -86,7 +122,7 @@
                 box-sizing: border-box;
                 border-bottom: 1px solid @borderColor; // 图片上传
                 .ms-pic-upload {
-                    .ms-width-height(140px);
+                    .ms-width-height(140px,100%);
                     border-radius: 4px;
                     border: 1px dashed @borderColor;
                     .ms-flex(center);
@@ -135,18 +171,34 @@
                                 padding-right: 50px !important;
                             }
                         }
+                        // 标题输入框预留边距
+                        .basic-title-input{
+                            >.el-input__inner{
+                                padding-right:54px !important;
+                            }
+                        }
+                    }
+                    .el-form-item:last-child{
+                        padding-top: 4px;
                     }
                 }
             }
             .ms-main-body {
                 height: calc(~'100% - 180px');
                 background: #fff;
+                .edui-editor-toolbarbox{
+                    border: none !important;
+                    box-shadow: none !important;
+                }
                 .edui-default {
-                    border: none;
+                    // 设置edui-default的class样式会导致选择工具栏会出现抖动，是因为这个class类是通用样式
                     .edui-editor {
+                        border: none !important;
                         .edui-editor-toolbarboxouter {
                             background-color: none !important;
                             background-image: none !important;
+                            box-shadow: none !important;
+                            border-bottom: none !important;
                         } // 编辑器样式
                         .edui-editor {
                             border: none !important;
@@ -162,6 +214,9 @@
                             }
                         }
                     }
+                }
+                .edui-editor-toolbarboxinner{
+                    background: #fff;
                 }
             }
         }

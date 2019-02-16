@@ -50,7 +50,7 @@ input::-webkit-input-placeholder,
 textarea::-webkit-input-placeholder {
   font-weight: initial;
   font-size: 12px;
-  color: #aaa;
+  color: #999;
   resize: none;
 }
 *::-webkit-scrollbar {
@@ -68,13 +68,13 @@ textarea::-webkit-input-placeholder {
 *::-webkit-scrollbar-thumb {
   border-radius: 10px;
   /*滚动条的圆角*/
-  background-color: #ddd;
+  background-color: #e6e6e6;
   /*滚动条的背景颜色*/
 }
 .ms-container {
   margin: 12px;
   height: calc(100% - 24px);
-  padding: 14px 14px 0 14px;
+  padding: 14px;
   background: #fff;
 }
 .ms-header {
@@ -104,7 +104,7 @@ textarea::-webkit-input-placeholder {
   height: 55px;
   box-sizing: border-box;
   padding: 10px 10px 25px 10px;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e6e6e6;
 }
 .ms-weixin-dialog .el-dialog__header .el-dialog__title {
   font-weight: bold;
@@ -112,7 +112,7 @@ textarea::-webkit-input-placeholder {
   color: #333;
 }
 .ms-weixin-dialog .el-dialog__footer {
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #e6e6e6;
   padding: 15px !important;
 }
 .ms-hover {
@@ -122,6 +122,12 @@ textarea::-webkit-input-placeholder {
   color: #0099ff;
   background: #fff;
   border-color: #0099ff;
+}
+.ms-header-select {
+  font-size: 0;
+}
+.ms-header-select > .el-select:nth-of-type(2) {
+  margin: 0 10px;
 }
 .ms-admin-picture {
   height: 100%;
@@ -179,7 +185,7 @@ textarea::-webkit-input-placeholder {
   padding: 14px 0;
 }
 .ms-admin-picture-list .ms-admin-picture-item > div .footer i {
-  color: #999;
+  color: #333;
   margin: auto;
   cursor: pointer;
 }

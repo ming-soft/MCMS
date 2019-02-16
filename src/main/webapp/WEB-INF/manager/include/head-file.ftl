@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="//at.alicdn.com/t/font_847907_mkdvd7gopsg.css">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_974973_42u7cwycwta.css">
     <link rel="stylesheet" href="//at.alicdn.com/t/font_1035189_ddqz6fpwzxb.css">
+    <!--自定义模型-->
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_997125_lflqkedj6s9.css">
+
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <!-- 引入组件库 -->
@@ -43,12 +46,20 @@
         ms.manager = "${managerPath}";
         ms.web = ms.base;
 
-        // ms.base = "http://192.168.0.54:85";
-        // ms.manager = "http://192.168.0.54:85/apis/ms";
-        // ms.web = "http://192.168.0.54:85/apis";
+        // ms.base = "http://192.168.0.54:82";
+        // ms.manager = "http://192.168.0.54:82/apis/ms";
+        // ms.web = "http://192.168.0.54:82/apis";
         //图片懒加载
 		  Vue.use(VueLazyload, {
 		    error: ms.base + '/images/ic_image_deault.png',
 		    loading: ms.base + '/images/ic_image_deault.png',
-		  })
+          })
+
+         // 测试使用 ==> 微信其他接口走之前需要先走这个接口
+         ms.http.get(ms.manager + "/mweixin/11/function.do")
+            .then((res) => {
+                console.log('微信登录接口', true);
+            }, (err) => {
+                console.log(err)
+        })
     </script>

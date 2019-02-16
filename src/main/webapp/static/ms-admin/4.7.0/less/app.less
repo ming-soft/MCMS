@@ -93,8 +93,9 @@ textarea::-webkit-input-placeholder {
     text-align: right;
 }
 
+// 按钮组之间的间距
 .el-button+.el-button {
-//  margin-left: 0
+    // margin-left: 5px;
 }
 
 .ms-weixin-content{
@@ -125,5 +126,38 @@ textarea::-webkit-input-placeholder {
         color: @themeColor;
         background: #fff;
         border-color: @themeColor;
+    }
+}
+
+// 头部下拉选择区域间距
+.ms-header-select{
+    font-size: 0;
+    >.el-select:nth-of-type(2){
+        margin: 0 10px;
+    }
+}
+
+.el-submenu{
+    // margin: 0 12px;
+    // 菜单选中样式
+    .el-menu-item.is-active{
+        border-radius: 4px;
+    }
+}
+// 卡片样式
+.el-card, .el-message{
+    border-radius:0 !important; 
+}
+
+//拖拽样式
+.sortable-ghost {
+    opacity: .3;
+    background: #ccc !important;
+    border-color: transparent !important;
+    color: transparent !important;
+    * {
+        background: #ccc !important;
+        border-color: transparent !important;
+        color: transparent !important;
     }
 }
