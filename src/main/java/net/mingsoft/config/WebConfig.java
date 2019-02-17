@@ -31,43 +31,29 @@ public class WebConfig implements WebMvcConfigurer {
 	public ActionInterceptor actionInterceptor() {
 		return new ActionInterceptor();
 	}
-	
 
 	@Override
 	public void configurePathMatch(PathMatchConfigurer configurer) {
-		//启用.do后缀
+		// 启用.do后缀
 		configurer.setUseRegisteredSuffixPatternMatch(true);
 	}
-	
+
 	/**
 	 * 增加对rest api鉴权的spring mvc拦截器
 	 */
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// 排除配置
-		registry.addInterceptor(actionInterceptor()).excludePathPatterns("/static/**","/app/**","/webjars/**","/*.html","/*.htm");
+		registry.addInterceptor(actionInterceptor()).excludePathPatterns("/static/**", "/app/**", "/webjars/**",
+				"/*.html", "/*.htm");
 	}
-
-	
-	@Bean
-    public ServletRegistrationBean servletRegistrationBean(DispatcherServlet dispatcherServlet) {
-        //只拦截.do的请求
-		ServletRegistrationBean<DispatcherServlet> servletServletRegistrationBean = new ServletRegistrationBean<>(dispatcherServlet);
-        servletServletRegistrationBean.addUrlMappings("*.do","/v2/api-docs","/swagger-resources","/swagger-resources/configuration/security","/swagger-resources/configuration/ui");
-        return servletServletRegistrationBean;
-    }
-
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		// swagger
-		registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-
 		registry.addResourceHandler("/html/**").addResourceLocations("classpath:/html/");
 		registry.addResourceHandler("/app/**").addResourceLocations("classpath:/app/");
 		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
-
+		registry.addResourceHandler("/api/**").addResourceLocations("classpath:/api/");
 	}
 
 	/**
