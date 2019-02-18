@@ -882,6 +882,7 @@ INSERT INTO `model` VALUES ('106', '自定义表单', '20020000', '104', 'mdiy/f
 INSERT INTO `model` VALUES ('107', '自定义模型', '20030000', '104', 'mdiy/contentModel/index.do', '2017-09-04 11:20:15', '', '0', '0', '1', '104');
 INSERT INTO `model` VALUES ('108', '自定义搜索', '20040000', '104', 'mdiy/search/index.do', '2017-09-04 11:20:31', '', '0', '0', '1', '104');
 INSERT INTO `model` VALUES ('109', '自定义字典', '20050000', '104', 'mdiy/dict/index.do', '2017-09-04 11:21:09', '', '0', '0', '1', '104');
+INSERT INTO `model` VALUES ('155', '自定义标签', '20060000', '104', 'mdiy/tag/index.do', '2017-09-04 11:18:51', '', '0', '0', '1', '104');
 INSERT INTO `model` VALUES ('110', '查看', '20010001', '105', 'mdiy:page:view', '2017-09-04 11:21:47', null, '0', '0', '0', '104,105');
 INSERT INTO `model` VALUES ('111', '查看', '20020001', '106', 'mdiy:form:view', '2017-09-04 11:22:17', '', '0', '0', '0', '104,106');
 INSERT INTO `model` VALUES ('112', '查看', '20030001', '107', 'mdiy:content:view', '2017-09-04 11:22:45', '', '0', '0', '0', '104,107');
@@ -927,7 +928,14 @@ INSERT INTO `model` VALUES ('151', '新增', '20050002', '109', 'mdiy:dict:save'
 INSERT INTO `model` VALUES ('152', '删除', '02990002', '7', 'cms:column:del', '2018-06-20 17:53:51', '', '0', '0', '0', '1,7');
 INSERT INTO `model` VALUES ('153', '修改', '02990003', '7', 'cms:column:update', '2018-06-20 17:54:43', null, '0', '0', '0', '1,7');
 INSERT INTO `model` VALUES ('154', '新增', '02990004', '7', 'cms:column:save', '2018-06-20 17:55:26', null, '0', '0', '0', '1,7');
-
+INSERT INTO `model` VALUES ('156', '新增', '20060001', '155', 'mdiy:tag:save', '2017-09-04 14:28:41', '', '0', '0', '0', '104,155','');
+INSERT INTO `model` VALUES ('157', '查看', '20060002', '155', 'mdiy:tag:view', '2018-06-20 17:53:51', '', '0', '0', '0', '104,155','');
+INSERT INTO `model` VALUES ('158', '修改', '20060003', '155', 'mdiy:tag:update', '2018-06-20 17:54:43', null, '0', '0', '0', '104,155','');
+INSERT INTO `model` VALUES ('159', '删除', '20060004', '155', 'mdiy:tag:del', '2018-06-20 17:55:26', null, '0', '0', '0', '104,155','');
+INSERT INTO `model` VALUES ('160', '新增SQL', '20060005', '155', 'mdiy:tagSql:save', '2017-09-04 14:28:41', '', '0', '0', '0', '104,155','');
+INSERT INTO `model` VALUES ('161', '查看SQL', '20060006', '155', 'mdiy:tagSql:view', '2018-06-20 17:53:51', '', '0', '0', '0', '104,155','');
+INSERT INTO `model` VALUES ('162', '修改SQL', '20060007', '155', 'mdiy:tagSql:update', '2018-06-20 17:54:43', null, '0', '0', '0', '104,155','');
+INSERT INTO `model` VALUES ('163', '删除SQL', '20060008', '155', 'mdiy:tagSql:del', '2018-06-20 17:55:26', null, '0', '0', '0', '104,155','');
 -- ----------------------------
 -- Table structure for people
 -- ----------------------------
@@ -1090,6 +1098,15 @@ INSERT INTO `role_model` VALUES ('151', '48');
 INSERT INTO `role_model` VALUES ('152', '48');
 INSERT INTO `role_model` VALUES ('153', '48');
 INSERT INTO `role_model` VALUES ('154', '48');
+INSERT INTO `role_model` VALUES ('155', '48');
+INSERT INTO `role_model` VALUES ('156', '48');
+INSERT INTO `role_model` VALUES ('157', '48');
+INSERT INTO `role_model` VALUES ('158', '48');
+INSERT INTO `role_model` VALUES ('159', '48');
+INSERT INTO `role_model` VALUES ('160', '48');
+INSERT INTO `role_model` VALUES ('161', '48');
+INSERT INTO `role_model` VALUES ('162', '48');
+INSERT INTO `role_model` VALUES ('163', '48');
 
 -- ----------------------------
 -- Table structure for file
@@ -1129,16 +1146,25 @@ CREATE TABLE `mdiy_tag`  (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '标签' ROW_FORMAT = Dynamic;
 
+3
+3
+2
+3
+0
+2
+0
+3
+3
 -- ----------------------------
 -- Records of mdiy_tag
 -- ----------------------------
 INSERT INTO `mdiy_tag` VALUES (3, 'arclist', 3, '文章列表');
 INSERT INTO `mdiy_tag` VALUES (4, 'channel', 3, '通用栏目');
-INSERT INTO `mdiy_tag` VALUES (5, 'global', 3, '全局');
+INSERT INTO `mdiy_tag` VALUES (5, 'global', 2, '全局');
 INSERT INTO `mdiy_tag` VALUES (7, 'field', 3, '文章内容');
-INSERT INTO `mdiy_tag` VALUES (8, 'pre', 3, '文章上一篇');
-INSERT INTO `mdiy_tag` VALUES (9, 'page', 3, '通用分页');
-INSERT INTO `mdiy_tag` VALUES (10, 'next', 3, '文章下一篇');
+INSERT INTO `mdiy_tag` VALUES (8, 'pre', 0, '文章上一篇');
+INSERT INTO `mdiy_tag` VALUES (9, 'page', 2, '通用分页');
+INSERT INTO `mdiy_tag` VALUES (10, 'next', 0, '文章下一篇');
 INSERT INTO `mdiy_tag` VALUES (12, 'prclist', 3, '商品列表');
 INSERT INTO `mdiy_tag` VALUES (13, 'goods', 3, '商品详情');
 

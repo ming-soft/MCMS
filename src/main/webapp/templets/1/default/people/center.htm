@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+         <#include "/head-file.htm" />
+        <script src="http://cdn.mingsoft.net/plugins/plupload/plupload.full.min.js"></script>
+    </head>
+    <body>
+         <#include "/head.htm" />
+        <div class="ms-content" id="center-vue">
+            <div class="ms-content-main">
+                <div class="ms-content-left">
+                    <div class="ms-content-left-info">
+                        <img :src="'{ms:global.host/}/'+peopleInfo.puIcon" onerror='this.src="http://cdn.mingsoft.net/global/images/msheader.png"'>
+                        <div style="display: none;" v-show="puNickname!='' && puNickname != undefined" v-if="puNickname!='' && puNickname != undefined" v-text="puNickname"></div>
+                        <div v-else v-text="'暂无昵称'"></div>
+                    </div>
+                    <div class="ms-content-left-list">
+                        <div class="ms-content-left-list-info">
+                            <a class='active' href="{ms:global.host/}/people/center.do">基本资料</a>
+                        </div>
+                        <div class="ms-content-left-list-pass">
+                            <a href="{ms:global.host/}/people/password-change.do">修改密码</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="ms-content-right">
+                    <div class="ms-content-right-title">基本资料</div>
+                    <div class="ms-content-right-form">
+                        <form id="ms-center-form">
+                            <div class="ms-content-data ms-content-data-head">
+                                <span class="ms-content-head">头像</span>
+                                <div class="ms-content-head-img">
+                                    <img :src="'{ms:global.host/}/'+peopleInfo.puIcon" onerror='this.src="http://cdn.mingsoft.net/global/images/msheader.png"'>
+                                    <div class="ms-content-head-upload">
+                                        <span id="browse">上传头像</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ms-content-data">
+                                <span class="ms-content-nickname span">昵称</span>
+                                <input @keyup="chanageBackgroundColor" type="text" name="puNickname" v-model="peopleInfo.puNickname">
+                                <img class="ms-error-hide" src="{ms:global.host/}/{ms:global.style/}/images/error.png" :class="{'ms-error-show':errorText[0] != ''}" />
+                                <span class="ms-error-hide" v-text="errorText[0]" :class="{'ms-error-show':errorText[0] != ''}"></span>
+                            </div>
+                            <div class="ms-content-data">
+                                <span class="ms-content-mailbox span">邮箱</span>
+                                <input @keyup="chanageBackgroundColor" type="text" name="peopleMail" v-model="peopleInfo.peopleMail">
+                                <img class="ms-error-hide" src="{ms:global.host/}/{ms:global.style/}/images/error.png" :class="{'ms-error-show':errorText[1] != ''}" />
+                                <span class="ms-error-hide" v-text="errorText[1]" :class="{'ms-error-show':errorText[1] != ''}"></span>
+                            </div>
+                        </form>
+                        <div class="ms-content-click" :disabled="butState != '确认'" :class="{'ms-but-disabled':butState != '确认'}" v-text="butState" @click="updateInfo">确认</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+         <#include "/footer.htm" />
+    </body>
+</html>
+<script type="text/javascript">
+    ms.load(["ms", "ms.people", "http://cdn.mingsoft.net/model/4.6.0/ms.upload.min.js"], function(ms, mpeople, upload) {
+        var centerVue = new Vue({
+            el: "#center-vue",
+            data: {
+                peopleInfo: "", //个人信息
+                puNickname: "", //昵称
+                butState: "确认", //按钮文字
+                errorText: ['', ''], //错误信息
+            },
+            methods: {
+                //修改信息
+                updateInfo: function() {
+                    var target = this;
+                    var pattern = new RegExp("[^a-zA-Z0-9\_\u4e00-\u9fa5]", "i");
+                    if(target.peopleInfo.puNickname.indexOf(" ") >= 0) {
+                        this.showPrompt("昵称不能包括空格", 1000, 0);
+                        return;
+                    }
+                    if(target.peopleInfo.puNickname.length == 0) {
+                        this.showPrompt('昵称不能为空', 1000, 0);
+                        return;
+                    }
+                    if(pattern.test(target.peopleInfo.puNickname)) {
+                        this.showPrompt("昵称不能包含特殊字符", 1000, 0);
+                        return;
+                    }
+                    if(!validator.isLength(target.peopleInfo.puNickname, {
+                            min: 0,
+                            max: 20
+                        })) {
+                        this.showPrompt("昵称最大长度为20个字符", 1000, 0);
+                        return;
+                    }
+
+                    if(target.peopleInfo.peopleMail.indexOf(" ") >= 0) {
+                        this.showPrompt("邮箱不能包含空格", 1000, 1);
+                        return;
+                    }
+                    if(target.peopleInfo.peopleMail.length == 0) {
+                        this.showPrompt("邮箱不能为空", 1000, 1);
+                        return;
+                    }
+                    var pattern = new RegExp("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$")
+                    if(!pattern.test(target.peopleInfo.peopleMail)) {
+                        this.showPrompt("邮箱格式错误", 1000, 1);
+                        return;
+                    }
+                    this.butState = '提交中...';
+                    var data = "puIcon=" + $("input[name=puIcon]").eq($("input[name=puIcon]").length - 1).val() + "&puNickname=" + $("input[name=puNickname]").val() + "&peopleMail=" + $("input[name=peopleMail]").val();
+                    mpeople.people.user.update(data, function(returnJson) { //更新用户信息
+                        if(returnJson.result) {
+                            alert("修改成功");
+                            location.reload();
+                            //target.getPeopleInfo();
+                        } else {
+                            alert(returnJson.resultMsg);
+                        }
+                        target.butState = '确认';
+                    });
+                },
+                //获取个人信息
+                getPeopleInfo: function() {
+                    var target = this;
+                    mpeople.people.user.info(function(returnJson) {
+                        target.peopleInfo = returnJson;
+                        target.puNickname = returnJson.puNickname;
+                    })
+                },
+                //显示提示
+                showPrompt: function(text, date, type) {
+                    var target = this;
+                    this.errorText[type] = text;
+                    this.errorText = [this.errorText[0], this.errorText[1]];
+                    setTimeout(
+                        function() {
+                            target.errorText[type] = '';
+                            target.errorText = [target.errorText[0], target.errorText[1]];
+                        }, date
+                    )
+                },
+                chanageBackgroundColor: function() {
+                    if($('input[name="puNickname"]').val().length > 0 && 　$('input[name="peopleMail"]').val().length > 0) {
+                        $('.ms-content-click').css("background-color", "#009aff");
+                        $('.ms-content-click').css("pointer-events", 'visible');
+                        $('.ms-content-click').css("color", "#fff");
+                    } else {
+                        $('.ms-content-click').css("background-color", "#fafafa");
+                        $('.ms-content-click').css('pointer-events', "none");
+                        $('.ms-content-click').css("color", "#ddd");
+                    }
+                },
+
+            },
+            mounted: function() {
+                this.getPeopleInfo();
+                var target = this;
+                upload.init("browse", "puIcon", "/peopleIcon/", {
+                    "domClass": "display-img",
+                    "size": "3000",
+                    "afterMsg": "修改头像",
+                    success: function(msg) {
+                        var data = "puIcon=" + $("input[name=puIcon]").eq($("input[name=puIcon]").length - 1).val();
+                        mpeople.people.user.update(data, function(returnJson) { //更新用户信息
+                            target.peopleInfo.puIcon = $("input[name=puIcon]").eq($("input[name=puIcon]").length - 1).val();
+                            alert("上传成功");
+                            location.reload();
+                        });
+                    }
+                });
+            },
+        })
+    })
+</script>

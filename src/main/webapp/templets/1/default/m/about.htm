@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <#include "m/head-file.htm"/>
+    <body>
+		<#include "m/head.htm"/>
+        <div class="ms-banner">
+            <img src="{ms:global.host/}/{ms:global.style/}/images/about.png" class="am-img-responsive" alt=""/>
+        </div>
+        <div class="ms-about-content">
+            <div class="am-tabs am-tabs-default ms-about-content-div">
+                <ul class="am-tabs-nav am-cf">
+                    <li class="am-active ms-about-content-li">
+                        <a href="{ms:global.url/}/53/index.html">关于我们</a>
+                    </li>
+                    <li class="ms-about-content-li">
+                        <a href="{ms:global.url/}/59/index.html">公司动态</a>
+                    </li>
+                    <li class="ms-about-content-li">
+                        <a href="http://mingsoft.net/html/1//5527/index.html#faz">发展历程</a>
+                    </li>
+                    <li class="ms-about-content-li">
+                        <a href="http://mingsoft.net/html/1//5527/index.html#lianx">加入我们</a>
+                    </li>
+                    <li class="ms-about-content-li">
+                        <a href="{ms:global.url/}/19/index.html">联系我们</a>
+                    </li>
+                </ul>
+                <div class="am-tabs-bd ms-about-content-main">
+                    <div data-tab-panel-0 class="">{ms:field.content/}</div>
+                </div>
+            </div>
+        </div>
+       <#include "m/footer.htm"/>
+    </body>
+</html>

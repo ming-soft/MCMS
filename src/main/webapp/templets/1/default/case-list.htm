@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <#include "head-file.htm"/>
+    </head>
+
+    <body>
+        <#include "head.htm"/>
+        <div class="ms-banner" style="background:url({ms:global.host/}/{ms:global.style/}images/00.png) no-repeat center;">
+            <p class="banner_tit_other animated fadeInLeft">案&nbsp;&nbsp;&nbsp;例</p>
+            <p class="banner_tit_other_des animated fadeInRight">Case list</p>
+        </div>
+        <div class="ms-content-case">
+            <div class="ms-content-main">
+                {ms:arclist size=6 ispaging=true}
+                <div class="ms-content-main-case">
+                    <div class="ms-content-main-case-img">
+                        <img src="{ms:global.host/}[field.litpic/]">
+                    </div>
+                    <div class="ms-content-main-case-explain">
+                        <div class="ms-content-main-case-title">[field.title/]</div>
+                        <div class="ms-content-main-case-content">
+                            <p class="ms-content-main-case-written">
+                                [field.content/]
+                            </p>
+                            <!-- <p class="ms-content-main-case-QRcode">
+                                <img src="./images/1471918025445.png">
+                            </p> -->
+                        </div>
+                        <div class="ms-content-main-case-click">
+                            <a target="_blank" href="[field.source/]">点击查看</a>
+                        </div>
+                    </div>
+                </div>
+                {/ms:arclist}
+            </div>
+        </div>
+        <#include "footer.htm"/>
+    </body>
+</html>
+<script type="text/javascript">
+    $(function() {
+        $('.ms-content-main-case').hover(function() {
+            $(this).find('.ms-content-main-case-explain').toggle();
+        });
+    });
+</script>

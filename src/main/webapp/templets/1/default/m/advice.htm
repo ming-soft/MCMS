@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <#include "m/head-file.htm"/>
+    <body>
+        <#include "m/head.htm"/>
+        <div class="ms-banner">
+            <img src="{ms:global.host/}/{ms:global.style/}/images/message.png" alt="" width="100%" />
+        </div>
+        <div class="ms-message-content">
+            <form method="post" id="postForm">
+                <p>
+                    <input type="text" class="am-form-field am-radius" name='name' placeholder="姓名" />
+                </p>
+                <p>
+                    <input type="text" class="am-form-field am-radius" name='phone' placeholder="手机" />
+                </p>
+                <div class="am-form-group">
+                    <textarea class="am-form-field ms-content-form-message" id="doc-ta-1" name='content' placeholder="留言"></textarea>
+                </div>
+                <button type="button" class="am-btn am-btn-primary ms-content-button">提交</button>
+            </form>
+        </div>
+        <#include "m/footer.htm"/>
+    </body>
+</html>
+<script>
+    var flag = false;
+    $(".am-btn-primary").click(function() {
+        if(!flag) {
+            $.ajax({
+                type: "POST",
+                url: "{ms:global.host/}/mdiy/diyForm/f2c131968438246e885e0feed7256dbc.do",
+                data: $("#postForm").serialize(),
+                success: function(msg) {
+                    flag = true;
+                    alert("提交成功");
+                }
+            });
+        } else {
+            alert("您已经提交过了！");
+        }
+    })
+
+    /* 表单验证 */
+    function verification() {
+        if($('input[name="name"]').val().length >= 1 && $('input[name="phone"]').val().length >= 1 && $('.ms-content-form-message').val().length >= 1) {
+            $('.ms-content-button').css("background-color", "#009aff");
+            $('.ms-content-button').css("pointer-events", 'visible');
+            $('.ms-content-button').css("color", "#fff");
+        } else {
+            $('.ms-content-button').css("background-color", "#fafafa");
+            $('.ms-content-button').css('pointer-events', "none");
+            $('.ms-content-button').css("color", "#ddd");
+        }
+    }
+
+    $('input[name="name"]').on("input", function() {
+        verification();
+    })
+    $('input[name="phone"]').on("input", function() {
+        verification();
+    })
+    $('.ms-content-form-message').on("input", function() {
+        verification();
+    })
+</script>

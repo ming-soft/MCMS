@@ -36,11 +36,11 @@ CREATE TABLE `mdiy_tag`  (
 -- ----------------------------
 INSERT INTO `mdiy_tag` VALUES (3, 'arclist', 3, '文章列表');
 INSERT INTO `mdiy_tag` VALUES (4, 'channel', 3, '通用栏目');
-INSERT INTO `mdiy_tag` VALUES (5, 'global', 3, '全局');
+INSERT INTO `mdiy_tag` VALUES (5, 'global', 2, '全局');
 INSERT INTO `mdiy_tag` VALUES (7, 'field', 3, '文章内容');
-INSERT INTO `mdiy_tag` VALUES (8, 'pre', 3, '文章上一篇');
-INSERT INTO `mdiy_tag` VALUES (9, 'page', 3, '通用分页');
-INSERT INTO `mdiy_tag` VALUES (10, 'next', 3, '文章下一篇');
+INSERT INTO `mdiy_tag` VALUES (8, 'pre', 0, '文章上一篇');
+INSERT INTO `mdiy_tag` VALUES (9, 'page', 2, '通用分页');
+INSERT INTO `mdiy_tag` VALUES (10, 'next', 0, '文章下一篇');
 INSERT INTO `mdiy_tag` VALUES (12, 'prclist', 3, '商品列表');
 INSERT INTO `mdiy_tag` VALUES (13, 'goods', 3, '商品详情');
 
@@ -70,3 +70,23 @@ INSERT INTO `mdiy_tag_sql` VALUES (10, 9, '  select\r\n	<#--判断是否有栏�
 INSERT INTO `mdiy_tag_sql` VALUES (11, 10, '<#assign select=\"(SELECT \'\')\"/>\r\n<#if nextId??>\r\nSELECT \r\nbasic_id as id,\r\nleft(basic_title,${titlelen?default(40)}) as title,\r\nbasic_title as fulltitle,\r\narticle_author as author, \r\narticle_source as source, \r\narticle_content as content,\r\ncategory.category_title as typename,\r\ncategory.category_id as typeid,\r\n(SELECT \"index.html\") as typelink,\r\nbasic.basic_thumbnails as litpic,\r\ncms_article.article_url as link,\r\nbasic_datetime as date,\r\nbasic_description as descrip,\r\nbasic_hit as hit,\r\narticle_type as flag,\r\ncms_article.article_keyword as keyword \r\nFROM basic LEFT JOIN cms_article ON cms_article.article_basicid = basic.basic_id \r\nLEFT JOIN category ON basic_categoryid=category.category_id \r\nLEFT JOIN basic_column ON basic_column.column_category_id=basic.basic_categoryid \r\nWHERE basic_id=${nextId}\r\n<#else>\r\nSELECT \r\n${select} as id,\r\n${select} as title,\r\n${select} as fulltitle,\r\n${select} as author, \r\n${select} as source, \r\n${select} as content,\r\n${select} as typename,\r\n${select} as typeid,\r\n${select} as typelink,\r\n${select} as litpic,\r\n${select} as link,\r\n${select} as date,\r\n${select} as descrip,\r\n${select} as hit,\r\n${select} as flag,\r\n${select} as keyword FROM basic\r\n</#if>', NULL);
 INSERT INTO `mdiy_tag_sql` VALUES (13, 12, 'SELECT\r\n	basic_id AS id,\r\n	product_price as price,\r\n	product_cost_price AS costprice,\r\n	product_content AS content,\r\n	product_code AS code,\r\n	<#--详情页动态链接-->\r\n	<#if isDo?? && isDo>\r\n	CONCAT(\"/${modelName}/view.do?id=\", basic_id) as link,\r\n	<#else>\r\n	product_linkUrl AS link,\r\n	</#if>\r\n	basic_title AS title,\r\n	product_sale AS sale,\r\n	product_good AS specification,\r\n	product_inventory AS stock,\r\n	basic.basic_categoryid AS typeid,\r\n	basic_thumbnails AS litpic,\r\n	<#--列表页动态链接-->\r\n	<#if isDo?? && isDo>\r\n	CONCAT(\"/mmall/list.do?typeid=\", category.category_id) as typelink,\r\n	<#else>\r\n	(SELECT \"index.html\") AS typelink,\r\n	</#if>\r\n	<#--判断是否有自定义模型表-->\r\n	<#if tableNname??>${tableNname}.*,</#if>\r\n	category_title AS typetitle\r\nFROM\r\n	mall_product \r\n	LEFT JOIN basic ON mall_product.product_basicID = basic.basic_id\r\n	LEFT JOIN category ON basic_categoryid = category.category_id\r\n	<#--判断是否有自定义模型表-->\r\n	<#if tableNname??>LEFT JOIN ${tableNname} ON ${tableNname}.basicId=mall_product.product_basicID </#if>\r\nWHERE\r\n	1 = 1 <#--查询栏目-->\r\n	<#if (typeid)??> and (basic_categoryid=${typeid} or basic_categoryid in \r\n	(select category_id FROM category where find_in_set(${typeid},CATEGORY_PARENT_ID)))\r\n	</#if>\r\n	<#--模糊查询商品标题-->\r\n	<#if basic_title??> and basic_title like CONCAT(\"%\",\'${basic_title}\',\"%\")</#if> \r\n	LIMIT <#--判断是否分页-->\r\n	<#if ispaging?? && pageNo??>${(pageNo?eval-1)*size?eval},${size?default(20)}\r\n	<#else>${size?default(20)}</#if>', NULL);
 INSERT INTO `mdiy_tag_sql` VALUES (14, 13, 'SELECT\r\n	basic_id AS id,\r\n	product_price as price,\r\n	product_cost_price AS costprice,\r\n	product_content AS content,\r\n	product_code AS code,\r\n	<#--详情页动态链接-->\r\n	<#if isDo?? && isDo>\r\n	CONCAT(\"/${modelName}/view.do?id=\", basic_id) as link,\r\n	<#else>\r\n	product_linkUrl AS link,\r\n	</#if>\r\n	basic_title AS title,\r\n	product_sale AS sale,\r\n	product_good AS specification,\r\n	product_inventory AS stock,\r\n	basic.basic_categoryid AS typeid,\r\n	basic_thumbnails AS litpic,\r\n	<#--列表页动态链接-->\r\n	<#if isDo?? && isDo>\r\n	CONCAT(\"/mmall/list.do?id=\", category.category_id) as typelink,\r\n	<#else>\r\n	(SELECT \"index.html\") AS typelink,\r\n	</#if>\r\n	<#--判断是否有自定义模型表-->\r\n	<#if tableNname??>${tableNname}.*,</#if>\r\n	category_title AS typetitle\r\nFROM\r\n	mall_product \r\n	LEFT JOIN basic ON mall_product.product_basicID = basic.basic_id\r\n	LEFT JOIN category ON basic_categoryid = category.category_id\r\n	LEFT JOIN basic_column ON basic_column.column_category_id = basic.basic_categoryid\r\n	<#--判断是否有自定义模型表-->\r\n	<#if tableNname??>LEFT JOIN ${tableNname} ON ${tableNname}.basicId=mall_product.product_basicID </#if>\r\nWHERE\r\n	1 = 1 <#if id??> and basic_id=${id} </#if>', NULL);
+
+INSERT INTO `model` VALUES ('155', '自定义标签', '20060000', '104', 'mdiy/tag/index.do', '2017-09-04 11:18:51', '', '0', '0', '1', '104','');
+INSERT INTO `model` VALUES ('156', '新增', '20060001', '155', 'mdiy:tag:save', '2017-09-04 14:28:41', '', '0', '0', '0', '104,155','');
+INSERT INTO `model` VALUES ('157', '查看', '20060002', '155', 'mdiy:tag:view', '2018-06-20 17:53:51', '', '0', '0', '0', '104,155','');
+INSERT INTO `model` VALUES ('158', '修改', '20060003', '155', 'mdiy:tag:update', '2018-06-20 17:54:43', null, '0', '0', '0', '104,155','');
+INSERT INTO `model` VALUES ('159', '删除', '20060004', '155', 'mdiy:tag:del', '2018-06-20 17:55:26', null, '0', '0', '0', '104,155','');
+INSERT INTO `model` VALUES ('160', '新增SQL', '20060005', '155', 'mdiy:tagSql:save', '2017-09-04 14:28:41', '', '0', '0', '0', '104,155','');
+INSERT INTO `model` VALUES ('161', '查看SQL', '20060006', '155', 'mdiy:tagSql:view', '2018-06-20 17:53:51', '', '0', '0', '0', '104,155','');
+INSERT INTO `model` VALUES ('162', '修改SQL', '20060007', '155', 'mdiy:tagSql:update', '2018-06-20 17:54:43', null, '0', '0', '0', '104,155','');
+INSERT INTO `model` VALUES ('163', '删除SQL', '20060008', '155', 'mdiy:tagSql:del', '2018-06-20 17:55:26', null, '0', '0', '0', '104,155','');
+
+INSERT INTO `role_model` VALUES ('155', '48');
+INSERT INTO `role_model` VALUES ('156', '48');
+INSERT INTO `role_model` VALUES ('157', '48');
+INSERT INTO `role_model` VALUES ('158', '48');
+INSERT INTO `role_model` VALUES ('159', '48');
+INSERT INTO `role_model` VALUES ('160', '48');
+INSERT INTO `role_model` VALUES ('161', '48');
+INSERT INTO `role_model` VALUES ('162', '48');
+INSERT INTO `role_model` VALUES ('163', '48');
