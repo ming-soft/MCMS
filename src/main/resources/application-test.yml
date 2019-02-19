@@ -4,7 +4,7 @@ server:
   
 spring:
   datasource:
-    url: jdbc:mysql://172.17.0.5:3306/mcms-4.7.0?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://172.17.0.4:3306/mcms-4.7.0?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: root
     filters: wall,mergeStat
