@@ -305,7 +305,15 @@
 		<if test="order == true">desc</if>
 		<if test="order == false">asc</if>
 	</select>
-
+	<sql id="queryWhereCategoryId" databaseId="mysql">
+		find_in_set('${categoryId}',CATEGORY_PARENT_ID)
+	</sql>
+	<sql id="queryWhereCategoryId" databaseId="oracle" >
+		instr(','||'${categoryId}'||',', ','||CATEGORY_PARENT_ID||',')>0
+	</sql>
+	<sql id="queryWhereCategoryId" databaseId="sqlServer">
+		CHARINDEX(','+'${categoryId}'+',' , ','+CATEGORY_PARENT_ID +',')>0
+	</sql>
 	<!-- 根据站点编号、开始、结束时间和栏目编号查询文章编号集合 -->
 	<select id="queryIdsByCategoryIdForParser" resultMap="resultMapBean" >
 		select
@@ -320,7 +328,7 @@
 		<!-- 查询子栏目数据 -->
 		<if test="categoryId &gt; 0">
 			and (b.basic_categoryid=#{categoryId} or b.basic_categoryid in 
-				(select category_id FROM category where find_in_set(#{categoryId},CATEGORY_PARENT_ID)))
+				(select category_id FROM category where <include refid="queryWhereCategoryId"></include>))
 		</if>
 		<if test="beginTime!=null and beginTime!=''">
 			and b.basic_updatetime &gt;= #{beginTime}
@@ -358,14 +366,14 @@
 			<foreach item="val" index="index" collection="item[3]">
 				<if test="index==0">#{val}</if>
 			</foreach>
-			||'%')
+			||'%'
 	</sql>
 	<sql id="queryLike" databaseId="sqlServer">
 		like '%'+
 			<foreach item="val" index="index" collection="item[3]">
 				<if test="index==0">#{val}</if>
 			</foreach>
-			 +'%')
+			 +'%'
 	</sql>
 	<!-- 已过期 -->
 	<select id="queryListForSearch" resultMap="resultMap">
