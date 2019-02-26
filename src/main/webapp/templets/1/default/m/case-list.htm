@@ -13,38 +13,29 @@
                     <div class="am-gallery-item ms-case-div">
                         <a href='[field.source/]'><img class="ms-case-list-img" src="{ms:global.host/}[field.litpic/]" alt="[field.title/]"/></a>
                 	</div>
-                	<span class="am-hide ms-cur-{ms:page.cur/}-[field.index/]">{ms:page.next/}</span>
                 </li>
                 {/ms:arclist}
             </ul>
-           <!--  <div id="ul{ms:page.cur/}"></div> -->
         </div>
         <#include "m/footer.htm"/>
     </body>
 </html>
 <script>
-/*var time = 1;
+var time = 1;
 $(window).scroll(function() {　　
 	var scrollTop = $(this).scrollTop();　　
 	var scrollHeight = $(document).height();　
 	var windowHeight = $(this).height();　　
 	if(scrollTop + windowHeight == scrollHeight) {
 		var time2 = $(".ms-cur-" + time + "-1").text()
-		if(time == "{ms:page.total/}") {
-			return;
-		}
 		$("#ul" + time).load(time2 + " #ms-ui");
 		$("#am-active-1").append("<div id=\"ul" + (time + 1) + "\"></div>")
 		time++;
 	}else if(scrollTop + 56 + windowHeight == scrollHeight){
 		var time2 = $(".ms-cur-" + time + "-1").text()
-		if(time == "{ms:page.total/}") {
-			return;
-		}
 		$("#ul" + time).load(time2 + " #ms-ui");
 		$("#am-active-1").append("<div id=\"ul" + (time + 1) + "\"></div>")
 		time++;
 	}
 });
-*/
 </script>
