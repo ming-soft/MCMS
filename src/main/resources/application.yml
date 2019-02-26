@@ -21,6 +21,7 @@ ms:
    memory-size: 4096
       
 spring:
+  http.multipart.enabled: false
   profiles:
     active: dev
   mvc:
@@ -34,6 +35,7 @@ spring:
   servlet:
     multipart:
       max-request-size: 100MB
+      enabled: false
   freemarker:
     suffix: .ftl
     charset: UTF-8
