@@ -267,11 +267,6 @@ public class ArticleAction extends BaseAction {
 		}else{
 			article.setArticleType(checkboxType);
 		}
-		// 问题:由于上传的图片路径后面可能带有｜符合。所以要进行将“｜”替换空
-		// 空值判断
-		if (!StringUtils.isBlank(article.getBasicThumbnails())) {
-			article.setBasicThumbnails(article.getBasicThumbnails().replace("|", ""));
-		}
 		ColumnEntity column = (ColumnEntity) columnBiz.getEntity(article.getBasicCategoryId());
 		article.setColumn(column);
 		
@@ -396,11 +391,6 @@ public class ArticleAction extends BaseAction {
 			article.setArticleType(ArrysUtil.sort(checkboxType, ",")+",");
 		}else{
 			article.setArticleType(checkboxType);
-		}
-		// 问题:由于上传的图片路径后面可能带有｜符合。所以要进行将“｜”替换空
-		// 空值判断
-		if (!StringUtils.isBlank(article.getBasicThumbnails())) {
-			article.setBasicThumbnails(article.getBasicThumbnails().replace("|", ""));
 		}
 		// 获取更改前的文章实体
 		ArticleEntity oldArticle = (ArticleEntity) articleBiz.getEntity(basicId);
