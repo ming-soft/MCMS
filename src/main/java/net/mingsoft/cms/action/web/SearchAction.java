@@ -114,7 +114,7 @@ public class SearchAction extends BaseAction {
 		if (ObjectUtil.isNull(search)) {
 			this.outJson(response, false);
 		}
-		Map map = BasicUtil.assemblyRequestMap();
+		Map<String, Object> map = BasicUtil.assemblyRequestMap();
 		// 读取请求字段
 		Map<String, String[]> field =  request.getParameterMap(); 
 		Map<String, String> basicField = getMapByProperties(net.mingsoft.mdiy.constant.Const.BASIC_FIELD);
@@ -158,15 +158,17 @@ public class SearchAction extends BaseAction {
 		map.put(ParserUtil.TOTAL, PageUtil.totalPage(count, size));
 		//设置页面显示数量
 		map.put(ParserUtil.RCOUNT, size);
+		map.put(ParserUtil.SIZE, size);
 		//设置列表当前页
 		map.put(ParserUtil.PAGE_NO, BasicUtil.getInt(ParserUtil.PAGE_NO,1));
 		
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
 		Map searchMap = new HashMap<>();
 		searchMap.put(BASIC_TITLE, BasicUtil.getString(BASIC_TITLE));
+		searchMap.put(ParserUtil.PAGE_NO, BasicUtil.getInt(ParserUtil.PAGE_NO,1));
 		map.put(SEARCH, searchMap);
 		//动态解析
-		map.put(ParserUtil.IS_DO,true);
+		map.put(ParserUtil.IS_DO,false);
 		//设置动态请求的模块路径
 		map.put(ParserUtil.MODEL_NAME, "mcms");
 		//解析后的内容

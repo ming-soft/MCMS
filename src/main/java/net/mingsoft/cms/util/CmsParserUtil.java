@@ -23,6 +23,7 @@ import net.mingsoft.base.constant.Const;
 import net.mingsoft.basic.entity.ColumnEntity;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.SpringUtil;
+import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.bean.ColumnArticleIdBean;
 import net.mingsoft.cms.constant.e.ColumnTypeEnum;
 import net.mingsoft.mdiy.biz.IContentModelBiz;
@@ -42,13 +43,18 @@ public class CmsParserUtil extends ParserUtil {
 	 * @throws IOException
 	 */
 	public static void generate(String templatePath, String targetPath) throws IOException {
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(IS_DO, false);
-		String content = CmsParserUtil.generate(templatePath, map, false);
+		boolean mobileStyle = false;
+		//判断是否有移动端
+		if (!StringUtil.isBlank(BasicUtil.getApp().getAppMobileStyle())) {
+			mobileStyle = true;
+		}
+		String content = CmsParserUtil.generate(templatePath, map, mobileStyle);
 		
 		FileUtil.writeString(content, ParserUtil.buildHtmlPath(targetPath), Const.UTF8);
 		// 生成移动页面
-		if (ObjectUtil.isNotNull(BasicUtil.getApp().getAppMobileStyle())) {
+		if (mobileStyle) {
 			// 手机端m
 			map.put(ParserUtil.MOBILE, BasicUtil.getApp().getAppMobileStyle());
 			content = CmsParserUtil.generate(templatePath, map, true);
