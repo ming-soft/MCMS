@@ -1,6 +1,8 @@
 ALTER TABLE [dbo].[model] ADD [is_child] varchar(255) NULL
 GO
 
+ALTER TABLE [dbo].[mdiy_dict] ALTER COLUMN [dict_value] nvarchar ( 100 ) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+
 EXEC sp_addextendedproperty
 'MS_Description', N'扩展业务标记',
 'SCHEMA', N'dbo',

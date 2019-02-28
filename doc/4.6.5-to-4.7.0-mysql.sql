@@ -1,7 +1,7 @@
 ALTER TABLE `model` ADD COLUMN `is_child` varchar(255) COMMENT '扩展业务标记' AFTER `model_parent_ids`;
 ALTER TABLE `mdiy_dict` ADD COLUMN `is_child` varchar(255) COMMENT '扩展业务标记' AFTER `dict_description`;
 ALTER TABLE `role` MODIFY COLUMN `app_id` int(11) COMMENT '应用编号' AFTER `role_managerid`;
-
+ALTER TABLE `mdiy_dict` MODIFY COLUMN `dict_value` varchar(100) COMMENT '数据值' AFTER `app_id`;
 
 DROP TABLE IF EXISTS `file`;
 CREATE TABLE `file` (

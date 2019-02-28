@@ -125,7 +125,7 @@ public class ColumnAction extends BaseAction{
 	 */
 	private void columnPath(HttpServletRequest request,ColumnEntity column){
 		StringBuffer columnPath = new StringBuffer();
-		String file = BasicUtil.getRealPath("")+ParserUtil.HTML+File.separator+ column.getAppId();
+		String file = BasicUtil.getRealPath("","")+ParserUtil.HTML+File.separator+ column.getAppId();
 		String delFile = "";
 		//修改栏目路径时，删除已存在的文件夹
 		column = (ColumnEntity) columnBiz.getEntity(column.getCategoryId());
