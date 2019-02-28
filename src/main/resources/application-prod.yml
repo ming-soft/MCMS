@@ -1,6 +1,7 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/mcms?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://localhost:1433;DatabaseName=db-mcms
     username: root
     password: root
     filters: wall,mergeStat
