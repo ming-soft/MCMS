@@ -223,7 +223,7 @@ function clickZtreeId(event,treeId,treeNode){
 	}
 	var url="${managerPath}/mdiy/contentModel/contentModelField/"+treeNode.categoryId+"/queryField.do";
 	var basicId="basicId=${article.basicId?c?default(0)}";
-	$(this).request({url:url,data:basicId,method:"post",func:function(data) {
+	$(this).request({url:url,data:basicId,method:"get",func:function(data) {
 		$("#addFieldForm").html("");
 		$("#addFieldForm").html(data);
 	}});
