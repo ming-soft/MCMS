@@ -89,6 +89,7 @@ public class MCmsAction extends net.mingsoft.mdiy.action.BaseAction {
 	@ExceptionHandler(java.lang.NullPointerException.class)
 	public void diy(@PathVariable(value = "diy") String diy, HttpServletRequest req, HttpServletResponse resp) {
 		Map map = BasicUtil.assemblyRequestMap();
+		map.put(ParserUtil.URL, BasicUtil.getUrl());
 		//动态解析
 		map.put(ParserUtil.IS_DO,true);
 		//设置动态请求的模块路径
