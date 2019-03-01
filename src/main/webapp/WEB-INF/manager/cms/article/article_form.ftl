@@ -94,7 +94,7 @@ $(function(){
 	//获取当前栏目的自定义模型
 	var url="${managerPath}/mdiy/contentModel/contentModelField/"+${categoryId?default(0)}+"/queryField.do";
 	var articleId="basicId="+${article.basicId?c?default(0)};
-	$(this).request({url:url,data:articleId,method:"post",func:function(data) {
+	$(this).request({url:url,data:articleId,method:"get",func:function(data) {
 		$("#addFieldForm").html(data);
 	}});
 
