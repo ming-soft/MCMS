@@ -46,13 +46,13 @@ public class CmsParserUtil extends ParserUtil {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(IS_DO, false);
 		boolean mobileStyle = false;
-		//判断是否有移动端
-		if (!StringUtil.isBlank(BasicUtil.getApp().getAppMobileStyle())) {
-			mobileStyle = true;
-		}
 		String content = CmsParserUtil.generate(templatePath, map, mobileStyle);
 		
 		FileUtil.writeString(content, ParserUtil.buildHtmlPath(targetPath), Const.UTF8);
+		//判断是否有移动端 不能将这个判断放在上面，会出现PC端一直是移动端的内容
+		if (!StringUtil.isBlank(BasicUtil.getApp().getAppMobileStyle())) {
+			mobileStyle = true;
+		}
 		// 生成移动页面
 		if (mobileStyle) {
 			// 手机端m
