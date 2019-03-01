@@ -3,6 +3,12 @@ ALTER TABLE `mdiy_dict` ADD COLUMN `is_child` varchar(255) COMMENT '扩展业务
 ALTER TABLE `role` MODIFY COLUMN `app_id` int(11) COMMENT '应用编号' AFTER `role_managerid`;
 ALTER TABLE `mdiy_dict` MODIFY COLUMN `dict_value` varchar(100) COMMENT '数据值' AFTER `app_id`;
 
+UPDATE `cms_article` SET `article_url` = '/59/69\\70.html' WHERE `article_basicid` = 70;
+UPDATE `cms_article` SET `article_url` = '/59/68\\71.html' WHERE `article_basicid` = 71;
+UPDATE `cms_article` SET `article_url` = '/59/68\\72.html' WHERE `article_basicid` = 72;
+UPDATE `cms_article` SET `article_url` = '/59/68\\73.html' WHERE `article_basicid` = 73;
+UPDATE `cms_article` SET `article_url` = '/59/68\\74.html' WHERE `article_basicid` = 74;
+
 DROP TABLE IF EXISTS `file`;
 CREATE TABLE `file` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '文件编号',
