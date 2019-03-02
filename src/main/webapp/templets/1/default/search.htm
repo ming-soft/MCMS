@@ -45,17 +45,19 @@ new Vue({
        list: [],
     },
     methods: {
+   	//上下页
   	search:function(flag){
   		var pageNo = {ms:search.pageNo/};
   		var total = {ms:page.total/};
   		if(flag){
-  			pageNo = pageNo==total ? total : pageNo +1;
+  			pageNo = pageNo==total ? total : pageNo +1;//下一页
   		}else{
-  			pageNo = pageNo -1==0 ? 1 : pageNo-1;
+  			pageNo = pageNo -1==0 ? 1 : pageNo-1;//上一页
   		}
   		window.location.href="{ms:global.host/}/cms/1/search.do?basic_title={ms:search.basic_title/}&pageNo="+pageNo;
   		window.event.returnValue=false; 
   	},
+  	//首页和尾页
   	indexAndLast:function(pageNo){
   		window.location.href="{ms:global.host/}/cms/1/search.do?basic_title={ms:search.basic_title/}&pageNo="+pageNo;
   		window.event.returnValue=false; 

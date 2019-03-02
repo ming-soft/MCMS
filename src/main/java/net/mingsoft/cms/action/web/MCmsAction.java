@@ -35,10 +35,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.hutool.core.util.ObjectUtil;
 import net.mingsoft.basic.biz.IColumnBiz;
 import net.mingsoft.basic.entity.ColumnEntity;
 import net.mingsoft.cms.bean.ColumnArticleIdBean;
 import net.mingsoft.cms.biz.IArticleBiz;
+import net.mingsoft.cms.constant.ModelCode;
 import net.mingsoft.cms.entity.ArticleEntity;
 import net.mingsoft.cms.util.CmsParserUtil;
 import net.mingsoft.mdiy.biz.IPageBiz;
@@ -89,6 +91,7 @@ public class MCmsAction extends net.mingsoft.mdiy.action.BaseAction {
 	@ExceptionHandler(java.lang.NullPointerException.class)
 	public void diy(@PathVariable(value = "diy") String diy, HttpServletRequest req, HttpServletResponse resp) {
 		Map map = BasicUtil.assemblyRequestMap();
+		map.put(ParserUtil.URL, BasicUtil.getUrl());
 		//动态解析
 		map.put(ParserUtil.IS_DO,true);
 		//设置动态请求的模块路径
@@ -158,7 +161,8 @@ public class MCmsAction extends net.mingsoft.mdiy.action.BaseAction {
 		List<ColumnArticleIdBean> columnArticles = articleBiz.queryIdsByCategoryIdForParser(typeId, null, null);
 		//判断栏目下是否有文章
 		if(columnArticles.size()==0){
-			this.outJson(resp, false);
+			this.outJson(resp, null,false,getResString("err.empty", this.getResString("typeid")));
+			return;	
 		}
 		map.put(ParserUtil.COLUMN, columnArticles.get(0));
 		//获取总数
@@ -200,6 +204,10 @@ public class MCmsAction extends net.mingsoft.mdiy.action.BaseAction {
 	public void view(HttpServletRequest req, HttpServletResponse resp) {
 		//参数文章编号
 		ArticleEntity article = (ArticleEntity) articleBiz.getEntity(BasicUtil.getInt(ParserUtil.ID));
+		if(ObjectUtil.isNull(article)){
+			this.outJson(resp, null,false,getResString("err.empty", this.getResString("id")));
+			return;	
+		}
 		//根据文章编号查询栏目详情模版
 		ColumnEntity column = (ColumnEntity) columnBiz.getEntity(article.getBasicCategoryId());
 		//解析后的内容

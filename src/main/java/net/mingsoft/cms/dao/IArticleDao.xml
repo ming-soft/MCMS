@@ -47,7 +47,8 @@
 	<!-- 获取表字段 结束 -->
 	<!-- 通过视图查询返回结果集 开始 -->
 	<resultMap type="net.mingsoft.cms.bean.ColumnArticleIdBean" id="resultMapBean">
-		<result column="ARTICLE_BASICID" property="articleId" />	
+		<result column="ARTICLE_BASICID" property="articleId" />
+		<result column="column_listurl" property="columnListUrl"/><!-- 最终栏目列表地址 -->	
 		<result column="column_path" property="columnPath"/>			
 		<result column="column_url" property="columnUrl" />
 		<result column="category_title" property="categoryTitle" />
