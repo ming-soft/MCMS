@@ -452,13 +452,18 @@ app_copyright as copyright,
 <#--动态解析 -->
 <#if isDo?? && isDo>
 ''${url}'' as url,
+''${url}'' as host,
+<#--使用地址栏的域名 -->
+<#elseif url??>
+''${url}/${html}/''+app_id+''/<#if m??>${m}</#if>'' as url,
+''${url}'' as host,
 <#else>
 REPLACE(<#-- 剔除换行符 -->
-substring( app_url, 0, CHARINDEX ( CHAR ( 10 ), app_url ) ),CHAR ( 13 ),'''')+''/html/''+convert(varchar(50),app_id)+''/<#if m??>m</#if>'' as url, 
-</#if>
+substring( app_url, 0, CHARINDEX ( CHAR ( 10 ), app_url ) ),CHAR ( 13 ),'''')+''/${html}/''+convert(varchar(50),app_id)+''/<#if m??>${m}</#if>'' as url, 
 REPLACE(<#-- 剔除换行符 -->
 substring( app_url, 0, CHARINDEX ( CHAR ( 10 ), app_url ) ),CHAR ( 13 ),'''') as host,
-''templets/''+convert(varchar(50),app_id)+''/''<#if m??>+app_style+''/m''<#else>+app_style</#if> as style <#-- 判断是否为手机端 -->
+</#if>
+''templets/''+convert(varchar(50),app_id)+''/''<#if m??>+app_style+''/${m}''<#else>+app_style</#if> as style <#-- 判断是否为手机端 -->
 from app', N'1')
 GO
 
