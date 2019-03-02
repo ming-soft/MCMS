@@ -27,10 +27,10 @@
                     </ul>
                 </div>
                 <div class="ms-content-main-page">
-	              	<a href="jacascript::void(0)" @click="indexAndLast(1)">首页</a>
-                  	<a href="jacascript::void(0)" @click="search(false)">上一页</a>
-                  	<a href="jacascript::void(0)" @click="search(true)">下一页</a>
-                  	<a href="jacascript::void(0)" @click="indexAndLast({ms:page.total/})">尾页</a>
+	              	 <a class="ms-content-main-page-first" href="{ms:global.url/}{ms:page.index/}">首页</a>
+		             <a class="ms-content-main-page-upper" href="{ms:global.url/}{ms:page.pre/}">上一页</a>
+		             <a class="ms-content-main-page-next" href="{ms:global.url/}{ms:page.next/}">下一页</a>
+		             <a class="ms-content-main-page-last" href="{ms:global.url/}{ms:page.last/}">末页</a>
 	            </div>
             </div>
         </div>

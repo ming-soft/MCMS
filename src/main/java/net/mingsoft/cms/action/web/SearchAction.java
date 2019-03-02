@@ -48,7 +48,8 @@ import net.mingsoft.cms.util.CmsParserUtil;
 import net.mingsoft.mdiy.biz.ISearchBiz;
 import net.mingsoft.mdiy.entity.ContentModelFieldEntity;
 import net.mingsoft.mdiy.entity.SearchEntity;
-
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.text.StrSpliter;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.PageUtil;
 import freemarker.core.ParseException;
@@ -56,6 +57,7 @@ import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateNotFoundException;
 import net.mingsoft.base.constant.Const;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.mdiy.util.ParserUtil;
 
 /**
@@ -114,6 +116,7 @@ public class SearchAction extends BaseAction {
 		if (ObjectUtil.isNull(search)) {
 			this.outJson(response, false);
 		}
+		
 		Map<String, Object> map = BasicUtil.assemblyRequestMap();
 		// 读取请求字段
 		Map<String, String[]> field =  request.getParameterMap(); 
@@ -154,16 +157,44 @@ public class SearchAction extends BaseAction {
 			map.put(ParserUtil.TYPE_ID, typeId);
 		}
 		int size = BasicUtil.getInt(ParserUtil.SIZE,10);
+		int total = PageUtil.totalPage(count, size);
 		//获取总数
-		map.put(ParserUtil.TOTAL, PageUtil.totalPage(count, size));
+		map.put(ParserUtil.TOTAL, total);
 		//设置页面显示数量
 		map.put(ParserUtil.RCOUNT, size);
 		map.put(ParserUtil.SIZE, size);
 		//设置列表当前页
 		map.put(ParserUtil.PAGE_NO, BasicUtil.getInt(ParserUtil.PAGE_NO,1));
+		@SuppressWarnings("unused")
+		int pageNo = (int) map.get(ParserUtil.PAGE_NO);
+		int next,pre;
+		if(StringUtil.isBlank(pageNo)){
+			next = 2;
+			pre = 1;
+		}else{
+			next = pageNo+1;
+			pre = pageNo+1;
+		}
+		String url = BasicUtil.getUrl() + request.getServletPath() +"?";
+		String pageNoStr = "&"+ParserUtil.PAGE_NO+"=";
+		BasicUtil.removeUrlParams(ParserUtil.PAGE_NO.split(""));
+		//下一页
+		String nextUrl = url + BasicUtil.assemblyRequestUrlParams()+pageNoStr+next;
+		//首页
+		String indexUrl = url + BasicUtil.assemblyRequestUrlParams() + pageNoStr + 1;
+		//尾页
+		String lastUrl = url + BasicUtil.assemblyRequestUrlParams() + pageNoStr + total;
+		//上一页
+		String preUrl = url + BasicUtil.assemblyRequestUrlParams() + pageNoStr + pre;
 		
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		pageMap.put(ParserUtil.INDEX_URL, indexUrl);
+		pageMap.put(ParserUtil.NEXT_URL, nextUrl);
+		pageMap.put(ParserUtil.PRE_URL, preUrl);
+		pageMap.put(ParserUtil.LAST_URL, lastUrl);
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
-		Map searchMap = new HashMap<>();
+		map.put(ParserUtil.PAGE, pageMap);
+		Map<Object, Object> searchMap = new HashMap<>();
 		searchMap.put(BASIC_TITLE, BasicUtil.getString(BASIC_TITLE));
 		searchMap.put(ParserUtil.PAGE_NO, BasicUtil.getInt(ParserUtil.PAGE_NO,1));
 		map.put(SEARCH, searchMap);
