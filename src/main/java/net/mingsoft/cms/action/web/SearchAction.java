@@ -173,7 +173,7 @@ public class SearchAction extends BaseAction {
 			pre = 1;
 		}else{
 			next = pageNo+1;
-			pre = pageNo+1;
+			pre = pageNo ==1 ? 1 : pageNo+1;
 		}
 		String url = BasicUtil.getUrl() + request.getServletPath() +"?";
 		String pageNoStr = "&"+ParserUtil.PAGE_NO+"=";
