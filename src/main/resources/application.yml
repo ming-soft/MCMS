@@ -1,6 +1,7 @@
 server:
   port: 8080
   servlet.context-path: /ms-mcms
+  servlet.session.timeout: 60M
   
 logging:
  level:
@@ -9,9 +10,6 @@ ms:
  manager: 
   path: /ms
   view-path: /WEB-INF/manager
- session: 
-  timeout: 1800000 
-  validation-interval: 120000 
   
  upload: 
    path: /upload 
