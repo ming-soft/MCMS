@@ -174,15 +174,17 @@ public class SearchAction extends BaseAction {
 		map.put(ParserUtil.PAGE_NO, BasicUtil.getInt(ParserUtil.PAGE_NO,1));
 		@SuppressWarnings("unused")
 		int pageNo = (int) map.get(ParserUtil.PAGE_NO);
-		int next,pre;
-		if(StringUtil.isBlank(pageNo)){
-			next = 2;
+		int next ,pre;
+		if(StringUtil.isBlank(pageNo) || pageNo==1){
+			//如果总页数等于1，下一页就是第一页，不等于就有第二页
+			next = 1==total ? total : 2;
 			pre = 1;
 		}else{
-			next = pageNo+1;
-			pre = pageNo ==1 ? 1 : pageNo+1;
+			next = pageNo==total ? total : pageNo +1;
+			pre = pageNo-1==0 ? 1 : pageNo-1;
 		}
-		String url = BasicUtil.getUrl() + request.getServletPath() +"?" + BasicUtil.assemblyRequestUrlParams(ParserUtil.PAGE_NO.split(""));
+		String str = ParserUtil.PAGE_NO+",";
+		String url = BasicUtil.getUrl() + request.getServletPath() +"?" + BasicUtil.assemblyRequestUrlParams(str.split(","));
 		String pageNoStr = "&"+ParserUtil.PAGE_NO+"=";
 		//下一页
 		String nextUrl = url + pageNoStr+next;

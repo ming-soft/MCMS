@@ -45,16 +45,12 @@ public class CmsParserUtil extends ParserUtil {
 	public static void generate(String templatePath, String targetPath) throws IOException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(IS_DO, false);
-		boolean mobileStyle = false;
-		String content = CmsParserUtil.generate(templatePath, map, mobileStyle);
+		String content = CmsParserUtil.generate(templatePath, map, false);
 		
 		FileUtil.writeString(content, ParserUtil.buildHtmlPath(targetPath), Const.UTF8);
-		//判断是否有移动端 不能将这个判断放在上面，会出现PC端一直是移动端的内容
-		if (!StringUtil.isBlank(BasicUtil.getApp().getAppMobileStyle())) {
-			mobileStyle = true;
-		}
+		
 		// 生成移动页面
-		if (mobileStyle) {
+		if (ParserUtil.isMobile(templatePath)) {
 			// 手机端m
 			map.put(ParserUtil.MOBILE, BasicUtil.getApp().getAppMobileStyle());
 			content = CmsParserUtil.generate(templatePath, map, true);
@@ -109,6 +105,11 @@ public class CmsParserUtil extends ParserUtil {
 				parserParams.put(RCOUNT, pageSize);
 				parserParams.put(TYPE_ID, column.getCategoryId());
 				parserParams.put(IS_DO, false);
+				parserParams.put(HTML, HTML);
+				//如果单站点，就废弃站点地址
+				if(ParserUtil.IS_SINGLE) {
+					parserParams.put(ParserUtil.URL, BasicUtil.getUrl());
+				}
 				if (i == 0) {
 					// 数据库中第一页是从开始0*size
 					// 首页路径index.html
@@ -131,7 +132,7 @@ public class CmsParserUtil extends ParserUtil {
 				FileUtil.writeString(tag.rendering(), columnListPath, Const.UTF8);
 
 				// 判断是手机端生成还是pc端,防止重复生成
-				if (ObjectUtil.isNotNull(BasicUtil.getApp().getAppMobileStyle())) {
+				if (ParserUtil.isMobile(column.getColumnListUrl())) {
 					writer = new StringWriter();
 					mobileTemplate.process(null, writer);
 					tag = new TagParser(writer.toString(),parserParams);
@@ -215,20 +216,25 @@ public class CmsParserUtil extends ParserUtil {
 			parserParams.put(ID, articleId);
 			// 第一篇文章没有上一篇
 			if (ai > 0) {
-				parserParams.put(PRE_ID, articleIdList.get(ai - 1).getArticleId());
+				ColumnArticleIdBean preCaBean = articleIdList.get(ai - 1);
+				if(articleIdList.get(ai).getColumnPath().contains(preCaBean.getCategoryId()+"")){
+					parserParams.put(PRE_ID, preCaBean.getArticleId());
+				}
 			}
 			// 最后一篇文章没有下一篇
 			if (ai + 1 < articleIdList.size()) {
-				parserParams.put(NEXT_ID, articleIdList.get(ai + 1).getArticleId());
+				ColumnArticleIdBean nextCaBean = articleIdList.get(ai + 1);
+				if(articleIdList.get(ai).getColumnPath().contains(nextCaBean.getCategoryId()+"")){
+					parserParams.put(NEXT_ID, nextCaBean.getArticleId());
+				}
 			}
 
 			parserParams.put(IS_DO, false);
 			
 			String content = CmsParserUtil.generate(articleIdList.get(ai).getColumnUrl(), parserParams, false);
 			FileUtil.writeString(content, writePath, Const.UTF8);
-
 			// 手机端
-			if (StringUtils.isNotEmpty(BasicUtil.getApp().getAppMobileStyle())) {
+			if (ParserUtil.isMobile(columnUrl)) {
 				writePath = ParserUtil.buildMobileHtmlPath(articleColumnPath + File.separator + articleId);
 				//如果是封面就生成index.html
 				if(articleIdList.get(ai).getColumnType() == ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {

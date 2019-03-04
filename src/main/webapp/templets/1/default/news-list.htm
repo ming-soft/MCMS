@@ -21,12 +21,12 @@
 
                     <div class="ms-content-main-div">
                         <ul class="ms-content-main-ul">
-                            {ms:arclist size=20 ispaging=true }
+                            {ms:arclist size=10 ispaging=true}
                             <li>
                                 <a href="{ms:global.url/}[field.link/]">
                                     <!-- <span class="ms-content-main-li-span">·</span> -->
                                     <span class="ms-content-main-li-title">[field.title/]</span>
-                                    <span class="ms-content-main-li-time">[field.date?string("yyyy-mm-dd")/]</span>
+                                    <span class="ms-content-main-li-time">[field.date?string("yyyy-MM-dd")/]</span>
                                 </a>
                             </li>
                             {/ms:arclist}

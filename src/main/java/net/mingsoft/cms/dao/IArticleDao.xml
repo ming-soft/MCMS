@@ -52,6 +52,8 @@
 		<result column="column_path" property="columnPath"/>			
 		<result column="column_url" property="columnUrl" />
 		<result column="category_title" property="categoryTitle" />
+		<result column="column_category_id" property="categoryId"/><!-- 与Category类别类绑定ID -->
+		<result column="category_parent_id" property="categoryParentId" /><!-- 关联表category的父类型编号 -->
 		<result column="category_id" property="categoryId" />
 		<result column="COLUMN_CM_ID" property="columnContentModelId" />
 		<result column="COLUMN_TYPE" property="columnType" />
