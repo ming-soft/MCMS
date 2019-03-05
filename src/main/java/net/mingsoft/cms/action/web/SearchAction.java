@@ -160,7 +160,7 @@ public class SearchAction extends BaseAction {
 		ColumnEntity column = null; // 当前栏目
 		ContentModelEntity contentModel = null; // 栏目对应模型
 		List<ContentModelFieldEntity> fieldList = new ArrayList<ContentModelFieldEntity>(); // 栏目对应字段
-		List<DiyMap> fieldValueList = new ArrayList<DiyMap>(); // 栏目对应字段的值
+		List<DiyModelMap> fieldValueList = new ArrayList<DiyModelMap>(); // 栏目对应字段的值
 		int typeId = BasicUtil.getInt("categoryId",0);
 		//记录自定义模型字段名
 		List filedStr = new ArrayList<>();
@@ -207,7 +207,7 @@ public class SearchAction extends BaseAction {
 							//判断请求中的是否是自定义模型中的字段
 							if(filedStr.contains(entry.getKey())){
 								//设置自定义模型字段和值
-								DiyMap diyMap = new DiyMap();
+								DiyModelMap diyMap = new DiyModelMap();
 								diyMap.setKey(entry.getKey());
 								diyMap.setValue(value);
 								fieldValueList.add(diyMap);
@@ -221,9 +221,9 @@ public class SearchAction extends BaseAction {
 		if(fieldValueList.size()>0){
 			map.put("diyModel", fieldValueList);
 		}
+		//组织where查询条件
 		Map whereMap = this.searchMap(articleFieldName, diyFieldName, fieldList);
 		// 获取符合条件的文章总数
-		@SuppressWarnings("deprecation")
 		int count = articleBiz.getSearchCount(contentModel, whereMap, BasicUtil.getAppId(), null);
 		
 		int size = BasicUtil.getInt(ParserUtil.SIZE,10);
@@ -235,7 +235,6 @@ public class SearchAction extends BaseAction {
 		map.put(ParserUtil.SIZE, size);
 		//设置列表当前页
 		map.put(ParserUtil.PAGE_NO, BasicUtil.getInt(ParserUtil.PAGE_NO,1));
-		@SuppressWarnings("unused")
 		int pageNo = (int) map.get(ParserUtil.PAGE_NO);
 		int next ,pre;
 		if(StringUtil.isBlank(pageNo) || pageNo==1){
@@ -389,7 +388,12 @@ public class SearchAction extends BaseAction {
 		}
 		return null;
 	}
-	public class DiyMap {
+	/**
+	 * 存储自定义模型字段和接口参数
+	 * @author 铭飞开源团队
+	 * @date 2019年3月5日
+	 */
+	public class DiyModelMap {
 		String key;
 		Object value;
 		public String getKey() {
