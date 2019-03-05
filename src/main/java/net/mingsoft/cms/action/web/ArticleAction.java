@@ -227,7 +227,6 @@ public class ArticleAction extends BaseAction {
 				}
 			}
 		}
-		
 		this.outJson(response, JSONArray.toJSONString(new ListBean(list, BasicUtil.endPage(list)),new DateValueFilter("yyyy-MM-dd HH:mm:ss")));
 	}
 

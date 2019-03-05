@@ -41,12 +41,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.mingsoft.basic.action.BaseAction;
+import net.mingsoft.basic.biz.ICategoryBiz;
 import net.mingsoft.basic.biz.IColumnBiz;
+import net.mingsoft.basic.biz.IModelBiz;
+import net.mingsoft.basic.entity.BaseEntity;
 import net.mingsoft.basic.entity.ColumnEntity;
 import net.mingsoft.cms.biz.IArticleBiz;
 import net.mingsoft.cms.util.CmsParserUtil;
+import net.mingsoft.mdiy.biz.IContentModelBiz;
 import net.mingsoft.mdiy.biz.IContentModelFieldBiz;
 import net.mingsoft.mdiy.biz.ISearchBiz;
+import net.mingsoft.mdiy.entity.ContentModelEntity;
 import net.mingsoft.mdiy.entity.ContentModelFieldEntity;
 import net.mingsoft.mdiy.entity.SearchEntity;
 import cn.hutool.core.map.MapUtil;
@@ -97,6 +102,33 @@ public class SearchAction extends BaseAction {
 	 */
 	@Autowired
 	private IColumnBiz columnBiz;
+	
+	/**
+	 * 内容模型业务层
+	 */
+	@Autowired
+	private IContentModelBiz contentModelBiz;
+	
+	/**
+	 * 内容字段业务层
+	 */
+	@Autowired
+	private IContentModelFieldBiz fieldBiz;
+	
+
+	/**
+	 * 注入分类业务层
+	 */
+	@Autowired
+	private ICategoryBiz categoryBiz;
+
+
+	/**
+	 * 模块管理biz
+	 */
+	@Autowired
+	private IModelBiz modelBiz;
+	
 	/**
 	 * 实现前端页面的文章搜索
 	 * 
@@ -117,7 +149,6 @@ public class SearchAction extends BaseAction {
 		if (ObjectUtil.isNull(search)) {
 			this.outJson(response, false);
 		}
-		
 		Map<String, Object> map = BasicUtil.assemblyRequestMap();
 		// 读取请求字段
 		Map<String, String[]> field =  request.getParameterMap(); 
@@ -126,6 +157,32 @@ public class SearchAction extends BaseAction {
 		Map<String, Object> articleFieldName = new HashMap<String, Object>();
 		// 自定义字段集合
 		Map<String, String> diyFieldName = new HashMap<String, String>();
+		ColumnEntity column = null; // 当前栏目
+		ContentModelEntity contentModel = null; // 栏目对应模型
+		List<ContentModelFieldEntity> fieldList = new ArrayList<ContentModelFieldEntity>(); // 栏目对应字段
+		List<DiyMap> fieldValueList = new ArrayList<DiyMap>(); // 栏目对应字段的值
+		int typeId = BasicUtil.getInt("categoryId",0);
+		//记录自定义模型字段名
+		List filedStr = new ArrayList<>();
+		//根据栏目确定模版
+		if(typeId>0){
+			column = (ColumnEntity) columnBiz.getEntity(Integer.parseInt(typeId+""));
+			// 获取表单类型的id
+			if (column != null) {
+				contentModel = (ContentModelEntity) contentModelBiz.getEntity(column.getColumnContentModelId());
+				if (contentModel != null) {
+					fieldList = fieldBiz.queryListByCmid(contentModel.getCmId());
+					for (ContentModelFieldEntity cmField : fieldList) {
+						filedStr.add(cmField.getFieldFieldName());
+					}
+					map.put(ParserUtil.TABLE_NAME, contentModel.getCmTableName());
+				}
+			}
+			map.put(ParserUtil.COLUMN, column);
+			//设置栏目编号
+			map.put(ParserUtil.TYPE_ID, typeId);
+		}
+		
 		// 遍历取字段集合
 		if (field != null) {
 			for (Entry<String, String[]> entry : field.entrySet()) {
@@ -147,22 +204,28 @@ public class SearchAction extends BaseAction {
 					} else {
 						if (!StringUtil.isBlank(value)) {
 							diyFieldName.put(entry.getKey(), value);
-						}
+							//判断请求中的是否是自定义模型中的字段
+							if(filedStr.contains(entry.getKey())){
+								//设置自定义模型字段和值
+								DiyMap diyMap = new DiyMap();
+								diyMap.setKey(entry.getKey());
+								diyMap.setValue(value);
+								fieldValueList.add(diyMap);
+							}
+						} 
 					}
 				}
 			}
 		}
-		Map whereMap = this.searchMap(articleFieldName, diyFieldName, null);
-		// 获取符合条件的文章总数
-		int count = articleBiz.getSearchCount(null, whereMap, BasicUtil.getAppId(), null);
-		int typeId = BasicUtil.getInt("categoryId",0);
-		//根据栏目确定模版
-		if(typeId>0){
-			ColumnEntity column = (ColumnEntity) columnBiz.getEntity(Integer.parseInt(map.get("typeid")+""));
-			map.put(ParserUtil.COLUMN, column);
-			//设置栏目编号
-			map.put(ParserUtil.TYPE_ID, typeId);
+		//添加自定义模型的字段和值
+		if(fieldValueList.size()>0){
+			map.put("diyModel", fieldValueList);
 		}
+		Map whereMap = this.searchMap(articleFieldName, diyFieldName, fieldList);
+		// 获取符合条件的文章总数
+		@SuppressWarnings("deprecation")
+		int count = articleBiz.getSearchCount(contentModel, whereMap, BasicUtil.getAppId(), null);
+		
 		int size = BasicUtil.getInt(ParserUtil.SIZE,10);
 		int total = PageUtil.totalPage(count, size);
 		//获取总数
@@ -184,6 +247,7 @@ public class SearchAction extends BaseAction {
 			pre = pageNo-1==0 ? 1 : pageNo-1;
 		}
 		String str = ParserUtil.PAGE_NO+",";
+		//设置分页的统一链接
 		String url = BasicUtil.getUrl() + request.getServletPath() +"?" + BasicUtil.assemblyRequestUrlParams(str.split(","));
 		String pageNoStr = "&"+ParserUtil.PAGE_NO+"=";
 		//下一页
@@ -325,5 +389,20 @@ public class SearchAction extends BaseAction {
 		}
 		return null;
 	}
-
+	public class DiyMap {
+		String key;
+		Object value;
+		public String getKey() {
+			return key;
+		}
+		public void setKey(String key) {
+			this.key = key;
+		}
+		public Object getValue() {
+			return value;
+		}
+		public void setValue(Object value) {
+			this.value = value;
+		}
+	}
 }
