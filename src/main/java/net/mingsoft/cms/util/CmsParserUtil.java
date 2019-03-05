@@ -213,7 +213,7 @@ public class CmsParserUtil extends ParserUtil {
 			// 第一篇文章没有上一篇
 			if (ai > 0) {
 				ColumnArticleIdBean preCaBean = articleIdList.get(ai - 1);
-				//判断当前文档是否与上一页文档在同一栏目下，并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
+				//判断当前文档是否与上一页文章在同一栏目下，并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
 				if(articleColumnPath.contains(preCaBean.getCategoryId()+"")){
 					parserParams.put(PRE_ID, preCaBean.getArticleId());
 				}
@@ -221,7 +221,7 @@ public class CmsParserUtil extends ParserUtil {
 			// 最后一篇文章没有下一篇
 			if (ai + 1 < articleIdList.size()) {
 				ColumnArticleIdBean nextCaBean = articleIdList.get(ai + 1);
-				//判断当前文档是否与上一页文档在同一栏目下并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
+				//判断当前文档是否与下一页文章在同一栏目下并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
 				if(articleColumnPath.contains(nextCaBean.getCategoryId()+"")){
 					parserParams.put(NEXT_ID, nextCaBean.getArticleId());
 				}
