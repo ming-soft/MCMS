@@ -16,7 +16,7 @@
                         <!-- 共7个结果 -->
                     </div>
                     <ul class="ms-content-main-ul">
-                        {ms:arclist size=3 ispaging=true}
+                        {ms:arclist size=10 ispaging=true}
                         <li>
                             <a href="{ms:global.url/}/[field.link/]">
                                 [field.title/]
@@ -27,10 +27,10 @@
                     </ul>
                 </div>
                 <div class="ms-content-main-page">
-	              	<a href="jacascript::void(0)" @click="indexAndLast(1)">首页</a>
-                  	<a href="jacascript::void(0)" @click="search(false)">上一页</a>
-                  	<a href="jacascript::void(0)" @click="search(true)">下一页</a>
-                  	<a href="jacascript::void(0)" @click="indexAndLast({ms:page.total/})">尾页</a>
+	              	 <a class="ms-content-main-page-first" href="{ms:page.index/}">首页</a>
+		             <a class="ms-content-main-page-upper" href="{ms:page.pre/}">上一页</a>
+		             <a class="ms-content-main-page-next" href="{ms:page.next/}">下一页</a>
+		             <a class="ms-content-main-page-last" href="{ms:page.last/}">末页</a>
 	            </div>
             </div>
         </div>

@@ -287,7 +287,7 @@ public class ArticleAction extends BaseAction {
 		// 判断栏目是否存在新增字段
 		if (column.getColumnContentModelId() != 0) {
 			// 保存所有的字段信息
-			List<BaseEntity> listField = fieldBiz.queryListByCmid(column.getColumnContentModelId());
+			List<ContentModelFieldEntity> listField = fieldBiz.queryListByCmid(column.getColumnContentModelId());
 			// 获取内容模型实体
 			ContentModelEntity contentModel = (ContentModelEntity) contentBiz
 					.getEntity(column.getColumnContentModelId());
@@ -414,7 +414,7 @@ public class ArticleAction extends BaseAction {
 				// 判断栏目是否存在新增字段
 				if (column.getColumnContentModelId() != 0) {
 					// 保存所有的字段信息
-					List<BaseEntity> listField = fieldBiz.queryListByCmid(column.getColumnContentModelId());
+					List<ContentModelFieldEntity> listField = fieldBiz.queryListByCmid(column.getColumnContentModelId());
 					ContentModelEntity newContentModel = (ContentModelEntity) contentBiz
 							.getEntity(column.getColumnContentModelId());
 					if (newContentModel != null) {
@@ -442,7 +442,7 @@ public class ArticleAction extends BaseAction {
 		// 判断该文章是否存在新增字段
 		if (column.getColumnContentModelId() != 0) {
 			// 保存所有的字段信息
-			List<BaseEntity> listField = fieldBiz.queryListByCmid(column.getColumnContentModelId());
+			List<ContentModelFieldEntity> listField = fieldBiz.queryListByCmid(column.getColumnContentModelId());
 			// // update中的where条件
 			Map<String, Integer> where = new HashMap<String, Integer>();
 			// 压入默认的basicId字段
@@ -576,7 +576,7 @@ public class ArticleAction extends BaseAction {
 	 *            文章id
 	 * @return 字段信息
 	 */
-	private Map checkField(List<BaseEntity> listField, HttpServletRequest request, int articleId) {
+	private Map checkField(List<ContentModelFieldEntity> listField, HttpServletRequest request, int articleId) {
 		Map<String, Object> mapParams = new HashMap();
 		// 压入默认的basicId字段
 		mapParams.put("basicId", articleId);

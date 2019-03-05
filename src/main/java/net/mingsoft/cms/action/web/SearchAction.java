@@ -41,14 +41,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import net.mingsoft.basic.action.BaseAction;
+import net.mingsoft.basic.biz.ICategoryBiz;
 import net.mingsoft.basic.biz.IColumnBiz;
+import net.mingsoft.basic.biz.IModelBiz;
+import net.mingsoft.basic.entity.BaseEntity;
 import net.mingsoft.basic.entity.ColumnEntity;
 import net.mingsoft.cms.biz.IArticleBiz;
 import net.mingsoft.cms.util.CmsParserUtil;
+import net.mingsoft.mdiy.biz.IContentModelBiz;
+import net.mingsoft.mdiy.biz.IContentModelFieldBiz;
 import net.mingsoft.mdiy.biz.ISearchBiz;
+import net.mingsoft.mdiy.entity.ContentModelEntity;
 import net.mingsoft.mdiy.entity.ContentModelFieldEntity;
 import net.mingsoft.mdiy.entity.SearchEntity;
-
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.text.StrSpliter;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.PageUtil;
 import freemarker.core.ParseException;
@@ -56,6 +63,7 @@ import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateNotFoundException;
 import net.mingsoft.base.constant.Const;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.mdiy.util.ParserUtil;
 
 /**
@@ -94,6 +102,33 @@ public class SearchAction extends BaseAction {
 	 */
 	@Autowired
 	private IColumnBiz columnBiz;
+	
+	/**
+	 * 内容模型业务层
+	 */
+	@Autowired
+	private IContentModelBiz contentModelBiz;
+	
+	/**
+	 * 内容字段业务层
+	 */
+	@Autowired
+	private IContentModelFieldBiz fieldBiz;
+	
+
+	/**
+	 * 注入分类业务层
+	 */
+	@Autowired
+	private ICategoryBiz categoryBiz;
+
+
+	/**
+	 * 模块管理biz
+	 */
+	@Autowired
+	private IModelBiz modelBiz;
+	
 	/**
 	 * 实现前端页面的文章搜索
 	 * 
@@ -120,6 +155,34 @@ public class SearchAction extends BaseAction {
 		Map<String, String> basicField = getMapByProperties(net.mingsoft.mdiy.constant.Const.BASIC_FIELD);
 		// 文章字段集合
 		Map<String, Object> articleFieldName = new HashMap<String, Object>();
+		// 自定义字段集合
+		Map<String, String> diyFieldName = new HashMap<String, String>();
+		ColumnEntity column = null; // 当前栏目
+		ContentModelEntity contentModel = null; // 栏目对应模型
+		List<ContentModelFieldEntity> fieldList = new ArrayList<ContentModelFieldEntity>(); // 栏目对应字段
+		List<DiyModelMap> fieldValueList = new ArrayList<DiyModelMap>(); // 栏目对应字段的值
+		int typeId = BasicUtil.getInt("categoryId",0);
+		//记录自定义模型字段名
+		List filedStr = new ArrayList<>();
+		//根据栏目确定模版
+		if(typeId>0){
+			column = (ColumnEntity) columnBiz.getEntity(Integer.parseInt(typeId+""));
+			// 获取表单类型的id
+			if (column != null) {
+				contentModel = (ContentModelEntity) contentModelBiz.getEntity(column.getColumnContentModelId());
+				if (contentModel != null) {
+					fieldList = fieldBiz.queryListByCmid(contentModel.getCmId());
+					for (ContentModelFieldEntity cmField : fieldList) {
+						filedStr.add(cmField.getFieldFieldName());
+					}
+					map.put(ParserUtil.TABLE_NAME, contentModel.getCmTableName());
+				}
+			}
+			map.put(ParserUtil.COLUMN, column);
+			//设置栏目编号
+			map.put(ParserUtil.TYPE_ID, typeId);
+		}
+		
 		// 遍历取字段集合
 		if (field != null) {
 			for (Entry<String, String[]> entry : field.entrySet()) {
@@ -138,32 +201,69 @@ public class SearchAction extends BaseAction {
 					// 若为文章字段，则保存至文章字段集合；否则保存至自定义字段集合
 					if (ObjectUtil.isNotNull(basicField.get(entry.getKey())) && ObjectUtil.isNotNull(value)) {
 						articleFieldName.put(entry.getKey(), value);
-					} 
+					} else {
+						if (!StringUtil.isBlank(value)) {
+							diyFieldName.put(entry.getKey(), value);
+							//判断请求中的是否是自定义模型中的字段
+							if(filedStr.contains(entry.getKey())){
+								//设置自定义模型字段和值
+								DiyModelMap diyMap = new DiyModelMap();
+								diyMap.setKey(entry.getKey());
+								diyMap.setValue(value);
+								fieldValueList.add(diyMap);
+							}
+						} 
+					}
 				}
 			}
 		}
-		Map whereMap = this.searchMap(articleFieldName, null, null);
-		// 获取符合条件的文章总数
-		int count = articleBiz.getSearchCount(null, whereMap, BasicUtil.getAppId(), null);
-		int typeId = BasicUtil.getInt("categoryId",0);
-		//根据栏目确定模版
-		if(typeId>0){
-			ColumnEntity column = (ColumnEntity) columnBiz.getEntity(Integer.parseInt(map.get("typeid")+""));
-			map.put(ParserUtil.COLUMN, column);
-			//设置栏目编号
-			map.put(ParserUtil.TYPE_ID, typeId);
+		//添加自定义模型的字段和值
+		if(fieldValueList.size()>0){
+			map.put("diyModel", fieldValueList);
 		}
+		//组织where查询条件
+		Map whereMap = this.searchMap(articleFieldName, diyFieldName, fieldList);
+		// 获取符合条件的文章总数
+		int count = articleBiz.getSearchCount(contentModel, whereMap, BasicUtil.getAppId(), null);
+		
 		int size = BasicUtil.getInt(ParserUtil.SIZE,10);
+		int total = PageUtil.totalPage(count, size);
 		//获取总数
-		map.put(ParserUtil.TOTAL, PageUtil.totalPage(count, size));
+		map.put(ParserUtil.TOTAL, total);
 		//设置页面显示数量
 		map.put(ParserUtil.RCOUNT, size);
 		map.put(ParserUtil.SIZE, size);
 		//设置列表当前页
 		map.put(ParserUtil.PAGE_NO, BasicUtil.getInt(ParserUtil.PAGE_NO,1));
+		int pageNo = (int) map.get(ParserUtil.PAGE_NO);
+		int next ,pre;
+		if(StringUtil.isBlank(pageNo) || pageNo==1){
+			//如果总页数等于1，下一页就是第一页，不等于就有第二页
+			next = 1==total ? total : 2;
+			pre = 1;
+		}else{
+			next = pageNo==total ? total : pageNo +1;
+			pre = pageNo-1==0 ? 1 : pageNo-1;
+		}
+		String str = ParserUtil.PAGE_NO+",";
+		//设置分页的统一链接
+		String url = BasicUtil.getUrl() + request.getServletPath() +"?" + BasicUtil.assemblyRequestUrlParams(str.split(","));
+		String pageNoStr = "&"+ParserUtil.PAGE_NO+"=";
+		//下一页
+		String nextUrl = url + pageNoStr+next;
+		//首页
+		String indexUrl = url + pageNoStr + 1;
+		//尾页
+		String lastUrl = url + pageNoStr + total;
+		//上一页
+		String preUrl = url + pageNoStr + pre;
 		
+		map.put(ParserUtil.INDEX_URL, indexUrl);
+		map.put(ParserUtil.NEXT_URL, nextUrl);
+		map.put(ParserUtil.PRE_URL, preUrl);
+		map.put(ParserUtil.LAST_URL, lastUrl);
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
-		Map searchMap = new HashMap<>();
+		Map<Object, Object> searchMap = new HashMap<>();
 		searchMap.put(BASIC_TITLE, BasicUtil.getString(BASIC_TITLE));
 		searchMap.put(ParserUtil.PAGE_NO, BasicUtil.getInt(ParserUtil.PAGE_NO,1));
 		map.put(SEARCH, searchMap);
@@ -225,48 +325,48 @@ public class SearchAction extends BaseAction {
 		}
 
 		// 遍历字段自定义字段
-//		for (Iterator iter = diyFieldName.keySet().iterator(); iter.hasNext();) {
-//			String key = iter.next().toString();
-//			String fieldValue = diyFieldName.get(key);
-//			// 获取字段实体
-//			ContentModelFieldEntity field = this.get(key, fields);
-//			if (field != null) {
-//				List list = new ArrayList();
-//				// 是否为自定义字段0
-//				list.add(0, true);
-//				List listValue = new ArrayList();
-//				// 字段的值
-//				if (field.getFieldType() == IContentModelFieldBiz.INT || field.getFieldType() == IContentModelFieldBiz.FLOAT) {
-//					// 判断是否为区间查询
-//
-//					if (diyFieldName.get(key).toString().indexOf("-") > 0) {
-//						String[] values = fieldValue.toString().split("-");
-//						// 是否是数字类型，false:是
-//						list.add(false);
-//						// 是否是区间比较 false:是
-//						list.add(false);
-//						// 字段值1
-//						listValue.add(values[0]);
-//						listValue.add(values[1]);
-//					} else {
-//						// 是否是数字类型，false:是2
-//						list.add(false);
-//						// 是否是区间比较 true:不是3
-//						list.add(true);
-//						// 字段值 1
-//						listValue.add(fieldValue);
-//					}
-//				} else {
-//					// 是否是数字类型，true:不是2
-//					list.add(true);
-//					list.add(false);
-//					// 字段值 1
-//					listValue.add(fieldValue);
-//				}
-//				list.add(listValue);
-//				map.put(key, list);
-//			}
-//		}
+		for (Iterator iter = diyFieldName.keySet().iterator(); iter.hasNext();) {
+			String key = iter.next().toString();
+			String fieldValue = diyFieldName.get(key);
+			// 获取字段实体
+			ContentModelFieldEntity field = this.get(key, fields);
+			if (field != null) {
+				List list = new ArrayList();
+				// 是否为自定义字段0
+				list.add(0, true);
+				List listValue = new ArrayList();
+				// 字段的值
+				if (field.getFieldType() == IContentModelFieldBiz.INT || field.getFieldType() == IContentModelFieldBiz.FLOAT) {
+					// 判断是否为区间查询
+
+					if (diyFieldName.get(key).toString().indexOf("-") > 0) {
+						String[] values = fieldValue.toString().split("-");
+						// 是否是数字类型，false:是
+						list.add(false);
+						// 是否是区间比较 false:是
+						list.add(false);
+						// 字段值1
+						listValue.add(values[0]);
+						listValue.add(values[1]);
+					} else {
+						// 是否是数字类型，false:是2
+						list.add(false);
+						// 是否是区间比较 true:不是3
+						list.add(true);
+						// 字段值 1
+						listValue.add(fieldValue);
+					}
+				} else {
+					// 是否是数字类型，true:不是2
+					list.add(true);
+					list.add(false);
+					// 字段值 1
+					listValue.add(fieldValue);
+				}
+				list.add(listValue);
+				map.put(key, list);
+			}
+		}
 		return map;
 	}
 
@@ -288,5 +388,25 @@ public class SearchAction extends BaseAction {
 		}
 		return null;
 	}
-
+	/**
+	 * 存储自定义模型字段和接口参数
+	 * @author 铭飞开源团队
+	 * @date 2019年3月5日
+	 */
+	public class DiyModelMap {
+		String key;
+		Object value;
+		public String getKey() {
+			return key;
+		}
+		public void setKey(String key) {
+			this.key = key;
+		}
+		public Object getValue() {
+			return value;
+		}
+		public void setValue(Object value) {
+			this.value = value;
+		}
+	}
 }
