@@ -46,7 +46,7 @@ public class CmsParserUtil extends ParserUtil {
 		FileUtil.writeString(content, ParserUtil.buildHtmlPath(targetPath), Const.UTF8);
 		
 		// 生成移动页面
-		if (ParserUtil.isMobile(templatePath)) {
+		if (ParserUtil.hasMobileFile(templatePath)) {
 			// 手机端m
 			map.put(ParserUtil.MOBILE, BasicUtil.getApp().getAppMobileStyle());
 			content = CmsParserUtil.generate(templatePath, map, true);
@@ -128,7 +128,7 @@ public class CmsParserUtil extends ParserUtil {
 				FileUtil.writeString(tag.rendering(), columnListPath, Const.UTF8);
 
 				// 判断是手机端生成还是pc端,防止重复生成
-				if (ParserUtil.isMobile(column.getColumnListUrl())) {
+				if (ParserUtil.hasMobileFile(column.getColumnListUrl())) {
 					writer = new StringWriter();
 					mobileTemplate.process(null, writer);
 					tag = new TagParser(writer.toString(),parserParams);
@@ -232,7 +232,7 @@ public class CmsParserUtil extends ParserUtil {
 			String content = CmsParserUtil.generate(articleIdList.get(ai).getColumnUrl(), parserParams, false);
 			FileUtil.writeString(content, writePath, Const.UTF8);
 			// 手机端
-			if (ParserUtil.isMobile(columnUrl)) {
+			if (ParserUtil.hasMobileFile(columnUrl)) {
 				writePath = ParserUtil.buildMobileHtmlPath(articleColumnPath + File.separator + articleId);
 				//如果是封面就生成index.html
 				if(articleIdList.get(ai).getColumnType() == ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {
