@@ -75,7 +75,9 @@ public class CmsParserUtil extends ParserUtil {
 				BasicUtil.getApp().getAppMobileStyle() + File.separator + column.getColumnListUrl(), Const.UTF8);
 		// pc端模板
 		Template template = cfg.getTemplate(File.separator + column.getColumnListUrl(), Const.UTF8);
-
+		
+		// 文章的栏目模型编号
+		int columnContentModelId = column.getColumnContentModelId();
 		
 		StringWriter writer = new StringWriter();
 		try {
@@ -91,7 +93,12 @@ public class CmsParserUtil extends ParserUtil {
 			
 			String columnListPath;
 			String mobilePath;
-			
+			ContentModelEntity contentModel = null;
+			// 判断当前栏目是否有自定义模型
+			if (columnContentModelId > 0) {
+				// 通过栏目模型编号获取自定义模型实体
+				contentModel = (ContentModelEntity) SpringUtil.getBean(IContentModelBiz.class).getEntity(columnContentModelId);
+			}
 			int pageNo = 1;
 			// 遍历分页
 			for (int i = 0; i < totalPageSize; i++) {
@@ -102,6 +109,10 @@ public class CmsParserUtil extends ParserUtil {
 				parserParams.put(TYPE_ID, column.getCategoryId());
 				parserParams.put(IS_DO, false);
 				parserParams.put(HTML, HTML);
+				if (contentModel!=null) {
+					// 将自定义模型编号设置为key值
+					parserParams.put(TABLE_NAME, contentModel.getCmTableName());
+				}
 				//如果单站点，就废弃站点地址
 				if(ParserUtil.IS_SINGLE) {
 					parserParams.put(ParserUtil.URL, BasicUtil.getUrl());

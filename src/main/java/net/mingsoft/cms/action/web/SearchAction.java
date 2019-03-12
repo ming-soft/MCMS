@@ -234,8 +234,8 @@ public class SearchAction extends BaseAction {
 		map.put(ParserUtil.RCOUNT, size);
 		map.put(ParserUtil.SIZE, size);
 		//设置列表当前页
-		map.put(ParserUtil.PAGE_NO, BasicUtil.getInt(ParserUtil.PAGE_NO,1));
-		int pageNo = (int) map.get(ParserUtil.PAGE_NO);
+		int pageNo = BasicUtil.getInt(ParserUtil.PAGE_NO,1);
+		map.put(ParserUtil.PAGE_NO, pageNo);
 		int next ,pre;
 		if(StringUtil.isBlank(pageNo) || pageNo==1){
 			//如果总页数等于1，下一页就是第一页，不等于就有第二页
