@@ -36,20 +36,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.hutool.core.util.ObjectUtil;
-import net.mingsoft.basic.biz.IColumnBiz;
-import net.mingsoft.basic.entity.ColumnEntity;
-import net.mingsoft.cms.bean.ColumnArticleIdBean;
-import net.mingsoft.cms.biz.IArticleBiz;
-import net.mingsoft.cms.constant.ModelCode;
-import net.mingsoft.cms.entity.ArticleEntity;
-import net.mingsoft.cms.util.CmsParserUtil;
-import net.mingsoft.mdiy.biz.IPageBiz;
-import net.mingsoft.mdiy.entity.PageEntity;
-
+import cn.hutool.core.util.PageUtil;
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateNotFoundException;
+import net.mingsoft.basic.biz.IColumnBiz;
+import net.mingsoft.basic.entity.ColumnEntity;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.cms.bean.ColumnArticleIdBean;
+import net.mingsoft.cms.biz.IArticleBiz;
+import net.mingsoft.cms.entity.ArticleEntity;
+import net.mingsoft.cms.util.CmsParserUtil;
+import net.mingsoft.mdiy.bean.PageBean;
+import net.mingsoft.mdiy.biz.IPageBiz;
+import net.mingsoft.mdiy.entity.PageEntity;
 import net.mingsoft.mdiy.util.ParserUtil;
 
 /**
@@ -157,24 +157,27 @@ public class MCmsAction extends net.mingsoft.mdiy.action.BaseAction {
 		Map map = BasicUtil.assemblyRequestMap();
 		//获取栏目编号
 		int typeId = BasicUtil.getInt(ParserUtil.TYPE_ID,0);
+		int size = BasicUtil.getInt(ParserUtil.SIZE,10);
+		
 		//获取文章总数
 		List<ColumnArticleIdBean> columnArticles = articleBiz.queryIdsByCategoryIdForParser(typeId, null, null);
 		//判断栏目下是否有文章
 		if(columnArticles.size()==0){
-			this.outJson(resp, null,false,getResString("err.empty", this.getResString("typeid")));
-			return;	
+			this.outJson(resp, false);
 		}
+		//设置分页类
+		PageBean page = new PageBean();
+		int total = PageUtil.totalPage(columnArticles.size(), size);
 		map.put(ParserUtil.COLUMN, columnArticles.get(0));
 		//获取总数
-		map.put(ParserUtil.TOTAL, columnArticles.size());
-		map.put(ParserUtil.RCOUNT, BasicUtil.getInt(ParserUtil.SIZE,10));
+		page.setTotal(total);
 		//设置栏目编号
 		map.put(ParserUtil.TYPE_ID, typeId);
 		//设置列表当前页
 		map.put(ParserUtil.PAGE_NO, BasicUtil.getInt(ParserUtil.PAGE_NO,1));
 		
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
-		
+		map.put(ParserUtil.PAGE, page);
 		//动态解析
 		map.put(ParserUtil.IS_DO,true);
 		//设置动态请求的模块路径

@@ -40,30 +40,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import net.mingsoft.basic.action.BaseAction;
-import net.mingsoft.basic.biz.ICategoryBiz;
-import net.mingsoft.basic.biz.IColumnBiz;
-import net.mingsoft.basic.biz.IModelBiz;
-import net.mingsoft.basic.entity.BaseEntity;
-import net.mingsoft.basic.entity.ColumnEntity;
-import net.mingsoft.cms.biz.IArticleBiz;
-import net.mingsoft.cms.util.CmsParserUtil;
-import net.mingsoft.mdiy.biz.IContentModelBiz;
-import net.mingsoft.mdiy.biz.IContentModelFieldBiz;
-import net.mingsoft.mdiy.biz.ISearchBiz;
-import net.mingsoft.mdiy.entity.ContentModelEntity;
-import net.mingsoft.mdiy.entity.ContentModelFieldEntity;
-import net.mingsoft.mdiy.entity.SearchEntity;
-import cn.hutool.core.map.MapUtil;
-import cn.hutool.core.text.StrSpliter;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.PageUtil;
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateNotFoundException;
 import net.mingsoft.base.constant.Const;
+import net.mingsoft.basic.action.BaseAction;
+import net.mingsoft.basic.biz.ICategoryBiz;
+import net.mingsoft.basic.biz.IColumnBiz;
+import net.mingsoft.basic.biz.IModelBiz;
+import net.mingsoft.basic.entity.ColumnEntity;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.StringUtil;
+import net.mingsoft.cms.biz.IArticleBiz;
+import net.mingsoft.cms.util.CmsParserUtil;
+import net.mingsoft.mdiy.bean.PageBean;
+import net.mingsoft.mdiy.biz.IContentModelBiz;
+import net.mingsoft.mdiy.biz.IContentModelFieldBiz;
+import net.mingsoft.mdiy.biz.ISearchBiz;
+import net.mingsoft.mdiy.entity.ContentModelEntity;
+import net.mingsoft.mdiy.entity.ContentModelFieldEntity;
+import net.mingsoft.mdiy.entity.SearchEntity;
 import net.mingsoft.mdiy.util.ParserUtil;
 
 /**
@@ -225,17 +223,17 @@ public class SearchAction extends BaseAction {
 		Map whereMap = this.searchMap(articleFieldName, diyFieldName, fieldList);
 		// 获取符合条件的文章总数
 		int count = articleBiz.getSearchCount(contentModel, whereMap, BasicUtil.getAppId(), null);
-		
+		//设置分页类
+		PageBean page = new PageBean();
 		int size = BasicUtil.getInt(ParserUtil.SIZE,10);
 		int total = PageUtil.totalPage(count, size);
 		//获取总数
-		map.put(ParserUtil.TOTAL, total);
+		page.setTotal(total);
 		//设置页面显示数量
-		map.put(ParserUtil.RCOUNT, size);
-		map.put(ParserUtil.SIZE, size);
+		page.setSize(size);
 		//设置列表当前页
 		int pageNo = BasicUtil.getInt(ParserUtil.PAGE_NO,1);
-		map.put(ParserUtil.PAGE_NO, pageNo);
+		page.setPageNo(pageNo);
 		int next ,pre;
 		if(StringUtil.isBlank(pageNo) || pageNo==1){
 			//如果总页数等于1，下一页就是第一页，不等于就有第二页
@@ -257,16 +255,17 @@ public class SearchAction extends BaseAction {
 		String lastUrl = url + pageNoStr + total;
 		//上一页
 		String preUrl = url + pageNoStr + pre;
-		
-		map.put(ParserUtil.INDEX_URL, indexUrl);
-		map.put(ParserUtil.NEXT_URL, nextUrl);
-		map.put(ParserUtil.PRE_URL, preUrl);
-		map.put(ParserUtil.LAST_URL, lastUrl);
+		page.setIndexUrl(indexUrl);
+		page.setNextUrl(nextUrl);
+		page.setPreUrl(preUrl);
+		page.setLastUrl(lastUrl);
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
+		map.put(ParserUtil.PAGE, page);
 		Map<Object, Object> searchMap = new HashMap<>();
 		searchMap.put(BASIC_TITLE, BasicUtil.getString(BASIC_TITLE));
-		searchMap.put(ParserUtil.PAGE_NO, BasicUtil.getInt(ParserUtil.PAGE_NO,1));
+		searchMap.put(ParserUtil.PAGE_NO, pageNo);
 		map.put(SEARCH, searchMap);
+		map.put(ParserUtil.PAGE, page);
 		//动态解析
 		map.put(ParserUtil.IS_DO,false);
 		//设置动态请求的模块路径
