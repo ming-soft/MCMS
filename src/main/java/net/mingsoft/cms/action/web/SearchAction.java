@@ -177,8 +177,8 @@ public class SearchAction extends BaseAction {
 				}
 			}
 			map.put(ParserUtil.COLUMN, column);
-//			设置栏目编号
-			map.put(ParserUtil.TYPE_ID, typeId);
+			//设置栏目编号
+//			map.put(ParserUtil.TYPE_ID, typeId);
 		}
 		
 		// 遍历取字段集合
@@ -260,10 +260,12 @@ public class SearchAction extends BaseAction {
 		page.setPreUrl(preUrl);
 		page.setLastUrl(lastUrl);
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
+		map.put(ParserUtil.PAGE, page);
 		Map<Object, Object> searchMap = new HashMap<>();
 		searchMap.put(BASIC_TITLE, BasicUtil.getString(BASIC_TITLE));
 		searchMap.put(ParserUtil.PAGE_NO, pageNo);
 		map.put(SEARCH, searchMap);
+		map.put(ParserUtil.PAGE, page);
 		//动态解析
 		map.put(ParserUtil.IS_DO,false);
 		//设置动态请求的模块路径
