@@ -62,6 +62,7 @@ import net.mingsoft.mdiy.biz.ISearchBiz;
 import net.mingsoft.mdiy.entity.ContentModelEntity;
 import net.mingsoft.mdiy.entity.ContentModelFieldEntity;
 import net.mingsoft.mdiy.entity.SearchEntity;
+import net.mingsoft.mdiy.parser.TagParser;
 import net.mingsoft.mdiy.util.ParserUtil;
 
 /**
@@ -178,7 +179,7 @@ public class SearchAction extends BaseAction {
 			}
 			map.put(ParserUtil.COLUMN, column);
 			//设置栏目编号
-			map.put(ParserUtil.TYPE_ID, typeId);
+//			map.put(ParserUtil.TYPE_ID, typeId);
 		}
 		
 		// 遍历取字段集合
@@ -225,42 +226,51 @@ public class SearchAction extends BaseAction {
 		int count = articleBiz.getSearchCount(contentModel, whereMap, BasicUtil.getAppId(), null);
 		//设置分页类
 		PageBean page = new PageBean();
+		//读取模板的分页数量
 		int size = BasicUtil.getInt(ParserUtil.SIZE,10);
+		try {
+			size = TagParser.getPageSize(ParserUtil.read(search.getSearchTemplets(),false ));
+		} catch (TemplateNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (MalformedTemplateNameException e1) {
+			e1.printStackTrace();
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		int total = PageUtil.totalPage(count, size);
-		//获取总数
+		int pageNo = BasicUtil.getInt(ParserUtil.PAGE_NO,1);
+		if(pageNo >= total) {
+			pageNo = total;
+		}
+ 		//获取总数
 		page.setTotal(total);
 		//设置页面显示数量
 		page.setSize(size);
 		//设置列表当前页
-		int pageNo = BasicUtil.getInt(ParserUtil.PAGE_NO,1);
+		
 		page.setPageNo(pageNo);
-		int next ,pre;
-		if(StringUtil.isBlank(pageNo) || pageNo==1){
-			//如果总页数等于1，下一页就是第一页，不等于就有第二页
-			next = 1==total ? total : 2;
-			pre = 1;
-		}else{
-			next = pageNo==total ? total : pageNo +1;
-			pre = pageNo-1==0 ? 1 : pageNo-1;
-		}
-		String str = ParserUtil.PAGE_NO+",";
+		
+		
+		
+		String str = ParserUtil.PAGE_NO+","+ParserUtil.SIZE;
 		//设置分页的统一链接
-		String url = BasicUtil.getUrl() + request.getServletPath() +"?" + BasicUtil.assemblyRequestUrlParams(str.split(","));
-		String pageNoStr = "&"+ParserUtil.PAGE_NO+"=";
+		String url = request.getServletPath() +"?" + BasicUtil.assemblyRequestUrlParams(str.split(","));
+		String pageNoStr = "&"+ParserUtil.SIZE+"="+size+"&"+ParserUtil.PAGE_NO+"=";
 		//下一页
-		String nextUrl = url + pageNoStr+next;
+		String nextUrl = url + pageNoStr+((pageNo+1 > total)?total:++pageNo);
 		//首页
 		String indexUrl = url + pageNoStr + 1;
 		//尾页
 		String lastUrl = url + pageNoStr + total;
 		//上一页
-		String preUrl = url + pageNoStr + pre;
+		String preUrl = url + pageNoStr + (--pageNo);
 		page.setIndexUrl(indexUrl);
 		page.setNextUrl(nextUrl);
 		page.setPreUrl(preUrl);
 		page.setLastUrl(lastUrl);
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
-		map.put(ParserUtil.PAGE, page);
 		Map<Object, Object> searchMap = new HashMap<>();
 		searchMap.put(BASIC_TITLE, BasicUtil.getString(BASIC_TITLE));
 		searchMap.put(ParserUtil.PAGE_NO, pageNo);
