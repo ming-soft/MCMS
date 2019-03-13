@@ -178,7 +178,7 @@ public class SearchAction extends BaseAction {
 			}
 			map.put(ParserUtil.COLUMN, column);
 			//设置栏目编号
-//			map.put(ParserUtil.TYPE_ID, typeId);
+			map.put(ParserUtil.TYPE_ID, typeId);
 		}
 		
 		// 遍历取字段集合

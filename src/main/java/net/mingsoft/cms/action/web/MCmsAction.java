@@ -177,7 +177,7 @@ public class MCmsAction extends net.mingsoft.mdiy.action.BaseAction {
 		map.put(ParserUtil.PAGE_NO, BasicUtil.getInt(ParserUtil.PAGE_NO,1));
 		
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
-		
+		map.put(ParserUtil.PAGE, page);
 		//动态解析
 		map.put(ParserUtil.IS_DO,true);
 		//设置动态请求的模块路径
