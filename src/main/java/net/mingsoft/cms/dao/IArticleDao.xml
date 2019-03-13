@@ -53,6 +53,8 @@
 		<result column="category_title" property="categoryTitle" />
 		<result column="category_id" property="categoryId" />
 		<result column="COLUMN_CM_ID" property="columnContentModelId" />
+		<result column="category_categoryid" property="categoryCategoryId" /><!--关联表category的父类别ID category_categoryid字段 -->
+		<result column="category_modelId" property="categoryModelId" /><!--关联表category的所属模块ID category_modelid字段 -->
 		<result column="COLUMN_TYPE" property="columnType" />
 		<result column="category_parent_id" property="categoryParentId" /><!--关联表category的字典对应编号 -->
 	</resultMap>
@@ -318,7 +320,7 @@
 	<!-- 根据站点编号、开始、结束时间和栏目编号查询文章编号集合 -->
 	<select id="queryIdsByCategoryIdForParser" resultMap="resultMapBean" >
 		select
-		ARTICLE_BASICID,cl.*,c.category_parent_id
+		ARTICLE_BASICID,cl.*,c.*
 		FROM cms_article a LEFT JOIN basic b  ON a.ARTICLE_BASICID = b.BASIC_ID 
 		LEFT JOIN basic_column cl ON b.BASIC_CATEGORYID = cl.COLUMN_CATEGORY_ID 
 		JOIN category c ON c.CATEGORY_ID = cl.COLUMN_CATEGORY_ID
