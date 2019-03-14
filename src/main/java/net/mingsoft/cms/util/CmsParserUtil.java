@@ -42,8 +42,11 @@ public class CmsParserUtil extends ParserUtil {
 	public static void generate(String templatePath, String targetPath) throws IOException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(IS_DO, false);
+		ColumnEntity column = new ColumnEntity();
+		//内容管理栏目编码
+		column.setCategoryModelId(BasicUtil.getModelCodeId("02990000"));
+		map.put(COLUMN, column);
 		String content = CmsParserUtil.generate(templatePath, map, false);
-		
 		FileUtil.writeString(content, ParserUtil.buildHtmlPath(targetPath), Const.UTF8);
 		
 		// 生成移动页面

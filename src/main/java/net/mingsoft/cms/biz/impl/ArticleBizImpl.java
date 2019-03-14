@@ -28,19 +28,18 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import net.mingsoft.base.dao.IBaseDao;
 import net.mingsoft.basic.biz.ICategoryBiz;
 import net.mingsoft.basic.biz.IColumnBiz;
 import net.mingsoft.basic.biz.IModelBiz;
 import net.mingsoft.basic.biz.impl.BasicBizImpl;
+import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.bean.ColumnArticleIdBean;
 import net.mingsoft.cms.biz.IArticleBiz;
 import net.mingsoft.cms.dao.IArticleDao;
 import net.mingsoft.cms.entity.ArticleEntity;
 import net.mingsoft.mdiy.biz.IContentModelBiz;
 import net.mingsoft.mdiy.entity.ContentModelEntity;
-
-import net.mingsoft.base.dao.IBaseDao;
-import net.mingsoft.basic.util.BasicUtil;
 
 /**
  * 
@@ -157,8 +156,7 @@ public class ArticleBizImpl extends BasicBizImpl implements IArticleBiz {
 		return articleDao.getNextOrPrevious(appId, basicId, false,categoryId);
 	}
 	@Override
-	@Deprecated
-	public int getSearchCount(ContentModelEntity contentModel,Map wherMap, int websiteId,List  ids) {
+	public int getSearchCount(ContentModelEntity contentModel,Map wherMap, int websiteId,String  ids) {
 		if (contentModel!=null) {
 			return articleDao.getSearchCount(contentModel.getCmTableName(),wherMap, websiteId,ids);
 		}

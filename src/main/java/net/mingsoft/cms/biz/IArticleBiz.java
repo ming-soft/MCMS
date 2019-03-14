@@ -114,8 +114,7 @@ public interface IArticleBiz extends IBasicBiz {
 	 * @return 记录数量
 	 * @see IArticleBiz.count
 	 */
-	@Deprecated
-	public int getSearchCount(ContentModelEntity contentModel, Map whereMap, int appId, List ids);
+	public int getSearchCount(ContentModelEntity contentModel, Map whereMap, int appId, String ids);
 
 	/**
 	 * 文章查询

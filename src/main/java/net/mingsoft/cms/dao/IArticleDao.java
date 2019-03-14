@@ -103,9 +103,8 @@ public interface IArticleDao extends IBaseDao {
 	 *            list[2]:是否是等值查询 list[3]:字段的值
 	 * @return 文章实体总数
 	 */
-	@Deprecated
 	int getSearchCount(@Param("tableName") String tableName, @Param("map") Map<String, List> map,
-			@Param("websiteId") int websiteId, @Param("ids") List ids);
+			@Param("websiteId") int websiteId, @Param("ids") String ids);
 
 	/**
 	 * 文章查询
