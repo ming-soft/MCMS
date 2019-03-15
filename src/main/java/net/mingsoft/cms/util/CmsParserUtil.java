@@ -104,11 +104,12 @@ public class CmsParserUtil extends ParserUtil {
 			PageBean page = new PageBean();
 			page.setSize(pageSize);
 			//全局参数设置
-			Map parserParams = new HashMap();
+			Map<String, Object> parserParams = new HashMap<String, Object>();
 			parserParams.put(COLUMN, column);
 			page.setTotal(totalPageSize);
 			parserParams.put(IS_DO, false);
 			parserParams.put(HTML, HTML);
+			parserParams.put(APP_ID, BasicUtil.getAppId());
 			if (contentModel!=null) {
 				// 将自定义模型编号设置为key值
 				parserParams.put(TABLE_NAME, contentModel.getCmTableName());
