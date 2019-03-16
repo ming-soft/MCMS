@@ -148,7 +148,7 @@ public class SearchAction extends BaseAction {
 		if (ObjectUtil.isNull(search)) {
 			this.outJson(response, false);
 		}
-		Map<String, Object> map = BasicUtil.assemblyRequestMap();
+		Map<String, Object> map = new HashMap<>();
 		// 读取请求字段
 		Map<String, String[]> field =  request.getParameterMap(); 
 		Map<String, String> basicField = getMapByProperties(net.mingsoft.mdiy.constant.Const.BASIC_FIELD);
@@ -273,11 +273,8 @@ public class SearchAction extends BaseAction {
 		page.setPreUrl(preUrl);
 		page.setLastUrl(lastUrl);
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
-		Map<Object, Object> searchMap = new HashMap<>();
-		searchMap.put(BASIC_TITLE, BasicUtil.getString(BASIC_TITLE));
+		Map<String, Object> searchMap = BasicUtil.assemblyRequestMap();
 		searchMap.put(ParserUtil.PAGE_NO, pageNo);
-		//设置栏目集合
-		searchMap.put("categoryIds", categoryIds);
 		map.put(SEARCH, searchMap);
 		map.put(ParserUtil.PAGE, page);
 		//动态解析
