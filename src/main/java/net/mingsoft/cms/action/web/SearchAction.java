@@ -160,8 +160,12 @@ public class SearchAction extends BaseAction {
 		ContentModelEntity contentModel = null; // 栏目对应模型
 		List<ContentModelFieldEntity> fieldList = new ArrayList<ContentModelFieldEntity>(); // 栏目对应字段
 		List<DiyModelMap> fieldValueList = new ArrayList<DiyModelMap>(); // 栏目对应字段的值
-		int typeId = BasicUtil.getInt("typeid",0);
+		int typeId = 0;
 		String categoryIds = BasicUtil.getString("categoryId");
+		//当传递了栏目编号，但不是栏目集合
+		if(!StringUtil.isBlank(categoryIds) && !categoryIds.contains(",")){
+			typeId = Integer.parseInt(categoryIds);
+		}
 		//记录自定义模型字段名
 		List filedStr = new ArrayList<>();
 		//根据栏目确定自定义模型
