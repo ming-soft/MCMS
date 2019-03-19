@@ -148,7 +148,7 @@ public class SearchAction extends BaseAction {
 		if (ObjectUtil.isNull(search)) {
 			this.outJson(response, false);
 		}
-		Map<String, Object> map = BasicUtil.assemblyRequestMap();
+		Map<String, Object> map = new HashMap<>();
 		// 读取请求字段
 		Map<String, String[]> field =  request.getParameterMap(); 
 		Map<String, String> basicField = getMapByProperties(net.mingsoft.mdiy.constant.Const.BASIC_FIELD);
@@ -160,10 +160,11 @@ public class SearchAction extends BaseAction {
 		ContentModelEntity contentModel = null; // 栏目对应模型
 		List<ContentModelFieldEntity> fieldList = new ArrayList<ContentModelFieldEntity>(); // 栏目对应字段
 		List<DiyModelMap> fieldValueList = new ArrayList<DiyModelMap>(); // 栏目对应字段的值
-		int typeId = BasicUtil.getInt("categoryId",0);
+		int typeId = BasicUtil.getInt("typeid",0);
+		String categoryIds = BasicUtil.getString("categoryId");
 		//记录自定义模型字段名
 		List filedStr = new ArrayList<>();
-		//根据栏目确定模版
+		//根据栏目确定自定义模型
 		if(typeId>0){
 			column = (ColumnEntity) columnBiz.getEntity(Integer.parseInt(typeId+""));
 			// 获取表单类型的id
@@ -222,8 +223,9 @@ public class SearchAction extends BaseAction {
 		}
 		//组织where查询条件
 		Map whereMap = this.searchMap(articleFieldName, diyFieldName, fieldList);
+		
 		// 获取符合条件的文章总数
-		int count = articleBiz.getSearchCount(contentModel, whereMap, BasicUtil.getAppId(), null);
+		int count = articleBiz.getSearchCount(contentModel, whereMap, BasicUtil.getAppId(), categoryIds);
 		//设置分页类
 		PageBean page = new PageBean();
 		//读取模板的分页数量
@@ -240,8 +242,9 @@ public class SearchAction extends BaseAction {
 			e1.printStackTrace();
 		}
 		int total = PageUtil.totalPage(count, size);
-		int pageNo = BasicUtil.getInt(ParserUtil.PAGE_NO,1);
-		if(pageNo >= total) {
+		
+		int pageNo = BasicUtil.getInt(ParserUtil.PAGE_NO, 1);
+		if(pageNo >= total && total!=0) {
 			pageNo = total;
 		}
  		//获取总数
@@ -252,27 +255,25 @@ public class SearchAction extends BaseAction {
 		
 		page.setPageNo(pageNo);
 		
-		
-		
 		String str = ParserUtil.PAGE_NO+","+ParserUtil.SIZE;
 		//设置分页的统一链接
-		String url = request.getServletPath() +"?" + BasicUtil.assemblyRequestUrlParams(str.split(","));
+		String url = BasicUtil.getUrl()+request.getServletPath() +"?" + BasicUtil.assemblyRequestUrlParams(str.split(","));
 		String pageNoStr = "&"+ParserUtil.SIZE+"="+size+"&"+ParserUtil.PAGE_NO+"=";
 		//下一页
-		String nextUrl = url + pageNoStr+((pageNo+1 > total)?total:++pageNo);
+		String nextUrl = url + pageNoStr+((pageNo+1 > total)?total:pageNo+1);
 		//首页
 		String indexUrl = url + pageNoStr + 1;
 		//尾页
 		String lastUrl = url + pageNoStr + total;
-		//上一页
-		String preUrl = url + pageNoStr + (--pageNo);
+		//上一页 当前页为1时，上一页就是1
+		String preUrl = url + pageNoStr + ((pageNo==1) ? 1:pageNo-1);
+		
 		page.setIndexUrl(indexUrl);
 		page.setNextUrl(nextUrl);
 		page.setPreUrl(preUrl);
 		page.setLastUrl(lastUrl);
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
-		Map<Object, Object> searchMap = new HashMap<>();
-		searchMap.put(BASIC_TITLE, BasicUtil.getString(BASIC_TITLE));
+		Map<String, Object> searchMap = BasicUtil.assemblyRequestMap();
 		searchMap.put(ParserUtil.PAGE_NO, pageNo);
 		map.put(SEARCH, searchMap);
 		map.put(ParserUtil.PAGE, page);

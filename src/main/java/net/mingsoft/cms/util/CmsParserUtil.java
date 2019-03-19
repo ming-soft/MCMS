@@ -42,8 +42,11 @@ public class CmsParserUtil extends ParserUtil {
 	public static void generate(String templatePath, String targetPath) throws IOException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(IS_DO, false);
+		ColumnEntity column = new ColumnEntity();
+		//内容管理栏目编码
+		column.setCategoryModelId(BasicUtil.getModelCodeId("02990000"));
+		map.put(COLUMN, column);
 		String content = CmsParserUtil.generate(templatePath, map, false);
-		
 		FileUtil.writeString(content, ParserUtil.buildHtmlPath(targetPath), Const.UTF8);
 		
 		// 生成移动页面
@@ -101,11 +104,12 @@ public class CmsParserUtil extends ParserUtil {
 			PageBean page = new PageBean();
 			page.setSize(pageSize);
 			//全局参数设置
-			Map parserParams = new HashMap();
+			Map<String, Object> parserParams = new HashMap<String, Object>();
 			parserParams.put(COLUMN, column);
 			page.setTotal(totalPageSize);
 			parserParams.put(IS_DO, false);
 			parserParams.put(HTML, HTML);
+			parserParams.put(APP_ID, BasicUtil.getAppId());
 			if (contentModel!=null) {
 				// 将自定义模型编号设置为key值
 				parserParams.put(TABLE_NAME, contentModel.getCmTableName());

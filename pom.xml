@@ -60,6 +60,17 @@
 			<version>1.0.7-SNAPSHOT</version>
 			<classifier>classes</classifier>
 		</dependency>
+		<dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.1.0</version>
+		    <scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<version>9.0.16</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>ms-mcms</finalName>

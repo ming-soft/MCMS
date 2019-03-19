@@ -461,16 +461,9 @@
 		<if test="tableName!=null">left join ${tableName} d on d.basicId=a.ARTICLE_BASICID
 		</if>
 		where a.ARTICLE_WEBID = #{websiteId} 
-
 		<if test="ids!=null">
-			and
-			b.BASIC_CATEGORYID in
-			<foreach item="id" index="key" collection="ids" open="("
-				separator="," close=")">
-				#{id.categoryId}
-			</foreach>
+			and FIND_IN_SET(category_categoryid,'${ids}')
 		</if>
-
 		<foreach item="item" index="key" collection="map" open=""
 			separator="" close="">
 			<if test=" item[0] == false">
