@@ -1047,6 +1047,7 @@ CREATE TABLE `people` (
   `people_codesenddate` datetime DEFAULT NULL COMMENT '发送验证码时间',
   `people_phonecheck` int(1) DEFAULT '0' COMMENT '1手机验证通过',
   `people_maillcheck` int(1) DEFAULT '0' COMMENT '1邮箱验证通过',
+  `people_ip` varchar(100) DEFAULT NULL COMMENT '用户登录ip',
   PRIMARY KEY (`people_id`) USING BTREE,
   KEY `fk_people` (`people_app_id`) USING BTREE,
   CONSTRAINT `fk_people` FOREIGN KEY (`people_app_id`) REFERENCES `app` (`app_id`) ON DELETE CASCADE ON UPDATE NO ACTION
