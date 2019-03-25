@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
+
 import net.mingsoft.basic.action.BaseAction;
+import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.biz.ICategoryBiz;
 import net.mingsoft.basic.biz.IColumnBiz;
 import net.mingsoft.basic.biz.IModelBiz;
@@ -29,8 +31,6 @@ import net.mingsoft.basic.constant.ModelCode;
 import net.mingsoft.basic.constant.e.SessionConstEnum;
 import net.mingsoft.basic.entity.ColumnEntity;
 import net.mingsoft.basic.entity.ManagerEntity;
-
-import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.FileUtil;
 import net.mingsoft.basic.util.StringUtil;
@@ -125,7 +125,7 @@ public class ColumnAction extends BaseAction{
 	 */
 	private void columnPath(HttpServletRequest request,ColumnEntity column){
 		StringBuffer columnPath = new StringBuffer();
-		String file = BasicUtil.getRealPath("","")+ParserUtil.HTML+File.separator+ column.getAppId();
+		String file = BasicUtil.getRealPath("")+ParserUtil.HTML+File.separator+ column.getAppId();
 		String delFile = "";
 		//修改栏目路径时，删除已存在的文件夹
 		column = (ColumnEntity) columnBiz.getEntity(column.getCategoryId());
