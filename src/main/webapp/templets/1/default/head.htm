@@ -94,7 +94,7 @@
                     target.isLogin = msg.result;
                     if(msg.result) {
                         $.ajax({
-                            type: "POST",
+                            type: "GET",
                             url: "{ms:global.host/}/people/user/info.do",
                             success: function(msg) {
                                 target.peopleInfo = msg;
@@ -109,7 +109,7 @@
             quitLogin: function() {
                 var target = this;
                 $.ajax({
-                    type: "POST",
+                    type: "GET",
                     url: "{ms:global.host/}/people/quit.do",
                     success: function(msg) {
                         if(msg.result) {
