@@ -229,6 +229,7 @@ public class ArticleAction extends BaseAction {
 		// 添加一个空的article实体
 		ArticleEntity article = new ArticleEntity();
 		mode.addAttribute("article", article);
+		mode.addAttribute("action", "save");
 		// 返回路径
 		return "/cms/article/article_form"; // 这里表示显示/manager/cms/article/article_save.ftl
 	}
@@ -496,6 +497,8 @@ public class ArticleAction extends BaseAction {
 		int appId = BasicUtil.getAppId();
 		model.addAttribute("appId", appId);
 		model.addAttribute("articleImagesUrl", "/upload/"+BasicUtil.getAppId()+"/");
+		model.addAttribute("action", "update");
+
 		if (categoryId > 0) { // 分类获取文章
 			articleEntity = articleBiz.getByCategoryId(categoryId);
 			ColumnEntity column = articleEntity.getColumn();
