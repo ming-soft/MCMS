@@ -28,6 +28,40 @@ QQ交流群号：①231212174 ②221335098 <br/>
 * CSS框架：Twitter Bootstrap 2.3.1。
 * 富文本：Ueditor
 
+#
+## 后端框架
+
+| 技术 | 名称 | 官网 |
+| :--- | :--- | :--- |
+| Spring Framework | 容器 | [http://projects.spring.io/spring-framework](http://projects.spring.io/spring-framework/) |
+| SpringMVC | MVC框架 | [http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/\#mvc](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#mvc) |
+| Apache Shiro | 安全框架 | [http://shiro.apache.org](http://shiro.apache.org/) |
+| Spring session | 分布式Session管理 | [http://projects.spring.io/spring-session](http://projects.spring.io/spring-session) |
+| MyBatis | ORM框架 | [http://www.mybatis.org](http://www.mybatis.org/mybatis-3/zh/index.html) |
+| PageHelper | MyBatis分页插件 | [http://git.oschina.net/free/Mybatis\_PageHelper](http://git.oschina.net/free/Mybatis_PageHelper) |
+| Log4J | 日志组件 | [http://logging.apache.org](http://logging.apache.org) |
+| Maven | 项目构建 | [http://maven.apache.org](http://maven.apache.org/) |
+| Elasticsearch | 分布式搜索引擎 | [https://www.elastic.co](https://www.elastic.co/) |
+| Redis | 分布式缓存数据库 | [https://redis.io](https://redis.io) |
+
+### 前端框架
+
+| 技术 | 名称 | 官网 |
+| :--- | :--- | :--- |
+| jQuery | 函式库 | [http://jquery.com/](http://jquery.com/) |
+| Bootstrap | 前端框架 | [http://getbootstrap.com/](http://getbootstrap.com/) |
+| Bootstrap-table | Bootstrap数据表格 | [http://bootstrap-table.wenzhixin.net.cn/](http://bootstrap-table.wenzhixin.net.cn/) |
+| BootstrapValidator | 表单验证 | [http://bootstrapvalidator.com/](http://bootstrapvalidator.com) |
+| Font-awesome | 字体图标 | [http://fontawesome.io/](http://fontawesome.io/) |
+| Waves | 点击效果插件 | [https://github.com/fians/Waves/](https://github.com/fians/Waves) |
+| zTree | 树插件 | [http://www.treejs.cn/v3/](http://www.treejs.cn/v3/) |
+| Select2 | 选择框插件 | [https://github.com/select2/select2](https://github.com/select2/select2) |
+| jQuery EasyUI | 基于jQuery的UI插件集合体 | [http://www.jeasyui.com/](http://www.jeasyui.com) |
+| Vue | MVVM框架 | [https://cn.vuejs.org/](https://cn.vuejs.org/) |
+| AmazeUI | 移动端UI | [http://amazeui.org/](http://amazeui.org/) |
+| Plupload | 上传控件 | [http://www.plupload.com/](http://www.plupload.com/) |
+| freemarker | 模板引擎 | http://freemarker.foofun.cn/toc.html |
+
 # 系统结构
 ![输入图片说明](http://doc.ms.mingsoft.net/dev-guide/%E9%93%AD%E9%A3%9E%E5%BA%95%E5%B1%82%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84%E5%9B%BE/%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84.png "铭飞系统结构")
 
