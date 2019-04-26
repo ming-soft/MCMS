@@ -38,11 +38,13 @@ QQ交流群号： ①242805203 ②231212174（满） ③221335098（满） <br/>
 | Apache Shiro | 安全框架 | [http://shiro.apache.org](http://shiro.apache.org/) |
 | Spring session | 分布式Session管理 | [http://projects.spring.io/spring-session](http://projects.spring.io/spring-session) |
 | MyBatis | ORM框架 | [http://www.mybatis.org](http://www.mybatis.org/mybatis-3/zh/index.html) |
+| Freemarker | 视图框架 | [http://freemarker.foofun.cn](http://freemarker.foofun.cn/) |
 | PageHelper | MyBatis分页插件 | [http://git.oschina.net/free/Mybatis\_PageHelper](http://git.oschina.net/free/Mybatis_PageHelper) |
 | Log4J | 日志组件 | [http://logging.apache.org](http://logging.apache.org) |
 | Maven | 项目构建 | [http://maven.apache.org](http://maven.apache.org/) |
 | Elasticsearch | 分布式搜索引擎 | [https://www.elastic.co](https://www.elastic.co/) |
 | Redis | 分布式缓存数据库 | [https://redis.io](https://redis.io) |
+| hutool | 工具类 | [http://hutool.mydoc.io](http://hutool.mydoc.io) |
 
 ### 前端框架
 
@@ -60,7 +62,11 @@ QQ交流群号： ①242805203 ②231212174（满） ③221335098（满） <br/>
 | Vue | MVVM框架 | [https://cn.vuejs.org/](https://cn.vuejs.org/) |
 | AmazeUI | 移动端UI | [http://amazeui.org/](http://amazeui.org/) |
 | Plupload | 上传控件 | [http://www.plupload.com/](http://www.plupload.com/) |
-| freemarker | 模板引擎 | http://freemarker.foofun.cn/toc.html |
+| freemarker | 模板引擎 | [http://freemarker.foofun.cn/toc.html](http://freemarker.foofun.cn/toc.html) |
+| validator | 验证库 | [https://github.com/chriso/validator.js](https://github.com/chriso/validator.js) |
+| animate | 动画 | [http://daneden.github.io/animate.css/](http://daneden.github.io/animate.css/) |
+| icon | 适量小图标\(待更新\) | [http://ms.mingsoft.net/html/86//6048/index.html](http://ms.mingsoft.net/html/86//6048/index.html) |
+
 
 # 系统结构
 ![输入图片说明](http://doc.ms.mingsoft.net/dev-guide/%E9%93%AD%E9%A3%9E%E5%BA%95%E5%B1%82%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84%E5%9B%BE/%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84.png "铭飞系统结构")
