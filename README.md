@@ -88,12 +88,13 @@ QQ交流群号： ①242805203 ②231212174（满） ③221335098（满） <br/>
 * java/net/mingsoft java源代码文件
 * resources 项目的资源配置文件
 * webapp<br/>
-   	 META-INF <br/>
-	 WEB-INF <br/>
-	 	 manager <br/>
-	 html/1 <font color="red">默认生成的静态代码，实际项目需要删除，只是提供给开发者快速预览生成后的静态页面</font><br/>
-	 templets/1/mooc  <font color="red">默认模版</font><br/>
-	 upload  <br/>
+**static 静态资源文件<br/>
+**html 生成的静态页面，实际项目需要删除，只是提供给开发者快速预览生成后的静态页面<br/>
+**templets  模版文件夹<br/>
+**upload  上传资源文件夹<br/>
+**WEB-INF <br/>
+**manager <br/>
+	
 * LICENSE 项目协议说明
 * README.md 项目说明文档
 * pom.xml maven的依赖配置文件
