@@ -83,20 +83,18 @@ QQ交流群号： ①242805203 ②231212174（满） ③221335098（满） <br/>
 * 管理员账号，用户名：msopen 密码：msopen
 
 # 文件说明 
-* doc  项目文档文件夹，里面有数据库文件
+* doc 项目文档文件夹，里面有数据库文件
 * src/main/java java源代码
 * src/main/resources 项目的资源配置文件
-* src/main/webapp<br/>
-* src/main/webapp/static 这里是列表文本static 静态资源文件<br/>
-- - 这里是列表文本这里是列表文本这里是列表文本html 生成的静态页面，实际项目需要删除，只是提供给开发者快速预览生成后的静态页面<br/>
-** templets  模版文件夹<br/>
-** upload  上传资源文件夹<br/>
-** WEB-INF <br/>
-*** manager <br/>
-	
+* src/main/webapp
+* src/main/webapp/static 静态资源文件，如：js、css、image、等第三方前端插件库
+* src/main/webapp/html 生成的静态页面，实际项目需要删除，只是提供给开发者快速预览生成后的静态页面
+* src/main/webapp/templets 模版文件夹
+* src/main/webapp/upload 上传资源文件夹
+* src/main/webapp/WEB-INF/manager 后端视图页面
 * LICENSE 项目协议说明
 * README.md 项目说明文档
-* pom.xml maven的依赖配置文件
+* pom.xml 依赖配置文件
 
 # 代码部署与常见问题
 * 铭飞MCms 部署视频 http://ms.mingsoft.net/mbbs/13988/detail.do
