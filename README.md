@@ -8,7 +8,17 @@ QQ交流群号： ①242805203 ②231212174（满） ③221335098（满） <br/>
 
 # 开源说明
 * 系统100%开源
-* 铭飞MCms是铭飞MS平台的一个子模块，同时铭飞MCms所依赖的模块都是用maven方式提供了源码获取方式,具体看pom.xml
+* 模块化开发模式，铭飞所开发的模块都发布到了maven中央库。 可以通过pom.xml文件的方式拉取源代码
+
+```
+<dependency>
+	<groupId>net.mingsoft</groupId>
+	<artifactId>模块</artifactId>
+	<version>版本号</version>
+	<classifier>sources</classifier>
+	<scope>provided</scope>
+</dependency>
+```
 
 # 特点 
 * 免费完整开源：基于MIT协议，源代码完全开源，无商业限制,MS开发团队承诺将MCMS内容系统永久完整开源；<br/>
