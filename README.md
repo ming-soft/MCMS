@@ -24,7 +24,7 @@ QQ交流群号： ①242805203 ②231212174（满） ③221335098（满） <br/>
 | 技术 | 名称 | 官网 |
 | :--- | :--- | :--- |
 | Spring Framework | 容器 | [http://projects.spring.io/spring-framework](http://projects.spring.io/spring-framework/) |
-| SpringMVC | MVC框架 | [http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/\#mvc](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#mvc) |
+| Spring Boot | MVC框架 | [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot) |
 | Apache Shiro | 安全框架 | [http://shiro.apache.org](http://shiro.apache.org/) |
 | Spring session | 分布式Session管理 | [http://projects.spring.io/spring-session](http://projects.spring.io/spring-session) |
 | MyBatis | ORM框架 | [http://www.mybatis.org](http://www.mybatis.org/mybatis-3/zh/index.html) |
