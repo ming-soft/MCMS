@@ -40,6 +40,8 @@ QQ交流群号： ①242805203 ②231212174（满） ③221335098（满） <br/>
 
 | 技术 | 名称 | 官网 |
 | :--- | :--- | :--- |
+| vue| 函式库 | [https://cn.vuejs.org//](https://cn.vuejs.org//) |
+| element ui| UI库 | [https://element.eleme.cn/2.0/#/zh-CN](https://element.eleme.cn/2.0/#/zh-CN) |
 | jQuery | 函式库 | [http://jquery.com/](http://jquery.com/) |
 | Bootstrap | 前端框架 | [http://getbootstrap.com/](http://getbootstrap.com/) |
 | Bootstrap-table | Bootstrap数据表格 | [http://bootstrap-table.wenzhixin.net.cn/](http://bootstrap-table.wenzhixin.net.cn/) |
@@ -48,7 +50,6 @@ QQ交流群号： ①242805203 ②231212174（满） ③221335098（满） <br/>
 | Waves | 点击效果插件 | [https://github.com/fians/Waves/](https://github.com/fians/Waves) |
 | zTree | 树插件 | [http://www.treejs.cn/v3/](http://www.treejs.cn/v3/) |
 | Select2 | 选择框插件 | [https://github.com/select2/select2](https://github.com/select2/select2) |
-| jQuery EasyUI | 基于jQuery的UI插件集合体 | [http://www.jeasyui.com/](http://www.jeasyui.com) |
 | Vue | MVVM框架 | [https://cn.vuejs.org/](https://cn.vuejs.org/) |
 | AmazeUI | 移动端UI | [http://amazeui.org/](http://amazeui.org/) |
 | Plupload | 上传控件 | [http://www.plupload.com/](http://www.plupload.com/) |
@@ -82,11 +83,9 @@ QQ交流群号： ①242805203 ②231212174（满） ③221335098（满） <br/>
 * 管理员账号，用户名：msopen 密码：msopen
 
 # 文件说明 
-* .externalToolBuilders eclipse缓存文件
-* .settings  eclipse配置缓存文件
 * doc  项目文档文件夹，里面有数据库文件
 * src/main maven结构的项目源代码  
-* java/com/mingsoft java源代码文件
+* java/net/mingsoft java源代码文件
 * resources 项目的资源配置文件
 * webapp<br/>
    	 META-INF <br/>
@@ -95,9 +94,6 @@ QQ交流群号： ①242805203 ②231212174（满） ③221335098（满） <br/>
 	 html/1 <font color="red">默认生成的静态代码，实际项目需要删除，只是提供给开发者快速预览生成后的静态页面</font><br/>
 	 templets/1/mooc  <font color="red">默认模版</font><br/>
 	 upload  <br/>
-*   target  临时文件，可以删除让maven自动生成
-* .classpath eclipse配置缓存文件
-* .project  eclipse配置缓存文件
 * LICENSE 项目协议说明
 * README.md 项目说明文档
 * pom.xml maven的依赖配置文件
