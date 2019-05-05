@@ -44,7 +44,7 @@ spring:
     expose-session-attributes: true
     expose-spring-macro-helpers: true
     prefer-file-system-access: false
-    template-loader-path: classpath:/WEB-INF/manager
+    template-loader-path: classpath:/WEB-INF/manager,classpath:/WEB-INF
     settings: 
       template_update_delay: 1
       default_encoding: UTF-8
