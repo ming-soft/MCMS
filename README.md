@@ -122,6 +122,6 @@ QQ交流群号： ①242805203 ②231212174（满） ③221335098（满） <br/>
 * 快速开发手册 http://doc.ms.mingsoft.net/dev-guide/
 
 # 系统美图
-![输入图片说明](http://git.oschina.net/uploads/images/2015/1029/110523_6727b755_542665.jpeg "铭飞模版商城，模版商城")
-![输入图片说明](http://git.oschina.net/uploads/images/2015/1108/143215_21e5f30a_542665.png "铭飞模版商城，插件商城")
-![输入图片说明](http://git.oschina.net/uploads/images/2015/1029/105109_bf9db869_542665.png "铭飞内容管理系统后台演示")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0507/182421_ca7d9aee_1795833.png "01分享.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0507/182435_af382919_1795833.png "02模板.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0507/182453_11a7150d_1795833.png "03插件.png")
