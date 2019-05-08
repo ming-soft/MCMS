@@ -122,7 +122,7 @@ QQ交流群号： ①242805203 ②231212174（满） ③221335098（满） <br/>
 * 快速开发手册 http://doc.ms.mingsoft.net/dev-guide/
 
 # 系统美图
-![输入图片说明](https://images.gitee.com/uploads/images/2019/0508/105128_2243a4d8_1795833.png "01.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0508/105233_96b90ab6_1795833.png "01.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0507/182435_af382919_1795833.png "02模板.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0507/182453_11a7150d_1795833.png "03插件.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0507/185849_f40588d4_1795833.png "04应用设置.png")
