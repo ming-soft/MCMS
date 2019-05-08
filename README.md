@@ -125,4 +125,5 @@ QQ交流群号： ①242805203 ②231212174（满） ③221335098（满） <br/>
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0508/112602_9dead251_1795833.png "01分享.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0508/112621_544b33c9_1795833.png "02模板.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0508/112639_5f1f60dd_1795833.png "03插件.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0508/133600_76a6a1af_1795833.png "04自定义.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0508/112657_20dfa7f4_1795833.png "05应用设置.png")
