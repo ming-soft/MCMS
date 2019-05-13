@@ -2,7 +2,7 @@
 当前版本:4.7.0 <br/>
 铭飞MS官网:http://ms.mingsoft.net<br/>
 官网同时提供一键运行版本下载，请步移官网....<br/>
-QQ交流群号：[![加入QQ群](https://img.shields.io/badge/242805203-blue.svg)](https://jq.qq.com/?_wv=1027&k=5oF19sl)  [![加入QQ群](https://img.shields.io/badge/已满-231212174-blue.svg)](https://jq.qq.com/?_wv=1027&k=5zykX7V)  [![加入QQ群](https://img.shields.io/badge/已满-221335098-blue.svg)](https://jq.qq.com/?_wv=1027&k=56BqFKu) 
+QQ交流群号：[![加入QQ群](https://img.shields.io/badge/热门-242805203-blue.svg)](https://jq.qq.com/?_wv=1027&k=5oF19sl)  [![加入QQ群](https://img.shields.io/badge/已满-231212174-blue.svg)](https://jq.qq.com/?_wv=1027&k=5zykX7V)  [![加入QQ群](https://img.shields.io/badge/已满-221335098-blue.svg)](https://jq.qq.com/?_wv=1027&k=56BqFKu) 
 
 很多人说铭飞MCMS是大天朝国唯一完整开源的J2EE系统！团队希望看到更多的优秀好用的开源系统，我们一直会努力下去！
 
