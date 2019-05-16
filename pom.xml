@@ -61,13 +61,6 @@
 	<build>
 		<finalName>ms-mcms</finalName>
 		<plugins>
-			<!-- docker部署 <plugin> <groupId>com.spotify</groupId> <artifactId>docker-maven-plugin</artifactId> 
-				<version>1.2.0</version> <configuration> <dockerHost>http://localhost</dockerHost> 
-				<imageName>ms-mcms</imageName> <baseImage>java</baseImage> <entryPoint>["java", 
-				"-jar", "/${project.build.finalName}.jar"]</entryPoint> <resources> <resource> 
-				<targetPath>/</targetPath> <directory>${project.build.directory}</directory> 
-				<include>${project.build.finalName}.jar</include> </resource> </resources> 
-				</configuration> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -90,10 +83,6 @@
 				<configuration>
 					<fork>true</fork>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
