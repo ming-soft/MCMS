@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<title>修改资料</title>
 		<#include "/head-file.htm" />
-		<script src='http://cdn.mingsoft.net/plugins/plupload/plupload.full.min.js'></script>
+		<script src='{ms:global.host/}/plugins/plupload/plupload.full.min.js'></script>
 	</head>
 
 	<body>
@@ -114,7 +114,6 @@
 
 
 		<script type="text/javascript">
-			ms.load(["ms","ms.people","ms.upload"],function(ms,mpeople,mupload){
 
 				var vm = new Vue({
 					el: "#mobile-index",
@@ -266,9 +265,7 @@
 					}
 				});
 				vm.getInfo();
-					
 				    
-			});
 		</script>
 		<!--[if (gte IE 9)|!(IE)]><!-->
 		
@@ -278,6 +275,6 @@
 		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
 		<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 		<![endif]-->
-		<script src="http://cdn.mingsoft.net/plugins/AmazeUI/2.7.2/js/amazeui.min.js"></script>
+		<script src="{ms:global.host/}/plugins/AmazeUI/2.7.2/js/amazeui.min.js"></script>
 	</body>
 </html>

@@ -2,7 +2,18 @@
 <html>
     <head>
          <#include "/head-file.htm" />
-        <script src="http://cdn.mingsoft.net/plugins/plupload/plupload.full.min.js"></script>
+        <script src="{ms:global.host/}/static/plugins/plupload/plupload.full.min.js"></script>
+        <script src="{ms:global.host/}/static/plugins/axios/0.18.0/axios.min.js"></script>
+        <script src="{ms:global.host/}/static/plugins/validator/10.8.0/validator.min.js"></script>
+        <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.js"></script>
+        <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.http.js"></script>
+        <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.util.js"></script>
+        <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.upload.js"></script>
+        <script src="{ms:global.host/}/api/ms.people.min.js"></script>
+        <script>
+        	ms.base = "{ms:global.host/}";
+        	ms.login = '{ms:global.host/}';
+		</script>
     </head>
     <body>
          <#include "/head.htm" />
@@ -27,14 +38,11 @@
                     <div class="ms-content-right-title">基本资料</div>
                     <div class="ms-content-right-form">
                         <form id="ms-center-form">
-                            <div class="ms-content-data ms-content-data-head">
-                                <span class="ms-content-head">头像</span>
-                                <div class="ms-content-head-img">
-                                    <img :src="'{ms:global.host/}/'+peopleInfo.puIcon" onerror='this.src="http://cdn.mingsoft.net/global/images/msheader.png"'>
-                                    <div class="ms-content-head-upload">
-                                        <span id="browse">上传头像</span>
-                                    </div>
-                                </div>
+                             <div class="ms-content-data">
+                                <span class="ms-content-nickname span">手机号</span>
+                                <input @keyup="chanageBackgroundColor" type="text" name="peoplePhone" v-model="peopleInfo.peoplePhone">
+                                <img class="ms-error-hide" src="{ms:global.host/}/{ms:global.style/}/images/error.png" :class="{'ms-error-show':errorText[0] != ''}" />
+                                <span class="ms-error-hide" v-text="errorText[0]" :class="{'ms-error-show':errorText[0] != ''}"></span>
                             </div>
                             <div class="ms-content-data">
                                 <span class="ms-content-nickname span">昵称</span>
@@ -58,56 +66,21 @@
     </body>
 </html>
 <script type="text/javascript">
-    ms.load(["ms", "ms.people", "http://cdn.mingsoft.net/model/4.6.0/ms.upload.min.js"], function(ms, mpeople, upload) {
         var centerVue = new Vue({
             el: "#center-vue",
             data: {
                 peopleInfo: "", //个人信息
                 puNickname: "", //昵称
+                peoplePhone: "", //手机号
                 butState: "确认", //按钮文字
                 errorText: ['', ''], //错误信息
             },
             methods: {
                 //修改信息
                 updateInfo: function() {
-                    var target = this;
-                    var pattern = new RegExp("[^a-zA-Z0-9\_\u4e00-\u9fa5]", "i");
-                    if(target.peopleInfo.puNickname.indexOf(" ") >= 0) {
-                        this.showPrompt("昵称不能包括空格", 1000, 0);
-                        return;
-                    }
-                    if(target.peopleInfo.puNickname.length == 0) {
-                        this.showPrompt('昵称不能为空', 1000, 0);
-                        return;
-                    }
-                    if(pattern.test(target.peopleInfo.puNickname)) {
-                        this.showPrompt("昵称不能包含特殊字符", 1000, 0);
-                        return;
-                    }
-                    if(!validator.isLength(target.peopleInfo.puNickname, {
-                            min: 0,
-                            max: 20
-                        })) {
-                        this.showPrompt("昵称最大长度为20个字符", 1000, 0);
-                        return;
-                    }
-
-                    if(target.peopleInfo.peopleMail.indexOf(" ") >= 0) {
-                        this.showPrompt("邮箱不能包含空格", 1000, 1);
-                        return;
-                    }
-                    if(target.peopleInfo.peopleMail.length == 0) {
-                        this.showPrompt("邮箱不能为空", 1000, 1);
-                        return;
-                    }
-                    var pattern = new RegExp("^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$")
-                    if(!pattern.test(target.peopleInfo.peopleMail)) {
-                        this.showPrompt("邮箱格式错误", 1000, 1);
-                        return;
-                    }
-                    this.butState = '提交中...';
-                    var data = "puIcon=" + $("input[name=puIcon]").eq($("input[name=puIcon]").length - 1).val() + "&puNickname=" + $("input[name=puNickname]").val() + "&peopleMail=" + $("input[name=peopleMail]").val();
-                    mpeople.people.user.update(data, function(returnJson) { //更新用户信息
+                   var target = this;
+                   this.butState = '提交中...';
+                   ms.people.user.update(target.data, function(returnJson) { //更新用户信息
                         if(returnJson.result) {
                             alert("修改成功");
                             location.reload();
@@ -121,7 +94,7 @@
                 //获取个人信息
                 getPeopleInfo: function() {
                     var target = this;
-                    mpeople.people.user.info(function(returnJson) {
+                   ms.people.user.info(function(returnJson) {
                         target.peopleInfo = returnJson;
                         target.puNickname = returnJson.puNickname;
                     })
@@ -154,20 +127,6 @@
             mounted: function() {
                 this.getPeopleInfo();
                 var target = this;
-                upload.init("browse", "puIcon", "/peopleIcon/", {
-                    "domClass": "display-img",
-                    "size": "3000",
-                    "afterMsg": "修改头像",
-                    success: function(msg) {
-                        var data = "puIcon=" + $("input[name=puIcon]").eq($("input[name=puIcon]").length - 1).val();
-                        mpeople.people.user.update(data, function(returnJson) { //更新用户信息
-                            target.peopleInfo.puIcon = $("input[name=puIcon]").eq($("input[name=puIcon]").length - 1).val();
-                            alert("上传成功");
-                            location.reload();
-                        });
-                    }
-                });
             },
         })
-    })
 </script>
