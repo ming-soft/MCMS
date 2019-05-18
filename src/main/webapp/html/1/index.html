@@ -3,7 +3,7 @@
     <head>
         <title>MCMS-OPEN</title>
 <meta charset="utf-8">
-<link rel="stylesheet" type="text/css" href="http://cdn.mingsoft.net/plugins/iconfont/1.0.0/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="http://localhost:8080/ms-mcms/plugins/iconfont/1.0.0/iconfont.css" />
 <link rel="stylesheet/less" type="text/css" href="http://localhost:8080/ms-mcms/templets/1/default/less/base.less">
 <link rel="stylesheet/less" type="text/css" href="http://localhost:8080/ms-mcms/templets/1/default/less/index.less">
 <link rel="stylesheet/less" type="text/css" href="http://localhost:8080/ms-mcms/templets/1/default/less/advice.less">
@@ -12,26 +12,29 @@
 <link rel="stylesheet/less" type="text/css" href="http://localhost:8080/ms-mcms/templets/1/default/less/news-list.less">
 <link rel="stylesheet/less" type="text/css" href="http://localhost:8080/ms-mcms/templets/1/default/less/news-show.less">
 <link rel="stylesheet/less" type="text/css" href="http://localhost:8080/ms-mcms/templets/1/default/less/center.less">
-<script src="http://cdn.mingsoft.net/plugins/jquery/1.9.1/jquery-1.9.1.js"></script>
+<script src="http://localhost:8080/ms-mcms/plugins/jquery/1.9.1/jquery-1.9.1.js"></script>
 <script src="http://localhost:8080/ms-mcms/templets/1/default/js/slider.js"></script>
-<script src="http://cdn.mingsoft.net/plugins/less/2.5.3/less.min.js"></script>
-<script src="http://cdn.mingsoft.net/plugins/seajs/3.0.0/sea.js"></script>
-<script src="http://cdn.mingsoft.net/model/1.0.0/main.min.js"></script>
+<script src="http://localhost:8080/ms-mcms/static/plugins/less/3.9.0/less.min.js"></script>
 <!--vue-懒加载-表单验证-->
-<script src="http://cdn.mingsoft.net/plugins/vue/2.3.3/vue.min.js"></script>
-<script src="http://cdn.mingsoft.net/plugins/validator/5.5.0/validator.min.js"></script>
+<script src="http://localhost:8080/ms-mcms/plugins/vue/2.3.3/vue.min.js"></script>
+<script src="http://localhost:8080/ms-mcms/plugins/validator/5.5.0/validator.min.js"></script>
+
 <link rel="stylesheet" type="text/css" href="http://localhost:8080/ms-mcms/templets/1/default/css/animate.css">
-<script>
-    ms.config({
-        base: "http://localhost:8080/ms-mcms",
-        filter: {
-            people: {
-                loginUrl: 'http://localhost:8080/ms-mcms'
-            }
-        }
-    });
-</script>        <link rel="stylesheet" type="text/css" href="http://cdn.mingsoft.net/plugins/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script type="text/javascript" src="http://cdn.mingsoft.net/plugins/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://localhost:8080/ms-mcms/static/plugins/axios/0.18.0/axios.min.js"></script>
+<script src="http://localhost:8080/ms-mcms/static/plugins/ms/1.0.0/ms.js"></script>
+<script src="http://localhost:8080/ms-mcms/static/plugins/ms/1.0.0/ms.http.js"></script>
+<script src="http://localhost:8080/ms-mcms/static/plugins/ms/1.0.0/ms.util.js"></script>
+<script type="text/javascript">
+	window.http = ms.http;
+</script>
+        <link rel="stylesheet" type="text/css" href="http://localhost:8080/ms-mcms/plugins/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script type="text/javascript" src="http://localhost:8080/ms-mcms/plugins/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script>
+        	var ms = {
+        			base:"http://mstore.mingsoft.net"
+        	}
+        </script>
+        <script src="http://mstore.mingsoft.net/api/ms.web.mstore.js"></script>
     </head>
 
     <body>
@@ -118,7 +121,7 @@
     var headVue = new Vue({
         el: "#ms-login-vue",
         data: {
-            isLogin: undefined, //登录状态
+            isLogin: "", //登录状态
             peopleInfo: "", //个人信息
         },
         mounted: function() {
@@ -494,7 +497,6 @@ $(function(){
 </script>    </body>
 </html>
 <script type="text/javascript">
-    ms.load(["ms", "http://localhost:8080/ms-mcms/templets/1/default/js/demo.js"], function(ms, mmstore) { //../templets/86/cms/js/ms.mstore.js
         var index = new Vue({
             el: "#indexVue",
             data: {
@@ -506,7 +508,7 @@ $(function(){
             methods: {
                 query: function(data, type) {
                     var target = this;
-                    mmstore.mstore.list(data, function(json) {
+                    ms.web.mstore.list(data, function(json) {
                         if(type == 'model') {
                             target.modelList = json.list;
                         } else {
@@ -559,5 +561,4 @@ $(function(){
                 }, 300)
             },
         })
-    })
 </script>

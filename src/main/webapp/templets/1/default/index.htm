@@ -4,6 +4,12 @@
         <#include "head-file.htm">
         <link rel="stylesheet" type="text/css" href="{ms:global.host/}/plugins/bootstrap/3.3.5/css/bootstrap.min.css">
         <script type="text/javascript" src="{ms:global.host/}/plugins/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script>
+        	var ms = {
+        			base:"http://mstore.mingsoft.net"
+        	}
+        </script>
+        <script src="http://mstore.mingsoft.net/api/ms.web.mstore.js"></script>
     </head>
 
     <body>
@@ -213,7 +219,6 @@
     </body>
 </html>
 <script type="text/javascript">
-    ms.load(["ms", "{ms:global.host/}/{ms:global.style/}/js/demo.js"], function(ms, mmstore) { //../templets/86/cms/js/ms.mstore.js
         var index = new Vue({
             el: "#indexVue",
             data: {
@@ -225,7 +230,7 @@
             methods: {
                 query: function(data, type) {
                     var target = this;
-                    mmstore.mstore.list(data, function(json) {
+                    ms.web.mstore.list(data, function(json) {
                         if(type == 'model') {
                             target.modelList = json.list;
                         } else {
@@ -278,5 +283,4 @@
                 }, 300)
             },
         })
-    })
 </script>
