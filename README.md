@@ -137,7 +137,8 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-b
 <table>
     <tr>
         <td><img src="https://images.gitee.com/uploads/images/2019/0523/092642_316d6156_1795833.png"/></td>
-        <td><img src="![https://git.oschina.net/uploads/images/2017/0604/194623_a0761bc3_551203.png](https://images.gitee.com/uploads/images/2019/0523/092752_b3ab83bb_1795833.png "08.png")"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0508/112602_9dead251_1795833.png"/></td>
    
     </tr>
 </table>
+
