@@ -135,3 +135,35 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-b
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0508/112657_20dfa7f4_1795833.png "05应用设置.png")
 
 
+<table>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/112216_695d0bd1_1795833.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120809_88b6fcd4_1795833.png"/></td>
+    </tr>
+     <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120836_8a943ad5_1795833.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120910_ce119f66_1795833.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120927_8a3f93e3_1795833.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120939_7e5281db_1795833.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120951_9d3a50b2_1795833.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121003_9c68e090_1795833.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121020_34c8e0ab_1795833.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121033_b425e406_1795833.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121044_41cc0d00_1795833.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121059_48b4cd7b_1795833.png"/></td>
+    </tr>
+     <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121112_8581de9a_1795833.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121122_8b513dd1_1795833.png"/></td>
+    </tr>
+</table>
+
+
