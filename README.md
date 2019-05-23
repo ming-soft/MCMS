@@ -135,5 +135,14 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-b
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0508/112657_20dfa7f4_1795833.png "05应用设置.png")
 
 
-
+<table>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/092642_316d6156_1795833.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0508/112602_9dead251_1795833.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0508/112621_544b33c9_1795833.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0508/112639_5f1f60dd_1795833.png"/></td>
+    </tr>
+</table>
 
