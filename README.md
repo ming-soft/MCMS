@@ -133,3 +133,34 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-b
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0508/144413_ae01a9e1_1795833.png "05栏目管理.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0508/133600_76a6a1af_1795833.png "04自定义.png")
 ![输入图片说明](https://images.gitee.com/uploads/images/2019/0508/112657_20dfa7f4_1795833.png "05应用设置.png")
+
+<table>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/092642_316d6156_1795833.png"/></td>
+        <td><img src="![https://git.oschina.net/uploads/images/2017/0604/194623_a0761bc3_551203.png](https://images.gitee.com/uploads/images/2019/0523/092752_b3ab83bb_1795833.png "08.png")"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://git.oschina.net/uploads/images/2017/0604/194630_640dfd35_551203.png"/></td>
+        <td><img src="https://git.oschina.net/uploads/images/2017/0526/104015_bdb14c74_551203.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://git.oschina.net/uploads/images/2017/0516/000735_b83c5c46_551203.png"/></td>
+        <td><img src="https://git.oschina.net/uploads/images/2017/0526/103734_bd3e8f6b_551203.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://git.oschina.net/uploads/images/2017/0604/194539_f9bb482a_551203.png"/></td>
+        <td><img src="https://git.oschina.net/uploads/images/2017/0526/103746_6b4129ed_551203.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://git.oschina.net/uploads/images/2017/0526/103755_7729b916_551203.png"/></td>
+        <td><img src="https://git.oschina.net/uploads/images/2017/0526/103801_b8216865_551203.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://git.oschina.net/uploads/images/2017/0526/103807_20bfb868_551203.png"/></td>
+        <td><img src="https://git.oschina.net/uploads/images/2017/0526/103814_67e078bb_551203.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://git.oschina.net/uploads/images/2017/0526/103822_58fd5d91_551203.png"/></td>
+        <td><img src="https://git.oschina.net/uploads/images/2017/0526/103827_d6218c74_551203.png"/></td>
+    </tr>
+</table>
