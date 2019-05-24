@@ -94,7 +94,7 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-b
 | freemarker | 模板引擎 | [http://freemarker.foofun.cn/toc.html](http://freemarker.foofun.cn/toc.html) |
 | validator | 验证库 | [https://github.com/chriso/validator.js](https://github.com/chriso/validator.js) |
 | animate | 动画 | [http://daneden.github.io/animate.css/](http://daneden.github.io/animate.css/) |
-| icon | 适量小图标\(待更新\) | [http://ms.mingsoft.net/html/86//6048/index.html](http://ms.mingsoft.net/html/86//6048/index.html) |
+| icon | 矢量小图标\(待更新\) | [http://ms.mingsoft.net/html/86//6048/index.html](http://ms.mingsoft.net/html/86//6048/index.html) |
 
 
 # 系统结构
