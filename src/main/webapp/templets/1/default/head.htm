@@ -68,7 +68,7 @@
                 </span>
                 <div class="topbar-info J_userInfo loginSuccess hide-default" v-show="isLogin" style="display: none;">
                     <a class="user-name" href="{ms:global.host/}/people/center.do">
-                        <img :src="'{ms:global.host/}'+ peopleInfo.puIcon" class="loginImg user_icon" onerror="this.src='http://cdn.mingsoft.net/global/images/msheader.png'">
+                        <img :src="'{ms:global.host/}/'+peopleInfo.puIcon" class="loginImg user_icon" onerror="this.src='http://cdn.mingsoft.net/global/images/msheader.png'">
                         <b class="userName ms-userName" v-text="peopleInfo.puNickname"></b>
                     </a>
                     <a href="javascript:;" class="quitLogin" @click="quitLogin">退出</a>
@@ -83,7 +83,9 @@
         data: {
             isLogin: "", //登录状态
             peopleInfo: "", //个人信息
+            imgUrl:"",
         },
+        
         mounted: function() {
             //获取个人信息
             var target = this;
@@ -91,13 +93,13 @@
                 type: "POST",
                 url: "{ms:global.host/}/checkLoginStatus.do",
                 success: function(msg) {
-                    target.isLogin = msg.result;
+                    target.isLogin = msg.result;  //判断用户是否登录，如登录，则target.isLogin===true
                     if(msg.result) {
                         $.ajax({
                             type: "GET",
                             url: "{ms:global.host/}/people/user/info.do",
                             success: function(msg) {
-                                target.peopleInfo = msg;
+                                target.peopleInfo = msg;  //target.peopleInfo为当前登录用户的基本信息
                             }
                         })
                     }

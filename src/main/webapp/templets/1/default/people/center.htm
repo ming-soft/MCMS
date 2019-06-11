@@ -1,132 +1,206 @@
 <!DOCTYPE html>
 <html>
-    <head>
-         <#include "/head-file.htm" />
-        <script src="{ms:global.host/}/static/plugins/plupload/plupload.full.min.js"></script>
-        <script src="{ms:global.host/}/static/plugins/axios/0.18.0/axios.min.js"></script>
-        <script src="{ms:global.host/}/static/plugins/validator/10.8.0/validator.min.js"></script>
-        <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.js"></script>
-        <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.http.js"></script>
-        <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.util.js"></script>
-        <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.upload.js"></script>
-        <script src="{ms:global.host/}/api/ms.people.min.js"></script>
-        <script>
-        	ms.base = "{ms:global.host/}";
-        	ms.login = '{ms:global.host/}';
-		</script>
-    </head>
-    <body>
-         <#include "/head.htm" />
-        <div class="ms-content" id="center-vue">
-            <div class="ms-content-main">
-                <div class="ms-content-left">
-                    <div class="ms-content-left-info">
-                        <img :src="'{ms:global.host/}/'+peopleInfo.puIcon" onerror='this.src="http://cdn.mingsoft.net/global/images/msheader.png"'>
-                        <div style="display: none;" v-show="puNickname!='' && puNickname != undefined" v-if="puNickname!='' && puNickname != undefined" v-text="puNickname"></div>
-                        <div v-else v-text="'暂无昵称'"></div>
-                    </div>
-                    <div class="ms-content-left-list">
-                        <div class="ms-content-left-list-info">
-                            <a class='active' href="{ms:global.host/}/people/center.do">基本资料</a>
-                        </div>
-                        <div class="ms-content-left-list-pass">
-                            <a href="{ms:global.host/}/people/password-change.do">修改密码</a>
-                        </div>
-                    </div>
+<head>
+    <#include "/head-file.htm" />
+</head>
+
+<body>
+    <#include "/head.htm" />
+    <div class="ms-content" id="center-vue">
+        <div class="ms-content-main">
+            <div class="ms-content-left">
+                <div class="ms-content-left-info">
+                    <el-upload class="avatar-uploader" action="{ms:global.host/}/file/upload.do" :show-file-list="false"
+                        :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                    </el-upload>
+                    <img :src="'{ms:global.host/}/'+peopleInfo.puIcon"
+                        onerror='this.src="http://cdn.mingsoft.net/global/images/msheader.png"'>
+
+                    <div style="display: none;" v-show="peopleInfo.puNickname!='' && peopleInfo.puNickname != undefined"
+                        v-if="peopleInfo.puNickname!='' && peopleInfo.puNickname != undefined"
+                        v-text="peopleInfo.puNickname"></div>
+                    <div v-else v-text="'暂无昵称'"></div>
                 </div>
-                <div class="ms-content-right">
-                    <div class="ms-content-right-title">基本资料</div>
-                    <div class="ms-content-right-form">
-                        <form id="ms-center-form">
-                             <div class="ms-content-data">
-                                <span class="ms-content-nickname span">手机号</span>
-                                <input @keyup="chanageBackgroundColor" type="text" name="peoplePhone" v-model="peopleInfo.peoplePhone">
-                                <img class="ms-error-hide" src="{ms:global.host/}/{ms:global.style/}/images/error.png" :class="{'ms-error-show':errorText[0] != ''}" />
-                                <span class="ms-error-hide" v-text="errorText[0]" :class="{'ms-error-show':errorText[0] != ''}"></span>
-                            </div>
-                            <div class="ms-content-data">
-                                <span class="ms-content-nickname span">昵称</span>
-                                <input @keyup="chanageBackgroundColor" type="text" name="puNickname" v-model="peopleInfo.puNickname">
-                                <img class="ms-error-hide" src="{ms:global.host/}/{ms:global.style/}/images/error.png" :class="{'ms-error-show':errorText[0] != ''}" />
-                                <span class="ms-error-hide" v-text="errorText[0]" :class="{'ms-error-show':errorText[0] != ''}"></span>
-                            </div>
-                            <div class="ms-content-data">
-                                <span class="ms-content-mailbox span">邮箱</span>
-                                <input @keyup="chanageBackgroundColor" type="text" name="peopleMail" v-model="peopleInfo.peopleMail">
-                                <img class="ms-error-hide" src="{ms:global.host/}/{ms:global.style/}/images/error.png" :class="{'ms-error-show':errorText[1] != ''}" />
-                                <span class="ms-error-hide" v-text="errorText[1]" :class="{'ms-error-show':errorText[1] != ''}"></span>
-                            </div>
-                        </form>
-                        <div class="ms-content-click" :disabled="butState != '确认'" :class="{'ms-but-disabled':butState != '确认'}" v-text="butState" @click="updateInfo">确认</div>
+                <div class="ms-content-left-list">
+                    <div class="ms-content-left-list-info">
+                        <a class='active' href="{ms:global.host/}/people/center.do">基本资料</a>
+                    </div>
+                    <div class="ms-content-left-list-pass">
+                        <a href="{ms:global.host/}/people/password-change.do">修改密码</a>
                     </div>
                 </div>
             </div>
+            <div class="ms-content-right">
+                <div class="ms-content-right-title">基本资料</div>
+                <div id="form" style="padding-top: 30px;width: 60%;">
+                    <el-form :model="peopleInfo" :rules="rules" ref="peopleInfo" label-width="100px"
+                        class="demo-peopleInfo" status-icon>
+                        <el-form-item label="手机号" prop="peoplePhone">
+                            <el-input v-model="peopleInfo.peoplePhone" placeholder="请输入 11 位手机号码" @blur="validate"></el-input>
+                        </el-form-item>
+                        <el-form-item label="昵称" prop="puNickname">
+                            <el-input v-model="peopleInfo.puNickname" placeholder="输入昵称，3~5位字符" @blur="validate"></el-input>
+                        </el-form-item>
+                        <el-form-item label="邮箱" prop="peopleMail">
+                            <el-input v-model="peopleInfo.peopleMail" placeholder="输入昵称，3~请输入您的邮箱" @blur="validate"></el-input>
+                        </el-form-item>
+                        <el-button style="margin-left: 100px;" type="primary" @click="updateInfo('peopleInfo')" :disabled="flag" v-text="submit">
+                        </el-button>
+                    </el-form>
+                </div>
+            </div>
         </div>
-         <#include "/footer.htm" />
-    </body>
+    </div>
+    </div>
+    <#include "/footer.htm" />
+</body>
+
 </html>
 <script type="text/javascript">
-        var centerVue = new Vue({
-            el: "#center-vue",
-            data: {
-                peopleInfo: "", //个人信息
-                puNickname: "", //昵称
-                peoplePhone: "", //手机号
-                butState: "确认", //按钮文字
-                errorText: ['', ''], //错误信息
-            },
-            methods: {
-                //修改信息
-                updateInfo: function() {
-                   var target = this;
-                   this.butState = '提交中...';
-                   ms.people.user.update(target.data, function(returnJson) { //更新用户信息
-                        if(returnJson.result) {
-                            alert("修改成功");
-                            location.reload();
-                            //target.getPeopleInfo();
-                        } else {
-                            alert(returnJson.resultMsg);
-                        }
-                        target.butState = '确认';
-                    });
-                },
-                //获取个人信息
-                getPeopleInfo: function() {
-                    var target = this;
-                   ms.people.user.info(function(returnJson) {
-                        target.peopleInfo = returnJson;
-                        target.puNickname = returnJson.puNickname;
-                    })
-                },
-                //显示提示
-                showPrompt: function(text, date, type) {
-                    var target = this;
-                    this.errorText[type] = text;
-                    this.errorText = [this.errorText[0], this.errorText[1]];
-                    setTimeout(
-                        function() {
-                            target.errorText[type] = '';
-                            target.errorText = [target.errorText[0], target.errorText[1]];
-                        }, date
-                    )
-                },
-                chanageBackgroundColor: function() {
-                    if($('input[name="puNickname"]').val().length > 0 && 　$('input[name="peopleMail"]').val().length > 0) {
-                        $('.ms-content-click').css("background-color", "#009aff");
-                        $('.ms-content-click').css("pointer-events", 'visible');
-                        $('.ms-content-click').css("color", "#fff");
-                    } else {
-                        $('.ms-content-click').css("background-color", "#fafafa");
-                        $('.ms-content-click').css('pointer-events', "none");
-                        $('.ms-content-click').css("color", "#ddd");
+    new Vue({
+        el: '#center-vue',
+        data: {
+            peopleInfo: "",
+            submit:"确认",
+            flag:true,
+            rules: {
+                peoplePhone: [{
+                        required: true,
+                        message: '请输入手机号码',
+                        trigger: 'blur'
+                    },
+                    {
+                        pattern: /^1[34578]\d{9}$/,
+                        message: '请输入正确的手机号码',
+                        trigger: 'blur'
                     }
-                },
+                ],
+                puNickname: [{
+                        required: true,
+                        message: '请输入昵称',
+                        trigger: 'blur'
+                    },
+                    {
+                        min: 3,
+                        max: 5,
+                        message: '长度在 3 到 5 个字符',
+                        trigger: 'blur'
+                    }
+                ],
+                peopleMail: [{
+                        required: true,
+                        message: '请输入邮箱',
+                        trigger: 'blur'
+                    },
+                    {
+                        pattern: /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/,
+                        message: '请输入正确的邮箱',
+                        trigger: 'blur'
+                    }
+                ],
+            },
+        },
 
+        methods: {
+            updateInfo: function (formName) {
+                this.submit="提交中...";
+                var params = {
+                    peoplePhone: this.peopleInfo.peoplePhone,
+                    puNickname: this.peopleInfo.puNickname,
+                    peopleMail: this.peopleInfo.peopleMail,
+                    puIcon: this.peopleInfo.puIcon
+                }
+                ms.people.user.update(params, function (returnJson) {
+                    //更新用户信息
+                    if (returnJson.result) {
+                        alert("修改成功");
+                        location.reload();
+                    } else {
+                        alert(returnJson.resultMsg);
+                        this.flag=true;
+                    }
+                });
             },
-            mounted: function() {
-                this.getPeopleInfo();
+            validate() {
+                this.$refs.peopleInfo.validate((valid) => {
+                    if (valid) {
+                        this.flag=false;
+                    }
+                    else{
+                        this.flag=true;
+                    }
+                });
+            },
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (!valid) {
+                        console.log('error submit!!');
+                        die;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
+            //获取个人信息
+            getPeopleInfo: function () {
                 var target = this;
+                ms.people.user.info(function (returnJson) {
+                    target.peopleInfo = returnJson;
+                })
             },
-        })
+            //上传头像成功后，更新用户信息
+            handleAvatarSuccess(res, file) {
+                this.peopleInfo.puIcon = file.response;
+                var params = {
+                    peopleMail: this.peopleInfo.peopleMail,
+                    puIcon: this.peopleInfo.puIcon
+                }
+                ms.people.user.update(params, function (returnJson) {
+                    //更新用户信息
+                    if (returnJson.result) {
+                        alert("头像修改成功");
+                        location.reload();
+                    } else {
+                        alert(returnJson.resultMsg);
+                    }
+                });
+            },
+            beforeAvatarUpload(file) {
+                const isJPG = file.type === 'image/jpeg';
+                const isLt2M = file.size / 1024 / 1024 < 2;
+
+                if (!isJPG) {
+                    this.$message.error('上传头像图片只能是 JPG 格式!');
+                }
+                if (!isLt2M) {
+                    this.$message.error('上传头像图片大小不能超过 2MB!');
+                }
+                return isJPG && isLt2M;
+            }
+        },
+        mounted: function () {
+            this.getPeopleInfo();
+            var target = this;
+        }
+    })
 </script>
+
+<style type="text/css">
+    .avatar-uploader .el-upload {
+        border: none !important;
+        cursor: pointer;
+        position: absolute;
+        z-index: 100;
+        width: 100px;
+        height: 100px;
+        padding: 0 !important;
+        left: 29%;
+        top: calc(50% - 10px);
+        transform: translateY(-50%);
+    }
+
+    .ms-content-left-info {
+        position: relative;
+    }
+</style>
