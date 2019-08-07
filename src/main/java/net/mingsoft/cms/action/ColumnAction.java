@@ -9,6 +9,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.mingsoft.basic.util.ArrysUtil;
+import net.mingsoft.mdiy.util.DictUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +43,7 @@ import net.mingsoft.mdiy.util.ParserUtil;
 /**
  * 铭飞MS平台，通用栏目分类,为了区分文章栏目与其他栏目的权限，该类是从basic模块复制过来
  * @author 铭飞开发团队
- * @version 
+ * @version
  * 版本号：100-000-000<br/>
  * 创建日期：2017年8月9日<br/>
  * 历史修订：<br/>
@@ -49,8 +51,8 @@ import net.mingsoft.mdiy.util.ParserUtil;
 @Controller("articleColumnAction")
 @RequestMapping("/${ms.manager.path}/cms/column")
 public class ColumnAction extends BaseAction{
-	
-	
+
+
 	/**
 	 * 栏目业务层
 	 */
@@ -58,7 +60,7 @@ public class ColumnAction extends BaseAction{
 	private IColumnBiz columnBiz;
 	@Autowired
 	private ICategoryBiz categoryBiz;
-	
+
 	/**
 	 * 模块业务层注入
 	 */
@@ -75,7 +77,7 @@ public class ColumnAction extends BaseAction{
 	}
 	/**
 	 * 栏目添加跳转页面
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping("/add")
@@ -84,6 +86,8 @@ public class ColumnAction extends BaseAction{
 		int appId =BasicUtil.getAppId();
 		List<ColumnEntity> list = columnBiz.queryAll(appId, BasicUtil.getModelCodeId(net.mingsoft.cms.constant.ModelCode.CMS_COLUMN.toString()));
 		ColumnEntity columnSuper = new ColumnEntity();
+		// 栏目属性
+		model.addAttribute("columnFlag", DictUtil.list("栏目属性"));
 		model.addAttribute("appId",appId);
 		model.addAttribute("columnSuper", columnSuper);
 		model.addAttribute("column",new ColumnEntity());
@@ -114,7 +118,7 @@ public class ColumnAction extends BaseAction{
 			this.outJson( response, ModelCode.COLUMN, false, getResString("err.empty", this.getResString("columnType")));
 			return false;
 		}
-		
+
 		return true;
 	}
 
@@ -154,9 +158,9 @@ public class ColumnAction extends BaseAction{
 		columnBiz.updateEntity(column);
 		//生成文件夹
 		File fileName = new File(file);
-        fileName.mkdir();
+		fileName.mkdir();
 	}
-	
+
 	/**
 	 * @param column 栏目表实体
 	 * <i>column参数包含字段信息参考：</i><br/>
@@ -180,7 +184,7 @@ public class ColumnAction extends BaseAction{
 		};
 		this.outJson(response, true);
 	}
-		
+
 	/**
 	 * 栏目更新页面跳转
 	 * @param columnId 栏目ID
@@ -199,6 +203,8 @@ public class ColumnAction extends BaseAction{
 		list = columnBiz.queryAll(appId, BasicUtil.getModelCodeId(net.mingsoft.cms.constant.ModelCode.CMS_COLUMN.toString()));
 		//查询当前栏目实体
 		ColumnEntity column = (ColumnEntity) columnBiz.getEntity(columnId);
+		// 栏目属性
+		model.addAttribute("columnFlag", DictUtil.list("栏目属性"));
 		model.addAttribute("appId",appId);
 		model.addAttribute("column", column);
 		model.addAttribute("columnc", column.getCategoryId());
@@ -212,7 +218,7 @@ public class ColumnAction extends BaseAction{
 		model.addAttribute("model", "cms");
 		return "/basic/column/form";
 	}
-	
+
 	/**
 	 * 栏目首页面列表显示
 	 */
@@ -227,10 +233,10 @@ public class ColumnAction extends BaseAction{
 		EUListBean _list = new EUListBean(list, list.size());
 		this.outJson(response, net.mingsoft.base.util.JSONArray.toJSONString(_list));
 	}
-	
+
 	/**
 	 * 栏目添加
-	 * 
+	 *
 	 * @param column
 	 *            栏目对象
 	 * @return 返回页面跳转
@@ -245,6 +251,13 @@ public class ColumnAction extends BaseAction{
 		column.setCategoryManagerId(getManagerBySession(request).getManagerId());
 		column.setCategoryDateTime(new Timestamp(System.currentTimeMillis()));
 		column.setCategoryModelId(BasicUtil.getModelCodeId(net.mingsoft.cms.constant.ModelCode.CMS_COLUMN.toString()));
+		String checkboxType = BasicUtil.getString("checkboxType");
+		//如果选择一个属性不做排序操作
+		if(!StringUtils.isEmpty(checkboxType) && checkboxType.length()>2){
+			column.setColumnFlag(ArrysUtil.sort(checkboxType, ",")+",");
+		}else{
+			column.setColumnFlag(checkboxType);
+		}
 		if(column.getColumnType()==ColumnEntity.ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()){
 			column.setColumnListUrl(null);
 		}
@@ -252,7 +265,7 @@ public class ColumnAction extends BaseAction{
 		this.columnPath(request,column);
 		this.outJson(response, ModelCode.COLUMN, true,null,JSONArray.toJSONString(column.getCategoryId()));
 	}
-	
+
 	/**
 	 * 更新栏目
 	 * @param column 栏目实体
@@ -274,6 +287,13 @@ public class ColumnAction extends BaseAction{
 		}
 		column.setCategoryManagerId(getManagerBySession(request).getManagerId());
 		column.setAppId(websiteId);
+		String checkboxType = BasicUtil.getString("checkboxType");
+		//如果选择一个属性不做排序操作
+		if(!StringUtils.isEmpty(checkboxType) && checkboxType.length()>2){
+			column.setColumnFlag(ArrysUtil.sort(checkboxType, ",")+",");
+		}else{
+			column.setColumnFlag(checkboxType);
+		}
 		columnBiz.updateCategory(column);
 		this.columnPath(request,column);
 		//查询当前栏目是否有子栏目，
