@@ -1,5 +1,5 @@
 /**
-The MIT License (MIT) * Copyright (c) 2016 铭飞科技(mingsoft.net)
+ The MIT License (MIT) * Copyright (c) 2016 铭飞科技(mingsoft.net)
 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -21,13 +21,23 @@ The MIT License (MIT) * Copyright (c) 2016 铭飞科技(mingsoft.net)
 
 package net.mingsoft.cms.action.web;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.io.FileUtil;
+import com.github.pagehelper.PageHelper;
+import net.mingsoft.base.constant.Const;
+import net.mingsoft.basic.util.SpringUtil;
+import net.mingsoft.cms.constant.e.ColumnTypeEnum;
+import net.mingsoft.mdiy.biz.IContentModelBiz;
+import net.mingsoft.mdiy.entity.ContentModelEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -54,13 +64,13 @@ import net.mingsoft.mdiy.util.ParserUtil;
 
 /**
  * 动态生成页面，需要后台配置自定义页数据
- * 
+ *
  * @author 铭飞开源团队
  * @date 2018年12月17日
  */
 @Controller("dynamicPageAction")
 @RequestMapping("/mcms")
-public class MCmsAction extends net.mingsoft.mdiy.action.BaseAction {
+public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
 	/**
 	 * 自定义页面业务层
@@ -84,7 +94,7 @@ public class MCmsAction extends net.mingsoft.mdiy.action.BaseAction {
 	// 如商城就为:/mall/{key}.do
 	/**
 	 * 前段会员中心所有页面都可以使用该方法 请求地址例如： ／{diy}.do,例如登陆界面，与注册界面都可以使用
-	 * 
+	 *
 	 * @param key
 	 */
 	@RequestMapping("/{diy}.do")
@@ -158,7 +168,7 @@ public class MCmsAction extends net.mingsoft.mdiy.action.BaseAction {
 		//获取栏目编号
 		int typeId = BasicUtil.getInt(ParserUtil.TYPE_ID,0);
 		int size = BasicUtil.getInt(ParserUtil.SIZE,10);
-		
+
 		//获取文章总数
 		List<ColumnArticleIdBean> columnArticles = articleBiz.queryIdsByCategoryIdForParser(typeId, null, null);
 		//判断栏目下是否有文章
@@ -175,7 +185,7 @@ public class MCmsAction extends net.mingsoft.mdiy.action.BaseAction {
 		map.put(ParserUtil.TYPE_ID, typeId);
 		//设置列表当前页
 		map.put(ParserUtil.PAGE_NO, BasicUtil.getInt(ParserUtil.PAGE_NO,1));
-		
+
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
 		map.put(ParserUtil.PAGE, page);
 		//动态解析
@@ -198,19 +208,27 @@ public class MCmsAction extends net.mingsoft.mdiy.action.BaseAction {
 		}
 		this.outString(resp, content);
 	}
-	
+
 	/**
 	 * 动态详情页
 	 * @param id 文章编号
 	 */
 	@GetMapping("/view.do")
-	public void view(HttpServletRequest req, HttpServletResponse resp) {
+	public void view(String orderby,String order,HttpServletRequest req, HttpServletResponse resp) {
 		//参数文章编号
 		ArticleEntity article = (ArticleEntity) articleBiz.getEntity(BasicUtil.getInt(ParserUtil.ID));
 		if(ObjectUtil.isNull(article)){
 			this.outJson(resp, null,false,getResString("err.empty", this.getResString("id")));
-			return;	
+			return;
 		}
+		if(StringUtils.isNotBlank(order)){
+			//防注入
+			if(!order.toLowerCase().equals("asc")&&!order.toLowerCase().equals("desc")){
+				this.outJson(resp, null,false,getResString("err.error", this.getResString("order")));
+				return;
+			}
+		}
+		PageBean page = new PageBean();
 		//根据文章编号查询栏目详情模版
 		ColumnEntity column = (ColumnEntity) columnBiz.getEntity(article.getBasicCategoryId());
 		//解析后的内容
@@ -221,6 +239,55 @@ public class MCmsAction extends net.mingsoft.mdiy.action.BaseAction {
 		//设置动态请求的模块路径
 		map.put(ParserUtil.MODEL_NAME, "mcms");
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
+		map.put(ParserUtil.PAGE, page);
+		map.put(ParserUtil.ID, article.getArticleID());
+		List<ColumnArticleIdBean> articleIdList = articleBiz.queryIdsByCategoryIdForParser(column.getCategoryCategoryId(), null, null,orderby,order);
+		Map<Object, Object> contentModelMap = new HashMap<Object, Object>();
+		ContentModelEntity contentModel = null;
+		for (int artId = 0; artId < articleIdList.size();) {
+			//如果不是当前文章则跳过
+			if(articleIdList.get(artId).getArticleId() != article.getArticleID()){
+				artId++;
+				continue;
+			}
+			// 文章的栏目路径
+			String articleColumnPath = articleIdList.get(artId).getColumnPath();
+			// 文章的栏目模型编号
+			int columnContentModelId = articleIdList.get(artId).getColumnContentModelId();
+			Map<String, Object> parserParams = new HashMap<String, Object>();
+			parserParams.put(ParserUtil.COLUMN, articleIdList.get(artId));
+			// 判断当前栏目是否有自定义模型
+			if (columnContentModelId > 0) {
+				// 通过当前栏目的模型编号获取，自定义模型表名
+				if (contentModelMap.containsKey(columnContentModelId)) {
+					parserParams.put(ParserUtil.TABLE_NAME, contentModel.getCmTableName());
+				} else {
+					// 通过栏目模型编号获取自定义模型实体
+					contentModel = (ContentModelEntity) SpringUtil.getBean(IContentModelBiz.class)
+							.getEntity(columnContentModelId);
+					// 将自定义模型编号设置为key值
+					contentModelMap.put(columnContentModelId, contentModel.getCmTableName());
+					parserParams.put(ParserUtil.TABLE_NAME, contentModel.getCmTableName());
+				}
+			}
+			// 第一篇文章没有上一篇
+			if (artId > 0) {
+				ColumnArticleIdBean preCaBean = articleIdList.get(artId - 1);
+				//判断当前文档是否与上一页文章在同一栏目下，并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
+				if(articleColumnPath.contains(preCaBean.getCategoryId()+"")){
+					page.setPreId(preCaBean.getArticleId());
+				}
+			}
+			// 最后一篇文章没有下一篇
+			if (artId + 1 < articleIdList.size()) {
+				ColumnArticleIdBean nextCaBean = articleIdList.get(artId + 1);
+				//判断当前文档是否与下一页文章在同一栏目下并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
+				if(articleColumnPath.contains(nextCaBean.getCategoryId()+"")){
+					page.setNextId(nextCaBean.getArticleId());
+				}
+			}
+			break;
+		}
 		try {
 			//根据模板路径，参数生成
 			content = CmsParserUtil.generate(column.getColumnUrl(), map, isMobileDevice(req));

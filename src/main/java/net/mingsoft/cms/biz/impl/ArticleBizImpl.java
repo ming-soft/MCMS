@@ -1,5 +1,5 @@
 /**
-The MIT License (MIT) * Copyright (c) 2016 铭飞科技(mingsoft.net)
+ The MIT License (MIT) * Copyright (c) 2016 铭飞科技(mingsoft.net)
 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,43 +43,43 @@ import net.mingsoft.mdiy.biz.IContentModelBiz;
 import net.mingsoft.mdiy.entity.ContentModelEntity;
 
 /**
- * 
- * @ClassName:  ArticleBizImpl   
- * @Description:TODO(文章管理业务层实现类 || 继承BasicBizImpl || 实现IArticleBiz)   
+ *
+ * @ClassName:  ArticleBizImpl
+ * @Description:TODO(文章管理业务层实现类 || 继承BasicBizImpl || 实现IArticleBiz)
  * @author: 铭飞开发团队
- * @date:   2018年1月31日 下午2:53:53   
- *     
+ * @date:   2018年1月31日 下午2:53:53
+ *
  * @Copyright: 2018 www.mingsoft.net Inc. All rights reserved.
  */
 @Service("ArticleBizImpl")
 public class ArticleBizImpl extends BasicBizImpl implements IArticleBiz {
 
-	
+
 	/**
 	 * 文章持久化处理
 	 */
 	private IArticleDao articleDao;
-	
-	
+
+
 
 	/**
 	 * 栏目业务处理
 	 */
 	@Autowired
-	private ICategoryBiz categoryBiz; 
+	private ICategoryBiz categoryBiz;
 
 	/**
 	 * 自定类型义业务处理
 	 */
 	@Autowired
 	private IColumnBiz columnBiz;
-	
+
 	/**
 	 * 自定义模型
 	 */
 	@Autowired
 	private IContentModelBiz contentModelBiz;
-	
+
 	/**
 	 * 模块管理业务层
 	 */
@@ -94,7 +95,7 @@ public class ArticleBizImpl extends BasicBizImpl implements IArticleBiz {
 
 	/**
 	 * 获取Article的持久化层
-	 * 
+	 *
 	 * @return 返回持Article的久化对象
 	 */
 	public IArticleDao getArticleDao() {
@@ -133,7 +134,7 @@ public class ArticleBizImpl extends BasicBizImpl implements IArticleBiz {
 
 	/**
 	 * 获取IBaseDao的持久化层
-	 * 
+	 *
 	 * @return 返回持articleDao的久化对象
 	 */
 	@Override
@@ -165,7 +166,7 @@ public class ArticleBizImpl extends BasicBizImpl implements IArticleBiz {
 
 	@Override
 	public List<ArticleEntity> query(int webId, int[] basicCategoryIds, String flag, String noFlag, String orderBy,
-			boolean order,String beginTime,String endTime, ArticleEntity article) {
+									 boolean order,String beginTime,String endTime, ArticleEntity article) {
 		// TODO Auto-generated method stub
 		if(article == null) {
 			article = new ArticleEntity();
@@ -175,7 +176,7 @@ public class ArticleBizImpl extends BasicBizImpl implements IArticleBiz {
 
 	/**
 	 * 根据页面栏目的id获取与其绑定的文章实体
-	 * 
+	 *
 	 * @param basicCategoryId
 	 * @return 文章实体
 	 */
@@ -201,7 +202,7 @@ public class ArticleBizImpl extends BasicBizImpl implements IArticleBiz {
 
 	/**
 	 * 设置Article的持久化层
-	 * 
+	 *
 	 * @param articleDao
 	 */
 	@Autowired
@@ -212,6 +213,10 @@ public class ArticleBizImpl extends BasicBizImpl implements IArticleBiz {
 
 	@Override
 	public List<ColumnArticleIdBean> queryIdsByCategoryIdForParser(int categoryId, String beginTime,String endTime) {
-		return this.articleDao.queryIdsByCategoryIdForParser(categoryId,BasicUtil.getAppId(), beginTime, endTime);
+		return this.articleDao.queryIdsByCategoryIdForParser(categoryId,BasicUtil.getAppId(), beginTime, endTime,null,null);
+	}
+	@Override
+	public List<ColumnArticleIdBean> queryIdsByCategoryIdForParser(int categoryId, String beginTime,String endTime,String orderBy,String order) {
+		return this.articleDao.queryIdsByCategoryIdForParser(categoryId,BasicUtil.getAppId(), beginTime, endTime,orderBy,order);
 	}
 }
