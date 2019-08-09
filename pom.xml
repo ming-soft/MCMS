@@ -37,10 +37,15 @@
 	<dependencies>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-basic</artifactId>
+			<version>1.0.10</version>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
 			<version>1.0.8</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-upgrader</artifactId>
