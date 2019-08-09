@@ -8,6 +8,7 @@
 	<artifactId>mcms</artifactId>
 	<version>4.7.0-SNAPSHOT</version>
 	<name>ms-mcms</name>
+	<packaging>jar</packaging>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
