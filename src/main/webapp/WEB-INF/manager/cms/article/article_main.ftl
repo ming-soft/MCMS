@@ -87,7 +87,7 @@
 	        field: 'basicDateTime',
 	        title: '发布时间',
 	        align: 'center',
-	        width: 90
+	        width: 150
 	    }]
 	});
 	//查询文章标题
