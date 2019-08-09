@@ -1,5 +1,5 @@
 /**
-The MIT License (MIT) * Copyright (c) 2016 铭飞科技(mingsoft.net)
+ The MIT License (MIT) * Copyright (c) 2016 铭飞科技(mingsoft.net)
 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
@@ -33,12 +33,12 @@ import net.mingsoft.base.dao.IBaseDao;
 
 
 /**
- * 
- * @ClassName:  IArticleDao   
+ *
+ * @ClassName:  IArticleDao
  * @Description:TODO(文章管理持久化层 || 继承IBaseDao持久化层)   
  * @author: 铭飞开发团队
  * @date:   2018年1月31日 下午2:55:33   
- *     
+ *
  * @Copyright: 2018 www.mingsoft.net Inc. All rights reserved.
  */
 public interface IArticleDao extends IBaseDao {
@@ -57,11 +57,11 @@ public interface IArticleDao extends IBaseDao {
 	 */
 	@Deprecated
 	int count(@Param("webId") int webId, @Param("basicCategoryIds") int[] basicCategoryIds, @Param("flag") String flag,
-			@Param("noFlag") String noFlag, @Param("article") ArticleEntity article);
+			  @Param("noFlag") String noFlag, @Param("article") ArticleEntity article);
 
 	/**
 	 * 通过分类id获取文章内容
-	 * 
+	 *
 	 * @param categoryId
 	 *            分类编号
 	 * @return 文章集合
@@ -71,7 +71,7 @@ public interface IArticleDao extends IBaseDao {
 
 	/**
 	 * 通过视图表来查询文章总数
-	 * 
+	 *
 	 * @param basicId
 	 *            文章编号
 	 * @param contentModelTableName
@@ -81,7 +81,7 @@ public interface IArticleDao extends IBaseDao {
 
 	/**
 	 * 查找basicId上一篇文章
-	 * 
+	 *
 	 * @param appId
 	 *            应用编号
 	 * @param basicId
@@ -91,11 +91,11 @@ public interface IArticleDao extends IBaseDao {
 	 * @return
 	 */
 	ArticleEntity getNextOrPrevious(@Param("appId") int appId, @Param("basicId") int basicId,
-			@Param("flag") boolean flag, @Param("categoryId") Integer categoryId);
+									@Param("flag") boolean flag, @Param("categoryId") Integer categoryId);
 
 	/**
 	 * 根据查询文章实体总数
-	 * 
+	 *
 	 * @param tableName
 	 *            :自定义生成的表名
 	 * @param map
@@ -104,11 +104,11 @@ public interface IArticleDao extends IBaseDao {
 	 * @return 文章实体总数
 	 */
 	int getSearchCount(@Param("tableName") String tableName, @Param("map") Map<String, List> map,
-			@Param("websiteId") int websiteId, @Param("ids") String ids);
+					   @Param("websiteId") int websiteId, @Param("ids") String ids);
 
 	/**
 	 * 文章查询
-	 * 
+	 *
 	 * @para webId 网站编号
 	 * @param basicCategoryIds
 	 *            栏目编号集合
@@ -127,13 +127,13 @@ public interface IArticleDao extends IBaseDao {
 	 * @return 文章集合
 	 */
 	List<ArticleEntity> query(@Param("webId") int webId, @Param("basicCategoryIds") int[] basicCategoryIds,
-			@Param("flag") String flag, @Param("noFlag") String noFlag, @Param("orderBy") String orderBy,
-			@Param("order") boolean order, @Param("beginTime") String beginTime,@Param("endTime") String endTime, 
-			@Param("article") ArticleEntity article);
+							  @Param("flag") String flag, @Param("noFlag") String noFlag, @Param("orderBy") String orderBy,
+							  @Param("order") boolean order, @Param("beginTime") String beginTime,@Param("endTime") String endTime,
+							  @Param("article") ArticleEntity article);
 
 	/**
 	 * 根据页面栏目的id获取与其绑定的文章实体
-	 * 
+	 *
 	 * @param basicCategoryId
 	 * @return 文章实体
 	 */
@@ -142,7 +142,7 @@ public interface IArticleDao extends IBaseDao {
 
 	/**
 	 * 根据查询文章实体
-	 * 
+	 *
 	 * @param tableName
 	 *            :自定义生成的表名
 	 * @param map
@@ -152,8 +152,8 @@ public interface IArticleDao extends IBaseDao {
 	 */
 	@Deprecated
 	List<ArticleEntity> queryListForSearch(@Param("tableName") String tableName, @Param("map") Map<String, List> map,
-			 @Param("websiteId") int websiteId, @Param("ids") List ids,
-			@Param("sortMap") Map sortMap);
+										   @Param("websiteId") int websiteId, @Param("ids") List ids,
+										   @Param("sortMap") Map sortMap);
 
 	/**
 	 * 查询文章编号集合
@@ -163,5 +163,7 @@ public interface IArticleDao extends IBaseDao {
 	 * @param endTime 结束时间
 	 * @return
 	 */
-	public List<ColumnArticleIdBean> queryIdsByCategoryIdForParser(@Param("categoryId")int categoryId,@Param("appId")int appId , @Param("beginTime") String beginTime,@Param("endTime") String endTime);
+	public List<ColumnArticleIdBean> queryIdsByCategoryIdForParser(@Param("categoryId")int categoryId,@Param("appId")int appId , @Param("beginTime") String beginTime,@Param("endTime") String endTime,@Param("orderBy")String orderBy,@Param("order")String order);
+
+
 }
