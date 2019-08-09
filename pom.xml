@@ -40,10 +40,11 @@
 			<artifactId>ms-mpeople</artifactId>
 			<version>1.0.8</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-upgrader</artifactId>
-			<version>1.0.6-SNAPSHOT</version>
+			<version>1.0.6</version>
 		</dependency>
 	</dependencies>
 	<build>
