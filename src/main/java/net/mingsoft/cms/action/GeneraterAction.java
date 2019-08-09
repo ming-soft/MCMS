@@ -30,6 +30,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -194,8 +196,17 @@ public class GeneraterAction extends BaseAction {
 					CmsParserUtil.generateList(column, articleIdList.size());
 					break;
 				case ColumnEntity.COLUMN_TYPE_COVER:// 单页
+					if(articleIdList.size()==0){
+						ColumnArticleIdBean columnArticleIdBean=new ColumnArticleIdBean();
+						CopyOptions copyOptions=CopyOptions.create();
+						copyOptions.setIgnoreError(true);
+						BeanUtil.copyProperties(column,columnArticleIdBean,copyOptions);
+						articleIdList.add(columnArticleIdBean);
+					}
 					CmsParserUtil.generateBasic(articleIdList);
 					break;
+					default:
+						throw new IllegalStateException("Unexpected value: " + column.getColumnType());
 				}
 			}
 		} catch (IOException e) {
