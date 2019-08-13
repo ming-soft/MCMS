@@ -138,8 +138,7 @@ public class WebConfig implements WebMvcConfigurer {
 	 @Bean
 	 public FilterRegistrationBean xssFilterRegistration() {
 	 XSSEscapeFilter xssFilter = new XSSEscapeFilter();
-	 FilterRegistrationBean registration = new
-	 FilterRegistrationBean(xssFilter);
+	 FilterRegistrationBean registration = new FilterRegistrationBean(xssFilter);
 	 registration.addUrlPatterns("/*");
 	 return registration;
 	 }
