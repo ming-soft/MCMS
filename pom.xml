@@ -3,10 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
 	<groupId>net.mingsoft</groupId>
 	<artifactId>mcms</artifactId>
-	<version>4.7.0-SNAPSHOT</version>
+	<version>4.7.1</version>
 	<name>ms-mcms</name>
 	<properties>
 		<java.version>1.8</java.version>
@@ -38,24 +37,19 @@
 	<dependencies>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mpeople</artifactId>
-			<version>1.0.7</version>
+			<artifactId>ms-basic</artifactId>
+			<version>1.0.11</version>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mpeople</artifactId>
+			<version>1.0.8</version>
+		</dependency>
+		<!-- 此部分是铭飞平台MStroe的客户端（MStore不在铭飞开源产品范围），如果不需要使用MStore可以删除掉 -->
+		<dependency>
+			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-upgrader</artifactId>
-			<version>1.0.5-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<version>9.0.16</version>
+			<version>1.0.8</version>
 		</dependency>
 	</dependencies>
 	<build>
