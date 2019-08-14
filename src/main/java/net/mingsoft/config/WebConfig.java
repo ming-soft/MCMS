@@ -3,6 +3,7 @@ package net.mingsoft.config;
 import java.io.File;
 
 import org.springframework.aop.Advisor;
+import net.mingsoft.basic.filter.XSSEscapeFilter;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.JdkRegexpMethodPointcut;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -131,18 +132,16 @@ public class WebConfig implements WebMvcConfigurer {
 		return new DefaultPointcutAdvisor(druidStatPointcut(), druidStatInterceptor());
 	}
 
-	// /**
-	// * xssFilter注册
-	// */
-	// @Bean
-	// public FilterRegistrationBean xssFilterRegistration() {
-	// XssFilter xssFilter = new XssFilter();
-	// xssFilter.setUrlExclusion(Arrays.asList("/static/"));
-	// FilterRegistrationBean registration = new
-	// FilterRegistrationBean(xssFilter);
-	// registration.addUrlPatterns("/*");
-	// return registration;
-	// }
+	 /**
+	 * xssFilter注册
+	 */
+	 @Bean
+	 public FilterRegistrationBean xssFilterRegistration() {
+	 XSSEscapeFilter xssFilter = new XSSEscapeFilter();
+	 FilterRegistrationBean registration = new FilterRegistrationBean(xssFilter);
+	 registration.addUrlPatterns("/*");
+	 return registration;
+	 }
 
 	/**
 	 * RequestContextListener注册

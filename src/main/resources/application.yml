@@ -13,7 +13,7 @@ ms:
   
  upload: 
    path: /upload 
-   denied: exe
+   denied: .exe,.jsp
    allowed: jpg
    max-size: 1
    memory-size: 4096
