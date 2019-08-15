@@ -604,3 +604,12 @@ body{  height: 100%;}
     background-size: 132% 80%!important;
   }
 </style>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?f9a6362fff0e5ef420e8566f15e5806e";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
