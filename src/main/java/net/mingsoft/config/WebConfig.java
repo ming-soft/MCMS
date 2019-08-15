@@ -135,13 +135,13 @@ public class WebConfig implements WebMvcConfigurer {
 	 /**
 	 * xssFilter注册
 	 */
-	 @Bean
-	 public FilterRegistrationBean xssFilterRegistration() {
-	 XSSEscapeFilter xssFilter = new XSSEscapeFilter();
-	 FilterRegistrationBean registration = new FilterRegistrationBean(xssFilter);
-	 registration.addUrlPatterns("/*");
-	 return registration;
-	 }
+//	 @Bean
+//	 public FilterRegistrationBean xssFilterRegistration() {
+//	 XSSEscapeFilter xssFilter = new XSSEscapeFilter();
+//	 FilterRegistrationBean registration = new FilterRegistrationBean(xssFilter);
+//	 registration.addUrlPatterns("/*");
+//	 return registration;
+//	 }
 
 	/**
 	 * RequestContextListener注册
