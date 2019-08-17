@@ -64,14 +64,14 @@ server:
 
 # 开发环境
 建议开发者使用以下环境，这样避免版本带来的问题
-* IDE:eclipse、idea
-* DB:Mysql5.7
-* JDK:JAVA 8
-* WEB:Tomcat8
+* IDE: Eclipse、IDEA
+* DB: Mysql 5.7
+* JDK: JAVA 8
+* WEB: Tomcat 8
 
 # 运行环境
 * WEB服务器：Weblogic、Tomcat、WebSphere、JBoss、Jetty 等
-* 数据库服务器：Mysql5.7
+* 数据库服务器：Mysql 5.7
 * 操作系统：Windows、Linux、Unix 等
 
 ### 后端框架
@@ -141,6 +141,7 @@ server:
 # 文档
 * MCms标签手册 http://doc.ms.mingsoft.net/mcms-tag-guide
 * 快速开发手册 http://doc.ms.mingsoft.net/dev-guide/
+* 前端技术手册 http://doc.ms.mingsoft.net/plugs-cms/
 
 # 系统美图
 
