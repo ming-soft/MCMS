@@ -40,11 +40,27 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-b
 * 学习者：初学JAVA的同学可以下载源代码来进行学习交流；
 
 # 快速体验
-* 将项目源码导入eclipse；
+* 将项目源码导入eclipse 或 IDEA；(IDEA 需额外配置 web 资源的路径，详见[IntelliJ IDEA部署项目MCMS ](bbs.mingsoft.net/mbbs/16894/detail.do))
 * 创建数据库db-mcms-open,注意：数据库使用utf-8编码，导入doc/db-mcms-open-版本号.sql,如果升级现有系统请使用＊-up-*.sql升级，如果导入了系统对应的完整版SQL，sql升级补丁不需要重复导入； 
 * 修改src\main\resources\application-dev.yml文件中的数据库设置参数；
 * 首先先访问后台地址：http://ip|域名/项目发布名/ms/login.do，进入后台点击内容管理->静态化菜单，进行"生成主页"，"生成栏目","生成文章"操作 （注意！！！）
 * 管理员账号，用户名：msopen 密码：msopen
+
+* 地址详解(取决于你的 application.yml 里 `server` 字段的配置)： 主地址 http://localhost:<port>/<servlet.context-path>/   
+	* 后台登录 `ms/login.do`
+	* 后台管理界面 `ms/index.do`
+	* 生成的主页 `/index` 或 `/`  
+	
+**如**
+```yaml
+# Context in file application.yml
+server:
+  port: 8081
+  servlet.context-path: /ms-mcms
+  servlet.session.timeout: 60M
+```
+那么,主页是 http://localhost:8081/ms-mcms/  后台管理界面是 http://localhost:8081/ms-mcms/ms/index.do   		
+	
 
 # 开发环境
 建议开发者使用以下环境，这样避免版本带来的问题
