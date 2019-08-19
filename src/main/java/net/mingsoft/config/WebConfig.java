@@ -133,16 +133,16 @@ public class WebConfig implements WebMvcConfigurer {
 		return new DefaultPointcutAdvisor(druidStatPointcut(), druidStatInterceptor());
 	}
 
-	 /**
-	 * xssFilter注册
-	 */
-	 @Bean
-	 public FilterRegistrationBean xssFilterRegistration() {
-	 XSSEscapeFilter xssFilter = new XSSEscapeFilter();
-	 FilterRegistrationBean registration = new FilterRegistrationBean(xssFilter);
-	 registration.addUrlPatterns("/*");
-	 return registration;
-	 }
+//	 /**
+//	 * xssFilter注册
+//	 */
+//	 @Bean
+//	 public FilterRegistrationBean xssFilterRegistration() {
+//	 XSSEscapeFilter xssFilter = new XSSEscapeFilter();
+//	 FilterRegistrationBean registration = new FilterRegistrationBean(xssFilter);
+//	 registration.addUrlPatterns("/*");
+//	 return registration;
+//	 }
 
 	/**
 	 * RequestContextListener注册

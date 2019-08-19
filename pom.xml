@@ -6,6 +6,7 @@
 	<groupId>net.mingsoft</groupId>
 	<artifactId>wb-mcms</artifactId>
 	<version>4.7.1</version>
+	<packaging>war</packaging>
 	<name>ms-mcms</name>
 	<properties>
 		<java.version>1.8</java.version>
