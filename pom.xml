@@ -1,12 +1,11 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.mingsoft</groupId>
-	<artifactId>wb-mcms</artifactId>
+	<artifactId>mcms</artifactId>
 	<version>4.7.1</version>
-	<packaging>war</packaging>
 	<name>ms-mcms</name>
 	<properties>
 		<java.version>1.8</java.version>
@@ -45,6 +44,16 @@
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
 			<version>1.0.8</version>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-msso-client</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-msso-server</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<!-- 此部分是铭飞平台MStroe的客户端（MStore不在铭飞开源产品范围），如果不需要使用MStore可以删除掉 -->
 		<dependency>

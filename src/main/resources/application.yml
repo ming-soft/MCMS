@@ -2,29 +2,50 @@ server:
   port: 8080
   servlet.context-path: /ms-mcms
   servlet.session.timeout: 60M
-  
+
 logging:
- level:
-  net.mingsoft: trace
+  level:
+    net.mingsoft: trace
 ms:
- manager: 
-  path: /ms
-  view-path: /WEB-INF/manager
-  
- upload: 
-   path: /upload 
-   denied: .exe,.jsp
-   allowed: jpg
-   max-size: 1
-   memory-size: 4096
-      
+  wx:
+    app.id: wx8c96aa3db4611395
+    secret: 6502f1437c583a346f0d71c4be7d99b2
+  sso:
+    url:
+      login: http://ms.mingsoft.net/sso/login.do
+      logout: http://ms.mingsoft.net/sso/logout.do
+      token: http://ms.mingsoft.net/sso/token.do
+    session:
+      prefix: msso
+      time: 2592000
+    cookie: ms.mingsoft.net,pm.mingsoft.net,code.mingsoft.net,bbs.mingsoft.net,localhost
+  manager:
+    path: /m-admin
+    view-path: /WEB-INF/manager
+
+  upload:
+    path: /upload
+    denied: .exe,.jsp
+    allowed: jpg
+    max-size: 1
+    memory-size: 4096
+
 spring:
+  redis:
+    host: 172.17.0.1
+    port: 6380
+    password: mingsoft
+    pool:
+      max-idle: 300
+      min-idle: 0
+      max-active: 600
+      max-wait: 1000
   http.multipart.enabled: false
   profiles:
     active: dev
   mvc:
-    pathmatch: 
-     use-suffix-pattern: true
+    pathmatch:
+      use-suffix-pattern: true
   devtools:
     restart:
       enabled: true
@@ -45,7 +66,7 @@ spring:
     expose-spring-macro-helpers: true
     prefer-file-system-access: false
     template-loader-path: classpath:/WEB-INF/manager,classpath:/WEB-INF
-    settings: 
+    settings:
       template_update_delay: 1
       default_encoding: UTF-8
       classic_compatible: true
@@ -53,8 +74,8 @@ spring:
       time_format: HH:mm:ss
       datetime_format: yyyy-MM-dd HH:mm:ss
       auto_import: /include/macro.ftl as ms
-      
+
 mybatis:
   mapper-locations: classpath*:**/dao/*.xml
-  configuration: 
-   database-id: mysql
+  configuration:
+    database-id: mysql

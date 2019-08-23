@@ -1,10 +1,9 @@
 package net.mingsoft.config;
 
 import java.io.File;
-import java.util.Arrays;
 
-import net.mingsoft.basic.filter.XSSEscapeFilter;
 import org.springframework.aop.Advisor;
+import net.mingsoft.basic.filter.XSSEscapeFilter;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.JdkRegexpMethodPointcut;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -133,9 +132,9 @@ public class WebConfig implements WebMvcConfigurer {
 		return new DefaultPointcutAdvisor(druidStatPointcut(), druidStatInterceptor());
 	}
 
-//	 /**
-//	 * xssFilter注册
-//	 */
+	 /**
+	 * xssFilter注册
+	 */
 //	 @Bean
 //	 public FilterRegistrationBean xssFilterRegistration() {
 //	 XSSEscapeFilter xssFilter = new XSSEscapeFilter();

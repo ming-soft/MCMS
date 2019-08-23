@@ -1,6 +1,9 @@
-# 铭飞业务系统基础开发平台 此系统为演示版
-当前版本:4.7.0 <br/>
+# 铭飞业务系统基础开发平台
+线上ms.mingsoft.net
+
+当前版本:4.7.1 <br/>
 铭飞MS官网:http://ms.mingsoft.net<br/>
+演示版:http://demo.cms.mingsoft.net/ms/login.do<br/>
 官网同时提供一键运行版本下载，请步移官网....<br/>
 QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-blue.svg)](https://jq.qq.com/?_wv=1027&k=5oF19sl)  [![加入QQ群](https://img.shields.io/badge/一群-231212174-blue.svg)](https://jq.qq.com/?_wv=1027&k=5zykX7V)  [![加入QQ群](https://img.shields.io/badge/二群-221335098-blue.svg)](https://jq.qq.com/?_wv=1027&k=56BqFKu) 
 
