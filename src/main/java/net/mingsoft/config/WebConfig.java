@@ -6,6 +6,7 @@ import org.springframework.aop.Advisor;
 import net.mingsoft.basic.filter.XSSEscapeFilter;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.JdkRegexpMethodPointcut;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -31,6 +32,16 @@ import net.mingsoft.basic.util.BasicUtil;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+	/**
+	 * 上传路径
+	 */
+	@Value("${ms.upload.path}")
+	private String uploadFloderPath;
+	/**
+	 * 上传路径映射
+	 */
+	@Value("${ms.upload.mapping}")
+	private String uploadMapping;
 	@Bean
 	public ActionInterceptor actionInterceptor() {
 		return new ActionInterceptor();
@@ -56,21 +67,28 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		//jar包方式映射处理
 		String classPath = BasicUtil.getClassPath("");
+		//jar包获取的路径带有file
 		if (classPath.startsWith("file")) {
-			registry.addResourceHandler("/upload/**").addResourceLocations("file:" + BasicUtil.getRealPath("upload") + File.separator);
+			//判断是否设置的绝对路径
 			registry.addResourceHandler("/html/**").addResourceLocations("file:" + BasicUtil.getRealPath("html") + File.separator);
 			registry.addResourceHandler("/templets/**").addResourceLocations("file:" + BasicUtil.getRealPath("templets") + File.separator);
-		} else {
-			//必须做判断，不然jar运行的html路径会被覆盖掉
-			registry.addResourceHandler("/html/**").addResourceLocations("/html/");
+			registry.addResourceHandler("/app/**").addResourceLocations("classpath:/app/");
+			registry.addResourceHandler("/api/**").addResourceLocations("classpath:/api/");
 		}
-		registry.addResourceHandler("/app/**").addResourceLocations("/app/", "classpath:/app/");
-		registry.addResourceHandler("/static/**").addResourceLocations("/static/", "classpath:/static/");
-		registry.addResourceHandler("/api/**").addResourceLocations("/api/", "classpath:/api/");
+		//如果是绝对路径添加映射
+		if(uploadFloderPath.startsWith("file:")){
+			//如果指定了绝对路径，上传的文件都映射到uploadMapping下
+			registry.addResourceHandler(uploadMapping).addResourceLocations(uploadFloderPath+ File.separator
+					//映射其他路径文件
+					//,file:F://images
+			);
+		}
+		registry.addResourceHandler("/static/**").addResourceLocations("/static/","classpath:/static/");
+
 	}
-		/**
-         * druidServlet注册
-         */
+	/**
+	 * druidServlet注册
+	 */
 	@Bean
 	public ServletRegistrationBean druidServletRegistration() {
 		ServletRegistrationBean registration = new ServletRegistrationBean(new StatViewServlet());
@@ -132,9 +150,9 @@ public class WebConfig implements WebMvcConfigurer {
 		return new DefaultPointcutAdvisor(druidStatPointcut(), druidStatInterceptor());
 	}
 
-	 /**
-	 * xssFilter注册
-	 */
+//	 /**
+//	 * xssFilter注册
+//	 */
 //	 @Bean
 //	 public FilterRegistrationBean xssFilterRegistration() {
 //	 XSSEscapeFilter xssFilter = new XSSEscapeFilter();
@@ -156,7 +174,7 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/").setViewName("forward:/index");
-        registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		WebMvcConfigurer.super.addViewControllers(registry);
 	}
 }
