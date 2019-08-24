@@ -98,7 +98,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 	 * @param key
 	 */
 	@RequestMapping("/{diy}.do")
-	@ExceptionHandler(NullPointerException.class)
+	@ExceptionHandler(java.lang.NullPointerException.class)
 	public void diy(@PathVariable(value = "diy") String diy, HttpServletRequest req, HttpServletResponse resp) {
 		Map map = BasicUtil.assemblyRequestMap();
 		map.put(ParserUtil.URL, BasicUtil.getUrl());

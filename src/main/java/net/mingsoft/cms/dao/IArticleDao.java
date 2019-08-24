@@ -57,7 +57,7 @@ public interface IArticleDao extends IBaseDao {
 	 */
 	@Deprecated
 	int count(@Param("webId") int webId, @Param("basicCategoryIds") int[] basicCategoryIds, @Param("flag") String flag,
-              @Param("noFlag") String noFlag, @Param("article") ArticleEntity article);
+			  @Param("noFlag") String noFlag, @Param("article") ArticleEntity article);
 
 	/**
 	 * 通过分类id获取文章内容
@@ -91,7 +91,7 @@ public interface IArticleDao extends IBaseDao {
 	 * @return
 	 */
 	ArticleEntity getNextOrPrevious(@Param("appId") int appId, @Param("basicId") int basicId,
-                                    @Param("flag") boolean flag, @Param("categoryId") Integer categoryId);
+									@Param("flag") boolean flag, @Param("categoryId") Integer categoryId);
 
 	/**
 	 * 根据查询文章实体总数
@@ -104,7 +104,7 @@ public interface IArticleDao extends IBaseDao {
 	 * @return 文章实体总数
 	 */
 	int getSearchCount(@Param("tableName") String tableName, @Param("map") Map<String, List> map,
-                       @Param("websiteId") int websiteId, @Param("ids") String ids);
+					   @Param("websiteId") int websiteId, @Param("ids") String ids);
 
 	/**
 	 * 文章查询
@@ -127,9 +127,9 @@ public interface IArticleDao extends IBaseDao {
 	 * @return 文章集合
 	 */
 	List<ArticleEntity> query(@Param("webId") int webId, @Param("basicCategoryIds") int[] basicCategoryIds,
-                              @Param("flag") String flag, @Param("noFlag") String noFlag, @Param("orderBy") String orderBy,
-                              @Param("order") boolean order, @Param("beginTime") String beginTime, @Param("endTime") String endTime,
-                              @Param("article") ArticleEntity article);
+							  @Param("flag") String flag, @Param("noFlag") String noFlag, @Param("orderBy") String orderBy,
+							  @Param("order") boolean order, @Param("beginTime") String beginTime,@Param("endTime") String endTime,
+							  @Param("article") ArticleEntity article);
 
 	/**
 	 * 根据页面栏目的id获取与其绑定的文章实体
@@ -152,8 +152,8 @@ public interface IArticleDao extends IBaseDao {
 	 */
 	@Deprecated
 	List<ArticleEntity> queryListForSearch(@Param("tableName") String tableName, @Param("map") Map<String, List> map,
-                                           @Param("websiteId") int websiteId, @Param("ids") List ids,
-                                           @Param("sortMap") Map sortMap);
+										   @Param("websiteId") int websiteId, @Param("ids") List ids,
+										   @Param("sortMap") Map sortMap);
 
 	/**
 	 * 查询文章编号集合
@@ -163,7 +163,7 @@ public interface IArticleDao extends IBaseDao {
 	 * @param endTime 结束时间
 	 * @return
 	 */
-	public List<ColumnArticleIdBean> queryIdsByCategoryIdForParser(@Param("categoryId") int categoryId, @Param("appId") int appId, @Param("beginTime") String beginTime, @Param("endTime") String endTime, @Param("orderBy") String orderBy, @Param("order") String order);
+	public List<ColumnArticleIdBean> queryIdsByCategoryIdForParser(@Param("categoryId")int categoryId,@Param("appId")int appId , @Param("beginTime") String beginTime,@Param("endTime") String endTime,@Param("orderBy")String orderBy,@Param("order")String order);
 
 
 }
