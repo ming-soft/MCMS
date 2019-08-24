@@ -137,7 +137,7 @@ public interface IArticleBiz extends IBasicBiz {
 	 * @return 文章集合
 	 */
 	List<ArticleEntity> query(int webId, int[] basicCategoryIds, String flag, String noFlag, String orderBy,
-							  boolean order, String beginTime,String endTime, ArticleEntity article);
+                              boolean order, String beginTime, String endTime, ArticleEntity article);
 
 	/**
 	 * 查询文章编号集合
@@ -146,7 +146,7 @@ public interface IArticleBiz extends IBasicBiz {
 	 * @param endTime 结束时间
 	 * @return
 	 */
-	public List<ColumnArticleIdBean> queryIdsByCategoryIdForParser(int categoryId, String beginTime,String endTime);
+	public List<ColumnArticleIdBean> queryIdsByCategoryIdForParser(int categoryId, String beginTime, String endTime);
 	/**
 	 * 查询文章编号集合
 	 * @param categoryId 栏目编号
@@ -156,7 +156,7 @@ public interface IArticleBiz extends IBasicBiz {
 	 * @param order 排序方式
 	 * @return
 	 */
-	public List<ColumnArticleIdBean> queryIdsByCategoryIdForParser(int categoryId, String beginTime,String endTime,String orderBy,String order);
+	public List<ColumnArticleIdBean> queryIdsByCategoryIdForParser(int categoryId, String beginTime, String endTime, String orderBy, String order);
 	/**
 	 * 根据页面栏目的id获取与其绑定的文章实体
 	 *
@@ -186,6 +186,6 @@ public interface IArticleBiz extends IBasicBiz {
 	 */
 	@Deprecated
 	public List<ArticleEntity> queryListForSearch(ContentModelEntity conntentModel, Map whereMap,
-												  int appId, List ids, Map orders);
+                                                  int appId, List ids, Map orders);
 
 }

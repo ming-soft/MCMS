@@ -19,7 +19,7 @@ public class FreemarkerConfig {
 	@Autowired  
     protected freemarker.template.Configuration configuration;  
 	@Autowired  
-	protected org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer configurer;  
+	protected FreeMarkerConfigurer configurer;
     @Autowired  
     protected org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver resolver;  
     @Autowired  

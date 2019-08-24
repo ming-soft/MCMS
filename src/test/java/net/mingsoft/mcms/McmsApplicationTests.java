@@ -1,4 +1,4 @@
-//package net.mingsoft.mcms;
+package net.mingsoft.mcms;//package net.mingsoft.mcms;
 //
 //import org.junit.Test;
 //import org.junit.runner.RunWith;

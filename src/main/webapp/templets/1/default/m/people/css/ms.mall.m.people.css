@@ -1,0 +1,1371 @@
+.am-form input[type=number]:focus,
+.am-form input[type=search]:focus,
+.am-form input[type=text]:focus,
+.am-form input[type=password]:focus,
+.am-form input[type=datetime]:focus,
+.am-form input[type=datetime-local]:focus,
+.am-form input[type=date]:focus,
+.am-form input[type=month]:focus,
+.am-form input[type=time]:focus,
+.am-form input[type=week]:focus,
+.am-form input[type=email]:focus,
+.am-form input[type=url]:focus,
+.am-form input[type=tel]:focus,
+.am-form input[type=color]:focus,
+.am-form select:focus,
+.am-form textarea:focus,
+.am-form-field:focus {
+  box-shadow: none;
+}
+/*收获地址列表样式*/
+.address {
+  font-size: 1em;
+  margin: 0em auto;
+  color: #fff;
+  width: 93.75%;
+  height: 3em;
+  margin-top: .6em;
+  margin-bottom: 0.6em;
+}
+.ms-address-add .ms-list-news-border {
+  padding: 0em 0em!important;
+  margin-bottom: 2em!important;
+  margin: 0em;
+  padding: 0em 1em;
+}
+.ms-address-add .ms-list-news-border .ms-list-border {
+  border-top: none!important;
+  margin-bottom: 0.1em!important;
+  padding: 1rem 1em;
+  line-height: 2.5em;
+}
+.ms-address-add .ms-list-news-border .ms-list-border .am-list-item-hd {
+  font-weight: 100;
+}
+.ms-address-add .ms-list-news-border .ms-list-border .ms-input {
+  border: 0em;
+  margin-top: 0.2em;
+  width: 70%;
+}
+.ms-address-add .ms-list-news-border .ms-list-border .ms-address-default {
+  width: 92%;
+}
+.ms-address-add .ms-list-border {
+  border-top: none!important;
+  margin-bottom: 0.1em!important;
+  padding: 1rem 1em;
+  line-height: 2.5em;
+}
+.ms-address-add .ms-list-border .am-list-item-hd {
+  font-weight: 100;
+}
+.ms-address-add .ms-list-border .ms-input {
+  border: 0em;
+  margin-top: 0.2em;
+  width: 70%;
+}
+.ms-address-add .ms-list-border .ms-address-default {
+  width: 92%;
+}
+.ms-address-add .ms-address-add-btn {
+  background: #fff;
+  text-align: center;
+  width: 100%;
+}
+.ms-address-add .ms-address-add-btn .ms-save-address {
+  font-size: 1em;
+  margin: 0em auto;
+  width: 93.75%;
+  height: 3em;
+  margin-top: .6em;
+  margin-bottom: 0.6em;
+  background: #f23030;
+  color: #fff;
+  line-height: 2em;
+}
+.ms-address-add .ms-address-add-btn .ms-back-address {
+  font-size: 1em;
+  margin: 0em auto;
+  color: #fff;
+  width: 93.75%;
+  height: 3em;
+  margin-top: .6em;
+  margin-bottom: 0.6em;
+  background: #f3f5f7;
+  color: #999;
+  line-height: 2em;
+}
+.ms-address-add .am-btn-group-stacked > .am-btn + .am-btn {
+  margin: 0em auto;
+}
+
+.ms-address {
+  background: #f5f5f5;
+}
+.ms-address .ms-list-news-border {
+  padding: 0em 0em!important;
+  margin-bottom: 6em!important;
+}
+.ms-address .ms-list-news-border .loading-pic {
+  width: 100%;
+  height: 300px;
+  background: url(http://cdn.mingsoft.net/skin/manager/4.6.0/images/loading.gif) no-repeat center;
+  background-size: 15%;
+  position: fixed;
+  z-index: 1000;
+}
+.ms-address .ms-list-news-border .ms-nothing {
+  margin: 15px;
+}
+.ms-address .ms-list-news-border .ms-list-border {
+  border-top: none!important;
+  margin-bottom: 0.5em!important;
+  padding: 0.7rem 1rem 0 1rem;
+}
+.ms-address .ms-list-news-border .ms-list-border .ms-contact-font {
+  font-size: 1em;
+  color: #232326;
+  font-weight: 400!important;
+}
+.ms-address .ms-list-news-border .ms-list-border .ms-contact-address-font {
+  color: #686868!important;
+  font-size: 0.8em;
+  -webkit-line-clamp: 1!important;
+}
+.ms-address .ms-list-news-border .ms-list-border .ms-contact-address-font .ms-sitem-tip {
+  margin-right: 0.5em;
+  padding: .2em .6em;
+  background: #f23030;
+  color: #fff;
+  font-size: .875em;
+  font-style: normal;
+}
+.ms-address .ms-list-news-border .ms-list-border .ms-address-border {
+  padding: 0em 0em 0em .7em;
+  margin-top: 0.6em;
+  height: 2em;
+  width: 2.2em;
+  border-left: 0.06em solid #dedede;
+  text-align: center;
+}
+.ms-address .ms-list-news-border .ms-list-border .ms-address-border .ms-address-del {
+  color: black;
+  font-size: 1em;
+}
+.ms-address .ms-list-news-border {
+  margin: 0em;
+  padding: 0em 1em;
+  font-weight: 100!important;
+}
+.ms-address .ms-address-btn {
+  background: #fff;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 6;
+}
+.ms-address .ms-address-btn .ms-new-address {
+  font-size: 1em;
+  background: #f23030;
+  color: #fff;
+  width: 93.75%;
+  height: 3em;
+  margin-top: .6em;
+  margin-bottom: 0.6em;
+}
+
+.email-bind {
+  background-color: #f6f6f6;
+  height: 100%;
+  width: 100%;
+}
+.email-bind .ms-background {
+  background-color: #ffffff;
+}
+.email-bind .ms-background .ms-padding {
+  padding: 0 1em 1em 1em;
+}
+.email-bind .ms-background .ms-padding .ms-padding-right {
+  text-align: left;
+  padding-right: 0.2em;
+}
+.email-bind .ms-background .ms-padding .ms-email-input {
+  width: 34%;
+}
+.email-bind .ms-background .ms-padding .ms-email-input input {
+  margin: 0.4em 1em;
+  outline: none;
+  border: none;
+  outline: medium;
+}
+.email-bind .ms-background .ms-padding .ms-email-input .ms-width {
+  width: 100%;
+}
+.email-bind .ms-background .ms-padding .ms-padding-left {
+  padding-left: 0.2em;
+}
+.email-bind .ms-background .ms-padding .ms-padding-left .ms-font {
+  color: #c70034;
+  font-size: .8em;
+  line-height: 2em;
+  padding-left: 0.7em;
+}
+.email-bind .ms-background .ms-padding .ms-border {
+  margin: 0.4em 0;
+  height: 2em;
+  width: 6.5em;
+  border-left: 1px solid #d5d5d5;
+}
+.email-bind .ms-background .ms-padding .ms-border .ms-font {
+  color: #c70034;
+  font-size: .8em;
+  line-height: 2em;
+  padding-left: 0.7em;
+}
+.email-bind .ms-background .ms-padding .ms-form-group {
+  overflow: hidden;
+}
+.email-bind .ms-background .ms-padding .ms-form-group .ms-padding-right {
+  text-align: left;
+  padding-right: 0.2em;
+}
+.email-bind .ms-background .ms-padding .ms-form-group .ms-padding-left {
+  padding-left: 0.2em;
+}
+.email-bind .ms-background .ms-padding .ms-form-group .ms-border {
+  margin: 0.4em 0;
+  height: 2em;
+  width: 6.5em;
+  border-left: 1px solid #d5d5d5;
+}
+.email-bind .ms-background .ms-padding .ms-form-group .ms-email-phone-width {
+  width: 19%;
+}
+.email-bind .ms-background .ms-padding .ms-form-group .ms-email-input {
+  width: 34%;
+}
+.email-bind .ms-background .ms-padding .ms-form-group .ms-email-input input {
+  width: 100%;
+}
+.email-bind .ms-background .ms-padding .ms-form-group .ms-email-phone-input {
+  width: 81%;
+}
+.email-bind .ms-background .ms-padding .ms-form-group .ms-email-phone-input input {
+  margin: 0.4em 1em;
+  outline: none;
+  border: none;
+  outline: medium;
+}
+.email-bind .ms-background .ms-padding .ms-font-size {
+  font-size: 0.7em;
+  color: #999;
+}
+.email-bind .ms-background .ms-padding .ms-font-size .ms-font-margin {
+  margin: 1em;
+}
+.email-bind .ms-background .ms-padding .ms-margin {
+  padding: 0 1em 1em 1em;
+}
+.email-bind .ms-background .ms-padding .ms-margin .ms-padding-left {
+  padding-left: 0;
+}
+.email-bind .ms-background .ms-padding .ms-margin .ms-font-margin {
+  margin: 1em;
+}
+.email-bind .ms-background .ms-padding .ms-top-bottom {
+  margin: 0.1em 0;
+}
+.email-bind .loading-pic {
+  width: 100%;
+  height: 300px;
+  background: url(http://cdn.mingsoft.net/skin/manager/4.6.0/images/loading.gif) no-repeat center;
+  background-size: 15%;
+  z-index: 1000;
+}
+.email-bind .ms-btn-background {
+  border: none;
+  background: #888;
+}
+.email-bind .am-form input[type=email] {
+  border: none;
+}
+
+div.ms-center {
+  overflow: hidden;
+  background-color: #f3f5f7;
+}
+div.ms-center .ms-panel-margin {
+  margin-bottom: 0.5em;
+  font-family: Arial, sans-serif;
+}
+div.ms-center .ms-panel-margin .ms-auto {
+  text-align: center;
+  padding: 0.5em;
+  width: 33.33333333%;
+}
+div.ms-center .ms-panel-margin .ms-content-bg {
+  background: url(../images/center-bg.png) no-repeat bottom;
+  background-size: 100% 100%;
+  width: 100%;
+}
+div.ms-center .ms-panel-margin .ms-content-bg .am-list-news-hd {
+  padding: 0em;
+}
+div.ms-center .ms-panel-margin .ms-content-bg .am-list-news-hd .am-list {
+  margin: .6em;
+}
+div.ms-center .ms-panel-margin .ms-content-bg .am-list-news-hd .am-list .ms-center-portrait {
+  margin-right: 1em;
+  height: 73px;
+  width: 73px;
+  background: #f7f7f7;
+  border-radius: 100%;
+}
+div.ms-center .ms-panel-margin .ms-content-bg .am-list-news-hd .am-list .ms-center-portrait .ms-head {
+  width: 73px;
+  height: 73px;
+}
+div.ms-center .ms-panel-margin .ms-content-bg .am-list-news-hd .am-list .ms-center-name-img {
+  margin-top: .6em;
+  padding-left: 0em;
+}
+div.ms-center .ms-panel-margin .ms-content-bg .am-list-news-hd .am-list .ms-center-name-img h3 {
+  margin-bottom: .4em;
+}
+div.ms-center .ms-panel-margin .ms-content-bg .am-list-news-hd .am-list .ms-center-name-img h3 a {
+  color: #ffffff;
+}
+div.ms-center .ms-panel-margin .ms-content-bg .am-list-news-hd .am-list .ms-center-name-img .am-list-item-text {
+  width: 7.4em;
+}
+div.ms-center .ms-panel-margin .ms-content-bg .am-list-news-hd .am-list .ms-center-name-img .am-list-item-text img {
+  width: 100%;
+  height: 100%;
+}
+div.ms-center .ms-panel-margin .ms-content-bg .am-list-news-hd .am-list > li {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: none;
+}
+div.ms-center .ms-panel-margin .ms-color {
+  color: #666;
+  font-size: 0.95em;
+  font-weight: 100;
+}
+div.ms-center .ms-panel-margin .ms-background-color {
+  background-color: rgba(255, 255, 255, 0);
+}
+div.ms-center .ms-panel-margin .ms-background-color .ms-update-padding {
+  padding-top: 0.2em;
+  padding-bottom: 0.3em;
+}
+div.ms-center .ms-panel-margin .ms-background-color .ms-update-padding .ms-font-color {
+  color: #666;
+}
+div.ms-center .ms-margin {
+  margin: 0;
+}
+div.ms-center .ms-delete-padding {
+  padding: 0;
+}
+div.ms-center .ms-delete-padding .ms-menu-4 {
+  padding: 0.5em;
+  text-align: center;
+}
+div.ms-center .ms-delete-padding .ms-menu-4 .ms-color {
+  color: #666;
+  font-size: 1.6em;
+}
+div.ms-center .ms-delete-padding .ms-menu-4 .ms-font {
+  font-size: 0.8em;
+  color: #666;
+  font-weight: 100;
+}
+div.ms-center .ms-delete-padding .ms-menu-4 img {
+  margin: 0.5em 0;
+}
+div.ms-center .ms-center-title {
+  border-bottom: white;
+}
+div.ms-center .ms-center-list {
+  padding: 0px;
+}
+div.ms-center .ms-center-list .ms-center-address {
+  margin-bottom: -0.6em;
+}
+div.ms-center .ms-center-list li {
+  padding: 0.8em 1.0em;
+  font-size: 0.9em;
+  line-height: 1.8em;
+}
+div.ms-center .ms-center-list li span {
+  color: #888;
+}
+div.ms-center .ms-center-list li .ms-center-address-border {
+  border: white;
+}
+div.ms-center .ms-center-list .ms-center-button {
+  width: 90%;
+  margin: 1em auto;
+}
+div.ms-center .ms-center-list .ms-center-list-a {
+  padding: 0;
+  color: #555;
+  display: inline;
+}
+div.ms-center .ms-center-list .ms-center-border-top {
+  border-top: white;
+}
+div.ms-center .ms-center-list .ms-center-border-bottom {
+  border-bottom: white;
+}
+div.ms-center .ms-footer {
+  font-size: 0.6em;
+  padding: 0;
+}
+div.ms-center .ms-sex-padding {
+  padding-bottom: 1em;
+}
+div.ms-center .active {
+  color: #dd514c;
+}
+div.ms-people-info {
+  background-color: #fff;
+}
+div.ms-people-info .ms-info-title {
+  color: #666;
+}
+div.ms-people-info .ms-iconfont {
+  font-size: 1.4rem;
+}
+div.ms-people-info .am-list .am-list-item-dated a.ms-info-operate {
+  padding-right: 0px;
+}
+div.ms-people-info .ms-center-button {
+  margin-bottom: 10px;
+}
+
+.ms-password-change {
+  background: #f3f5f7 !important;
+}
+.ms-password-change .ms-form {
+  margin: 1em;
+}
+.ms-password-change .ms-btn {
+  color: #fff;
+  background-color: #ddd;
+}
+.ms-password-change .ms-text {
+  font-size: .8em;
+  font-weight: 200;
+}
+
+.ms-order-confirm {
+  display: none;
+}
+.ms-order-confirm .ms-order-confirm-position {
+  position: relative;
+}
+.ms-order-confirm .ms-order-confirm-position .ms-update-padding {
+  padding-left: .1em;
+}
+.ms-order-confirm .ms-order-confirm-position .ms-update-padding .ms-padding {
+  padding-left: 1.5em;
+  padding-top: 0.6em;
+  font-size: 1.3em;
+  color: #252525;
+  font-weight: bold;
+}
+.ms-order-confirm .ms-order-confirm-position .ms-update-padding .ms-padding .ms-padding-margin {
+  margin-left: 0.3em;
+}
+.ms-order-confirm .ms-order-confirm-position .ms-update-padding .ms-margin {
+  margin-top: 0;
+}
+.ms-order-confirm .ms-order-confirm-position .ms-update-padding .ms-margin-text {
+  margin-top: .5em;
+  margin-left: .5em;
+}
+.ms-order-confirm .ms-order-confirm-position .ms-update-padding .ms-text-color {
+  color: #6e6e6e;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  height: 3em;
+}
+.ms-order-confirm .ms-order-confirm-position .ms-icon-top {
+  margin-top: 1.3em;
+  color: black;
+}
+.ms-order-confirm .ms-order-confirm-position .ms-order-confirm-background {
+  position: absolute;
+  bottom: -0.2em;
+  left: 0;
+  height: 0.2em;
+  width: 100%;
+  background: url(../images/location-border.png) repeat-x;
+  background-size: 6.2em 0.2em;
+}
+.ms-order-confirm .ms-g {
+  font-size: small;
+}
+.ms-order-confirm .ms-g .ms-update-padding {
+  padding-left: .1em;
+}
+.ms-order-confirm .ms-g .ms-update-padding .ms-padding {
+  padding-left: 1.5em;
+  padding-top: 0.6em;
+  font-size: 1.3em;
+  color: #252525;
+  font-weight: bold;
+}
+.ms-order-confirm .ms-g .ms-update-padding .ms-padding .ms-padding-margin {
+  margin-left: 0.3em;
+}
+.ms-order-confirm .ms-g .ms-update-padding .ms-margin {
+  margin-top: 0;
+}
+.ms-order-confirm .ms-g .ms-update-padding .ms-margin-text {
+  margin-top: .5em;
+  margin-left: .5em;
+}
+.ms-order-confirm .ms-g .ms-update-padding .ms-text-color {
+  color: #6e6e6e;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  height: 3em;
+}
+.ms-order-confirm .ms-g .ms-icon-top {
+  margin-top: 1.3em;
+  color: black;
+}
+.ms-order-confirm .ms-g .ms-order-confirm-background {
+  position: absolute;
+  bottom: -0.2em;
+  left: 0;
+  height: 0.2em;
+  width: 100%;
+  background: url(../images/location-border.png) repeat-x;
+  background-size: 6.2em 0.2em;
+}
+.ms-order-confirm .ms-order-confirm-title {
+  width: 70%;
+  font-size: 0.8em;
+}
+.ms-order-confirm .ms-order-confirm-title .ms-order-confirm-ul {
+  margin: 0;
+}
+.ms-order-confirm .ms-order-confirm-title .ms-order-confirm-ul .ms-text-color {
+  color: #6e6e6e;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  height: 3em;
+}
+.ms-order-confirm .ms-order-confirm-title .ms-order-confirm-ul .ms-list-style {
+  margin-left: -1.5em;
+}
+.ms-order-confirm .ms-order-confirm-title .ms-order-confirm-ul .ms-list-style .ms-color {
+  color: #d73d3c;
+  font-size: 1.2em;
+}
+.ms-order-confirm .ms-order-confirm-title .ms-order-confirm-ul .ms-list-style .ms-icon-margin {
+  margin-left: 1.5em;
+}
+.ms-order-confirm .ms-order-confirm-title .ms-order-confirm-ul .ms-price-margin {
+  margin-top: 0.5em;
+  margin-left: -1.5em;
+  padding-top: 1.5em;
+}
+.ms-order-confirm .ms-order-confirm-title .ms-order-confirm-ul .ms-price-margin .ms-color {
+  color: #d73d3c;
+  font-size: 1.2em;
+}
+.ms-order-confirm .ms-order-confirm-title .ms-order-confirm-ul .ms-price-margin .ms-icon-margin {
+  margin-left: 1.5em;
+}
+.ms-order-confirm .ms-delete-margin {
+  margin-bottom: 0;
+}
+.ms-order-confirm .ms-delete-margin .ms-panel-margin {
+  margin-bottom: 1em;
+}
+.ms-order-confirm .ms-delete-margin .ms-panel-margin .ms-font-size {
+  font-size: 1.1em;
+}
+.ms-order-confirm .ms-delete-margin .ms-panel-margin ms-panel-size {
+  font-size: 1em;
+}
+.ms-order-confirm .ms-delete-margin .ms-textarea {
+  width: 100%;
+  border: .1em solid #dedede;
+}
+.ms-order-confirm .ms-center {
+  text-align: center;
+  color: #d73d3c;
+  background-color: #fff;
+}
+.ms-order-confirm .ms-center .ms-center-size {
+  font-size: 1em;
+}
+.ms-order-confirm .ms-center .ms-stress-size {
+  font-size: 1.5em;
+}
+.ms-order-confirm .ms-footer-padding {
+  padding: 1em;
+}
+.ms-order-confirm .ms-footer-padding .ms-btn-padding {
+  font-size: 1em;
+  color: #ffdcd9;
+  background-color: #f23030;
+  border-color: #f23030;
+}
+.ms-order-confirm .ms-img-margin {
+  margin-top: .5em;
+}
+.ms-order-confirm .ms-update-padding li,
+.ms-order-confirm .ms-list-style {
+  list-style: none;
+}
+
+.ms-favorite .ms-favorite-list {
+  margin: 0 1em;
+}
+.ms-favorite .ms-favorite-list .ms-favorite-li {
+  border-top-color: white;
+  margin-bottom: 0;
+}
+.ms-favorite .ms-favorite-list .ms-favorite-li .ms-favorite-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  font-size: 0.8em;
+  color: black;
+}
+.ms-favorite .ms-favorite-list .ms-favorite-li .ms-favorite-cancel {
+  float: right;
+  margin-top: 1em;
+  border: 1px solid #cecdcd;
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  font-size: 0.6em;
+  line-height: 1.5em;
+}
+.ms-favorite .loading-pic {
+  width: 100%;
+  height: 300px;
+  background: url(http://cdn.mingsoft.net/skin/manager/4.6.0/images/loading.gif) no-repeat center;
+  background-size: 15%;
+}
+.ms-favorite .ms-nothing {
+  margin: 15px;
+}
+
+.ms-password-forget-2 {
+  background-color: #f3f5f7;
+  min-height: 25em;
+}
+.ms-password-forget-2 .ms-margin {
+  margin-top: 2em;
+}
+.ms-password-forget-2 .ms-margin .ms-text-warning {
+  color: #d73d3c;
+  font-size: 1em;
+  font-weight: 500;
+}
+.ms-password-forget-2 .ms-margin .ms-margin-text {
+  margin-bottom: 1em;
+}
+.ms-password-forget-2 .ms-margin .ms-margin-text .ms-text {
+  font-size: .9em;
+}
+.ms-password-forget-2 .ms-margin .ms-margin-text .ms-num {
+  font-size: .85em;
+}
+.ms-password-forget-2 .ms-margin .ms-monospace {
+  margin-top: 5em;
+  font-size: .9em;
+}
+.ms-password-forget-2 .ms-margin .ms-monospace .ms-link-text {
+  margin-left: -0.5em;
+  text-decoration: underline;
+}
+.ms-password-forget-2 .ms-margin .am-input-group .ms-btn {
+  border-color: #f3f5f7;
+  background-color: #ddd;
+}
+.ms-password-forget-2 .ms-margin .am-input-group .ms-text {
+  font-size: .9em;
+}
+.ms-password-forget-2 .ms-margin .ms-submit {
+  color: #fff;
+  margin-top: 2em;
+  width: 100%;
+}
+
+.ms-password-forget-3 {
+  background: #f3f5f7!important;
+}
+.ms-password-forget-3 .ms-form {
+  margin: 1em;
+}
+.ms-password-forget-3 .ms-span {
+  font-size: 0.8em;
+  margin-left: 1.5em;
+  margin-right: 1.5em;
+  color: #383030;
+}
+.ms-password-forget-3 .ms-span .ms-btn {
+  text-align: center;
+  color: #fff;
+  margin-top: 2em;
+}
+.ms-password-forget-3 .ms-span .ms-btn .ms-submit {
+  color: #fff;
+  width: 100%;
+}
+.ms-password-forget-3 .ms-span .ms-monospace {
+  margin-top: 5em;
+  font-size: .9em;
+}
+.ms-password-forget-3 .ms-span .ms-monospace .ms-link-text {
+  margin-left: -0.5em;
+  text-decoration: underline;
+}
+.ms-password-forget-3 .ms-text {
+  font-size: .8em;
+  font-weight: 200;
+}
+
+.ms-password-forget {
+  background: #f4f5f7;
+  min-height: 25em;
+}
+.ms-password-forget .ms-form-group {
+  margin-left: 1em;
+  margin-right: 1em;
+  margin-top: 1.5em;
+}
+.ms-password-forget .ms-form-group .ms-input-label {
+  background-color: #fff;
+  border: 1px solid #eee;
+}
+.ms-password-forget .ms-form-group input .ms-input-label {
+  background-color: #fff;
+  border: 1px solid #eee;
+}
+.ms-password-forget .ms-input-group {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+.ms-password-forget .ms-input-group .ms-input-label {
+  background-color: #fff;
+  border: 1px solid #eee;
+}
+.ms-password-forget .ms-input-group .ms-input-label .ms-valiDateCode {
+  border: 0.1em;
+  height: 2em;
+  border-color: #000000;
+}
+.ms-password-forget .ms-btn {
+  margin-top: 1.5em;
+  margin-left: 1em;
+  margin-right: 1em;
+  background-color: #ddd;
+}
+.ms-password-forget .ms-submit {
+  color: #fff;
+  width: 100%;
+}
+.ms-password-forget .ms-input {
+  height: 2em;
+}
+
+div.ms-cart-goods {
+  background: #f0f2f5;
+  overflow: hidden;
+  display: none;
+}
+div.ms-cart-goods .loading-pic {
+  width: 100%;
+  height: 300px;
+  background: url('http://cdn.mingsoft.net/skin/manager/4.6.0/images/loading.gif') no-repeat center #ffffff;
+  background-size: 15%;
+}
+div.ms-cart-goods .ms-one-checkbox {
+  background: url(../images/cart-input.png) no-repeat;
+}
+div.ms-cart-goods .ms-all-checkbox {
+  background: url(../images/cart-input.png) no-repeat;
+}
+div.ms-cart-goods .ms-active-checkbox {
+  background: url(../images/cart-active.png) no-repeat;
+}
+div.ms-cart-goods .ms-checkbox {
+  padding-left: 8px;
+  background-size: 20px;
+  background-position: 2px 0px;
+}
+div.ms-cart-goods .ms-one-checkbox {
+  padding-left: 26px;
+}
+div.ms-cart-goods .ms-all-checkbox {
+  padding-left: 25px;
+  background-position: 11px 0px;
+}
+div.ms-cart-goods .ms-nothing {
+  margin: 15px;
+}
+div.ms-cart-goods .ms-cart-goods-div {
+  margin: 0.2em;
+}
+div.ms-cart-goods .ms-cart-goods-div .ms-checkbox-margin {
+  margin: 0.5em;
+}
+div.ms-cart-goods .ms-cart-goods-div .ms-cart-goods-checkbox-min {
+  margin-top: 2.1em;
+}
+div.ms-cart-goods .ms-cart-goods-div .ms-cart-goods-list-img {
+  width: 6.3em;
+  margin-right: 1em;
+}
+div.ms-cart-goods .ms-cart-goods-div .ms-cart-goods-list-title {
+  margin-right: 0.4em;
+}
+div.ms-cart-goods .ms-cart-goods-div .ms-cart-goods-list-title .ms-cart-goods-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  color: #757575;
+  font-size: 0.8em;
+}
+div.ms-cart-goods .ms-cart-goods-div .ms-cart-goods-list-title #ms-cart-goods-price {
+  font-size: 1em;
+  color: red;
+}
+div.ms-cart-goods .ms-cart-goods-div .ms-cart-goods-list-title .ms-cart-goods-right {
+  margin-right: 0.3em;
+  margin-top: 0.5em;
+}
+div.ms-cart-goods .ms-cart-goods-div .ms-cart-goods-list-title .ms-cart-goods-right .ms-cart-goods-btn {
+  background-color: #fff;
+  padding: .3em .3em;
+  border-color: #eeeeee;
+  width: 2em;
+  text-align: center;
+  line-height: 15px;
+  float: left;
+  border: 1px solid #eee;
+  height: 24px;
+}
+div.ms-cart-goods .ms-cart-goods-div .ms-cart-goods-list-title .ms-cart-goods-right .ms-cart-num {
+  width: 2.5em;
+  border-left: none;
+  border-right: none;
+  padding: 0.2em 0.3em;
+}
+div.ms-cart-goods .ms-cart-goods-div .ms-cart-goods-list-title .ms-cart-goods-cf {
+  clear: both;
+}
+div.ms-cart-goods .ms-cart-goods-div .ms-cart-goods-list-title .ms-cart-goods-edit {
+  text-align: right;
+  margin-right: 0.5em;
+  font-size: 0.7em;
+  width: 50px;
+  float: right;
+}
+div.ms-cart-goods .ms-cart-btn {
+  background: #fff;
+  padding-bottom: 1em;
+  box-shadow: 0px 0px 10px #888888;
+}
+div.ms-cart-goods .ms-cart-btn .ms-u-sm-margin {
+  margin-top: 1em;
+  padding-bottom: 10px;
+}
+div.ms-cart-goods .ms-cart-btn .ms-u-sm-padding {
+  padding: 0em;
+  margin-top: 1em;
+  margin-left: -1.5em;
+}
+div.ms-cart-goods .ms-cart-btn .ms-u-sm-padding .ms-fl {
+  margin-left: 1.1em;
+}
+div.ms-cart-goods .ms-cart-btn .ms-price-padding {
+  padding: 0em;
+  margin-top: 1em;
+  margin-left: -2em;
+  color: red;
+}
+div.ms-cart-goods .ms-cart-btn .ms-buttom-margin {
+  margin-top: 0.3em;
+}
+
+.ms-people-heard .ms-admin-sidebar-list {
+  margin-bottom: 0em;
+}
+.ms-people-heard .ms-admin-sidebar-list li {
+  border: none;
+  margin-bottom: 0px;
+}
+.ms-people-heard .ms-admin-sidebar-list li .ms-header {
+  background: #efefef url(../images/header-bg.png) repeat-x 0 0;
+  margin: 0em!important;
+  color: #9d9ea0;
+  font-weight: 100;
+  background-size: 100% 2.5em;
+}
+.ms-people-heard .ms-admin-sidebar-list li .ms-header .ms-titlebar-nav {
+  text-align: center!important;
+  color: #252525;
+}
+.ms-people-heard .ms-admin-sidebar-list li h2 {
+  margin-right: .6em;
+  margin-left: .6em;
+  font-size: 1.3em;
+  color: #9d9ea0;
+}
+.ms-people-heard .ms-admin-sidebar-list li .ms-g {
+  background: #404042;
+  color: #fff;
+  text-align: center;
+}
+.ms-people-heard .ms-admin-sidebar-list li .ms-g .am-icon-btn {
+  background: #404042;
+  color: #fff;
+  line-height: 1.5em;
+  height: 1.5em;
+}
+.ms-people-heard .ms-admin-sidebar-list li .ms-g .ms-icon-btn-font {
+  font-size: small;
+  font-weight: 100;
+  line-height: 2em;
+  color: #ffffff;
+}
+
+.ms-login {
+  background-color: #f3f5f7;
+  display: none;
+}
+.ms-login .ms-health {
+  margin: 0 auto;
+  margin-top: 1em;
+}
+.ms-login .ms-health .iconfont {
+  font-size: inherit;
+}
+.ms-login .ms-input-label {
+  background-color: #fff;
+}
+.ms-login .ms-valiDateCode {
+  border: 1px;
+  height: 2em;
+  border-color: #000000;
+}
+.ms-login .ms-login-form {
+  margin-top: 1.6em;
+}
+.ms-login-form	input::-webkit-input-placeholder{
+	color: #ccc;
+	font-size:1.3rem;
+}
+.ms-login .ms-logBtn {
+  background-color: #009aff;
+  border-color: #009aff;
+  margin: 0 auto;
+  margin-top: 10%;
+  width: 100%;
+}
+.ms-center-button,#ms-password{
+	background-color: #009aff;
+  	border-color: #009aff;
+}
+.ms-login input {
+  border-color: #d9dbda;
+}
+
+.ms-order-list {
+  background: #f3f5f7 !important;
+  width: 100%;
+  height: 100%;
+}
+.ms-order-list a {
+  font-size: 0.8em;
+}
+.ms-order-list .ms-order-tabs {
+  margin: 0;
+}
+.ms-order-list .ms-order-tabs .ms-order-active {
+  background-color: #ffffff !important;
+  line-height: 2.5em;
+  border-bottom: 0.1em solid #f3f5f7;
+}
+.ms-order-list .ms-order-tabs .ms-order-active .am-active {
+  border-bottom: 0.1em solid #f15353;
+}
+.ms-order-list .ms-order-tabs .ms-order-active .am-active a {
+  color: #f15353;
+}
+.ms-order-list .ms-order-tabs .ms-order-active .am-active:after {
+  border-bottom-color: #ffffff;
+}
+.ms-order-list .ms-order-tabs .ms-order-active a {
+  font-weight: 600;
+}
+.ms-order-list .ms-order-tabs .ms-order-table {
+  border: 0.1em solid #ffffff;
+}
+.ms-order-list .ms-order-tabs .ms-order-table .loading-pic {
+  width: 100%;
+  height: 300px;
+  background: url(http://cdn.mingsoft.net/skin/manager/4.6.0/images/loading.gif) no-repeat center;
+  background-size: 15%;
+  position: fixed;
+  z-index: 1000;
+}
+.ms-order-list .ms-order-tabs .ms-order-table .ms-order-tab-panel {
+  padding: 0em 0em 0em;
+  background: #ffffff;
+}
+.ms-order-list .ms-order-tabs .ms-order-table .ms-order-tab-panel .ms-nothing {
+  margin: 15px;
+}
+.ms-order-list .ms-order-tabs .ms-order-table .ms-order-tab-panel .ms-order-list-all {
+  background: #ffffff;
+  padding-left: 0.8em;
+  padding-right: 0.8em;
+  margin: 0.8em 0 0.8em 0;
+  border-bottom: 0.1em solid #f3f5f7;
+}
+.ms-order-list .ms-order-tabs .ms-order-table .ms-order-tab-panel .ms-order-list-all .ms-order-number {
+  color: black;
+  font-size: 0.9em;
+}
+.ms-order-list .ms-order-tabs .ms-order-table .ms-order-tab-panel .ms-order-list-all .ms-order-number .ms-order-state {
+  font-size: 0.9em;
+  line-height: 1em;
+  color: #f15353;
+}
+.ms-order-list .ms-order-tabs .ms-order-table .ms-order-tab-panel .ms-order-list-all .ms-order-ul-list {
+  margin-bottom: 0;
+  margin: 0 0 0.4em 0;
+}
+.ms-order-list .ms-order-tabs .ms-order-table .ms-order-tab-panel .ms-order-list-all .ms-order-ul-list .ms-order-li {
+  padding-top: 0;
+  padding-bottom: 0;
+  border: 0.1em solid #ffffff;
+}
+.ms-order-list .ms-order-tabs .ms-order-table .ms-order-tab-panel .ms-order-list-all .ms-order-ul-list .ms-order-li .ms-order-title {
+  color: black;
+  font-size: 0.9em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  height: 4rem;
+  line-height: 2rem;
+}
+.ms-order-list .ms-order-tabs .ms-order-table .ms-order-tab-panel .ms-order-list-all .ms-order-money {
+  height: 3.8em;
+  line-height: 3.8em;
+}
+.ms-order-list .ms-order-tabs .ms-order-table .ms-order-tab-panel .ms-order-list-all .ms-order-money .ms-money-color {
+  color: red;
+}
+.ms-order-list .ms-order-tabs .ms-order-table .ms-order-tab-panel .ms-order-list-all .ms-order-money .ms-order-payment a {
+  margin-top: 0.8em;
+  border: 0.1em solid #f15353;
+  color: #f15353;
+  line-height: 2.2em;
+  height: 2.2em;
+  text-align: center;
+  width: 6em;
+  display: block;
+  border-radius: 0.4em;
+}
+.ms-order-list .ms-order-tabs .ms-order-table .ms-order-tab-panel .ms-order-list-all .ms-order-money .ms-order-delete a {
+  margin-top: 0.8em;
+  border: 0.1em solid #9e9e9e;
+  color: #9e9e9e;
+  line-height: 2.2em;
+  height: 2.2em;
+  text-align: center;
+  width: 6em;
+  display: block;
+  border-radius: 0.4em;
+}
+
+.ms-order-comment .ms-order-comment-main {
+  padding: .6em 1em;
+  overflow: hidden;
+}
+.ms-order-comment .ms-order-comment-main form .ms-color {
+  color: red;
+  float: left;
+}
+.ms-order-comment .ms-order-comment-main .loading-pic {
+  width: 100%;
+  height: 300px;
+  background: url(http://cdn.mingsoft.net/skin/manager/4.6.0/images/loading.gif) no-repeat center;
+  background-size: 15%;
+  z-index: 1000;
+}
+.ms-order-comment .ms-order-comment-main .ms-imgComment {
+  height: 4.5em;
+  width: 4.5em;
+  margin-right: 1em;
+  float: left;
+}
+.ms-order-comment .ms-order-comment-main .ms-order-comment-textarea {
+  margin: 0.5em 0px;
+  overflow: hidden;
+}
+.ms-order-comment .ms-order-comment-main .ms-comment-pic {
+  margin-bottom: 1em;
+}
+.ms-order-comment .ms-order-comment-main .ms-comment-pic .ms-imgComment {
+  height: 4.5em;
+  width: 4.5em;
+  margin-right: 1em;
+  float: left;
+}
+.ms-order-comment .ms-order-comment-main .ms-comment-pic .ms-float-left {
+  float: left;
+}
+.ms-order-comment .ms-order-comment-main .ms-comment-pic .ms-order-comment-img {
+  width: 3em;
+  height: 3em;
+}
+.ms-order-comment .ms-order-comment-main .ms-comment-pic .ms-clear {
+  clear: both;
+}
+.ms-order-comment .ms-commentKuang {
+  border: 0.1em solid #999;
+  height: 13.5em;
+  padding: 0.7em;
+  overflow: hidden;
+  margin-top: 1em;
+}
+.ms-order-comment  .ms-top {
+  margin-top: 1em;
+}
+.ms-order-comment .ms-top .ms-right {
+  margin-right: 3.5em;
+}
+.ms-order-comment .ms-top .ms-font-color {
+  color: #7b7b7b;
+  font-size: 0.88em;
+}
+.ms-order-comment .ms-top .ms-color {
+  color: red;
+  float: left;
+}
+.ms-order-comment .ms-order-comment-main .ms-btComment {
+  background-color: #c00;
+  margin-top: 1em;
+  border: none;
+  padding: 0.8em;
+}
+
+.ms-list-item-text {
+  margin-top: 3.5em;
+  margin-top: 2em!important;
+}
+.ms-list-news-bd {
+  border: 0;
+}
+.ms-order-detail-ul-bottom {
+  margin-bottom: 0.6em;
+}
+.ms-order-detail {
+  background: #f3f5f7 !important;
+  border: 0;
+  margin-bottom: 0.6em;
+}
+.ms-order-detail .ms-order-body {
+  background-color: #fff!important;
+}
+.ms-order-detail .ms-panel {
+  background-color: #fffaf4;
+}
+.ms-order-detail .ms-order-detail-margin-bottom {
+  margin-bottom: 0.6em;
+}
+.ms-order-detail .ms-order-detail-margin-bottom .ms-g-size {
+  font-size: small;
+  padding-top: 0.5em;
+}
+.ms-order-detail .ms-order-detail-margin-bottom .ms-panel-height {
+  height: .3em;
+  margin-bottom: 0;
+}
+.ms-order-detail .ms-order-detail-margin-bottom .ms-panel-bd {
+  background: url(../images/background.png);
+}
+.ms-order-detail .ms-order-detail-margin-bottom .ms-orderdetail-img {
+  overflow: hidden;
+  background: url(../images/finish.png) no-repeat center center;
+  background-size: 5.5em;
+  margin-top: 3.5em;
+  margin-top: 2em!important;
+}
+.ms-order-detail .ms-order-detail-margin-bottom .ms-orderdetail-li {
+  list-style: none;
+  font-size: small;
+  color: black;
+}
+.ms-order-detail .ms-order-detail-margin-bottom .ms-orderdetail-float {
+  margin-left: 0.5em;
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
+  margin-right: 0.5em;
+  list-style: none;
+  font-size: small;
+  color: black;
+}
+.ms-order-detail .ms-order-detail-margin-bottom .ms-panel-bd-hight {
+  height: 3em;
+}
+.ms-order-detail .ms-order-detail-margin-bottom .ms-panel-bd-hight .ms-order-a {
+  color: black;
+  margin-left: -0.3em;
+}
+.ms-order-detail .ms-list-news-default {
+  margin: 0;
+}
+.ms-order-detail .ms-list-news-default .ms-order-detail-ul-bottom {
+  margin-bottom: 0.6em;
+}
+.ms-order-detail .ms-list-news-default .ms-order-detail-ul-bottom .ms-list-margin {
+  margin-left: 0.7em;
+}
+.ms-order-detail #ms-order-detail-img {
+  padding-left: 0.5em;
+}
+.ms-order-detail .ms-orderdetail-a {
+  font-size: small;
+  color: black;
+}
+.ms-order-detail .ms-order-detail-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  width: 70%;
+  float: left;
+  height: 3em;
+}
+.ms-order-detail .ms-fl {
+  margin-right: 1em;
+  color: red;
+}
+.ms-order-detail .ms-bd {
+  margin-bottom: 0;
+}
+.ms-order-detail .ms-bd .ms-panelbd {
+  padding-bottom: 0;
+}
+.ms-order-detail .ms-bd .ms-panelbd .ms-price {
+  margin-left: -0.3em;
+}
+.ms-order-detail .ms-bd .ms-panelbd .ms-color {
+  color: red;
+}
+.ms-order-detail .ms-bd .ms-panelbd .ms-list-news {
+  margin-right: 0;
+  margin-left: 0;
+}
+.ms-order-detail .ms-bd .ms-panelbd .ms-list-news .ms-list-textear {
+  text-align: right;
+}
+.ms-order-detail .ms-bd .ms-panelbd .ms-navbar-nav {
+  background: #f3f5f7!important;
+}
+.ms-order-detail .ms-bd .ms-panelbd .ms-navbar-nav a {
+  height: 37px;
+}
+
+.ms-register {
+  background-color: #f3f5f7;
+  display: none;
+}
+.ms-register .ms-health {
+  margin: 0 auto;
+  margin-top: 1em;
+}
+.ms-health a{
+	color: #009aff;
+}
+.ms-register .ms-health .iconfont {
+  font-size: inherit;
+}
+.ms-register .ms-valiDateCode {
+  border: 1px;
+  height: 2em;
+  border-color: #000000;
+}
+.ms-register .ms-login-form {
+  margin-top: 1.6em;
+}
+.ms-register .ms-logBtn {
+  background-color: #009aff;
+  border-color: #009aff;
+  margin: 0 auto;
+  margin-top: 10%;
+  width: 100%;
+}
+.ms-register input {
+  border-color: #d9dbda;
+}
+.ms-register .ms-input-bgcolor {
+  background-color: #fff;
+}
+
+.ms-pay-way {
+  background: #f3f5f7;
+}
+.ms-pay-way .ms-order-info {
+  border-bottom: 1px #ddd solid;
+  margin-bottom: 10px;
+  background: #fff;
+  padding: 1em 1rem;
+}
+.ms-pay-way .ms-pay-choose {
+  border-top: 1px #ddd solid;
+  background: #fff;
+  padding: 1rem;
+}
+.ms-pay-way .ms-pay-choose .ms-group-radio {
+  line-height: 2em;
+  padding-left: 2em;
+  padding-top: .2rem;
+  font-weight: normal;
+  padding-bottom: .2rem;
+  width: 100%;
+}
+.ms-pay-way .ms-pay-choose .ms-group-radio input[type=radio] {
+  float: right;
+}
+.ms-pay-way .ms-pay-choose .am-divider-dotted {
+  margin: 0px;
+}
+.ms-pay-way .ms-pay-choose .ms-zfb {
+  background: url(../images/pay_zfb.png) 0 50% no-repeat;
+  background-size: 1.5rem 1.5rem;
+}
+.ms-pay-way .ms-pay-choose .ms-wx {
+  background: url(../images/pay_wx.png) 0 50% no-repeat;
+  background-size: 1.5rem 1.5rem;
+}
+.ms-pay-way .ms-pay-choose .ms-btn-submit {
+  width: 100%;
+}

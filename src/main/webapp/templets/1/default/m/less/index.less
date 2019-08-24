@@ -1,0 +1,212 @@
+ .ms-content-template {
+     .ms-index-tabs {
+     	#ms-plug{
+     		margin-left: 2rem;
+     	}
+         text-align: center;
+         border: none;
+         margin: 20px 0 3px 0;
+         padding: 0;
+         li {
+             float: none;
+             display: inline-block;
+             font-size: 2rem;
+             a {
+                 border: none !important;
+                 color: #777 !important;
+                 background-color: white;
+                 padding: 6px 0px;
+                 font-size: 1.6rem;
+             }
+         }
+         .active {
+             a {
+                 color: #333 !important;
+                 border-bottom: 2px solid #00b0ff !important;
+             }
+         }
+     }
+     .ms-content-all {
+         width: 100%;
+         background: #fafafa;
+         .tab-content {
+             background: #fafafa;
+             width: 100%;
+             margin: auto;
+             overflow: hidden;
+             padding-bottom: 12px;
+             .ms-model-content {
+                 padding: 0 12px;
+                 display: flex;
+                 flex-wrap: wrap;
+                 justify-content: space-between;
+                 .ms-model-list {
+                     overflow: hidden;
+                     .ms-model-more {
+                         width: 385px;
+                         height: 40px;
+                         background-color: #fafafa;
+                         line-height: 40px;
+                         text-align: center;
+                         div {
+                             border: 1px solid #aaa;
+                             color: #999;
+                             padding: 6px 18px;
+                             display: inline-block;
+                             line-height: 1;
+                             border-radius: 30px;
+                             font-size: 1.4rem;
+                             cursor: pointer;
+                             &:hover {
+                                 background: #aaa;
+                                 color: white;
+                             }
+                         }
+                     }
+                     display: inline-block;
+                     position: relative;
+                     margin: 12px 0 0 0;
+                     .ms-model-info {
+                         padding: 6px;
+                         background: white;
+                         span {
+                             font-size: 14px;
+                             display: block;
+                             margin-bottom: 12px;
+                             color: #666;
+                             width: calc(~"49vw - 36px");
+                             overflow: hidden;
+                             white-space: nowrap;
+                             text-overflow: ellipsis;
+                         }
+                         .ms-model-info-img {
+                             width: 30px;
+                             height: 30px;
+                             border-radius: 50%;
+                             margin-right: 0px;
+                         }
+                         .ms-model-type {
+                             color: #fb803c;
+                             display: inline-block;
+                             float: right;
+                             font-size: 1.8rem;
+                         }
+                     }
+                     .ms-model-img {
+                         overflow: hidden;
+                         position: relative;
+                         height: 110px;
+                         z-index: 2;
+                         display: inline-block;
+                         width: calc(~"49vw - 15px");
+                         img {
+                             width: 100%;
+                             position: relative;
+                         }
+                     }
+                     .ms-model-mobile-img {
+                         position: absolute;
+                         overflow: hidden;
+                         z-index: 3;
+                         right: 0;
+                         top: 0;
+                         height: 155px;
+                         background-size: 100px 170px;
+                         right: -22px;
+                         div {
+                             width: 120px;
+                             height: 108px;
+                             padding: 0px 34px 0px 16px;
+                             margin-top: 27px;
+                             overflow: hidden;
+                             position: relative;
+                             img {
+                                 width: 100%;
+                                 position: relative;
+                                 min-height: 100%;
+                             }
+                         }
+                     }
+                 }
+             }
+         }
+     }
+ }
+ 
+ .ms-case {
+ 	.ms-case-div{
+ 		margin-bottom: 2.2rem;
+	    margin-left: 10px;
+	    margin-right: 10px;
+	    margin-top: 10px;
+ 	}
+     .ms-case-title {
+         border-bottom: 1px solid #ddd;
+         .ms-case-title-h2 {
+             color: #000;
+         }
+         .ms-case-more {
+             color: #999;
+         }
+     }
+     .ms-case-list-div {
+         margin-top: 1rem;
+         ul {
+             padding: 0;
+             li {
+                 .ms-case-list-img {
+                     border: none;
+                     height:100%;
+                 }
+             }
+         }
+     }
+ }
+ 
+ .ms-product {
+ 	.ms-product-container{
+ 		padding-right: 0;
+	    padding-left: 0;
+	    margin-right: 0;
+	    margin-left: 0;
+ 	}
+     background-color: #fafafa;
+     .container {
+         .slide {
+             /*height: 27rem;*/
+             h2 {
+                 font-size: 1.6rem;
+                 margin-top: 1rem;
+                 height: 2rem;
+                 text-align: center;
+                 line-height: 2rem;
+             }
+         }
+     }
+ }
+ 
+ .ms-news {
+     .ms-news-title {
+         border-bottom: 1px solid #fafafa;
+         .ms-news-title-h2 {
+             color: #000;
+         }
+         .ms-news-more {
+             color: #999;
+         }
+     }
+     .ms-product-news-list {
+     	.ms-product-news-list{
+     		/*border: none;*/
+     	}
+         ul {
+             li {
+             	border: none;
+                 a {
+                     font-size: 1.5rem;
+                     color: #555;
+                 }
+             }
+         }
+     }
+ }
