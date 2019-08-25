@@ -81,8 +81,10 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
+				<version>3.0.0</version>
 				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<!-- 要排除文件夹，必须/符合结束 -->
+					<packagingExcludes>WEB-INF/classes/static/,WEB-INF/classes/templets/</packagingExcludes>
 					<!-- 打包时候需需要启用，注意避免快照依赖的冗余jar包 -->
 					<!-- outputFileNameMapping>@{artifactId}@- @{baseVersion}@. @{extension}@</outputFileNameMapping -->
 				</configuration>
