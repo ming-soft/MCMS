@@ -54,19 +54,14 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		//jar包方式映射处理
-		String classPath = BasicUtil.getClassPath("");
-		if (classPath.startsWith("file")) {
-			registry.addResourceHandler("/upload/**").addResourceLocations("file:" + BasicUtil.getRealPath("upload") + File.separator);
-			registry.addResourceHandler("/html/**").addResourceLocations("file:" + BasicUtil.getRealPath("html") + File.separator);
-			registry.addResourceHandler("/templets/**").addResourceLocations("file:" + BasicUtil.getRealPath("templets") + File.separator);
-		} else {
-			//必须做判断，不然jar运行的html路径会被覆盖掉
-			registry.addResourceHandler("/html/**").addResourceLocations("/html/");
-		}
-		registry.addResourceHandler("/app/**").addResourceLocations("/app/", "classpath:/app/");
-		registry.addResourceHandler("/static/**").addResourceLocations("/static/", "classpath:/static/");
-		registry.addResourceHandler("/api/**").addResourceLocations("/api/", "classpath:/api/");
+		registry.addResourceHandler("/upload/**").addResourceLocations("/upload/","file:upload/");
+		registry.addResourceHandler("/templets/**").addResourceLocations("/templets/","file:templets/");
+		registry.addResourceHandler("/html/**").addResourceLocations("/html/","file:html/");
+		//三种映射方式 webapp下、当前目录下、jar内
+		registry.addResourceHandler("/app/**").addResourceLocations("/app/","file:app/", "classpath:/app/");
+		registry.addResourceHandler("/static/**","/**").addResourceLocations("/static/","file:static/","classpath:/static/");
+		registry.addResourceHandler("/api/**").addResourceLocations("/api/","file:api/", "classpath:/api/");
+
 	}
 		/**
          * druidServlet注册
