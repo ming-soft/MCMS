@@ -64,9 +64,9 @@ public class WebConfig implements WebMvcConfigurer {
 			//必须做判断，不然jar运行的html路径会被覆盖掉
 			registry.addResourceHandler("/html/**").addResourceLocations("/html/");
 		}
-		registry.addResourceHandler("/app/**").addResourceLocations("/app/", "classpath:/app/");
-		registry.addResourceHandler("/static/**").addResourceLocations("/static/", "classpath:/static/");
-		registry.addResourceHandler("/api/**").addResourceLocations("/api/", "classpath:/api/");
+		registry.addResourceHandler("/app/**").addResourceLocations("file:app/", "classpath:/app/");
+		registry.addResourceHandler("/static/**").addResourceLocations("file:static/", "classpath:/static/");
+		registry.addResourceHandler("/api/**").addResourceLocations("file:api/", "classpath:/api/");
 	}
 		/**
          * druidServlet注册
