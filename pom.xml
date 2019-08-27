@@ -90,7 +90,15 @@
 		</plugins>
 		<resources>
 			<resource>
+				<!-- 注释部分打包过滤，如果springboot项目 maven-jar-plugin插件排除无效 -->
+				<!-- <filtering>true</filtering> -->
 				<directory>src/main/webapp</directory>
+				<!-- <excludes>
+					<exclude>static/**</exclude>
+					<exclude>html/**</exclude>
+					<exclude>upload/**</exclude>
+					<exclude>templets/**</exclude>
+				</excludes> -->
 			</resource>
 			<resource>
 				<directory>src/main/resources</directory>
