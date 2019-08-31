@@ -12,7 +12,8 @@ ms:
   view-path: /WEB-INF/manager
   
  upload: 
-   path: /upload 
+   path: /upload
+   mapping: /upload/**
    denied: .exe,.jsp
    allowed: jpg
    max-size: 1
