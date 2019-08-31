@@ -35,10 +35,10 @@
 		</repository>
 	</repositories>
 	<dependencies>
-		<dependency>
+			<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-basic</artifactId>
-			<version>1.0.11</version>
+			<version>1.0.12-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
