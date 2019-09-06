@@ -32,16 +32,6 @@ import net.mingsoft.basic.util.BasicUtil;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-	/**
-	 * 上传路径
-	 */
-	@Value("${ms.upload.path}")
-	private String uploadFloderPath;
-	/**
-	 * 上传路径映射
-	 */
-	@Value("${ms.upload.mapping}")
-	private String uploadMapping;
 	@Bean
 	public ActionInterceptor actionInterceptor() {
 		return new ActionInterceptor();
@@ -65,25 +55,13 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		//jar包方式映射处理
-		String classPath = BasicUtil.getClassPath("");
-		//jar包获取的路径带有file
-		if (classPath.startsWith("file")) {
-			//判断是否设置的绝对路径
-			registry.addResourceHandler("/html/**").addResourceLocations("file:" + BasicUtil.getRealPath("html") + File.separator);
-			registry.addResourceHandler("/templets/**").addResourceLocations("file:" + BasicUtil.getRealPath("templets") + File.separator);
-			registry.addResourceHandler("/app/**").addResourceLocations("classpath:/app/");
-			registry.addResourceHandler("/api/**").addResourceLocations("classpath:/api/");
-		}
-		//如果是绝对路径添加映射
-		if(uploadFloderPath.startsWith("file:")){
-			//如果指定了绝对路径，上传的文件都映射到uploadMapping下
-			registry.addResourceHandler(uploadMapping).addResourceLocations(uploadFloderPath+ File.separator
-					//映射其他路径文件
-					//,file:F://images
-			);
-		}
-		registry.addResourceHandler("/static/**").addResourceLocations("/static/","classpath:/static/");
+		registry.addResourceHandler("/upload/**").addResourceLocations("/upload/","file:upload/");
+		registry.addResourceHandler("/templets/**").addResourceLocations("/templets/","file:templets/");
+		registry.addResourceHandler("/html/**").addResourceLocations("/html/","file:html/");
+		//三种映射方式 webapp下、当前目录下、jar内
+		registry.addResourceHandler("/app/**").addResourceLocations("/app/","file:app/", "classpath:/app/");
+		registry.addResourceHandler("/static/**","/**").addResourceLocations("/static/","file:static/","classpath:/static/");
+		registry.addResourceHandler("/api/**").addResourceLocations("/api/","file:api/", "classpath:/api/");
 
 	}
 	/**
@@ -157,7 +135,6 @@ public class WebConfig implements WebMvcConfigurer {
         xssFilter.excludes.add(".*file/upload.do");
         xssFilter.excludes.add(".*/jsp/editor.do");
         registration.addUrlPatterns("/*");
-
         return registration;
     }
 
