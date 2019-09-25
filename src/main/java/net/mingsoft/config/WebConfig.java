@@ -32,6 +32,16 @@ import net.mingsoft.basic.util.BasicUtil;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+	/**
+	 * 上传路径
+	 */
+	@Value("${ms.upload.path}")
+	private String uploadFloderPath;
+	/**
+	 * 上传路径映射
+	 */
+	@Value("${ms.upload.mapping}")
+	private String uploadMapping;
 	@Bean
 	public ActionInterceptor actionInterceptor() {
 		return new ActionInterceptor();
@@ -62,7 +72,13 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/app/**").addResourceLocations("/app/","file:app/", "classpath:/app/");
 		registry.addResourceHandler("/static/**","/**").addResourceLocations("/static/","file:static/","classpath:/static/");
 		registry.addResourceHandler("/api/**").addResourceLocations("/api/","file:api/", "classpath:/api/");
-
+		if(uploadFloderPath.startsWith("file:")){
+			//如果指定了绝对路径，上传的文件都映射到uploadMapping下
+			registry.addResourceHandler(uploadMapping).addResourceLocations(uploadFloderPath+ File.separator
+					//映射其他路径文件
+					//,file:F://images
+			);
+		}
 	}
 	/**
 	 * druidServlet注册
