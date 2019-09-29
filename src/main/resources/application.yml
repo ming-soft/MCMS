@@ -15,12 +15,8 @@ ms:
    path: /upload
    mapping: /upload/**
    denied: .exe,.jsp
-   allowed: jpg
-   max-size: 1
-   memory-size: 4096
-      
+
 spring:
-  http.multipart.enabled: false
   profiles:
     active: dev
   mvc:

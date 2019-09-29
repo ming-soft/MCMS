@@ -72,9 +72,9 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/app/**").addResourceLocations("/app/","file:app/", "classpath:/app/");
 		registry.addResourceHandler("/static/**","/**").addResourceLocations("/static/","file:static/","classpath:/static/");
 		registry.addResourceHandler("/api/**").addResourceLocations("/api/","file:api/", "classpath:/api/");
-		if(uploadFloderPath.startsWith("file:")){
+		if(new File(uploadFloderPath).isAbsolute()){
 			//如果指定了绝对路径，上传的文件都映射到uploadMapping下
-			registry.addResourceHandler(uploadMapping).addResourceLocations(uploadFloderPath+ File.separator
+			registry.addResourceHandler(uploadMapping).addResourceLocations("file:"+uploadFloderPath+ File.separator
 					//映射其他路径文件
 					//,file:F://images
 			);
