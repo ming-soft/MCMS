@@ -535,6 +535,7 @@ public class ArticleAction extends BaseAction {
 			}
 			model.addAttribute("columnType", columnType);
 			model.addAttribute("categoryId", column.getCategoryId());// 编辑封面
+			model.addAttribute("websiteId", BasicUtil.getAppId());
 			return "/cms/article/article_form";
 		} else {// 非法
 			// return "/cms/article/article_form");

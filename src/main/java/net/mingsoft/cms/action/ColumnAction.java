@@ -93,6 +93,8 @@ public class ColumnAction extends BaseAction{
 		model.addAttribute("column",new ColumnEntity());
 		model.addAttribute("listColumn", JSONArray.toJSONString(list));
 		model.addAttribute("model", "cms");
+		model.addAttribute("websiteId", appId);
+
 		return "/basic/column/form";
 	}
 
@@ -216,6 +218,7 @@ public class ColumnAction extends BaseAction{
 		model.addAttribute("columnSuper", columnSuper);
 		model.addAttribute("listColumn", JSONArray.toJSONString(list));
 		model.addAttribute("model", "cms");
+		model.addAttribute("websiteId", appId);
 		return "/basic/column/form";
 	}
 
