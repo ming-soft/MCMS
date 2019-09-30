@@ -12,9 +12,21 @@ ms:
   view-path: /WEB-INF/manager
   
  upload: 
-   path: /upload
+   path: upload
    mapping: /upload/**
    denied: .exe,.jsp
+   multipart:
+     #最大上传文件大小 单位：KB
+     max-file-size: 10240
+     #文件暂存临时目录
+     upload-temp-dir: temp
+     #临时文件大小
+     max-in-memory-size: 10240
+     #总上传最大大小 单位：KB -1禁用
+     max-request-size: -1
+
+
+
 
 spring:
   profiles:
