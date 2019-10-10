@@ -150,7 +150,8 @@ public class WebConfig implements WebMvcConfigurer {
         FilterRegistrationBean registration = new FilterRegistrationBean(xssFilter);
         xssFilter.excludes.add(".*file/upload.do");
         xssFilter.excludes.add(".*/jsp/editor.do");
-        registration.addUrlPatterns("/**");
+        xssFilter.excludes.add("/");
+        registration.addUrlPatterns("/*");
         return registration;
     }
 
