@@ -174,6 +174,7 @@
 
     var util = {
         getParameter: getParameter,
+        treeData:treeData,
         date: date,
         array: array,
         log: log,
