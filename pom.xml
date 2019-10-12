@@ -55,6 +55,11 @@
 			<artifactId>ms-mpeople</artifactId>
 			<version>1.0.10</version>
 		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-upgrader</artifactId>
+			<version>1.0.11</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>
