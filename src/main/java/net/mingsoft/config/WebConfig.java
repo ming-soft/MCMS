@@ -1,6 +1,8 @@
 package net.mingsoft.config;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.aop.Advisor;
 import net.mingsoft.basic.filter.XSSEscapeFilter;
@@ -150,6 +152,7 @@ public class WebConfig implements WebMvcConfigurer {
         FilterRegistrationBean registration = new FilterRegistrationBean(xssFilter);
         xssFilter.excludes.add(".*file/upload.do");
         xssFilter.excludes.add(".*/jsp/editor.do");
+        xssFilter.excludes.add(".*/?(jpg|js|css|gif|png|ico)$");
         xssFilter.excludes.add("/");
         registration.addUrlPatterns("/*");
         return registration;
