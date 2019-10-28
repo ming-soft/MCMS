@@ -1,6 +1,8 @@
 package net.mingsoft.config;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.aop.Advisor;
 import net.mingsoft.basic.filter.XSSEscapeFilter;
@@ -70,7 +72,7 @@ public class WebConfig implements WebMvcConfigurer {
 		registry.addResourceHandler("/html/**").addResourceLocations("/html/","file:html/");
 		//三种映射方式 webapp下、当前目录下、jar内
 		registry.addResourceHandler("/app/**").addResourceLocations("/app/","file:app/", "classpath:/app/");
-		registry.addResourceHandler("/static/**","/**").addResourceLocations("/static/","file:static/","classpath:/static/");
+		registry.addResourceHandler("/static/**","/**").addResourceLocations("/static/","file:static/","classpath:/static/","classpath:/META-INF/resources/");
 		registry.addResourceHandler("/api/**").addResourceLocations("/api/","file:api/", "classpath:/api/");
 		if(new File(uploadFloderPath).isAbsolute()){
 			//如果指定了绝对路径，上传的文件都映射到uploadMapping下
@@ -150,6 +152,7 @@ public class WebConfig implements WebMvcConfigurer {
         FilterRegistrationBean registration = new FilterRegistrationBean(xssFilter);
         xssFilter.excludes.add(".*file/upload.do");
         xssFilter.excludes.add(".*/jsp/editor.do");
+        xssFilter.excludes.add(".*/?(jpg|js|css|gif|png|ico)$");
         xssFilter.excludes.add("/");
         registration.addUrlPatterns("/*");
         return registration;
