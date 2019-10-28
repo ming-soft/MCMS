@@ -282,7 +282,6 @@ textarea::-webkit-input-placeholder {
   background-color: #0080FF;
   display: flex;
   justify-content: center;
-  align-items: center;
   cursor: pointer;
 }
 .ms-admin-mstore .ms-admin-mstore-icon span {
