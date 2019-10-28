@@ -442,7 +442,7 @@
     {
       "icon_id": "1605988",
       "name": "自定义",
-      "font_class": "zidingyi1",
+      "font_class": "zidingyiguanli",
       "unicode": "e72d",
       "unicode_decimal": 59181
     },
@@ -1315,6 +1315,13 @@
       "unicode_decimal": 59140
     },
     {
+      "icon_id": "5891302",
+      "name": "内容管理",
+      "font_class": "neirongguanli",
+      "unicode": "e72f",
+      "unicode_decimal": 59183
+    },
+    {
       "icon_id": "5959484",
       "name": "更多",
       "font_class": "gengduo3",
@@ -1390,6 +1397,13 @@
       "font_class": "gengduo2",
       "unicode": "e670",
       "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "6405627",
+      "name": "系统管理",
+      "font_class": "xitongguanli",
+      "unicode": "e730",
+      "unicode_decimal": 59184
     },
     {
       "icon_id": "6616510",
@@ -1903,6 +1917,13 @@
       "unicode_decimal": 59158
     },
     {
+      "icon_id": "8964972",
+      "name": "会员中心",
+      "font_class": "huiyuanzhongxin",
+      "unicode": "e733",
+      "unicode_decimal": 59187
+    },
+    {
       "icon_id": "8987629",
       "name": "搜索框",
       "font_class": "sousuokuang",
@@ -1994,6 +2015,13 @@
       "unicode_decimal": 59144
     },
     {
+      "icon_id": "9535007",
+      "name": "权限管理",
+      "font_class": "quanxianguanli",
+      "unicode": "e735",
+      "unicode_decimal": 59189
+    },
+    {
       "icon_id": "9539052",
       "name": "二维码登录",
       "font_class": "erweimadenglu",
@@ -2020,6 +2048,13 @@
       "font_class": "jia",
       "unicode": "e61d",
       "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "9575138",
+      "name": "移交 转交",
+      "font_class": "yijiaozhuanjiao",
+      "unicode": "e72e",
+      "unicode_decimal": 59182
     },
     {
       "icon_id": "9616083",
