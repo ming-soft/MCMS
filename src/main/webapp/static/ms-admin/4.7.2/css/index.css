@@ -244,9 +244,9 @@ textarea::-webkit-input-placeholder {
   margin-left: 3px;
 }
 .ms-admin-logo > div span {
-  margin-top: -7px;
+  margin-top: -6px;
   position: absolute;
-  margin-left: 6px;
+  margin-left: 10px;
   font-size: 12px;
 }
 .ms-admin-logo .iconfont {
@@ -282,7 +282,6 @@ textarea::-webkit-input-placeholder {
   background-color: #0080FF;
   display: flex;
   justify-content: center;
-  align-items: center;
   cursor: pointer;
 }
 .ms-admin-mstore .ms-admin-mstore-icon span {
