@@ -39,6 +39,7 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
 }
 
 .ms-select{
+
     display: block;
 }
 
@@ -46,6 +47,7 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
     width: 100% !important;
 }
 #index .ms-search{
+    padding: 20px 0;
     background: #fff;
 }
 #index .ms-search .ms-search-footer{
