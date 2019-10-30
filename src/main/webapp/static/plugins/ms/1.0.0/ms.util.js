@@ -20,6 +20,15 @@
             log(e.message);
         }
     }
+    //树形数据组织
+    function treeData (source, id, parentId, children) {
+        let cloneData = JSON.parse(JSON.stringify(source))
+        return cloneData.filter(father => {
+            let branchArr = cloneData.filter(child => father[id] == child[parentId]);
+            branchArr.length > 0 ? father[children] = branchArr : ''
+            return !father[parentId]        // 如果第一层不是parentId=0，请自行修改
+        })
+    }
 
     //日期处理
     var date = {
@@ -165,6 +174,7 @@
 
     var util = {
         getParameter: getParameter,
+        treeData:treeData,
         date: date,
         array: array,
         log: log,

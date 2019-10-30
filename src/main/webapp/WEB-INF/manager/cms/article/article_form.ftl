@@ -18,7 +18,7 @@
 			    listKey="id" listValue="value" label="是否显示" help="选择否后前端将不显示，需要重新生成才有效果"
 			/>
 			<@ms.formRow colSm="2" label="文章缩略图" width="400" >
-					<@ms.uploadImg path="article" uploadFloderPath="${articleImagesUrl?default('')}" inputName="basicThumbnails" size="1" msg="提示:文章缩略图,支持jpg格式"  imgs="${article.basicThumbnails?default('')}"  />
+					<@ms.uploadImg path="${websiteId}/article" inputName="basicThumbnails" size="1" msg="提示:文章缩略图,支持jpg格式"  imgs="${article.basicThumbnails?default('')}"  />
 			</@ms.formRow>
 			<@ms.text name="articleSource" colSm="2" width="200" label="文章来源" title="文章来源" size="5"  placeholder="请输入文章来源"  value="${article.articleSource?default('')}" validation={"maxlength":"300", "data-bv-stringlength-message":"文章来源在300个字符以内!"} />
 			<@ms.text name="articleAuthor" colSm="2" width="200" label="文章作者" title="文章作者" size="5"  placeholder="请输入文章作者"  value="${article.articleAuthor?default('')}" validation={"maxlength":"12", "data-bv-stringlength-message":"文章作者在12个字符以内!"} />

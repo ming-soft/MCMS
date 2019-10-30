@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.mingsoft</groupId>
 	<artifactId>mcms</artifactId>
-	<version>4.7.1</version>
+	<version>4.7.2</version>
 	<name>ms-mcms</name>
 	<properties>
 		<java.version>1.8</java.version>
@@ -38,12 +38,12 @@
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-basic</artifactId>
-			<version>1.0.11</version>
+			<version>1.0.16</version>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
-			<version>1.0.8</version>
+			<version>1.0.11</version>
 		</dependency>
 		<!-- 此部分是铭飞平台MStroe的客户端（MStore不在铭飞开源产品范围），如果不需要使用MStore可以删除掉 -->
 		<dependency>
