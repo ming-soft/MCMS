@@ -293,6 +293,13 @@
       "unicode_decimal": 59233
     },
     {
+      "icon_id": "1165946",
+      "name": "发送消息",
+      "font_class": "fasong",
+      "unicode": "e732",
+      "unicode_decimal": 59186
+    },
+    {
       "icon_id": "1171861",
       "name": "邮件",
       "font_class": "youjian",
@@ -1014,6 +1021,13 @@
       "unicode_decimal": 58984
     },
     {
+      "icon_id": "4339898",
+      "name": "日志",
+      "font_class": "rizhi",
+      "unicode": "e734",
+      "unicode_decimal": 59188
+    },
+    {
       "icon_id": "4341088",
       "name": "代码",
       "font_class": "code",
@@ -1485,7 +1499,7 @@
     {
       "icon_id": "6913484",
       "name": "列表向左",
-      "font_class": "liebiaoxiangzuo",
+      "font_class": "shousuo",
       "unicode": "e831",
       "unicode_decimal": 59441
     },
@@ -1798,6 +1812,13 @@
       "unicode_decimal": 58953
     },
     {
+      "icon_id": "8187549",
+      "name": "商城",
+      "font_class": "shangcheng",
+      "unicode": "e736",
+      "unicode_decimal": 59190
+    },
+    {
       "icon_id": "8213055",
       "name": "开锁",
       "font_class": "kaisuo",
@@ -2008,6 +2029,13 @@
       "unicode_decimal": 59022
     },
     {
+      "icon_id": "9320882",
+      "name": "内容",
+      "font_class": "neirong",
+      "unicode": "e737",
+      "unicode_decimal": 59191
+    },
+    {
       "icon_id": "9400554",
       "name": "暂无项目信息",
       "font_class": "zanwuxiangmuxinxi",
@@ -2134,6 +2162,13 @@
       "unicode_decimal": 58966
     },
     {
+      "icon_id": "9969950",
+      "name": "关注",
+      "font_class": "guanzhu1",
+      "unicode": "e739",
+      "unicode_decimal": 59193
+    },
+    {
       "icon_id": "9974757",
       "name": "感叹号",
       "font_class": "gantanhao",
@@ -2258,6 +2293,13 @@
       "font_class": "huanxingjindutu",
       "unicode": "e726",
       "unicode_decimal": 59174
+    },
+    {
+      "icon_id": "10795206",
+      "name": "站群",
+      "font_class": "zhanqun",
+      "unicode": "e738",
+      "unicode_decimal": 59192
     },
     {
       "icon_id": "11053422",
