@@ -379,13 +379,12 @@ textarea::-webkit-input-placeholder {
   flex-direction: column;
 }
 .ms-admin-menu-aside .ms-menu-expand i {
-  font-weight: initial;
+  font-weight: bolder;
   font-size: 14px;
   color: #333;
   position: absolute;
   transform: rotate(90deg);
-  top: 5px;
-  right: 43%;
+  right: 40%;
 }
 .ms-admin-menu-aside .ms-menu-expand::before {
   border-color: transparent transparent #eee;
