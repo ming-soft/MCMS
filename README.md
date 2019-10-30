@@ -1,9 +1,10 @@
 # 铭飞业务系统基础开发平台
-当前版本:4.7.1 <br/>
+当前版本:4.7.2 <br/>
 铭飞MS官网:http://ms.mingsoft.net<br/>
 演示版:http://demo.cms.mingsoft.net/ms/login.do<br/>
 官网同时提供一键运行版本下载，请步移官网....<br/>
-QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-blue.svg)](https://jq.qq.com/?_wv=1027&k=5oF19sl)  [![加入QQ群](https://img.shields.io/badge/一群-231212174-blue.svg)](https://jq.qq.com/?_wv=1027&k=5zykX7V)  [![加入QQ群](https://img.shields.io/badge/二群-221335098-blue.svg)](https://jq.qq.com/?_wv=1027&k=56BqFKu) 
+QQ交流群号：[![加入QQ群](https://img.shields.io/badge/一群-231212174-blue.svg)](https://jq.qq.com/?_wv=1027&k=5zykX7V)  
+ [![加入QQ群](https://img.shields.io/badge/三群-242805203-blue.svg)](https://jq.qq.com/?_wv=1027&k=5oF19sl)  [![加入QQ群](https://img.shields.io/badge/二群-221335098-blue.svg)](https://jq.qq.com/?_wv=1027&k=56BqFKu) 
 
 很多人说铭飞MCMS是大天朝国唯一完整开源的J2EE系统！团队希望看到更多的优秀好用的开源系统，我们一直会努力下去！
 
@@ -99,7 +100,7 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-b
 
 
 # 系统结构
-![输入图片说明](http://doc.ms.mingsoft.net/dev-guide/%E9%93%AD%E9%A3%9E%E5%BA%95%E5%B1%82%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84%E5%9B%BE/%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84.png "铭飞系统结构")
+![输入图片说明](https://images.gitee.com/uploads/images/2019/1030/232902_7ecab0d1_542665.png "铭飞系统结构")
 
 
 
