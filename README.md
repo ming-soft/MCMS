@@ -99,7 +99,7 @@ git clone https://gitee.com/mingSoft/MCMS.git
 
 
 # 运行环境
-* WEB服务器：Weblogic、Tomcat、WebSphere、JBoss、Jetty 等
+* WEB服务器：Weblogic、Tomcat、WebSphere、JBoss、Jetty、Docker 等
 * 数据库服务器：Mysql5.7
 * 操作系统：Windows、Linux、Unix 等
 
