@@ -159,6 +159,20 @@ git clone https://gitee.com/mingSoft/MCMS.git
 * MCms标签手册 http://doc.ms.mingsoft.net/mcms-tag-guide
 * 快速开发手册 http://doc.ms.mingsoft.net/dev-guide/
 
+# 铭飞平台
+
+铭飞不仅提供完整的开源生态
+
+## 代码生成器
+
+<table>
+	<tr>
+		<td>http://ms.mingsoft.net/upload/1/article/1572419454270.gif</td>
+	</tr>
+</table>
+
+## 项目管理
+
 # 系统美图
 
 
