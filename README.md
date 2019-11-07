@@ -168,8 +168,10 @@ git clone https://gitee.com/mingSoft/MCMS.git
 <table>
 	<tr>
 		<td><img src="http://ms.mingsoft.net/upload/1/article/1572421127803.gif"/></td>
-		<td><img src="http://ms.mingsoft.net/upload/1/article/1572421308885.gif"/></td>
 	</tr>
+	<tr>
+		<td><img src="http://ms.mingsoft.net/upload/1/article/1572421308885.gif"/></td>
+	</tr>	
 </table>
 
 ## 代码生成器
@@ -177,8 +179,10 @@ git clone https://gitee.com/mingSoft/MCMS.git
 <table>
 	<tr>
 		<td><img src="http://ms.mingsoft.net/upload/1/article/1572419454270.gif"/></td>
-		<td><img src="http://ms.mingsoft.net/upload/1/article/1572419347761.gif"/></td>
 	</tr>
+	<tr>
+		<td><img src="http://ms.mingsoft.net/upload/1/article/1572419347761.gif"/></td>
+	</tr>	
 </table>
 
 
