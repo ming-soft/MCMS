@@ -167,7 +167,7 @@ git clone https://gitee.com/mingSoft/MCMS.git
 
 <table>
 	<tr>
-		<td>http://ms.mingsoft.net/upload/1/article/1572419454270.gif</td>
+		<td><img src="http://ms.mingsoft.net/upload/1/article/1572419454270.gif"/></td>
 	</tr>
 </table>
 
