@@ -9,7 +9,7 @@
 	<a target="_blank" href="https://search.maven.org/search?q=ms-mcms">
         <img src="https://img.shields.io/maven-central/v/net.mingsoft/ms-mcms.svg?label=Maven%20Central" />
 	</a>
-	<a target="_blank" href="http://license.coscl.org.cn/MIT/">
+	<a target="_blank" href="hhttps://baike.baidu.com/item/MIT%E8%AE%B8%E5%8F%AF%E8%AF%81/6671281?fr=aladdin">
         <img src="https://img.shields.io/:license-MIT-blue.svg" />
 	</a>
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
