@@ -143,11 +143,6 @@ git clone https://gitee.com/mingSoft/MCMS.git
 | icon | 矢量小图标\(待更新\) | [http://ms.mingsoft.net/html/86//6048/index.html](http://ms.mingsoft.net/html/86//6048/index.html) |
 
 
-# 系统结构
-![输入图片说明](https://images.gitee.com/uploads/images/2019/1030/232902_7ecab0d1_542665.png "铭飞系统结构")
-
-
-
 # 文件说明 
 * doc 项目文档文件夹，里面有数据库文件
 * src/main/java java源代码
