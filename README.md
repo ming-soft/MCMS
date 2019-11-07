@@ -69,10 +69,12 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/一群-231212174-b
 
 # 开发环境
 建议开发者使用以下环境，这样避免版本带来的问题
-* IDE:eclipse、idea
-* DB:Mysql5.7
-* JDK:JAVA 8
-* WEB:Tomcat8
+* Windows、Linux
+* Eclipse、Idea
+* Mysql≧5.7
+* JDK≧8
+* Tomcat≧8
+
 
 # 快速体验（导入到 Eclipse 或 IDEA）
 
@@ -95,13 +97,6 @@ git clone https://gitee.com/mingSoft/MCMS.git
 8、首先先访问后台地址：http://ip|域名/项目发布名/ms/login.do，管理员账号，用户名：msopen 密码：msopen，进入后台点击内容管理->静态化菜单，进行"生成主页"，"生成栏目","生成文章"操作一遍 （注意！！！是后台登录界面，不是会员中心登录界面）
 
 
-
-
-
-# 运行环境
-* WEB服务器：Weblogic、Tomcat、WebSphere、JBoss、Jetty、Docker 等
-* 数据库服务器：Mysql5.7
-* 操作系统：Windows、Linux、Unix 等
 
 ### 后端框架
 
