@@ -24,7 +24,7 @@
 	
 </p>
 <p align="center">
-	主页：<a href="https://ms.mingsoft.net">https://ms.mingsoft.net/</a> <br/>
+	铭飞平台：<a href="https://ms.mingsoft.net">https://ms.mingsoft.net/</a> <br/>
 	演示：<a href="http://demo.cms.mingsoft.net/ms/login.do">http://demo.cms.mingsoft.net/ms/login.do</a><br/>
 	<a href="http://file.mingsoft.net/ms-runner-4.7.2.zip">一键运行版本</a>
 </p>
