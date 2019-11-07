@@ -159,9 +159,38 @@ git clone https://gitee.com/mingSoft/MCMS.git
 * MCms标签手册 http://doc.ms.mingsoft.net/mcms-tag-guide
 * 快速开发手册 http://doc.ms.mingsoft.net/dev-guide/
 
+# 软件截图
+
+<table>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121402_82521059_1795833.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120836_8a943ad5_1795833.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120927_8a3f93e3_1795833.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120939_7e5281db_1795833.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120951_9d3a50b2_1795833.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121003_9c68e090_1795833.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121020_34c8e0ab_1795833.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121033_b425e406_1795833.png"/></td>
+    </tr>
+    <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121044_41cc0d00_1795833.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121059_48b4cd7b_1795833.png"/></td>
+    </tr>
+     <tr>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121112_8581de9a_1795833.png"/></td>
+        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121122_8b513dd1_1795833.png"/></td>
+    </tr>
+</table>
+
 # 铭飞平台
 
-铭飞不仅提供完整的开源生态
+做开源我们是业余的，写代码我们是认真的。研发产品的路上我们一直在学习、一直在探索、一直在用心投入，希望能给更多的企业与开发者提供一些更有价值的服务。降低软件研发成本这是铭飞人的使命！
 
 ## 项目管理（敏捷开发）
 
@@ -187,38 +216,6 @@ git clone https://gitee.com/mingSoft/MCMS.git
 
 
 
-# 系统美图
 
-
-<table>
-    <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121402_82521059_1795833.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120809_88b6fcd4_1795833.png"/></td>
-    </tr>
-     <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120836_8a943ad5_1795833.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120910_ce119f66_1795833.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120927_8a3f93e3_1795833.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120939_7e5281db_1795833.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120951_9d3a50b2_1795833.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121003_9c68e090_1795833.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121020_34c8e0ab_1795833.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121033_b425e406_1795833.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121044_41cc0d00_1795833.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121059_48b4cd7b_1795833.png"/></td>
-    </tr>
-     <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121112_8581de9a_1795833.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121122_8b513dd1_1795833.png"/></td>
-    </tr>
-</table>
 
 
