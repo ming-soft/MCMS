@@ -1,12 +1,44 @@
-# 铭飞业务系统基础开发平台
-当前版本:4.7.2 <br/>
-铭飞MS官网:http://ms.mingsoft.net<br/>
-演示版:http://demo.cms.mingsoft.net/ms/login.do<br/>
-官网同时提供一键运行版本下载，请步移官网....<br/>
-QQ交流群号：[![加入QQ群](https://img.shields.io/badge/一群-231212174-blue.svg)](https://jq.qq.com/?_wv=1027&k=5zykX7V)  
- [![加入QQ群](https://img.shields.io/badge/三群-242805203-blue.svg)](https://jq.qq.com/?_wv=1027&k=5oF19sl)  [![加入QQ群](https://img.shields.io/badge/二群-221335098-blue.svg)](https://jq.qq.com/?_wv=1027&k=56BqFKu) 
 
-很多人说铭飞MCMS是大天朝国唯一完整开源的J2EE系统！团队希望看到更多的优秀好用的开源系统，我们一直会努力下去！
+<p align="center">
+	<a href="https://ms.mingsoft.net/"><img src="http://ms.mingsoft.net/templets/1/ms/images/logo-blue.png" ></a>
+</p>
+<p align="center">
+	<strong>价值源自分享</strong>
+</p>
+<p align="center">
+	<a target="_blank" href="https://search.maven.org/search?q=ms-mcms">
+        <img src="https://img.shields.io/maven-central/v/net.mingsoft/ms-mcms.svg?label=Maven%20Central" />
+	</a>
+	<a target="_blank" href="http://license.coscl.org.cn/MIT/">
+        <img src="https://img.shields.io/:license-MIT-blue.svg" />
+	</a>
+	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
+		<img src="https://img.shields.io/badge/JDK-8+-green.svg" />
+	</a>
+	<a target="_blank" href="https://gitee.com/mingSoft/MCMS/stargazers">
+		<img src="https://gitee.com/mingSoft/MCMS/badge/star.svg?theme=dark" alt='gitee star'/>
+	</a>
+	<a target="_blank" href='https://github.com/ming-soft/mcms'>
+		<img src="https://img.shields.io/github/stars/ming-soft/mcms.svg?style=social" alt="github star"/>
+	</a>
+	
+</p>
+<p align="center">
+	主页：<a href="https://ms.mingsoft.net">https://ms.mingsoft.net/</a> <br/>
+	演示：<a href="http://demo.cms.mingsoft.net/ms/login.do">http://demo.cms.mingsoft.net/ms/login.do</a><br/>
+	<a href="http://file.mingsoft.net/ms-runner-4.7.2.zip">一键运行版本</a>
+</p>
+<p align="center">
+	[![加入QQ群](https://img.shields.io/badge/一群-231212174-blue.svg)](https://jq.qq.com/?_wv=1027&k=5zykX7V)
+	[![加入QQ群](https://img.shields.io/badge/三群-242805203-blue.svg)](https://jq.qq.com/?_wv=1027&k=5oF19sl)
+	[![加入QQ群](https://img.shields.io/badge/二群-221335098-blue.svg)](https://jq.qq.com/?_wv=1027&k=56BqFKu)
+	
+</p>
+
+-------------------------------------------------------------------------------
+
+
+很多人说铭飞是大天朝国唯一完整开源的J2EE系统！团队希望看到更多的优秀好用的开源系统，我们一直会努力下去！
 
 
 # 开源说明
