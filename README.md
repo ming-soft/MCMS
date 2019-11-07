@@ -99,7 +99,7 @@ git clone https://gitee.com/mingSoft/MCMS.git
 
 # 技术选型
 
-### 后端框架
+## 后端框架
 
 | 技术 | 名称 | 官网 |
 | :--- | :--- | :--- |
@@ -116,7 +116,7 @@ git clone https://gitee.com/mingSoft/MCMS.git
 | Redis | 分布式缓存数据库 | [https://redis.io](https://redis.io) |
 | hutool | 工具类 | [http://hutool.mydoc.io](http://hutool.mydoc.io) |
 
-### 前端框架
+## 前端框架
 
 | 技术 | 名称 | 官网 |
 | :--- | :--- | :--- |
