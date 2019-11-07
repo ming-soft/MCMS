@@ -44,8 +44,7 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/一群-231212174-b
 * 将项目源码导入eclipse；
 * 创建数据库db-mcms-open,注意：数据库使用utf-8编码，导入doc/db-mcms-open-版本号.sql,如果升级现有系统请使用＊-up-*.sql升级，如果导入了系统对应的完整版SQL，sql升级补丁不需要重复导入； 
 * 修改src\main\resources\application-dev.yml文件中的数据库设置参数；
-* 首先先访问后台地址：http://ip|域名/项目发布名/ms/login.do，进入后台点击内容管理->静态化菜单，进行"生成主页"，"生成栏目","生成文章"操作 （注意！！！）
-* 管理员账号，用户名：msopen 密码：msopen
+* 首先先访问后台地址：http://ip|域名/项目发布名/ms/login.do，管理员账号，用户名：msopen 密码：msopen，进入后台点击内容管理->静态化菜单，进行"生成主页"，"生成栏目","生成文章"操作 （注意！！！）
 
 # 开发环境
 建议开发者使用以下环境，这样避免版本带来的问题
