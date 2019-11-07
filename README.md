@@ -163,15 +163,25 @@ git clone https://gitee.com/mingSoft/MCMS.git
 
 铭飞不仅提供完整的开源生态
 
+## 项目管理（敏捷开发）
+
+<table>
+	<tr>
+		<td><img src="http://ms.mingsoft.net/upload/1/article/1572421127803.gif"/></td>
+		<td><img src="http://ms.mingsoft.net/upload/1/article/1572421308885.gif"/></td>
+	</tr>
+</table>
+
 ## 代码生成器
 
 <table>
 	<tr>
 		<td><img src="http://ms.mingsoft.net/upload/1/article/1572419454270.gif"/></td>
+		<td><img src="http://ms.mingsoft.net/upload/1/article/1572419347761.gif"/></td>
 	</tr>
 </table>
 
-## 项目管理
+
 
 # 系统美图
 
