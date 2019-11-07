@@ -79,9 +79,10 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/一群-231212174-b
 1、检出源代码：
 git clone https://gitee.com/mingSoft/MCMS.git
 
-2、Eclipse导入，菜单 File -> Import，然后选择 Maven -> Existing Maven Projects，点击 Next> 按钮，选择检出的项目MCMS文件夹，然后点击 Finish 按钮，即可成功导入
+2、导入项目
+* Eclipse导入，菜单 File -> Import，然后选择 Maven -> Existing Maven Projects，点击 Next> 按钮，选择检出的项目MCMS文件夹，然后点击 Finish 按钮，即可成功导入
 
-3、IDEA导入，点击 Import Project，选择 pom.xml 文件，点击 Next 按钮，选择 Import Maven projects automatically 复选框，然后一直点击 Next 按钮，直到点击 Finish 按钮，即可成功导入
+* IDEA导入，点击 Import Project，选择 pom.xml 文件，点击 Next 按钮，选择 Import Maven projects automatically 复选框，然后一直点击 Next 按钮，直到点击 Finish 按钮，即可成功导入
 
 4、Eclipse（IDEA）会自动加载 Maven 依赖包，初次加载会比较慢（根据自身网络情况而定），若工程上有小叉号，请打开 Problems 窗口，查看具体错误内容，直到无错误为止
 
