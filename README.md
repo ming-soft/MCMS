@@ -144,10 +144,7 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/一群-231212174-b
 * README.md 项目说明文档
 * pom.xml 依赖配置文件
 
-# 代码部署与常见问题
-* 铭飞MCms 部署视频 http://ms.mingsoft.net/mbbs/13988/detail.do
-* MCms环境配置常见问题  http://ms.mingsoft.net/mbbs/13000/detail.do
-* MStore使用方式：http://ms.mingsoft.net/mbbs/13008/detail.do
+
 
 # 文档
 * MCms标签手册 http://doc.ms.mingsoft.net/mcms-tag-guide
