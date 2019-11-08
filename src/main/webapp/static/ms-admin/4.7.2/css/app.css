@@ -63,7 +63,7 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
 #myPageTop input {
     width: 242px;
 }
-#form .iconfont {
+.el-button .iconfont {
     font-size: 12px;
     margin-right: 5px;
 }
@@ -75,4 +75,12 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
 }
 [v-cloak]{
     display: none;
+}
+/* 滚动条样式重写*/
+.el-table__body-wrapper::-webkit-scrollbar{
+    width:6px;
+}
+.el-table__body-wrapper::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(144,147,153,.5);
 }

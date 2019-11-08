@@ -21,7 +21,8 @@
 */
 html,
 body {
-  min-height: 100vh;
+  min-height: 600px;
+  min-width: 810px;
   width: 100vw;
   background-color: #eee;
   margin: 0;
