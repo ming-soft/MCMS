@@ -46,8 +46,8 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="8" style="text-align: right;padding-right: 10px;">
+                        <el-button type="primary"size="mini" @click="$refs.search.open()"><i class="iconfont icon-shaixuan"></i>筛选</el-button>
                         <el-button type="primary" icon="el-icon-search" size="mini" @click="form.sqlWhere=null;currentPage=1;list()">查询</el-button>
-                        <el-button type="primary" icon="el-icon-search" size="mini" @click="$refs.search.open()">筛选</el-button>
                         <el-button @click="rest"  icon="el-icon-refresh" size="mini">重置</el-button>
                     </el-col>
                 </el-row>
