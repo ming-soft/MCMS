@@ -253,13 +253,13 @@ public class CategoryAction extends BaseAction{
 		if(!StringUtil.checkLength(category.getCategoryTitle()+"", 1, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.title"), "1", "100"));
 		}
-		if(!StringUtil.checkLength(category.getCategoryFlag()+"", 1, 100)){
+		if(!StringUtil.checkLength(category.getCategoryFlag()+"", 0, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.flag"), "1", "100"));
 		}
-		if(!StringUtil.checkLength(category.getCategoryPath()+"", 1, 100)){
+		if(!StringUtil.checkLength(category.getCategoryPath()+"", 0, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.path"), "1", "100"));
 		}
-		if(!StringUtil.checkLength(category.getCategoryParentId()+"", 1, 100)){
+		if(!StringUtil.checkLength(category.getCategoryParentId()+"", 0, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
 		}
 		categoryBiz.updateEntity(category);

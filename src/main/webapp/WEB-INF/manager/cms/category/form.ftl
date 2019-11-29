@@ -62,30 +62,30 @@
                                 gutter="0"
                                 justify="start" align="top">
                                 <el-col span="12">
-            <el-form-item  label="列表模板" prop="categoryListUrl">
-                    <el-select v-model="form.categoryListUrl"
-                               :style="{width: '100%'}"
-                               :filterable="false"
-                               :disabled="false"
-                               :multiple="false" :clearable="true"
-                               placeholder="请选择列表模板">
-                        <el-option v-for='item in categoryListUrlOptions' :key="item.id" :value="item.id"
-                                   :label="false?item.name:item.id"></el-option>
-                    </el-select>
-            </el-form-item>
+                                    <el-form-item  :label="form.categoryType =='1'? '内容模板' : '封面模板'" prop="categoryUrl">
+                                        <el-select v-model="form.categoryUrl"
+                                                   :style="{width: '100%'}"
+                                                   :filterable="false"
+                                                   :disabled="false"
+                                                   :multiple="false" :clearable="true"
+                                                   placeholder="请选择内容模板">
+                                            <el-option v-for='item in categoryUrlOptions' :key="item" :value="item"
+                                                       :label="item"></el-option>
+                                        </el-select>
+                                    </el-form-item>
                                 </el-col>
                                 <el-col span="12">
-            <el-form-item  label="内容模板" prop="categoryUrl">
-                    <el-select v-model="form.categoryUrl"
-                               :style="{width: '100%'}"
-                               :filterable="false"
-                               :disabled="false"
-                               :multiple="false" :clearable="true"
-                               placeholder="请选择内容模板">
-                        <el-option v-for='item in categoryUrlOptions' :key="item.id" :value="item.id"
-                                   :label="false?item.name:item.id"></el-option>
-                    </el-select>
-            </el-form-item>
+                                    <el-form-item  label="列表模板" prop="categoryListUrl" v-if="form.categoryType == '1'">
+                                        <el-select v-model="form.categoryListUrl"
+                                                   :style="{width: '100%'}"
+                                                   :filterable="false"
+                                                   :disabled="false"
+                                                   :multiple="false" :clearable="true"
+                                                   placeholder="请选择列表模板">
+                                            <el-option v-for='item in categoryListUrlOptions' :key="item" :value="item"
+                                                       :label="item"></el-option>
+                                        </el-select>
+                                    </el-form-item>
                                 </el-col>
                         </el-row>
             <el-form-item  label="栏目管理关键字" prop="categoryKeyword">
@@ -170,7 +170,7 @@
                     // 所属栏目
                     categoryId:'',
                     // 栏目管理属性
-                    categoryType:'2',
+                    categoryType:'1',
                     // 自定义顺序
                     categorySort:0,
                     // 列表模板
@@ -222,6 +222,10 @@
                 }
                 this.$refs.form.validate((valid) => {
                     if (valid) {
+                        //栏目属性为封面则不需要列表模板
+                        if(that.form.categoryType == '2'){
+                            that.form.categoryListUrl = '';
+                        }
                         that.saveDisabled = true;
                         var data = JSON.parse(JSON.stringify(that.form));
                         if(data.id&&data.id==data.categoryId){
@@ -276,7 +280,7 @@
             categoryListUrlOptionsGet() {
                 var that = this;
                 ms.http.get(ms.manager+"/template/queryTemplateFileForColumn.do", {}).then(function (data) {
-                    that.categoryListUrlOptions = data.rows;
+                    that.categoryListUrlOptions = data;
                 }).catch(function (err) {
                     console.log(err);
                 });
@@ -285,7 +289,7 @@
             categoryUrlOptionsGet() {
                 var that = this;
                 ms.http.get(ms.manager+"/template/queryTemplateFileForColumn.do", {}).then(function (data) {
-                    that.categoryUrlOptions = data.rows;
+                    that.categoryUrlOptions = data;
                 }).catch(function (err) {
                     console.log(err);
                 });
@@ -328,3 +332,8 @@
         }
     });
 </script>
+<style>
+    .el-select{
+        width: 100%;
+    }
+</style>

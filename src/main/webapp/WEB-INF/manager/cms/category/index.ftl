@@ -30,19 +30,25 @@
 					{{emptyText}}
 				</template>
 				<el-table-column type="selection" width="40"></el-table-column>
-                 <el-table-column label="栏目管理名称" align="left" prop="categoryTitle">
+                 <el-table-column label="标题" align="left" prop="categoryTitle">
                  </el-table-column>
-            <el-table-column label="栏目管理属性" align="left" prop="categoryType" :formatter="categoryTypeFormat">
+            <el-table-column label="属性" align="center" prop="categoryType" :formatter="categoryTypeFormat" width="65">
             </el-table-column>
-                <el-table-column label="栏目路径" align="left" prop="categoryPath">
+                <el-table-column label="链接地址" align="left" prop="categoryPath" show-overflow-tooltip>
                 </el-table-column>
-                <el-table-column label="自定义顺序" width="100" align="right" prop="categorySort">
-                </el-table-column>
-            <el-table-column label="列表模板" align="left" prop="categoryListUrl">
+            <el-table-column label="列表地址" align="left" prop="categoryListUrl" show-overflow-tooltip>
             </el-table-column>
-            <el-table-column label="内容模板" align="left" prop="categoryUrl">
+            <el-table-column label="内容地址" align="left" prop="categoryUrl" show-overflow-tooltip>
+				<template slot-scope="scope">
+					{{scope.row.categoryType == '1'?scope.row.categoryUrl:''}}
+				</template>
             </el-table-column>
-					<el-table-column label="操作" width="180" align="center">
+            <el-table-column label="封面地址" align="left" prop="categoryUrl" show-overflow-tooltip>
+				<template slot-scope="scope">
+					{{scope.row.categoryType == '2'?scope.row.categoryUrl:''}}
+				</template>
+            </el-table-column>
+					<el-table-column label="操作" width="120" align="center">
 					<template slot-scope="scope">
 						<@shiro.hasPermission name="cms:category:update">
 						<el-link type="primary" :underline="false" @click="save(scope.row.id)">编辑</el-link>
@@ -101,7 +107,7 @@ var indexVue = new Vue({
 	    	var that = this;
 	    	this.loadState = false;
 	    	this.loading = true;
-			ms.http.get(ms.manager+"/cms/category/list.do",that.form).then(
+			ms.http.get(ms.manager+"/cms/category/list.do").then(
 					function(res) {
 						if(that.loadState){
 							that.loading = false;
@@ -113,7 +119,7 @@ var indexVue = new Vue({
 							that.dataList = [];
 						} else {
 							that.emptyText = '';
-							that.dataList = ms.util.treeData(res.data.rows,'id','mdiyModelId','children');
+							that.dataList = ms.util.treeData(res.data.rows,'id','categoryId','children');
 						}
 					}).catch(function(err) {
 				console.log(err);
