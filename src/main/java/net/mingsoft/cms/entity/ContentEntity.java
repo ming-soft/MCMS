@@ -74,7 +74,18 @@ private static final long serialVersionUID = 1574925152617L;
 	* 文章管理的应用id
 	*/
 	private Integer appid;
+	/**
+	* 点击次数
+	*/
+	private Integer contentHit;
 
+	public Integer getContentHit() {
+		return contentHit;
+	}
+
+	public void setContentHit(Integer contentHit) {
+		this.contentHit = contentHit;
+	}
 
 	/**
 	* 设置文章标题

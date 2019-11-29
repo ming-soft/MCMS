@@ -62,13 +62,18 @@
             <el-table-column type="selection" width="40"></el-table-column>
             <el-table-column label="栏目名" align="left" prop="contentCategoryId" :formatter="contentCategoryIdFormat" width="100">
             </el-table-column>
-            <el-table-column label="文章标题" align="left" prop="contentTitle">
+            <el-table-column label="文章标题" align="left" prop="contentTitle" show-overflow-tooltip>
             </el-table-column>
-            <el-table-column label="作者" align="left" prop="contentAuthor" width="100">
+            <el-table-column label="作者" align="left" prop="contentAuthor" width="100" show-overflow-tooltip>
             </el-table-column>
-            <el-table-column label="排序" width="60" align="right" prop="contentSort">
+            <el-table-column label="排序" width="55" align="right" prop="contentSort">
             </el-table-column>
-            <el-table-column label="发布时间" align="center" prop="contentDatetime" width="120">
+            <el-table-column label="点击" width="55" align="right" prop="contentHit">
+                <template slot-scope="scope">
+                    {{scope.row.contentHit?scope.row.contentHit:0}}
+                </template>
+            </el-table-column>
+            <el-table-column label="发布时间" align="center" prop="contentDatetime" :formatter="dateFormat" width="120">
             </el-table-column>
             <el-table-column label="操作" width="120" align="center">
                 <template slot-scope="scope">
@@ -151,6 +156,9 @@
                     pageSize : that.pageSize
                 }
                 var form = JSON.parse(JSON.stringify(that.form))
+                if(form.contentType.length > 0){
+                    form.contentType = form.contentType.join(',');
+                }
                 for (key in form){
                     if(!form[key]){
                         delete  form[key]
@@ -243,6 +251,13 @@
                     }
                 }
                 return value;
+            },
+            dateFormat: function(row, column, cellValue, index){
+                if(cellValue){
+                    return ms.util.date.fmt(cellValue,'yyyy-MM-dd');
+                } else {
+                    return ''
+                }
             },
             contentDisplayFormat(row, column, cellValue, index){
                 var value="";
