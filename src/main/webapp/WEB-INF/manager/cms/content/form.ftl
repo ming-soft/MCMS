@@ -193,11 +193,6 @@
                     UEDITOR_HOME_URL: ms.base+'/static/plugins/ueditor/1.4.3.1/'
                 },
                 contentCategoryIdOptions:[],
-                contentCategoryIdProps:{
-                    checkStrictly :false,emitPath: false,
-                    label: 'categoryTitle',
-                    value:'id'
-                },
                 //表单数据
                 form: {
                     // 文章标题
@@ -271,7 +266,9 @@
                     }
                 })
             },
-
+            getValue(data){
+                this.form.contentCategoryId = data.id;
+            },
             //获取当前文章
             get(id) {
                 var that = this;
