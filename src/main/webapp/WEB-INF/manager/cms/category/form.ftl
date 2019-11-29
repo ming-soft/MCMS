@@ -208,6 +208,7 @@
                 var that = this;
                 ms.http.get(ms.manager+"/cms/category/list.do",{pageSize:9999}).then(function(res){
                     if(res.result){
+                        //res.data.rows.push({id:0,categoryId: null,categoryTitle:'顶级栏目管理'});
                         that.treeList = ms.util.treeData(res.data.rows,'id','categoryId','children');
                     }
                 }).catch(function(err){

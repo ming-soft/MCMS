@@ -46,9 +46,9 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="8" style="text-align: right;padding-right: 10px;">
-                        <el-button type="primary"size="mini" @click="$refs.search.open()"><i class="iconfont icon-shaixuan"></i>筛选</el-button>
                         <el-button type="primary" icon="el-icon-search" size="mini" @click="form.sqlWhere=null;currentPage=1;list()">查询</el-button>
                         <el-button @click="rest"  icon="el-icon-refresh" size="mini">重置</el-button>
+                        <el-button type="primary"size="mini" @click="$refs.search.open()"><i class="iconfont icon-shaixuan"></i>筛选</el-button>
                     </el-col>
                 </el-row>
             </el-form>
@@ -60,17 +60,17 @@
                 {{emptyText}}
             </template>
             <el-table-column type="selection" width="40"></el-table-column>
-            <el-table-column label="所属栏目" align="left" prop="contentCategoryId" :formatter="contentCategoryIdFormat">
+            <el-table-column label="栏目名" align="left" prop="contentCategoryId" :formatter="contentCategoryIdFormat" width="100">
             </el-table-column>
             <el-table-column label="文章标题" align="left" prop="contentTitle">
             </el-table-column>
-            <el-table-column label="文章作者" align="left" prop="contentAuthor">
+            <el-table-column label="作者" align="left" prop="contentAuthor" width="100">
             </el-table-column>
-            <el-table-column label="自定义顺序" width="100" align="right" prop="contentSort">
+            <el-table-column label="排序" width="60" align="right" prop="contentSort">
             </el-table-column>
-            <el-table-column label="发布时间" width="180" align="center" prop="contentDatetime">
+            <el-table-column label="发布时间" align="center" prop="contentDatetime" width="120">
             </el-table-column>
-            <el-table-column label="操作" width="180" align="center">
+            <el-table-column label="操作" width="120" align="center">
                 <template slot-scope="scope">
                     <@shiro.hasPermission name="cms:content:update">
                         <el-link type="primary" :underline="false" @click="save(scope.row.id)">编辑</el-link>
@@ -137,6 +137,7 @@
                 contentTitle:null,
                 // 文章类型
                 contentType:null,
+                contentCategoryId:'',
             },
         },
         methods:{
@@ -280,9 +281,12 @@
             //获取contentCategoryId数据源
             contentCategoryIdOptionsGet() {
                 var that = this;
-                ms.http.get(ms.manager+'/mdiy/dict/list.do', {}).then(function (data) {
-                    that.contentCategoryIdOptions = data.rows;
-                }).catch(function (err) {
+                ms.http.get(ms.manager+"/cms/category/list.do",{pageSize:9999}).then(function(res){
+                    if(res.result){
+                        that.contentCategoryIdOptions = res.data.rows;
+                    }
+                    that.list();
+                }).catch(function(err){
                     console.log(err);
                 });
             },
@@ -299,12 +303,12 @@
         mounted(){
             this.contentCategoryIdOptionsGet();
             this.contentTypeOptionsGet();
+            this.form.contentCategoryId = ms.util.getParameter("categoryId")
             if(history.state){
                 this.form = history.state.form;
                 this.currentPage = history.state.page.pageNo;
                 this.pageSize = history.state.page.pageSize;
             }
-            this.list();
         },
     })
 </script>

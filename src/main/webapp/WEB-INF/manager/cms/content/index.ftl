@@ -10,7 +10,9 @@
 <div id="index"  v-cloak>
 	<!--左侧-->
 	<el-container class="index-menu">
-		<div class="left-tree"></div>
+		<div class="left-tree">
+			<el-tree :indent="5" v-loading="loading" :expand-on-click-node="false" default-expand-all :empty-text="emptyText" :data="treeData" :props="defaultProps" @node-click="handleNodeClick" style="padding: 10px;height: 100%;"></el-tree>
+		</div>
 		<iframe :src="action" class="ms-iframe-style">
 		</iframe>
 	</el-container>
@@ -22,11 +24,57 @@
 		el: "#index",
 		data: {
 			action:"", //跳转页面
+			defaultProps: {
+				children: 'children',
+				label: 'categoryTitle'
+			},
+			treeData:[],
+			loading:true,
+			emptyText:'',
 		},
 		methods:{
+			handleNodeClick: function(data){
+				this.$el.getElementsByTagName('iframe')[0].contentWindow.window.mainVue.form.contentCategoryId = data.id;
+				this.$el.getElementsByTagName('iframe')[0].contentWindow.window.mainVue.list();
+			},
+			treeList: function(){
+				var that = this;
+				this.loadState = false;
+				this.loading = true;
+				ms.http.get(ms.manager+"/cms/category/list.do").then(
+						function(res) {
+							if(that.loadState){
+								that.loading = false;
+							}else {
+								that.loadState = true
+							}
+							if (!res.result||res.data.total <= 0) {
+								that.emptyText = '暂无数据';
+								that.treeData = [];
+							} else {
+								that.emptyText = '';
+								that.treeData = ms.util.treeData(res.data.rows,'id','categoryId','children');
+								that.treeData = [{
+									id:0,
+									categoryTitle:'全部',
+									children: that.treeData,
+								}]
+							}
+						}).catch(function(err) {
+					console.log(err);
+				});
+				setTimeout(()=>{
+					if(that.loadState){
+						that.loading = false;
+					}else {
+						that.loadState = true
+					}
+				}, 500);
+			},
 		},
 		mounted(){
 			this.action = ms.manager +"/cms/content/main.do";
+			this.treeList();
 		}
 	})
 </script>

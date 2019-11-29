@@ -27,14 +27,9 @@
                                 </el-col>
                                 <el-col span="12">
             <el-form-item  label="所属栏目" prop="contentCategoryId">
-            <el-cascader v-model="form.contentCategoryId"
-                         :disabled="false"
-                         :clearable="true"
-                         placeholder="请选择所属栏目"
-                         :style="{width:'100%'}"
-                         :options="contentCategoryIdTreeDatas"
-                         :props="contentCategoryIdProps">
-            </el-cascader>
+                <tree-select :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
+                             :options="contentCategoryIdOptions" :style="{width:'100%'}"
+                             v-model="form.contentCategoryId"></tree-select>
             </el-form-item>
                                 </el-col>
                         </el-row>
@@ -208,7 +203,7 @@
                     // 文章标题
                     contentTitle:'',
                     // 所属栏目
-                    contentCategoryId: [],
+                    contentCategoryId: '',
                     // 文章类型
                     contentType: [],
                     // 是否显示
@@ -241,16 +236,6 @@
         },
         watch:{
         },
-        computed:{
-                contentCategoryIdTreeDatas(){
-                    let cloneData = JSON.parse(JSON.stringify(this.contentCategoryIdOptions))    // 对源数据深度克隆
-                    return cloneData.filter(father=>{
-                        let branchArr = cloneData.filter(child=>father.categoryId == child.categoryCategoryId)    //返回每一项的子级数组
-                        branchArr.length>0 ? father.children = branchArr : ''   //如果存在子级，则给父级添加一个children属性，并赋值
-                        return father.categoryCategoryId==0;      //返回第一层
-                    });
-            },
-        },
         methods: {
             save() {
                 var that = this;
@@ -262,7 +247,6 @@
                     if (valid) {
                         that.saveDisabled = true;
                         var data = JSON.parse(JSON.stringify(that.form));
-                        data.contentCategoryId = data.contentCategoryId.join(',');
                         data.contentType = data.contentType.join(',');
                         data.contentImg = JSON.stringify(data.contentImg);
                         ms.http.post(url, data).then(function (data) {
@@ -272,7 +256,7 @@
                                     message: '保存成功',
                                     type: 'success'
                                 });
-                                location.href = ms.manager + "/cms/content/index.do";
+                                location.href = ms.manager + "/cms/content/main.do";
                             } else {
                                 that.$notify({
                                     title: '失败',
@@ -293,8 +277,9 @@
                 var that = this;
                 ms.http.get(ms.manager + "/cms/content/get.do", {"id":id}).then(function (res) {
                     if(res.result&&res.data){
-                    res.data.contentCategoryId = res.data.contentCategoryId.split(',');
-                    res.data.contentType = res.data.contentType.split(',');
+                        if(res.data.contentType){
+                            res.data.contentType = res.data.contentType.split(',');
+                        }
                     if(res.data.contentImg){
                         res.data.contentImg = JSON.parse(res.data.contentImg);
                         res.data.contentImg.forEach(function(value){
@@ -312,9 +297,11 @@
             //获取contentCategoryId数据源
             contentCategoryIdOptionsGet() {
                 var that = this;
-                ms.http.get(ms.manager+'/mdiy/dict/list.do', {}).then(function (data) {
-                    that.contentCategoryIdOptions = data.rows;
-                }).catch(function (err) {
+                ms.http.get(ms.manager+"/cms/category/list.do",{pageSize:9999}).then(function(res){
+                    if(res.result){
+                        that.contentCategoryIdOptions = ms.util.treeData(res.data.rows,'id','categoryId','children');
+                    }
+                }).catch(function(err){
                     console.log(err);
                 });
             },
@@ -364,3 +351,8 @@
         }
     });
 </script>
+<style>
+    .el-select{
+        width: 100%;
+    }
+</style>
