@@ -8,7 +8,7 @@
 	<div id="form" v-cloak>
 		<el-header class="ms-header ms-tr" height="50px">
 			<el-button type="primary" icon="iconfont icon-baocun" size="mini" @click="save()" :loading="saveDisabled">保存</el-button>
-			<el-button size="mini" icon="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回</el-button>
+			<el-button size="mini" icon="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)" v-if="returnIsShow">返回</el-button>
 		</el-header>
 		<el-main class="ms-container">
             <el-form ref="form" :model="form" :rules="rules" label-width="120px" size="mini">
@@ -193,6 +193,7 @@
                     UEDITOR_HOME_URL: ms.base+'/static/plugins/ueditor/1.4.3.1/'
                 },
                 contentCategoryIdOptions:[],
+                returnIsShow:true,
                 //表单数据
                 form: {
                     // 文章标题
@@ -337,14 +338,43 @@
                     this.form.contentImg.splice(index, 1);
                 }
             },
+            //查询列表
+            list: function(contentCategoryId) {
+                var that = this;
+                ms.http.post(ms.manager+"/cms/content/list.do",{
+                    contentCategoryId:contentCategoryId,
+                }).then(function(res) {
+                    if(res.result&&res.data.total>0){
+                        if(res.data.rows[0].contentType){
+                            res.data.rows[0].contentType = res.data.rows[0].contentType.split(',');
+                        }
+                        if(res.data.rows[0].contentImg){
+                            res.data.rows[0].contentImg = JSON.parse(res.data.rows[0].contentImg);
+                            res.data.rows[0].contentImg.forEach(function(value){
+                                value.url= ms.base + value.path
+                            })
+                        }else{
+                            res.data.rows[0].contentImg=[]
+                        }
+                        that.form = res.data.rows[0];
+                    }
+                }).catch(function(err) {
+                    console.log(err);
+                });
+            },
         },
         created() {
             this.contentCategoryIdOptionsGet();
                 this.contentTypeOptionsGet();
             this.form.id = ms.util.getParameter("id");
+            this.form.contentCategoryId = ms.util.getParameter("categoryId");
             if (this.form.id) {
                 this.get(this.form.id);
             }
+           if(this.form.contentCategoryId){
+               this.list(this.form.contentCategoryId);
+               this.returnIsShow = false;
+           }
         }
     });
 </script>

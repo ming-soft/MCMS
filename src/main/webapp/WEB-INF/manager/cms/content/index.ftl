@@ -34,8 +34,13 @@
 		},
 		methods:{
 			handleNodeClick: function(data){
-				this.$el.getElementsByTagName('iframe')[0].contentWindow.window.mainVue.form.contentCategoryId = data.id;
-				this.$el.getElementsByTagName('iframe')[0].contentWindow.window.mainVue.list();
+				if(data.categoryType == '1'){
+                    this.action = ms.manager +"/cms/content/main.do?categoryId="+data.id;
+                } else if(data.categoryType == '2'){
+                    this.action = ms.manager +"/cms/content/form.do?categoryId="+data.id;
+                } else{
+                    this.action = ms.manager +"/cms/content/main.do";
+                }
 			},
 			treeList: function(){
 				var that = this;
