@@ -11,7 +11,8 @@
 			<el-button size="mini" icon="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)" v-if="returnIsShow">返回</el-button>
 		</el-header>
 		<el-main class="ms-container">
-            <el-form ref="form" :model="form" :rules="rules" label-width="120px" size="mini">
+            <el-scrollbar class="ms-scrollbar" style="height: 100%;">
+                <el-form ref="form" :model="form" :rules="rules" label-width="120px" size="mini">
                         <el-row
                                 gutter="0"
                                 justify="start" align="top">
@@ -168,6 +169,7 @@
             <vue-ueditor-wrap style="line-height: 0px" v-model="form.contentDetails" :config="editorConfig"></vue-ueditor-wrap>
             </el-form-item>
             </el-form>
+            </el-scrollbar>
 		</el-main>
 	</div>
 	</body>
@@ -381,5 +383,11 @@
 <style>
     .el-select{
         width: 100%;
+    }
+    body{
+        overflow: hidden;
+    }
+    #form{
+        overflow: hidden;
     }
 </style>

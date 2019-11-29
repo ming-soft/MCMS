@@ -114,4 +114,7 @@
 		height: 40px !important;
 		line-height: 46px !important;
 	}
+	body{
+		overflow: hidden;
+	}
 </style>

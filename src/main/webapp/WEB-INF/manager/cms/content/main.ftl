@@ -334,4 +334,7 @@
     #main .ms-container {
         height: calc(100vh - 141px);
     }
+    body{
+        overflow: hidden;
+    }
 </style>

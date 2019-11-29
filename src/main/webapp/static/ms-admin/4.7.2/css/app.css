@@ -119,3 +119,12 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
     border-radius: 10px;
     background-color: rgba(144,147,153,.5);
 }
+.ms-scrollbar .el-scrollbar__wrap{
+    overflow-x: hidden;
+}
+.ms-scrollbar .el-scrollbar__bar.is-vertical{
+    width: 6px !important;
+}
+.ms-scrollbar .el-scrollbar__view{
+    padding-right: 17px;
+}
