@@ -21,7 +21,7 @@
 			根据时间与栏目类型生成文章
 		</el-alert>
 	</div>
-	<el-form ref="form" label-width="90px" size="mini">
+	<el-form ref="form" label-width="90px" size="mini" v-loading="loading">
 		<div class="class-2" >
 		<div class="class-3" >
 			<div class="class-4" >
@@ -30,10 +30,10 @@
 							   :style="{width: '100%'}"
 							   :filterable="false"
 							   :disabled="false"
-							   :multiple="true" :clearable="true"
+							   :clearable="true"
 							   placeholder="请选择主题模板">
-						<el-option v-for='item in templateOptions' :key="item.dictValue" :value="item.dictValue"
-								   :label="item.dictLabel"></el-option>
+						<el-option v-for='item in templateOptions' :key="item" :value="item"
+								   :label="item"></el-option>
 					</el-select>
 				</el-form-item>
 			</div>
@@ -54,23 +54,19 @@
 			</div>
 			<div class="class-10" >
 				<el-form-item>
-					<el-button type="primary">生成主页</el-button>
-					<el-button plain>预览主页</el-button>
+					<el-button type="primary" @click="updataIndex">生成主页</el-button>
+					<el-button plain @click="viewIndex">预览主页</el-button>
 				</el-form-item>
 			</div>
 		</div>
 		<div class="class-13" >
 			<div class="class-14" >
 				<el-form-item  label="文章栏目">
-					<el-select v-model="contentSection"
-							   :style="{width: '100%'}"
-							   :filterable="false"
-							   :disabled="false"
-							   :multiple="true" :clearable="true"
+					<tree-select v-model="contentSection"
+								 :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
+								 :options="treeList" :style="{width:'100%'}"
 							   placeholder="请选择文章栏目">
-						<el-option v-for='item in templateOptions' :key="item.dictValue" :value="item.dictValue"
-								   :label="item.dictLabel"></el-option>
-					</el-select>
+					</tree-select>
 				</el-form-item>
 			</div>
 			<div class="class-17" >
@@ -98,28 +94,24 @@
 			</div>
 			<div class="class-20" >
 				<el-form-item>
-					<el-button type="primary">生成文章</el-button>
+					<el-button type="primary" @click="updateArticle">生成文章</el-button>
 				</el-form-item>
 			</div>
 		</div>
 		<div class="class-23" >
 			<div class="class-24" >
 				<el-form-item  label="生成栏目">
-					<el-select v-model="section"
-							   :style="{width: '100%'}"
-							   :filterable="false"
-							   :disabled="false"
-							   :multiple="true" :clearable="true"
-							   placeholder="请选择生成栏目">
-						<el-option v-for='item in templateOptions' :key="item.dictValue" :value="item.dictValue"
-								   :label="item.dictLabel"></el-option>
-					</el-select>
+					<tree-select v-model="section"
+								 :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
+								 :options="treeList" :style="{width:'100%'}"
+								 placeholder="请选择文章栏目">
+					</tree-select>
 				</el-form-item>
 			</div>
 
 			<div class="class-30" >
 				<el-form-item>
-					<el-button type="primary">生成栏目</el-button>
+					<el-button type="primary" @click="updateColumn">生成栏目</el-button>
 				</el-form-item>
 			</div>
 		</div>
@@ -135,18 +127,106 @@
 
 		},
 		data: {
+			loading:false,
 			template:'',//主题模板
 			templateOptions:[],
 			position:'', //位置
 			contentSection:'', //文章栏目
 			section:'', //栏目
-			time:'',
+			time:ms.util.date.fmt(new Date(),"yyyy-MM-dd"),
+			treeList:[],
 
 		},
 		methods: {
+			//更新主页
+			updataIndex(){
+				var that = this;
+				if(!that.position || that.position == ''){
+					this.$notify({ title: '请输入主页位置！', type: 'warning' });
+					return;
+				}
+				that.loading = true;
+				ms.http.get(ms.manager+'/cms/generate//generateIndex.do', {url:that.template,position:that.position}).then(function (data) {
+					if(data.result){
+						that.$notify({ title: '更新成功！', type: 'success' });
+					}
+				}).catch(function (err) {
+					that.$notify({ title: '更新失败！',message: err, type: 'error' });
+					console.log(err);
+				}).finally(()=>{
+					that.loading = false;
+				});
+			},
+			//预览主页
+			viewIndex(){
+				if(!this.position || this.position == ''){
+					this.$notify({ title: '请输入主页位置！', type: 'warning' });
+					return;
+				}
+				window.open(ms.manager+"/cms/generate/"+this.position+"/viewIndex.do");
+			},
+			//更新栏目
+			updateColumn(){
+				var that = this;
+				if(!that.section || that.section == ''){
+					that.$notify({ title: '请选择栏目！', type: 'warning' });
+					return;
+				}
+				that.loading = true;
+				ms.http.get(ms.manager+'/cms/generate/'+that.section+'/genernateColumn.do', {section:that.section}).then(function (data) {
+					if(data.result){
+						that.$notify({ title: '更新成功！', type: 'success' });
+					}
+				}).catch(function (err) {
+					that.$notify({ title: '更新失败！',message: err, type: 'error' });
+					console.log(err);
+				}).finally(()=>{
+					that.loading = false;
+				});
+			},
+			//生成文章栏目
+			updateArticle(){
+				var that = this;
+				if(!that.contentSection || that.contentSection == ''){
+					that.$notify({ title: '请选择栏目！', type: 'warning' });
+					return;
+				}
+				that.loading = true;
+				ms.http.get(ms.manager+'/cms/generate/'+that.contentSection+'/generateArticle.do', {contentSection:that.contentSection,data:that.time}).then(function (data) {
+					if(data.result){
+						that.$notify({ title: '更新成功！', type: 'success' });
+					}
+				}).catch(function (err) {
+					that.$notify({ title: '更新失败！',message: err, type: 'error' });
+					console.log(err);
+				}).finally(()=>{
+					that.loading = false;
+				});
+			},
+			//获取主题模板数据源
+			templateOptionsGet() {
+				var that = this;
+				ms.http.get(ms.manager+'/template/queryTemplateFileForColumn.do', {pageSize:99999}).then(function (data) {
+					that.templateOptions = data;
+				}).catch(function (err) {
+					console.log(err);
+				});
+			},
+			getTree(){
+				var that = this;
+				ms.http.get(ms.manager+"/cms/category/list.do",{pageSize:9999}).then(function(res){
+					if(res.result){
+						//res.data.rows.push({id:0,categoryId: null,categoryTitle:'顶级栏目管理'});
+						that.treeList = ms.util.treeData(res.data.rows,'id','categoryId','children');
+					}
+				}).catch(function(err){
+					console.log(err);
+				});
+			},
 		},
 		created(){
-
+			this.getTree();
+			this.templateOptionsGet();
 		}
 	})
 </script>

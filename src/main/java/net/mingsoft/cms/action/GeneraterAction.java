@@ -114,13 +114,6 @@ public class GeneraterAction extends BaseAction {
 	 */
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request, ModelMap model) {
-		// 该站点ID有session提供
-		int websiteId = BasicUtil.getAppId();
-		Integer modelId = modelBiz.getEntityByModelCode(ModelCode.CMS_COLUMN).getModelId(); // 查询当前模块编号
-		// 获取所有的内容管理栏目
-		List<ColumnEntity> list = columnBiz.queryAll(websiteId, modelId);
-		model.addAttribute("list", JSONArray.toJSONString(list));
-		model.addAttribute("now", new Date());
 		return "/cms/generate/index";
 	}
 
