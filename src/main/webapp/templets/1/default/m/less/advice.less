@@ -1,0 +1,41 @@
+.ms-message-content {
+    form {
+        width: 95%;
+        margin: auto;
+        padding-top: 2rem;
+        padding-bottom: 5rem;
+        button {
+            width: 100%;
+            border-radius: 5px;
+            background-color: #fafafa;
+            color: #ddd;
+            border-color: #fafafa;
+            pointer-events: none;
+            transition: all .6s;
+            outline: none;
+        }
+        input {
+        	border: 1px solid #eeeeee;
+            outline: none;
+            transition: all .6s;
+            &:focus {
+                border-color: rgb(0, 154, 255);
+            }
+        }
+        textarea {
+        	border: 1px solid #eeeeee;
+            outline: none;
+            transition: all .6s;
+            &:focus {
+                border-color: rgb(0, 154, 255);
+            }
+            width: 100%;
+            border-radius: 5px;
+            height: 10rem;
+        }
+        textarea::-webkit-input-placeholder,
+        input::-webkit-input-placeholder {
+            color: #999;
+        }
+    }
+}

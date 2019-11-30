@@ -1,0 +1,172 @@
+﻿<!doctype html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<title>登录</title>
+    	<#include "/head-file.htm" />
+	</head>
+
+	<body style="background-color: #f3f5f7;">
+		<!--头部导航条-->
+		<div class="ms-people-heard">
+			<ul class="am-list admin-sidebar-list ms-admin-sidebar-list" id="collapase-nav-1">
+				<li class="am-panel">
+					<div data-am-widget="titlebar" class="am-titlebar am-titlebar-default ms-header">
+						<h2 class="iconfont" onclick="javascript:history.back(-1);">&#xe80d;</h2>
+						<nav class="am-titlebar-nav ms-titlebar-nav">
+							<p class="">登录</p>
+						</nav>
+						<h2 class="iconfont"></h2>
+					</div>
+					
+				</li>
+			</ul>
+		</div>
+		<!--头部导航条end-->
+		<div class="ms-login" id="vue-ms-login">
+			<form class="am-form ms-login-form">
+				<fieldset>
+					<div class="am-form-group">
+						<input type="text" v-model="peopleName" name="peopleName" class="am-form-field  am-radius" placeholder="用户名/已绑定邮箱" v-on:input="active" maxlength="30">
+					</div>
+
+					<div class="am-form-group">
+
+						<input type="password" v-model="peoplePassword" name="peoplePassword" class="am-form-field  am-radius" placeholder="请输入密码" v-on:input="active" maxlength="20">
+					</div>
+
+					<div class="am-form-group am-input-group">
+
+						<input type="text" v-model="rand_code" name="rand_code" class=" am-form-field am-radius" placeholder="必填，4个字符" v-on:input="active"  maxlength="4">
+						<span class="am-input-group-label ms-input-label">
+							<img src="" v-on:click="code" class="ms-valiDateCode am-fr" id="codeImg"/>
+						</span>
+					</div>
+					<v-touch type="button" v-on:tap="login" v-bind:class="{'am-disabled':isActive}" class="am-btn am-btn-danger am-radius ms-logBtn" data-am-loading="{loadingText: '登录中...'}">登 录</v-touch>
+
+					<div class="ms-health">
+						<div>
+							<a href="#">
+								<i class="iconfont">&#xe98d;</i>找回密码
+							</a>
+							<a href="{ms:global.host/}/register.do" class="am-fr">
+								<i class="iconfont">&#xe683;</i>快速注册
+							</a>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		
+		<script type="text/javascript">
+			//vue文档：https://cn.vuejs.org/v2/guide/
+			//touch文档：https://github.com/vuejs/vue-touch/tree/next
+			ms.load(["ms","ms.people","ms.mweixin"],function(ms,mpeople,mweixin){
+				var vm = new Vue({
+				  	el: '#vue-ms-login',
+				  	data:{
+				  		isActive:true,  //设置一个状态 为true的时候 登录按钮禁用，false时按钮启用
+					  	peopleName:'',  //定义登录表单的model值，便于获取表单元素值进行操作
+					  	peoplePassword:'',
+					  	rand_code:'',
+				  	},
+				  	created: function () {  //在vue创建后显示整个登录页面内容
+				  		$(".ms-login").show();
+				  	},
+				  	methods:{
+				  		active: function(){
+				  			//判断用户名、密码、验证码都输入后才启动登录按钮
+						    if (!validator.isNull(this.rand_code) && !validator.isNull(this.peoplePassword) && !validator.isNull(this.peopleName)){
+						    	this.isActive = false;
+						    }else{
+						    	this.isActive = true;
+						    }
+				  		},
+				  		//调用登录接口
+						login: function (){
+							var _obj = this
+							var $this = event.target;
+							$($this).button('loading');
+							_obj.isActive = true;
+						    //验证用户名
+						    if (!validator.isLength(_obj.peopleName,{min:3,max:30})){
+						        alert("用户名为3~30个字符");
+						        _obj.isActive = false;
+						        $($this).button('reset');
+						        return;
+						    }else{
+						    	if(_obj.peopleName.indexOf(" ") >=0){
+						    		alert("用户名不能包含空格");
+							        _obj.isActive = false;
+							        $($this).button('reset');
+							        return;
+						    	}
+						    }
+						    //验证密码
+						    if (!validator.isLength(_obj.peoplePassword,{min:6,max:20})){
+						        alert("密码为6~20个字符");
+						        _obj.isActive = false;
+						        $($this).button('reset');
+						        return;
+						    }
+						    //验证验证码
+						    if (_obj.rand_code.length !== 4){
+						        alert("验证码为4位字符");
+						        _obj.isActive = false;
+						        $($this).button('reset');
+						        return;
+						    }
+						    //判断登录表信息是否填入正确  并返回相应的参数
+						    mpeople.checkLogin($(".ms-login-form").serialize(),function(json){
+						        if (json.result) {
+						            location.href='{ms:global.host/}/people/center.do'
+						            
+						        }else{
+						            alert(json.resultMsg);
+						            vm.code();
+						        }
+						        _obj.isActive = false;
+						        $($this).button('reset');
+						    });
+						},
+				  		//点击更换验证码
+						code: function (event) {								
+							ms.code("codeImg");
+					    },
+					    //如果已登录则跳转到个人中心
+					    center:function(){
+					    	mpeople.checkLoginStatus(function(json) {
+								if(mweixin.isWeixin()) {
+									if(json.result) {
+										location.href='{ms:global.host/}/people/center.do'
+									}else{
+										location.href=mweixin.authLink({link:location.href,appId:"wx7cce6e06b8270c8a"});
+									}
+								}else{
+									if(json.result) {
+										location.href='{ms:global.host/}/people/center.do'
+									}
+								}
+
+							})
+					    }
+				  	}
+				})
+				vm.code();
+				vm.center();
+			})
+		</script>
+
+
+
+		<!--[if (gte IE 9)|!(IE)]><!-->
+		<!--<![endif]-->
+		<!--[if lte IE 8 ]>
+		<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+		<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+		<![endif]-->
+		<script src="{ms:global.host/}/plugins/AmazeUI/2.7.2/js/amazeui.min.js"></script>
+	</body>
+
+</html>

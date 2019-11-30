@@ -1,0 +1,39 @@
+<div class="ms-footer">
+    <div class="ms-footer-content">
+        <div class="ms-footer-left">
+            <div class="ms-footer-left-column">
+                <span class="ms-footer-left-column-about">
+                	<a href='{ms:global.url/}/53/index.html'>关于我们</a>
+                </span>|
+                <span class="ms-footer-left-column-course">
+                	<a target="_blank" href='http://mingsoft.net/html/1//5527/index.html#faz'>发展历程</a>
+                </span>|
+                <span class="ms-footer-left-column-contact">
+                	<a target="_blank" href='http://mingsoft.net/html/1//5527/index.html#lianx'>联系我们</a>
+                </span>
+            </div>
+            <span class="ms-footer-left-copyright">版权所有&copy;铭飞科技有限公司2012-2018保留一切权利</span>
+        </div>
+        <div class="ms-footer-right">
+            <img class='ms-footer-right-img-weixin' src="{ms:global.host/}/{ms:global.style/}/images/we-chat.png">
+            <a target="_blank" href='http://tieba.baidu.com/f?kw=%E9%93%AD%E9%A3%9E%E7%A7%91%E6%8A%80&fr=index&fp=0&ie=utf-8'><img class="ms-footer-right-baidu" src="{ms:global.host/}/{ms:global.style/}/images/baidu.png"></a>
+            <a target="_blank" href='http://weibo.com/killfen'><img src="{ms:global.host/}/{ms:global.style/}/images/micro-blog.png"></a>
+        	<div class="ms-footer-right-weixin">
+        		<p></p>
+        		<img alt="" src="{ms:global.host/}/{ms:global.style/}/images/weixin.jpg">
+        	</div>
+        </div>
+    </div>
+</div>
+<script>
+/*导航下拉*/
+$(function(){
+    $(".head-menu-list-li").hover(function(){
+        $(this).find(".head-menu-son-list").fadeToggle();
+    });
+    $('.ms-footer-right-img-weixin').hover(function(){
+    	$('.ms-footer-right-weixin').toggle();
+    });
+});
+
+</script>

@@ -1,0 +1,191 @@
+<!doctype html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<title>注册</title>
+    	<#include "/head-file.htm" />
+	</head>
+
+	<body style="background-color:#f3f5f7;">
+		<!--头部导航条-->
+		<div class="ms-people-heard">
+			<ul class="am-list admin-sidebar-list ms-admin-sidebar-list" id="collapase-nav-1">
+				<li class="am-panel">
+					<div data-am-widget="titlebar" class="am-titlebar am-titlebar-default ms-header">
+						<h2 class="iconfont" onclick="javascript:history.back(-1);">&#xe80d;</h2>
+						<nav class="am-titlebar-nav ms-titlebar-nav">
+							<p class="">注册</p>
+						</nav>
+						<h2 class="iconfont"></h2>
+					</div>
+					
+				</li>
+			</ul>
+		</div>
+		<!--头部导航条end-->
+		<div class="ms-register" id="vue-ms-register">
+			<form class="am-form ms-login-form">
+				<fieldset>
+					<div class="am-form-group">
+						<input type="text" name="peopleName" v-model="peopleName" class="am-form-field  am-radius" placeholder="用户名3-30位字符" v-on:input="active" maxlength="30">
+					</div>
+					<div class="am-form-group">
+						<input type="password" name="peoplePassword" v-model="peoplePassword" class="am-form-field  am-radius" placeholder="请设置6-20登录密码" v-on:input="active" maxlength="20">
+					</div>
+					<div class="am-form-group">
+						<input type="password" name="rePassword" v-model="rePassword" class="am-form-field  am-radius" placeholder="确认密码" v-on:input="active" maxlength="20">
+					</div>
+					<!--div class="am-form-group">
+						<input type="email" name="peopleMail" v-model="peopleMail" class="am-form-field  am-radius" placeholder="输入常用邮箱" v-on:input="active">
+					</div-->
+					<div class="am-form-group am-input-group">
+						<input type="text" name="rand_code" v-model="rand_code" class="am-form-field am-radius" placeholder="请输入验证码" v-on:input="active" maxlength="4">
+						<v-touch  v-on:tap="randCode" class="am-input-group-label ms-input-bgcolor">
+							<img id="picCode" class="ms-valiDateCode am-fr"/>
+						</v-touch>
+					</div>
+					<p>
+						<v-touch type="button" v-on:tap="register" v-bind:class="{'am-disabled':isActive}"  class="am-btn am-btn-danger am-radius ms-logBtn" data-am-loading="{loadingText: '注册中...'}">注册</v-touch>
+					</p>
+					<small>注意：邮箱仅由于保存，注册成功后可到会员中心绑定邮箱，绑定成功后可用邮箱登录</small>
+				</fieldset>
+			</form>
+		</div>
+		<script type="text/javascript">
+		ms.load(["ms","ms.people","ms.mweixin"],function(ms,mpeople,mweixin){
+			if(mweixin.isWeixin()) {
+			    location.href=mweixin.authLink({link:location.href,appId:"wx7cce6e06b8270c8a"});
+			}
+			var vue = new Vue({
+			    el: '#vue-ms-register',
+			    data:{
+			    	peopleName:'',  //定义注册表单的model值，便于获取表单元素值进行操作
+			    	peoplePassword:'',
+			    	rePassword:'',
+			    	peopleMail:'',
+			    	rand_code:'',
+			    	isActive:true,  //设置一个状态 为true的时候 注册按钮禁用，false时按钮启用
+			    },
+			  	created: function () {  //在vue创建后显示整个注册页面内容
+			  		$(".ms-register").show();
+			  	},
+				methods: {
+					active: function(){
+			  			//判断用户名、密码、确认密码、邮箱、验证码都输入后才启动登录按钮
+					    if (!validator.isNull(this.peopleName) && !validator.isNull(this.peoplePassword) && !validator.isNull(this.rePassword) && !validator.isNull(this.rand_code)){
+					    	this.isActive = false;
+					    }else{
+					    	this.isActive = true;
+					    }
+			  		},
+			  		//注册
+					register: function(){
+						var _obj = this;
+						var $this = event.target;
+						$($this).button('loading');
+						_obj.isActive = true;
+            			var pattern=new RegExp("[^a-zA-Z0-9\_\u4e00-\u9fa5]","i");
+
+						//验证用户名
+					    if (!validator.isLength(this.peopleName,{min:3,max:30})){
+					        alert("用户名为3-30个字符");
+					        _obj.isActive = false;
+					        $($this).button('reset');
+					        return;
+					    }else{
+					    	if(this.peopleName.indexOf(" ") >=0){
+					    		alert("用户名不能包含空格");
+					    		_obj.isActive = false;
+					    		$($this).button('reset');
+					        	return;
+					    	}
+					    	if(pattern.test(this.peopleName)){
+				                alert("用户名不能包含特殊字符");
+					    		_obj.isActive = false;
+					    		$($this).button('reset');
+					        	return;
+			                }
+					    }
+					    //验证密码
+					    if (!validator.isLength(this.peoplePassword,{min:6,max:20})){
+					        alert("密码为6~20个字符");
+					        _obj.isActive = false;
+					        $($this).button('reset');
+					        return;
+					    }else{
+					    	if(this.peoplePassword.indexOf(" ") >=0){
+					    		alert("密码不能包含空格");
+					    		_obj.isActive = false;
+					    		$($this).button('reset');
+					        	return;
+					    	}
+					    }
+					    //确认密码
+					    if (!validator.isLength(this.peoplePassword,{min:6,max:20})){
+					        alert("密码为6~20个字符");
+					        _obj.isActive = false;
+					        $($this).button('reset');
+					        return;
+					    }else if(this.peoplePassword != this.rePassword){
+					    	alert(" 两次密码输入不一致");
+					        _obj.isActive = false;
+					        $($this).button('reset');
+					        return;
+					    }
+					    //邮箱验证
+					    /*if (!validator.isEmail(this.peopleMail)){
+					        alert("请输入正确的邮箱");
+					        _obj.isActive = false;
+					        $($this).button('reset');
+					        return;
+					    }*/
+					    //验证验证码
+					    if (this.rand_code.length !== 4){
+					        alert("验证码为4位字符");
+					        _obj.isActive = false;
+					        $($this).button('reset');
+					        return;
+					    }
+						//接口调用
+					    mpeople.register($("form").serialize(),function(returnJson){
+					    	if(returnJson.result) {
+					        	alert('注册成功');
+					        	location.href='{ms:global.host/}/login.do';
+					        }else{
+					        	alert(returnJson.resultMsg);
+					        	_obj.isActive = false;
+					        	$($this).button('reset');
+					        	vue.randCode();
+					        }
+					    })
+					},
+					randCode: function(){
+					    //验证码加载与点击刷新
+					    ms.code("picCode");
+					},
+					//如果已登录则跳转到个人中心
+				    center:function(){
+				    	mpeople.checkLoginStatus(function(json) {
+							if(json.result) {
+								location.href='{ms:global.host/}/people/center.do'
+							}
+						})
+				    }
+				}
+			})
+			vue.randCode();
+			vm.center();
+		})
+		</script>
+		<!--[if (gte IE 9)|!(IE)]><!-->
+		<script src="{ms:global.host/}/plugins/jquery/1.9.1/jquery-1.9.1.js"></script>
+		<!--<![endif]-->
+		<!--[if lte IE 8 ]>
+		<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+		<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+		<![endif]-->
+		<script src="{ms:global.host/}/plugins/AmazeUI/2.7.2/js/amazeui.min.js"></script>
+	</body>
+
+</html>

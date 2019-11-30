@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <#include "head-file.htm"/>
+    </head>
+    <body>
+        <#include "head.htm"/>
+        <div class="ms-banner" style="background:url({ms:global.host/}/{ms:global.style/}/images/our_company.jpeg) no-repeat center;">
+            <p class="banner_tit_other animated fadeInLeft">公司动态</p>
+            <p class="banner_tit_other_des animated fadeInRight">Our company</p>
+        </div>
+        <div class="ms-content">
+            <div class="ms-content-new-list">
+                <#include "menu-left.htm"/>
+                <div class="ms-content-right-position">
+                    <a href="{ms:global.host/}">首页</a>
+                    <span>></span>
+                    <a href="{ms:field.typelink/}">{ms:field.typetitle/}</a>
+                </div>
+                <div class="ms-content-main-list">
+
+                    <div class="ms-content-main-div">
+                        <ul class="ms-content-main-ul">
+                            {ms:arclist size=10 ispaging=true}
+                            <li>
+                                <a href="{ms:global.url/}[field.link/]">
+                                    <!-- <span class="ms-content-main-li-span">·</span> -->
+                                    <span class="ms-content-main-li-title">[field.title/]</span>
+                                    <span class="ms-content-main-li-time">[field.date?string("yyyy-MM-dd")/]</span>
+                                </a>
+                            </li>
+                            {/ms:arclist}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="ms-content-main-page">
+               <a class="ms-content-main-page-first" href="{ms:global.url/}{ms:page.index/}">首页</a>
+               <a class="ms-content-main-page-upper" href="{ms:global.url/}{ms:page.pre/}">上一页</a>
+               <a class="ms-content-main-page-next" href="{ms:global.url/}{ms:page.next/}">下一页</a>
+               <a class="ms-content-main-page-last" href="{ms:global.url/}{ms:page.last/}">末页</a>
+           </div>
+        </div>
+        <#include "footer.htm"/>
+    </body>
+</html>

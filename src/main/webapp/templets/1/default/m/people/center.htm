@@ -1,0 +1,280 @@
+<!doctype html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<title>修改资料</title>
+		<#include "/head-file.htm" />
+		<script src='{ms:global.host/}/plugins/plupload/plupload.full.min.js'></script>
+	</head>
+
+	<body>
+		<div class="ms-center ms-people-info am-page am-padding" id="mobile-index">
+			<header class="demo-header am-text-center"><h3>个人信息</h3></header>
+			<div id="widget-list">
+				<ul class="am-list m-widget-list">
+					<li class="am-g am-list-item-dated">
+			          	<a href="javascript:;" class="am-list-item-hd ms-info-title">用户名</a>
+			          	<span class="am-list-date" v-text="peopleName"></span>
+			      	</li>
+
+					<li class="am-g am-list-item-dated"  data-am-modal="{target: '#nike-prompt'}">
+			          	<a href="javascript:;" class="am-list-item-hd ms-info-title">昵称</a>
+			          	<span class="am-list-date">
+			          		<span v-text="peopleNike"></span>
+			          		<i class="iconfont am-fr ms-iconfont">&#xe823;</i>
+			          	</span>
+			      	</li>
+
+					<li class="am-g am-list-item-dated"  data-am-modal="{target: '#name-prompt'}">
+			          	<a href="javascript:;" class="am-list-item-hd ms-info-title">真实姓名</a>
+			          	<span class="am-list-date">
+			          		<span v-text="peopleRealName"></span>
+			          		<i class="iconfont am-fr ms-iconfont">&#xe823;</i>
+			          	</span>
+			      	</li>
+
+					<li class="am-g am-list-item-dated" data-am-modal="{target: '#sex-prompt'}">
+			          	<a href="javascript:;" class="am-list-item-hd ms-info-title">性别</a>
+			          	<span class="am-list-date">
+			          		<span v-text="peopleSex">女</span>
+			          		<i class="iconfont am-fr ms-iconfont">&#xe823;</i>
+			          	</span>
+			      	</li>
+
+					<!-- <li class="am-g am-list-item-dated">
+			          	<a href="{ms:global.host/}/people/address.do" class="am-list-item-hd ms-info-title">收货地址</a>
+			          	<span class="am-list-date"><a class="ms-info-title ms-info-operate" href="{ms:global.host/}/people/address.do"><i class="iconfont am-fr ms-iconfont">&#xe823;</i></a></span>
+			      	</li>
+ -->
+					<!-- <li class="am-g am-list-item-dated">
+			          	<a href="javascript:;" class="am-list-item-hd ms-info-title">绑定邮箱</a>
+			          	<span class="am-list-date">
+				          	<a class="ms-info-title ms-info-operate" href="{ms:global.host/}/people/bind-email.do">
+				          		<span v-text="peopleEmail"></span>
+				          		<i class="iconfont am-fr ms-iconfont">&#xe823;</i>
+				          	</a>
+			          	</span>
+			      	</li> -->
+					<li class="am-g am-list-item-dated">
+			          	<a href="javascript:;" class="am-list-item-hd ms-info-title">登录密码</a>
+			          	<span class="am-list-date"><a class="ms-info-title ms-info-operate" href="{ms:global.host/}/people/password-change.do">去修改<i class="iconfont am-fr ms-iconfont">&#xe823;</i></a></span>
+			      	</li>
+
+				</ul>
+
+				<v-touch type="button" class="am-btn am-btn-block am-btn-danger am-radius ms-center-button" v-on:tap="quitLogin">退出</v-touch>
+
+				<!-- <a href="{ms:global.host/}/people/center.do">
+					<button type="button" class="am-btn am-btn-block am-btn-default am-radius ms-center-button">返回个人中心</button>
+				</a> -->
+				
+			</div>
+
+
+			<!-- 修改昵称 -->
+			<div class="am-modal am-modal-prompt" id="nike-prompt">		
+			  <div class="am-modal-dialog">
+			    <div class="am-modal-hd">修改昵称</div>
+			    <div class="am-modal-bd">
+			      <input type="text" class="am-modal-prompt-input" v-model="changeNike">
+			    </div>
+			    <div class="am-modal-footer">
+			    	<v-touch class="am-modal-btn" v-on:tap="updateNike">提交</v-touch>
+			      	<v-touch class="am-modal-btn" data-am-modal-cancel v-on:tap="cancelNike">取消</v-touch>
+			    </div>
+			  </div>
+			</div>
+
+			<!-- 修改真实姓名 -->
+			<div class="am-modal am-modal-prompt" id="name-prompt">		
+			  <div class="am-modal-dialog">
+			    <div class="am-modal-hd">真实姓名</div>
+			    <div class="am-modal-bd">
+			      <input type="text" class="am-modal-prompt-input" v-model="changeName">
+			    </div>
+			    <div class="am-modal-footer">
+			    	<v-touch class="am-modal-btn" v-on:tap="updateName">提交</v-touch>
+			      	<v-touch class="am-modal-btn" data-am-modal-cancel v-on:tap="cancelName">取消</v-touch>
+			    </div>
+			  </div>
+			</div>
+			<!-- 修改性别 -->
+			<div class="am-modal am-modal-no-btn" id="sex-prompt">	
+			  <div class="am-modal-dialog">
+			    <div class="am-modal-hd">修改性别
+			      <a href="javascript: void(0)" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+			    </div>
+			    <v-touch v-on:tap="updateSex(1)" v-bind:class="{'active':sex1}">男</v-touch>
+			    <v-touch class="ms-sex-padding" v-on:tap="updateSex(2)" v-bind:class="{'active':sex2}">女</v-touch>
+			  </div>
+			</div>
+		</div>
+
+			
+
+
+		<script type="text/javascript">
+
+				var vm = new Vue({
+					el: "#mobile-index",
+					data:{
+						title: '编辑资料',
+          				backBtn:"javascript:history.back()",
+						peopleName:'加载中',
+						peopleNike:"",
+						peopleSex:"",
+						peopleEmail:"",
+						headSrc:"{ms:global.host/}/{ms:global.style/}/people/images/center-head.png",
+						changeNike:"",
+						sex1:false,
+						sex2:false,
+						peopleRealName:"",
+						changeName:"",
+					},
+					methods:{
+						//获取用户信息
+						getInfo : function(){
+							var _obj = this;
+							mpeople.people.user.info(function(returnJson){	
+								//获取用户名
+								_obj.peopleName = returnJson.peopleName;
+								//追加昵称
+								_obj.peopleNike = returnJson.puNickname;
+								_obj.changeNike = returnJson.puNickname;
+								_obj.peopleRealName = returnJson.puRealName;
+								_obj.changeName =  returnJson.puRealName;
+								//追加邮箱
+								_obj.peopleEmail = returnJson.peopleMail;
+								//追加性别
+								if(returnJson.puSex == 1){
+									_obj.peopleSex = "男";
+									_obj.sex1 = true;
+								}else if(returnJson.puSex == 2){
+									_obj.peopleSex = "女";
+									_obj.sex2 = true;
+								}else{
+									_obj.peopleSex = "未知"
+								}
+								//有头像获取追加头像
+								if(returnJson.puIcon != undefined){
+									_obj.headSrc = "{ms:global.host/}"+returnJson.puIcon
+								}
+						    });								
+										
+						},
+						//取消修改昵称
+						cancelNike:function(){
+							this.changeNike = this.peopleNike;
+						},
+						//取消修改真实姓名
+						cancelName:function(){
+							this.changeName = this.peopleRealName;
+						},
+						//修改真实姓名
+						updateName:function(){
+							var _obj = this;
+							var pattern=new RegExp("[^a-zA-Z0-9\_\u4e00-\u9fa5]","i");
+							if(_obj.changeName.indexOf(" ") >=0){
+								alert("真实姓名不能为空格");
+								this.changeName = this.peopleRealName;
+								return;
+							}
+							if(pattern.test(this.peopleName)){
+								alert("真实姓名不能为特殊字符");
+								this.changeName = this.peopleRealName;
+								return;
+							}
+							if(validator.isLength(_obj.changeName,{min:0,max:20})){
+								var updateParam = "puRealName=" + _obj.changeName;
+								mpeople.people.user.update(updateParam,function(returnJson){	//更新用户信息
+									if(returnJson.result){
+								        alert("修改成功");
+					                    _obj.peopleRealName = _obj.changeName;
+					                }
+							    });
+							}else{
+								alert("真实姓名最大长度为20个字符");
+								this.changeName = this.peopleRealName;
+							}
+						},
+						//修改昵称
+						updateNike : function(){
+							var _obj = this;
+							var pattern=new RegExp("[^a-zA-Z0-9\_\u4e00-\u9fa5]","i");
+							if(_obj.changeNike.indexOf(" ") >=0){
+								alert("昵称不能为空格");
+								this.changeNike = this.peopleNike;
+								return;
+							}
+							if(pattern.test(this.changeNike)){
+								alert("昵称不能为特殊字符");
+								this.changeNike = this.peopleNike;
+								return;
+							}
+							if(validator.isLength(_obj.changeNike,{min:0,max:20})){
+								var updateParam = "puNickname=" + _obj.changeNike;
+								mpeople.people.user.update(updateParam,function(returnJson){	//更新用户信息
+									if(returnJson.result){
+								        alert("修改成功");
+					                    _obj.peopleNike = _obj.changeNike;
+					                }
+							    });
+							}else{
+								alert("昵称最大长度为20个字符");
+								this.changeNike = this.peopleNike;
+							}
+								
+						},
+
+						//修改性别
+						updateSex : function(data){
+							var _obj = this;
+							var updateParam = "puSex=" + data;
+							if(data == 1){
+								_obj.sex1 = true;
+						       	_obj.sex2 = false;
+							}else{
+								_obj.sex1 = false;
+						       	_obj.sex2 = true;
+							}
+							mpeople.people.user.update(updateParam,function(returnJson){	//更新用户信息
+						        if(returnJson.result){
+						        	if(data == 1){
+						        		_obj.peopleSex = "男";
+						        		_obj.sex1 = true;
+						        		_obj.sex2 = false;
+						        	}else if(data == 2){
+						        		_obj.peopleSex = "女";
+						        		_obj.sex1 = false;
+						        		_obj.sex2 = true;
+						        	}
+							        alert("修改成功");
+				                	$('#sex-prompt').modal('close');
+				                }
+						    });
+						},		
+
+						//退出
+						quitLogin : function(){
+							mpeople.people.quit(function(){});
+							alert("退出成功");
+		                    location.href = ms.base+"/login.do";
+						},
+						
+
+					}
+				});
+				vm.getInfo();
+				    
+		</script>
+		<!--[if (gte IE 9)|!(IE)]><!-->
+		
+		<!--<![endif]-->
+		<!--[if lte IE 8 ]>
+		<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+		<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+		<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
+		<![endif]-->
+		<script src="{ms:global.host/}/plugins/AmazeUI/2.7.2/js/amazeui.min.js"></script>
+	</body>
+</html>

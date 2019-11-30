@@ -1,0 +1,433 @@
+/*其他*/
+
+body,
+ul,
+ol,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fieldset,
+table,
+td,
+img,
+div,
+a {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    text-decoration: none !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-width: 1200px;
+    background-color: #fafafa;
+}
+
+html,
+body,
+ul,
+li {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #555;
+}
+
+ul,
+li,
+ol {
+    list-style: none;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+}
+
+
+/*banner图*/
+
+.ms-banner {
+    height: 337px;
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+.flexslider {
+    margin: 0px auto 20px;
+    position: relative;
+    width: 100%;
+    height: 440px;
+    overflow: hidden;
+    zoom: 1;
+    .slides {
+        li {
+            width: 100%;
+            height: 100%;
+        }
+        a {
+            img {
+                width: 100%;
+                height: 337px;
+                display: block;
+            }
+        }
+    }
+    .flex-direction-nav {
+        width: 100%;
+        /*position: absolute;*/
+        bottom: 10px;
+        text-align: center;
+        a {
+            width: 70px;
+            height: 70px;
+            line-height: 99em;
+            overflow: hidden;
+            margin: -35px 0 0;
+            display: block;
+            background: url(../images/ad_ctr.png) no-repeat;
+            position: absolute;
+            top: 50%;
+            z-index: 10;
+            cursor: pointer;
+            opacity: 0;
+            filter: alpha(opacity=0);
+            -webkit-transition: all .3s ease;
+            border-radius: 35px;
+        }
+        .flex-next {
+            background-position: 0 -70px;
+            right: 10px;
+        }
+        .flex-prev {
+            left: 10px;
+        }
+        li {
+            margin: 0 2px;
+            display: inline-block;
+            zoom: 1;
+            *display: inline;
+        }
+    }
+}
+
+.flexslider:hover {
+    .flex-next {
+        opacity: 0.8;
+        filter: alpha(opacity=25);
+    }
+    .flex-prev {
+        opacity: 0.8;
+        filter: alpha(opacity=25);
+    }
+}
+
+.flexslider:hover .flex-next:hover,
+.flexslider:hover .flex-prev:hover {
+    opacity: 1;
+    filter: alpha(opacity=50);
+}
+
+
+/*头部*/
+
+.ms-head {
+    a {
+        color: #fff;
+    }
+    background-color: #2b3442;
+    .head-menu-flex-center {
+        display: flex;
+        align-items: center;
+    }
+    .head-menu {
+        width: 1200px;
+        height: 60px;
+        margin: auto;
+        color: #ffffff;
+        /*overflow: hidden;*/
+        display: flex;
+        justify-content: space-between;
+        .head-menu-flex-center {
+            .head-menu-list {
+            	.head-active{
+            		color: #ffb800;
+                    background-color: #2b3442;
+            	}
+                .head-menu-list-li:hover {
+                    background-color: #202833;
+                    color: #ffb800;
+                }
+                .head-menu-list-li a:hover {
+                    background-color: #202833;
+                    color: #ffb800;
+                }
+                padding-left: 30px;
+                height: 60px;
+                line-height: 60px;
+                margin: 0 !important;
+                .head-menu-list-li {
+                    cursor: pointer;
+                    position: relative;
+                    .head-menu-son-list {
+                        background-color: #2b3442;
+                        position: absolute;
+                        width: 100%;
+                        left: 0;
+                        color: #fff;
+                        display: none;
+                        top: 60px;
+                        z-index: 9999999;
+                        li {
+                            height: 40px;
+                            line-height: 40px;
+                            text-align: center;
+                            a:hover {
+                                color: #ffb800;
+                                background-color: #2b3442;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        img,
+        .head-menu-list,
+        div,
+        .head-menu-list-li {
+            float: left;
+        }
+        img {
+            width: 60px;
+            height: 30px;
+            padding-right: 10px;
+        }
+        li {
+            padding: 0 15px;
+            ul {
+                /*display: none;*/
+            }
+        }
+        .head-men-right {
+            .head-menu-right-content {
+                min-width: 100px;
+                span {
+                    span {
+                        padding: 0 5px;
+                        cursor: pointer;
+                        a {
+                            &:hover {
+                                color: #ffb800;
+                            }
+                        }
+                    }
+                }
+            }
+            .head-menu-right-search {
+                padding-right: 12px;
+                position: relative;
+                input:-webkit-autofill {
+			        -webkit-box-shadow: 0 0 0px 1000px #2b3442 inset !important;//关于解决输入框背景颜色
+			        -webkit-text-fill-color: rgba(255,255,255,1)!important;//关于接输入框文字颜色
+			    }
+                .ms-search-click {
+                    background-image: url(../images/search.png);
+                    width: 14px;
+                    height: 14px;
+                    border: 0;
+                    background-color: #2b3442;
+                    position: absolute;
+                    right: 30px;
+                    top: 8px;
+                    cursor: pointer;
+                }
+                .ms-search-input {
+                    height: 28px;
+                    background-color: #2b3442;
+                    border: 1px solid #fff;
+                    border-radius: 15px;
+                    padding-left: 30px;
+                    color: #fff;
+                    width: 318px;
+                    font-size: 14px;
+                }
+                input::-webkit-input-placeholder {
+                    color: #fff;
+                }
+                .iconfont {
+                    font-size: 18px;
+                    cursor: pointer;
+                    position: absolute;
+                    right: 28px;
+                }
+            }
+        }
+    }
+}
+
+
+/*底部*/
+
+.ms-footer {
+    height: 140px;
+    background-color: #2a3542;
+    /*line-height: 140px;*/
+    .ms-footer-content {
+        padding: 46px 0;
+        width: 1200px;
+        margin: auto;
+        .ms-footer-left {
+            color: #999999;
+            font-size: 14px;
+            float: left;
+            .ms-footer-left-copyright {
+                display: block;
+                padding-top: 20px;
+                height: 14px;
+            }
+            .ms-footer-left-column {
+                a:link {
+                    color: #999;
+                    text-decoration: none
+                }
+                a:visited {
+                    color: #999;
+                    text-decoration: none
+                }
+                a:hover{
+                	color: #fff;
+                }
+                height: 14px;
+                cursor:pointer;
+                .ms-footer-left-column-course,
+                .ms-footer-left-column-contact {
+                    padding: 0 10px;
+                }
+                .ms-footer-left-column-about {
+                    padding-right: 10px;
+                }
+            }
+        }
+        .ms-footer-right {
+            float: right;
+            img {
+                cursor: pointer;
+            }
+            .ms-footer-right-baidu {
+                padding: 0 12px;
+            }
+            .ms-footer-right-weixin {
+                position: relative;
+                display: none;
+                img {
+                    top: -161px;
+                    left: -38px;
+                    width: 103px;
+                    /* display: none; */
+                    border: 2px solid #ccc;
+                    position: absolute;
+                }
+                p {
+                    font-size: 0;
+                    line-height: 0;
+                    display: block;
+                    width: 0;
+                    height: 0;
+                    left: 8px;
+                    border-left: 10px solid transparent;
+                    border-right: 8px solid transparent;
+                    border-top: 10px solid #fff;
+                    position: absolute;
+                    top: -58px;
+                    z-index: 85;
+                    /* display: none; */
+                }
+            }
+        }
+    }
+}
+
+.ms-but-disabled2,
+.ms-but-disabled {
+    opacity: .6 !important;
+    cursor: no-drop !important;
+}
+
+.ms-but-disabled:hover {
+    background-color: #009aff !important;
+}
+
+.ms-loading {
+    text-align: center;
+    height: 700px;
+    line-height: 700px;
+    img {
+        width: 60px;
+    }
+}
+
+.topbar-info {
+    display: flex;
+    align-items: center;
+    float: right;
+    color: white;
+    text-align: right;
+    a {
+        height: 30px;
+        line-height: 30px;
+        .loginImg {
+            width: 30px !important;
+            height: 30px !important;
+            vertical-align: super;
+            border-radius: 50%;
+            padding: 0;
+            margin-right: 12px;
+            opacity: .9;
+            cursor: pointer;
+            &:hover {
+                opacity: 1;
+            }
+        }
+        .userName {
+            line-height: 30px !important;
+            margin-right: 12px;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 500;
+            &:hover {
+                color: #ffb800;
+            }
+        }
+    }
+    .quitLogin {
+        color: #fff;
+        height: 30px;
+        line-height: 30px;
+        &:hover {
+            color: #ffb800;
+        }
+    }
+    .ms-userName {
+        max-width: 110px;
+        white-space: nowrap;
+        display: inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

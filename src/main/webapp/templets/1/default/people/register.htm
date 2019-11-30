@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>注册</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet/less" type="text/css" href="{ms:global.host/}/{ms:global.style/}/less/login.less">
+        <link rel="stylesheet/less" type="text/css" href="{ms:global.host/}/{ms:global.style/}/less/base.less">
+        <script src="{ms:global.host/}/static/plugins/jquery/1.9.1/jquery-1.9.1.js"></script>
+        <script src="{ms:global.host/}/static/plugins/vue/2.3.3/vue.min.js"></script>
+        <script src="{ms:global.host/}/static/plugins/validator/5.5.0/validator.min.js"></script>
+        <script src="{ms:global.host/}/static/plugins/less/3.9.0/less.min.js"></script>
+    </head>
+    <body>
+        <div id="login">
+            <div class="ms-head">
+                <a href="{ms:global.host/}"><img src="{ms:global.host/}/{ms:global.style/}/images/logo.png" /></a>
+                <span class="ms-head-line"></span>
+                <span class="ms-head-welcome-login">欢迎登录</span>
+            </div>
+            <div class="ms-content">
+                <div class="ms-content-form" id="ms-content-form-register" :class="{'ms-none':show == 'weixin'}">
+                    <div class="ms-login-title">
+                        <span class="ms-login-chinese-title">账号登录 /</span>
+                        <span class="ms-login-english-title">User Register</span>
+                    </div>
+                    <div class="ms-login-error-text">
+                        <img src="{ms:global.host/}/{ms:global.style/}/images/error.png" style="display: none;" v-show="errorText != ''" />
+                        <span v-text="errorText" v-show="errorText != ''"></span>
+                    </div>
+                    <form id="ms-login-form">
+                        <input @keyup="chanageBackgroundColor" maxlength="20" @keyup.enter="login" type="text" class="ms-login-people-name" :class="{'ms-error':error == 'peopleName'}" name="peopleName" v-model="peopleName" placeholder="必填，6-20个字符" @blur="checkPeopleName" />
+                        <input @keyup="chanageBackgroundColor" maxlength="20" @keyup.enter="login" type="password" class="ms-login-people-name" :class="{'ms-error':error == 'peoplePassword'}" name="peoplePassword" v-model="peoplePassword" placeholder="必填，6-20个字符" @blur="checkPeoplePassword" />
+                        <input @keyup="chanageBackgroundColor" maxlength="20" @keyup.enter="login" type="password" name="rePassword" class="ms-login-people-name" :class="{'ms-error':error == 'rePeoplePassword'}" v-model="rePeoplePassword" placeholder="必填，6-20个字符，与密码一致" @blur="checkPeopleRePassword">
+                        <div class="login-code">
+                            <input @keyup="chanageBackgroundColor" maxlength="4" @keyup.enter="login" type="text" class="login-code-input ms-login-float" name="rand_code" placeholder="必填，4个字符" v-model="peopleCode" :class="{'ms-error':error == 'peopleCode'}" @blur="checkPeopleCode" />
+                            <img src="{ms:global.host/}/{ms:global.style/}/images/code.jpg" class="login-code-img ms-login-float" @click="code">
+                            <p class="ms-login-float login-code-text">
+                                <span class="login-code-rompt">看不清?</span>
+                                <br/>
+                                <spna class="login-code-change" @click="code">换一张</span>
+                            </p>
+                        </div>
+                        <div class="ms-login-button" @click="login" :disabled="butState != '注册'" :class="{'ms-but-disabled':butState != '注册'}" v-text="butState">注册</div>
+                    </form>
+                </div>
+            </div>
+            <div class="ms-footer">
+                <p>
+                    <span>
+                        <a href='{ms:global.url/}/53/index.html'>关于我们</a>
+                    </span>
+                    <span>|</span>
+                    <span>
+                        <a target="_blank" href='http://mingsoft.net/html/1//5527/index.html#faz'>发展历程</a>
+                    </span>
+                    <span>|</span>
+                    <span>
+                        <a target="_blank" href='{ms:global.url/}/19/index.html'>联系我们</a>
+                    </span>
+                </p>
+                <p>版权所有 @铭飞科技有限公司2012-2018保留一切权利</p>
+            </div>
+        </div>
+    </body>
+    <script>
+        new Vue({
+            el: '#login',
+            data: {
+                show: "form", //切换显示的内容
+                errorText: "", //错误提示
+                error: "", //输入框错误的显示
+                peopleName: "", //用户名输入框
+                peoplePassword: "", //密码输入框
+                rePeoplePassword:"",//确定密码输入框
+                peopleCode:"",//验证码输入框
+                butState:"注册",//注册按钮
+            },
+            watch: {
+                peopleName: function() {
+                    var pattern = /[^\w\u4E00-\u9FA5]/ig;
+                    if(!validator.isNull(this.peopleName) && this.peopleName.indexOf(" ") < 0 && validator.isLength(this.peopleName, {
+                            min: 6,
+                            max: 20
+                        }) && pattern.test(this.peopleName) == false && this.error == 'peopleName') {
+                        this.errorText = "";
+                        this.error = "";
+                    }
+                },
+                peoplePassword: function() {
+                    if(!validator.isNull(this.peoplePassword) && this.peoplePassword.indexOf(" ") < 0 && validator.isLength(this.peoplePassword, {
+                            min: 6,
+                            max: 20
+                        }) && this.error == 'peoplePassword') {
+                        this.errorText = "";
+                        this.error = "";
+                    }
+                },
+                rePeoplePassword: function() {
+                    if(!validator.isNull(this.rePeoplePassword) && this.rePeoplePassword.indexOf(" ") < 0 && validator.isLength(this.rePeoplePassword, {
+                            min: 6,
+                            max: 20
+                        }) && this.error == 'rePeoplePassword' && this.rePeoplePassword == this.peoplePassword) {
+                        this.errorText = "";
+                        this.error = "";
+                    }
+                },
+                peopleCode: function() {
+                    if(!validator.isNull(this.peopleCode) && this.peopleCode.indexOf(" ") < 0 && this.peopleCode != 4 && this.error == 'peopleCode') {
+                        this.errorText = "";
+                        this.error = "";
+                    }
+                },
+            },
+            methods: {
+                errorShow: function(msg, type) {
+                    this.errorText = msg;
+                    this.error = type;
+                },
+                //判断用户名
+                checkPeopleName: function() {
+                    var pattern = /[^\w\u4E00-\u9FA5]/ig;
+                    if(validator.isNull(this.peopleName)) {
+                        this.errorShow("用户名不能为空", 'peopleName');
+                        return false;
+                    } else if(this.peopleName.indexOf(" ") >= 0) {
+                        this.errorShow("用户名不能包含空格", 'peopleName');
+                        return false;
+                    } else if(!validator.isLength(this.peopleName, {
+                            min: 6,
+                            max: 20
+                        })) {
+                        this.errorShow("用户名为6~20个字符", 'peopleName');
+                        return false;
+                    } else if(pattern.test(this.peopleName)) {
+                        this.errorShow("用户名不能包含特殊字符", 'peopleName');
+                        return false;
+                    }
+                    return true;
+                },
+                //判断密码
+                checkPeoplePassword: function() {
+                    if(validator.isNull(this.peoplePassword)) {
+                        this.errorShow("密码不能为空", 'peoplePassword');
+                        return false;
+                    } else if(!validator.isLength(this.peoplePassword, {
+                            min: 6,
+                            max: 20
+                        })) {
+                        this.errorShow("密码长度在6~20位之间!", 'peoplePassword');
+                        return false;
+                    } else if(this.peoplePassword.indexOf(" ") >= 0) {
+                        this.errorShow("密码是不能包含空格", 'peoplePassword');
+                        return false;
+                    }
+                    return true;
+                    
+                },
+                //判断确定密码
+                checkPeopleRePassword: function() {
+                    if(validator.isNull(this.rePeoplePassword)) {
+                        this.errorShow("确定密码不能为空", 'rePeoplePassword');
+                        return false;
+                    } else if(!validator.isLength(this.rePeoplePassword, {
+                            min: 6,
+                            max: 20
+                        })) {
+                        this.errorShow("确定密码长度在6~20位之间!", 'rePeoplePassword');
+                        return false;
+                    } else if(this.rePeoplePassword.indexOf(" ") >= 0) {
+                        this.errorShow("确定密码是不能包含空格", 'rePeoplePassword');
+                        return false;
+                    } else if(this.rePeoplePassword != this.peoplePassword){
+                        this.errorShow("确定密码和密码不一致", 'rePeoplePassword');
+                        return false;
+                    }
+                    return true;
+                    
+                },
+                 //判断验证码
+                checkPeopleCode: function() {
+                    if(validator.isNull(this.peopleCode)) {
+                        this.errorShow("验证码不能为空", 'peopleCode');
+                        return false;
+                    } else if(this.peopleCode.length != 4) {
+                        this.errorShow("验证码为4位字符", 'peopleCode');
+                        return false;
+                    } else if(this.peopleCode.indexOf(" ") >= 0) {
+                        this.errorShow("验证码不能包括空格", 'peopleCode');
+                        return false;
+                    }
+                    return true;
+                },
+                //登录
+                login: function() {
+                	var target = this;
+                    if(this.checkPeoplePassword() && this.checkPeopleName() && this.checkPeopleRePassword() && this.checkPeopleCode()) {
+                   		target.butState = '注册中...';
+                    	 $.ajax({
+                            type: "post",
+                            data: $("#ms-login-form").serialize(),
+                            url: "{ms:global.host/}/register.do",
+                            success: function(msg) {
+                                if(msg.result != true) {
+                                    alert(msg.resultMsg);
+                                    target.code();
+                                } else {
+                                	alert("注册成功！");
+                                    $("body").append("<form action='{ms:global.host/}/mcms/login.do' id='goForm'></form>");
+                                    $("#goForm").submit();
+                                }
+                                target.butState = '注册';
+                            }
+                        })
+                    }
+                },
+                code: function() {
+                    $(".login-code-img").attr("src", "{ms:global.host/}/code?t=" + (new Date).getTime())
+                },
+                chanageBackgroundColor: function(){
+                    if($('input[name="peopleName"]').val().length >= 6 &&　$('input[name="peoplePassword"]').val().length >= 6 &&　$('input[name="rePassword"]').val().length >= 6 && $('input[name="rand_code"]').val().length == 4){
+                        $('.ms-login-button').css("background-color", "#009aff");
+                        $('.ms-login-button').css("pointer-events", 'visible');
+                        $('.ms-login-button').css("color", "#fff");
+                    }else{
+                        $('.ms-login-button').css("background-color", "#fafafa");
+                        $('.ms-login-button').css('pointer-events', "none");
+                        $('.ms-login-button').css("color", "#ddd");
+                    }
+                 },
+            },
+            mounted: function() {
+                $(".login-code-img").attr("src", "{ms:global.host/}/code?t=" + (new Date).getTime())
+            }
+        })
+    </script>
+</html>
