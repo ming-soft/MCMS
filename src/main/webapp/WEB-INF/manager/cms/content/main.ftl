@@ -180,6 +180,7 @@
                         if (!res.result||res.data.total <= 0) {
                             that.emptyText = '暂无数据'
                             that.dataList = [];
+                            that.total = 0;
                         } else {
                             that.emptyText = '';
                             that.total = res.data.total;
