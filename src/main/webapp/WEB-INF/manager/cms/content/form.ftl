@@ -20,7 +20,7 @@
                          :label="item.title"
                          :name="item.name">
         <el-scrollbar class="ms-scrollbar" style="height: 100%;">
-            <el-form ref="form" :model="form" :rules="rules" label-width="120px" size="mini">
+            <el-form v-if="item.title=='文章编辑'" ref="form" :model="form" :rules="rules" label-width="120px" size="mini">
                 <el-row
                         gutter="0"
                         justify="start" align="top">
@@ -240,6 +240,7 @@
                     contentDetails: '',
                 },
                 contentTypeOptions: [],
+                categoryIdOptions: [],
                 contentDisplayOptions: [{"value": "0", "label": "是"}, {"value": "1", "label": "否"}],
                 rules: {
                     // 文章标题
@@ -254,7 +255,7 @@
         computed:{
             currCategory(){
                 var that = this;
-                return this.contentCategoryIdOptions.find(function(value){
+                return this.categoryIdOptions.find(function(value){
                     return value.id===that.form.contentCategoryId
                 })
             },
@@ -271,7 +272,7 @@
                 if (that.form.id > 0) {
                     url = ms.manager + "/cms/content/update.do";
                 }
-                this.$refs.form.validate((valid) => {
+                this.$refs.form[0].validate((valid) => {
                     if (valid) {
                         that.saveDisabled = true;
                         var data = JSON.parse(JSON.stringify(that.form));
@@ -281,7 +282,7 @@
                             if (data.result) {
                                 //保存时需要赋值关联ID
                                 if(that.model){
-                                    that.model.form.linkId = data.id;
+                                    that.model.form.linkId = data.data.id;
                                     that.model.save()
                                 }
                                 that.$notify({
@@ -322,9 +323,9 @@
                 that.editableTabs = [that.editableTabs[0]];
                 this.removeModel();
                 if(this.currCategory){
-                    if(this.currCategory.categoryCmId){
+                    if(this.currCategory.mdiyModelId){
                         ms.http.get(ms.manager + "/mdiy/model/get.do",{
-                            id:this.currCategory.categoryCmId
+                            id:this.currCategory.mdiyModelId
                         }).then(function (data) {
                             if(data.id){
                                 that.rederModel(data,JSON.parse(data.modelJson))
@@ -359,7 +360,7 @@
                                 title:modelEntity.modelName,
                                 modelId:modelEntity.id,
                                 form:{
-                                    linkId:that.id
+                                    linkId:that.form.id
                                 },
                             }
                         })
@@ -385,8 +386,8 @@
                         } else {
                             res.data.contentImg = []
                         }
-                        that.changeModel();
                         that.form = res.data;
+                        that.changeModel();
                     }
                 }).catch(function (err) {
                     console.log(err);
@@ -398,6 +399,8 @@
                 ms.http.get(ms.manager + "/cms/category/list.do", {pageSize: 9999}).then(function (res) {
                     if (res.result) {
                         that.contentCategoryIdOptions = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
+                        that.categoryIdOptions = res.data.rows
+                        that.changeModel();
                     }
                 }).catch(function (err) {
                     console.log(err);

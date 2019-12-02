@@ -103,7 +103,7 @@
 
 </html>
 <script>
-    var mainVue = new Vue({
+    var indexVue = new Vue({
         el: '#main',
         data:{
             conditionList:[
@@ -124,6 +124,7 @@
                 {action:'and', field: 'update_date', el: 'eq', model: 'updateDate', name: '修改时间', type: 'date'},
             ],
             conditions:[],
+            contentCategoryIdOptions:[],
             dataList: [], //文章列表
             selectionList:[],//文章列表选中
             total: 0, //总记录数量

@@ -89,6 +89,23 @@
                                     </el-form-item>
                                 </el-col>
                         </el-row>
+                    <el-row
+                            gutter="0"
+                            justify="start" align="top">
+                        <el-col span="12">
+                            <el-form-item  label="自定义模型" prop="mdiyModelId">
+                                <el-select v-model="form.mdiyModelId"
+                                           :style="{width: '100%'}"
+                                           :filterable="false"
+                                           :disabled="false"
+                                           :multiple="false" :clearable="true"
+                                           placeholder="请选择栏目的自定义模型">
+                                    <el-option v-for='item in mdiyModelIdOptions' :key="item.id" :value="item.id"
+                                               :label="item.modelName"></el-option>
+                                </el-select>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
             <el-form-item  label="栏目管理关键字" prop="categoryKeyword">
                 <el-input
                         type="textarea" :rows="5"
@@ -140,17 +157,6 @@
                         :style="{width: '100%'}"
                         placeholder="请输入自定义链接">
                 </el-input>
-            </el-form-item>
-            <el-form-item  label="栏目管理的内容模型id" prop="mdiyModelId">
-                    <el-select v-model="form.mdiyModelId"
-                               :style="{width: '100%'}"
-                               :filterable="false"
-                               :disabled="false"
-                               :multiple="false" :clearable="true"
-                               placeholder="请选择栏目管理的内容模型id">
-                        <el-option v-for='item in mdiyModelIdOptions' :key="item.value" :value="item.value"
-                                   :label="false?item.label:item.value"></el-option>
-                    </el-select>
             </el-form-item>
             </el-form>
             </el-scrollbar>
@@ -259,7 +265,16 @@
                     }
                 })
             },
-
+            //获取分类内容模型
+            getColumnContentModelId: function () {
+                var that = this;
+                ms.http.get(ms.manager + "/mdiy/model/list.do",{modelType:'zdymx_wz'}).then(
+                    function (data) {
+                        that.mdiyModelIdOptions = data.rows;
+                    }).catch(function (err) {
+                    console.log(err);
+                });
+            },
             //获取当前分类
             get(id) {
                 var that = this;
@@ -325,6 +340,7 @@
             },
         },
         created() {
+            this.getColumnContentModelId();
             this.getTree()
             this.categoryListUrlOptionsGet();
             this.categoryUrlOptionsGet();
