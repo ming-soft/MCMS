@@ -22,11 +22,15 @@ import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.SpringUtil;
 import net.mingsoft.cms.bean.ColumnArticleIdBean;
 import net.mingsoft.cms.constant.e.ColumnTypeEnum;
+import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IContentModelBiz;
+import net.mingsoft.mdiy.biz.impl.ModelBizImpl;
 import net.mingsoft.mdiy.entity.ContentModelEntity;
+import net.mingsoft.mdiy.entity.ModelEntity;
 import net.mingsoft.mdiy.parser.TagParser;
 import net.mingsoft.mdiy.util.ParserUtil;
+import org.apache.commons.lang3.StringUtils;
 
 public class CmsParserUtil extends ParserUtil {
 
@@ -42,9 +46,8 @@ public class CmsParserUtil extends ParserUtil {
 	public static void generate(String templatePath, String targetPath) throws IOException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(IS_DO, false);
-		ColumnEntity column = new ColumnEntity();
+		CategoryEntity column = new CategoryEntity();
 		//内容管理栏目编码
-		column.setCategoryModelId(BasicUtil.getModelCodeId("02990000"));
 		map.put(COLUMN, column);
 		String content = CmsParserUtil.generate(templatePath, map, false);
 		FileUtil.writeString(content, ParserUtil.buildHtmlPath(targetPath), Const.UTF8);
@@ -67,7 +70,7 @@ public class CmsParserUtil extends ParserUtil {
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	public static void generateList(ColumnEntity column, int articleIdTotal)
+	public static void generateList(CategoryEntity column, int articleIdTotal)
 			throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException {
 		// 只初始化一次cfg
 		if (ftl == null) {
@@ -76,12 +79,12 @@ public class CmsParserUtil extends ParserUtil {
 		}
 		// 移动端模板
 		Template mobileTemplate = cfg.getTemplate(
-				BasicUtil.getApp().getAppMobileStyle() + File.separator + column.getColumnListUrl(), Const.UTF8);
+				BasicUtil.getApp().getAppMobileStyle() + File.separator + column.getCategoryListUrl(), Const.UTF8);
 		// pc端模板
-		Template template = cfg.getTemplate(File.separator + column.getColumnListUrl(), Const.UTF8);
+		Template template = cfg.getTemplate(File.separator + column.getCategoryListUrl(), Const.UTF8);
 
 		// 文章的栏目模型编号
-		int columnContentModelId = column.getColumnContentModelId();
+		String columnContentModelId = column.getMdiyModelId();
 		StringWriter writer = new StringWriter();
 		try {
 			// 为了分页添加column,判断栏目是否为父栏目
@@ -94,11 +97,11 @@ public class CmsParserUtil extends ParserUtil {
 			
 			String columnListPath;
 			String mobilePath;
-			ContentModelEntity contentModel = null;
+			ModelEntity contentModel = null;
 			// 判断当前栏目是否有自定义模型
-			if (columnContentModelId > 0) {
+			if (StringUtils.isNotBlank(columnContentModelId)) {
 				// 通过栏目模型编号获取自定义模型实体
-				contentModel = (ContentModelEntity) SpringUtil.getBean(IContentModelBiz.class).getEntity(columnContentModelId);
+				contentModel = (ModelEntity) SpringUtil.getBean(ModelBizImpl.class).getEntity(Integer.parseInt(columnContentModelId));
 			}
 			int pageNo = 1;
 			PageBean page = new PageBean();
@@ -112,7 +115,7 @@ public class CmsParserUtil extends ParserUtil {
 			parserParams.put(APP_ID, BasicUtil.getAppId());
 			if (contentModel!=null) {
 				// 将自定义模型编号设置为key值
-				parserParams.put(TABLE_NAME, contentModel.getCmTableName());
+				parserParams.put(TABLE_NAME, contentModel.getModelTableName());
 			}
 			//如果单站点，就废弃站点地址
 			if(ParserUtil.IS_SINGLE) {
@@ -123,15 +126,15 @@ public class CmsParserUtil extends ParserUtil {
 			if (totalPageSize <= 0) {
 	            // 数据库中第一页是从开始0*size
 	            // 首页路径index.html
-	            mobilePath = ParserUtil.buildMobileHtmlPath(column.getColumnPath() + File.separator + ParserUtil.INDEX);
-	            columnListPath = ParserUtil.buildHtmlPath(column.getColumnPath() + File.separator + ParserUtil.INDEX);
+	            mobilePath = ParserUtil.buildMobileHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX);
+	            columnListPath = ParserUtil.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX);
 	            // 设置分页的起始位置
 				page.setPageNo(pageNo);
 				parserParams.put(ParserUtil.PAGE, page);
 				TagParser tag = new TagParser(content,parserParams);
 	            FileUtil.writeString(tag.rendering(), columnListPath, Const.UTF8);
 	            // 判断是手机端生成还是pc端,防止重复生成
-	            if (ParserUtil.hasMobileFile(column.getColumnListUrl())) {
+	            if (ParserUtil.hasMobileFile(column.getCategoryListUrl())) {
 	               writer = new StringWriter();
 	               mobileTemplate.process(null, writer);
 	               tag = new TagParser(writer.toString(), parserParams);
@@ -146,15 +149,15 @@ public class CmsParserUtil extends ParserUtil {
 						// 数据库中第一页是从开始0*size
 						// 首页路径index.html
 						mobilePath = ParserUtil
-								.buildMobileHtmlPath(column.getColumnPath() + File.separator + ParserUtil.INDEX);
+								.buildMobileHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX);
 						columnListPath = ParserUtil
-								.buildHtmlPath(column.getColumnPath() + File.separator + ParserUtil.INDEX);
+								.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX);
 					} else {
 						// 其他路径list-2.html
 						mobilePath = ParserUtil.buildMobileHtmlPath(
-								column.getColumnPath() + File.separator + ParserUtil.PAGE_LIST + pageNo);
+								column.getCategoryPath() + File.separator + ParserUtil.PAGE_LIST + pageNo);
 						columnListPath = ParserUtil
-								.buildHtmlPath(column.getColumnPath() + File.separator + ParserUtil.PAGE_LIST + pageNo);
+								.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.PAGE_LIST + pageNo);
 					}
 					// 设置分页的起始位置
 					page.setPageNo(pageNo);
@@ -162,7 +165,7 @@ public class CmsParserUtil extends ParserUtil {
 					TagParser tag = new TagParser(content,parserParams);
 					FileUtil.writeString(tag.rendering(), columnListPath, Const.UTF8);
 					// 判断是手机端生成还是pc端,防止重复生成
-					if (ParserUtil.hasMobileFile(column.getColumnListUrl())) {
+					if (ParserUtil.hasMobileFile(column.getCategoryListUrl())) {
 						writer = new StringWriter();
 						mobileTemplate.process(null, writer);
 						tag = new TagParser(writer.toString(),parserParams);
@@ -204,11 +207,11 @@ public class CmsParserUtil extends ParserUtil {
 			// 文章编号
 			int articleId = articleIdList.get(artId).getArticleId();
 			// 文章的栏目路径
-			String articleColumnPath = articleIdList.get(artId).getColumnPath();
+			String articleColumnPath = articleIdList.get(artId).getCategoryPath();
 			// 文章的模板路径
-			String columnUrl = articleIdList.get(artId).getColumnUrl();
+			String columnUrl = articleIdList.get(artId).getCategoryUrl();
 			// 文章的栏目模型编号
-			int columnContentModelId = articleIdList.get(artId).getColumnContentModelId();
+			String columnContentModelId = articleIdList.get(artId).getMdiyModelId();
 			// 文章是否已经生成了，生成了就跳过
 			if (generateIds.contains(articleId)) {
 				artId++;
@@ -225,20 +228,20 @@ public class CmsParserUtil extends ParserUtil {
 			// 组合文章路径如:html/站点id/栏目id/文章id.html
 			writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + articleId);
 			//如果是封面就生成index.html
-			if(articleIdList.get(artId).getColumnType() == ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {
+			if(Integer.parseInt(articleIdList.get(artId).getCategoryType()) == ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {
 				writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + ParserUtil.INDEX);
 			}
 			Map<String, Object> parserParams = new HashMap<String, Object>();
 			parserParams.put(ParserUtil.COLUMN, articleIdList.get(artId));
 			// 判断当前栏目是否有自定义模型
-			if (columnContentModelId > 0) {
+			if (StringUtils.isNotBlank(columnContentModelId)) {
 				// 通过当前栏目的模型编号获取，自定义模型表名
 				if (contentModelMap.containsKey(columnContentModelId)) {
 					parserParams.put(TABLE_NAME, contentModel.getCmTableName());
 				} else {
 					// 通过栏目模型编号获取自定义模型实体
 					contentModel = (ContentModelEntity) SpringUtil.getBean(IContentModelBiz.class)
-							.getEntity(columnContentModelId);
+							.getEntity(Integer.parseInt(columnContentModelId));
 					// 将自定义模型编号设置为key值
 					contentModelMap.put(columnContentModelId, contentModel.getCmTableName());
 					parserParams.put(TABLE_NAME, contentModel.getCmTableName());
@@ -265,13 +268,13 @@ public class CmsParserUtil extends ParserUtil {
 
 			parserParams.put(IS_DO, false);
 			parserParams.put(ParserUtil.PAGE, page);
-			String content = CmsParserUtil.generate(articleIdList.get(artId).getColumnUrl(), parserParams, false);
+			String content = CmsParserUtil.generate(articleIdList.get(artId).getCategoryUrl(), parserParams, false);
 			FileUtil.writeString(content, writePath, Const.UTF8);
 			// 手机端
 			if (ParserUtil.hasMobileFile(columnUrl)) {
 				writePath = ParserUtil.buildMobileHtmlPath(articleColumnPath + File.separator + articleId);
 				//如果是封面就生成index.html
-				if(articleIdList.get(artId).getColumnType() == ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {
+				if(Integer.parseInt(articleIdList.get(artId).getCategoryType())  == ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {
 					writePath = ParserUtil.buildMobileHtmlPath(articleColumnPath + File.separator + ParserUtil.INDEX);
 				}
 				// 判断文件是否存在，若不存在弹出返回信息
@@ -280,7 +283,7 @@ public class CmsParserUtil extends ParserUtil {
 					continue;
 				}
 				parserParams.put(MOBILE, BasicUtil.getApp().getAppMobileStyle());
-				content = CmsParserUtil.generate(articleIdList.get(artId).getColumnUrl(), parserParams, true);
+				content = CmsParserUtil.generate(articleIdList.get(artId).getCategoryUrl(), parserParams, true);
 				FileUtil.writeString(content, writePath, Const.UTF8);
 			}
 			artId++;

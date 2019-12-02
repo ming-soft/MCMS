@@ -102,6 +102,7 @@ public class CategoryAction extends BaseAction{
 	@RequestMapping("/list")
 	@ResponseBody
 	public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category,HttpServletResponse response, HttpServletRequest request,@ApiIgnore ModelMap model,BindingResult result) {
+		category.setAppId(BasicUtil.getAppId());
 		BasicUtil.startPage();
 		List categoryList = categoryBiz.query(category);
 		return ResultData.build().success(new EUListBean(categoryList,(int)BasicUtil.endPage(categoryList).getTotal()));
@@ -131,6 +132,7 @@ public class CategoryAction extends BaseAction{
 		if(category.getId()==null) {
 			return ResultData.build().error();
 		}
+		category.setAppId(BasicUtil.getAppId());
 		CategoryEntity _category = (CategoryEntity)categoryBiz.getEntity(Integer.parseInt(category.getId()));
 		return ResultData.build().success(_category);
 	}
@@ -188,6 +190,7 @@ public class CategoryAction extends BaseAction{
 		if(!StringUtil.checkLength(category.getCategoryParentId()+"", 1, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
 		}
+		category.setAppId(BasicUtil.getAppId());
 		categoryBiz.saveEntity(category);
 		return ResultData.build().success(category);
 	}
@@ -262,6 +265,7 @@ public class CategoryAction extends BaseAction{
 		if(!StringUtil.checkLength(category.getCategoryParentId()+"", 0, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
 		}
+		 category.setAppId(BasicUtil.getAppId());
 		categoryBiz.updateEntity(category);
 		return ResultData.build().success(category);
 	}

@@ -21,12 +21,15 @@ The MIT License (MIT) * Copyright (c) 2019 铭飞科技
 
 package net.mingsoft.cms.biz.impl;
 
+import net.mingsoft.base.entity.BaseEntity;
+import net.mingsoft.cms.entity.CategoryEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
 import java.util.*;
-import net.mingsoft.cms.entity.CategoryEntity;
+
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.dao.ICategoryDao;
 
@@ -48,5 +51,42 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 	protected IBaseDao getDao() {
 		// TODO Auto-generated method stub
 		return categoryDao;
-	} 
+	}
+
+	@Override
+	public List<CategoryEntity> queryChilds(CategoryEntity category) {
+		// TODO Auto-generated method stub
+		return categoryDao.queryChildren(category);
+	}
+	@Override
+	public int saveEntity(CategoryEntity categoryEntity) {
+		// TODO Auto-generated method stub
+		setParentId(categoryEntity);
+		return super.saveEntity(categoryEntity);
+	}
+
+	private void setParentId(CategoryEntity categoryEntity) {
+		if(StringUtils.isNotEmpty(categoryEntity.getCategoryId())&&Integer.parseInt(categoryEntity.getCategoryId())>0) {
+			CategoryEntity category = (CategoryEntity)categoryDao.getEntity(Integer.parseInt(categoryEntity.getCategoryId()));
+			if(StringUtils.isEmpty(category.getCategoryParentId())) {
+				categoryEntity.setCategoryParentId(categoryEntity.getCategoryId());
+			} else {
+				categoryEntity.setCategoryParentId(category.getCategoryParentId()+","+categoryEntity.getCategoryParentId());
+			}
+		}
+	}
+
+	@Override
+	public void updateEntity(CategoryEntity entity) {
+		List<CategoryEntity> categoryEntities = queryChilds(entity);
+		setParentId(entity);
+		super.updateEntity(entity);
+		categoryEntities.forEach(x->{
+			setParentId(x);
+			if(!x.getId().equals(entity.getId())){
+				super.updateEntity(x);
+			}
+		});
+
+	}
 }

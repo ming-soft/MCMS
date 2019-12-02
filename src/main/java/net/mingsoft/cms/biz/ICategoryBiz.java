@@ -1,6 +1,9 @@
 package net.mingsoft.cms.biz;
 
 import net.mingsoft.base.biz.IBaseBiz;
+import net.mingsoft.cms.entity.CategoryEntity;
+
+import java.util.List;
 
 
 /**
@@ -11,4 +14,14 @@ import net.mingsoft.base.biz.IBaseBiz;
  */
 public interface ICategoryBiz extends IBaseBiz {
 
+    /**
+     * 查询当前分类下的所有子分类
+     * @param category
+     * @return
+     */
+    List<CategoryEntity> queryChilds(CategoryEntity category);
+
+    int saveEntity(CategoryEntity entity);
+
+    void updateEntity(CategoryEntity entity);
 }

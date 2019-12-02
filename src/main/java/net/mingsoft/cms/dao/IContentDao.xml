@@ -18,7 +18,7 @@
 				<result column="content_details" property="contentDetails" /><!--文章内容 -->
 				<result column="content_url" property="contentUrl" /><!--文章跳转链接地址 -->
 				<result column="content_hit" property="contentHit" /><!--点击次数 -->
-				<result column="appid" property="appid" /><!--文章管理的应用id -->
+				<result column="app_id" property="appId" /><!--文章管理的应用id -->
 				<result column="create_by" property="createBy" /><!--创建人 -->
 				<result column="create_date" property="createDate" /><!--创建时间 -->
 				<result column="update_by" property="updateBy" /><!--修改人 -->
@@ -45,7 +45,7 @@
 				<if test="contentDetails != null and contentDetails != ''">content_details,</if>
 				<if test="contentUrl != null and contentUrl != ''">content_url,</if>
 				<if test="contentHit != null">content_hit,</if>
-				<if test="appid != null">appid,</if>
+				<if test="appId != null">app_id,</if>
 				<if test="createBy &gt; 0">create_by,</if>
 				<if test="createDate != null">create_date,</if>
 				<if test="updateBy &gt; 0">update_by,</if>
@@ -67,7 +67,7 @@
 				<if test="contentDetails != null and contentDetails != ''">#{contentDetails},</if>
 				<if test="contentUrl != null and contentUrl != ''">#{contentUrl},</if>
 				<if test="contentHit != null">#{contentHit},</if>
-				<if test="appid != null">#{appid},</if>
+				<if test="appId != null">#{appId},</if>
 				<if test="createBy &gt; 0">#{createBy},</if>
 				<if test="createDate != null">#{createDate},</if>
 				<if test="updateBy &gt; 0">#{updateBy},</if>
@@ -94,7 +94,7 @@
 				<if test="contentDetails != null and contentDetails != ''">content_details=#{contentDetails},</if>
 				<if test="contentUrl != null and contentUrl != ''">content_url=#{contentUrl},</if>
 				<if test="contentHit != null">content_hit=#{contentHit},</if>
-				<if test="appid != null">appid=#{appid},</if>
+				<if test="appId != null">app_id=#{appId},</if>
 				<if test="createBy &gt; 0">create_by=#{createBy},</if>
 				<if test="createDate != null">create_date=#{createDate},</if>
 				<if test="updateBy &gt; 0">update_by=#{updateBy},</if>
@@ -127,7 +127,7 @@
 				<if test="contentDetails != null and contentDetails != ''">and content_details=#{contentDetails}</if>
 				<if test="contentUrl != null and contentUrl != ''">and content_url=#{contentUrl}</if>
 				<if test="contentHit != null">and content_hit=#{contentHit}</if>
-				<if test="appid != null"> and appid=#{appid} </if>
+				<if test="appId != null"> and app_id=#{appId} </if>
 				<if test="createBy &gt; 0"> and create_by=#{createBy} </if>
 				<if test="createDate != null"> and create_date=#{createDate} </if>
 				<if test="updateBy &gt; 0"> and update_by=#{updateBy} </if>
@@ -173,7 +173,7 @@
 			<if test="contentDetails != null and contentDetails != ''"> and content_details=#{contentDetails}</if>
 			<if test="contentUrl != null and contentUrl != ''"> and content_url=#{contentUrl}</if>
 			<if test="contentHit != null"> and content_hit=#{contentHit}</if>
-			<if test="appid != null"> and appid=#{appid} </if>
+			<if test="appId != null"> and app_id=#{appId} </if>
 			<if test="createBy &gt; 0"> and create_by=#{createBy} </if>
 			<if test="createDate != null"> and create_date=#{createDate} </if>
 			<if test="updateBy &gt; 0"> and update_by=#{updateBy} </if>

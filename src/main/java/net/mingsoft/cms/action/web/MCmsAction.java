@@ -196,7 +196,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		String content = "";
 		try {
 			//根据模板路径，参数生成
-			content = CmsParserUtil.generate(columnArticles.get(0).getColumnListUrl(),map, isMobileDevice(req));
+			content = CmsParserUtil.generate(columnArticles.get(0).getCategoryListUrl(),map, isMobileDevice(req));
 		} catch (TemplateNotFoundException e) {
 			e.printStackTrace();
 		} catch (MalformedTemplateNameException e) {
@@ -251,20 +251,20 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 				continue;
 			}
 			// 文章的栏目路径
-			String articleColumnPath = articleIdList.get(artId).getColumnPath();
+			String articleColumnPath = articleIdList.get(artId).getCategoryPath();
 			// 文章的栏目模型编号
-			int columnContentModelId = articleIdList.get(artId).getColumnContentModelId();
+			String columnContentModelId = articleIdList.get(artId).getMdiyModelId();
 			Map<String, Object> parserParams = new HashMap<String, Object>();
 			parserParams.put(ParserUtil.COLUMN, articleIdList.get(artId));
 			// 判断当前栏目是否有自定义模型
-			if (columnContentModelId > 0) {
+			if ( StringUtils.isNotBlank(columnContentModelId)) {
 				// 通过当前栏目的模型编号获取，自定义模型表名
 				if (contentModelMap.containsKey(columnContentModelId)) {
 					parserParams.put(ParserUtil.TABLE_NAME, contentModel.getCmTableName());
 				} else {
 					// 通过栏目模型编号获取自定义模型实体
 					contentModel = (ContentModelEntity) SpringUtil.getBean(IContentModelBiz.class)
-							.getEntity(columnContentModelId);
+							.getEntity(Integer.parseInt(columnContentModelId));
 					// 将自定义模型编号设置为key值
 					contentModelMap.put(columnContentModelId, contentModel.getCmTableName());
 					parserParams.put(ParserUtil.TABLE_NAME, contentModel.getCmTableName());

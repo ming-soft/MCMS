@@ -90,7 +90,7 @@
 			update cms_category
 			<set>
 				<if test="categoryTitle != null and categoryTitle != ''">category_title=#{categoryTitle},</if>
-				<if test="categoryId != null and categoryId != ''">category_id=#{categoryId},</if>
+				category_id=#{categoryId},
 				<if test="categoryType != null and categoryType != ''">category_type=#{categoryType},</if>
 				<if test="categorySort != null">category_sort=#{categorySort},</if>
 				<if test="categoryListUrl != null and categoryListUrl != ''">category_list_url=#{categoryListUrl},</if>
@@ -116,7 +116,7 @@
 			where id = #{id}
 		</update>
 
-		<!--根据id获取-->
+	<!--根据id获取-->
 		<select id="getEntity" resultMap="resultMap" parameterType="int">
 			select * from cms_category where id=#{id}
 		</select>
@@ -151,6 +151,41 @@
 			</where>
 			limit 0,1
 		</select>
+	<sql id="queryWhereCategoryId" databaseId="mysql">
+		find_in_set('${id}',CATEGORY_PARENT_ID)
+	</sql>
+	<sql id="queryWhereCategoryId" databaseId="oracle" >
+		instr(','||'${id}'||',', ','||CATEGORY_PARENT_ID||',')>0
+	</sql>
+	<sql id="queryWhereCategoryId" databaseId="sqlServer">
+		CHARINDEX(','+'${id}'+',' , ','+CATEGORY_PARENT_ID +',')>0
+	</sql>
+
+	<!-- 模糊查询开始 -->
+	<select id="queryChildren" resultMap="resultMap">
+		select * from cms_category
+		<where>
+			<if test="appId &gt; 0">
+				and app_id=#{appId}
+			</if>
+			<if test="dictId &gt; 0">
+				and dict_id=#{dictId}
+			</if>
+			and
+			(
+			<if test="categoryParentId != null and categoryParentId!=''">
+				CATEGORY_PARENT_ID like '%${categoryParentId}%'
+			</if>
+			<if test="categoryParentId == null or  categoryParentId ==''">
+				<include refid="queryWhereCategoryId"></include>
+			</if>
+			<if test="id != null">
+				or id=#{id}
+			</if>
+			)
+			and del=0
+		</where>
+	</select>
 
 
 		<!--删除-->

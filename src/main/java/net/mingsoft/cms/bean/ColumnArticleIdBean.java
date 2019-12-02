@@ -22,13 +22,14 @@ The MIT License (MIT) * Copyright (c) 2016 铭飞科技(mingsoft.net)
 package net.mingsoft.cms.bean;
 
 import net.mingsoft.basic.entity.ColumnEntity;
+import net.mingsoft.cms.entity.CategoryEntity;
 
 /**
  * 文章解析生成
  * @author 铭飞开源团队  
  * @date 2018年12月13日
  */
-public class ColumnArticleIdBean extends ColumnEntity{
+public class ColumnArticleIdBean extends CategoryEntity {
 	/**
 	 * 文章编号
 	 */

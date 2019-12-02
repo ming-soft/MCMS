@@ -1,17 +1,10 @@
 package net.mingsoft.cms.action;
 
 import java.util.List;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.alibaba.fastjson.JSON;
 import net.mingsoft.base.entity.ResultData;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.ui.ModelMap;
@@ -20,19 +13,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.entity.ContentEntity;
-import net.mingsoft.base.util.JSONObject;
 import net.mingsoft.base.entity.BaseEntity;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.StringUtil;
-import net.mingsoft.base.filter.DateValueFilter;
-import net.mingsoft.base.filter.DoubleValueFilter;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.constant.e.BusinessTypeEnum;
@@ -105,6 +94,7 @@ public class ContentAction extends BaseAction{
 	@RequestMapping("/list")
 	@ResponseBody
 	public ResultData list(@ModelAttribute @ApiIgnore ContentEntity content,HttpServletResponse response, HttpServletRequest request,@ApiIgnore ModelMap model,BindingResult result) {
+		content.setAppId(BasicUtil.getAppId());
 		BasicUtil.startPage();
 		List contentList = contentBiz.query(content);
 		return ResultData.build().success(new EUListBean(contentList,(int)BasicUtil.endPage(contentList).getTotal()));
@@ -134,6 +124,7 @@ public class ContentAction extends BaseAction{
 		if(content.getId()==null) {
 			return ResultData.build().error();
 		}
+		content.setAppId(BasicUtil.getAppId());
 		ContentEntity _content = (ContentEntity)contentBiz.getEntity(Integer.parseInt(content.getId()));
 		return ResultData.build().success(_content);
 	}
@@ -191,6 +182,7 @@ public class ContentAction extends BaseAction{
 		if(!StringUtil.checkLength(content.getContentUrl()+"", 0, 200)){
 			return ResultData.build().error(getResString("err.length", this.getResString("content.url"), "0", "200"));
 		}
+		content.setAppId(BasicUtil.getAppId());
 		contentBiz.saveEntity(content);
 		return ResultData.build().success(content);
 	}
@@ -265,6 +257,7 @@ public class ContentAction extends BaseAction{
 		if(!StringUtil.checkLength(content.getContentUrl()+"", 0, 200)){
 			return ResultData.build().error(getResString("err.length", this.getResString("content.url"), "0", "200"));
 		}
+		content.setAppId(BasicUtil.getAppId());
 		contentBiz.updateEntity(content);
 		return ResultData.build().success(content);
 	}

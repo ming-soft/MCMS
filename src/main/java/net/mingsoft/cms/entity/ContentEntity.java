@@ -73,7 +73,7 @@ private static final long serialVersionUID = 1574925152617L;
 	/**
 	* 文章管理的应用id
 	*/
-	private Integer appid;
+	private Integer appId;
 	/**
 	* 点击次数
 	*/
@@ -259,14 +259,14 @@ private static final long serialVersionUID = 1574925152617L;
 	/**
 	* 设置文章管理的应用id
 	*/
-	public void setAppid(Integer appid) {
-	this.appid = appid;
+	public void setAppId(Integer appId) {
+	this.appId = appId;
 	}
 
 	/**
 	* 获取文章管理的应用id
 	*/
-	public Integer getAppid() {
-	return this.appid;
+	public Integer getAppId() {
+	return this.appId;
 	}
 }
