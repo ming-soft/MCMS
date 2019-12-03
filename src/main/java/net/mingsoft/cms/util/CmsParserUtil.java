@@ -21,10 +21,12 @@ import net.mingsoft.basic.entity.ColumnEntity;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.SpringUtil;
 import net.mingsoft.cms.bean.ColumnArticleIdBean;
+import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.constant.e.ColumnTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IContentModelBiz;
+import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.biz.impl.ModelBizImpl;
 import net.mingsoft.mdiy.entity.ContentModelEntity;
 import net.mingsoft.mdiy.entity.ModelEntity;
@@ -192,11 +194,11 @@ public class CmsParserUtil extends ParserUtil {
 	 * @throws MalformedTemplateNameException
 	 * @throws TemplateNotFoundException
 	 */
-	public static void generateBasic(List<ColumnArticleIdBean> articleIdList)
+	public static void generateBasic(List<ContentBean>  articleIdList)
 			throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException {
 
 		Map<Object, Object> contentModelMap = new HashMap<Object, Object>();
-		ContentModelEntity contentModel = null;
+		ModelEntity contentModel = null;
 		String writePath = null;
 		// 记录已经生成了文章编号
 		List<Integer> generateIds = new ArrayList<>();
@@ -237,29 +239,29 @@ public class CmsParserUtil extends ParserUtil {
 			if (StringUtils.isNotBlank(columnContentModelId)) {
 				// 通过当前栏目的模型编号获取，自定义模型表名
 				if (contentModelMap.containsKey(columnContentModelId)) {
-					parserParams.put(TABLE_NAME, contentModel.getCmTableName());
+					parserParams.put(TABLE_NAME, contentModel.getModelTableName());
 				} else {
 					// 通过栏目模型编号获取自定义模型实体
-					contentModel = (ContentModelEntity) SpringUtil.getBean(IContentModelBiz.class)
+					contentModel = (ModelEntity) SpringUtil.getBean(IModelBiz.class)
 							.getEntity(Integer.parseInt(columnContentModelId));
 					// 将自定义模型编号设置为key值
-					contentModelMap.put(columnContentModelId, contentModel.getCmTableName());
-					parserParams.put(TABLE_NAME, contentModel.getCmTableName());
+					contentModelMap.put(columnContentModelId, contentModel.getModelTableName());
+					parserParams.put(TABLE_NAME, contentModel.getModelTableName());
 				}
 			}
 
 			parserParams.put(ID, articleId);
 			// 第一篇文章没有上一篇
 			if (artId > 0) {
-				ColumnArticleIdBean preCaBean = articleIdList.get(artId - 1);
+				ContentBean preCaBean = articleIdList.get(artId - 1);
 				//判断当前文档是否与上一页文章在同一栏目下，并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
-				if(articleColumnPath.contains(preCaBean.getCategoryId()+"")){
+				if( articleColumnPath.contains(preCaBean.getCategoryId()+"")){
 					page.setPreId(preCaBean.getArticleId());
 				}
 			}
 			// 最后一篇文章没有下一篇
 			if (artId + 1 < articleIdList.size()) {
-				ColumnArticleIdBean nextCaBean = articleIdList.get(artId + 1);
+				ContentBean nextCaBean = articleIdList.get(artId + 1);
 				//判断当前文档是否与下一页文章在同一栏目下并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
 				if(articleColumnPath.contains(nextCaBean.getCategoryId()+"")){
 					page.setNextId(nextCaBean.getArticleId());

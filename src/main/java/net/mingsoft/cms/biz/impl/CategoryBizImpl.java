@@ -21,6 +21,7 @@ The MIT License (MIT) * Copyright (c) 2019 铭飞科技
 
 package net.mingsoft.cms.biz.impl;
 
+import cn.hutool.core.util.ObjectUtil;
 import net.mingsoft.base.entity.BaseEntity;
 import net.mingsoft.cms.entity.CategoryEntity;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +29,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
+
+import java.io.File;
 import java.util.*;
 
 import net.mingsoft.cms.biz.ICategoryBiz;
@@ -69,24 +72,38 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 		if(StringUtils.isNotEmpty(categoryEntity.getCategoryId())&&Integer.parseInt(categoryEntity.getCategoryId())>0) {
 			CategoryEntity category = (CategoryEntity)categoryDao.getEntity(Integer.parseInt(categoryEntity.getCategoryId()));
 			if(StringUtils.isEmpty(category.getCategoryParentId())) {
-				categoryEntity.setCategoryParentId(categoryEntity.getCategoryId());
+				categoryEntity.setCategoryParentId(category.getId());
 			} else {
-				categoryEntity.setCategoryParentId(category.getCategoryParentId()+","+categoryEntity.getCategoryParentId());
+				categoryEntity.setCategoryParentId(category.getCategoryParentId()+","+category.getId());
 			}
+		}else {
+			categoryEntity.setCategoryParentId(null);
 		}
+		String path=ObjectUtil.isNotNull(categoryEntity.getCategoryParentId())?categoryEntity.getCategoryParentId():"";
+		categoryEntity.setCategoryPath("/"+path.replaceAll(",","/")+"/"+categoryEntity.getId());
+
+	}
+	private void setChildParentId(CategoryEntity categoryEntity) {
+		CategoryEntity category=new CategoryEntity();
+		category.setCategoryId(categoryEntity.getId());
+		List<CategoryEntity> list = categoryDao.query(category);
+		list.forEach(x->{
+			if(StringUtils.isEmpty(categoryEntity.getCategoryParentId())) {
+				x.setCategoryParentId(categoryEntity.getId());
+			} else {
+				x.setCategoryParentId(categoryEntity.getCategoryParentId()+","+categoryEntity.getId());
+			}
+			String path=ObjectUtil.isNotNull(x.getCategoryParentId())?x.getCategoryParentId():"";
+			x.setCategoryPath("/"+path.replaceAll(",","/")+"/"+x.getId());
+			super.updateEntity(x);
+			setChildParentId(x);
+		});
 	}
 
 	@Override
 	public void updateEntity(CategoryEntity entity) {
-		List<CategoryEntity> categoryEntities = queryChilds(entity);
 		setParentId(entity);
 		super.updateEntity(entity);
-		categoryEntities.forEach(x->{
-			setParentId(x);
-			if(!x.getId().equals(entity.getId())){
-				super.updateEntity(x);
-			}
-		});
-
+		setChildParentId(entity);
 	}
 }

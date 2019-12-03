@@ -91,6 +91,7 @@
 			<set>
 				<if test="categoryTitle != null and categoryTitle != ''">category_title=#{categoryTitle},</if>
 				category_id=#{categoryId},
+				category_parent_id=#{categoryParentId},
 				<if test="categoryType != null and categoryType != ''">category_type=#{categoryType},</if>
 				<if test="categorySort != null">category_sort=#{categorySort},</if>
 				<if test="categoryListUrl != null and categoryListUrl != ''">category_list_url=#{categoryListUrl},</if>
@@ -106,7 +107,6 @@
 				<if test="dictId != null">dict_id=#{dictId},</if>
 				<if test="categoryFlag != null and categoryFlag != ''">category_flag=#{categoryFlag},</if>
 				<if test="categoryPath != null and categoryPath != ''">category_path=#{categoryPath},</if>
-				<if test="categoryParentId != null and categoryParentId != ''">category_parent_id=#{categoryParentId},</if>
 				<if test="createBy &gt; 0">create_by=#{createBy},</if>
 				<if test="createDate != null">create_date=#{createDate},</if>
 				<if test="updateBy &gt; 0">update_by=#{updateBy},</if>

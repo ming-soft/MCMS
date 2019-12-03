@@ -31,7 +31,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
+import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -48,8 +50,6 @@ import net.mingsoft.basic.action.BaseAction;
 import net.mingsoft.basic.biz.IModelBiz;
 import net.mingsoft.basic.entity.AppEntity;
 import net.mingsoft.cms.bean.ColumnArticleIdBean;
-import net.mingsoft.cms.biz.IArticleBiz;
-import net.mingsoft.cms.constant.ModelCode;
 import net.mingsoft.cms.util.CmsParserUtil;
 import net.mingsoft.mdiy.biz.IContentModelBiz;
 import net.mingsoft.mdiy.biz.IContentModelFieldBiz;
@@ -76,7 +76,7 @@ public class GeneraterAction extends BaseAction {
 	 * 文章管理业务层
 	 */
 	@Autowired
-	private IArticleBiz articleBiz;
+	private IContentBiz contentBiz;
 
 	/**
 	 * 栏目管理业务层
@@ -99,11 +99,6 @@ public class GeneraterAction extends BaseAction {
 	@Autowired
 	protected IContentModelFieldBiz fieldBiz;
 
-	/**
-	 * 自定义模型业务层
-	 */
-	@Autowired
-	protected IContentModelBiz contentBiz;
 
 	/**
 	 * 更新主页
@@ -151,7 +146,7 @@ public class GeneraterAction extends BaseAction {
 	 * 
 	 * @param request
 	 * @param response
-	 * @param columnId
+	 * @param CategoryId
 	 */
 	@RequestMapping("/{CategoryId}/genernateColumn")
 	@RequiresPermissions("cms:generate:column")
@@ -172,7 +167,7 @@ public class GeneraterAction extends BaseAction {
             categoryEntity.setAppId(app.getAppId());
 			columns = categoryBiz.query(categoryEntity);
 		}
-		List<ColumnArticleIdBean> articleIdList = null;
+		List<ContentBean> articleIdList = null;
 		try {
 			// 1、设置模板文件夹路径
 			// 获取栏目列表模版
@@ -181,7 +176,7 @@ public class GeneraterAction extends BaseAction {
 				if (!FileUtil.exist(ParserUtil.buildTempletPath(column.getCategoryUrl()))) {
 					continue;
 				}
-				articleIdList = articleBiz.queryIdsByCategoryIdForParser(Integer.parseInt(column.getCategoryId()), null, null);
+				articleIdList = contentBiz.queryIdsByCategoryIdForParser(column.getId(), null, null);
 				// 判断列表类型
 				switch (column.getCategoryType()) {
 					//TODO 暂时先用字符串代替
@@ -190,7 +185,7 @@ public class GeneraterAction extends BaseAction {
 					break;
 				case "2":// 单页
 					if(articleIdList.size()==0){
-						ColumnArticleIdBean columnArticleIdBean=new ColumnArticleIdBean();
+						ContentBean columnArticleIdBean=new ContentBean();
 						CopyOptions copyOptions=CopyOptions.create();
 						copyOptions.setIgnoreError(true);
 						BeanUtil.copyProperties(column,columnArticleIdBean,copyOptions);
@@ -217,13 +212,13 @@ public class GeneraterAction extends BaseAction {
 	@RequestMapping("/{columnId}/generateArticle")
 	@RequiresPermissions("cms:generate:article")
 	@ResponseBody
-	public void generateArticle(HttpServletRequest request, HttpServletResponse response, @PathVariable int columnId) {
+	public void generateArticle(HttpServletRequest request, HttpServletResponse response, @PathVariable String columnId) {
 		String dateTime = request.getParameter("dateTime");
 		// 网站风格物理路径
-		List<ColumnArticleIdBean> articleIdList = null;
+		List<ContentBean> articleIdList = null;
 		try {
 			// 查出所有文章（根据选择栏目）包括子栏目
-			articleIdList = articleBiz.queryIdsByCategoryIdForParser(columnId, dateTime, null);
+			articleIdList = contentBiz.queryIdsByCategoryIdForParser(columnId, dateTime, null);
 			// 有符合条件的新闻就更新
 			if (articleIdList.size() > 0) {
 				CmsParserUtil.generateBasic(articleIdList);
