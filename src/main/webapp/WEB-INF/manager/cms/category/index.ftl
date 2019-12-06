@@ -30,6 +30,7 @@
 					{{emptyText}}
 				</template>
 				<el-table-column type="selection" width="40"></el-table-column>
+				<el-table-column label="编号" width="60" prop="id"></el-table-column>
                  <el-table-column label="标题" align="left" prop="categoryTitle">
                  </el-table-column>
             <el-table-column label="属性" align="center" prop="categoryType" :formatter="categoryTypeFormat" width="65">
