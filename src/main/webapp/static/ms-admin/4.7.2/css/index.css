@@ -133,6 +133,7 @@ textarea::-webkit-input-placeholder {
 }
 .el-submenu .el-menu-item.is-active {
   border-radius: 4px;
+  opacity:1.0;
 }
 .el-card,
 .el-message {
@@ -156,11 +157,12 @@ textarea::-webkit-input-placeholder {
 .ms-admin-header {
   display: flex;
   padding: 0;
-  background-color: #0099ff;
+  background-color: rgba(255,255,255,1);
   height: 50px !important;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  z-index: 1;
 }
 .ms-admin-header .ms-admin-header-menu {
-  background-color: #0099ff;
   border-bottom: none;
   position: relative;
 }
@@ -168,19 +170,17 @@ textarea::-webkit-input-placeholder {
 .ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item {
   height: 50px !important;
   line-height: 50px !important;
-  background-color: #0099ff !important;
-  color: rgba(255, 255, 255, 0.65) !important;
   border-bottom: none !important;
   font-size: 1em;
 }
-.ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item > *:hover,
+/*.ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item > *:hover,
 .ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item:hover {
   color: #fff !important;
 }
 .ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item > *.is-active,
 .ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item.is-active {
   color: #fff !important;
-}
+}*/
 .ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu {
   padding: 0;
   user-select: none;
@@ -196,8 +196,7 @@ textarea::-webkit-input-placeholder {
   top: 0;
   z-index: 9;
   background: #ffffff;
-  border: 1px solid #e6e6e6;
-  box-shadow: 2px 3px 5px 0.1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
 }
 .ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu > li {
   margin: 0;
@@ -215,7 +214,7 @@ textarea::-webkit-input-placeholder {
   cursor: pointer;
   color: #0099ff;
 }
-.ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu i {
+.ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu .ms-admin-shortcut-menu-shrink {
   position: absolute;
   top: 18px;
   right: 19px;
@@ -223,19 +222,17 @@ textarea::-webkit-input-placeholder {
   font-size: 14px;
   color: #333;
 }
-.ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu i:hover {
+.ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu .ms-admin-shortcut-menu-shrink:hover {
   cursor: pointer;
 }
 .ms-admin-logo {
-  min-width: 200px;
-  width: 200px;
   display: flex;
   align-items: center;
   overflow: hidden;
 }
 .ms-admin-logo > img {
-  padding: 20px 0 20px 20px;
-  width: 80px;
+  padding: 14px 0;
+  width: 50px;
 }
 .ms-admin-logo > div {
   display: flex;
@@ -250,12 +247,17 @@ textarea::-webkit-input-placeholder {
   position: absolute;
   margin-left: 10px;
   font-size: 12px;
+  color:rgba(0,153,255,1);
+
 }
 .ms-admin-logo .iconfont {
   color: #fff;
   margin-left: auto;
   margin-right: 20px;
   cursor: pointer;
+}
+.ms-admin-logo-pack{
+  width: 64px!important;
 }
 .ms-admin-mstore {
   margin-left: auto;
@@ -274,8 +276,8 @@ textarea::-webkit-input-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
-  color: #0099ff;
+  background: #0099ff;
+  color: #fff;
 }
 .ms-admin-mstore .ms-admin-mstore-icon {
   min-width: 50px;
@@ -284,7 +286,6 @@ textarea::-webkit-input-placeholder {
   background-color: #0080FF;
   display: flex;
   justify-content: center;
-  align-items: center;
   cursor: pointer;
 }
 .ms-admin-mstore .ms-admin-mstore-icon span {
@@ -328,7 +329,7 @@ textarea::-webkit-input-placeholder {
   margin-right: 8px;
 }
 .ms-admin-login > span span {
-  color: #fff;
+  color: #333333;
 }
 .ms-admin-login .active {
   background: #fff;
@@ -338,7 +339,7 @@ textarea::-webkit-input-placeholder {
   color: #fff;
 }
 .ms-admin-login .active span {
-  color: #333;
+  color: #409EFF;
 }
 .ms-admin-login-down {
   width: 130px;
@@ -353,7 +354,7 @@ textarea::-webkit-input-placeholder {
   display: none;
 }
 .ms-admin-menu-aside {
-  width: 200px !important;
+  width: auto !important;
   height: 100%;
   position: relative;
   overflow: visible;
@@ -414,11 +415,12 @@ textarea::-webkit-input-placeholder {
   width: 60px !important;
 }
 .ms-admin-container {
-  height: calc(100vh - 60px);
+  height:auto;
 }
 .ms-admin-container > .ms-admin-main {
   padding: 0;
   background-color: #fff;
+  z-index: 0;
 }
 .ms-admin-container > .ms-admin-main .ms-admin-tabs {
   height: 100%;
