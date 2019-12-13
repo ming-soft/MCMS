@@ -131,10 +131,6 @@ textarea::-webkit-input-placeholder {
 .ms-header-select > .el-select:nth-of-type(2) {
   margin: 0 10px;
 }
-.el-submenu .el-menu-item.is-active {
-  border-radius: 4px;
-  opacity:1.0;
-}
 .el-card,
 .el-message {
   border-radius: 0 !important;
@@ -247,7 +243,6 @@ textarea::-webkit-input-placeholder {
   position: absolute;
   margin-left: 10px;
   font-size: 12px;
-  color:rgba(0,153,255,1);
 
 }
 .ms-admin-logo .iconfont {
@@ -286,6 +281,7 @@ textarea::-webkit-input-placeholder {
   background-color: #0080FF;
   display: flex;
   justify-content: center;
+  align-items: center;
   cursor: pointer;
 }
 .ms-admin-mstore .ms-admin-mstore-icon span {
@@ -477,40 +473,40 @@ textarea::-webkit-input-placeholder {
   border: none !important;
 }
 @keyframes rubberBand {
-  0 {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
-  10% {
-    -webkit-transform: scale3d(1.25, 0.75, 1);
-    transform: scale3d(1.25, 0.75, 1);
-  }
-  20% {
-    -webkit-transform: scale3d(0.75, 1.25, 1);
-    transform: scale3d(0.75, 1.25, 1);
-  }
-  30% {
-    -webkit-transform: scale3d(1.15, 0.85, 1);
-    transform: scale3d(1.15, 0.85, 1);
-  }
-  40% {
-    -webkit-transform: scale3d(0.95, 1.05, 1);
-    transform: scale3d(0.95, 1.05, 1);
-  }
-  50% {
-    -webkit-transform: scale3d(1.05, 0.95, 1);
-    transform: scale3d(1.05, 0.95, 1);
-  }
-  51% {
-    -webkit-transform: scale3d(1, 1, 1);
-    transform: scale3d(1, 1, 1);
-  }
+0 {
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+}
+10% {
+  -webkit-transform: scale3d(1.25, 0.75, 1);
+  transform: scale3d(1.25, 0.75, 1);
+}
+20% {
+  -webkit-transform: scale3d(0.75, 1.25, 1);
+  transform: scale3d(0.75, 1.25, 1);
+}
+30% {
+  -webkit-transform: scale3d(1.15, 0.85, 1);
+  transform: scale3d(1.15, 0.85, 1);
+}
+40% {
+  -webkit-transform: scale3d(0.95, 1.05, 1);
+  transform: scale3d(0.95, 1.05, 1);
+}
+50% {
+  -webkit-transform: scale3d(1.05, 0.95, 1);
+  transform: scale3d(1.05, 0.95, 1);
+}
+51% {
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+}
 }
 
 .el-scrollbar__wrap{overflow-x:hidden;}
 .el-scrollbar {
-    position: static;
+  position: static;
 }
 [v-cloak] {
-    display: none;
+  display: none;
 }

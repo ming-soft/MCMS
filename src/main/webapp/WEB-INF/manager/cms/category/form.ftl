@@ -238,7 +238,11 @@
                         that.saveDisabled = true;
                         var data = JSON.parse(JSON.stringify(that.form));
                         if(data.id&&data.id==data.categoryId){
-                            that.$message.error('所属栏目不能为自身')
+                            that.$notify({
+                                title: '提示',
+                                message: '所属栏目不能为自身',
+                                type: 'error'
+                            });
                             that.saveDisabled = false;
                             return
                         }
