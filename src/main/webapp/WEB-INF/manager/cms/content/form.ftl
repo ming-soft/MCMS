@@ -276,7 +276,9 @@
                     if (valid) {
                         that.saveDisabled = true;
                         var data = JSON.parse(JSON.stringify(that.form));
-                        data.contentType = data.contentType.join(',');
+                        if(data.contentType !=null){
+                            data.contentType = data.contentType.join(',');
+                        }
                         data.contentImg = JSON.stringify(data.contentImg);
                         ms.http.post(url, data).then(function (data) {
                             if (data.result) {
