@@ -270,7 +270,7 @@
                 var that = this;
                 ms.http.get(ms.manager + "/mdiy/model/list.do",{modelType:'zdymx_wz'}).then(
                     function (data) {
-                        that.mdiyModelIdOptions = data.rows;
+                        that.mdiyModelIdOptions = data.data.rows;
                     }).catch(function (err) {
                     console.log(err);
                 });
@@ -298,7 +298,7 @@
             categoryListUrlOptionsGet() {
                 var that = this;
                 ms.http.get(ms.manager+"/template/queryTemplateFileForColumn.do", {}).then(function (data) {
-                    that.categoryListUrlOptions = data;
+                    that.categoryListUrlOptions = data.data;
                 }).catch(function (err) {
                     console.log(err);
                 });
@@ -307,7 +307,7 @@
             categoryUrlOptionsGet() {
                 var that = this;
                 ms.http.get(ms.manager+"/template/queryTemplateFileForColumn.do", {}).then(function (data) {
-                    that.categoryUrlOptions = data;
+                    that.categoryUrlOptions = data.data;
                 }).catch(function (err) {
                     console.log(err);
                 });

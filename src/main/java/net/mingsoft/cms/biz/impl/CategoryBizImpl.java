@@ -62,10 +62,19 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 		return categoryDao.queryChildren(category);
 	}
 	@Override
-	public int saveEntity(CategoryEntity categoryEntity) {
+	public void saveEntity(CategoryEntity categoryEntity) {
 		// TODO Auto-generated method stub
 		setParentId(categoryEntity);
-		return super.saveEntity(categoryEntity);
+		super.saveEntity(categoryEntity);
+		//保存链接地址
+		String path=ObjectUtil.isNotNull(categoryEntity.getCategoryParentId())?categoryEntity.getCategoryParentId():"";
+		//判断是否有parentIds
+		if(StringUtils.isNotBlank(path)){
+			categoryEntity.setCategoryPath("/" + path.replaceAll(",", "/") + "/" + categoryEntity.getId());
+		} else {
+			categoryEntity.setCategoryPath("/" + categoryEntity.getId());
+		}
+		super.updateEntity(categoryEntity);
 	}
 
 	private void setParentId(CategoryEntity categoryEntity) {
@@ -79,8 +88,16 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 		}else {
 			categoryEntity.setCategoryParentId(null);
 		}
-		String path=ObjectUtil.isNotNull(categoryEntity.getCategoryParentId())?categoryEntity.getCategoryParentId():"";
-		categoryEntity.setCategoryPath("/"+path.replaceAll(",","/")+"/"+categoryEntity.getId());
+		//保存时先保存再修改链接地址，修改时直接修改
+		if(StringUtils.isNotBlank(categoryEntity.getId())) {
+			String path = ObjectUtil.isNotNull(categoryEntity.getCategoryParentId()) ? categoryEntity.getCategoryParentId() : "";
+			//判断是否有parentIds
+			if(StringUtils.isNotBlank(path)){
+				categoryEntity.setCategoryPath("/" + path.replaceAll(",", "/") + "/" + categoryEntity.getId());
+			} else {
+				categoryEntity.setCategoryPath("/" + categoryEntity.getId());
+			}
+		}
 
 	}
 	private void setChildParentId(CategoryEntity categoryEntity) {
@@ -94,7 +111,12 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 				x.setCategoryParentId(categoryEntity.getCategoryParentId()+","+categoryEntity.getId());
 			}
 			String path=ObjectUtil.isNotNull(x.getCategoryParentId())?x.getCategoryParentId():"";
-			x.setCategoryPath("/"+path.replaceAll(",","/")+"/"+x.getId());
+			//判断是否有parentIds
+			if(StringUtils.isNotBlank(path)){
+				x.setCategoryPath("/"+path.replaceAll(",","/")+"/"+x.getId());
+			} else {
+				x.setCategoryPath("/"+x.getId());
+			}
 			super.updateEntity(x);
 			setChildParentId(x);
 		});

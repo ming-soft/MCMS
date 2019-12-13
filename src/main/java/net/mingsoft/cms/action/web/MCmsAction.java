@@ -417,7 +417,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		//读取模板的分页数量
 		int size = BasicUtil.getInt(ParserUtil.SIZE,10);
 		try {
-			size = TagParser.getPageSize(ParserUtil.read(ParserUtil.SEARCH+ParserUtil.HTM_SUFFIX,false ));
+			size = TagParser.getPageSize(ParserUtil.read(SEARCH+ParserUtil.HTM_SUFFIX,false ));
 		} catch (TemplateNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (MalformedTemplateNameException e1) {
@@ -471,7 +471,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		String content = "";
 		try {
 			//根据模板路径，参数生成
-			content = CmsParserUtil.generate(ParserUtil.SEARCH+ParserUtil.HTM_SUFFIX,map, isMobileDevice(request));
+			content = CmsParserUtil.generate(SEARCH+ParserUtil.HTM_SUFFIX,map, isMobileDevice(request));
 		} catch (TemplateNotFoundException e) {
 			e.printStackTrace();
 		} catch (MalformedTemplateNameException e) {

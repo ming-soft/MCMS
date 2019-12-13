@@ -21,7 +21,7 @@ public interface ICategoryBiz extends IBaseBiz {
      */
     List<CategoryEntity> queryChilds(CategoryEntity category);
 
-    int saveEntity(CategoryEntity entity);
+    void saveEntity(CategoryEntity entity);
 
     void updateEntity(CategoryEntity entity);
 }

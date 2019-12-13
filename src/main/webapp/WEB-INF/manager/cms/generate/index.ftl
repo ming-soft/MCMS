@@ -207,7 +207,7 @@
 			templateOptionsGet() {
 				var that = this;
 				ms.http.get(ms.manager+'/template/queryTemplateFileForColumn.do', {pageSize:99999}).then(function (data) {
-					that.templateOptions = data;
+					that.templateOptions = data.data;
 				}).catch(function (err) {
 					console.log(err);
 				});

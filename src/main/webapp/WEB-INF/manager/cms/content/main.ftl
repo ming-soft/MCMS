@@ -60,6 +60,7 @@
                 {{emptyText}}
             </template>
             <el-table-column type="selection" width="40"></el-table-column>
+            <el-table-column label="编号" width="60" prop="id"></el-table-column>
             <el-table-column label="栏目名" align="left" prop="contentCategoryId" :formatter="contentCategoryIdFormat" width="100">
             </el-table-column>
             <el-table-column label="文章标题" align="left" prop="contentTitle" show-overflow-tooltip>
