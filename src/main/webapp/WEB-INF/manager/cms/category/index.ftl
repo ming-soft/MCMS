@@ -36,7 +36,10 @@
             <el-table-column label="属性" align="center" prop="categoryType" :formatter="categoryTypeFormat" width="65">
             </el-table-column>
                 <el-table-column label="链接地址" align="left" prop="categoryPath" show-overflow-tooltip>
-                </el-table-column>
+					<template slot-scope="scope">
+						{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}
+					</template>
+				</el-table-column>
             <el-table-column label="列表地址" align="left" prop="categoryListUrl" show-overflow-tooltip>
             </el-table-column>
             <el-table-column label="内容地址" align="left" prop="categoryUrl" show-overflow-tooltip>
