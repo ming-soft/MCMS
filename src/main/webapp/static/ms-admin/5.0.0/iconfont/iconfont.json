@@ -2939,6 +2939,13 @@
       "unicode_decimal": 59231
     },
     {
+      "icon_id": "11502246",
+      "name": "模块",
+      "font_class": "mokuai",
+      "unicode": "e784",
+      "unicode_decimal": 59268
+    },
+    {
       "icon_id": "11715388",
       "name": "优惠卷",
       "font_class": "youhuijuan",

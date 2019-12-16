@@ -8,6 +8,7 @@ body {
     font-weight: initial !important;
     font-size: 14px !important;
     color: #333 !important;
+    overflow: hidden;
 }
 html *,
 body * {
@@ -119,6 +120,7 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
     border-radius: 10px;
     background-color: rgba(144,147,153,.5);
 }
+/*饿了么滚动样式*/
 .ms-scrollbar .el-scrollbar__wrap{
     overflow-x: hidden;
 }
