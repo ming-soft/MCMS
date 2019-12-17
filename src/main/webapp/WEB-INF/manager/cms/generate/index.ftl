@@ -27,9 +27,6 @@
 			<div class="class-4" >
 				<el-form-item  label="主题模板">
 					<el-select v-model="template"
-							   :style="{width: '100%'}"
-							   :filterable="false"
-							   :disabled="false"
 							   :clearable="true"
 							   placeholder="请选择主题模板">
 						<el-option v-for='item in templateOptions' :key="item" :value="item"
@@ -130,7 +127,7 @@
 			loading:false,
 			template:'',//主题模板
 			templateOptions:[],
-			position:'', //位置
+			position:'index.html', //位置
 			contentSection:'', //文章栏目
 			section:'', //栏目
 			time:ms.util.date.fmt(new Date(),"yyyy-MM-dd"),

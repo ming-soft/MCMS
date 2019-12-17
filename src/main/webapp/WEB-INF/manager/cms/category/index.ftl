@@ -17,7 +17,7 @@
 			</el-col>
 			</el-header>
 		<el-main class="ms-container">
-			<el-table ref="multipleTable"
+			<el-table ref="multipleTable" :indent="6"
 					  height="calc(100vh - 20px)"
 					  border :data="dataList"
 					  row-key="id"
@@ -30,13 +30,16 @@
 					{{emptyText}}
 				</template>
 				<el-table-column type="selection" width="40"></el-table-column>
-				<el-table-column label="编号" width="60" prop="id"></el-table-column>
+				<el-table-column label="编号" width="80" prop="id"></el-table-column>
                  <el-table-column label="标题" align="left" prop="categoryTitle">
                  </el-table-column>
             <el-table-column label="属性" align="center" prop="categoryType" :formatter="categoryTypeFormat" width="65">
             </el-table-column>
                 <el-table-column label="链接地址" align="left" prop="categoryPath" show-overflow-tooltip>
-                </el-table-column>
+					<template slot-scope="scope">
+						{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}
+					</template>
+				</el-table-column>
             <el-table-column label="列表地址" align="left" prop="categoryListUrl" show-overflow-tooltip>
             </el-table-column>
             <el-table-column label="内容地址" align="left" prop="categoryUrl" show-overflow-tooltip>
