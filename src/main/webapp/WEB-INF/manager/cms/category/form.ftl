@@ -41,13 +41,13 @@
             <el-form-item prop="categoryType">
                 <template slot='label'>栏目类型
                     <el-popover slot="label" placement="top-start" title="提示" trigger="hover" >
-                        列表：常用于带列表、详情的业务，例如：新闻列表、图片列表<br>封面：常用单篇文章显示，例如：关于我们、公司介绍
+                        列表：常用于带列表、详情的业务，例如：新闻列表、图片列表<br>封面：常用单篇文章显示，例如：关于我们、公司介绍<br>修改栏目时如果该栏目存在文章则不能修改栏目类型
                         <i class="el-icon-question" slot="reference"></i>
                     </el-popover>
                 </template>
                     <el-radio-group v-model="form.categoryType"
                                     :style="{width: ''}"
-                                    :disabled="false">
+                                    :disabled="categoryTypeDisabled">
                         <el-radio :style="{display: true ? 'inline-block' : 'block'}" :label="item.value"
                                   v-for='(item, index) in categoryTypeOptions' :key="item.value + index">
                             {{true? item.label : item.value}}
@@ -191,6 +191,7 @@
                     children:[],
                 }],
                 saveDisabled: false,
+                categoryTypeDisabled:true,
                 //表单数据
                 form: {
                     // 栏目管理名称
@@ -251,6 +252,7 @@
                 }
                 this.$refs.form.validate((valid) => {
                     if (valid) {
+
                         //栏目属性为封面则不需要列表模板
                         if(that.form.categoryType == '2'){
                             that.form.categoryListUrl = '';
@@ -319,6 +321,22 @@
                         res.data.categoryId = '0';
                     }
                         that.form = res.data;
+                        //判断该分类是否存在文章，存在则不能修改栏目属性
+                        that.contentList(that.form.id);
+                    }
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            },
+            contentList: function(id){
+                var that = this;
+                ms.http.post(ms.manager+"/cms/content/list.do",{
+                    contentCategoryId: id,
+                }).then(function (data) {
+                    if(data.data.total>0){
+                        that.categoryTypeDisabled = true;
+                    } else {
+                        that.categoryTypeDisabled = false;
                     }
                 }).catch(function (err) {
                     console.log(err);
@@ -377,6 +395,8 @@
             this.form.id = ms.util.getParameter("id");
             if (this.form.id) {
                 this.get(this.form.id);
+            } else {
+                this.categoryTypeDisabled = false;
             }
         }
     });

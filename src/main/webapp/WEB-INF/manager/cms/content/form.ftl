@@ -247,6 +247,7 @@
                     contentTitle: [{"required": true, "message": "请选择文章标题"}],
                     // 发布时间
                     contentDatetime: [{"required": true, "message": "发布时间不能为空"}],
+                    contentCategoryId: [{"required": true, "message": "所属栏目不能为空"}],
                 },
 
             }
@@ -302,7 +303,9 @@
                                     message: '保存成功',
                                     type: 'success'
                                 });
-                                location.href = ms.manager + "/cms/content/main.do";
+                                if(that.returnIsShow){
+                                    javascript:history.go(-1);
+                                }
                             } else {
                                 that.$notify({
                                     title: '失败',
@@ -488,7 +491,9 @@
             this.contentCategoryIdOptionsGet();
             this.contentTypeOptionsGet();
             this.form.id = ms.util.getParameter("id");
-            this.form.contentCategoryId = ms.util.getParameter("categoryId");
+            if(ms.util.getParameter("categoryId") != 'undefined' && ms.util.getParameter("categoryId") != 'null'){
+                this.form.contentCategoryId = ms.util.getParameter("categoryId");
+            }
             this.type = ms.util.getParameter("type");
             if (this.form.id) {
                 this.get(this.form.id);
