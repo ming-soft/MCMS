@@ -158,7 +158,13 @@ var indexVue = new Vue({
 						    			});
 					    				//删除成功，刷新列表
 					      				that.list();
-					      			}
+					      			}else {
+										that.$notify({
+											title: '失败',
+											message: res.msg,
+											type: 'warning'
+										});
+									}
 	            				});
 					    }).catch(() => {
 					    	that.$notify({
