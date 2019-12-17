@@ -213,6 +213,7 @@
                 },
                 contentCategoryIdOptions: [],
                 returnIsShow: true,
+                type:'',
                 //表单数据
                 form: {
                     // 文章标题
@@ -274,7 +275,8 @@
                 this.$refs.form[0].validate((valid) => {
                     if (valid) {
                         that.saveDisabled = true;
-                        if(that.categoryIdOptions.filter(f => f['id'] == that.form.contentCategoryId)[0].categoryType == '2'){
+                        //判断
+                        if(that.categoryIdOptions.filter(f => f['id'] == that.form.contentCategoryId)[0].categoryType == '2' && that.returnIsShow){
                             that.$notify({
                                 title: '提示',
                                 message: '所属栏目不能为封面',
@@ -487,10 +489,11 @@
             this.contentTypeOptionsGet();
             this.form.id = ms.util.getParameter("id");
             this.form.contentCategoryId = ms.util.getParameter("categoryId");
+            this.type = ms.util.getParameter("type");
             if (this.form.id) {
                 this.get(this.form.id);
             }
-            if (this.form.contentCategoryId) {
+            if (this.type) {
                 this.list(this.form.contentCategoryId);
                 this.returnIsShow = false;
             }

@@ -185,7 +185,7 @@
 		</select>
 	<!--条件查询-->
 	<select id="query" resultMap="resultMap">
-		select * from cms_content
+		select ct.* from cms_content ct join cms_category cc on ct.content_category_id=cc.id
 		<where>
 			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT('%',#{contentTitle},'%')</if>
 			<if test="contentCategoryId != null and contentCategoryId != ''"> and content_category_id=#{contentCategoryId}</if>
@@ -201,12 +201,12 @@
 			<if test="contentDetails != null and contentDetails != ''"> and content_details=#{contentDetails}</if>
 			<if test="contentUrl != null and contentUrl != ''"> and content_url=#{contentUrl}</if>
 			<if test="contentHit != null"> and content_hit=#{contentHit}</if>
-			<if test="appId != null"> and app_id=#{appId} </if>
-			<if test="createBy &gt; 0"> and create_by=#{createBy} </if>
-			<if test="createDate != null"> and create_date=#{createDate} </if>
-			<if test="updateBy &gt; 0"> and update_by=#{updateBy} </if>
+			<if test="appId != null"> and ct.app_id=#{appId} </if>
+			<if test="createBy &gt; 0"> and ct.create_by=#{createBy} </if>
+			<if test="createDate != null"> and ct.create_date=#{createDate} </if>
+			<if test="updateBy &gt; 0"> and ct.update_by=#{updateBy} </if>
 			<if test="updateDate != null"> and update_date=#{updateDate} </if>
-			<if test="del != null"> and del=#{del} </if>
+			<if test="del != null"> and ct.del=#{del} </if>
 			<include refid="net.mingsoft.base.dao.IBaseDao.sqlWhere"></include>
 		</where>
 		order by id desc

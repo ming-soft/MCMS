@@ -239,7 +239,7 @@
                 if(id){
                     location.href=this.manager+"/cms/content/form.do?id="+id;
                 }else {
-                    location.href=this.manager+"/cms/content/form.do";
+                    location.href=this.manager+"/cms/content/form.do?categoryId="+this.form.contentCategoryId;
                 }
             },
             //表格数据转换
