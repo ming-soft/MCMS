@@ -38,7 +38,13 @@
                                 gutter="0"
                                 justify="start" align="top">
                                 <el-col span="12">
-            <el-form-item  label="栏目管理属性" prop="categoryType">
+            <el-form-item prop="categoryType">
+                <template slot='label'>栏目类型
+                    <el-popover slot="label" placement="top-start" title="提示" trigger="hover" >
+                        列表：常用于带列表、详情的业务，例如：新闻列表、图片列表<br>封面：常用单篇文章显示，例如：关于我们、公司介绍
+                        <i class="el-icon-question" slot="reference"></i>
+                    </el-popover>
+                </template>
                     <el-radio-group v-model="form.categoryType"
                                     :style="{width: ''}"
                                     :disabled="false">
@@ -63,7 +69,7 @@
                                 gutter="0"
                                 justify="start" align="top">
                                 <el-col span="12">
-                                    <el-form-item  :label="form.categoryType =='1'? '内容模板' : '封面模板'" prop="categoryUrl">
+                                    <el-form-item prop="categoryUrl" :label="form.categoryType =='1'? '内容模板' : '封面模板'">
                                         <el-select v-model="form.categoryUrl"
                                                    :style="{width: '100%'}"
                                                    :filterable="false"
@@ -76,7 +82,12 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col span="12">
-                                    <el-form-item  label="列表模板" prop="categoryListUrl" v-if="form.categoryType == '1'">
+                                    <el-form-item prop="categoryListUrl" v-if="form.categoryType == '1'">
+                                        <template slot='label'>列表模板
+                                            <el-popover slot="label" placement="top-start" title="提示" trigger="hover" content="当栏目类型为列表时有效">
+                                                <i class="el-icon-question" slot="reference"></i>
+                                            </el-popover>
+                                        </template>
                                         <el-select v-model="form.categoryListUrl"
                                                    :style="{width: '100%'}"
                                                    :filterable="false"
@@ -93,7 +104,12 @@
                             gutter="0"
                             justify="start" align="top">
                         <el-col span="12">
-                            <el-form-item  label="自定义模型" prop="mdiyModelId">
+                            <el-form-item prop="mdiyModelId">
+                                <template slot='label'>自定义模型
+                                    <el-popover slot="label" placement="top-start" title="提示" width="400" trigger="hover" content="如果发布时候文章字段信息不够，可以采用铭飞代码生成器生成自定义模型，再通过“自定义管理->自定义模型->导入”功能导入模型，注意类型是cms">
+                                        <i class="el-icon-question" slot="reference"></i>
+                                    </el-popover>
+                                </template>
                                 <el-select v-model="form.mdiyModelId"
                                            :style="{width: '100%'}"
                                            :filterable="false"
@@ -169,7 +185,11 @@
         el: '#form',
         data() {
             return {
-                treeList:[],
+                treeList:[{
+                    id:'0',
+                    categoryTitle:'顶级栏目',
+                    children:[],
+                }],
                 saveDisabled: false,
                 //表单数据
                 form: {
@@ -217,7 +237,7 @@
                 ms.http.get(ms.manager+"/cms/category/list.do",{pageSize:9999}).then(function(res){
                     if(res.result){
                         //res.data.rows.push({id:0,categoryId: null,categoryTitle:'顶级栏目管理'});
-                        that.treeList = ms.util.treeData(res.data.rows,'id','categoryId','children');
+                        that.treeList[0].children = ms.util.treeData(res.data.rows,'id','categoryId','children');
                     }
                 }).catch(function(err){
                     console.log(err);
@@ -245,6 +265,9 @@
                             });
                             that.saveDisabled = false;
                             return
+                        }
+                        if(data.categoryId == '0'){
+                            data.categoryId = '';
                         }
                         data.categoryImg = JSON.stringify(data.categoryImg);
                         ms.http.post(url, data).then(function (data) {
@@ -291,6 +314,9 @@
                         })
                     }else{
                         res.data.categoryImg=[]
+                    }
+                    if(!res.data.categoryId){
+                        res.data.categoryId = '0';
                     }
                         that.form = res.data;
                     }

@@ -128,4 +128,22 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 		super.updateEntity(entity);
 		setChildParentId(entity);
 	}
+
+	@Override
+	public void delete(int categoryId) {
+		// TODO Auto-generated method stub
+		CategoryEntity category = (CategoryEntity) categoryDao.getEntity(categoryId);
+		//删除父类
+		if(category != null){
+			category.setCategoryParentId(null);
+			List<CategoryEntity> childrenList = categoryDao.queryChildren(category);
+			int[] ids = new int[childrenList.size()];
+			for(int i = 0; i < childrenList.size(); i++){
+				//删除子类
+				ids[i] = Integer.parseInt(childrenList.get(i).getId());
+			}
+			categoryDao.delete(ids);
+			deleteEntity(categoryId);
+		}
+	}
 }

@@ -17,7 +17,7 @@
 			</el-col>
 			</el-header>
 		<el-main class="ms-container">
-			<el-table ref="multipleTable" :indent="10"
+			<el-table ref="multipleTable" :indent="6"
 					  height="calc(100vh - 20px)"
 					  border :data="dataList"
 					  row-key="id"

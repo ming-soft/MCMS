@@ -204,11 +204,9 @@ public class CategoryAction extends BaseAction{
 	@LogAnn(title = "删除分类", businessType = BusinessTypeEnum.DELETE)
 	@RequiresPermissions("cms:category:del")
 	public ResultData delete(@RequestBody List<CategoryEntity> categorys,HttpServletResponse response, HttpServletRequest request) {
-		int[] ids = new int[categorys.size()];
 		for(int i = 0;i<categorys.size();i++){
-			ids[i] =Integer.parseInt(categorys.get(i).getId()) ;
+			categoryBiz.delete(Integer.parseInt(categorys.get(i).getId()));
 		}
-		categoryBiz.delete(ids);
 		return ResultData.build().success();
 	}
 	/**
@@ -265,6 +263,16 @@ public class CategoryAction extends BaseAction{
 		if(!StringUtil.checkLength(category.getCategoryParentId()+"", 0, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
 		}
+		//判断是否选择子级为所属栏目
+		 CategoryEntity _category = new CategoryEntity();
+		 _category.setCategoryParentId(category.getId());
+		 _category.setAppId(BasicUtil.getAppId());
+		 List<CategoryEntity> categoryList = categoryBiz.queryChilds(_category);
+		 for(CategoryEntity item:categoryList){
+			 if(item.getId().equals(category.getCategoryId())){
+				 return ResultData.build().error(getResString("cannot.select.child"));
+			 }
+		 }
 		 category.setAppId(BasicUtil.getAppId());
 		categoryBiz.updateEntity(category);
 		return ResultData.build().success(category);

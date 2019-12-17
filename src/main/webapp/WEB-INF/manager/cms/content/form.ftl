@@ -9,8 +9,7 @@
     <el-header class="ms-header ms-tr" height="50px">
         <el-button type="primary" icon="iconfont icon-baocun" size="mini" @click="save()" :loading="saveDisabled">保存
         </el-button>
-        <el-button size="mini" icon="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)"
-                   v-if="returnIsShow">返回
+        <el-button size="mini" icon="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回
         </el-button>
     </el-header>
     <el-main class="ms-container">
@@ -24,7 +23,7 @@
                 <el-row
                         gutter="0"
                         justify="start" align="top">
-                    <el-col span="12">
+                    <el-col :span="returnIsShow?'12':'24'">
                         <el-form-item label="文章标题" prop="contentTitle">
                             <el-input v-model="form.contentTitle"
                                       :disabled="false"
@@ -34,7 +33,7 @@
                             </el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col span="12">
+                    <el-col span="12" v-if="returnIsShow">
                         <el-form-item label="所属栏目" prop="contentCategoryId">
                             <tree-select :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
                                          :options="contentCategoryIdOptions" :style="{width:'100%'}"
@@ -275,6 +274,15 @@
                 this.$refs.form[0].validate((valid) => {
                     if (valid) {
                         that.saveDisabled = true;
+                        if(that.categoryIdOptions.filter(f => f['id'] == that.form.contentCategoryId)[0].categoryType == '2'){
+                            that.$notify({
+                                title: '提示',
+                                message: '所属栏目不能为封面',
+                                type: 'error'
+                            });
+                            that.saveDisabled = false;
+                            return
+                        }
                         var data = JSON.parse(JSON.stringify(that.form));
                         if(data.contentType !=null){
                             data.contentType = data.contentType.join(',');
@@ -389,6 +397,12 @@
                             res.data.contentImg = []
                         }
                         that.form = res.data;
+                        var category = that.categoryIdOptions.filter(f => f['id'] == that.form.contentCategoryId);
+                        if(category.length == 1){
+                            if(category[0].categoryType == '2'){
+                                that.returnIsShow = false;
+                            }
+                        }
                         that.changeModel();
                     }
                 }).catch(function (err) {
@@ -401,7 +415,7 @@
                 ms.http.get(ms.manager + "/cms/category/list.do", {pageSize: 9999}).then(function (res) {
                     if (res.result) {
                         that.contentCategoryIdOptions = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
-                        that.categoryIdOptions = res.data.rows
+                        that.categoryIdOptions = res.data.rows;
                         that.changeModel();
                     }
                 }).catch(function (err) {

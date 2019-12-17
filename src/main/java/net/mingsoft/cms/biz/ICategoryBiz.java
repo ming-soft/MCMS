@@ -24,4 +24,6 @@ public interface ICategoryBiz extends IBaseBiz {
     void saveEntity(CategoryEntity entity);
 
     void updateEntity(CategoryEntity entity);
+
+    void delete(int categoryId);
 }
