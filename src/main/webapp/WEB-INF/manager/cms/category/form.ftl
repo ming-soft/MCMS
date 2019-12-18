@@ -82,20 +82,20 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col span="12">
-                                    <el-form-item prop="categoryListUrl" v-if="form.categoryType == '1'">
-                                        <template slot='label'>列表模板
-                                            <el-popover slot="label" placement="top-start" title="提示" trigger="hover" content="当栏目类型为列表时有效">
+                                    <el-form-item prop="mdiyModelId">
+                                        <template slot='label'>自定义模型
+                                            <el-popover slot="label" placement="top-start" title="提示" width="400" trigger="hover" content="如果发布时候文章字段信息不够，可以采用铭飞代码生成器生成自定义模型，再通过“自定义管理->自定义模型->导入”功能导入模型，注意类型是cms">
                                                 <i class="el-icon-question" slot="reference"></i>
                                             </el-popover>
                                         </template>
-                                        <el-select v-model="form.categoryListUrl"
+                                        <el-select v-model="form.mdiyModelId"
                                                    :style="{width: '100%'}"
                                                    :filterable="false"
                                                    :disabled="false"
                                                    :multiple="false" :clearable="true"
-                                                   placeholder="请选择列表模板">
-                                            <el-option v-for='item in categoryListUrlOptions' :key="item" :value="item"
-                                                       :label="item"></el-option>
+                                                   placeholder="请选择栏目的自定义模型">
+                                            <el-option v-for='item in mdiyModelIdOptions' :key="item.id" :value="item.id"
+                                                       :label="item.modelName"></el-option>
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
@@ -104,20 +104,20 @@
                             gutter="0"
                             justify="start" align="top">
                         <el-col span="12">
-                            <el-form-item prop="mdiyModelId">
-                                <template slot='label'>自定义模型
-                                    <el-popover slot="label" placement="top-start" title="提示" width="400" trigger="hover" content="如果发布时候文章字段信息不够，可以采用铭飞代码生成器生成自定义模型，再通过“自定义管理->自定义模型->导入”功能导入模型，注意类型是cms">
+                            <el-form-item prop="categoryListUrl" v-if="form.categoryType == '1'">
+                                <template slot='label'>列表模板
+                                    <el-popover slot="label" placement="top-start" title="提示" trigger="hover" content="当栏目类型为列表时有效">
                                         <i class="el-icon-question" slot="reference"></i>
                                     </el-popover>
                                 </template>
-                                <el-select v-model="form.mdiyModelId"
+                                <el-select v-model="form.categoryListUrl"
                                            :style="{width: '100%'}"
                                            :filterable="false"
                                            :disabled="false"
                                            :multiple="false" :clearable="true"
-                                           placeholder="请选择栏目的自定义模型">
-                                    <el-option v-for='item in mdiyModelIdOptions' :key="item.id" :value="item.id"
-                                               :label="item.modelName"></el-option>
+                                           placeholder="请选择列表模板">
+                                    <el-option v-for='item in categoryListUrlOptions' :key="item" :value="item"
+                                               :label="item"></el-option>
                                 </el-select>
                             </el-form-item>
                         </el-col>
