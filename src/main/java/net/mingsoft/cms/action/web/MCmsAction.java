@@ -296,7 +296,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		}
 		try {
 			//根据模板路径，参数生成
-			content = CmsParserUtil.generate(column.getCategoryListUrl(), map, isMobileDevice(req));
+			content = CmsParserUtil.generate(column.getCategoryUrl(), map, isMobileDevice(req));
 		} catch (TemplateNotFoundException e) {
 			e.printStackTrace();
 		} catch (MalformedTemplateNameException e) {
