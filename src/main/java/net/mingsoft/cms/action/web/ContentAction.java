@@ -1,46 +1,32 @@
 package net.mingsoft.cms.action.web;
 
-import java.util.List;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.alibaba.fastjson.JSON;
-import net.mingsoft.base.entity.ResultData;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.validation.BindingResult;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.ui.ModelMap;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import net.mingsoft.cms.biz.IContentBiz;
-import net.mingsoft.cms.entity.ContentEntity;
-import net.mingsoft.base.util.JSONObject;
-import net.mingsoft.base.entity.BaseEntity;
-import net.mingsoft.basic.util.BasicUtil;
-import net.mingsoft.basic.util.StringUtil;
-import net.mingsoft.base.filter.DateValueFilter;
-import net.mingsoft.base.filter.DoubleValueFilter;
-import net.mingsoft.basic.bean.EUListBean;
-import net.mingsoft.basic.annotation.LogAnn;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import net.mingsoft.base.entity.BaseEntity;
+import net.mingsoft.base.entity.ResultData;
+import net.mingsoft.basic.bean.EUListBean;
+import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.basic.util.StringUtil;
+import net.mingsoft.cms.biz.IContentBiz;
+import net.mingsoft.cms.entity.ContentEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import springfox.documentation.annotations.ApiIgnore;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 /**
  * 文章管理控制层
  * @author 铭飞开发团队
@@ -186,7 +172,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	}
 	
 	/**
-	 * @param content 文章实体
+	 * @param contents 文章实体
 	 */
 	@ApiOperation(value = "批量删除文章列表接口")
 	@PostMapping("/delete")
@@ -255,6 +241,26 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		return ResultData.build().success(content);
 	}
 
+	@ApiOperation(value = "查看文章点击数")
+	@ApiImplicitParam(name = "contentId", value = "文章编号", required = true,paramType="path")
+	@GetMapping(value = "/{contentId}/hit")
+	@ResponseBody
+	public void hit(@PathVariable @ApiIgnore int contentId, HttpServletRequest request, HttpServletResponse response){
+	 	if(contentId<=0){
+			this.outString(response, "document.write(0)");
+			return;
+		}
+		ContentEntity content = (ContentEntity)contentBiz.getEntity(contentId);
+	 	if(content == null){
+			this.outString(response, "document.write(0)");
+			return;
+		}
+		if(content.getAppId() == null || content.getAppId() != BasicUtil.getAppId()){
+			this.outString(response, "document.write(0)");
+			return;
+		}
+		this.outString(response, "document.write(" + content.getContentHit() + ")");
+		return;
+	}
 
-		
 }
