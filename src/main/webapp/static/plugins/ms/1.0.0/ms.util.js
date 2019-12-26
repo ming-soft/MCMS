@@ -26,8 +26,19 @@
         return cloneData.filter(father => {
             let branchArr = cloneData.filter(child => father[id] == child[parentId]);
             branchArr.length > 0 ? father[children] = branchArr : ''
-            return !father[parentId]        // 如果第一层不是parentId=0，请自行修改
+            return !father[parentId]||father[parentId]=='0'        // 如果第一层不是parentId=0，请自行修改
         })
+    }
+    //验证是否为子集
+    function childValidate (sourceList,id,parentId,key,parentKey){
+        var data=sourceList.find(x=>x[key]==parentId);
+        if(data&&data[parentKey]!='0'&&data[parentKey]){
+            if(id==data[parentKey]){
+                return false
+            }
+            return childValidate(sourceList,id,data[parentKey],key,parentKey)
+        }
+        return true;
     }
 
     //日期处理
@@ -199,6 +210,7 @@
     var util = {
         getParameter: getParameter,
         treeData:treeData,
+        childValidate:childValidate,
         date: date,
         array: array,
         log: log,
