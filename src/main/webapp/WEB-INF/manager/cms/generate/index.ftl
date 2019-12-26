@@ -27,7 +27,8 @@
 			<div class="class-4" >
 				<el-form-item  label="主题模板">
 					<el-select v-model="template"
-							   :clearable="true"
+							   :filterable="true"
+							   :clearable="false"
 							   placeholder="请选择主题模板">
 						<el-option v-for='item in templateOptions' :key="item" :value="item"
 								   :label="item"></el-option>
@@ -80,8 +81,8 @@
 							end-placeholder=""
 							:readonly="false"
 							:disabled="false"
-							:editable="true"
-							:clearable="true"
+							:editable="false"
+							:clearable="false"
 							format="yyyy-MM-dd"
 							value-format="yyyy-MM-dd"
 							:style="{width:'100%'}"
@@ -125,14 +126,17 @@
 		},
 		data: {
 			loading:false,
-			template:'',//主题模板
+			template:'index.htm',//主题模板
 			templateOptions:[],
-			position:'index.html', //位置
-			contentSection:'', //文章栏目
-			section:'', //栏目
+			position:'index', //位置
+			contentSection:'0', //文章栏目
+			section:'0', //栏目
 			time:ms.util.date.fmt(new Date(),"yyyy-MM-dd"),
-			treeList:[],
-
+			treeList:[{
+				id:'0',
+				categoryTitle:'顶级栏目',
+				children:[],
+			}],
 		},
 		methods: {
 			//更新主页
@@ -143,7 +147,7 @@
 					return;
 				}
 				that.loading = true;
-				ms.http.get(ms.manager+'/cms/generate//generateIndex.do', {url:that.template,position:that.position}).then(function (data) {
+				ms.http.post(ms.manager+'/cms/generate//generateIndex.do', {url:that.template,position:that.position}).then(function (data) {
 					if(data.result){
 						that.$notify({ title: '更新成功！', type: 'success' });
 					}
@@ -165,12 +169,8 @@
 			//更新栏目
 			updateColumn(){
 				var that = this;
-				if(!that.section || that.section == ''){
-					that.$notify({ title: '请选择栏目！', type: 'warning' });
-					return;
-				}
 				that.loading = true;
-				ms.http.get(ms.manager+'/cms/generate/'+that.section+'/genernateColumn.do', {section:that.section}).then(function (data) {
+				ms.http.get(ms.manager+'/cms/generate/'+(that.section?that.section:0)+'/genernateColumn.do').then(function (data) {
 					if(data.result){
 						that.$notify({ title: '更新成功！', type: 'success' });
 					}
@@ -184,12 +184,8 @@
 			//生成文章栏目
 			updateArticle(){
 				var that = this;
-				if(!that.contentSection || that.contentSection == ''){
-					that.$notify({ title: '请选择栏目！', type: 'warning' });
-					return;
-				}
 				that.loading = true;
-				ms.http.get(ms.manager+'/cms/generate/'+that.contentSection+'/generateArticle.do', {contentSection:that.contentSection,data:that.time}).then(function (data) {
+				ms.http.post(ms.manager+'/cms/generate/'+(that.contentSection?that.contentSection:0)+'/generateArticle.do', {dateTime:that.time}).then(function (data) {
 					if(data.result){
 						that.$notify({ title: '更新成功！', type: 'success' });
 					}
@@ -214,7 +210,7 @@
 				ms.http.get(ms.manager+"/cms/category/list.do",{pageSize:9999}).then(function(res){
 					if(res.result){
 						//res.data.rows.push({id:0,categoryId: null,categoryTitle:'顶级栏目管理'});
-						that.treeList = ms.util.treeData(res.data.rows,'id','categoryId','children');
+						that.treeList[0].children = ms.util.treeData(res.data.rows,'id','categoryId','children');
 					}
 				}).catch(function(err){
 					console.log(err);

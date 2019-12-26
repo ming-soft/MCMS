@@ -238,10 +238,10 @@
 				(select id FROM cms_category where <include refid="queryWhereCategoryId"></include>))
 			</if>
 			<if test="beginTime!=null and beginTime!=''">
-				and content_updatetime &gt;= #{beginTime}
+				and content_datetime &gt;= #{beginTime}
 			</if>
 			<if test="endTime!=null and endTime!=''">
-				and content_updatetime &gt;= #{endTime}
+				and content_datetime &gt;= #{endTime}
 			</if>
 			<if test="orderBy!=null and order!=null and orderBy!='' and order!=''">
 				ORDER BY `${orderBy}` ${order}

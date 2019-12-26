@@ -72,7 +72,7 @@
                                     <el-form-item prop="categoryUrl" :label="form.categoryType =='1'? '内容模板' : '封面模板'">
                                         <el-select v-model="form.categoryUrl"
                                                    :style="{width: '100%'}"
-                                                   :filterable="false"
+                                                   :filterable="true"
                                                    :disabled="false"
                                                    :multiple="false" :clearable="true"
                                                    placeholder="请选择内容模板">
@@ -112,7 +112,7 @@
                                 </template>
                                 <el-select v-model="form.categoryListUrl"
                                            :style="{width: '100%'}"
-                                           :filterable="false"
+                                           :filterable="true"
                                            :disabled="false"
                                            :multiple="false" :clearable="true"
                                            placeholder="请选择列表模板">
