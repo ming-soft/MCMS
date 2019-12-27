@@ -11,7 +11,9 @@
 	<!--左侧-->
 	<el-container class="index-menu">
 		<div class="left-tree">
-			<el-tree :indent="5" v-loading="loading" highlight-current :expand-on-click-node="false" default-expand-all :empty-text="emptyText" :data="treeData" :props="defaultProps" @node-click="handleNodeClick" style="padding: 10px;height: 100%;"></el-tree>
+			<el-scrollbar class="ms-scrollbar" style="height: 100vh;">
+				<el-tree :indent="5" v-loading="loading" highlight-current :expand-on-click-node="false" default-expand-all :empty-text="emptyText" :data="treeData" :props="defaultProps" @node-click="handleNodeClick" style="padding: 10px;height: 100%;"></el-tree>
+			</el-scrollbar>
 		</div>
 		<iframe :src="action" class="ms-iframe-style">
 		</iframe>
@@ -46,7 +48,9 @@
 				var that = this;
 				this.loadState = false;
 				this.loading = true;
-				ms.http.get(ms.manager+"/cms/category/list.do").then(
+				ms.http.get(ms.manager+"/cms/category/list.do",{
+					pageSize:999,
+				}).then(
 						function(res) {
 							if(that.loadState){
 								that.loading = false;

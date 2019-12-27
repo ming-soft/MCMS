@@ -1,0 +1,43 @@
+INSERT INTO cms_category (
+	cms_category.id,
+	cms_category.category_title,
+	cms_category.category_sort,
+	cms_category.category_parent_id,
+	cms_category.category_path,
+	cms_category.category_flag,
+	cms_category.dict_id,
+	cms_category.app_id,
+	cms_category.category_manager_id,
+	cms_category.category_datetime,
+	cms_category.mdiy_model_id,
+	cms_category.category_diy_url,
+	cms_category.category_img,
+	cms_category.category_descrip,
+	cms_category.category_keyword,
+	cms_category.category_url,
+	cms_category.category_list_url,
+	cms_category.category_type,
+	cms_category.category_id 
+) SELECT
+category.category_id,
+category.category_title,
+category.category_sort,
+category.category_parent_id,
+basic_column.column_path,
+basic_column.column_flag,
+category.category_dict_id,
+category.category_appid,
+category.category_managerid,
+category.category_datetime,
+basic_column.column_cm_id,
+basic_column.column_diy_url,
+category.category_smallimg,
+basic_column.column_descrip,
+basic_column.column_keyword,
+basic_column.column_url,
+basic_column.column_listurl,
+basic_column.column_type,
+category.category_categoryid 
+FROM
+	basic_column
+	INNER JOIN category ON basic_column.column_category_id = category.category_id

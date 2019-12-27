@@ -111,7 +111,9 @@ var indexVue = new Vue({
 	    	var that = this;
 	    	this.loadState = false;
 	    	this.loading = true;
-			ms.http.get(ms.manager+"/cms/category/list.do").then(
+			ms.http.get(ms.manager+"/cms/category/list.do",{
+				pageSize:999,
+			}).then(
 					function(res) {
 						if(that.loadState){
 							that.loading = false;
