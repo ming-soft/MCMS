@@ -213,7 +213,10 @@ public class CmsParserUtil extends ParserUtil {
 			// 文章的模板路径
 			String columnUrl = articleIdList.get(artId).getCategoryUrl();
 			// 文章的栏目模型编号
-			String columnContentModelId = articleIdList.get(artId).getMdiyModelId();
+			String columnContentModelId = "";
+			if(StringUtils.isNotBlank(articleIdList.get(artId).getMdiyModelId()) && Integer.parseInt(articleIdList.get(artId).getMdiyModelId())>0){
+				columnContentModelId = articleIdList.get(artId).getMdiyModelId();
+			}
 			// 文章是否已经生成了，生成了就跳过
 			if (generateIds.contains(articleId)) {
 				artId++;

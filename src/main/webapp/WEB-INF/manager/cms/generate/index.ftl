@@ -17,11 +17,11 @@
 				  :closable="false"
 				show-icon>
 			更新主页，如果系统存在引导页面可以手动修改主页位置文件名,default.html引导页面index.html主页。<br/>
-			更新栏目列表，推荐使用指定栏目更新。系统提示“更新中...”请不要刷新页面或点击其他菜单。<br/>
+			更新栏目列表，推荐使用指定栏目更新。系统提示“更新中”请不要刷新页面或点击其他菜单。<br/>
 			根据时间与栏目类型生成文章
 		</el-alert>
 	</div>
-	<el-form ref="form" label-width="90px" size="mini" v-loading="loading">
+	<el-form ref="form" label-width="100px" size="mini">
 		<div class="class-2" >
 		<div class="class-3" >
 			<div class="class-4" >
@@ -37,10 +37,10 @@
 			</div>
 			<div class="class-7" >
 				<el-form-item>
-					<template slot='label'>
+					<template slot='label'>主页位置
 						<el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="主页位置htm文件名一般为index.html或default.html">
 							<i class="el-icon-question" slot="reference"></i>
-						</el-popover>主页位置
+						</el-popover>
 					</template>
 					<el-input v-model="position"
 							  :disabled="false"
@@ -52,7 +52,7 @@
 			</div>
 			<div class="class-10" >
 				<el-form-item>
-					<el-button type="primary" @click="updataIndex">生成主页</el-button>
+					<el-button type="primary" @click="updataIndex" :loading="homeLoading">{{homeLoading?'更新中':'生成主页'}}</el-button>
 					<el-button plain @click="viewIndex">预览主页</el-button>
 				</el-form-item>
 			</div>
@@ -69,10 +69,10 @@
 			</div>
 			<div class="class-17" >
 				<el-form-item>
-					<template slot='label'>
+					<template slot='label'>指定时间
 						<el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="指定时间需要小于生成文章的发布时间">
 							<i class="el-icon-question" slot="reference"></i>
-						</el-popover>指定时间
+						</el-popover>
 					</template>
 					<el-date-picker
 							v-model="time"
@@ -92,7 +92,7 @@
 			</div>
 			<div class="class-20" >
 				<el-form-item>
-					<el-button type="primary" @click="updateArticle">生成文章</el-button>
+					<el-button type="primary" @click="updateArticle" :loading="articleLoading">{{articleLoading?'更新中':'生成文章'}}</el-button>
 				</el-form-item>
 			</div>
 		</div>
@@ -109,7 +109,7 @@
 
 			<div class="class-30" >
 				<el-form-item>
-					<el-button type="primary" @click="updateColumn">生成栏目</el-button>
+					<el-button type="primary" @click="updateColumn" :loading="columnLoading">{{columnLoading?'更新中':'生成栏目'}}</el-button>
 				</el-form-item>
 			</div>
 		</div>
@@ -125,7 +125,9 @@
 
 		},
 		data: {
-			loading:false,
+			homeLoading:false,
+			articleLoading:false,
+			columnLoading:false,
 			template:'index.htm',//主题模板
 			templateOptions:[],
 			position:'index', //位置
@@ -146,7 +148,7 @@
 					this.$notify({ title: '请输入主页位置！', type: 'warning' });
 					return;
 				}
-				that.loading = true;
+				that.homeLoading = true;
 				ms.http.post(ms.manager+'/cms/generate//generateIndex.do', {url:that.template,position:that.position}).then(function (data) {
 					if(data.result){
 						that.$notify({ title: '更新成功！', type: 'success' });
@@ -155,7 +157,7 @@
 					that.$notify({ title: '更新失败！',message: err, type: 'error' });
 					console.log(err);
 				}).finally(()=>{
-					that.loading = false;
+					that.homeLoading = false;
 				});
 			},
 			//预览主页
@@ -169,7 +171,7 @@
 			//更新栏目
 			updateColumn(){
 				var that = this;
-				that.loading = true;
+				that.columnLoading = true;
 				ms.http.get(ms.manager+'/cms/generate/'+(that.section?that.section:0)+'/genernateColumn.do').then(function (data) {
 					if(data.result){
 						that.$notify({ title: '更新成功！', type: 'success' });
@@ -178,13 +180,13 @@
 					that.$notify({ title: '更新失败！',message: err, type: 'error' });
 					console.log(err);
 				}).finally(()=>{
-					that.loading = false;
+					that.columnLoading = false;
 				});
 			},
 			//生成文章栏目
 			updateArticle(){
 				var that = this;
-				that.loading = true;
+				that.articleLoading = true;
 				ms.http.post(ms.manager+'/cms/generate/'+(that.contentSection?that.contentSection:0)+'/generateArticle.do', {dateTime:that.time}).then(function (data) {
 					if(data.result){
 						that.$notify({ title: '更新成功！', type: 'success' });
@@ -193,7 +195,7 @@
 					that.$notify({ title: '更新失败！',message: err, type: 'error' });
 					console.log(err);
 				}).finally(()=>{
-					that.loading = false;
+					that.articleLoading = false;
 				});
 			},
 			//获取主题模板数据源
