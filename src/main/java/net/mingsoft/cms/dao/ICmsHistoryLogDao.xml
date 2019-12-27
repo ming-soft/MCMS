@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="net.mingsoft.cms.dao.IHistoryLogDao">
+<mapper namespace="net.mingsoft.cms.dao.ICmsHistoryLogDao">
 
 	<resultMap id="resultMap" type="net.mingsoft.cms.entity.HistoryLogEntity">
 			<id column="id" property="id" /><!--编号 -->

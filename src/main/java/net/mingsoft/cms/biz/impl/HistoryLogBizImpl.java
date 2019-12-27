@@ -21,14 +21,12 @@ The MIT License (MIT) * Copyright (c) 2019 铭飞科技
 
 package net.mingsoft.cms.biz.impl;
 
+import net.mingsoft.cms.biz.IHistoryLogBiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
-import java.util.*;
-import net.mingsoft.cms.entity.HistoryLogEntity;
-import net.mingsoft.cms.biz.IHistoryLogBiz;
-import net.mingsoft.cms.dao.IHistoryLogDao;
+import net.mingsoft.cms.dao.ICmsHistoryLogDao;
 
 /**
  * 文章浏览记录管理持久化层
@@ -41,7 +39,7 @@ public class HistoryLogBizImpl extends BaseBizImpl implements IHistoryLogBiz {
 
 	
 	@Autowired
-	private IHistoryLogDao historyLogDao;
+	private ICmsHistoryLogDao historyLogDao;
 	
 	
 	@Override

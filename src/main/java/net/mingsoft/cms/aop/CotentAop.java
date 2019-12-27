@@ -13,6 +13,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 /**
  * @author 铭飞开源团队
  * @date 2019/12/23
@@ -64,6 +66,7 @@ public class CotentAop extends BaseAop {
         //如果该ip该文章没有浏览记录则保存浏览记录
         //并且更新点击数
         if(_historyLog == null || StringUtils.isBlank(_historyLog.getId())){
+            historyLog.setCreateDate(new Date());
             historyLogBiz.saveEntity(historyLog);
             //更新点击数
             ContentEntity updateContent = new ContentEntity();
