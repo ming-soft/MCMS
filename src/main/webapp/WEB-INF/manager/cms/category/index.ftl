@@ -37,7 +37,7 @@
             </el-table-column>
                 <el-table-column label="链接地址" align="left" prop="categoryPath" show-overflow-tooltip>
 					<template slot-scope="scope">
-						{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}
+						<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="'{ms:global.url/}'+scope.row.categoryPath+'/index.html'" @click="copyUrl">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
 					</template>
 				</el-table-column>
             <el-table-column label="列表地址" align="left" prop="categoryListUrl" show-overflow-tooltip>
@@ -138,6 +138,14 @@ var indexVue = new Vue({
 				}
 			}, 500);
 				},
+		copyUrl: function(){
+			var clipboard = new ClipboardJS('.copyBtn');
+			var self = this;
+			clipboard.on('success', function (e) {
+				self.$message.success('链接数据已保存到剪切板');
+				clipboard.destroy();
+			});
+		},
 		//分类列表选中
 		handleSelectionChange:function(val){
 			this.selectionList = val;
