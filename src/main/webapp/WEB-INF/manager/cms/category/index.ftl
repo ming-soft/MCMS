@@ -142,7 +142,11 @@ var indexVue = new Vue({
 			var clipboard = new ClipboardJS('.copyBtn');
 			var self = this;
 			clipboard.on('success', function (e) {
-				self.$message.success('链接数据已保存到剪切板');
+				self.$notify({
+					title: '提示',
+					message: "链接地址已保存到剪切板",
+					type: 'success'
+				});
 				clipboard.destroy();
 			});
 		},
