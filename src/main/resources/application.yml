@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 4027
   servlet.context-path: /ms-mcms
   servlet.session.timeout: 60M
   
