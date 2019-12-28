@@ -3,6 +3,7 @@
 <head>
 	<title>分类</title>
 		<#include "../../include/head-file.ftl">
+	    <script src="${base}/static/plugins/clipboard/clipboard.js"></script>
 </head>
 <body>
 	<div id="index" class="ms-index" v-cloak>
