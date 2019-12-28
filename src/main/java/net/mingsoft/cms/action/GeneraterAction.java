@@ -151,14 +151,14 @@ public class GeneraterAction extends BaseAction {
 	@RequestMapping("/{CategoryId}/genernateColumn")
 	@RequiresPermissions("cms:generate:column")
 	@ResponseBody
-	public void genernateColumn(HttpServletRequest request, HttpServletResponse response, @PathVariable String CategoryId) {
+	public void genernateColumn(HttpServletRequest request, HttpServletResponse response, @PathVariable int CategoryId) {
 		// 获取站点id
 		AppEntity app = BasicUtil.getApp();
 		List<CategoryEntity> columns = new ArrayList<CategoryEntity>();
 		// 如果栏目id小于0则更新所有的栏目，否则只更新选中的栏目
-		if (StringUtils.isNotBlank(CategoryId)) {
+		if (CategoryId>0) {
 			CategoryEntity categoryEntity = new CategoryEntity();
-			categoryEntity.setId(CategoryId);
+			categoryEntity.setId(CategoryId+"");
 			categoryEntity.setAppId(app.getAppId());
 			columns = categoryBiz.queryChilds(categoryEntity);
 		} else {
