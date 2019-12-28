@@ -60,16 +60,52 @@
                 {{emptyText}}
             </template>
             <el-table-column type="selection" width="40"></el-table-column>
-            <el-table-column label="编号" width="60" prop="id"></el-table-column>
+            <el-table-column label="编号" width="70" prop="id">
+                <template slot='header'>编号
+                    <el-popover placement="top-start" title="提示" trigger="hover" >
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.id/}</a>
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.id/]</a>
+                        <i class="el-icon-question" slot="reference"></i>
+                    </el-popover>
+                </template>
+            </el-table-column>
             <el-table-column label="栏目名" align="left" prop="contentCategoryId" :formatter="contentCategoryIdFormat" width="100">
+                <template slot='header'>栏目名
+                    <el-popover placement="top-start" title="提示" trigger="hover" >
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.typename/}</a>
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.typename/]</a>
+                        <i class="el-icon-question" slot="reference"></i>
+                    </el-popover>
+                </template>
             </el-table-column>
             <el-table-column label="文章标题" align="left" prop="contentTitle" show-overflow-tooltip>
+                <template slot='header'>文章标题
+                    <el-popover placement="top-start" title="提示" trigger="hover" >
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.title/}</a>
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.title/]</a>
+                        <i class="el-icon-question" slot="reference"></i>
+                    </el-popover>
+                </template>
             </el-table-column>
             <el-table-column label="作者" align="left" prop="contentAuthor" width="100" show-overflow-tooltip>
+                <template slot='header'>作者
+                    <el-popover placement="top-start" title="提示" trigger="hover" >
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.author/}</a>
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.author/]</a>
+                        <i class="el-icon-question" slot="reference"></i>
+                    </el-popover>
+                </template>
             </el-table-column>
             <el-table-column label="排序" width="55" align="right" prop="contentSort">
             </el-table-column>
-            <el-table-column label="点击" width="55" align="right" prop="contentHit">
+            <el-table-column label="点击量" width="90" align="right" prop="contentHit">
+                <template slot='header'>点击量
+                    <el-popover placement="top-start" title="提示" trigger="hover" >
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.hit/}</a>
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.hit/]</a>
+                        <i class="el-icon-question" slot="reference"></i>
+                    </el-popover>
+                </template>
                 <template slot-scope="scope">
                     {{scope.row.contentHit?scope.row.contentHit:0}}
                 </template>

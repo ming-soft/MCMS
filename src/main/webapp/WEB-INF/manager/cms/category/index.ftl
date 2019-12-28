@@ -31,12 +31,41 @@
 					{{emptyText}}
 				</template>
 				<el-table-column type="selection" width="40"></el-table-column>
-				<el-table-column label="编号" width="80" prop="id"></el-table-column>
+				<el-table-column label="编号" width="120" prop="id">
+					<template slot='header'>编号
+						<el-popover placement="top-start" title="提示" trigger="hover" >
+							<a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.typeid/}</a>
+							<a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">[field.typeid/]</a>
+							<i class="el-icon-question" slot="reference"></i>
+						</el-popover>
+					</template>
+				</el-table-column>
                  <el-table-column label="标题" align="left" prop="categoryTitle">
+					 <template slot='header'>标题
+						 <el-popover placement="top-start" title="提示" trigger="hover" >
+							 <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.typetitle/}</a>
+							 <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">[field.typetitle/]</a>
+							 <i class="el-icon-question" slot="reference"></i>
+						 </el-popover>
+					 </template>
                  </el-table-column>
-            <el-table-column label="属性" align="center" prop="categoryType" :formatter="categoryTypeFormat" width="65">
+            <el-table-column label="属性" align="center" prop="categoryType" :formatter="categoryTypeFormat" width="70">
+				<template slot='header'>属性
+					<el-popover placement="top-start" title="提示" trigger="hover" >
+						<a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.flag/}</a>
+						<a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">[field.flag/]</a>
+						<i class="el-icon-question" slot="reference"></i>
+					</el-popover>
+				</template>
             </el-table-column>
                 <el-table-column label="链接地址" align="left" prop="categoryPath" show-overflow-tooltip>
+					<template slot='header'>链接地址
+						<el-popover placement="top-start" title="提示" trigger="hover" >
+							<a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.typelink/}</a>
+							<a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">[field.typelink/]</a>
+							<i class="el-icon-question" slot="reference"></i>
+						</el-popover>
+					</template>
 					<template slot-scope="scope">
 						<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="'{ms:global.url/}'+scope.row.categoryPath+'/index.html'" @click="copyUrl">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
 					</template>

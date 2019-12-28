@@ -12,12 +12,19 @@
 		</el-header>
 		<el-main class="ms-container">
             <el-scrollbar class="ms-scrollbar" style="height: 100%;">
-                <el-form ref="form" :model="form" :rules="rules" label-width="120px" size="mini">
+                <el-form ref="form" :model="form" :rules="rules" label-width="130px" size="mini">
                         <el-row
                                 gutter="0"
                                 justify="start" align="top">
                                 <el-col span="12">
             <el-form-item  label="栏目管理名称" prop="categoryTitle">
+                <template slot='label'>栏目管理名称
+                <el-popover slot="label" placement="top-start" title="提示" trigger="hover" >
+                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.typetitle/}</a>
+                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">[field.typetitle/]</a>
+                    <i class="el-icon-question" slot="reference"></i>
+                </el-popover>
+                </template>
                 <el-input v-model="form.categoryTitle"
                           :disabled="false"
                           :style="{width:  '100%'}"
@@ -28,7 +35,7 @@
                                 </el-col>
                                 <el-col span="12">
             <el-form-item  label="所属栏目" prop="categoryId">
-            <tree-select :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
+            <tree-select ref="tree" :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
                          :options="treeList" :style="{width:'100%'}"
                          v-model="form.categoryId"></tree-select>
             </el-form-item>
@@ -123,6 +130,13 @@
                         </el-col>
                     </el-row>
             <el-form-item  label="栏目管理关键字" prop="categoryKeyword">
+                <template slot='label'>栏目关键字
+                    <el-popover slot="label" placement="top-start" title="提示" trigger="hover" >
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.typekeyword/}</a>
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">[field.typekeyword/]</a>
+                        <i class="el-icon-question" slot="reference"></i>
+                    </el-popover>
+                </template>
                 <el-input
                         type="textarea" :rows="5"
                         :disabled="false"
@@ -133,6 +147,13 @@
                 </el-input>
             </el-form-item>
             <el-form-item  label="栏目管理描述" prop="categoryDescrip">
+                <template slot='label'>栏目描述
+                    <el-popover slot="label" placement="top-start" title="提示" trigger="hover" >
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.typedescrip/}</a>
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">[field.typedescrip/]</a>
+                        <i class="el-icon-question" slot="reference"></i>
+                    </el-popover>
+                </template>
                 <el-input
                         type="textarea" :rows="5"
                         :disabled="false"
@@ -166,7 +187,6 @@
             </el-form-item>
             <el-form-item  label="自定义链接" prop="categoryDiyUrl">
                 <el-input
-                        type="textarea" :rows="5"
                         :disabled="false"
 
                         v-model="form.categoryDiyUrl"
@@ -190,6 +210,7 @@
                     categoryTitle:'顶级栏目',
                     children:[],
                 }],
+                categoryList:[],
                 saveDisabled: false,
                 categoryTypeDisabled:true,
                 //表单数据
@@ -229,6 +250,29 @@
             }
         },
         watch:{
+            'form.categoryId':function (n, o) {
+                if(n == this.form.id){
+                    this.$notify({
+                        title: '提示',
+                        message: '所属栏目不能为自身',
+                        type: 'error'
+                    });
+                    return;
+                }
+                this.categoryList.forEach(item=>{
+                   if(item.categoryParentId !=null && item.categoryParentId !="" && item.categoryParentId.indexOf(this.form.id) != -1){
+                       if(item.id == n){
+                           this.form.categoryId = null;
+                           this.$refs.tree.clearHandle();
+                           this.$notify({
+                               title: '提示',
+                               message: '不能选择子分类',
+                               type: 'warning'
+                           });
+                       }
+                   }
+                });
+            }
         },
         computed:{
         },
@@ -238,6 +282,7 @@
                 ms.http.get(ms.manager+"/cms/category/list.do",{pageSize:9999}).then(function(res){
                     if(res.result){
                         //res.data.rows.push({id:0,categoryId: null,categoryTitle:'顶级栏目管理'});
+                        that.categoryList = res.data.rows;
                         that.treeList[0].children = ms.util.treeData(res.data.rows,'id','categoryId','children');
                     }
                 }).catch(function(err){

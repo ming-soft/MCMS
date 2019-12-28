@@ -25,6 +25,13 @@
                         justify="start" align="top">
                     <el-col :span="returnIsShow?'12':'24'">
                         <el-form-item label="文章标题" prop="contentTitle">
+                            <template slot='label'>文章标题
+                                <el-popover placement="top-start" title="提示" trigger="hover" >
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.title/}</a>
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.title/]</a>
+                                    <i class="el-icon-question" slot="reference"></i>
+                                </el-popover>
+                            </template>
                             <el-input v-model="form.contentTitle"
                                       :disabled="false"
                                       :style="{width:  '100%'}"
@@ -35,6 +42,13 @@
                     </el-col>
                     <el-col span="12" v-if="returnIsShow">
                         <el-form-item label="所属栏目" prop="contentCategoryId">
+                            <template slot='label'>所属栏目
+                                <el-popover placement="top-start" title="提示" trigger="hover" >
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.typeid/}</a>
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.typeid/]</a>
+                                    <i class="el-icon-question" slot="reference"></i>
+                                </el-popover>
+                            </template>
                             <tree-select :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
                                          :options="contentCategoryIdOptions" :style="{width:'100%'}"
                                          @change="categoryChange"
@@ -83,6 +97,13 @@
                         justify="start" align="top">
                     <el-col span="12">
                         <el-form-item label="文章作者" prop="contentAuthor">
+                            <template slot='label'>文章作者
+                                <el-popover placement="top-start" title="提示" trigger="hover" >
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.author/}</a>
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.author/]</a>
+                                    <i class="el-icon-question" slot="reference"></i>
+                                </el-popover>
+                            </template>
                             <el-input v-model="form.contentAuthor"
                                       :disabled="false"
                                       :style="{width:  '100%'}"
@@ -93,6 +114,13 @@
                     </el-col>
                     <el-col span="12">
                         <el-form-item label="文章来源" prop="contentSource">
+                            <template slot='label'>文章来源
+                                <el-popover placement="top-start" title="提示" trigger="hover" >
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.source/}</a>
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.source/]</a>
+                                    <i class="el-icon-question" slot="reference"></i>
+                                </el-popover>
+                            </template>
                             <el-input v-model="form.contentSource"
                                       :disabled="false"
                                       :style="{width:  '100%'}"
@@ -135,8 +163,10 @@
                 </el-row>
                 <el-form-item label="" prop="contentImg">
                     <template slot='label'>文章缩略图
-                        <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover"
-                                    content="文章缩略图,支持jpg格式">
+                        <el-popover placement="top-start" title="提示" trigger="hover" >
+                            文章缩略图,支持jpg格式
+                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.litpic/}</a>
+                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.litpic/]</a>
                             <i class="el-icon-question" slot="reference"></i>
                         </el-popover>
                     </template>
@@ -167,6 +197,13 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item label="关键字" prop="contentKeyword">
+                    <template slot='label'>关键字
+                        <el-popover placement="top-start" title="提示" trigger="hover" >
+                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.keyword/}</a>
+                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.keyword/]</a>
+                            <i class="el-icon-question" slot="reference"></i>
+                        </el-popover>
+                    </template>
                     <el-input
                             type="textarea" :rows="5"
                             :disabled="false"
@@ -177,6 +214,13 @@
                     </el-input>
                 </el-form-item>
                 <el-form-item label="文章内容" prop="contentDetails">
+                    <template slot='label'>文章内容
+                        <el-popover placement="top-start" title="提示" trigger="hover" >
+                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.content/}</a>
+                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.content/]</a>
+                            <i class="el-icon-question" slot="reference"></i>
+                        </el-popover>
+                    </template>
                     <vue-ueditor-wrap style="line-height: 0px" v-model="form.contentDetails"
                                       :config="editorConfig"></vue-ueditor-wrap>
                 </el-form-item>
