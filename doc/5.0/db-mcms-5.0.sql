@@ -1,17 +1,17 @@
 /*
  Navicat MySQL Data Transfer
 
- Source Server         : imingsoft.cn_3307
+ Source Server         : localhost_3306
  Source Server Type    : MySQL
- Source Server Version : 50725
- Source Host           : imingsoft.cn:3307
- Source Schema         : db-mcms-5.0
+ Source Server Version : 50640
+ Source Host           : localhost:3306
+ Source Schema         : mcms5.0
 
  Target Server Type    : MySQL
- Target Server Version : 50725
+ Target Server Version : 50640
  File Encoding         : 65001
 
- Date: 28/12/2019 09:14:07
+ Date: 28/12/2019 17:53:25
 */
 
 SET NAMES utf8mb4;
@@ -41,7 +41,7 @@ CREATE TABLE `app`  (
   PRIMARY KEY (`app_id`) USING BTREE,
   INDEX `fk_app_manager_1`(`app_managerid`) USING BTREE,
   CONSTRAINT `app_ibfk_1` FOREIGN KEY (`app_managerid`) REFERENCES `manager` (`manager_id`) ON DELETE SET NULL ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '应用表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '应用表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of app
@@ -78,7 +78,7 @@ CREATE TABLE `cms_category`  (
   `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` int(11) NULL DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 152 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '分类' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 152 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '分类' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of cms_category
@@ -156,7 +156,7 @@ CREATE TABLE `cms_content`  (
   `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` int(11) NULL DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 224 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文章' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 224 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文章' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of cms_content
@@ -275,7 +275,7 @@ CREATE TABLE `cms_history_log`  (
   `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` int(11) NULL DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文章浏览记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文章浏览记录' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of cms_history_log
@@ -306,7 +306,7 @@ CREATE TABLE `file`  (
   `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `del` int(1) NULL DEFAULT NULL COMMENT '删除标记',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 66 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '基础文件表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 66 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '基础文件表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of file
@@ -372,7 +372,7 @@ CREATE TABLE `manager`  (
   PRIMARY KEY (`manager_id`) USING BTREE,
   INDEX `fk_manager_role_1`(`manager_roleid`) USING BTREE,
   CONSTRAINT `manager_ibfk_1` FOREIGN KEY (`manager_roleid`) REFERENCES `role` (`role_id`) ON DELETE SET NULL ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 63 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '管理员表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 63 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '管理员表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of manager
@@ -409,7 +409,7 @@ CREATE TABLE `mdiy_dict`  (
   INDEX `dict_value`(`dict_value`) USING BTREE,
   INDEX `dict_label`(`dict_label`) USING BTREE,
   CONSTRAINT `mdiy_dict_ibfk_1` FOREIGN KEY (`app_id`) REFERENCES `app` (`app_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 642 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '字典表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 642 CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '字典表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of mdiy_dict
@@ -440,7 +440,7 @@ CREATE TABLE `mdiy_form`  (
   PRIMARY KEY (`form_id`) USING BTREE,
   INDEX `fk_mdiy_form`(`form_app_id`) USING BTREE,
   CONSTRAINT `mdiy_form_ibfk_1` FOREIGN KEY (`form_app_id`) REFERENCES `app` (`app_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '自定义表单表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '自定义表单表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of mdiy_form
@@ -480,7 +480,7 @@ CREATE TABLE `mdiy_model`  (
   `model_field` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `model_custom_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类型',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '自定义模型' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '自定义模型' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for mdiy_page
@@ -504,7 +504,7 @@ CREATE TABLE `mdiy_page`  (
   INDEX `index_page_app_id`(`page_app_id`) USING BTREE,
   INDEX `index_page_model_id`(`page_model_id`) USING BTREE,
   CONSTRAINT `mdiy_page_ibfk_1` FOREIGN KEY (`page_app_id`) REFERENCES `app` (`app_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '自定义页面表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '自定义页面表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for mdiy_post_feedback
@@ -516,7 +516,7 @@ CREATE TABLE `mdiy_post_feedback`  (
   `phone` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '手机号',
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '意见反馈' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '意见反馈' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for mdiy_tag
@@ -528,7 +528,7 @@ CREATE TABLE `mdiy_tag`  (
   `tag_type` int(1) NULL DEFAULT NULL COMMENT '标签类型',
   `tag_description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '标签' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '标签' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of mdiy_tag
@@ -558,7 +558,7 @@ CREATE TABLE `mdiy_tag_sql`  (
 -- ----------------------------
 -- Records of mdiy_tag_sql
 -- ----------------------------
-INSERT INTO `mdiy_tag_sql` VALUES (5, 3, '<#assign _typeid=\"\"/>\r\n<#assign _size=\"20\"/>\r\n<#if column?? && column.id?? && column.id?number gt 0>\r\n  <#assign  _typeid=\"${column.id}\">\r\n</#if>\r\n<#if typeid??>\r\n  <#assign  _typeid=\"${typeid}\">\r\n</#if>\r\n<#if size??>\r\n  <#assign  _size=\"${size}\">\r\n</#if>\r\n<#if orderby?? >\r\n      <#if orderby==\"date\"> \r\n	   <#assign  _orderby=\"content_datetime\">\r\n      <#elseif orderby==\"updatedate\">\r\n <#assign  _orderby=\"content_updatetime\">\r\n      <#elseif orderby==\"hit\"> \r\n	  <#assign  _orderby=\"content_hit\">\r\n      <#elseif orderby==\"sort\">\r\n	   <#assign  _orderby=\"content_sort\">\r\n      <#else><#assign  _orderby=\"cms_content.id\"></#if>\r\n   <#else>\r\n   <#assign  _orderby=\"cms_content.id\">\r\n  </#if>\r\nSELECT\r\n  cms_content.id AS id,\r\n  @rownum := @rownum + 1 AS `index`,\r\n  LEFT (content_title, ${titlelen ?default(40)}) AS title,\r\n  content_title AS fulltitle,\r\n  content_author AS author,\r\n  content_source AS source,\r\n  content_details AS content,\r\n  category.category_title AS typename,\r\n  category.category_id AS typeid,\r\n  category.category_img AS typelitpic,\r\n  <#--列表页动态链接-->\r\n  <#if isDo?? && isDo>\r\n  CONCAT(\"/${modelName}/list.do?typeid=\", category.category_id) as typelink,\r\n  <#else>\r\n  (SELECT \"index.html\") AS typelink,\r\n  </#if>\r\n  content_img AS litpic,\r\n  <#--内容页动态链接-->\r\n  <#if isDo?? && isDo>\r\n   CONCAT(\"/${modelName}/view.do?id=\", cms_content.id,\"&orderby=${_orderby}\",\"&order=${order!\'ASC\'}\") as link,\r\n  <#else>\r\n\r\n  CONCAT(category.category_path,\"/\",cms_content.id,\".html\") AS link,\r\n  </#if>\r\n  content_datetime AS date,<#if tableName??>${tableName}.*,</#if>\r\n  content_description AS descrip,\r\n  content_hit AS hit,\r\n  content_type AS flag,\r\n  category_title AS typetitle,\r\n  cms_content.content_keyword AS keyword \r\nFROM\r\n  (SELECT @rownum := 0) r,\r\n  cms_content\r\n  LEFT JOIN cms_category as category ON content_category_id = category.id\r\n  <#--判断是否有自定义模型表-->\r\n  <#if tableName??>LEFT JOIN ${tableName} ON ${tableName}.link_id=cms_content.id </#if>\r\nWHERE  \r\n  content_display=0 \r\n  <#--根据站点编号查询-->\r\n  <#if appId?? >\r\n    and cms_content.app_id=${appId}\r\n	and cms_content.id>0\r\n  </#if>\r\n  <#--判断是否有搜索分类集合-->\r\n  <#if search??>\r\n		<#if search.categoryIds??>and FIND_IN_SET(category.id,\'${search.categoryIds}\')</#if>\r\n			<#--标题-->\r\n			<#if search.content_title??> and content_title like CONCAT(\"%\",\'${search.content_title}\',\"%\")</#if>\r\n			<#--作者-->\r\n			<#if search.content_author??> and content_author like CONCAT(\"%\",\'${search.content_author}\',\"%\")</#if>\r\n			<#--来源-->\r\n			<#if search.content_source??> and content_source like CONCAT(\"%\",\'${search.content_source}\',\"%\")</#if>\r\n			<#--属性-->\r\n			<#if search.content_type??> and content_type like CONCAT(\"%\",\'${search.content_type}\',\"%\")</#if>\r\n			<#--图片-->\r\n			<#if search.content_img??> and content_img like CONCAT(\"%\",\'${search.content_img}\',\"%\")</#if>\r\n			<#--描述-->\r\n			<#if search.content_description??> and content_description like CONCAT(\"%\",\'${search.content_description}\',\"%\")</#if>\r\n			<#--关键字-->\r\n			<#if search.content_keyword??> and content_keyword like CONCAT(\"%\",\'${search.content_keyword}\',\"%\")</#if>\r\n			<#--内容-->\r\n			<#if search.content_details??> and content_details like CONCAT(\"%\",\'${search.content_details}\',\"%\")</#if>\r\n			<#--自定义顺序-->\r\n			<#if search.content_sort??> and content_sort=${search.content_sort}</#if>\r\n  <#else><#--查询栏目-->\r\n    <#if _typeid?has_content> and (content_category_id=${_typeid} or content_category_id in \r\n  (select id FROM cms_category where cms_category.del=0 and find_in_set(${_typeid},CATEGORY_PARENT_ID))) </#if>\r\n </#if>\r\n  <#--标题-->\r\n  <#if content_title??> and content_title like CONCAT(\"%\",\'${content_title}\',\"%\")</#if>\r\n  <#--作者-->\r\n  <#if content_author??> and content_author like CONCAT(\"%\",\'${content_author}\',\"%\")</#if>\r\n  <#--来源-->\r\n  <#if content_source??> and content_source like CONCAT(\"%\",\'${content_source}\',\"%\")</#if>\r\n  <#--属性-->\r\n  <#if content_type??> and content_type like CONCAT(\"%\",\'${content_type}\',\"%\")</#if>\r\n  <#--图片-->\r\n  <#if content_img??> and content_img like CONCAT(\"%\",\'${content_img}\',\"%\")</#if>\r\n  <#--描述-->\r\n  <#if content_description??> and content_description like CONCAT(\"%\",\'${content_description}\',\"%\")</#if>\r\n  <#--关键字-->\r\n  <#if content_keyword??> and content_keyword like CONCAT(\"%\",\'${content_keyword}\',\"%\")</#if>\r\n  <#--内容-->\r\n  <#if content_details??> and content_details like CONCAT(\"%\",\'${content_details}\',\"%\")</#if>\r\n  <#--自定义顺序-->\r\n  <#if content_sort??> and content_sort=${content_sort}</#if>\r\n  <#--自定义模型-->\r\n  <#if diyModel??> \r\n    <#list diyModel as dm>\r\n      and ${tableName}.${dm.key} = \"${dm.value}\" \r\n    </#list>\r\n  </#if>\r\n  <#--文章属性-->\r\n  <#if flag?? >\r\n      and cms_content.content_type like CONCAT(\'%\',\'${flag}\',\'%\') \r\n  </#if>\r\n  <#if noflag?? >\r\n      and cms_content.content_type not like CONCAT(\'%\',\'${noflag}\',\'%\') \r\n  </#if>\r\n  <#--字段排序-->\r\n  <#if orderby?? >\r\n    ORDER BY \r\n      <#if orderby==\"date\"> content_datetime\r\n      <#elseif orderby==\"updatedate\"> content_updatetime\r\n      <#elseif orderby==\"hit\"> content_hit\r\n      <#elseif orderby==\"sort\"> content_sort\r\n      <#else>cms_content.id</#if>\r\n <#else>\r\n    ORDER BY   cms_content.id\r\n  </#if>\r\n  <#if order?? >\r\n      <#if order==\"desc\"> desc</#if>\r\n      <#if order==\"asc\"> asc</#if>\r\n  </#if>\r\n   LIMIT \r\n    <#--判断是否分页-->\r\n  <#if ispaging?? && (pageTag.pageNo)??>${((pageTag.pageNo-1)*_size?eval)?c},${_size?default(20)}\r\n  <#else>${_size?default(20)}</#if>', 1);
+INSERT INTO `mdiy_tag_sql` VALUES (5, 3, '<#assign _typeid=\"\"/>\r\n<#assign _size=\"20\"/>\r\n<#if column?? && column.id?? && column.id?number gt 0>\r\n  <#assign  _typeid=\"${column.id}\">\r\n</#if>\r\n<#if typeid??>\r\n  <#assign  _typeid=\"${typeid}\">\r\n</#if>\r\n<#if size??>\r\n  <#assign  _size=\"${size}\">\r\n</#if>\r\n<#if orderby?? >\r\n      <#if orderby==\"date\"> \r\n	   <#assign  _orderby=\"content_datetime\">\r\n      <#elseif orderby==\"updatedate\">\r\n <#assign  _orderby=\"content_updatetime\">\r\n      <#elseif orderby==\"hit\"> \r\n	  <#assign  _orderby=\"content_hit\">\r\n      <#elseif orderby==\"sort\">\r\n	   <#assign  _orderby=\"content_sort\">\r\n      <#else><#assign  _orderby=\"cms_content.id\"></#if>\r\n   <#else>\r\n   <#assign  _orderby=\"cms_content.id\">\r\n  </#if>\r\nSELECT\r\n  cms_content.id AS id,\r\n  @rownum := @rownum + 1 AS `index`,\r\n  LEFT (content_title, ${titlelen ?default(40)}) AS title,\r\n  content_title AS fulltitle,\r\n  content_author AS author,\r\n  content_source AS source,\r\n  content_details AS content,\r\n  category.category_title AS typename,\r\n  category.category_id AS typeid,\r\n  category.category_img AS typelitpic,\r\n  <#--列表页动态链接-->\r\n  <#if isDo?? && isDo>\r\n  CONCAT(\"/${modelName}/list.do?typeid=\", category.category_id) as typelink,\r\n  <#else>\r\n  (SELECT \"index.html\") AS typelink,\r\n  </#if>\r\n  ( CASE content_img WHEN \'\' THEN content_img ELSE CONVERT ( JSON_UNQUOTE( JSON_EXTRACT( content_img -> \'$[0]\', \'$.path\' ) ) USING utf8 ) END ) AS litpic,\r\n  <#--内容页动态链接-->\r\n  <#if isDo?? && isDo>\r\n   CONCAT(\"/${modelName}/view.do?id=\", cms_content.id,\"&orderby=${_orderby}\",\"&order=${order!\'ASC\'}\") as link,\r\n  <#else>\r\n\r\n  CONCAT(category.category_path,\"/\",cms_content.id,\".html\") AS link,\r\n  </#if>\r\n  content_datetime AS date,<#if tableName??>${tableName}.*,</#if>\r\n  content_description AS descrip,\r\n  content_hit AS hit,\r\n  content_type AS flag,\r\n  category_title AS typetitle,\r\n  cms_content.content_keyword AS keyword \r\nFROM\r\n  (SELECT @rownum := 0) r,\r\n  cms_content\r\n  LEFT JOIN cms_category as category ON content_category_id = category.id\r\n  <#--判断是否有自定义模型表-->\r\n  <#if tableName??>LEFT JOIN ${tableName} ON ${tableName}.link_id=cms_content.id </#if>\r\nWHERE  \r\n  content_display=0 \r\n  <#--根据站点编号查询-->\r\n  <#if appId?? >\r\n    and cms_content.app_id=${appId}\r\n	and cms_content.id>0\r\n  </#if>\r\n  <#--判断是否有搜索分类集合-->\r\n  <#if search??>\r\n		<#if search.categoryIds??>and FIND_IN_SET(category.id,\'${search.categoryIds}\')</#if>\r\n			<#--标题-->\r\n			<#if search.content_title??> and content_title like CONCAT(\"%\",\'${search.content_title}\',\"%\")</#if>\r\n			<#--作者-->\r\n			<#if search.content_author??> and content_author like CONCAT(\"%\",\'${search.content_author}\',\"%\")</#if>\r\n			<#--来源-->\r\n			<#if search.content_source??> and content_source like CONCAT(\"%\",\'${search.content_source}\',\"%\")</#if>\r\n			<#--属性-->\r\n			<#if search.content_type??> and content_type like CONCAT(\"%\",\'${search.content_type}\',\"%\")</#if>\r\n			<#--图片-->\r\n			<#if search.content_img??> and content_img like CONCAT(\"%\",\'${search.content_img}\',\"%\")</#if>\r\n			<#--描述-->\r\n			<#if search.content_description??> and content_description like CONCAT(\"%\",\'${search.content_description}\',\"%\")</#if>\r\n			<#--关键字-->\r\n			<#if search.content_keyword??> and content_keyword like CONCAT(\"%\",\'${search.content_keyword}\',\"%\")</#if>\r\n			<#--内容-->\r\n			<#if search.content_details??> and content_details like CONCAT(\"%\",\'${search.content_details}\',\"%\")</#if>\r\n			<#--自定义顺序-->\r\n			<#if search.content_sort??> and content_sort=${search.content_sort}</#if>\r\n  <#else><#--查询栏目-->\r\n    <#if _typeid?has_content> and (content_category_id=${_typeid} or content_category_id in \r\n  (select id FROM cms_category where cms_category.del=0 and find_in_set(${_typeid},CATEGORY_PARENT_ID))) </#if>\r\n </#if>\r\n  <#--标题-->\r\n  <#if content_title??> and content_title like CONCAT(\"%\",\'${content_title}\',\"%\")</#if>\r\n  <#--作者-->\r\n  <#if content_author??> and content_author like CONCAT(\"%\",\'${content_author}\',\"%\")</#if>\r\n  <#--来源-->\r\n  <#if content_source??> and content_source like CONCAT(\"%\",\'${content_source}\',\"%\")</#if>\r\n  <#--属性-->\r\n  <#if content_type??> and content_type like CONCAT(\"%\",\'${content_type}\',\"%\")</#if>\r\n  <#--图片-->\r\n  <#if content_img??> and content_img like CONCAT(\"%\",\'${content_img}\',\"%\")</#if>\r\n  <#--描述-->\r\n  <#if content_description??> and content_description like CONCAT(\"%\",\'${content_description}\',\"%\")</#if>\r\n  <#--关键字-->\r\n  <#if content_keyword??> and content_keyword like CONCAT(\"%\",\'${content_keyword}\',\"%\")</#if>\r\n  <#--内容-->\r\n  <#if content_details??> and content_details like CONCAT(\"%\",\'${content_details}\',\"%\")</#if>\r\n  <#--自定义顺序-->\r\n  <#if content_sort??> and content_sort=${content_sort}</#if>\r\n  <#--自定义模型-->\r\n  <#if diyModel??> \r\n    <#list diyModel as dm>\r\n      and ${tableName}.${dm.key} = \"${dm.value}\" \r\n    </#list>\r\n  </#if>\r\n  <#--文章属性-->\r\n  <#if flag?? >\r\n      and cms_content.content_type like CONCAT(\'%\',\'${flag}\',\'%\') \r\n  </#if>\r\n  <#if noflag?? >\r\n      and cms_content.content_type not like CONCAT(\'%\',\'${noflag}\',\'%\') \r\n  </#if>\r\n  <#--字段排序-->\r\n  <#if orderby?? >\r\n    ORDER BY \r\n      <#if orderby==\"date\"> content_datetime\r\n      <#elseif orderby==\"updatedate\"> content_updatetime\r\n      <#elseif orderby==\"hit\"> content_hit\r\n      <#elseif orderby==\"sort\"> content_sort\r\n      <#else>cms_content.id</#if>\r\n <#else>\r\n    ORDER BY   cms_content.id\r\n  </#if>\r\n  <#if order?? >\r\n      <#if order==\"desc\"> desc</#if>\r\n      <#if order==\"asc\"> asc</#if>\r\n  </#if>\r\n   LIMIT \r\n    <#--判断是否分页-->\r\n  <#if ispaging?? && (pageTag.pageNo)??>${((pageTag.pageNo-1)*_size?eval)?c},${_size?default(20)}\r\n  <#else>${_size?default(20)}</#if>', 1);
 INSERT INTO `mdiy_tag_sql` VALUES (6, 4, '<#assign _typeid=\"\"/>\r\n<#if column?? && column.id?? && column.id?number gt 0>\r\n	<#assign  _typeid=\"${column.id}\">\r\n</#if>\r\n<#if typeid??>\r\n	<#assign  _typeid=\"${typeid}\">\r\n</#if>\r\nselect \r\n	@rownum := @rownum + 1 AS typeindex,\r\n	id,\r\n	id as typeid,\r\n	category_title as typetitle,\r\n	<#--返回父id集合-->\r\n	category_parent_id as pids,\r\n	<#--栏目选中的样式-->\r\n	IF(<#if _typeid?has_content>${_typeid}<#else>0</#if> = id ,\"${class!\'\'}\",\"\") as class,\r\n	<#--动态链接-->\r\n	<#if isDo?? && isDo>\r\n	CONCAT(\"/${modelName}/list.do?typeid=\", id) as typelink,\r\n	<#else>\r\n	CONCAT(category_path,\"/index.html\") as typelink,\r\n	</#if>\r\n	category_keyword as typekeyword,\r\n	category_diy_url as typeurl,\r\n	category_flag as flag,\r\n	category_descrip as typedescrip,\r\n	category_img as typelitpic  \r\n	from (SELECT @rownum := 0) r,cms_category  \r\n	where \r\n	cms_category.del=0 \r\n	<#--根据站点编号查询-->\r\n	<#if appId?? >\r\n		and cms_category.app_id=${appId}\r\n	</#if>\r\n	<#--栏目属性-->\r\n	<#if flag?? >\r\n		and category_flag like CONCAT(\'%\',\'${flag}\',\'%\') \r\n	</#if>\r\n	<#if noflag?? >\r\n		and category_flag not like CONCAT(\'%\',\'${noflag}\',\'%\') \r\n	</#if>\r\n<#if type?has_content>\r\n	<#--顶级栏目（单个）-->\r\n	<#if type==\"top\">\r\n		and id=(select left(category_parent_id,LOCATE(\",\",category_parent_id)-1) from cms_category where category_id = ${_typeid})\r\n	<#elseif type==\"nav\">\r\n		and(category_id=0 or category_id is null)\r\n	<#--同级栏目（多个）-->\r\n	<#elseif type==\"level\">\r\n		and\r\n		<#if _typeid?has_content>\r\n		 category_id=(select category_id from cms_category where id=${_typeid})\r\n		<#else>\r\n		 1=1\r\n		</#if>\r\n  	<#--当前栏目（单个）-->\r\n	<#elseif type==\"self\">\r\n		 and \r\n		 <#if _typeid?has_content>\r\n		  id=${_typeid}\r\n		 <#else>\r\n		 1=1\r\n		 </#if>\r\n	<#--当前栏目的所属栏目（多个）-->\r\n	<#elseif type==\"path\">\r\n			and \r\n		 <#if _typeid?has_content>\r\n		   id in (<#if column?? && column.categoryParentId??>${column.categoryParentId},</#if>${_typeid})\r\n		 <#else>\r\n		  1=1\r\n		 </#if>\r\n	<#--子栏目（多个）-->\r\n	<#elseif type==\"son\">\r\n			and \r\n		 <#if _typeid?has_content>\r\n		  category_id=${_typeid}\r\n		 <#else>\r\n		  1=1\r\n		 </#if>\r\n		 <#--上一级栏目没有则取当前栏目（单个）-->\r\n	<#elseif type==\"parent\">\r\n			and \r\n		 <#if _typeid?has_content>\r\n		   <#if column?? && column.categoryId??>\r\n				id=${column.categoryId}\r\n			 <#else>\r\n			  id=${_typeid}\r\n			 </#if>\r\n		 <#else>\r\n		  1=1\r\n	</#if>\r\n	<#--子栏目或同级栏目（多个）-->\r\n	<#elseif type==\"sonOrLevel\">\r\n		 and \r\n		 <#if _typeid?has_content>\r\n	 	 category_id= if((SELECT count(*) FROM cms_category\r\n		 WHERE id=${_typeid})>0,${_typeid},(select id from cms_category where id=${_typeid}))\r\n		 <#else>\r\n		 1=1\r\n		 </#if>\r\n	</#if>\r\n<#else> <#--默认son-->\r\n	 and\r\n	<#if _typeid?has_content>\r\n	 category_id=${_typeid}\r\n	<#else>\r\n	 (category_id=0 or category_id is null)\r\n	</#if>\r\n</#if>\r\n<#--字段排序-->\r\n  <#if orderby?? >\r\n    ORDER BY \r\n      <#if orderby==\"date\"> category_datetime\r\n      <#elseif orderby==\"sort\"> category_sort\r\n      <#else>cms_content.id</#if>\r\n <#else>\r\n    ORDER BY   id\r\n  </#if>\r\n  <#if order?? >\r\n      <#if order==\"desc\"> desc</#if>\r\n      <#if order==\"asc\"> asc</#if>\r\n  </#if>', 1);
 INSERT INTO `mdiy_tag_sql` VALUES (7, 5, 'select \r\nAPP_NAME as name,\r\napp_logo as logo,\r\napp_keyword as keyword,\r\napp_description as descrip,\r\napp_copyright as copyright,\r\n<#--动态解析 -->\r\n<#if isDo?? && isDo>\r\n\"${url}\" as url,\r\n\"${url}\" as host,\r\n<#--使用地址栏的域名 -->\r\n<#elseif url??>\r\nCONCAT(\"${url}\",\"/${html}/\",app_id,\"/<#if m??>${m}</#if>\") as url,\r\n\"${url}\" as host,\r\n<#else>\r\nCONCAT(REPLACE(REPLACE(TRIM(substring_index(app_url,\"\\n\",1)), CHAR(10),\'\'), CHAR(13),\'\'),\"/html/\",app_id,\"/<#if m??>${m}</#if>\") as url,\r\nREPLACE(REPLACE(TRIM(substring_index(app_url,\"\\n\",1)), CHAR(10),\'\'), CHAR(13),\'\') as host,\r\n</#if>\r\nCONCAT(\"templets/\",app_id,\"/\",<#if m??>CONCAT(app_style,\"/${m}\")<#else>app_style</#if>) as style <#-- 判断是否为手机端 -->\r\nfrom app where app_id = ${appId} limit 1', 1);
 INSERT INTO `mdiy_tag_sql` VALUES (8, 7, 'SELECT \r\ncms_content.id as id,\r\nleft(content_title,${titlelen?default(40)}) as title,\r\ncontent_title as fulltitle,\r\ncontent_author as author, \r\ncontent_source as source, \r\ncontent_details as content,\r\ncategory_title as typetitle,\r\ncms_category.id as typeid,\r\ncategory_img AS typelitpic,\r\n<#--动态链接-->\r\n<#if isDo?? && isDo>\r\nCONCAT(\"/${modelName}/list.do?typeid=\", category.id) as typelink,\r\n<#else>\r\n(SELECT \"index.html\") as typelink,\r\n</#if>\r\ncontent_img as litpic,\r\n<#--内容页动态链接-->\r\n<#if isDo?? && isDo>\r\nCONCAT(\"/mcms/view.do?id=\", cms_content.id) as link,\r\n<#else>\r\ncontent_url AS link,\r\n</#if>\r\ncontent_datetime as date,\r\ncontent_description as descrip,\r\nCONCAT(\"<script type=\'text/javascript\' src=\'${url}/basic/\",cms_content.id,\"/hit.do\'></script>\") as hit,\r\ncontent_type as flag,\r\ncategory_title as typetitle,\r\n<#if tableName??>${tableName}.*,</#if>\r\ncontent_keyword as keyword\r\nFROM cms_content\r\nLEFT JOIN cms_category ON content_category_id=cms_category.id \r\n<#--判断是否有自定义模型表-->\r\n<#if tableName??>left join ${tableName} on ${tableName}.link_id=cms_content.id</#if>\r\nWHERE \r\n1=1\r\n<#if id??> and cms_content.id=${id}</#if>', 1);
@@ -593,7 +593,7 @@ CREATE TABLE `model`  (
   CONSTRAINT `model_ibfk_4` FOREIGN KEY (`model_modelid`) REFERENCES `model` (`model_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `model_ibfk_5` FOREIGN KEY (`model_modelid`) REFERENCES `model` (`model_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `model_ibfk_6` FOREIGN KEY (`model_modelid`) REFERENCES `model` (`model_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 858 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '模块表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 858 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '模块表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of model
@@ -695,7 +695,7 @@ CREATE TABLE `people`  (
   PRIMARY KEY (`people_id`) USING BTREE,
   INDEX `fk_people`(`people_app_id`) USING BTREE,
   CONSTRAINT `people_ibfk_1` FOREIGN KEY (`people_app_id`) REFERENCES `app` (`app_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 1131 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '户用基础表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1131 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '户用基础表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for people_address
@@ -722,7 +722,7 @@ CREATE TABLE `people_address`  (
   INDEX `PA_APP_ID`(`PA_APP_ID`) USING BTREE,
   INDEX `PA_PEOPLE_ID`(`PA_PEOPLE_ID`) USING BTREE,
   CONSTRAINT `people_address_ibfk_1` FOREIGN KEY (`PA_PEOPLE_ID`) REFERENCES `people` (`people_id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户地址' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户地址' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for people_user
@@ -748,7 +748,7 @@ CREATE TABLE `people_user`  (
   PRIMARY KEY (`pu_people_id`) USING BTREE,
   INDEX `pu_people_id`(`pu_people_id`) USING BTREE,
   CONSTRAINT `people_user_ibfk_1` FOREIGN KEY (`pu_people_id`) REFERENCES `people` (`people_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户基础信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户基础信息表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Table structure for role
@@ -763,7 +763,7 @@ CREATE TABLE `role`  (
   INDEX `role_managerid`(`role_managerid`) USING BTREE,
   INDEX `fk_role_app_id`(`app_id`) USING BTREE,
   CONSTRAINT `role_ibfk_1` FOREIGN KEY (`app_id`) REFERENCES `app` (`app_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 49 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of role
@@ -783,7 +783,7 @@ CREATE TABLE `role_model`  (
   INDEX `fk_role_model_role_1`(`rm_roleid`) USING BTREE,
   CONSTRAINT `role_model_ibfk_1` FOREIGN KEY (`rm_roleid`) REFERENCES `role` (`role_id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `role_model_ibfk_2` FOREIGN KEY (`rm_modelid`) REFERENCES `model` (`model_id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色模块关联表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色模块关联表' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of role_model
@@ -890,7 +890,7 @@ CREATE TABLE `system_log`  (
   `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` int(11) NULL DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1197 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1197 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志' ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of system_log
