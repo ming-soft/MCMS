@@ -226,17 +226,13 @@ textarea::-webkit-input-placeholder {
   align-items: center;
   overflow: hidden;
 }
-.ms-admin-logo > img {
+.ms-admin-logo img {
   padding: 14px 0;
   width: 50px;
 }
 .ms-admin-logo > div {
   display: flex;
   align-items: center;
-}
-.ms-admin-logo > div img {
-  margin-top: -10px;
-  margin-left: 3px;
 }
 .ms-admin-logo > div span {
   margin-top: -6px;
@@ -419,7 +415,7 @@ textarea::-webkit-input-placeholder {
   z-index: 0;
 }
 .ms-admin-container > .ms-admin-main .ms-admin-tabs {
-  height: 100%;
+  height: calc(100vh - 50px);
   display: flex;
   flex-direction: column;
 }

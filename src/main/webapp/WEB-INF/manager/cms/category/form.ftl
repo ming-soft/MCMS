@@ -20,7 +20,7 @@
             <el-form-item  label="栏目管理名称" prop="categoryTitle">
                 <template slot='label'>栏目管理名称
                 <el-popover slot="label" placement="top-start" title="提示" trigger="hover" >
-                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.typetitle/}</a>
+                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{ms:field.typetitle/}</a>
                     <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">[field.typetitle/]</a>
                     <i class="el-icon-question" slot="reference"></i>
                 </el-popover>
@@ -132,7 +132,7 @@
             <el-form-item  label="栏目管理关键字" prop="categoryKeyword">
                 <template slot='label'>栏目关键字
                     <el-popover slot="label" placement="top-start" title="提示" trigger="hover" >
-                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.typekeyword/}</a>
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{ms:field.typekeyword/}</a>
                         <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">[field.typekeyword/]</a>
                         <i class="el-icon-question" slot="reference"></i>
                     </el-popover>
@@ -149,7 +149,7 @@
             <el-form-item  label="栏目管理描述" prop="categoryDescrip">
                 <template slot='label'>栏目描述
                     <el-popover slot="label" placement="top-start" title="提示" trigger="hover" >
-                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{field.typedescrip/}</a>
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{ms:field.typedescrip/}</a>
                         <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">[field.typedescrip/]</a>
                         <i class="el-icon-question" slot="reference"></i>
                     </el-popover>
@@ -185,7 +185,13 @@
                 <div slot="tip" class="el-upload__tip">最多上传1张图片</div>
             </el-upload>
             </el-form-item>
-            <el-form-item  label="自定义链接" prop="categoryDiyUrl">
+            <el-form-item prop="categoryDiyUrl">
+                <template slot='label'>自定义链接
+                    <el-popover slot="label" placement="top-start" title="提示" trigger="hover" >
+                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">[field.typeurl/]</a>
+                        <i class="el-icon-question" slot="reference"></i>
+                    </el-popover>
+                </template>
                 <el-input
                         :disabled="false"
 
