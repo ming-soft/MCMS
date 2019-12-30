@@ -21,51 +21,29 @@ The MIT License (MIT) * Copyright (c) 2016 铭飞科技(mingsoft.net)
 
 package net.mingsoft.cms.action.web;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.alibaba.fastjson.JSONObject;
+import net.mingsoft.base.action.BaseAction;
+import net.mingsoft.basic.biz.IColumnBiz;
+import net.mingsoft.basic.entity.ColumnEntity;
+import net.mingsoft.mdiy.biz.IContentModelBiz;
+import net.mingsoft.mdiy.biz.IContentModelFieldBiz;
+import net.mingsoft.mdiy.entity.ContentModelEntity;
+import net.mingsoft.mdiy.entity.ContentModelFieldEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONObject;
-import net.mingsoft.basic.biz.IColumnBiz;
-import net.mingsoft.mdiy.biz.IContentModelBiz;
-import net.mingsoft.mdiy.biz.IContentModelFieldBiz;
-import net.mingsoft.basic.entity.ColumnEntity;
-import net.mingsoft.mdiy.entity.ContentModelEntity;
-import net.mingsoft.mdiy.entity.ContentModelFieldEntity;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import net.mingsoft.base.action.BaseAction;
-import net.mingsoft.basic.util.BasicUtil;
 
 /**
- * 
- * 
- * 
- * <p>
- * <b>铭飞科技</b>
- * </p>
- * 
- * <p>
- * Copyright: Copyright (c) 2014 - 2015
- * </p>
- *
- * @author 史爱华
- *
- * <p>
- * Comments: 供前端页面获取自定义模型中字段实体信息
- * </p>
- *
- * <p>
- * Create Date:2015-07-11
- * </p>
- *
- * <p>
- * Modification history:
- * </p>
+ * 供前端页面获取自定义模型中字段实体信息
+ * @author 铭飞开发团队
+ * 创建日期：2019-11-28 15:12:32<br/>
+ * 历史修订：<br/>
  */
 @Controller("webField")
 @RequestMapping("/field")
@@ -98,9 +76,6 @@ public class FieldAction extends BaseAction{
 	@RequestMapping("/{columId}/getEntity")
 	@ResponseBody
 	public void getEntity(@PathVariable int columId,HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("111");
-		BasicUtil.setSession("xxx", "888");
-		System.err.println("session:"+BasicUtil.getSession("xxx"));
 		//获取字段名称
 		String fieldFieldName = request.getParameter("fieldFieldName");
 		//根据栏目id获取栏目实体
