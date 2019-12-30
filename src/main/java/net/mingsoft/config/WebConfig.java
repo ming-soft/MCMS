@@ -67,7 +67,6 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		
 		registry.addResourceHandler("/upload/**").addResourceLocations("/upload/","file:upload/");
 		registry.addResourceHandler("/templets/**").addResourceLocations("/templets/","file:templets/");
 		registry.addResourceHandler("/html/**").addResourceLocations("/html/","file:html/");
@@ -83,9 +82,9 @@ public class WebConfig implements WebMvcConfigurer {
 			);
 		}
 	}
-		/**
-         * druidServlet注册
-         */
+	/**
+	 * druidServlet注册
+	 */
 	@Bean
 	public ServletRegistrationBean druidServletRegistration() {
 		ServletRegistrationBean registration = new ServletRegistrationBean(new StatViewServlet());

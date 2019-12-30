@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.mingsoft.cms.dao.ICmsHistoryLogDao">
+
+	<resultMap id="resultMap" type="net.mingsoft.cms.entity.HistoryLogEntity">
+			<id column="id" property="id" /><!--编号 -->
+				<result column="content_id" property="contentId" /><!--文章编号 -->
+				<result column="hl_ip" property="hlIp" /><!--浏览ip -->
+				<result column="hl_people_id" property="hlPeopleId" /><!--用户id -->
+				<result column="hl_is_mobile" property="hlIsMobile" /><!--是否为移动端 -->
+				<result column="create_by" property="createBy" /><!--创建人 -->
+				<result column="create_date" property="createDate" /><!--创建时间 -->
+				<result column="update_by" property="updateBy" /><!--修改人 -->
+				<result column="update_date" property="updateDate" /><!--修改时间 -->
+				<result column="del" property="del" /><!--删除标记 -->
+	</resultMap>
+
+	<!--保存-->
+	<insert id="saveEntity" useGeneratedKeys="true" keyProperty="id"
+			parameterType="net.mingsoft.cms.entity.HistoryLogEntity" >
+		insert into cms_history_log
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+				<if test="contentId != null and contentId != ''">content_id,</if>
+				<if test="hlIp != null and hlIp != ''">hl_ip,</if>
+				<if test="hlPeopleId != null and hlPeopleId != ''">hl_people_id,</if>
+				<if test="hlIsMobile != null">hl_is_mobile,</if>
+				<if test="createBy &gt; 0">create_by,</if>
+				<if test="createDate != null">create_date,</if>
+				<if test="updateBy &gt; 0">update_by,</if>
+				<if test="updateDate != null">update_date,</if>
+				<if test="del != null">del,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+				<if test="contentId != null and contentId != ''">#{contentId},</if>
+				<if test="hlIp != null and hlIp != ''">#{hlIp},</if>
+				<if test="hlPeopleId != null and hlPeopleId != ''">#{hlPeopleId},</if>
+				<if test="hlIsMobile != null">#{hlIsMobile},</if>
+				<if test="createBy &gt; 0">#{createBy},</if>
+				<if test="createDate != null">#{createDate},</if>
+				<if test="updateBy &gt; 0">#{updateBy},</if>
+				<if test="updateDate != null">#{updateDate},</if>
+				<if test="del != null">#{del},</if>
+		</trim>
+	</insert>
+
+		<!--更新-->
+		<update id="updateEntity" parameterType="net.mingsoft.cms.entity.HistoryLogEntity">
+			update cms_history_log
+			<set>
+				<if test="contentId != null and contentId != ''">content_id=#{contentId},</if>
+				<if test="hlIp != null and hlIp != ''">hl_ip=#{hlIp},</if>
+				<if test="hlPeopleId != null and hlPeopleId != ''">hl_people_id=#{hlPeopleId},</if>
+				<if test="hlIsMobile != null">hl_is_mobile=#{hlIsMobile},</if>
+				<if test="createBy &gt; 0">create_by=#{createBy},</if>
+				<if test="createDate != null">create_date=#{createDate},</if>
+				<if test="updateBy &gt; 0">update_by=#{updateBy},</if>
+				<if test="updateDate != null">update_date=#{updateDate},</if>
+				<if test="del != null">del=#{del},</if>
+			</set>
+			where id = #{id}
+		</update>
+
+		<!--根据id获取-->
+		<select id="getEntity" resultMap="resultMap" parameterType="int">
+			select * from cms_history_log where id=#{id}
+		</select>
+
+		<!--根据实体获取-->
+		<select id="getByEntity" resultMap="resultMap" parameterType="net.mingsoft.cms.entity.HistoryLogEntity">
+			select * from cms_history_log
+			<where>
+				<if test="contentId != null and contentId != ''">and content_id=#{contentId}</if>
+				<if test="hlIp != null and hlIp != ''">and hl_ip=#{hlIp}</if>
+				<if test="hlPeopleId != null and hlPeopleId != ''">and hl_people_id=#{hlPeopleId}</if>
+				<if test="hlIsMobile != null"> and hl_is_mobile=#{hlIsMobile} </if>
+				<if test="createBy &gt; 0"> and create_by=#{createBy} </if>
+				<if test="createDate != null"> and create_date=#{createDate} </if>
+				<if test="updateBy &gt; 0"> and update_by=#{updateBy} </if>
+				<if test="updateDate != null"> and update_date=#{updateDate} </if>
+				<if test="del != null"> and del=#{del} </if>
+			</where>
+			limit 0,1
+		</select>
+
+
+		<!--删除-->
+		<delete id="deleteEntity" parameterType="int">
+			delete from cms_history_log  where id=#{id}
+		</delete>
+
+		<!--批量删除-->
+		<delete id="delete" >
+			delete from cms_history_log
+			<where>
+				id  in <foreach collection="ids" item="item" index="index"
+										 open="(" separator="," close=")">#{item}</foreach>
+			</where>
+		</delete>
+		<!--查询全部-->
+		<select id="queryAll" resultMap="resultMap">
+			select * from cms_history_log order by id desc
+		</select>
+	<!--条件查询-->
+	<select id="query" resultMap="resultMap">
+		select * from cms_history_log
+		<where>
+			<if test="contentId != null and contentId != ''"> and content_id=#{contentId}</if>
+			<if test="hlIp != null and hlIp != ''"> and hl_ip=#{hlIp}</if>
+			<if test="hlPeopleId != null and hlPeopleId != ''"> and hl_people_id=#{hlPeopleId}</if>
+			<if test="hlIsMobile != null"> and hl_is_mobile=#{hlIsMobile} </if>
+			<if test="createBy &gt; 0"> and create_by=#{createBy} </if>
+			<if test="createDate != null"> and create_date=#{createDate} </if>
+			<if test="updateBy &gt; 0"> and update_by=#{updateBy} </if>
+			<if test="updateDate != null"> and update_date=#{updateDate} </if>
+			<if test="del != null"> and del=#{del} </if>
+			<include refid="net.mingsoft.base.dao.IBaseDao.sqlWhere"></include>
+		</where>
+		order by id desc
+	</select>
+
+</mapper>

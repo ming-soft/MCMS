@@ -1,0 +1,132 @@
+html,
+body {
+    min-height: 100vh;
+    width: 100vw;
+    background-color: #eee;
+    margin: 0;
+    padding: 0;
+    font-weight: initial !important;
+    font-size: 14px !important;
+    color: #333 !important;
+    overflow: hidden;
+}
+html *,
+body * {
+    text-decoration: none !important;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+.ms-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+.ms-align-center {
+    display: flex;
+    align-items: center;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    font-weight: initial;
+    font-size: 12px;
+    color: #999;
+    resize: none;
+}
+a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
+
+.ms-index{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.ms-container {
+    margin: 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding:  14px ;
+    background: #fff;
+}
+
+.ms-header {
+    padding: 10px;
+    margin: 0;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    height: 50px
+}
+
+.ms-pagination {
+    padding: 14px 0 0 0;
+    text-align: right;
+}
+
+.ms-fr {
+    float: right;
+}
+
+.ms-tr {
+    text-align: right;
+}
+
+.el-button+.el-button {
+    margin-left: 0
+}
+
+.ms-select{
+    display: block;
+}
+
+.ms-datetimerange{
+    width: 100% !important;
+}
+.ms-search{
+    padding: 20px 0 0;
+    background: #fff;
+}
+.ms-search .ms-search-footer{
+    line-height: 60px;
+    text-align: center;
+}
+.ms-table-pagination {
+    height: calc(100% - 75px);
+}
+#myPageTop {
+    width: 252px;
+}
+#myPageTop input {
+    width: 242px;
+}
+.el-button .iconfont{
+    font-size: 12px;
+    margin-right: 5px;
+    line-height: 1px!important;
+}
+#form .ms-container{
+    height:calc(100vh - 74px);
+}
+
+[v-cloak]{
+    display: none;
+}
+/* 滚动条样式重写*/
+.el-table__body-wrapper::-webkit-scrollbar{
+    width:6px;
+    height: 6px;
+}
+.el-table__body-wrapper::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(144,147,153,.5);
+}
+/*饿了么滚动样式*/
+.ms-scrollbar .el-scrollbar__wrap{
+    overflow-x: hidden;
+}
+.ms-scrollbar .el-scrollbar__bar.is-vertical{
+    width: 6px !important;
+}
+.ms-scrollbar .el-scrollbar__view{
+    padding-right: 17px;
+}

@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.mingsoft</groupId>
 	<artifactId>mcms</artifactId>
-	<version>4.7.2</version>
+	<version>5.0.0-SNAPSHOT</version>
 	<name>ms-mcms</name>
 	<properties>
 		<java.version>1.8</java.version>
@@ -37,20 +37,10 @@
 	<dependencies>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-basic</artifactId>
-			<version>1.0.16</version>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
-			<version>1.0.11</version>
+			<version>1.0.13-SNAPSHOT</version>
 		</dependency>
-		<!-- 此部分是铭飞平台MStroe的客户端（MStore不在铭飞开源产品范围），如果不需要使用MStore可以删除掉 -->
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-upgrader</artifactId>
-			<version>1.0.13</version>
-		</dependency>
+		
 	</dependencies>
 	<build>
 		<finalName>ms-mcms</finalName>
@@ -78,27 +68,10 @@
 					<fork>true</fork>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<configuration>
-					<failOnMissingWebXml>false</failOnMissingWebXml>
-					<!-- 打包时候需需要启用，注意避免快照依赖的冗余jar包 -->
-					<!-- outputFileNameMapping>@{artifactId}@- @{baseVersion}@. @{extension}@</outputFileNameMapping -->
-				</configuration>
-			</plugin>
 		</plugins>
 		<resources>
 			<resource>
-				<!-- 注释部分打包过滤，如果springboot项目 maven-jar-plugin插件排除无效 -->
-				<!-- <filtering>true</filtering> -->
 				<directory>src/main/webapp</directory>
-				<!-- <excludes>
-					<exclude>static/**</exclude>
-					<exclude>html/**</exclude>
-					<exclude>upload/**</exclude>
-					<exclude>templets/**</exclude>
-				</excludes> -->
 			</resource>
 			<resource>
 				<directory>src/main/resources</directory>
