@@ -38,9 +38,14 @@
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
-			<version>1.0.13-SNAPSHOT</version>
+			<version>1.0.13</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-upgrader</artifactId>
+			<version>1.0.14</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>ms-mcms</finalName>
