@@ -49,9 +49,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import net.mingsoft.basic.action.BaseAction;
 import net.mingsoft.basic.biz.IModelBiz;
 import net.mingsoft.basic.entity.AppEntity;
-import net.mingsoft.cms.bean.ColumnArticleIdBean;
 import net.mingsoft.cms.util.CmsParserUtil;
-import net.mingsoft.mdiy.biz.IContentModelBiz;
 import net.mingsoft.mdiy.biz.IContentModelFieldBiz;
 
 import cn.hutool.core.io.FileUtil;

@@ -60,14 +60,6 @@ public class CategoryAction extends net.mingsoft.cms.action.BaseAction{
 	private ICategoryBiz categoryBiz;
 
 	/**
-	 * 返回主界面index
-	 */
-	@GetMapping("/index")
-	public String index(HttpServletResponse response,HttpServletRequest request){
-		return "/cms/category/index";
-	}
-	
-	/**
 	 * 查询分类列表
 	 * @param category 分类实体
 	 */
@@ -106,17 +98,6 @@ public class CategoryAction extends net.mingsoft.cms.action.BaseAction{
 		return ResultData.build().success(new EUListBean(categoryList,(int)BasicUtil.endPage(categoryList).getTotal()));
 	}
 	
-	/**
-	 * 返回编辑界面category_form
-	 */
-	@GetMapping("/form")
-	public String form(@ModelAttribute CategoryEntity category,HttpServletResponse response,HttpServletRequest request,ModelMap model){
-		if(category.getId()!=null){
-			BaseEntity categoryEntity = categoryBiz.getEntity(Integer.parseInt(category.getId()));			
-			model.addAttribute("categoryEntity",categoryEntity);
-		}
-		return "/cms/category/form";
-	}
 
 	/**
 	 * 获取分类
@@ -133,132 +114,5 @@ public class CategoryAction extends net.mingsoft.cms.action.BaseAction{
 		CategoryEntity _category = (CategoryEntity)categoryBiz.getEntity(Integer.parseInt(category.getId()));
 		return ResultData.build().success(_category);
 	}
-	
-	@ApiOperation(value = "保存分类列表接口")
-	 @ApiImplicitParams({
-    	@ApiImplicitParam(name = "categoryTitle", value = "栏目管理名称", required =true,paramType="query"),
-		@ApiImplicitParam(name = "categoryId", value = "所属栏目", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryType", value = "栏目管理属性", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categorySort", value = "自定义顺序", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryListUrl", value = "列表模板", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryUrl", value = "内容模板", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryKeyword", value = "栏目管理关键字", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryDescrip", value = "栏目管理描述", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryImg", value = "缩略图", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryDiyUrl", value = "自定义链接", required =false,paramType="query"),
-		@ApiImplicitParam(name = "mdiyModelId", value = "栏目管理的内容模型id", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryDatetime", value = "类别发布时间", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryManagerId", value = "发布用户id", required =false,paramType="query"),
-		@ApiImplicitParam(name = "appId", value = "应用编号", required =false,paramType="query"),
-		@ApiImplicitParam(name = "dictId", value = "字典对应编号", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryFlag", value = "栏目属性", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryPath", value = "栏目路径", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryParentId", value = "父类型编号", required =false,paramType="query"),
-		@ApiImplicitParam(name = "createBy", value = "创建人", required =false,paramType="query"),
-		@ApiImplicitParam(name = "createDate", value = "创建时间", required =false,paramType="query"),
-		@ApiImplicitParam(name = "updateBy", value = "修改人", required =false,paramType="query"),
-		@ApiImplicitParam(name = "updateDate", value = "修改时间", required =false,paramType="query"),
-		@ApiImplicitParam(name = "del", value = "删除标记", required =false,paramType="query"),
-		@ApiImplicitParam(name = "id", value = "编号", required =false,paramType="query"),
-	})
 
-	/**
-	* 保存分类
-	* @param category 分类实体
-	*/
-	@PostMapping("/save")
-	@ResponseBody
-	public ResultData save(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response, HttpServletRequest request) {
-		//验证栏目管理名称的值是否合法
-		if(StringUtil.isBlank(category.getCategoryTitle())){
-			return ResultData.build().error(getResString("err.empty", this.getResString("category.title")));
-		}
-		if(!StringUtil.checkLength(category.getCategoryTitle()+"", 1, 100)){
-			return ResultData.build().error(getResString("err.length", this.getResString("category.title"), "1", "100"));
-		}
-		if(!StringUtil.checkLength(category.getCategoryFlag()+"", 1, 100)){
-			return ResultData.build().error(getResString("err.length", this.getResString("category.flag"), "1", "100"));
-		}
-		if(!StringUtil.checkLength(category.getCategoryPath()+"", 1, 100)){
-			return ResultData.build().error(getResString("err.length", this.getResString("category.path"), "1", "100"));
-		}
-		if(!StringUtil.checkLength(category.getCategoryParentId()+"", 1, 100)){
-			return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
-		}
-		categoryBiz.saveEntity(category);
-		return ResultData.build().success(category);
-	}
-	
-	/**
-	 * @param category 分类实体
-	 */
-	@ApiOperation(value = "批量删除分类列表接口")
-	@PostMapping("/delete")
-	@ResponseBody
-	public ResultData delete(@RequestBody List<CategoryEntity> categorys,HttpServletResponse response, HttpServletRequest request) {
-		int[] ids = new int[categorys.size()];
-		for(int i = 0;i<categorys.size();i++){
-			ids[i] =Integer.parseInt(categorys.get(i).getId()) ;
-		}
-		categoryBiz.delete(ids);
-		return ResultData.build().success();
-	}
-	/**
-	*	更新分类列表
-	* @param category 分类实体
-	*/
-	 @ApiOperation(value = "更新分类列表接口")
-	 @ApiImplicitParams({
-	    @ApiImplicitParam(name = "id", value = "编号", required =true,paramType="query"),
-    	@ApiImplicitParam(name = "categoryTitle", value = "栏目管理名称", required =true,paramType="query"),
-		@ApiImplicitParam(name = "categoryId", value = "所属栏目", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryType", value = "栏目管理属性", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categorySort", value = "自定义顺序", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryListUrl", value = "列表模板", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryUrl", value = "内容模板", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryKeyword", value = "栏目管理关键字", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryDescrip", value = "栏目管理描述", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryImg", value = "缩略图", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryDiyUrl", value = "自定义链接", required =false,paramType="query"),
-		@ApiImplicitParam(name = "mdiyModelId", value = "栏目管理的内容模型id", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryDatetime", value = "类别发布时间", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryManagerId", value = "发布用户id", required =false,paramType="query"),
-		@ApiImplicitParam(name = "appId", value = "应用编号", required =false,paramType="query"),
-		@ApiImplicitParam(name = "dictId", value = "字典对应编号", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryFlag", value = "栏目属性", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryPath", value = "栏目路径", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryParentId", value = "父类型编号", required =false,paramType="query"),
-		@ApiImplicitParam(name = "createBy", value = "创建人", required =false,paramType="query"),
-		@ApiImplicitParam(name = "createDate", value = "创建时间", required =false,paramType="query"),
-		@ApiImplicitParam(name = "updateBy", value = "修改人", required =false,paramType="query"),
-		@ApiImplicitParam(name = "updateDate", value = "修改时间", required =false,paramType="query"),
-		@ApiImplicitParam(name = "del", value = "删除标记", required =false,paramType="query"),
-		@ApiImplicitParam(name = "id", value = "编号", required =false,paramType="query"),
-	})
-	@PostMapping("/update")
-	@ResponseBody
-	public ResultData update(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response,
-			HttpServletRequest request) {
-		//验证栏目管理名称的值是否合法			
-		if(StringUtil.isBlank(category.getCategoryTitle())){
-			return ResultData.build().error(getResString("err.empty", this.getResString("category.title")));
-		}
-		if(!StringUtil.checkLength(category.getCategoryTitle()+"", 1, 100)){
-			return ResultData.build().error(getResString("err.length", this.getResString("category.title"), "1", "100"));
-		}
-		if(!StringUtil.checkLength(category.getCategoryFlag()+"", 1, 100)){
-			return ResultData.build().error(getResString("err.length", this.getResString("category.flag"), "1", "100"));
-		}
-		if(!StringUtil.checkLength(category.getCategoryPath()+"", 1, 100)){
-			return ResultData.build().error(getResString("err.length", this.getResString("category.path"), "1", "100"));
-		}
-		if(!StringUtil.checkLength(category.getCategoryParentId()+"", 1, 100)){
-			return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
-		}
-		categoryBiz.updateEntity(category);
-		return ResultData.build().success(category);
-	}
-
-
-		
 }

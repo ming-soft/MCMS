@@ -270,7 +270,6 @@
 		justify-content:end;
 		margin: 12px 6px 12px 12px;
 		animation-duration:1s;
-		border-radius:4px;
 		width:100%;
 		padding-left:20px;
 		background-repeat:no-repeat;
@@ -419,7 +418,6 @@
 		justify-content:end;
 		margin: 12px 6px;
 		animation-duration:1s;
-		border-radius:4px;
 		width:100%;
 		padding-left:20px;
 		background-repeat:no-repeat;
@@ -565,7 +563,6 @@
 		justify-content:end;
 		margin: 12px 12px 12px 6px;
 		animation-duration:1s;
-		border-radius:4px;
 		width:100%;
 		padding-left:20px;
 		background-repeat:no-repeat;
