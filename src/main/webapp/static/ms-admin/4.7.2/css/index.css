@@ -24,9 +24,9 @@ body {
   min-height: 600px;
   min-width: 810px;
   width: 100vw;
-  height: 100vh;
   background-color: #eee;
   margin: 0;
+  display: flex;
   font-weight: initial !important;
   font-size: 14px !important;
   color: #333 !important;
@@ -130,6 +130,9 @@ textarea::-webkit-input-placeholder {
 .ms-header-select > .el-select:nth-of-type(2) {
   margin: 0 10px;
 }
+.el-submenu .el-menu-item.is-active {
+  border-radius: 4px;
+}
 .el-card,
 .el-message {
   border-radius: 0 !important;
@@ -148,17 +151,15 @@ textarea::-webkit-input-placeholder {
 .index {
   width: 100%;
   display: flex;
-  height: 100vh;
 }
 .ms-admin-header {
   display: flex;
   padding: 0;
-  background-color: rgba(255,255,255,1);
+  background-color: #0099ff;
   height: 50px !important;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-  z-index: 1;
 }
 .ms-admin-header .ms-admin-header-menu {
+  background-color: #0099ff;
   border-bottom: none;
   position: relative;
 }
@@ -166,17 +167,19 @@ textarea::-webkit-input-placeholder {
 .ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item {
   height: 50px !important;
   line-height: 50px !important;
+  background-color: #0099ff !important;
+  color: rgba(255, 255, 255, 0.65) !important;
   border-bottom: none !important;
   font-size: 1em;
 }
-/*.ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item > *:hover,
+.ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item > *:hover,
 .ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item:hover {
   color: #fff !important;
 }
 .ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item > *.is-active,
 .ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item.is-active {
   color: #fff !important;
-}*/
+}
 .ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu {
   padding: 0;
   user-select: none;
@@ -192,7 +195,8 @@ textarea::-webkit-input-placeholder {
   top: 0;
   z-index: 9;
   background: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+  border: 1px solid #e6e6e6;
+  box-shadow: 2px 3px 5px 0.1px rgba(0, 0, 0, 0.1);
 }
 .ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu > li {
   margin: 0;
@@ -210,7 +214,7 @@ textarea::-webkit-input-placeholder {
   cursor: pointer;
   color: #0099ff;
 }
-.ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu .ms-admin-shortcut-menu-shrink {
+.ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu i {
   position: absolute;
   top: 18px;
   right: 19px;
@@ -218,37 +222,39 @@ textarea::-webkit-input-placeholder {
   font-size: 14px;
   color: #333;
 }
-.ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu .ms-admin-shortcut-menu-shrink:hover {
+.ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu i:hover {
   cursor: pointer;
 }
 .ms-admin-logo {
+  min-width: 200px;
+  width: 200px;
   display: flex;
   align-items: center;
   overflow: hidden;
 }
-.ms-admin-logo img {
-  padding: 14px 0;
-  width: 50px;
+.ms-admin-logo > img {
+  padding: 20px 0 20px 20px;
+  width: 80px;
 }
 .ms-admin-logo > div {
   display: flex;
   align-items: center;
+}
+.ms-admin-logo > div img {
+  margin-top: -10px;
+  margin-left: 3px;
 }
 .ms-admin-logo > div span {
   margin-top: -6px;
   position: absolute;
   margin-left: 10px;
   font-size: 12px;
-
 }
 .ms-admin-logo .iconfont {
   color: #fff;
   margin-left: auto;
   margin-right: 20px;
   cursor: pointer;
-}
-.ms-admin-logo-pack{
-  width: 64px!important;
 }
 .ms-admin-mstore {
   margin-left: auto;
@@ -267,8 +273,8 @@ textarea::-webkit-input-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #0099ff;
-  color: #fff;
+  background: #fff;
+  color: #0099ff;
 }
 .ms-admin-mstore .ms-admin-mstore-icon {
   min-width: 50px;
@@ -277,7 +283,6 @@ textarea::-webkit-input-placeholder {
   background-color: #0080FF;
   display: flex;
   justify-content: center;
-  align-items: center;
   cursor: pointer;
 }
 .ms-admin-mstore .ms-admin-mstore-icon span {
@@ -321,7 +326,7 @@ textarea::-webkit-input-placeholder {
   margin-right: 8px;
 }
 .ms-admin-login > span span {
-  color: #333333;
+  color: #fff;
 }
 .ms-admin-login .active {
   background: #fff;
@@ -331,7 +336,7 @@ textarea::-webkit-input-placeholder {
   color: #fff;
 }
 .ms-admin-login .active span {
-  color: #409EFF;
+  color: #333;
 }
 .ms-admin-login-down {
   width: 130px;
@@ -346,7 +351,7 @@ textarea::-webkit-input-placeholder {
   display: none;
 }
 .ms-admin-menu-aside {
-  width: auto !important;
+  width: 200px !important;
   height: 100%;
   position: relative;
   overflow: visible;
@@ -407,15 +412,14 @@ textarea::-webkit-input-placeholder {
   width: 60px !important;
 }
 .ms-admin-container {
-  height:auto;
+  height: calc(100vh - 60px);
 }
 .ms-admin-container > .ms-admin-main {
   padding: 0;
   background-color: #fff;
-  z-index: 0;
 }
 .ms-admin-container > .ms-admin-main .ms-admin-tabs {
-  height: calc(100vh - 50px);
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -469,40 +473,40 @@ textarea::-webkit-input-placeholder {
   border: none !important;
 }
 @keyframes rubberBand {
-0 {
-  -webkit-transform: scale3d(1, 1, 1);
-  transform: scale3d(1, 1, 1);
-}
-10% {
-  -webkit-transform: scale3d(1.25, 0.75, 1);
-  transform: scale3d(1.25, 0.75, 1);
-}
-20% {
-  -webkit-transform: scale3d(0.75, 1.25, 1);
-  transform: scale3d(0.75, 1.25, 1);
-}
-30% {
-  -webkit-transform: scale3d(1.15, 0.85, 1);
-  transform: scale3d(1.15, 0.85, 1);
-}
-40% {
-  -webkit-transform: scale3d(0.95, 1.05, 1);
-  transform: scale3d(0.95, 1.05, 1);
-}
-50% {
-  -webkit-transform: scale3d(1.05, 0.95, 1);
-  transform: scale3d(1.05, 0.95, 1);
-}
-51% {
-  -webkit-transform: scale3d(1, 1, 1);
-  transform: scale3d(1, 1, 1);
-}
+  0 {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  10% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  20% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  30% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  51% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
 }
 
 .el-scrollbar__wrap{overflow-x:hidden;}
 .el-scrollbar {
-  position: static;
+    position: static;
 }
 [v-cloak] {
-  display: none;
+    display: none;
 }

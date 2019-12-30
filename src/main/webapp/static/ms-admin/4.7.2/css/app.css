@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: #eee !important;
+}
+
+a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
+   
+.ms-container {
+    margin: 12px;
+    height: 100%;
+    padding: 14px 14px 0 14px;
+    background: #fff;
+}
+
+.ms-header {
+    padding: 10px;
+    margin: 0;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+    height: 50px
+}
+
+.ms-pagination {
+    padding: 20px 0 0;
+    text-align: right;
+}
+
+.ms-fr {
+    float: right;
+}
+
+.ms-tr {
+    text-align: right;
+}
+
+.el-button+.el-button {
+    margin-left: 0
+}
+
+.ms-select{
+
+    display: block;
+}
+
+.ms-datetimerange{
+    width: 100% !important;
+}
+#index .ms-search{
+    padding: 20px 0;
+    background: #fff;
+}
+#index .ms-search .ms-search-footer{
+    line-height: 60px;
+    text-align: center;
+}
+#index .ms-table-pagination {
+    height: calc(100% - 75px);
+}
+#myPageTop {
+    width: 252px;
+}
+#myPageTop input {
+    width: 242px;
+}
+.el-button .iconfont {
+    font-size: 12px;
+    margin-right: 5px;
+}
+#form .ms-container{
+    height:calc(100vh - 74px);
+}
+#index .ms-container{
+    height: calc(100vh - 74px);
+}
+[v-cloak]{
+    display: none;
+}
+/* 滚动条样式重写*/
+.el-table__body-wrapper::-webkit-scrollbar{
+    width:6px;
+}
+.el-table__body-wrapper::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(144,147,153,.5);
+}
