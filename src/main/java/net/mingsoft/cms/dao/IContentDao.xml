@@ -254,71 +254,43 @@
 		left join cms_category c
 		ON a.content_category_id
 		= c.id
-		<if test="tableName!=null and tableName!=''">left join ${tableName} d on d.link_id=a.id
+		<if test="tableName!=null and tableName!='' and diyMap!=null">left join ${tableName} d on d.link_id=a.id
 		</if>
-		where a.app_id = #{websiteId}
-		<if test="ids!=null and ids!=''">
-			and FIND_IN_SET(content_category_id,'${ids}')
-		</if>
-		<foreach item="item" index="key" collection="map" open=""
-				 separator="" close="">
-			<if test=" item[0] == false">
-				and ${key}
+		<where>
+			a.app_id = #{websiteId}
+			<if test="ids!=null and ids!=''">
+				and FIND_IN_SET(content_category_id,'${ids}')
 			</if>
-			<if test="item[0]== true">
-				and d.${key}
+			<if test="map.content_title!=null">
+			and a.content_title like CONCAT("%",'${map.content_title}',"%")
 			</if>
-			<!-- 数字类型的查找 item[1]:字段是否为数字类型false:数字 -->
-			<if test="item[1] == false">
-				<!--item[2]： 是采用等值还是区间查询。false:区间 itme[3][0]第一个值item[3][1]的二个值 -->
-				<if test="item[2] == true">
-					=
-					<foreach item="val" index="index" collection="item[3]">#{val}
-					</foreach>
-				</if>
-				<if test="item[2] == false">
-					between
-					<foreach item="val" index="index" collection="item[3]"
-							 separator="and">
-						#{val}
-					</foreach>
-				</if>
+			<if test="map.content_author!=null">
+			and a.content_author like CONCAT("%",'${map.content_author}',"%")
 			</if>
-			<!-- 字符型数据的查找 item[1]:字段是否为数字类型true:字符串 -->
-			<if test="item[1] == true">
-				<!--item[2]： 是采用模糊查询。false:不采用模糊 -->
-				<if test="item[2] == true">
-					<include refid="queryLike"></include>
-				</if>
-				<if test="item[2] == false">
-					=
-					<foreach item="val" index="index" collection="item[3]">#{val}
-					</foreach>
-				</if>
+			<if test="map.content_source!=null">
+			and a.content_source like CONCAT("%",'${map.content_source}',"%")
 			</if>
-		</foreach>
+			<if test="map.content_type!=null">
+			and a.content_type like CONCAT("%",'${map.content_type}',"%")
+			</if>
+			<if test="map.content_description!=null">
+			and a.content_description like CONCAT("%",'${map.content_description}',"%")
+			</if>
+			<if test="map.content_keyword!=null">
+			and a.content_keyword like CONCAT("%",'${map.content_keyword}',"%")
+			</if>
+			<if test="map.content_details!=null">
+			and a.content_details like CONCAT("%",'${map.content_details}',"%")
+			</if>
+			<if test="tableName!=null and tableName!='' and diyMap!=null">
+				<foreach item="item" index="index" collection="diyList" open=""
+						 separator="" close="">
+					and d.${item.key} like CONCAT("%",'${item.value}',"%")
+				</foreach>
+			</if>
+		</where>
+
 	</select>
-	<!-- 根据字段条件查找文章实体开始 -->
-	<sql id="queryLike" databaseId="mysql">
-		like CONCAT("%",
-		<foreach item="val" index="index" collection="item[3]">
-			<if test="index==0">#{val}</if>
-		</foreach>
-		,"%")
-	</sql>
-	<sql id="queryLike" databaseId="oracle">
-		like '%'||
-		<foreach item="val" index="index" collection="item[3]">
-			<if test="index==0">#{val}</if>
-		</foreach>
-		||'%'
-	</sql>
-	<sql id="queryLike" databaseId="sqlServer">
-		like '%'+
-		<foreach item="val" index="index" collection="item[3]">
-			<if test="index==0">#{val}</if>
-		</foreach>
-		+'%'
-	</sql>
+
 
 </mapper>

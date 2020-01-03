@@ -63,10 +63,10 @@ public class ContentBizImpl extends BaseBizImpl implements IContentBiz {
 	}
 
 	@Override
-	public int getSearchCount(ModelEntity contentModel, Map whereMap, int appId, String categoryIds) {
+	public int getSearchCount(ModelEntity contentModel, List diyList, Map whereMap, int appId, String categoryIds) {
 		if (contentModel!=null) {
-			return contentDao.getSearchCount(contentModel.getModelTableName(),whereMap, appId,categoryIds);
+			return contentDao.getSearchCount(contentModel.getModelTableName(),diyList,whereMap, appId,categoryIds);
 		}
-		return contentDao.getSearchCount(null,whereMap, appId,categoryIds);
+		return contentDao.getSearchCount(null,null,whereMap, appId,categoryIds);
 	}
 }

@@ -34,6 +34,6 @@ public interface IContentDao extends IBaseDao {
      *            list[2]:是否是等值查询 list[3]:字段的值
      * @return 文章实体总数
      */
-    int getSearchCount(@Param("tableName") String tableName, @Param("map") Map<String, List> map,
+    int getSearchCount(@Param("tableName") String tableName, @Param("diyList") List diyList,@Param("map") Map<String, Object> map,
                        @Param("websiteId") int websiteId, @Param("ids") String ids);
 }

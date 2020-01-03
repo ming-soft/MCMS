@@ -20,5 +20,5 @@ public interface IContentBiz extends IBaseBiz {
 
     List<ContentBean> queryIdsByCategoryIdForParser(String categoryId, String beginTime, String endTime, String orderBy, String order);
 
-    int getSearchCount(ModelEntity contentModel, Map whereMap, int appId, String categoryIds);
+    int getSearchCount(ModelEntity contentModel, List diyList, Map whereMap, int appId, String categoryIds);
 }
