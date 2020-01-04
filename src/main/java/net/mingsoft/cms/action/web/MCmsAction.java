@@ -312,253 +312,163 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
 
 
-//	/**
-//	 * 实现前端页面的文章搜索
-//	 *
-//	 * @param request
-//	 *            搜索id
-//	 * @param response
-//	 */
-//	@RequestMapping(value = "search")
-//	@ResponseBody
-//	public void search(HttpServletRequest request, HttpServletResponse response) {
-//
-//		Map<String, Object> map = new HashMap<>();
-//		// 读取请求字段
-//		Map<String, String[]> field =  request.getParameterMap();
-//		Map<String, String> basicField = getMapByProperties(net.mingsoft.mdiy.constant.Const.BASIC_FIELD);
-//		// 文章字段集合
-//		Map<String, Object> articleFieldName = new HashMap<String, Object>();
-//		// 自定义字段集合
-//		Map<String, String> diyFieldName = new HashMap<String, String>();
-//		CategoryEntity column = null; // 当前栏目
-//		ModelEntity contentModel = null; // 栏目对应模型
-//		List<DiyModelMap> fieldValueList = new ArrayList<DiyModelMap>(); // 栏目对应字段的值
-//		int typeId = 0;
-//		String categoryIds = BasicUtil.getString("categoryId");
-//		//当传递了栏目编号，但不是栏目集合
-//		if(!StringUtil.isBlank(categoryIds) && !categoryIds.contains(",")){
-//			typeId = Integer.parseInt(categoryIds);
-//		}
-//		//记录自定义模型字段名
-//		List filedStr = new ArrayList<>();
-//		//根据栏目确定自定义模型
-//		if(typeId>0){
-//			column = (CategoryEntity) categoryBiz.getEntity(Integer.parseInt(typeId+""));
-//			// 获取表单类型的id
-//			if (column != null&&ObjectUtil.isNotNull(column.getMdiyModelId())) {
-//				contentModel = (ModelEntity) modelBiz.getEntity(Integer.parseInt(column.getMdiyModelId()));
-//				if (contentModel != null) {
-//					Map<String,String> fieldMap = contentModel.getFieldMap();
-//					for (String s : fieldMap.keySet()) {
-//						filedStr.add(fieldMap.get(s));
-//					}
-//					map.put(ParserUtil.TABLE_NAME, contentModel.getModelTableName());
-//				}
-//			}
-//			map.put(ParserUtil.COLUMN, column);
-//			//设置栏目编号
-////			map.put(ParserUtil.TYPE_ID, typeId);
-//		}
-//
-//		// 遍历取字段集合
-//		if (field != null) {
-//			for (Map.Entry<String, String[]> entry : field.entrySet()) {
-//				if (entry != null) {
-//					String value = entry.getValue()[0]; // 处理由get方法请求中文乱码问题
-//					if (ObjectUtil.isNull(value)) {
-//						continue;
-//					}
-//					if (request.getMethod().equals(RequestMethod.GET)) { // 如果是get方法需要将请求地址参数转吗
-//						try {
-//							value = new String(value.getBytes("ISO-8859-1"), Const.UTF8);
-//						} catch (UnsupportedEncodingException e) {
-//							e.printStackTrace();
-//						}
-//					}
-//					// 若为文章字段，则保存至文章字段集合；否则保存至自定义字段集合
-//					if (ObjectUtil.isNotNull(basicField.get(entry.getKey())) && ObjectUtil.isNotNull(value)) {
-//						articleFieldName.put(entry.getKey(), value);
-//					} else {
-//						if (!StringUtil.isBlank(value)) {
-//							diyFieldName.put(entry.getKey(), value);
-//							//判断请求中的是否是自定义模型中的字段
-//							if(filedStr.contains(entry.getKey())){
-//								//设置自定义模型字段和值
-//								DiyModelMap diyMap = new DiyModelMap();
-//								diyMap.setKey(entry.getKey());
-//								diyMap.setValue(value);
-//								fieldValueList.add(diyMap);
-//							}
-//						}
-//					}
-//				}
-//			}
-//		}
-//		//添加自定义模型的字段和值
-//		if(fieldValueList.size()>0){
-//			map.put("diyModel", fieldValueList);
-//		}
-//		//组织where查询条件
-//		Map whereMap = ObjectUtil.isNotNull(contentModel)?
-//				this.searchMap(articleFieldName, diyFieldName, JSONArray.parseArray(contentModel.getModelField())):
-//				new HashMap();
-//
-//		// 获取符合条件的文章总数
-//		int count = contentBiz.getSearchCount(contentModel, whereMap, BasicUtil.getAppId(), categoryIds);
-//		//设置分页类
-//		PageBean page = new PageBean();
-//		//读取模板的分页数量
-//		int size = BasicUtil.getInt(ParserUtil.SIZE,10);
-//		try {
-//			size = TagParser.getPageSize(ParserUtil.read(SEARCH+ParserUtil.HTM_SUFFIX,false ));
-//		} catch (TemplateNotFoundException e1) {
-//			e1.printStackTrace();
-//		} catch (MalformedTemplateNameException e1) {
-//			e1.printStackTrace();
-//		} catch (ParseException e1) {
-//			e1.printStackTrace();
-//		} catch (IOException e1) {
-//			e1.printStackTrace();
-//		}
-//		int total = PageUtil.totalPage(count, size);
-//
-//		int pageNo = BasicUtil.getInt(ParserUtil.PAGE_NO, 1);
-//		if(pageNo >= total && total!=0) {
-//			pageNo = total;
-//		}
-//		//获取总数
-//		page.setTotal(total);
-//		//设置页面显示数量
-//		page.setSize(size);
-//		//设置列表当前页
-//
-//		page.setPageNo(pageNo);
-//
-//		String str = ParserUtil.PAGE_NO+","+ParserUtil.SIZE;
-//		//设置分页的统一链接
-//		String url = BasicUtil.getUrl()+request.getServletPath() +"?" + BasicUtil.assemblyRequestUrlParams(str.split(","));
-//		String pageNoStr = "&"+ParserUtil.SIZE+"="+size+"&"+ParserUtil.PAGE_NO+"=";
-//		//下一页
-//		String nextUrl = url + pageNoStr+((pageNo+1 > total)?total:pageNo+1);
-//		//首页
-//		String indexUrl = url + pageNoStr + 1;
-//		//尾页
-//		String lastUrl = url + pageNoStr + total;
-//		//上一页 当前页为1时，上一页就是1
-//		String preUrl = url + pageNoStr + ((pageNo==1) ? 1:pageNo-1);
-//
-//		page.setIndexUrl(indexUrl);
-//		page.setNextUrl(nextUrl);
-//		page.setPreUrl(preUrl);
-//		page.setLastUrl(lastUrl);
-//		map.put(ParserUtil.URL, BasicUtil.getUrl());
-//		Map<String, Object> searchMap = BasicUtil.assemblyRequestMap();
-//		searchMap.put(ParserUtil.PAGE_NO, pageNo);
-//		map.put(SEARCH, searchMap);
-//		map.put(ParserUtil.PAGE, page);
-//		//动态解析
-//		map.put(ParserUtil.IS_DO,false);
-//		//设置动态请求的模块路径
-//		map.put(ParserUtil.MODEL_NAME, "mcms");
-//		//解析后的内容
-//		String content = "";
-//		try {
-//			//根据模板路径，参数生成
-//			content = CmsParserUtil.generate(SEARCH+ParserUtil.HTM_SUFFIX,map, isMobileDevice(request));
-//		} catch (TemplateNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (MalformedTemplateNameException e) {
-//			e.printStackTrace();
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		this.outString(response, content);
-//	}
-
 	/**
-	 * 动态组织查询where条件 获取查询条件的Map key:字段名 value:List 字段的各种判断值 list[0]:是否为自定义字段
-	 * list[1]:是否为整形 list[2]:是否是等值查询 list[3]:字段的值
+	 * 实现前端页面的文章搜索
 	 *
-	 * @param articleField
-	 *            文章字段
-	 * @param diyFieldName
-	 *            动态字段
-	 * @param fields
-	 *            模型对应的字段类型
-	 * @return
+	 * @param request
+	 *            搜索id
+	 * @param response
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	private Map<String, List> searchMap(Map<String, Object> articleField, Map<String, String> diyFieldName,
-										List fields) {
-		Map<String, List> map = new HashMap<String, List>();
+	@RequestMapping(value = "search")
+	@ResponseBody
+	public void search(HttpServletRequest request, HttpServletResponse response) {
 
-		// 遍历文章中的字段
-		for (Iterator iter = articleField.keySet().iterator(); iter.hasNext();) {
-			String key = iter.next().toString();
-			String fieldValue = articleField.get(key).toString();
-			List list = new ArrayList();
-			List listValue = new ArrayList();
-			// 是否为自定义字段
-			list.add(false);
-
-			// 是否是数字类型，true:不是
-			list.add(true);
-			// 是否是模糊查询3
-			list.add(true);
-			// 字段值
-			listValue.add(articleField.get(key));
-			list.add(listValue);
-			map.put(key, list);
+		Map<String, Object> map = new HashMap<>();
+		// 读取请求字段
+		Map<String, String[]> field =  request.getParameterMap();
+		// 文章字段集合
+		Map<String, Object> articleFieldName = new HashMap<String, Object>();
+		// 自定义字段集合
+		Map<String, String> diyFieldName = new HashMap<String, String>();
+		CategoryEntity column = null; // 当前栏目
+		ModelEntity contentModel = null; // 栏目对应模型
+		List<DiyModelMap> fieldValueList = new ArrayList<DiyModelMap>(); // 栏目对应字段的值
+		int typeId = 0;
+		String categoryIds = BasicUtil.getString("categoryId");
+		//当传递了栏目编号，但不是栏目集合
+		if(!StringUtil.isBlank(categoryIds) && !categoryIds.contains(",")){
+			typeId = Integer.parseInt(categoryIds);
+		}
+		//记录自定义模型字段名
+		List filedStr = new ArrayList<>();
+		//根据栏目确定自定义模型
+		if(typeId>0){
+			column = (CategoryEntity) categoryBiz.getEntity(Integer.parseInt(typeId+""));
+			// 获取表单类型的id
+			if (column != null&&ObjectUtil.isNotNull(column.getMdiyModelId())) {
+				contentModel = (ModelEntity) modelBiz.getEntity(Integer.parseInt(column.getMdiyModelId()));
+				if (contentModel != null) {
+					Map<String,String> fieldMap = contentModel.getFieldMap();
+					for (String s : fieldMap.keySet()) {
+						filedStr.add(fieldMap.get(s));
+					}
+					map.put(ParserUtil.TABLE_NAME, contentModel.getModelTableName());
+				}
+			}
+			map.put(ParserUtil.COLUMN, column);
 		}
 
-		// 遍历字段自定义字段
-		for (Iterator iter = diyFieldName.keySet().iterator(); iter.hasNext();) {
-			String key = iter.next().toString();
-			String fieldValue = diyFieldName.get(key);
-			// 获取字段实体
-			Map field = get(key, fields);
-			if (field != null) {
-				List list = new ArrayList();
-				// 是否为自定义字段0
-				list.add(0, true);
-				List listValue = new ArrayList();
-				// 字段的值
-				if ("int".equals(field.get("javaType") ) || "float".equals(field.get("javaType") )|| "Double".equals(field.get("javaType")) ) {
-					// 判断是否为区间查询
-
-					if (diyFieldName.get(key).toString().indexOf("-") > 0) {
-						String[] values = fieldValue.toString().split("-");
-						// 是否是数字类型，false:是
-						list.add(false);
-						// 是否是区间比较 false:是
-						list.add(false);
-						// 字段值1
-						listValue.add(values[0]);
-						listValue.add(values[1]);
-					} else {
-						// 是否是数字类型，false:是2
-						list.add(false);
-						// 是否是区间比较 true:不是3
-						list.add(true);
-						// 字段值 1
-						listValue.add(fieldValue);
+		// 遍历取字段集合
+		if (field != null) {
+			for (Map.Entry<String, String[]> entry : field.entrySet()) {
+				if (entry != null) {
+					String value = entry.getValue()[0]; // 处理由get方法请求中文乱码问题
+					if (ObjectUtil.isNull(value)) {
+						continue;
 					}
-				} else {
-					// 是否是数字类型，true:不是2
-					list.add(true);
-					list.add(false);
-					// 字段值 1
-					listValue.add(fieldValue);
+					if (request.getMethod().equals(RequestMethod.GET)) { // 如果是get方法需要将请求地址参数转码
+						try {
+							value = new String(value.getBytes("ISO-8859-1"), Const.UTF8);
+						} catch (UnsupportedEncodingException e) {
+							e.printStackTrace();
+						}
+					}
+					// 保存至自定义字段集合
+						if (!StringUtil.isBlank(value)) {
+							diyFieldName.put(entry.getKey(), value);
+							//判断请求中的是否是自定义模型中的字段
+							if(filedStr.contains(entry.getKey())){
+								//设置自定义模型字段和值
+								DiyModelMap diyMap = new DiyModelMap();
+								diyMap.setKey(entry.getKey());
+								diyMap.setValue(value);
+								fieldValueList.add(diyMap);
+							}
+						}
+
 				}
-				list.add(listValue);
-				map.put(key, list);
 			}
 		}
-		return map;
+
+		//添加自定义模型的字段和值
+		if(fieldValueList.size()>0){
+			map.put("diyModel", fieldValueList);
+		}
+
+		//设置分页类
+		PageBean page = new PageBean();
+		//读取模板的分页数量
+		int size = BasicUtil.getInt(ParserUtil.SIZE,10);
+		try {
+			size = TagParser.getPageSize(ParserUtil.read(SEARCH+ParserUtil.HTM_SUFFIX,false ));
+		} catch (TemplateNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (MalformedTemplateNameException e1) {
+			e1.printStackTrace();
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		//查询数量
+		int count= contentBiz.getSearchCount(contentModel,fieldValueList,BasicUtil.assemblyRequestMap(),BasicUtil.getAppId(),categoryIds);
+		int total = PageUtil.totalPage(count, size);
+
+		int pageNo = BasicUtil.getInt(ParserUtil.PAGE_NO, 1);
+		if(pageNo >= total && total!=0) {
+			pageNo = total;
+		}
+		//获取总数
+		page.setTotal(total);
+		//设置页面显示数量
+		page.setSize(size);
+		//设置列表当前页
+
+		page.setPageNo(pageNo);
+
+		String str = ParserUtil.PAGE_NO+","+ParserUtil.SIZE;
+		//设置分页的统一链接
+		String url = BasicUtil.getUrl()+request.getServletPath() +"?" + BasicUtil.assemblyRequestUrlParams(str.split(","));
+		String pageNoStr = "&"+ParserUtil.SIZE+"="+size+"&"+ParserUtil.PAGE_NO+"=";
+		//下一页
+		String nextUrl = url + pageNoStr+((pageNo+1 > total)?total:pageNo+1);
+		//首页
+		String indexUrl = url + pageNoStr + 1;
+		//尾页
+		String lastUrl = url + pageNoStr + total;
+		//上一页 当前页为1时，上一页就是1
+		String preUrl = url + pageNoStr + ((pageNo==1) ? 1:pageNo-1);
+
+		page.setIndexUrl(indexUrl);
+		page.setNextUrl(nextUrl);
+		page.setPreUrl(preUrl);
+		page.setLastUrl(lastUrl);
+		map.put(ParserUtil.URL, BasicUtil.getUrl());
+		Map<String, Object> searchMap = BasicUtil.assemblyRequestMap();
+		searchMap.put(ParserUtil.PAGE_NO, pageNo);
+		map.put(SEARCH, searchMap);
+		map.put(ParserUtil.PAGE, page);
+		//动态解析
+		map.put(ParserUtil.IS_DO,false);
+		//设置动态请求的模块路径
+		map.put(ParserUtil.MODEL_NAME, "mcms");
+		//解析后的内容
+		String content = "";
+		try {
+			//根据模板路径，参数生成
+			content = CmsParserUtil.generate(SEARCH+ParserUtil.HTM_SUFFIX,map, isMobileDevice(request));
+		} catch (TemplateNotFoundException e) {
+			e.printStackTrace();
+		} catch (MalformedTemplateNameException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.outString(response, content);
 	}
+
 
 	private Map get(String key, List<Map> fields) {
 		for (Map field : fields) {

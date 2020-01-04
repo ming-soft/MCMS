@@ -2,29 +2,32 @@ server:
   port: 8080
   servlet.context-path: /ms-mcms
   servlet.session.timeout: 60M
-  
-logging:
- level:
-  net.mingsoft: trace
-ms:
- manager: 
-  path: /ms
-  view-path: /WEB-INF/manager
-  
- upload: 
-   path: upload
-   mapping: /upload/**
-   denied: .exe,.jsp
-   multipart:
-     #最大上传文件大小 单位：KB
-     max-file-size: 10240
-     #文件暂存临时目录
-     upload-temp-dir: temp
-     #临时文件大小
-     max-in-memory-size: 10240
-     #总上传最大大小 单位：KB -1禁用
-     max-request-size: -1
 
+logging:
+  level:
+    net.mingsoft: trace
+  file: mcms.log #日志文件存放位置
+  path: log #日志压缩文件存放位置
+ms:
+  swagger:
+    enable: true #启用swagger文档
+  manager:
+    path: /ms
+    view-path: /WEB-INF/manager
+
+  upload:
+    path: upload
+    mapping: /upload/**
+    denied: .exe,.jsp
+    multipart:
+      #最大上传文件大小 单位：KB
+      max-file-size: 10240
+      #文件暂存临时目录
+      upload-temp-dir: temp
+      #临时文件大小
+      max-in-memory-size: 10240
+      #总上传最大大小 单位：KB -1禁用
+      max-request-size: -1
 
 
 
@@ -32,8 +35,8 @@ spring:
   profiles:
     active: dev
   mvc:
-    pathmatch: 
-     use-suffix-pattern: true
+    pathmatch:
+      use-suffix-pattern: true
   devtools:
     restart:
       enabled: true
@@ -54,7 +57,7 @@ spring:
     expose-spring-macro-helpers: true
     prefer-file-system-access: false
     template-loader-path: classpath:/WEB-INF/manager,classpath:/WEB-INF
-    settings: 
+    settings:
       template_update_delay: 1
       default_encoding: UTF-8
       classic_compatible: true
@@ -62,8 +65,7 @@ spring:
       time_format: HH:mm:ss
       datetime_format: yyyy-MM-dd HH:mm:ss
       number_format: 0.##
-      
+
 mybatis:
-  mapper-locations: classpath*:**/dao/*.xml
-  configuration: 
-   database-id: mysql
+  configuration:
+    database-id: mysql

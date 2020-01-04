@@ -4,6 +4,7 @@
     <title>文章主体</title>
     <#include "../../include/head-file.ftl">
     <#include "../../include/increase-search.ftl">
+
 </head>
 <body>
 <div id="main" class="ms-index" v-cloak>
@@ -124,8 +125,8 @@
         data:{
             conditionList:[
                 {action:'and', field: 'content_title', el: 'eq', model: 'contentTitle', name: '文章标题', type: 'input'},
-                {action:'and', field: 'content_category_id', el: 'eq', model: 'contentCategoryId', name: '所属栏目', type: 'cascader', multiple: false},
-                {action:'and', field: 'content_type', el: 'eq', model: 'contentType', name: '文章类型', type: 'checkbox', label: false, multiple: true},
+                {action:'and', field: 'content_category_id', el: 'eq', model: 'contentCategoryId', name: '所属栏目', key:'id',title:'categoryTitle', type: 'cascader', multiple: false},
+                {action:'and', field: 'content_type', el: 'eq', model: 'contentType', name: '文章类型', key:'dictValue',title:'dictLabel', type: 'checkbox', label: false, multiple: true},
                 {action:'and', field: 'content_display', el: 'eq', model: 'contentDisplay', name: '是否显示', type: 'radio', label: true, multiple: false},
                 {action:'and', field: 'content_author', el: 'eq', model: 'contentAuthor', name: '文章作者', type: 'input'},
                 {action:'and', field: 'content_source', el: 'eq', model: 'contentSource', name: '文章来源', type: 'input'},

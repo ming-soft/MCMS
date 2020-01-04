@@ -38,7 +38,7 @@ public class CmsParserUtil extends ParserUtil {
 
 	/**
 	 * 指定模板，指定路径进行生成静态页面，会自定识别pc与移动端
-	 * 
+	 *
 	 * @param templatePath
 	 *            模板路径
 	 * @param targetPath
@@ -53,7 +53,7 @@ public class CmsParserUtil extends ParserUtil {
 		map.put(COLUMN, column);
 		String content = CmsParserUtil.generate(templatePath, map, false);
 		FileUtil.writeString(content, ParserUtil.buildHtmlPath(targetPath), Const.UTF8);
-		
+
 		// 生成移动页面
 		if (ParserUtil.hasMobileFile(templatePath)) {
 			// 手机端m
@@ -188,7 +188,7 @@ public class CmsParserUtil extends ParserUtil {
 
 	/**
 	 * 生成内容
-	 * 
+	 *
 	 * @param articleIdList
 	 *            文章集合
 	 * @return
@@ -227,7 +227,7 @@ public class CmsParserUtil extends ParserUtil {
 			}
 
 			// 判断文件是否存在，若不存在弹出返回信息
-			if (!FileUtil.exist(ParserUtil.buildTempletPath(columnUrl))) {
+			if (!FileUtil.exist(ParserUtil.buildTempletPath(columnUrl))||StringUtils.isBlank(articleIdList.get(artId).getCategoryId())) {
 				artId++;
 				continue;
 			}
