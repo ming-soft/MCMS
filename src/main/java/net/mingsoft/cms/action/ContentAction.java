@@ -1,36 +1,29 @@
 package net.mingsoft.cms.action;
 
-import java.util.List;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import net.mingsoft.base.entity.ResultData;
-import org.springframework.validation.BindingResult;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.springframework.ui.ModelMap;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import net.mingsoft.cms.biz.IContentBiz;
-import net.mingsoft.cms.entity.ContentEntity;
-import net.mingsoft.base.entity.BaseEntity;
-import net.mingsoft.basic.util.BasicUtil;
-import net.mingsoft.basic.util.StringUtil;
-import net.mingsoft.basic.bean.EUListBean;
-import net.mingsoft.basic.annotation.LogAnn;
-import net.mingsoft.basic.constant.e.BusinessTypeEnum;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import net.mingsoft.base.entity.BaseEntity;
+import net.mingsoft.base.entity.ResultData;
+import net.mingsoft.basic.annotation.LogAnn;
+import net.mingsoft.basic.bean.EUListBean;
+import net.mingsoft.basic.constant.e.BusinessTypeEnum;
+import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.basic.util.StringUtil;
+import net.mingsoft.cms.biz.IContentBiz;
+import net.mingsoft.cms.entity.ContentEntity;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 /**
  * 文章管理控制层
  * @author 铭飞开发团队

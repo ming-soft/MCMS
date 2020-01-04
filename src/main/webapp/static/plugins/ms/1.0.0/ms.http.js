@@ -1,7 +1,7 @@
 (function() {
 
     axios.defaults.timeout = 1000 * 60;
-    axios.defaults.baseURL = ''; 
+    axios.defaults.baseURL = '';
 
     //http request 拦截器
     axios.interceptors.request.use(
@@ -28,7 +28,7 @@
     axios.interceptors.response.use(
         function(response) {
             //登录失效
-            if (response.data.bizCode == "401") {
+            if (response.data.bizCode == "401" && ms.isLoginRedirect) {
                 window.parent.location.href = ms.base + "/" + ms.login + "?backurl=" + encodeURIComponent(window.parent.location.href);
                 return;
             }
@@ -79,8 +79,8 @@
         }
         return new Promise(function(resolve, reject) {
             ajax().get(url, {
-                    params: params
-                })
+                params: params
+            })
                 .then(function(response) {
                     resolve(response.data);
                 })
@@ -170,4 +170,5 @@
         window.ms = {};
     }
     window.ms.http = http;
+    window.ms.isLoginRedirect = true;
 }());

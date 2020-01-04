@@ -12,7 +12,6 @@ import net.mingsoft.base.constant.Const;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.SpringUtil;
 import net.mingsoft.cms.bean.ContentBean;
-import net.mingsoft.cms.constant.e.ColumnTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IModelBiz;
@@ -31,7 +30,12 @@ import java.util.List;
 import java.util.Map;
 
 public class CmsParserUtil extends ParserUtil {
+
+	/**
+	 * 封面
+	 */
 	private static int COLUMN_TYPE_COVER = 2;
+
 	/**
 	 * 指定模板，指定路径进行生成静态页面，会自定识别pc与移动端
 	 *
@@ -232,7 +236,7 @@ public class CmsParserUtil extends ParserUtil {
 			// 组合文章路径如:html/站点id/栏目id/文章id.html
 			writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + articleId);
 			//如果是封面就生成index.html
-			if(Integer.parseInt(articleIdList.get(artId).getCategoryType()) == ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {
+			if(Integer.parseInt(articleIdList.get(artId).getCategoryType()) == COLUMN_TYPE_COVER) {
 				writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + ParserUtil.INDEX);
 			}
 			Map<String, Object> parserParams = new HashMap<String, Object>();
@@ -278,7 +282,7 @@ public class CmsParserUtil extends ParserUtil {
 			if (ParserUtil.hasMobileFile(columnUrl)) {
 				writePath = ParserUtil.buildMobileHtmlPath(articleColumnPath + File.separator + articleId);
 				//如果是封面就生成index.html
-				if(Integer.parseInt(articleIdList.get(artId).getCategoryType())  == ColumnTypeEnum.COLUMN_TYPE_COVER.toInt()) {
+				if(Integer.parseInt(articleIdList.get(artId).getCategoryType())  == COLUMN_TYPE_COVER) {
 					writePath = ParserUtil.buildMobileHtmlPath(articleColumnPath + File.separator + ParserUtil.INDEX);
 				}
 				// 判断文件是否存在，若不存在弹出返回信息
