@@ -152,6 +152,8 @@
 				ms.http.post(ms.manager+'/cms/generate//generateIndex.do', {url:that.template,position:that.position}).then(function (data) {
 					if(data.result){
 						that.$notify({ title: '更新成功！', type: 'success' });
+					}else {
+						that.$notify({ title: '更新失败！',message: "错误", type: 'error' });
 					}
 				}).catch(function (err) {
 					that.$notify({ title: '更新失败！',message: err, type: 'error' });

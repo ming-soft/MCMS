@@ -65,11 +65,11 @@
                                 <template v-for="model in modelList">
                                     <div class="ms-model-list">
                                         <a class="ms-model-img" :href="model.upgraderVersionUrl" target="_blank">
-                                            <img @mouseout="imgMout()" @mouseover="imgMover()" :src="'http://store.mingsoft.net/'+model.upgraderVersionImg" onerror="this.src='{ms:global.host/}/{ms:global.style/}/images/no-data.png'" />
+                                            <img @mouseout="imgMout()" @mouseover="imgMover()" :src="'http://store.mingsoft.net/'+model.img" onerror="this.src='{ms:global.host/}/{ms:global.style/}/images/no-data.png'" />
                                         </a>
-                                        <div class="ms-model-mobile-img" v-if="model.upgraderVersionMobileImg != '' && model.upgraderVersionMobileImg != undefined" style="background: url({ms:global.host/}/{ms:global.style/}/images/mobile.png)">
+                                        <div class="ms-model-mobile-img" v-if="model.mobileImg != '' && model.mobileImg != undefined" style="background: url({ms:global.host/}/{ms:global.style/}/images/mobile.png)">
                                             <div>
-                                                <img @mouseout="imgMout()" @mouseover="imgMover()" :src="'http://store.mingsoft.net/'+model.upgraderVersionMobileImg" onerror="this.src='{ms:global.host/}/{ms:global.style/}/images/no-data.png'" />
+                                                <img @mouseout="imgMout()" @mouseover="imgMover()" :src="'http://store.mingsoft.net/'+model.mobileImg" onerror="this.src='{ms:global.host/}/{ms:global.style/}/images/no-data.png'" />
                                             </div>
                                         </div>
                                         <div class="ms-model-info">
@@ -92,7 +92,7 @@
                                 <template v-for="pulg in pulgList">
                                     <div class="ms-model-list">
                                         <a class="ms-model-img" :href="pulg.upgraderVersionUrl" target="_blank">
-                                            <img :src="'http://store.mingsoft.net/'+pulg.upgraderVersionImg" onerror="this.src='{ms:global.host/}/{ms:global.style/}/images/no-data.png'" />
+                                            <img :src="'http://store.mingsoft.net/'+pulg.img" onerror="this.src='{ms:global.host/}/{ms:global.style/}/images/no-data.png'" />
                                         </a>
                                         <div class="ms-model-info">
                                             <span v-text="pulg.upgraderVersionName"></span>

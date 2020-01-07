@@ -21,21 +21,19 @@ The MIT License (MIT) * Copyright (c) 2016 铭飞科技(mingsoft.net)
 
 package net.mingsoft.cms.action;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.io.FileUtil;
+import net.mingsoft.basic.action.BaseAction;
+import net.mingsoft.basic.biz.IModelBiz;
+import net.mingsoft.basic.entity.AppEntity;
+import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
-import org.apache.commons.lang3.StringUtils;
+import net.mingsoft.cms.util.CmsParserUtil;
+import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,15 +44,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import net.mingsoft.basic.action.BaseAction;
-import net.mingsoft.basic.biz.IModelBiz;
-import net.mingsoft.basic.entity.AppEntity;
-import net.mingsoft.cms.util.CmsParserUtil;
-import net.mingsoft.mdiy.biz.IContentModelFieldBiz;
-
-import cn.hutool.core.io.FileUtil;
-import net.mingsoft.basic.util.BasicUtil;
-import net.mingsoft.mdiy.util.ParserUtil;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 
@@ -92,10 +87,7 @@ public class GeneraterAction extends BaseAction {
 	private String managerPath;
 
 	/**
-	 * 新增字段业务层
-	 */
-	@Autowired
-	protected IContentModelFieldBiz fieldBiz;
+
 
 
 	/**
