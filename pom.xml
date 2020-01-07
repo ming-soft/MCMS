@@ -35,7 +35,6 @@
 		</repository>
 	</repositories>
 	<dependencies>
-<!--		8.0数据库取消下面注解-->
 <!--		<dependency>-->
 <!--			<groupId>mysql</groupId>-->
 <!--			<artifactId>mysql-connector-java</artifactId>-->
@@ -44,12 +43,17 @@
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
-			<version>1.0.13</version>
+			<version>1.0.14-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mdiy</artifactId>
+			<version>1.0.12-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-upgrader</artifactId>
-			<version>1.0.14</version>
+			<version>1.0.15-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>

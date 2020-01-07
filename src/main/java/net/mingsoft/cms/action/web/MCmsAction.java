@@ -28,7 +28,6 @@ import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateNotFoundException;
 import net.mingsoft.base.constant.Const;
 import net.mingsoft.basic.util.BasicUtil;
-import net.mingsoft.basic.util.SpringUtil;
 import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
@@ -37,10 +36,8 @@ import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.cms.util.CmsParserUtil;
 import net.mingsoft.mdiy.bean.PageBean;
-import net.mingsoft.mdiy.biz.IContentModelBiz;
 import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.biz.IPageBiz;
-import net.mingsoft.mdiy.entity.ContentModelEntity;
 import net.mingsoft.mdiy.entity.ModelEntity;
 import net.mingsoft.mdiy.entity.PageEntity;
 import net.mingsoft.mdiy.parser.TagParser;
@@ -54,7 +51,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 动态生成页面，需要后台配置自定义页数据
@@ -245,7 +245,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		map.put(ParserUtil.ID, article.getId());
 		List<ContentBean> articleIdList = contentBiz.queryIdsByCategoryIdForParser(column.getCategoryId(), null, null,orderby,order);
 		Map<Object, Object> contentModelMap = new HashMap<Object, Object>();
-		ContentModelEntity contentModel = null;
+		ModelEntity contentModel = null;
 		for (int artId = 0; artId < articleIdList.size();) {
 			//如果不是当前文章则跳过
 			if(articleIdList.get(artId).getArticleId() != Integer.parseInt(article.getId())){
@@ -262,14 +262,13 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 			if ( StringUtils.isNotBlank(columnContentModelId)) {
 				// 通过当前栏目的模型编号获取，自定义模型表名
 				if (contentModelMap.containsKey(columnContentModelId)) {
-					parserParams.put(ParserUtil.TABLE_NAME, contentModel.getCmTableName());
+					parserParams.put(ParserUtil.TABLE_NAME, contentModel.getModelTableName());
 				} else {
 					// 通过栏目模型编号获取自定义模型实体
-					contentModel = (ContentModelEntity) SpringUtil.getBean(IContentModelBiz.class)
-							.getEntity(Integer.parseInt(columnContentModelId));
+					 contentModel=(ModelEntity)modelBiz.getEntity(Integer.parseInt(columnContentModelId));
 					// 将自定义模型编号设置为key值
-					contentModelMap.put(columnContentModelId, contentModel.getCmTableName());
-					parserParams.put(ParserUtil.TABLE_NAME, contentModel.getCmTableName());
+					contentModelMap.put(columnContentModelId, contentModel.getModelTableName());
+					parserParams.put(ParserUtil.TABLE_NAME, contentModel.getModelTableName());
 				}
 			}
 			// 第一篇文章没有上一篇
