@@ -397,7 +397,7 @@
                         ms.http.get(ms.manager + "/mdiy/model/get.do",{
                             id:this.currCategory.mdiyModelId
                         }).then(function (data) {
-                            if(data.data.id){
+                            if(data.data && data.data.id){
                                 that.rederModel(data.data,JSON.parse(data.data.modelJson))
                             }
                         })
