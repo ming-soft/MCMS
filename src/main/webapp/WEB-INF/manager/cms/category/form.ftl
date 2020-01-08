@@ -114,6 +114,9 @@
                 <el-row
                         gutter="0"
                         justify="start" align="top">
+
+
+
                     <el-col span="12">
                         <el-form-item prop="categoryListUrl" v-if="form.categoryType == '1'">
                             <template slot='label'>列表模板
@@ -133,6 +136,22 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
+                    <el-col span="12">
+                        <el-form-item  label="栏目属性" prop="categoryFlag">
+                            <el-select v-model="form.categoryFlag"
+                                       :style="{width: '100%'}"
+                                       :filterable="false"
+                                       :disabled="false"
+                                       :multiple="true" :clearable="true"
+                                       placeholder="请选择栏目属性">
+                                <el-option v-for='item in categoryFlagOptions' :key="item.dictValue" :value="item.dictValue"
+                                           :label="item.dictLabel"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+
+
+
                 </el-row>
                 <el-form-item label="栏目管理关键字" prop="categoryKeyword">
                     <template slot='label'>栏目关键字
@@ -250,11 +269,14 @@
                     categoryDiyUrl: '',
                     // 栏目管理的内容模型id
                     mdiyModelId: '',
+                    //栏目字典
+                    categoryFlag: []
                 },
                 categoryTypeOptions: [{"value": "1", "label": "列表"}, {"value": "2", "label": "封面"}],
                 categoryListUrlOptions: [],
                 categoryUrlOptions: [],
                 mdiyModelIdOptions: [],
+                categoryFlagOptions: [],
                 rules: {
                     // 栏目管理名称
                     categoryTitle: [{
@@ -331,6 +353,10 @@
                         if (data.categoryId == '0') {
                             data.categoryId = '';
                         }
+                        if(data.categoryFlag){
+                            data.categoryFlag = data.categoryFlag.join(',');
+                        }
+
                         data.categoryImg = JSON.stringify(data.categoryImg);
                         ms.http.post(url, data).then(function (data) {
                             if (data.result) {
@@ -369,6 +395,9 @@
                 var that = this;
                 ms.http.get(ms.manager + "/cms/category/get.do", {"id": id}).then(function (res) {
                     if (res.result && res.data) {
+                        if(res.data.categoryFlag){
+                            res.data.categoryFlag = res.data.categoryFlag.split(',');
+                        }
                         if (res.data.categoryImg) {
                             res.data.categoryImg = JSON.parse(res.data.categoryImg);
                             res.data.categoryImg.forEach(function (value) {
@@ -431,6 +460,16 @@
                     this.form.categoryImg.splice(index, 1);
                 }
             },
+            //获取categoryFlag数据源
+            categoryFlagOptionsGet() {
+                var that = this;
+                ms.http.get(ms.base+'/mdiy/dict/list.do', {dictType:'栏目属性',pageSize:99999}).then(function (res) {
+                    that.categoryFlagOptions = res.rows;
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            },
+
             //categoryImg文件上传完成回调
             categoryImgSuccess: function (response, file, fileList) {
                 this.form.categoryImg.push({url: file.url, name: file.name, path: response, uid: file.uid});
@@ -446,12 +485,14 @@
                     this.form.categoryImg.splice(index, 1);
                 }
             },
+
         },
         created() {
             this.getColumnContentModelId();
             this.getTree()
             this.categoryListUrlOptionsGet();
             this.categoryUrlOptionsGet();
+            this.categoryFlagOptionsGet();
             this.form.id = ms.util.getParameter("id");
             if (this.form.id) {
                 this.get(this.form.id);
