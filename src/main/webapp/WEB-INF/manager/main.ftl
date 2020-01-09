@@ -9,9 +9,9 @@
   <meta name="format-detection" content="telephone=no"/>
   <meta name="app-mobile-web-app-capable" content="yes"/>
   <meta name="app-mobile-web-app-status-bar-style" content="black-translucent"/>
-  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="${base}/static/plugins/vue/2.6.9/vue.min.js"></script>
   <!--通用图标-->
-  <link rel="stylesheet" href="http://cdn.mingsoft.net/iconfont/iconfont.css" />
+  <link rel="stylesheet" href="${base}/static/ms-admin/5.0.0/iconfont/iconfont.css" />
   <script src="${base}/static/plugins/element-ui/2.12.0/index.js"></script>
   <link rel="stylesheet" href="${base}/static/plugins/element-ui/2.12.0/index.css" />
   <!--网络请求框架-->
@@ -55,7 +55,7 @@
               <div  class="class-12" >
                 <!--图片开始-->
                 <img
-                        src="http://desginer.mingsoft.net/upload/71/images/1578362848002.png"
+                        src="${base}/static/ms-admin/5.0.0/images/1578362848002.png"
                         class="class-13" />
                 <!--图片结束-->
               </div>
@@ -67,7 +67,7 @@
               <div  class="class-16" >
                 <!--图片开始-->
                 <img
-                        src="http://desginer.mingsoft.net/upload/71/images/1578363219309.png"
+                        src="${base}/static/ms-admin/5.0.0/images/1578363219309.png"
                         class="class-17" />
                 <!--图片结束-->
               </div>
@@ -79,7 +79,7 @@
               <div  class="class-20" >
                 <!--图片开始-->
                 <img
-                        src="http://desginer.mingsoft.net/upload/71/images/1578363549912.png"
+                        src="${base}/static/ms-admin/5.0.0/images/1578363549912.png"
                         class="class-21" />
                 <!--图片结束-->
               </div>
@@ -91,7 +91,7 @@
               <div  class="class-24" >
                 <!--图片开始-->
                 <img
-                        src="http://desginer.mingsoft.net/upload/71/images/1578363754088.png"
+                        src="${base}/static/ms-admin/5.0.0/images/1578363754088.png"
                         class="class-25" />
                 <!--图片结束-->
               </div>
@@ -103,7 +103,7 @@
               <div  class="class-28" >
                 <!--图片开始-->
                 <img
-                        src="http://desginer.mingsoft.net/upload/71/images/1578364450652.png"
+                        src="${base}/static/ms-admin/5.0.0/images/1578364450652.png"
                         class="class-29" />
                 <!--图片结束-->
               </div>
@@ -115,7 +115,7 @@
               <div  class="class-32" >
                 <!--图片开始-->
                 <img
-                        src="http://desginer.mingsoft.net/upload/71/images/1578363880431.png"
+                        src="${base}/static/ms-admin/5.0.0/images/1578363880431.png"
                         class="class-33" />
                 <!--图片结束-->
               </div>
@@ -127,7 +127,7 @@
               <div  class="class-36" >
                 <!--图片开始-->
                 <img
-                        src="http://desginer.mingsoft.net/upload/71/images/1578363998984.png"
+                        src="${base}/static/ms-admin/5.0.0/images/1578363998984.png"
                         class="class-37" />
                 <!--图片结束-->
               </div>
@@ -139,7 +139,7 @@
               <div  class="class-40" >
                 <!--图片开始-->
                 <img
-                        src="http://desginer.mingsoft.net/upload/71/images/1578364095317.png"
+                        src="${base}/static/ms-admin/5.0.0/images/1578364095317.png"
                         class="class-41" />
                 <!--图片结束-->
               </div>
@@ -234,7 +234,7 @@
           <div  class="class-66" >
             <!--图片开始-->
             <img
-                    src="http://desginer.mingsoft.net/upload/71/images/1577687056305.png"
+                    src="${base}/static/ms-admin/5.0.0/images/1577687056305.png"
                     class="class-67" />
             <!--图片结束-->
           </div>
@@ -251,7 +251,7 @@
           <div  class="class-72" >
             <!--图片开始-->
             <img
-                    src="http://desginer.mingsoft.net/upload/71/images/1577687056305.png"
+                    src="${base}/static/ms-admin/5.0.0/images/1577687056305.png"
                     class="class-73" />
             <!--图片结束-->
           </div>
@@ -268,7 +268,7 @@
           <div  class="class-78" >
             <!--图片开始-->
             <img
-                    src="http://desginer.mingsoft.net/upload/71/images/1577687056305.png"
+                    src="${base}/static/ms-admin/5.0.0/images/1577687056305.png"
                     class="class-79" />
             <!--图片结束-->
           </div>
@@ -285,7 +285,7 @@
           <div  class="class-84" >
             <!--图片开始-->
             <img
-                    src="http://desginer.mingsoft.net/upload/71/images/1577687056305.png"
+                    src="${base}/static/ms-admin/5.0.0/images/1577687056305.png"
                     class="class-85" />
             <!--图片结束-->
           </div>
@@ -385,7 +385,7 @@
               <div  class="class-126" >
                 <!--图片开始-->
                 <img
-                        src="http://desginer.mingsoft.net/upload/71/images/1577687023678.png"
+                        src="${base}/static/ms-admin/5.0.0/images/1577687023678.png"
                         class="class-127" />
                 <!--图片结束-->
               </div>
@@ -402,7 +402,7 @@
               <div  class="class-132" >
                 <!--图片开始-->
                 <img
-                        src="http://desginer.mingsoft.net/upload/71/images/1577687056305.png"
+                        src="${base}/static/ms-admin/5.0.0/images/1577687056305.png"
                         class="class-133" />
                 <!--图片结束-->
               </div>
@@ -504,7 +504,6 @@
         axios.create({
           withCredentials: true
         }).get("https://ms.mingsoft.net/cms/content/list.do?contentCategoryId=202").then(function (res){
-          console.log(res.data.data.rows[0]);
           that.msNewsLast = res.data.data.rows[0].contentTitle.toString();
           that.msNewsPath = 'https://ms.mingsoft.net/html/1/203/202/'+res.data.data.rows[0].id+'.html'
         })
@@ -1079,7 +1078,7 @@
   .class-44
   {
     color:#333333;
-    background-image:url(http://desginer.mingsoft.net/upload/71/images/1578104008987.png);
+    background-image:url(${base}/static/ms-admin/5.0.0/images/1578104008987.png);
     outline:none;
     outline-offset:-1px;
     background-size:cover;
@@ -1121,7 +1120,7 @@
   .class-47
   {
     color:#333333;
-    background-image:url(http://desginer.mingsoft.net/upload/71/images/1578367666376.png);
+    background-image:url(${base}/static/ms-admin/5.0.0/images/1578367666376.png);
     outline:none;
     outline-offset:-1px;
     background-size:cover;
@@ -1163,7 +1162,7 @@
   .class-50
   {
     color:#333333;
-    background-image:url(http://desginer.mingsoft.net/upload/71/images/1578366770290.png);
+    background-image:url(${base}/static/ms-admin/5.0.0/images/1578366770290.png);
     outline:none;
     outline-offset:-1px;
     background-size:cover;
@@ -1205,7 +1204,7 @@
   .class-53
   {
     color:#333333;
-    background-image:url(http://desginer.mingsoft.net/upload/71/images/1578368816112.png);
+    background-image:url(${base}/static/ms-admin/5.0.0/images/1578368816112.png);
     outline:none;
     outline-offset:-1px;
     background-size:cover;
@@ -1291,7 +1290,7 @@
   .class-59
   {
     color:#333333;
-    background-image:url(http://desginer.mingsoft.net/upload/71/images/1577257489392.png);
+    background-image:url(${base}/static/ms-admin/5.0.0/images/1577257489392.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1337,7 +1336,7 @@
   .class-62
   {
     color:#333333;
-    background-image:url(http://desginer.mingsoft.net/upload/71/images/1577151868190.png);
+    background-image:url(${base}/static/ms-admin/5.0.0/images/1577151868190.png);
     outline:none;
     outline-offset:-1px;
     height:40px;
@@ -1753,7 +1752,7 @@
   .class-96
   {
     color:#333333;
-    background-image:url(http://desginer.mingsoft.net/upload/71/images/1578031206821.png);
+    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031206821.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1797,7 +1796,7 @@
   .class-99
   {
     color:#333333;
-    background-image:url(http://desginer.mingsoft.net/upload/71/images/1578031321635.png);
+    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031321635.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1841,7 +1840,7 @@
   .class-102
   {
     color:#333333;
-    background-image:url(http://desginer.mingsoft.net/upload/71/images/1578031484700.png);
+    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031484700.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1885,7 +1884,7 @@
   .class-105
   {
     color:#333333;
-    background-image:url(http://desginer.mingsoft.net/upload/71/images/1578031264207.png);
+    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031264207.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1929,7 +1928,7 @@
   .class-108
   {
     color:#333333;
-    background-image:url(http://desginer.mingsoft.net/upload/71/images/1578031682848.png);
+    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031682848.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1973,7 +1972,7 @@
   .class-111
   {
     color:#333333;
-    background-image:url(http://desginer.mingsoft.net/upload/71/images/1578031639173.png);
+    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031639173.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -2017,7 +2016,7 @@
   .class-114
   {
     color:#333333;
-    background-image:url(http://desginer.mingsoft.net/upload/71/images/1578031215338.png);
+    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031215338.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -2061,7 +2060,7 @@
   .class-117
   {
     color:#333333;
-    background-image:url(http://desginer.mingsoft.net/upload/71/images/1578031228196.png);
+    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031228196.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -2105,7 +2104,7 @@
   .class-120
   {
     color:#333333;
-    background-image:url(http://desginer.mingsoft.net/upload/71/images/1578031234719.png);
+    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031234719.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
