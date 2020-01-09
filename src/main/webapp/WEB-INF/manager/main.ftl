@@ -1,7 +1,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>后台主界面（开源版本）-副本</title>
+  <title>后台主界面</title>
   <meta http-equiv="content-type" content="text/html" />
   <META HTTP-EQUIV="Pragma" CONTENT="no-cache" />
   <meta name="viewport"
