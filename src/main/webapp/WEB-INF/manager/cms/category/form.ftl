@@ -283,6 +283,9 @@
                         "required": true,
                         "message": "请选择栏目管理名称"
                     }, {"pattern": /^[^[!@#$%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]+$/, "message": "栏目管理名称格式不匹配"}],
+                    categoryListUrl: [{"required":true,"message":"请选择列表模板"}],
+                    // 内容模板
+                    categoryUrl: [{"required":true,"message":"请选择内容模板"}],
                 },
 
             }

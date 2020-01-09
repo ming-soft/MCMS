@@ -83,7 +83,7 @@
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 				<if test="contentTitle != null and contentTitle != ''">#{contentTitle},</if>
 				<if test="contentCategoryId != null and contentCategoryId != ''">#{contentCategoryId},</if>
-				<if test="contentType != null and contentType != ''">#{contentType},</if>
+				<if test="contentType != null ">#{contentType},</if>
 				<if test="contentDisplay != null and contentDisplay != ''">#{contentDisplay},</if>
 				<if test="contentAuthor != null and contentAuthor != ''">#{contentAuthor},</if>
 				<if test="contentSource != null and contentSource != ''">#{contentSource},</if>
@@ -112,14 +112,14 @@
 				<if test="contentCategoryId != null and contentCategoryId != ''">content_category_id=#{contentCategoryId},</if>
 				<if test="contentType != null ">content_type=#{contentType},</if>
 				<if test="contentDisplay != null and contentDisplay != ''">content_display=#{contentDisplay},</if>
-				<if test="contentAuthor != null and contentAuthor != ''">content_author=#{contentAuthor},</if>
-				<if test="contentSource != null and contentSource != ''">content_source=#{contentSource},</if>
+				<if test="contentAuthor != null ">content_author=#{contentAuthor},</if>
+				<if test="contentSource != null ">content_source=#{contentSource},</if>
 				<if test="contentDatetime != null">content_datetime=#{contentDatetime},</if>
 				<if test="contentSort != null">content_sort=#{contentSort},</if>
 				<if test="contentImg != null and contentImg != ''">content_img=#{contentImg},</if>
-				<if test="contentDescription != null and contentDescription != ''">content_description=#{contentDescription},</if>
-				<if test="contentKeyword != null and contentKeyword != ''">content_keyword=#{contentKeyword},</if>
-				<if test="contentDetails != null and contentDetails != ''">content_details=#{contentDetails},</if>
+				<if test="contentDescription != null ">content_description=#{contentDescription},</if>
+				<if test="contentKeyword != null ">content_keyword=#{contentKeyword},</if>
+				<if test="contentDetails != null ">content_details=#{contentDetails},</if>
 				<if test="contentUrl != null and contentUrl != ''">content_url=#{contentUrl},</if>
 				<if test="contentHit != null">content_hit=#{contentHit},</if>
 				<if test="appId != null">app_id=#{appId},</if>
