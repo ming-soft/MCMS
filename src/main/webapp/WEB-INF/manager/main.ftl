@@ -212,12 +212,12 @@
       </div>
     </div>
     <div  class="class-56" >
-      <div  class="class-57" >
+      <div  class="class-57" @click="openMCMSNews">
         <div  class="class-58" >
           <div  class="class-59" >
           </div>
           <div class="class-60">
-            铭飞商城多商户功能现已正式上线试...
+            {{ msNewsLast }}
           </div>
         </div>
       </div>
@@ -432,6 +432,8 @@
     },
     data: {
       base:ms.base,
+      msNewsLast: '',
+      msNewsPath: ''
     },
     methods: {
       jumpArtcleManager(){
@@ -493,8 +495,23 @@
         window.open("http://wpa.qq.com/msgrd?v=3&uin=3336073455&site=qq&menu=yes");
 
       },
+      //打开铭飞消息页面
+      openMCMSNews(){
+        window.open(this.msNewsPath);
+      },
+      getNewsLast(){
+        var that = this;
+        axios.create({
+          withCredentials: true
+        }).get("https://ms.mingsoft.net/cms/content/list.do?contentCategoryId=202").then(function (res){
+          console.log(res.data.data.rows[0]);
+          that.msNewsLast = res.data.data.rows[0].contentTitle.toString();
+          that.msNewsPath = 'https://ms.mingsoft.net/html/1/203/202/'+res.data.data.rows[0].id+'.html'
+        })
+      }
     },
     created(){
+      this.getNewsLast()
     }
   })
 </script>
@@ -1243,6 +1260,7 @@
   }
   .class-57
   {
+    cursor: pointer;
     color:#333333;
     outline:none;
     outline-offset:-1px;
