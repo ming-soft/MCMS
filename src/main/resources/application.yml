@@ -6,8 +6,9 @@ server:
 logging:
   level:
     net.mingsoft: trace
-  file: mcms.log #日志文件存放位置
-  path: log #日志压缩文件存放位置
+  file:
+    name: mcms.log
+    path: log
 ms:
   swagger:
     enable: true #启用swagger文档
