@@ -13,7 +13,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @ComponentScan(basePackages = {"net.mingsoft"})
 @MapperScan(basePackages={"**.dao"})
 @ServletComponentScan(basePackages = {"net.mingsoft"})
-@EnableSwagger2
 public class MSApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MSApplication.class, args);
