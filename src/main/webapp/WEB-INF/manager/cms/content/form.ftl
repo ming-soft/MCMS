@@ -448,6 +448,9 @@
                         if (res.data.contentType) {
                             res.data.contentType = res.data.contentType.split(',');
                         }
+                        else {
+                            res.data.contentType = [];
+                        }
                         if (res.data.contentImg) {
                             res.data.contentImg = JSON.parse(res.data.contentImg);
                             res.data.contentImg.forEach(function (value) {
