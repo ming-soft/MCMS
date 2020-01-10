@@ -96,40 +96,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 	 */
 	@Autowired
 	private IModelBiz modelBiz;
-	// 如商城就为:/mall/{key}.do
-	/**
-	 * 前段会员中心所有页面都可以使用该方法 请求地址例如： ／{diy}.do,例如登陆界面，与注册界面都可以使用
-	 *
-	 * @param key
-	 */
-	@RequestMapping("/{diy}.do")
-	@ExceptionHandler(java.lang.NullPointerException.class)
-	public void diy(@PathVariable(value = "diy") String diy, HttpServletRequest req, HttpServletResponse resp) {
-		Map map = BasicUtil.assemblyRequestMap();
-		map.put(ParserUtil.URL, BasicUtil.getUrl());
-		//动态解析
-		map.put(ParserUtil.IS_DO,true);
-		//设置动态请求的模块路径
-		map.put(ParserUtil.MODEL_NAME, "mcms");
-		//解析后的内容
-		String content = "";
-		PageEntity page = new PageEntity();
-		page.setPageKey(diy);
-		//根据请求路径查询模版文件
-		PageEntity _page = (PageEntity) pageBiz.getEntity(page);
-		try {
-			content = CmsParserUtil.generate(_page.getPagePath(), map, isMobileDevice(req));
-		} catch (TemplateNotFoundException e) {
-			e.printStackTrace();
-		} catch (MalformedTemplateNameException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		this.outString(resp, content);
-	}
+
 
 	/**
 	 * 动态列表页

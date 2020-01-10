@@ -111,12 +111,7 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-row
-                        gutter="0"
-                        justify="start" align="top">
-
-
-
+                <el-row gutter="0" justify="start" align="top">
                     <el-col span="12">
                         <el-form-item prop="categoryListUrl" v-if="form.categoryType == '1'">
                             <template slot='label'>列表模板
@@ -138,6 +133,11 @@
                     </el-col>
                     <el-col span="12">
                         <el-form-item  label="栏目属性" prop="categoryFlag">
+                            <template slot='label'>栏目属性
+                                <el-popover placement="top-start" title="提示" trigger="hover" content="类型不满足可以在自定义字典菜单中新增,字段类型为“栏目属性”">
+                                    <i class="el-icon-question" slot="reference"></i>
+                                </el-popover>
+                            </template>
                             <el-select v-model="form.categoryFlag"
                                        :style="{width: '100%'}"
                                        :filterable="false"
@@ -149,9 +149,6 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
-
-
-
                 </el-row>
                 <el-form-item label="栏目管理关键字" prop="categoryKeyword">
                     <template slot='label'>栏目关键字
@@ -203,7 +200,7 @@
                             :limit="1"
                             :on-exceed="categoryImghandleExceed"
                             :disabled="false"
-                            :data="{uploadPath:'/cms/category','isRename':true}"
+                            :data="{uploadPath:'/cms/category','isRename':true,'appId':true}"
                             :on-success="categoryImgSuccess"
                             accept="image/*"
                             list-type="picture-card">
