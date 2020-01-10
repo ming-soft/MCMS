@@ -225,4 +225,5 @@
         window.ms = {};
     }
     window.ms.util = util;
+    window.ms.debug = false
 }());
