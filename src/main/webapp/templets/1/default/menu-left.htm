@@ -17,6 +17,21 @@
         	<li>联系我们<span class="ms-content-left-li-more">></span></li>
         </a>
     </ul>
+    <style>.detailMainLeftMenu_cur{color:red}</style>
+    123
+    <ul>
+        {ms:channel type=62 type=son class=detailMainLeftMenu_cur}
+        [field.typeurl/]
+        <img src="{ms:global.url/}[field.typelitpic/]"/>
+        <li><a href="{ms:global.url/}[field.typelink/]"class="[field.class/]">[field.typetitle/]</a></li>
+        {/ms:channel}
+        456
+        {ms:channel type=62 type=son flag=t class=detailMainLeftMenu_cur}
+        [field.typeurl/]
+        <img src="{ms:global.host/}[field.typelitpic/]"/>
+        <li><a href="{ms:global.url/}[field.typelink/]"class="[field.class/]">[field.typetitle/]</a></li>
+        {/ms:channel}
+    </ul>
 </div>
 <script>
 $(function(){
