@@ -227,7 +227,7 @@ public class CmsParserUtil extends ParserUtil {
 			}
 
 			// 判断文件是否存在，若不存在弹出返回信息
-			if (!FileUtil.exist(ParserUtil.buildTempletPath(columnUrl))||StringUtils.isBlank(articleIdList.get(artId).getCategoryId())) {
+			if (!FileUtil.exist(ParserUtil.buildTempletPath(columnUrl))||StringUtils.isBlank(articleIdList.get(artId).getCategoryId())||articleIdList.get(artId).getCategoryType()==null) {
 				artId++;
 				continue;
 			}
