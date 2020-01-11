@@ -66,7 +66,7 @@ CREATE TABLE `cms_category`  (
   `category_manager_id` int(11) NULL DEFAULT NULL COMMENT '发布用户id',
   `category_datetime` datetime(0) NULL DEFAULT NULL COMMENT '类别发布时间',
   `mdiy_model_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '栏目管理的内容模型id',
-  `category_diy_url` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '自定义链接',
+  `category_diy_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '自定义链接',
   `category_url` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '内容模板',
   `category_list_url` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '列表模板',
   `category_sort` int(11) NULL DEFAULT NULL COMMENT '自定义顺序',
