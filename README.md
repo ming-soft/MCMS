@@ -24,8 +24,8 @@
 	
 </p>
 <p align="center">
-	铭飞平台：<a href="https://ms.mingsoft.net" target="_blank">https://ms.mingsoft.net/</a> <br/>
-	演示：<a href="http://demo.cms.mingsoft.net/ms/login.do"  target="_blank">http://demo.cms.mingsoft.net/ms/login.do</a><br/>
+	<a href="https://ms.mingsoft.net" target="_blank">铭飞平台</a> <br/>
+	<a href="http://demo.cms.mingsoft.net/ms/login.do"  target="_blank">在线演示</a><br/>
 	<a href="http://doc.ms.mingsoft.net/plugs-cms/"  target="_blank">在线使用手册</a><br/>
 	<a href="https://ke.qq.com/course/478498"  target="_blank">代码生成器视频教程</a><br/>
 	<a href="http://file.mingsoft.net/ms-runner-5.0.0.zip"  target="_blank">Windows一键运行版本\Linux一键运行版本</a>
