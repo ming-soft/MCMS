@@ -24,7 +24,6 @@ package net.mingsoft.cms.action;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.io.FileUtil;
-import net.mingsoft.basic.action.BaseAction;
 import net.mingsoft.basic.biz.IModelBiz;
 import net.mingsoft.basic.entity.AppEntity;
 import net.mingsoft.basic.util.BasicUtil;
@@ -52,12 +51,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ *
  * @ClassName: GeneraterAction
  * @Description:TODO 生成器
  * @author: 铭飞开发团队
  * @date: 2018年1月31日 下午2:52:07
- * 
+ *
  * @Copyright: 2018 www.mingsoft.net Inc. All rights reserved.
  */
 @Controller("cmsGenerater")
@@ -92,7 +91,7 @@ public class GeneraterAction extends BaseAction {
 
 	/**
 	 * 更新主页
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping("/index")
@@ -102,7 +101,7 @@ public class GeneraterAction extends BaseAction {
 
 	/**
 	 * 生成主页
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 */
@@ -114,7 +113,7 @@ public class GeneraterAction extends BaseAction {
 		String tmpFileName = request.getParameter("url");
 		// 生成后的文件名称
 		String generateFileName = request.getParameter("position");
-		
+
 		// 获取文件所在路径 首先判断用户输入的模版文件是否存在
 		if (!FileUtil.exist(ParserUtil.buildTempletPath())) {
 			this.outJson(response, false, getResString("templet.file"));
@@ -128,12 +127,12 @@ public class GeneraterAction extends BaseAction {
 			}
 		}
 	}
-	
+
 
 
 	/**
 	 * 生成列表的静态页面
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param CategoryId
@@ -194,7 +193,7 @@ public class GeneraterAction extends BaseAction {
 
 	/**
 	 * 根据栏目id更新所有的文章
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param columnId
@@ -219,12 +218,12 @@ public class GeneraterAction extends BaseAction {
 			this.outJson(response, false);
 		}
 	}
-	
+
 
 
 	/**
 	 * 用户预览主页
-	 * 
+	 *
 	 * @param request
 	 * @return
 	 */

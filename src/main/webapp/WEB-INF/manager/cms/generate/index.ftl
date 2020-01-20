@@ -128,7 +128,7 @@
 			homeLoading:false,
 			articleLoading:false,
 			columnLoading:false,
-			template:'index.htm',//主题模板
+			template:'',//主题模板
 			templateOptions:[],
 			position:'index', //位置
 			contentSection:'0', //文章栏目
@@ -205,6 +205,12 @@
 				var that = this;
 				ms.http.get(ms.manager+'/template/queryTemplateFileForColumn.do', {pageSize:99999}).then(function (data) {
 					that.templateOptions = data.data;
+					//寻找主页
+					var template = that.templateOptions.find(function (x) {
+						return x.indexOf("index")!=-1||x.indexOf("default")!=-1;
+					})
+					//没有就找其他的
+					that.template = template||(that.templateOptions.length>0?that.templateOptions[0]:"");
 				}).catch(function (err) {
 					console.log(err);
 				});
