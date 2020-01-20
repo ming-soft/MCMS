@@ -174,7 +174,7 @@
 			and
 			(
 			<if test="categoryParentId != null and categoryParentId!=''">
-				CATEGORY_PARENT_ID like '%${categoryParentId}%'
+				find_in_set(#{categoryParentId},CATEGORY_PARENT_ID)
 			</if>
 			<if test="categoryParentId == null or  categoryParentId ==''">
 				<include refid="queryWhereCategoryId"></include>
