@@ -1,0 +1,36 @@
+/*浅色系*/
+.ms-theme-light .ms-admin-logo > div span{
+    color: #0080FF;
+}
+.ms-theme-light .el-menu-vertical-demo,
+.ms-theme-light .el-menu-vertical-demo .el-menu,
+.ms-theme-light.ms-admin-menu-aside-submenu *{
+    background: #0080FF;
+}
+.ms-theme-light .el-submenu .el-menu-item.is-active,
+.ms-theme-light.ms-admin-menu-aside-submenu .el-menu-item.is-active{
+    background-color:rgba(255,255,255,0.3) !important;
+}
+.ms-theme-light .ms-admin-menu-aside .el-submenu__title:hover,
+.ms-theme-light .ms-admin-menu-aside .el-menu-item:hover,
+.ms-theme-light.ms-admin-menu-aside-submenu .el-menu-item:hover{
+    background-color:rgba(255,255,255,0.3) !important;
+}
+/*深色系*/
+.ms-theme-dark .ms-admin-logo > div span{
+    color: rgba(56,58,63,1);
+}
+.ms-theme-dark .el-menu-vertical-demo,
+.ms-theme-dark .el-menu-vertical-demo .el-menu,
+.ms-theme-dark.ms-admin-menu-aside-submenu *{
+    background:rgba(56,58,63,1);
+}
+.ms-theme-dark .el-submenu .el-menu-item.is-active,
+.ms-theme-dark.ms-admin-menu-aside-submenu .el-menu-item.is-active{
+    background-color:#0080FF !important;
+}
+.ms-theme-dark .ms-admin-menu-aside .el-submenu__title:hover,
+.ms-theme-dark .ms-admin-menu-aside .el-menu-item:hover,
+.ms-theme-dark.ms-admin-menu-aside-submenu .el-menu-item:hover{
+    background-color:#0080FF !important;
+}

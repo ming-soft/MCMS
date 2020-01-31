@@ -5,7 +5,7 @@
     </head>
     <body>
         <#include "head.htm"/>
-        <div class="ms-banner" style="background:url({ms:global.host/}/{ms:global.style/}images/talk_online.jpeg) no-repeat center;">
+        <div class="ms-banner" style="background:url({ms:global.host/}/{ms:global.style/}/images/talk_online.jpeg) no-repeat center;">
             <p class="banner_tit_other animated fadeInLeft">在线留言</p>
             <p class="banner_tit_other_des animated fadeInRight">Talk online</p>
         </div>
@@ -14,7 +14,7 @@
                 <form class="ms-content-form" method="post" id="postForm">
                     <input class="ms-content-form-name" type="text" name="name" placeholder="姓名">
                     <input class="ms-content-form-phone" type="text" name="phone" placeholder="手机">
-                    <textarea class="ms-content-form-message" name="content" placeholder="留言"></textarea>
+                    <textarea class="ms-content-form-message" name="words" placeholder="留言"></textarea>
                     <div class="ms-login-button">提交</div>
                 </form>
             </div>
@@ -29,7 +29,7 @@
         if(!flag) {
             $.ajax({
                 type: "POST",
-                url: "{ms:global.host/}/mdiy/diyForm/f2c131968438246e885e0feed7256dbc.do",
+                url: "{ms:global.host/}/mdiy/post/7df6529f9eaa26da7ae4e01c7f73aa06.do",
                 data: $("#postForm").serialize(),
                 success: function(msg) {
                     flag = true;

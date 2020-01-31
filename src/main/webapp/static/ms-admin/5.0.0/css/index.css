@@ -1,0 +1,508 @@
+/*
+*这里的值严格按照UI设计图标注值来进行设置
+*/
+/*
+*颜色
+*/
+/*
+*页面的边距
+*/
+/*
+*字体
+*/
+/*
+*头像
+*/
+/*
+ * 按钮
+ */
+/*
+*对常见的多行样式进行了方法封装，方便调用，加快开发效率
+*/
+html,
+body {
+  min-height: 600px;
+  min-width: 810px;
+  width: 100vw;
+  height: 100vh;
+  background-color: #eee;
+  margin: 0;
+  font-weight: initial !important;
+  font-size: 14px !important;
+  color: #333 !important;
+}
+html *,
+body * {
+  text-decoration: none !important;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+}
+.ms-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+.ms-align-center {
+  display: flex;
+  align-items: center;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  font-weight: initial;
+  font-size: 12px;
+  color: #999;
+  resize: none;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+/*定义滚动条轨道 内阴影+圆角*/
+*::-webkit-scrollbar-track {
+  border-radius: 10px;
+  /*滚动条的背景区域的圆角*/
+  background-color: #eee;
+  /*滚动条的背景颜色*/
+}
+/*定义滑块 内阴影+圆角*/
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  /*滚动条的圆角*/
+  background-color: #e6e6e6;
+  /*滚动条的背景颜色*/
+}
+.ms-container {
+  margin: 12px;
+  height: calc(100% - 24px);
+  padding: 14px;
+  background: #fff;
+}
+.ms-header {
+  padding: 10px;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+  height: 50px;
+}
+.ms-header button {
+  height: 30px;
+}
+.ms-pagination {
+  padding: 20px 0;
+  text-align: right;
+}
+.ms-fr {
+  float: right;
+}
+.ms-tr {
+  text-align: right;
+}
+.ms-weixin-content {
+  width: calc(100% - 140px);
+}
+.ms-weixin-dialog .el-dialog__header {
+  height: 55px;
+  box-sizing: border-box;
+  padding: 10px 10px 25px 10px;
+  border-bottom: 1px solid #e6e6e6;
+}
+.ms-weixin-dialog .el-dialog__header .el-dialog__title {
+  font-weight: bold;
+  font-size: 14px;
+  color: #333;
+}
+.ms-weixin-dialog .el-dialog__footer {
+  border-top: 1px solid #e6e6e6;
+  padding: 15px !important;
+}
+.ms-hover {
+  cursor: pointer;
+}
+.ms-hover:hover {
+  color: #0099ff;
+  background: #fff;
+  border-color: #0099ff;
+}
+.ms-header-select {
+  font-size: 0;
+}
+.ms-header-select > .el-select:nth-of-type(2) {
+  margin: 0 10px;
+}
+.el-card,
+.el-message {
+  border-radius: 0 !important;
+}
+.sortable-ghost {
+  opacity: .3;
+  background: #ccc !important;
+  border-color: transparent !important;
+  color: transparent !important;
+}
+.sortable-ghost * {
+  background: #ccc !important;
+  border-color: transparent !important;
+  color: transparent !important;
+}
+.index {
+  width: 100%;
+  display: flex;
+  height: 100vh;
+}
+.ms-admin-header {
+  display: flex;
+  padding: 0;
+  background-color: rgba(255,255,255,1);
+  height: 50px !important;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+.ms-admin-header .ms-admin-header-menu {
+  border-bottom: none;
+  position: relative;
+}
+.ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item > *,
+.ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item {
+  height: 50px !important;
+  line-height: 50px !important;
+  border-bottom: none !important;
+  font-size: 1em;
+}
+/*.ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item > *:hover,
+.ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item:hover {
+  color: #fff !important;
+}
+.ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item > *.is-active,
+.ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item.is-active {
+  color: #fff !important;
+}*/
+.ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu {
+  padding: 0;
+  user-select: none;
+  outline: none;
+  width: 100%;
+  min-width: 500px;
+  min-height: 200px;
+  background-color: #fff !important;
+  height: auto;
+  flex-wrap: wrap;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 9;
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
+}
+.ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu > li {
+  margin: 0;
+  padding: 0 20px;
+  text-align: left;
+  display: -webkit-inline-box;
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  font-weight: normal;
+  font-size: 14px;
+  color: #333;
+}
+.ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu > li:hover {
+  cursor: pointer;
+  color: #0099ff;
+}
+.ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu .ms-admin-shortcut-menu-shrink {
+  position: absolute;
+  top: 18px;
+  right: 19px;
+  font-weight: normal;
+  font-size: 14px;
+  color: #333;
+}
+.ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu .ms-admin-shortcut-menu-shrink:hover {
+  cursor: pointer;
+}
+.ms-admin-logo {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.ms-admin-logo img {
+  padding: 14px 0;
+  width: 50px;
+}
+.ms-admin-logo > div {
+  display: flex;
+  align-items: center;
+}
+.ms-admin-logo > div span {
+  margin-top: -6px;
+  position: absolute;
+  margin-left: 10px;
+  font-size: 12px;
+
+}
+.ms-admin-logo .iconfont {
+  color: #fff;
+  margin-left: auto;
+  margin-right: 20px;
+  cursor: pointer;
+}
+.ms-admin-logo-pack{
+  width: 64px!important;
+}
+.ms-admin-mstore {
+  margin-left: auto;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0;
+  line-height: 1;
+}
+.ms-admin-mstore .ms-admin-people-head {
+  width: 30px !important;
+  height: 30px !important;
+  margin-right: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0099ff;
+  color: #fff;
+}
+.ms-admin-mstore .ms-admin-mstore-icon {
+  min-width: 50px;
+  width: 50px;
+  height: 50px;
+  background-color: #0080FF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.ms-admin-mstore .ms-admin-mstore-icon span {
+  border-radius: 50%;
+  font-weight: initial;
+  font-size: 12px;
+  color: #fff;
+  background: #f00;
+  position: absolute;
+  width: 1.2em;
+  height: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0.6em;
+  right: 0.6em;
+  z-index: 2;
+}
+.ms-admin-mstore .ms-admin-mstore-icon .iconfont {
+  color: #fff;
+  animation: rubberBand 1.4s 1s both infinite;
+  font-size: 1.5em;
+}
+.ms-admin-login {
+  display: flex;
+  align-items: center;
+}
+.ms-admin-login > span {
+  width: 130px;
+  padding: 0 15px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+}
+.ms-admin-login > span img {
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+.ms-admin-login > span span {
+  color: #333333;
+}
+.ms-admin-login .active {
+  background: #fff;
+}
+.ms-admin-login .active .ms-admin-people-head {
+  background: #0099ff;
+  color: #fff;
+}
+.ms-admin-login .active span {
+  color: #409EFF;
+}
+.ms-admin-login-down {
+  width: 130px;
+  padding: 0 15px;
+  border: none;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+.ms-admin-login-down > .popper__arrow {
+  display: none;
+}
+.ms-admin-menu-aside {
+  width: auto !important;
+  height: 100%;
+  position: relative;
+  overflow: visible;
+}
+.ms-admin-menu-aside .ms-admin-menu {
+  width: 200px;
+  height: 100%;
+  position: relative;
+}
+.ms-admin-menu-aside .ms-admin-menu .el-menu--inline .is-active {
+  border-left: 2px solid #0099ff;
+}
+.ms-admin-menu-aside .ms-admin-menu .ms-admin-icon {
+  font-weight: initial;
+  font-size: 1.5em;
+  color: #999;
+}
+.ms-admin-menu-aside .ms-menu-expand {
+  transform: rotate(270deg);
+  position: absolute;
+  right: -34px;
+  top: 50%;
+  z-index: 999;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+.ms-admin-menu-aside .ms-menu-expand i {
+  font-weight: bolder;
+  font-size: 14px;
+  color: #333;
+  position: absolute;
+  transform: rotate(90deg);
+  right: 40%;
+}
+.ms-admin-menu-aside .ms-menu-expand::before {
+  border-color: transparent transparent #eee;
+  border-style: none solid solid;
+  border-width: 0 30px 22px;
+  content: "";
+  display: block;
+  height: 0;
+  left: -10px;
+  width: 30px;
+}
+.ms-admin-menu-aside .ms-menu-expand {
+  transition: right .3s;
+}
+.ms-admin-menu-aside .ms-menu-expand-active {
+  transform: rotate(90deg);
+  right: -56px;
+}
+.ms-admin-menu-aside .ms-admin-menu-active {
+  width: 60px;
+  height: 100%;
+}
+.ms-admin-menu-aside-active {
+  width: 60px !important;
+}
+.ms-admin-container {
+  height:auto;
+}
+.ms-admin-container > .ms-admin-main {
+  padding: 0;
+  background-color: #fff;
+  z-index: 0;
+}
+.ms-admin-container > .ms-admin-main .ms-admin-tabs {
+  height: calc(100vh - 50px);
+  display: flex;
+  flex-direction: column;
+}
+.ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__content {
+  height: 100%;
+}
+.ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__content .el-tab-pane {
+  height: 100%;
+}
+.ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__header {
+  background: #fafafa;
+  margin-bottom: 0;
+}
+.ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__header .el-tabs__nav-scroll .el-tabs__nav {
+  border-left: none;
+  border-radius: 0;
+}
+.ms-admin-container > .ms-admin-main .ms-admin-tabs .ms-admin-refresh {
+  float: right;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  border-left: 1px solid #e6e6e6;
+  cursor: pointer;
+  position: relative;
+}
+.ms-admin-container > .ms-admin-main .ms-admin-tabs .ms-admin-refresh::before {
+  position: absolute;
+  left: 34%;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+}
+.ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__nav-next,
+.ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__nav-prev {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__nav-next {
+  border-left: 1px solid #e6e6e6;
+}
+.ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__nav-prev {
+  border-right: 1px solid #e6e6e6;
+}
+.ms-admin-container > .ms-admin-main iframe {
+  width: 100%;
+  height: 100%;
+  border: none !important;
+}
+@keyframes rubberBand {
+0 {
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+}
+10% {
+  -webkit-transform: scale3d(1.25, 0.75, 1);
+  transform: scale3d(1.25, 0.75, 1);
+}
+20% {
+  -webkit-transform: scale3d(0.75, 1.25, 1);
+  transform: scale3d(0.75, 1.25, 1);
+}
+30% {
+  -webkit-transform: scale3d(1.15, 0.85, 1);
+  transform: scale3d(1.15, 0.85, 1);
+}
+40% {
+  -webkit-transform: scale3d(0.95, 1.05, 1);
+  transform: scale3d(0.95, 1.05, 1);
+}
+50% {
+  -webkit-transform: scale3d(1.05, 0.95, 1);
+  transform: scale3d(1.05, 0.95, 1);
+}
+51% {
+  -webkit-transform: scale3d(1, 1, 1);
+  transform: scale3d(1, 1, 1);
+}
+}
+
+.el-scrollbar__wrap{overflow-x:hidden;}
+.el-scrollbar {
+  position: static;
+}
+[v-cloak] {
+  display: none;
+}

@@ -21,15 +21,18 @@ The MIT License (MIT) * Copyright (c) 2016 铭飞科技(mingsoft.net)
 
 package net.mingsoft.cms.action;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.io.FileUtil;
+import net.mingsoft.basic.biz.IModelBiz;
+import net.mingsoft.basic.entity.AppEntity;
+import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.cms.bean.ContentBean;
+import net.mingsoft.cms.biz.ICategoryBiz;
+import net.mingsoft.cms.biz.IContentBiz;
+import net.mingsoft.cms.entity.CategoryEntity;
+import net.mingsoft.cms.util.CmsParserUtil;
+import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,31 +43,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSONArray;
-import net.mingsoft.basic.action.BaseAction;
-import net.mingsoft.basic.biz.IColumnBiz;
-import net.mingsoft.basic.biz.IModelBiz;
-import net.mingsoft.basic.entity.AppEntity;
-import net.mingsoft.basic.entity.CategoryEntity;
-import net.mingsoft.basic.entity.ColumnEntity;
-import net.mingsoft.cms.bean.ColumnArticleIdBean;
-import net.mingsoft.cms.biz.IArticleBiz;
-import net.mingsoft.cms.constant.ModelCode;
-import net.mingsoft.cms.util.CmsParserUtil;
-import net.mingsoft.mdiy.biz.IContentModelBiz;
-import net.mingsoft.mdiy.biz.IContentModelFieldBiz;
-
-import cn.hutool.core.io.FileUtil;
-import net.mingsoft.basic.util.BasicUtil;
-import net.mingsoft.mdiy.util.ParserUtil;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * 
+ *
  * @ClassName: GeneraterAction
  * @Description:TODO 生成器
  * @author: 铭飞开发团队
  * @date: 2018年1月31日 下午2:52:07
- * 
+ *
  * @Copyright: 2018 www.mingsoft.net Inc. All rights reserved.
  */
 @Controller("cmsGenerater")
@@ -76,13 +68,13 @@ public class GeneraterAction extends BaseAction {
 	 * 文章管理业务层
 	 */
 	@Autowired
-	private IArticleBiz articleBiz;
+	private IContentBiz contentBiz;
 
 	/**
 	 * 栏目管理业务层
 	 */
 	@Autowired
-	private IColumnBiz columnBiz;
+	private ICategoryBiz categoryBiz;
 
 	/**
 	 * 模块管理业务层
@@ -94,37 +86,22 @@ public class GeneraterAction extends BaseAction {
 	private String managerPath;
 
 	/**
-	 * 新增字段业务层
-	 */
-	@Autowired
-	protected IContentModelFieldBiz fieldBiz;
 
-	/**
-	 * 自定义模型业务层
-	 */
-	@Autowired
-	protected IContentModelBiz contentBiz;
+
 
 	/**
 	 * 更新主页
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping("/index")
 	public String index(HttpServletRequest request, ModelMap model) {
-		// 该站点ID有session提供
-		int websiteId = BasicUtil.getAppId();
-		Integer modelId = modelBiz.getEntityByModelCode(ModelCode.CMS_COLUMN).getModelId(); // 查询当前模块编号
-		// 获取所有的内容管理栏目
-		List<ColumnEntity> list = columnBiz.queryAll(websiteId, modelId);
-		model.addAttribute("list", JSONArray.toJSONString(list));
-		model.addAttribute("now", new Date());
 		return "/cms/generate/index";
 	}
 
 	/**
 	 * 生成主页
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 */
@@ -136,7 +113,7 @@ public class GeneraterAction extends BaseAction {
 		String tmpFileName = request.getParameter("url");
 		// 生成后的文件名称
 		String generateFileName = request.getParameter("position");
-		
+
 		// 获取文件所在路径 首先判断用户输入的模版文件是否存在
 		if (!FileUtil.exist(ParserUtil.buildTempletPath())) {
 			this.outJson(response, false, getResString("templet.file"));
@@ -150,50 +127,59 @@ public class GeneraterAction extends BaseAction {
 			}
 		}
 	}
-	
+
 
 
 	/**
 	 * 生成列表的静态页面
-	 * 
+	 *
 	 * @param request
 	 * @param response
-	 * @param columnId
+	 * @param CategoryId
 	 */
-	@RequestMapping("/{columnId}/genernateColumn")
+	@RequestMapping("/{CategoryId}/genernateColumn")
 	@RequiresPermissions("cms:generate:column")
 	@ResponseBody
-	public void genernateColumn(HttpServletRequest request, HttpServletResponse response, @PathVariable int columnId) {
+	public void genernateColumn(HttpServletRequest request, HttpServletResponse response, @PathVariable int CategoryId) {
 		// 获取站点id
 		AppEntity app = BasicUtil.getApp();
-		List<ColumnEntity> columns = new ArrayList<ColumnEntity>();
+		List<CategoryEntity> columns = new ArrayList<CategoryEntity>();
 		// 如果栏目id小于0则更新所有的栏目，否则只更新选中的栏目
-		int modelId = BasicUtil.getModelCodeId(ModelCode.CMS_COLUMN); // 查询当前模块编号
-		if (columnId > 0) {
-			List<CategoryEntity> categorys = columnBiz.queryChildrenCategory(columnId, app.getAppId(), modelId);
-			for (CategoryEntity c : categorys) {
-				columns.add((ColumnEntity) columnBiz.getEntity(c.getCategoryId()));
-			}
+		if (CategoryId>0) {
+			CategoryEntity categoryEntity = new CategoryEntity();
+			categoryEntity.setId(CategoryId+"");
+			categoryEntity.setAppId(app.getAppId());
+			columns = categoryBiz.queryChilds(categoryEntity);
 		} else {
 			// 获取所有的内容管理栏目
-			columns = columnBiz.queryAll(app.getAppId(), modelId);
+            CategoryEntity categoryEntity=new CategoryEntity();
+            categoryEntity.setAppId(app.getAppId());
+			columns = categoryBiz.query(categoryEntity);
 		}
-		List<ColumnArticleIdBean> articleIdList = null;
+		List<ContentBean> articleIdList = null;
 		try {
 			// 1、设置模板文件夹路径
 			// 获取栏目列表模版
-			for (ColumnEntity column : columns) {
+			for (CategoryEntity column : columns) {
 				// 判断模板文件是否存在
-				if (!FileUtil.exist(ParserUtil.buildTempletPath(column.getColumnUrl()))) {
+				if (!FileUtil.exist(ParserUtil.buildTempletPath(column.getCategoryUrl()))) {
 					continue;
 				}
-				articleIdList = articleBiz.queryIdsByCategoryIdForParser(column.getCategoryId(), null, null);
+				articleIdList = contentBiz.queryIdsByCategoryIdForParser(column.getId(), null, null);
 				// 判断列表类型
-				switch (column.getColumnType()) {
-				case ColumnEntity.COLUMN_TYPE_LIST: // 列表
+				switch (column.getCategoryType()) {
+					//TODO 暂时先用字符串代替
+				case "1": // 列表
 					CmsParserUtil.generateList(column, articleIdList.size());
 					break;
-				case ColumnEntity.COLUMN_TYPE_COVER:// 单页
+				case "2":// 单页
+					if(articleIdList.size()==0){
+						ContentBean columnArticleIdBean=new ContentBean();
+						CopyOptions copyOptions=CopyOptions.create();
+						copyOptions.setIgnoreError(true);
+						BeanUtil.copyProperties(column,columnArticleIdBean,copyOptions);
+						articleIdList.add(columnArticleIdBean);
+					}
 					CmsParserUtil.generateBasic(articleIdList);
 					break;
 				}
@@ -207,7 +193,7 @@ public class GeneraterAction extends BaseAction {
 
 	/**
 	 * 根据栏目id更新所有的文章
-	 * 
+	 *
 	 * @param request
 	 * @param response
 	 * @param columnId
@@ -215,13 +201,13 @@ public class GeneraterAction extends BaseAction {
 	@RequestMapping("/{columnId}/generateArticle")
 	@RequiresPermissions("cms:generate:article")
 	@ResponseBody
-	public void generateArticle(HttpServletRequest request, HttpServletResponse response, @PathVariable int columnId) {
+	public void generateArticle(HttpServletRequest request, HttpServletResponse response, @PathVariable String columnId) {
 		String dateTime = request.getParameter("dateTime");
 		// 网站风格物理路径
-		List<ColumnArticleIdBean> articleIdList = null;
+		List<ContentBean> articleIdList = null;
 		try {
 			// 查出所有文章（根据选择栏目）包括子栏目
-			articleIdList = articleBiz.queryIdsByCategoryIdForParser(columnId, dateTime, null);
+			articleIdList = contentBiz.queryIdsByCategoryIdForParser(columnId, dateTime, null);
 			// 有符合条件的新闻就更新
 			if (articleIdList.size() > 0) {
 				CmsParserUtil.generateBasic(articleIdList);
@@ -232,12 +218,12 @@ public class GeneraterAction extends BaseAction {
 			this.outJson(response, false);
 		}
 	}
-	
+
 
 
 	/**
 	 * 用户预览主页
-	 * 
+	 *
 	 * @param request
 	 * @return
 	 */

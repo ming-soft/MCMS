@@ -1,10 +1,42 @@
-# 铭飞业务系统基础开发平台
-当前版本:4.7.0 <br/>
-铭飞MS官网:http://ms.mingsoft.net<br/>
-官网同时提供一键运行版本下载，请步移官网....<br/>
-QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-blue.svg)](https://jq.qq.com/?_wv=1027&k=5oF19sl)  [![加入QQ群](https://img.shields.io/badge/一群-231212174-blue.svg)](https://jq.qq.com/?_wv=1027&k=5zykX7V)  [![加入QQ群](https://img.shields.io/badge/二群-221335098-blue.svg)](https://jq.qq.com/?_wv=1027&k=56BqFKu) 
 
-很多人说铭飞MCMS是大天朝国唯一完整开源的J2EE系统！团队希望看到更多的优秀好用的开源系统，我们一直会努力下去！
+<p align="center">
+	<a href="https://ms.mingsoft.net/"><img src="http://ms.mingsoft.net/templets/1/ms/images/logo-blue.png" ></a>
+</p>
+<p align="center">
+	<strong>价值源自分享</strong>
+</p>
+<p align="center">
+	<a target="_blank" href="https://search.maven.org/search?q=ms-mcms">
+        <img src="https://img.shields.io/maven-central/v/net.mingsoft/ms-mcms.svg?label=Maven%20Central" />
+	</a>
+	<a target="_blank" href="hhttps://baike.baidu.com/item/MIT%E8%AE%B8%E5%8F%AF%E8%AF%81/6671281?fr=aladdin">
+        <img src="https://img.shields.io/:license-MIT-blue.svg" />
+	</a>
+	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
+		<img src="https://img.shields.io/badge/JDK-8+-green.svg" />
+	</a>
+	<a target="_blank" href="https://gitee.com/mingSoft/MCMS/stargazers">
+		<img src="https://gitee.com/mingSoft/MCMS/badge/star.svg?theme=dark" alt='gitee star'/>
+	</a>
+	<a target="_blank" href='https://github.com/ming-soft/mcms'>
+		<img src="https://img.shields.io/github/stars/ming-soft/mcms.svg?style=social" alt="github star"/>
+	</a>
+	
+</p>
+<p align="center">
+	<a href="https://ms.mingsoft.net" target="_blank">铭飞平台</a> 
+	<a href="http://demo.cms.mingsoft.net/ms/login.do"  target="_blank">在线演示</a> 
+	<a href="http://doc.ms.mingsoft.net/plugs-cms/"  target="_blank">在线使用手册</a>
+	<a href="https://mingsoft.ke.qq.com/?tuin=383187f3#tab=1&category=-1" target="_blank">腾讯课堂在线视频</a><br/>
+	<a href="https://ke.qq.com/course/478498"  target="_blank">代码生成器视频教程</a><br/>
+	<a href="http://file.mingsoft.net/ms-runner-5.0.0.zip"  target="_blank">Windows一键运行版本\Linux一键运行版本</a>
+</p>
+
+-------------------------------------------------------------------------------
+
+很多人说铭飞是大天朝国唯一完整开源的J2EE系统！团队希望看到更多的优秀好用的开源系统，我们一直会努力下去！<br/>
+
+QQ交流群号：[![加入QQ群](https://img.shields.io/badge/一群-231212174-blue.svg)](https://jq.qq.com/?_wv=1027&k=5zykX7V)  [![加入QQ群](https://img.shields.io/badge/二群-221335098-blue.svg)](https://jq.qq.com/?_wv=1027&k=56BqFKu) [![加入QQ群](https://img.shields.io/badge/三群-242805203-blue.svg)](https://jq.qq.com/?_wv=1027&k=5oF19sl)
 
 
 # 开源说明
@@ -20,7 +52,7 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-b
 	<scope>provided</scope>
 </dependency>
 ```
-# 商用使用
+# 商用
 基于[MIT](https://www.oschina.net/question/12_2829)开源协议，可直接商用无需授权，但请尊重开源精神不要去掉代码中铭飞的注释和版权信息
 
 
@@ -38,26 +70,33 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-b
 * 开发者：帮助开发者快速完成承接外包的项目，避免从零搭建系统；
 * 学习者：初学JAVA的同学可以下载源代码来进行学习交流；
 
-# 快速体验
-* 将项目源码导入eclipse；
-* 创建数据库db-mcms-open,注意：数据库使用utf-8编码，导入doc/db-mcms-open-版本号.sql,如果升级现有系统请使用＊-up-*.sql升级，如果导入了系统对应的完整版SQL，sql升级补丁不需要重复导入； 
-* 修改src\main\resources\application-dev.yml文件中的数据库设置参数；
-* 首先先访问后台地址：http://ip|域名/项目发布名/ms/login.do，进入后台点击内容管理->静态化菜单，进行"生成主页"，"生成栏目","生成文章"操作 （注意！！！）
-* 管理员账号，用户名：msopen 密码：msopen
-
 # 开发环境
 建议开发者使用以下环境，这样避免版本带来的问题
-* IDE:eclipse、idea
-* DB:Mysql5.7
-* JDK:JAVA 8
-* WEB:Tomcat8
+* Windows、Linux
+* Eclipse、Idea
+* Mysql≧5.7
+* JDK≧8
+* Tomcat≧8
 
-# 运行环境
-* WEB服务器：Weblogic、Tomcat、WebSphere、JBoss、Jetty 等
-* 数据库服务器：Mysql5.7
-* 操作系统：Windows、Linux、Unix 等
 
-### 后端框架
+# 快速体验（导入到 Eclipse 或 IDEA）
+
+1、检出源代码：
+git clone https://gitee.com/mingSoft/MCMS.git<br/>
+2、导入项目<br/>
+* Eclipse导入，菜单 File -> Import，然后选择 Maven -> Existing Maven Projects，点击 Next> 按钮，选择检出的项目MCMS文件夹，然后点击 Finish 按钮，即可成功导入
+* IDEA导入，点击 Import Project，选择 pom.xml 文件，点击 Next 按钮，选择 Import Maven projects automatically 复选框，然后一直点击 Next 按钮，直到点击 Finish 按钮，即可成功导入<br/>
+
+4、Eclipse（IDEA）会自动加载 Maven 依赖包，初次加载会比较慢（根据自身网络情况而定），若工程上有小叉号，请打开 Problems 窗口，查看具体错误内容，直到无错误为止<br/>
+5、创建数据库db-mcms-open（数据库使用utf-8编码），导入doc/db-mcms-open-版本号.sql，如果升级现有系统请使用＊-up-*.sql升级，如果导入了系统对应的完整版SQL，sql升级补丁不需要重复导入；<br/>
+6、修改src\main\resources\application-dev.yml文件中的数据库设置参数；<br/>
+7、运行MSApplication.java main方法<br/>
+8、首先先访问后台地址：http://ip|域名/项目发布名/ms/login.do，管理员账号，用户名：msopen 密码：msopen，进入后台点击内容管理->静态化菜单，进行"生成主页"，"生成栏目","生成文章"操作一遍 （注意！！！是后台登录界面，不是会员中心登录界面）
+
+
+# 技术选型
+
+## 后端框架
 
 | 技术 | 名称 | 官网 |
 | :--- | :--- | :--- |
@@ -74,7 +113,7 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-b
 | Redis | 分布式缓存数据库 | [https://redis.io](https://redis.io) |
 | hutool | 工具类 | [http://hutool.mydoc.io](http://hutool.mydoc.io) |
 
-### 前端框架
+## 前端框架
 
 | 技术 | 名称 | 官网 |
 | :--- | :--- | :--- |
@@ -97,11 +136,6 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-b
 | icon | 矢量小图标\(待更新\) | [http://ms.mingsoft.net/html/86//6048/index.html](http://ms.mingsoft.net/html/86//6048/index.html) |
 
 
-# 系统结构
-![输入图片说明](http://doc.ms.mingsoft.net/dev-guide/%E9%93%AD%E9%A3%9E%E5%BA%95%E5%B1%82%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84%E5%9B%BE/%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84.png "铭飞系统结构")
-
-
-
 # 文件说明 
 * doc 项目文档文件夹，里面有数据库文件
 * src/main/java java源代码
@@ -116,26 +150,18 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-b
 * README.md 项目说明文档
 * pom.xml 依赖配置文件
 
-# 代码部署与常见问题
-* 铭飞MCms 部署视频 http://ms.mingsoft.net/mbbs/13988/detail.do
-* MCms环境配置常见问题  http://ms.mingsoft.net/mbbs/13000/detail.do
-* MStore使用方式：http://ms.mingsoft.net/mbbs/13008/detail.do
+
 
 # 文档
 * MCms标签手册 http://doc.ms.mingsoft.net/mcms-tag-guide
 * 快速开发手册 http://doc.ms.mingsoft.net/dev-guide/
 
-# 系统美图
-
+# 软件截图
 
 <table>
     <tr>
         <td><img src="https://images.gitee.com/uploads/images/2019/0523/121402_82521059_1795833.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120809_88b6fcd4_1795833.png"/></td>
-    </tr>
-     <tr>
         <td><img src="https://images.gitee.com/uploads/images/2019/0523/120836_8a943ad5_1795833.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120910_ce119f66_1795833.png"/></td>
     </tr>
     <tr>
         <td><img src="https://images.gitee.com/uploads/images/2019/0523/120927_8a3f93e3_1795833.png"/></td>
@@ -158,5 +184,35 @@ QQ交流群号：[![加入QQ群](https://img.shields.io/badge/三群-242805203-b
         <td><img src="https://images.gitee.com/uploads/images/2019/0523/121122_8b513dd1_1795833.png"/></td>
     </tr>
 </table>
+
+# 铭飞平台
+
+做开源我们是业余的，写代码我们是认真的。研发产品的路上我们一直在探索、一直在学习、一直在用心投入，希望能给更多的企业与开发者提供一些更有价值的服务。
+
+## 项目管理
+
+<table>
+	<tr>
+		<td><img src="http://ms.mingsoft.net/upload/1/article/1572421127803.gif"/></td>
+	</tr>
+	<tr>
+		<td><img src="http://ms.mingsoft.net/upload/1/article/1572421308885.gif"/></td>
+	</tr>	
+</table>
+
+## 代码生成器
+
+<table>
+	<tr>
+		<td><img src="http://ms.mingsoft.net/upload/1/article/1572419454270.gif"/></td>
+	</tr>
+	<tr>
+		<td><img src="http://ms.mingsoft.net/upload/1/article/1572419347761.gif"/></td>
+	</tr>	
+</table>
+
+
+
+
 
 
