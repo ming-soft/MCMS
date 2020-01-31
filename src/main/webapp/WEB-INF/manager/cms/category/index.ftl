@@ -72,163 +72,177 @@
 					</template>
 					</el-table-column>
 			</el-table>
-         </el-main> 
+         </el-main>
 	</div>
 </body>
 
 </html>
 <script>
-var indexVue = new Vue({
-	el: '#index',
-	data:{
-		dataList: [], //分类列表
-		selectionList:[],//分类列表选中
-		loading: true,//加载状态
-		emptyText:'',//提示文字
-        manager: ms.manager,
-		loadState:false,
-		categoryTypeOptions:[{"value":"1","label":"列表"},{"value":"2","label":"封面"}],
-		//搜索表单
-		form:{
-                    // 栏目管理名称
-                    categoryTitle:'',
-                    // 所属栏目
-                    categoryId:'',
-                    // 栏目管理属性
-                    categoryType:'2',
-                    // 自定义顺序
-                    categorySort:0,
-                    // 列表模板
-                    categoryListUrl:'',
-                    // 内容模板
-                    categoryUrl:'',
-                    // 栏目管理关键字
-                    categoryKeyword:'',
-                    // 栏目管理描述
-                    categoryDescrip:'',
-                    // 缩略图
-                    categoryImg: [],
-                    // 自定义链接
-                    categoryDiyUrl:'',
-                    // 栏目管理的内容模型id
-                    mdiyModelId:'',
+	"use strict";
+
+	var indexVue = new Vue({
+		el: '#index',
+		data: {
+			dataList: [],
+			//分类列表
+			selectionList: [],
+			//分类列表选中
+			loading: true,
+			//加载状态
+			emptyText: '',
+			//提示文字
+			manager: ms.manager,
+			loadState: false,
+			categoryTypeOptions: [{
+				"value": "1",
+				"label": "列表"
+			}, {
+				"value": "2",
+				"label": "封面"
+			}],
+			//搜索表单
+			form: {
+				// 栏目管理名称
+				categoryTitle: '',
+				// 所属栏目
+				categoryId: '',
+				// 栏目管理属性
+				categoryType: '2',
+				// 自定义顺序
+				categorySort: 0,
+				// 列表模板
+				categoryListUrl: '',
+				// 内容模板
+				categoryUrl: '',
+				// 栏目管理关键字
+				categoryKeyword: '',
+				// 栏目管理描述
+				categoryDescrip: '',
+				// 缩略图
+				categoryImg: [],
+				// 自定义链接
+				categoryDiyUrl: '',
+				// 栏目管理的内容模型id
+				mdiyModelId: ''
+			}
 		},
-	},
-	methods:{ 
-	    //查询列表
-	    list: function() {
-	    	var that = this;
-	    	this.loadState = false;
-	    	this.loading = true;
-			ms.http.get(ms.manager+"/cms/category/list.do",{
-				pageSize:999,
-			}).then(
-					function(res) {
-						if(that.loadState){
-							that.loading = false;
-						}else {
-							that.loadState = true
-						}
-						if (!res.result||res.data.total <= 0) {
-							that.emptyText = '暂无数据'
-							that.dataList = [];
-						} else {
-							that.emptyText = '';
-							that.dataList = ms.util.treeData(res.data.rows,'id','categoryId','children');
-						}
-					}).catch(function(err) {
-				console.log(err);
-			});
-			setTimeout(()=>{
-				if(that.loadState){
-					that.loading = false;
-				}else {
-					that.loadState = true
-				}
-			}, 500);
-				},
-		copyUrl: function(){
-			var clipboard = new ClipboardJS('.copyBtn');
-			var self = this;
-			clipboard.on('success', function (e) {
-				self.$notify({
-					title: '提示',
-					message: "链接地址已保存到剪切板",
-					type: 'success'
+		methods: {
+			//查询列表
+			list: function () {
+				var that = this;
+				this.loadState = false;
+				this.loading = true;
+				ms.http.get(ms.manager + "/cms/category/list.do", {
+					pageSize: 999
+				}).then(function (res) {
+					if (that.loadState) {
+						that.loading = false;
+					} else {
+						that.loadState = true;
+					}
+
+					if (!res.result || res.data.total <= 0) {
+						that.emptyText = '暂无数据';
+						that.dataList = [];
+					} else {
+						that.emptyText = '';
+						that.dataList = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
+					}
+				}).catch(function (err) {
+					console.log(err);
 				});
-				clipboard.destroy();
-			});
-		},
-		//分类列表选中
-		handleSelectionChange:function(val){
-			this.selectionList = val;
-		},
-		//删除
-        del: function(row){
-        	var that = this;
-        	that.$confirm('此操作将永久删除所选内容, 是否继续?', '提示', {
-					    	confirmButtonText: '确定',
-					    	cancelButtonText: '取消',
-					    	type: 'warning'
-					    }).then(() => {
-					    	ms.http.post(ms.manager+"/cms/category/delete.do", row.length?row:[row],{
-            					headers: {
-                					'Content-Type': 'application/json'
-                				}
-            				}).then(
-	            				function(res){
-		            				if (res.result) {
-										that.$notify({
-						     				type: 'success',
-						        			message: '删除成功!'
-						    			});
-					    				//删除成功，刷新列表
-					      				that.list();
-					      			}else {
-										that.$notify({
-											title: '失败',
-											message: res.msg,
-											type: 'warning'
-										});
-									}
-	            				});
-					    }).catch(() => {
-					    	that.$notify({
-					        	type: 'info',
-					        	message: '已取消删除'
-					    	});          
-				    	});	            	
-        		},
-		//表格数据转换
-		categoryTypeFormat(row, column, cellValue, index){
-			var value="";
-			if(cellValue){
-				var data = this.categoryTypeOptions.find(function(value){
-					return value.value==cellValue;
-				})
-				if(data&&data.label){
-					value = data.label;
+				setTimeout(function () {
+					if (that.loadState) {
+						that.loading = false;
+					} else {
+						that.loadState = true;
+					}
+				}, 500);
+			},
+			copyUrl: function () {
+				var clipboard = new ClipboardJS('.copyBtn');
+				var self = this;
+				clipboard.on('success', function (e) {
+					self.$notify({
+						title: '提示',
+						message: "链接地址已保存到剪切板",
+						type: 'success'
+					});
+					clipboard.destroy();
+				});
+			},
+			//分类列表选中
+			handleSelectionChange: function (val) {
+				this.selectionList = val;
+			},
+			//删除
+			del: function (row) {
+				var that = this;
+				that.$confirm('此操作将永久删除所选内容, 是否继续?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(function () {
+					ms.http.post(ms.manager + "/cms/category/delete.do", row.length ? row : [row], {
+						headers: {
+							'Content-Type': 'application/json'
+						}
+					}).then(function (res) {
+						if (res.result) {
+							that.$notify({
+								type: 'success',
+								message: '删除成功!'
+							}); //删除成功，刷新列表
+
+							that.list();
+						} else {
+							that.$notify({
+								title: '失败',
+								message: res.msg,
+								type: 'warning'
+							});
+						}
+					});
+				}).catch(function () {
+					that.$notify({
+						type: 'info',
+						message: '已取消删除'
+					});
+				});
+			},
+			//表格数据转换
+			categoryTypeFormat: function (row, column, cellValue, index) {
+				var value = "";
+
+				if (cellValue) {
+					var data = this.categoryTypeOptions.find(function (value) {
+						return value.value == cellValue;
+					});
+
+					if (data && data.label) {
+						value = data.label;
+					}
 				}
+
+				return value;
+			},
+			//新增
+			save: function (id) {
+				if (id) {
+					location.href = this.manager + "/cms/category/form.do?id=" + id;
+				} else {
+					location.href = this.manager + "/cms/category/form.do";
+				}
+			},
+			//重置表单
+			rest: function () {
+				this.$refs.searchForm.resetFields();
 			}
-			return value;
 		},
-		//新增
-        save:function(id){
-			if(id){
-				location.href=this.manager+"/cms/category/form.do?id="+id;
-			}else {
-				location.href=this.manager+"/cms/category/form.do";
-			}
-        },
-		//重置表单
-		rest(){
-			this.$refs.searchForm.resetFields();
-		},
-	},
-	created(){
-           /* this.categoryListUrlOptionsGet();
-            this.categoryUrlOptionsGet();*/
-		this.list();
-	},
-})
+		created: function () {
+			/* this.categoryListUrlOptionsGet();
+             this.categoryUrlOptionsGet();*/
+			this.list();
+		}
+	});
 </script>

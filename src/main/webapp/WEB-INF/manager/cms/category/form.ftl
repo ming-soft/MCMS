@@ -232,12 +232,12 @@
 <script>
     var form = new Vue({
         el: '#form',
-        data() {
+        data: function () {
             return {
                 treeList: [{
                     id: '0',
                     categoryTitle: '顶级栏目',
-                    children: [],
+                    children: []
                 }],
                 categoryList: [],
                 saveDisabled: false,
@@ -269,7 +269,13 @@
                     //栏目字典
                     categoryFlag: []
                 },
-                categoryTypeOptions: [{"value": "1", "label": "列表"}, {"value": "2", "label": "封面"}],
+                categoryTypeOptions: [{
+                    "value": "1",
+                    "label": "列表"
+                }, {
+                    "value": "2",
+                    "label": "封面"
+                }],
                 categoryListUrlOptions: [],
                 categoryUrlOptions: [],
                 mdiyModelIdOptions: [],
@@ -279,16 +285,26 @@
                     categoryTitle: [{
                         "required": true,
                         "message": "请选择栏目管理名称"
-                    }, {"pattern": /^[^[!@#$%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]+$/, "message": "栏目管理名称格式不匹配"}],
-                    categoryListUrl: [{"required":true,"message":"请选择列表模板"}],
+                    }, {
+                        "pattern": /^[^[!@#$%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]+$/,
+                        "message": "栏目管理名称格式不匹配"
+                    }],
+                    categoryListUrl: [{
+                        "required": true,
+                        "message": "请选择列表模板"
+                    }],
                     // 内容模板
-                    categoryUrl: [{"required":true,"message":"请选择内容模板"}],
-                },
-
-            }
+                    categoryUrl: [{
+                        "required": true,
+                        "message": "请选择内容模板"
+                    }]
+                }
+            };
         },
         watch: {
             'form.categoryId': function (n, o) {
+                var _this = this;
+
                 if (n == this.form.id) {
                     this.$notify({
                         title: '提示',
@@ -297,12 +313,15 @@
                     });
                     return;
                 }
-                this.categoryList.forEach(item => {
-                    if (item.categoryParentId != null && item.categoryParentId != "" && item.categoryParentId.indexOf(this.form.id) != -1) {
+
+                this.categoryList.forEach(function (item) {
+                    if (item.categoryParentId != null && item.categoryParentId != "" && item.categoryParentId.indexOf(_this.form.id) != -1) {
                         if (item.id == n) {
-                            this.form.categoryId = null;
-                            this.$refs.tree.clearHandle();
-                            this.$notify({
+                            _this.form.categoryId = null;
+
+                            _this.$refs.tree.clearHandle();
+
+                            _this.$notify({
                                 title: '提示',
                                 message: '不能选择子分类',
                                 type: 'warning'
@@ -314,9 +333,11 @@
         },
         computed: {},
         methods: {
-            getTree() {
+            getTree: function () {
                 var that = this;
-                ms.http.get(ms.manager + "/cms/category/list.do", {pageSize: 9999}).then(function (res) {
+                ms.http.get(ms.manager + "/cms/category/list.do", {
+                    pageSize: 9999
+                }).then(function (res) {
                     if (res.result) {
                         //res.data.rows.push({id:0,categoryId: null,categoryTitle:'顶级栏目管理'});
                         that.categoryList = res.data.rows;
@@ -326,21 +347,24 @@
                     console.log(err);
                 });
             },
-            save() {
+            save: function () {
                 var that = this;
-                var url = ms.manager + "/cms/category/save.do"
+                var url = ms.manager + "/cms/category/save.do";
+
                 if (that.form.id > 0) {
                     url = ms.manager + "/cms/category/update.do";
                 }
-                this.$refs.form.validate((valid) => {
-                    if (valid) {
 
+                this.$refs.form.validate(function (valid) {
+                    if (valid) {
                         //栏目属性为封面则不需要列表模板
                         if (that.form.categoryType == '2') {
                             that.form.categoryListUrl = '';
                         }
+
                         that.saveDisabled = true;
                         var data = JSON.parse(JSON.stringify(that.form));
+
                         if (data.id && data.id == data.categoryId) {
                             that.$notify({
                                 title: '提示',
@@ -348,12 +372,14 @@
                                 type: 'error'
                             });
                             that.saveDisabled = false;
-                            return
+                            return;
                         }
+
                         if (data.categoryId == '0') {
                             data.categoryId = '';
                         }
-                        if(data.categoryFlag){
+
+                        if (data.categoryFlag) {
                             data.categoryFlag = data.categoryFlag.join(',');
                         }
 
@@ -373,44 +399,51 @@
                                     type: 'warning'
                                 });
                             }
+
                             that.saveDisabled = false;
                         });
                     } else {
                         return false;
                     }
-                })
+                });
             },
             //获取分类内容模型
             getColumnContentModelId: function () {
                 var that = this;
-                ms.http.get(ms.manager + "/mdiy/model/list.do", {modelType: 'zdymx_wz'}).then(
-                    function (data) {
-                        that.mdiyModelIdOptions = data.data.rows;
-                    }).catch(function (err) {
+                ms.http.get(ms.manager + "/mdiy/model/list.do", {
+                    modelType: 'zdymx_wz'
+                }).then(function (data) {
+                    that.mdiyModelIdOptions = data.data.rows;
+                }).catch(function (err) {
                     console.log(err);
                 });
             },
             //获取当前分类
-            get(id) {
+            get: function (id) {
                 var that = this;
-                ms.http.get(ms.manager + "/cms/category/get.do", {"id": id}).then(function (res) {
+                ms.http.get(ms.manager + "/cms/category/get.do", {
+                    "id": id
+                }).then(function (res) {
                     if (res.result && res.data) {
-                        if(res.data.categoryFlag){
+                        if (res.data.categoryFlag) {
                             res.data.categoryFlag = res.data.categoryFlag.split(',');
                         }
+
                         if (res.data.categoryImg) {
                             res.data.categoryImg = JSON.parse(res.data.categoryImg);
                             res.data.categoryImg.forEach(function (value) {
-                                value.url = ms.base + value.path
-                            })
+                                value.url = ms.base + value.path;
+                            });
                         } else {
-                            res.data.categoryImg = []
+                            res.data.categoryImg = [];
                         }
+
                         if (!res.data.categoryId) {
                             res.data.categoryId = '0';
                         }
-                        that.form = res.data;
-                        //判断该分类是否存在文章，存在则不能修改栏目属性
+
+                        that.form = res.data; //判断该分类是否存在文章，存在则不能修改栏目属性
+
                         that.contentList(that.form.id);
                     }
                 }).catch(function (err) {
@@ -420,7 +453,7 @@
             contentList: function (id) {
                 var that = this;
                 ms.http.post(ms.manager + "/cms/content/list.do", {
-                    contentCategoryId: id,
+                    contentCategoryId: id
                 }).then(function (data) {
                     if (data.data.total > 0) {
                         that.categoryTypeDisabled = true;
@@ -432,7 +465,7 @@
                 });
             },
             //获取categoryListUrl数据源
-            categoryListUrlOptionsGet() {
+            categoryListUrlOptionsGet: function () {
                 var that = this;
                 ms.http.get(ms.manager + "/template/queryTemplateFileForColumn.do", {}).then(function (data) {
                     that.categoryListUrlOptions = data.data;
@@ -441,7 +474,7 @@
                 });
             },
             //获取categoryUrl数据源
-            categoryUrlOptionsGet() {
+            categoryUrlOptionsGet: function () {
                 var that = this;
                 ms.http.get(ms.manager + "/template/queryTemplateFileForColumn.do", {}).then(function (data) {
                     that.categoryUrlOptions = data.data;
@@ -449,51 +482,53 @@
                     console.log(err);
                 });
             },
-            //categoryImg文件上传完成回调
-            categoryImgSuccess: function (response, file, fileList) {
-                this.form.categoryImg.push({url: file.url, name: file.name, path: response, uid: file.uid});
-            },
-            categoryImghandleRemove: function (file, files) {
-                var index = -1;
-                index = this.form.categoryImg.findIndex(text => text == file);
-                if (index != -1) {
-                    this.form.categoryImg.splice(index, 1);
-                }
-            },
             //获取categoryFlag数据源
-            categoryFlagOptionsGet() {
+            categoryFlagOptionsGet: function () {
                 var that = this;
-                ms.http.get(ms.base+'/mdiy/dict/list.do', {dictType:'栏目属性',pageSize:99999}).then(function (res) {
+                ms.http.get(ms.base + '/mdiy/dict/list.do', {
+                    dictType: '栏目属性',
+                    pageSize: 99999
+                }).then(function (res) {
                     that.categoryFlagOptions = res.rows;
                 }).catch(function (err) {
                     console.log(err);
                 });
             },
-
             //categoryImg文件上传完成回调
             categoryImgSuccess: function (response, file, fileList) {
-                this.form.categoryImg.push({url: file.url, name: file.name, path: response, uid: file.uid});
+                this.form.categoryImg.push({
+                    url: file.url,
+                    name: file.name,
+                    path: response,
+                    uid: file.uid
+                });
             },
             //上传超过限制
             categoryImghandleExceed: function (files, fileList) {
-                this.$notify({title: '当前最多上传1个文件', type: 'warning'});
+                this.$notify({
+                    title: '当前最多上传1个文件',
+                    type: 'warning'
+                });
             },
             categoryImghandleRemove: function (file, files) {
                 var index = -1;
-                index = this.form.categoryImg.findIndex(text => text == file);
+                index = this.form.categoryImg.findIndex(function (text) {
+                    return text == file;
+                });
+
                 if (index != -1) {
                     this.form.categoryImg.splice(index, 1);
                 }
-            },
-
+            }
         },
-        created() {
+        created: function () {
             this.getColumnContentModelId();
-            this.getTree()
+            this.getTree();
             this.categoryListUrlOptionsGet();
             this.categoryUrlOptionsGet();
             this.categoryFlagOptionsGet();
             this.form.id = ms.util.getParameter("id");
+
             if (this.form.id) {
                 this.get(this.form.id);
             } else {

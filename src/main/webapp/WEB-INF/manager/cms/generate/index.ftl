@@ -119,119 +119,163 @@
 </body>
 </html>
 <script>
+	"use strict";
+
 	var app = new Vue({
 		el: '#app',
-		watch:{
-
-		},
+		watch: {},
 		data: {
-			homeLoading:false,
-			articleLoading:false,
-			columnLoading:false,
-			template:'',//主题模板
-			templateOptions:[],
-			position:'index', //位置
-			contentSection:'0', //文章栏目
-			section:'0', //栏目
-			time:ms.util.date.fmt(new Date(),"yyyy-MM-dd"),
-			treeList:[{
-				id:'0',
-				categoryTitle:'顶级栏目',
-				children:[],
-			}],
+			homeLoading: false,
+			articleLoading: false,
+			columnLoading: false,
+			template: '',
+			//主题模板
+			templateOptions: [],
+			position: 'index',
+			//位置
+			contentSection: '0',
+			//文章栏目
+			section: '0',
+			//栏目
+			time: ms.util.date.fmt(new Date(), "yyyy-MM-dd"),
+			treeList: [{
+				id: '0',
+				categoryTitle: '顶级栏目',
+				children: []
+			}]
 		},
 		methods: {
 			//更新主页
-			updataIndex(){
+			updataIndex: function () {
 				var that = this;
-				if(!that.position || that.position == ''){
-					this.$notify({ title: '请输入主页位置！', type: 'warning' });
+				if (!that.position || that.position == '') {
+					this.$notify({
+						title: '请输入主页位置！',
+						type: 'warning'
+					});
 					return;
 				}
 				that.homeLoading = true;
-				ms.http.post(ms.manager+'/cms/generate//generateIndex.do', {url:that.template,position:that.position}).then(function (data) {
-					if(data.result){
-						that.$notify({ title: '更新成功！', type: 'success' });
-					}else {
-						that.$notify({ title: '更新失败！',message: "错误", type: 'error' });
+				ms.http.post(ms.manager + '/cms/generate//generateIndex.do', {
+					url: that.template,
+					position: that.position
+				}).then(function (data) {
+					if (data.result) {
+						that.$notify({
+							title: '更新成功！',
+							type: 'success'
+						});
+					} else {
+						that.$notify({
+							title: '更新失败！',
+							message: "错误",
+							type: 'error'
+						});
 					}
 				}).catch(function (err) {
-					that.$notify({ title: '更新失败！',message: err, type: 'error' });
+					that.$notify({
+						title: '更新失败！',
+						message: err,
+						type: 'error'
+					});
 					console.log(err);
-				}).finally(()=>{
+				}).finally(function () {
 					that.homeLoading = false;
 				});
 			},
 			//预览主页
-			viewIndex(){
-				if(!this.position || this.position == ''){
-					this.$notify({ title: '请输入主页位置！', type: 'warning' });
+			viewIndex: function () {
+				if (!this.position || this.position == '') {
+					this.$notify({
+						title: '请输入主页位置！',
+						type: 'warning'
+					});
 					return;
 				}
-				window.open(ms.manager+"/cms/generate/"+this.position+"/viewIndex.do");
+				window.open(ms.manager + "/cms/generate/" + this.position + "/viewIndex.do");
 			},
 			//更新栏目
-			updateColumn(){
+			updateColumn: function () {
 				var that = this;
 				that.columnLoading = true;
-				ms.http.get(ms.manager+'/cms/generate/'+(that.section?that.section:0)+'/genernateColumn.do').then(function (data) {
-					if(data.result){
-						that.$notify({ title: '更新成功！', type: 'success' });
+				ms.http.get(ms.manager + '/cms/generate/' + (that.section ? that.section : 0) + '/genernateColumn.do').then(function (data) {
+					if (data.result) {
+						that.$notify({
+							title: '更新成功！',
+							type: 'success'
+						});
 					}
 				}).catch(function (err) {
-					that.$notify({ title: '更新失败！',message: err, type: 'error' });
+					that.$notify({
+						title: '更新失败！',
+						message: err,
+						type: 'error'
+					});
 					console.log(err);
-				}).finally(()=>{
+				}).finally(function () {
 					that.columnLoading = false;
 				});
 			},
 			//生成文章栏目
-			updateArticle(){
+			updateArticle: function () {
 				var that = this;
 				that.articleLoading = true;
-				ms.http.post(ms.manager+'/cms/generate/'+(that.contentSection?that.contentSection:0)+'/generateArticle.do', {dateTime:that.time}).then(function (data) {
-					if(data.result){
-						that.$notify({ title: '更新成功！', type: 'success' });
+				ms.http.post(ms.manager + '/cms/generate/' + (that.contentSection ? that.contentSection : 0) + '/generateArticle.do', {
+					dateTime: that.time
+				}).then(function (data) {
+					if (data.result) {
+						that.$notify({
+							title: '更新成功！',
+							type: 'success'
+						});
 					}
 				}).catch(function (err) {
-					that.$notify({ title: '更新失败！',message: err, type: 'error' });
+					that.$notify({
+						title: '更新失败！',
+						message: err,
+						type: 'error'
+					});
 					console.log(err);
-				}).finally(()=>{
+				}).finally(function () {
 					that.articleLoading = false;
 				});
 			},
 			//获取主题模板数据源
-			templateOptionsGet() {
+			templateOptionsGet: function () {
 				var that = this;
-				ms.http.get(ms.manager+'/template/queryTemplateFileForColumn.do', {pageSize:99999}).then(function (data) {
-					that.templateOptions = data.data;
-					//寻找主页
+				ms.http.get(ms.manager + '/template/queryTemplateFileForColumn.do', {
+					pageSize: 99999
+				}).then(function (data) {
+					that.templateOptions = data.data; //寻找主页
+
 					var template = that.templateOptions.find(function (x) {
-						return x.indexOf("index")!=-1||x.indexOf("default")!=-1;
-					})
-					//没有就找其他的
-					that.template = template||(that.templateOptions.length>0?that.templateOptions[0]:"");
+						return x.indexOf("index") != -1 || x.indexOf("default") != -1;
+					}); //没有就找其他的
+
+					that.template = template || (that.templateOptions.length > 0 ? that.templateOptions[0] : "");
 				}).catch(function (err) {
 					console.log(err);
 				});
 			},
-			getTree(){
+			getTree: function () {
 				var that = this;
-				ms.http.get(ms.manager+"/cms/category/list.do",{pageSize:9999}).then(function(res){
-					if(res.result){
+				ms.http.get(ms.manager + "/cms/category/list.do", {
+					pageSize: 9999
+				}).then(function (res) {
+					if (res.result) {
 						//res.data.rows.push({id:0,categoryId: null,categoryTitle:'顶级栏目管理'});
-						that.treeList[0].children = ms.util.treeData(res.data.rows,'id','categoryId','children');
+						that.treeList[0].children = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
 					}
-				}).catch(function(err){
+				}).catch(function (err) {
 					console.log(err);
 				});
-			},
+			}
 		},
-		created(){
+		created: function () {
 			this.getTree();
 			this.templateOptionsGet();
 		}
-	})
+	});
 </script>
 <style>
 	input{
