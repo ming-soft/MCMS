@@ -451,13 +451,8 @@
         });
       },
       //静态化
-      jumpStaticManager: function () {
-        window.parent.indexVue.open({
-          "modelId": 406,
-          "modelTitle": "静态化",
-          "modelModelId": 23,
-          "modelUrl": "cms/generate/index.do"
-        });
+    jumpStaticManager: function () {
+        window.parent.indexVue.open({"modelId":709,"modelTitle":"静态化","modelModelId":706,"modelUrl":"cms/generate/index.do"});
       },
       //管理员管理
       jumpAdmininstatorManager: function () {
