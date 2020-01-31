@@ -535,7 +535,7 @@ INSERT INTO `model` VALUES (265, '自定义页面', '20010000', 264, 'mdiy/page/
 INSERT INTO `model` VALUES (266, '修改', '20010004', 269, 'mdiy:form:update', '2018-09-06 09:38:51', NULL, 0, 0, 0, '264,269', NULL);
 INSERT INTO `model` VALUES (267, '新增', '20010002', 269, 'mdiy:form:save', '2018-09-06 09:38:51', NULL, 0, 0, 0, '264,269', NULL);
 INSERT INTO `model` VALUES (268, '查看', '20010001', 269, 'mdiy:form:view', '2018-09-06 09:38:51', NULL, 0, 0, 0, '264,269', NULL);
-INSERT INTO `model` VALUES (269, '自定义表单', '20020000', 264, 'mdiy/form/index.do', '2018-09-06 09:38:51', NULL, 0, 0, 1, '264', NULL);
+INSERT INTO `model` VALUES (269, '自定义表单', '20020000', 264, 'mdiy/post/index.do', '2018-09-06 09:38:51', NULL, 0, 0, 1, '264', NULL);
 INSERT INTO `model` VALUES (280, '自定义字典', '20050000', 264, 'mdiy/dict/index.do', '2018-09-06 09:38:53', NULL, 0, 0, 1, '264', NULL);
 INSERT INTO `model` VALUES (281, '删除', '20050003', 280, 'mdiy:dict:del', '2018-09-06 09:38:53', NULL, 0, 0, 0, '264,280', NULL);
 INSERT INTO `model` VALUES (282, '修改', '20050004', 280, 'mdiy:dict:update', '2018-09-06 09:38:53', NULL, 0, 0, 0, '264,280', NULL);
