@@ -806,3 +806,27 @@ CREATE TABLE `system_log`  (
 INSERT INTO `system_log` VALUES (7, NULL, 'success', '{\n	\"result\":true,\n	\"code\":200\n}', '{\n	\"ids\":[\"291\"]\n}', '内网IP', '/ms-mcms/ms/model/delete.do', 'msopen', 'manage', 'POST', 'net.mingsoft.basic.action.ModelAction.delete()', 'delete', '127.0.0.1', '批量删除模块表', 0, NULL, NULL, '2020-01-09 21:33:16', NULL);
 
 SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
+-- Table structure for file
+-- ----------------------------
+DROP TABLE IF EXISTS `file`;
+CREATE TABLE `file`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '文件编号',
+  `category_id` int(11) NULL DEFAULT NULL COMMENT '文件分类编号',
+  `app_id` int(11) NULL DEFAULT NULL COMMENT 'APP编号',
+  `file_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件名称',
+  `file_url` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件链接',
+  `file_size` int(11) NULL DEFAULT NULL COMMENT '文件大小',
+  `file_json` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件详情Json数据',
+  `file_type` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件类型：图片、音频、视频等',
+  `is_child` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '子业务',
+  `update_date` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+  `update_by` int(11) NULL DEFAULT NULL COMMENT '更新者',
+  `create_by` int(11) NULL DEFAULT NULL COMMENT '创建者',
+  `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `del` int(1) NULL DEFAULT NULL COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 67 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '基础文件表' ROW_FORMAT = Dynamic;
+
+SET FOREIGN_KEY_CHECKS = 1;
