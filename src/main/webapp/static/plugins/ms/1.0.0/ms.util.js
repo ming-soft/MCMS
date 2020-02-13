@@ -20,7 +20,18 @@
             log(e.message);
         }
     }
-    //树形数据组织
+
+    /**
+     * 列表数据转化为树形结构的列表
+     * @param source 数据源list
+     * @param id 编号
+     * @param parentId 父级编号
+     * @param children 树形子集变量
+     * @returns {*}
+     * 支持父级编号为 0或null
+     * 原始数据[{id:1,titile:"标题",pid:0},{id:2,titile:"标题",pid:1}]
+     * 转化树形数据：[{id:1,titile:"标题",pid:0,children:[{id:2,titile:"标题",pid:1}]}]
+     */
     function treeData(source, id, parentId, children) {
         var cloneData = JSON.parse(JSON.stringify(source));
         return cloneData.filter(function (father) {
@@ -28,7 +39,7 @@
                 return father[id] == child[parentId];
             });
             branchArr.length > 0 ? father[children] = branchArr : '';
-            return !father[parentId] || father[parentId] == '0'; // 如果第一层不是parentId=0，请自行修改
+            return !father[parentId] || father[parentId] == '0' ||  father[parentId] == null ;
         });
     }
     //验证是否为子集
