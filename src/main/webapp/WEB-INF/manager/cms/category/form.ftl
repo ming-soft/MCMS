@@ -200,7 +200,7 @@
                             :limit="1"
                             :on-exceed="categoryImghandleExceed"
                             :disabled="false"
-                            :data="{uploadPath:'/cms/category','isRename':true,'appId':true}"
+                            :data="{uploadPath:'/${appId}/cms/category','isRename':true}"
                             :on-success="categoryImgSuccess"
                             accept="image/*"
                             list-type="picture-card">
