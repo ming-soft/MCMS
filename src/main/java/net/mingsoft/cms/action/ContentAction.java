@@ -102,6 +102,7 @@ public class ContentAction extends BaseAction{
 			BaseEntity contentEntity = contentBiz.getEntity(Integer.parseInt(content.getId()));			
 			model.addAttribute("contentEntity",contentEntity);
 		}
+		model.addAttribute("appId",BasicUtil.getAppId());
 		return "/cms/content/form";
 	}
 

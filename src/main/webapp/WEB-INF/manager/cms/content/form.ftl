@@ -184,7 +184,7 @@
                             :limit="1"
                             :on-exceed="contentImghandleExceed"
                             :disabled="false"
-                            :data="{uploadPath:'/cms/content','isRename':true,'appId':true}"
+                            :data="{uploadPath:'/${appId}/cms/content','isRename':true}"
                             :on-success="contentImgSuccess"
                             accept="image/*"
                             list-type="picture-card">
@@ -267,7 +267,7 @@
                     maximumWords: 2000,
                     initialFrameWidth: '100%',
                     initialFrameHeight: 400,
-                    serverUrl: ms.base + "/static/plugins/ueditor/1.4.3.1/jsp/editor.do?jsonConfig=%7BvideoUrlPrefix:\'" + ms.base + "\',fileUrlPrefix:\'" + ms.base + "\',imageUrlPrefix:\'" + ms.base + "\',imagePathFormat:\'cms/content/editor/%7Btime%7D\',filePathFormat:\'cms/content/editor/%7Btime%7D\',videoPathFormat:\'cms/content/editor/%7Btime%7D\',appId:true%7D",
+                    serverUrl: ms.base + "/static/plugins/ueditor/1.4.3.1/jsp/editor.do?jsonConfig=%7BvideoUrlPrefix:\'" + ms.base + "\',fileUrlPrefix:\'" + ms.base + "\',imageUrlPrefix:\'" + ms.base + "\',imagePathFormat:\'/upload/${appId}/cms/content/editor/%7Btime%7D\',filePathFormat:\'/upload/${appId}/cms/content/editor/%7Btime%7D\',videoPathFormat:\'/upload/${appId}/cms/content/editor/%7Btime%7D\'%7D",
                     UEDITOR_HOME_URL: ms.base + '/static/plugins/ueditor/1.4.3.1/'
                 },
                 contentCategoryIdOptions: [],
