@@ -99,6 +99,7 @@ public class CategoryAction extends BaseAction{
 			BaseEntity categoryEntity = categoryBiz.getEntity(Integer.parseInt(category.getId()));			
 			model.addAttribute("categoryEntity",categoryEntity);
 		}
+		model.addAttribute("appId",BasicUtil.getAppId());
 		return "/cms/category/form";
 	}
 
