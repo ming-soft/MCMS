@@ -43,6 +43,21 @@ public class ShiroConfig {
 	}
 
 	@Bean
+	public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(
+			DefaultWebSecurityManager securityManager) {
+		AuthorizationAttributeSourceAdvisor advisor = new AuthorizationAttributeSourceAdvisor();
+		advisor.setSecurityManager(securityManager);
+		return advisor;
+	}
+
+	@Bean
+	public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
+		DefaultAdvisorAutoProxyCreator autoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+		autoProxyCreator.setProxyTargetClass(true);
+		return autoProxyCreator;
+	}
+
+	@Bean
 	public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		// 必须设置 SecurityManager

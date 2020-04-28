@@ -479,7 +479,7 @@
                     "id": id
                 }).then(function (res) {
                     if (res.result && res.data) {
-                        if (res.data.contentType) {
+                        if (res.data.contentType&&res.data.contentType!='') {
                             res.data.contentType = res.data.contentType.split(',');
                         } else {
                             res.data.contentType = [];
