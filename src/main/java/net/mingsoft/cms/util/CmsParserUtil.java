@@ -139,6 +139,7 @@ public class CmsParserUtil extends ParserUtil {
 					if (ParserUtil.hasMobileFile(column.getCategoryListUrl())) {
 						writer = new StringWriter();
 						mobileTemplate.process(null, writer);
+						parserParams.put(ParserUtil.MOBILE, BasicUtil.getApp().getAppMobileStyle());
 						tag = new TagParser(writer.toString(), parserParams);
 						// 将tag.getContent()写入路径
 						FileUtil.writeString(tag.rendering(), mobilePath, Const.UTF8);
@@ -170,6 +171,7 @@ public class CmsParserUtil extends ParserUtil {
 						if (ParserUtil.hasMobileFile(column.getCategoryListUrl())) {
 							writer = new StringWriter();
 							mobileTemplate.process(null, writer);
+							parserParams.put(ParserUtil.MOBILE, BasicUtil.getApp().getAppMobileStyle());
 							tag = new TagParser(writer.toString(),parserParams);
 							// 将tag.getContent()写入路径
 							FileUtil.writeString(tag.rendering(), mobilePath, Const.UTF8);
@@ -227,7 +229,7 @@ public class CmsParserUtil extends ParserUtil {
 			}
 
 			// 判断文件是否存在，若不存在弹出返回信息
-			if (!FileUtil.exist(ParserUtil.buildTempletPath(columnUrl))||StringUtils.isBlank(articleIdList.get(artId).getCategoryId())||articleIdList.get(artId).getCategoryType()==null) {
+			if (!FileUtil.exist(ParserUtil.buildTempletPath(columnUrl))||articleIdList.get(artId).getCategoryId()==null||articleIdList.get(artId).getCategoryType()==null) {
 				artId++;
 				continue;
 			}
