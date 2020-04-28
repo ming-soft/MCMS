@@ -427,92 +427,115 @@
 <script>
   var app = new Vue({
     el: '#app',
-    watch:{
-
-    },
+    watch: {},
     data: {
-      base:ms.base,
+      base: ms.base,
       msNewsLast: '',
       msNewsPath: ''
     },
     methods: {
-      jumpArtcleManager(){
-        window.parent.indexVue.openMenu({modelId:706,modelTitle:'文章管理',modelIcon: "icon-neirongguanli"});
+      jumpArtcleManager: function () {
+        window.parent.indexVue.openMenu({
+          modelId: 706,
+          modelTitle: '文章管理',
+          modelIcon: "icon-neirongguanli"
+        });
       },
       //栏目管理
-      jumpCategorymanager(){
-        window.parent.indexVue.open({"modelId":708,"modelTitle":"栏目管理","modelModelId":706,"modelUrl":"cms/category/index.do"});
+      jumpCategorymanager: function () {
+        window.parent.indexVue.open({
+          "modelId": 708,
+          "modelTitle": "栏目管理",
+          "modelModelId": 706,
+          "modelUrl": "cms/category/index.do"
+        });
       },
       //静态化
-      jumpStaticManager(){
-        window.parent.indexVue.open({"modelId":406,"modelTitle":"静态化","modelModelId":23,"modelUrl":"cms/generate/index.do"});
+    jumpStaticManager: function () {
+        window.parent.indexVue.open({"modelId":709,"modelTitle":"静态化","modelModelId":706,"modelUrl":"cms/generate/index.do"});
       },
       //管理员管理
-      jumpAdmininstatorManager(){
-        window.parent.indexVue.open({"modelId":411,"modelTitle":"管理员管理","modelModelId":23,"modelUrl":"basic/manager/index.do"});
-
+      jumpAdmininstatorManager: function () {
+        window.parent.indexVue.open({
+          "modelId": 411,
+          "modelTitle": "管理员管理",
+          "modelModelId": 23,
+          "modelUrl": "basic/manager/index.do"
+        });
       },
       //角色管理
-      jumpUserManager(){
-        window.parent.indexVue.open({"modelId":406,"modelTitle":"角色管理","modelModelId":23,"modelUrl":"basic/role/index.do"});
+      jumpUserManager: function () {
+        window.parent.indexVue.open({
+          "modelId": 406,
+          "modelTitle": "角色管理",
+          "modelModelId": 23,
+          "modelUrl": "basic/role/index.do"
+        });
       },
       //菜单管理
-      jumpMenuManager(){
-        window.parent.indexVue.open({"modelId":183,"modelTitle":"菜单管理","modelModelId":23,"modelUrl":"model/index.do"});
+      jumpMenuManager: function () {
+        window.parent.indexVue.open({
+          "modelId": 183,
+          "modelTitle": "菜单管理",
+          "modelModelId": 23,
+          "modelUrl": "model/index.do"
+        });
       },
       //模板管理
-      jumpTemplateManager(){
-        window.parent.indexVue.open({"modelId":87,"modelTitle":"模板管理","modelModelId":84,"modelUrl":"template/index.do"});
-
+      jumpTemplateManager: function () {
+        window.parent.indexVue.open({
+          "modelId": 87,
+          "modelTitle": "模板管理",
+          "modelModelId": 84,
+          "modelUrl": "template/index.do"
+        });
       },
       //应用管理
-      jumpApplicationManager(){
-        window.parent.indexVue.open({"modelId":86,"modelTitle":"应用管理","modelModelId":84,"modelUrl":"app/-1/edit.do"});
-
+      jumpApplicationManager: function () {
+        window.parent.indexVue.open({
+          "modelId": 86,
+          "modelTitle": "应用管理",
+          "modelModelId": 84,
+          "modelUrl": "app/-1/edit.do"
+        });
       },
       //铭飞开发文档
-      jumpMCMSDocument(){
+      jumpMCMSDocument: function () {
         window.open("http://doc.ms.mingsoft.net/plugs-cms/");
-
       },
-      enterQQOneGroup(){
+      enterQQOneGroup: function () {
         window.open("https://shang.qq.com/wpa/qunwpa?idkey=ebf251dc9758de6b9c78c499956431cba73e28b3f0b72c0fc28242e98b20fca2");
-
       },
-      enterQQTwoGroup(){
+      enterQQTwoGroup: function () {
         window.open("http://shang.qq.com/wpa/qunwpa?idkey=cfb32b0f47d89d7ef1c3a9493984d4ffbdfe14049fdedd90c517a072e90d68b9");
-
       },
-      enterQQThreeGroup(){
+      enterQQThreeGroup: function () {
         window.open("http://shang.qq.com/wpa/qunwpa?idkey=5dd11fdb492c4ded090fa1f78a166583978e33c4a61301b136d31e9e3eb7df72");
-
       },
-      enterQQFourGroup(){
+      enterQQFourGroup: function () {
         window.open("http://shang.qq.com/wpa/qunwpa?idkey=565f1e4c4fabeee42947f6c6b96ac7ca4853dece16559d3d78e944ca2931b7f5");
-
       },
-      addBusinessQQ(){
+      addBusinessQQ: function () {
         window.open("http://wpa.qq.com/msgrd?v=3&uin=3336073455&site=qq&menu=yes");
-
       },
       //打开铭飞消息页面
-      openMCMSNews(){
+      openMCMSNews: function () {
         window.open(this.msNewsPath);
       },
-      getNewsLast(){
+      getNewsLast: function () {
         var that = this;
         axios.create({
           withCredentials: true
-        }).get("https://ms.mingsoft.net/cms/content/list.do?contentCategoryId=202").then(function (res){
+        }).get("https://ms.mingsoft.net/cms/content/list.do?contentCategoryId=202").then(function (res) {
           that.msNewsLast = res.data.data.rows[0].contentTitle.toString();
-          that.msNewsPath = 'https://ms.mingsoft.net/html/1/203/202/'+res.data.data.rows[0].id+'.html'
-        })
+          that.msNewsPath = 'https://ms.mingsoft.net/html/1/203/202/' + res.data.data.rows[0].id + '.html';
+        });
       }
     },
-    created(){
-      this.getNewsLast()
+    created: function () {
+      this.getNewsLast();
     }
-  })
+  });
 </script>
 <style>
   .custom-body {

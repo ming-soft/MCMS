@@ -1,5 +1,5 @@
 /**
- * 通用工具类 
+ * 通用工具类
  */
 (function() {
 
@@ -20,23 +20,38 @@
             log(e.message);
         }
     }
-    //树形数据组织
-    function treeData (source, id, parentId, children) {
-        let cloneData = JSON.parse(JSON.stringify(source))
-        return cloneData.filter(father => {
-            let branchArr = cloneData.filter(child => father[id] == child[parentId]);
-            branchArr.length > 0 ? father[children] = branchArr : ''
-            return !father[parentId]||father[parentId]=='0'        // 如果第一层不是parentId=0，请自行修改
-        })
+
+    /**
+     * 列表数据转化为树形结构的列表
+     * @param source 数据源list
+     * @param id 编号
+     * @param parentId 父级编号
+     * @param children 树形子集变量
+     * @returns {*}
+     * 支持父级编号为 0或null
+     * 原始数据[{id:1,titile:"标题",pid:0},{id:2,titile:"标题",pid:1}]
+     * 转化树形数据：[{id:1,titile:"标题",pid:0,children:[{id:2,titile:"标题",pid:1}]}]
+     */
+    function treeData(source, id, parentId, children) {
+        var cloneData = JSON.parse(JSON.stringify(source));
+        return cloneData.filter(function (father) {
+            var branchArr = cloneData.filter(function (child) {
+                return father[id] == child[parentId];
+            });
+            branchArr.length > 0 ? father[children] = branchArr : '';
+            return !father[parentId] || father[parentId] == '0' ||  father[parentId] == null ;
+        });
     }
     //验证是否为子集
-    function childValidate (sourceList,id,parentId,key,parentKey){
-        var data=sourceList.find(x=>x[key]==parentId);
-        if(data&&data[parentKey]!='0'&&data[parentKey]){
-            if(id==data[parentKey]){
-                return false
+    function childValidate(sourceList, id, parentId, key, parentKey) {
+        var data = sourceList.find(function (x) {
+            return x[key] == parentId;
+        });
+        if (data && data[parentKey] != '0' && data[parentKey]) {
+            if (id == data[parentKey]) {
+                return false;
             }
-            return childValidate(sourceList,id,data[parentKey],key,parentKey)
+            return childValidate(sourceList, id, data[parentKey], key, parentKey);
         }
         return true;
     }
@@ -44,20 +59,19 @@
     //日期处理
     var date = {
         //格式化时间
-        fmt: function(date, fmt) {
-            var date = new Date(date);
-            log(fmt);
+        fmt: function(de, fmt) {
+            var date = new Date(typeof de == "string"?de.replace(/-/g, "/"):de);
             if (!fmt) {
                 fmt = "yyyy-mm-dd";
             }
             var o = {
-                "M+": date.getMonth() + 1, //月份   
-                "d+": date.getDate(), //日   
-                "h+": date.getHours(), //小时   
-                "m+": date.getMinutes(), //分   
-                "s+": date.getSeconds(), //秒   
-                "q+": Math.floor((date.getMonth() + 3) / 3), //季度   
-                "S": date.getMilliseconds() //毫秒   
+                "M+": date.getMonth() + 1, //月份
+                "d+": date.getDate(), //日
+                "h+": date.getHours(), //小时
+                "m+": date.getMinutes(), //分
+                "s+": date.getSeconds(), //秒
+                "q+": Math.floor((date.getMonth() + 3) / 3), //季度
+                "S": date.getMilliseconds() //毫秒
             };
             if (/(y+)/.test(fmt))
                 fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));

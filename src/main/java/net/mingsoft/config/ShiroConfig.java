@@ -1,8 +1,6 @@
 package net.mingsoft.config;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
+import net.mingsoft.basic.security.BaseAuthRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -11,15 +9,38 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 
-import net.mingsoft.basic.security.BaseAuthRealm;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
 
 	@Value("${ms.manager.path}")
 	private String managerPath;
+
+	/**
+	 * 开启Shiro的注解(如@RequiresRoles , @RequiresPermissions),需借助SspringAOP扫描使用Sshiro注解的类，并在必要时进行安全逻辑验证
+	 * 配置以下两个bean(Defaul tAdvisorAutoProxyCreator和uthorizat ionAttributeSourceAdvisor)即可实现此功能
+	 */
+	@Bean
+	public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator(){
+		DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
+		advisorAutoProxyCreator.setProxyTargetClass(true);
+		return advisorAutoProxyCreator;
+	}
+
+	/**
+	 * 开启shiro aop注解支持
+	 * 使用代理方式;所以需要开启代码支持
+	 * @param securityManager
+	 */
+	@Bean
+	public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager){
+		AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
+		authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
+		return authorizationAttributeSourceAdvisor;
+	}
 
 	@Bean
 	public AuthorizationAttributeSourceAdvisor getAuthorizationAttributeSourceAdvisor(

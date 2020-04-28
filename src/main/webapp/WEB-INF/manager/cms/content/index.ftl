@@ -25,75 +25,78 @@
 	var indexVue = new Vue({
 		el: "#index",
 		data: {
-			action:"", //跳转页面
+			action: "",
+			//跳转页面
 			defaultProps: {
 				children: 'children',
 				label: 'categoryTitle'
 			},
-			treeData:[],
-			loading:true,
-			emptyText:'',
+			treeData: [],
+			loading: true,
+			emptyText: ''
 		},
-		methods:{
-			handleNodeClick: function(data){
-				if(data.categoryType == '1'){
-                    this.action = ms.manager +"/cms/content/main.do?categoryId="+data.id;
-                } else if(data.categoryType == '2'){
-                    this.action = ms.manager +"/cms/content/form.do?categoryId="+data.id+"&type=2";
-                } else{
-                    this.action = ms.manager +"/cms/content/main.do";
-                }
+		methods: {
+			handleNodeClick: function (data) {
+				if (data.categoryType == '1') {
+					this.action = ms.manager + "/cms/content/main.do?categoryId=" + data.id;
+				} else if (data.categoryType == '2') {
+					this.action = ms.manager + "/cms/content/form.do?categoryId=" + data.id + "&type=2";
+				} else {
+					this.action = ms.manager + "/cms/content/main.do";
+				}
 			},
-			treeList: function(){
+			treeList: function () {
 				var that = this;
 				this.loadState = false;
 				this.loading = true;
-				ms.http.get(ms.manager+"/cms/category/list.do",{
-					pageSize:999,
-				}).then(
-						function(res) {
-							if(that.loadState){
-								that.loading = false;
-							}else {
-								that.loadState = true
-							}
-							if (!res.result||res.data.total <= 0) {
-								that.emptyText = '暂无数据';
-								that.treeData = [];
-							} else {
-								that.emptyText = '';
-								that.treeData = ms.util.treeData(res.data.rows,'id','categoryId','children');
-								that.treeData = [{
-									id:0,
-									categoryTitle:'全部',
-									children: that.treeData,
-								}]
-							}
-						}).catch(function(err) {
+				ms.http.get(ms.manager + "/cms/category/list.do", {
+					pageSize: 999
+				}).then(function (res) {
+					if (that.loadState) {
+						that.loading = false;
+					} else {
+						that.loadState = true;
+					}
+
+					if (!res.result || res.data.total <= 0) {
+						that.emptyText = '暂无数据';
+						that.treeData = [];
+					} else {
+						that.emptyText = '';
+						that.treeData = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
+						that.treeData = [{
+							id: 0,
+							categoryTitle: '全部',
+							children: that.treeData
+						}];
+					}
+				}).catch(function (err) {
 					console.log(err);
 				});
-				setTimeout(()=>{
-					if(that.loadState){
+				setTimeout(function () {
+					if (that.loadState) {
 						that.loading = false;
-					}else {
-						that.loadState = true
+					} else {
+						that.loadState = true;
 					}
 				}, 500);
-			},
+			}
 		},
-		mounted(){
-			this.action = ms.manager +"/cms/content/main.do";
+		mounted: function () {
+			this.action = ms.manager + "/cms/content/main.do";
 			this.treeList();
 		}
-	})
+	});
 </script>
 <style>
 	#index .index-menu {
+		height: 100vh;
 		min-height: 100vh;
 		min-width: 140px;
 	}
 	#index .ms-iframe-style {
 		width: 100%;
+		height: 100%;
 		border: 0;
 	}
 

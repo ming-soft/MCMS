@@ -184,7 +184,7 @@
                             :limit="1"
                             :on-exceed="contentImghandleExceed"
                             :disabled="false"
-                            :data="{uploadPath:'/cms/content','isRename':true,'appId':true}"
+                            :data="{uploadPath:'/${appId}/cms/content','isRename':true}"
                             :on-success="contentImgSuccess"
                             accept="image/*"
                             list-type="picture-card">
@@ -247,12 +247,16 @@
 <script>
     var form = new Vue({
         el: '#form',
-        data() {
+        data: function () {
             return {
                 saveDisabled: false,
                 activeName: 'form',
-                model:undefined,//自定义模型实例
-                editableTabs:[{title:'文章编辑',name:'form'}],
+                model: undefined,
+                //自定义模型实例
+                editableTabs: [{
+                    title: '文章编辑',
+                    name: 'form'
+                }],
                 editorConfig: {
                     imageScaleEnabled: true,
                     autoHeightEnabled: true,
@@ -263,12 +267,12 @@
                     maximumWords: 2000,
                     initialFrameWidth: '100%',
                     initialFrameHeight: 400,
-                    serverUrl: ms.base + "/static/plugins/ueditor/1.4.3.1/jsp/editor.do?jsonConfig=%7BvideoUrlPrefix:\'" + ms.base + "\',fileUrlPrefix:\'" + ms.base + "\',imageUrlPrefix:\'" + ms.base + "\',imagePathFormat:\'/upload/cms/content/editor/%7Btime%7D\',filePathFormat:\'/upload/cms/content/editor/%7Btime%7D\',videoPathFormat:\'/upload/cms/content/editor/%7Btime%7D\'%7D",
+                    serverUrl: ms.base + "/static/plugins/ueditor/1.4.3.1/jsp/editor.do?jsonConfig=%7BvideoUrlPrefix:\'" + ms.base + "\',fileUrlPrefix:\'" + ms.base + "\',imageUrlPrefix:\'" + ms.base + "\',imagePathFormat:\'/upload/${appId}/cms/content/editor/%7Btime%7D\',filePathFormat:\'/upload/${appId}/cms/content/editor/%7Btime%7D\',videoPathFormat:\'/upload/${appId}/cms/content/editor/%7Btime%7D\'%7D",
                     UEDITOR_HOME_URL: ms.base + '/static/plugins/ueditor/1.4.3.1/'
                 },
                 contentCategoryIdOptions: [],
                 returnIsShow: true,
-                type:'',
+                type: '',
                 //表单数据
                 form: {
                     // 文章标题
@@ -292,74 +296,100 @@
                     // 关键字
                     contentKeyword: '',
                     // 文章内容
-                    contentDetails: '',
+                    contentDetails: ''
                 },
                 contentTypeOptions: [],
                 categoryIdOptions: [],
-                contentDisplayOptions: [{"value": "0", "label": "是"}, {"value": "1", "label": "否"}],
+                contentDisplayOptions: [{
+                    "value": "0",
+                    "label": "是"
+                }, {
+                    "value": "1",
+                    "label": "否"
+                }],
                 rules: {
                     // 文章标题
-                    contentTitle: [{"required": true, "message": "请选择文章标题"}],
+                    contentTitle: [{
+                        "required": true,
+                        "message": "请选择文章标题"
+                    }],
                     // 发布时间
-                    contentDatetime: [{"required": true, "message": "发布时间不能为空"}],
-                    contentCategoryId: [{"required": true, "message": "所属栏目不能为空"}],
-                },
-
-            }
+                    contentDatetime: [{
+                        "required": true,
+                        "message": "发布时间不能为空"
+                    }],
+                    contentCategoryId: [{
+                        "required": true,
+                        "message": "所属栏目不能为空"
+                    }]
+                }
+            };
         },
         watch: {},
-        computed:{
-            currCategory(){
+        computed: {
+            currCategory: function () {
                 var that = this;
-                return this.categoryIdOptions.find(function(value){
-                    return value.id===that.form.contentCategoryId
-                })
-            },
+                return this.categoryIdOptions.find(function (value) {
+                    return value.id === that.form.contentCategoryId;
+                });
+            }
         },
         methods: {
-            save() {
-                var that = this;
-                //自定义模型需要验证
-                if(this.model&&!this.model.validate()){
+            save: function () {
+                var _this = this;
+
+                var that = this; //自定义模型需要验证
+
+                if (this.model && !this.model.validate()) {
                     this.activeName = 'custom-name';
                     return;
                 }
-                var url = ms.manager + "/cms/content/save.do"
+
+                var url = ms.manager + "/cms/content/save.do";
+
                 if (that.form.id > 0) {
                     url = ms.manager + "/cms/content/update.do";
                 }
-                this.$refs.form[0].validate((valid) => {
+
+                this.$refs.form[0].validate(function (valid) {
                     if (valid) {
-                        that.saveDisabled = true;
-                        //判断
-                        if(that.categoryIdOptions.filter(f => f['id'] == that.form.contentCategoryId)[0].categoryType == '2' && that.returnIsShow){
+                        that.saveDisabled = true; //判断
+
+                        if (that.categoryIdOptions.filter(function (f) {
+                            return f['id'] == that.form.contentCategoryId;
+                        })[0].categoryType == '2' && that.returnIsShow) {
                             that.$notify({
                                 title: '提示',
                                 message: '所属栏目不能为封面',
                                 type: 'error'
                             });
                             that.saveDisabled = false;
-                            return
+                            return;
                         }
+
                         var data = JSON.parse(JSON.stringify(that.form));
-                        if(data.contentType !=null){
+
+                        if (data.contentType != null) {
                             data.contentType = data.contentType.join(',');
                         }
+
                         data.contentImg = JSON.stringify(data.contentImg);
                         ms.http.post(url, data).then(function (data) {
                             if (data.result) {
                                 //保存时需要赋值关联ID
-                                if(that.model){
+                                if (that.model) {
                                     that.model.form.linkId = data.data.id;
-                                    that.model.save()
+                                    that.model.save();
                                 }
+
                                 that.$notify({
                                     title: '成功',
                                     message: '保存成功',
                                     type: 'success'
                                 });
-                                if(that.returnIsShow){
-                                    javascript:history.go(-1);
+
+                                if (that.returnIsShow) {
+                                    javascript: history.go(-1);
                                 }
                             } else {
                                 that.$notify({
@@ -368,101 +398,109 @@
                                     type: 'warning'
                                 });
                             }
+
                             that.saveDisabled = false;
                         });
                     } else {
-                        this.activeName = 'form';
+                        _this.activeName = 'form';
                         return false;
                     }
-                })
+                });
             },
-            removeModel(){
-                var that =this;
-                var model= document.getElementById('model1')
-                var custom= document.getElementById('c_model')
-                if(custom){
-                    model.removeChild(custom)
+            removeModel: function () {
+                var that = this;
+                var model = document.getElementById('model1');
+                var custom = document.getElementById('c_model');
+
+                if (custom) {
+                    model.removeChild(custom);
                 }
+
                 that.model = undefined;
             },
-            categoryChange(){
+            categoryChange: function () {
                 this.changeModel();
             },
-            changeModel(){
+            changeModel: function () {
                 var that = this;
                 that.editableTabs = [that.editableTabs[0]];
                 this.removeModel();
-                if(this.currCategory){
-                    if(this.currCategory.mdiyModelId){
-                        ms.http.get(ms.manager + "/mdiy/model/get.do",{
-                            id:this.currCategory.mdiyModelId
+
+                if (this.currCategory) {
+                    if (this.currCategory.mdiyModelId) {
+                        ms.http.get(ms.manager + "/mdiy/model/get.do", {
+                            id: this.currCategory.mdiyModelId
                         }).then(function (data) {
-                            if(data.data && data.data.id){
-                                that.rederModel(data.data,JSON.parse(data.data.modelJson))
+                            if (data.data && data.data.id) {
+                                that.rederModel(data.data, JSON.parse(data.data.modelJson));
                             }
-                        })
+                        });
                     }
                 }
             },
-            rederModel(modelEntity,data){
-                var that =this;
+            rederModel: function (modelEntity, data) {
+                var that = this;
                 that.editableTabs.push({
                     title: modelEntity.modelName,
-                    name: 'custom-name',
+                    name: 'custom-name'
                 });
                 this.removeModel();
                 that.$nextTick(function () {
-                    var div=document.createElement('div')
-                    div.id='c_model'
-                    var model= document.getElementById('model1')
-                    model.appendChild(div)
-                    var s=document.createElement('script')
-                    s.innerHTML=data.script
-                    var con=document.createElement('div')
-                    con.id='custom-model';
-                    con.innerHTML=data.html;
+                    var div = document.createElement('div');
+                    div.id = 'c_model';
+                    var model = document.getElementById('model1');
+                    model.appendChild(div);
+                    var s = document.createElement('script');
+                    s.innerHTML = data.script;
+                    var con = document.createElement('div');
+                    con.id = 'custom-model';
+                    con.innerHTML = data.html;
                     div.appendChild(s);
-                    div.appendChild(con);
-                    //初始化自定义模型并传入关联参数
-                    that.model = new custom_model(
-                        {
-                            data:{
-                                title:modelEntity.modelName,
-                                modelId:modelEntity.id,
-                                form:{
-                                    linkId:that.form.id
-                                },
-                            }
-                        })
+                    div.appendChild(con); //初始化自定义模型并传入关联参数
 
-                })
+                    that.model = new custom_model({
+                        data: {
+                            title: modelEntity.modelName,
+                            modelId: modelEntity.id,
+                            form: {
+                                linkId: that.form.id
+                            }
+                        }
+                    });
+                });
             },
-            getValue(data) {
+            getValue: function (data) {
                 this.form.contentCategoryId = data.id;
             },
             //获取当前文章
-            get(id) {
+            get: function (id) {
                 var that = this;
-                ms.http.get(ms.manager + "/cms/content/get.do", {"id": id}).then(function (res) {
+                ms.http.get(ms.manager + "/cms/content/get.do", {
+                    "id": id
+                }).then(function (res) {
                     if (res.result && res.data) {
                         if (res.data.contentType&&res.data.contentType!='') {
                             res.data.contentType = res.data.contentType.split(',');
-                        }
-                        else {
+                        } else {
                             res.data.contentType = [];
                         }
+
                         if (res.data.contentImg) {
                             res.data.contentImg = JSON.parse(res.data.contentImg);
                             res.data.contentImg.forEach(function (value) {
-                                value.url = ms.base + value.path
-                            })
+                                value.url = ms.base + value.path;
+                            });
                         } else {
-                            res.data.contentImg = []
+                            res.data.contentImg = [];
                         }
+
                         that.form = res.data;
-                        var category = that.categoryIdOptions.filter(f => f['id'] == that.form.contentCategoryId);
-                        if(category.length == 1){
-                            if(category[0].categoryType == '2'){
+                        var category = that.categoryIdOptions.filter(function (f) {
+                            return f['id'] == that.form.contentCategoryId;
+                        });
+
+                        if (category.length == 1) {
+                            if (category[0].categoryType == '2') {
                                 that.returnIsShow = false;
                             }
                         }
@@ -473,9 +511,11 @@
                 });
             },
             //获取contentCategoryId数据源
-            contentCategoryIdOptionsGet() {
+            contentCategoryIdOptionsGet: function () {
                 var that = this;
-                ms.http.get(ms.manager + "/cms/category/list.do", {pageSize: 9999}).then(function (res) {
+                ms.http.get(ms.manager + "/cms/category/list.do", {
+                    pageSize: 9999
+                }).then(function (res) {
                     if (res.result) {
                         that.contentCategoryIdOptions = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
                         that.categoryIdOptions = res.data.rows;
@@ -486,9 +526,12 @@
                 });
             },
             //获取contentType数据源
-            contentTypeOptionsGet() {
+            contentTypeOptionsGet: function () {
                 var that = this;
-                ms.http.get(ms.base + '/mdiy/dict/list.do', {dictType: '文章属性', pageSize: 99999}).then(function (data) {
+                ms.http.get(ms.base + '/mdiy/dict/list.do', {
+                    dictType: '文章属性',
+                    pageSize: 99999
+                }).then(function (data) {
                     that.contentTypeOptions = data.rows;
                 }).catch(function (err) {
                     console.log(err);
@@ -496,66 +539,70 @@
             },
             //contentImg文件上传完成回调
             contentImgSuccess: function (response, file, fileList) {
-                this.form.contentImg.push({url: file.url, name: file.name, path: response, uid: file.uid});
+                this.form.contentImg.push({
+                    url: file.url,
+                    name: file.name,
+                    path: response,
+                    uid: file.uid
+                });
             },
             contentImghandleRemove: function (file, files) {
                 var index = -1;
-                index = this.form.contentImg.findIndex(text => text == file);
+                index = this.form.contentImg.findIndex(function (text) {
+                    return text == file;
+                });
+
                 if (index != -1) {
                     this.form.contentImg.splice(index, 1);
                 }
-            },
-            //contentImg文件上传完成回调
-            contentImgSuccess: function (response, file, fileList) {
-                this.form.contentImg.push({url: file.url, name: file.name, path: response, uid: file.uid});
             },
             //上传超过限制
             contentImghandleExceed: function (files, fileList) {
-                this.$notify({title: '当前最多上传1个文件', type: 'warning'});
-            },
-            contentImghandleRemove: function (file, files) {
-                var index = -1;
-                index = this.form.contentImg.findIndex(text => text == file);
-                if (index != -1) {
-                    this.form.contentImg.splice(index, 1);
-                }
+                this.$notify({
+                    title: '当前最多上传1个文件',
+                    type: 'warning'
+                });
             },
             //查询列表
             list: function (contentCategoryId) {
                 var that = this;
                 ms.http.post(ms.manager + "/cms/content/list.do", {
-                    contentCategoryId: contentCategoryId,
+                    contentCategoryId: contentCategoryId
                 }).then(function (res) {
                     if (res.result && res.data.total > 0) {
                         if (res.data.rows[0].contentType) {
                             res.data.rows[0].contentType = res.data.rows[0].contentType.split(',');
                         }
+
                         if (res.data.rows[0].contentImg) {
                             res.data.rows[0].contentImg = JSON.parse(res.data.rows[0].contentImg);
                             res.data.rows[0].contentImg.forEach(function (value) {
-                                value.url = ms.base + value.path
-                            })
+                                value.url = ms.base + value.path;
+                            });
                         } else {
-                            res.data.rows[0].contentImg = []
+                            res.data.rows[0].contentImg = [];
                         }
+
                         that.form = res.data.rows[0];
                     }
                 }).catch(function (err) {
                     console.log(err);
                 });
-            },
+            }
         },
-        created() {
+        created: function () {
             this.contentCategoryIdOptionsGet();
             this.contentTypeOptionsGet();
             this.form.id = ms.util.getParameter("id");
-            if(ms.util.getParameter("categoryId") != 'undefined' && ms.util.getParameter("categoryId") != 'null'){
+            if (ms.util.getParameter("categoryId") != 'undefined' && ms.util.getParameter("categoryId") != 'null') {
                 this.form.contentCategoryId = ms.util.getParameter("categoryId");
             }
             this.type = ms.util.getParameter("type");
+
             if (this.form.id) {
                 this.get(this.form.id);
             }
+
             if (this.type) {
                 this.list(this.form.contentCategoryId);
                 this.returnIsShow = false;

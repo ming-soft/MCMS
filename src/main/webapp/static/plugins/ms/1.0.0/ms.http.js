@@ -9,6 +9,8 @@
         function(config) {
             config.headers = {
                 'Content-Type': 'application/x-www-form-urlencoded',
+                'Cache-Control': 'no-cache',
+                'Pragma': 'no-cache',
                 'X-Requested-With': 'XMLHttpRequest'
             }
             if (config.method === 'post' && config.headers["Content-Type"] === "application/x-www-form-urlencoded") {
