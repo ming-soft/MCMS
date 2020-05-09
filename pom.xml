@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>net.mingsoft</groupId>
 		<artifactId>ms-pom</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.0-SNAPSHOT</version>
 		<relativePath/>
 	</parent>
 		<modelVersion>4.0.0</modelVersion>
 	<groupId>net.mingsoft</groupId>
 	<artifactId>ms-mcms</artifactId>
-	<version>5.0.0</version>
+	<version>5.0.1-SNAPSHOT</version>
 	<name>${project.groupId}:${project.artifactId}</name>
 	<description>ms-mcms tools Library</description>
 	<url>https://github.com/ming-soft/ms-mcms</url>
@@ -80,7 +80,6 @@
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-basic</artifactId>
-			<version>1.0.23</version>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
