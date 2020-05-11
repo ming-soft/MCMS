@@ -447,6 +447,11 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		this.outString(response, content);
 	}
 
+    /**
+     * sql语句检测，存在返回true
+     * @param str
+     * @return
+     */
 	public static boolean sqlFilter(String str){
 		Pattern pattern= Pattern.compile("\\b(and|exec|insert|select|drop|grant|alter|delete|update|count|chr|mid|master|truncate|char|declare|or)\\b|(\\*|;|\\+|'|%)");
 		Matcher matcher=pattern.matcher(str);
