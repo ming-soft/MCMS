@@ -259,33 +259,33 @@
 		<where>
 			a.app_id = #{websiteId}
 			<if test="ids!=null and ids!=''">
-				and FIND_IN_SET(content_category_id,'${ids}')
+				and FIND_IN_SET(content_category_id,#{ids})
 			</if>
 			<if test="map.content_title!=null">
-			and a.content_title like CONCAT("%",'${map.content_title}',"%")
+			and a.content_title like CONCAT("%",#{map.content_title},"%")
 			</if>
 			<if test="map.content_author!=null">
-			and a.content_author like CONCAT("%",'${map.content_author}',"%")
+			and a.content_author like CONCAT("%",#{map.content_author},"%")
 			</if>
 			<if test="map.content_source!=null">
-			and a.content_source like CONCAT("%",'${map.content_source}',"%")
+			and a.content_source like CONCAT("%",#{map.content_source},"%")
 			</if>
 			<if test="map.content_type!=null">
-			and a.content_type like CONCAT("%",'${map.content_type}',"%")
+			and a.content_type like CONCAT("%",#{map.content_type},"%")
 			</if>
 			<if test="map.content_description!=null">
-			and a.content_description like CONCAT("%",'${map.content_description}',"%")
+			and a.content_description like CONCAT("%",#{map.content_description},"%")
 			</if>
 			<if test="map.content_keyword!=null">
-			and a.content_keyword like CONCAT("%",'${map.content_keyword}',"%")
+			and a.content_keyword like CONCAT("%",#{map.content_keyword},"%")
 			</if>
 			<if test="map.content_details!=null">
-			and a.content_details like CONCAT("%",'${map.content_details}',"%")
+			and a.content_details like CONCAT("%",#{map.content_details},"%")
 			</if>
 			<if test="tableName!=null and tableName!='' and diyMap!=null">
 				<foreach item="item" index="index" collection="diyList" open=""
 						 separator="" close="">
-					and d.${item.key} like CONCAT("%",'${item.value}',"%")
+					and d.${item.key} like CONCAT("%",#{item.value},"%")
 				</foreach>
 			</if>
 		</where>

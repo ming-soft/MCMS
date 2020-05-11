@@ -55,6 +55,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 动态生成页面，需要后台配置自定义页数据
@@ -378,8 +380,16 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		Map<String, Object> searchMap = BasicUtil.assemblyRequestMap();
+		searchMap.forEach((k,v)->{
+			//sql注入过滤
+			if(sqlFilter(v.toString())){
+				searchMap.put(k,"");
+			}
+		});
+
 		//查询数量
-		int count= contentBiz.getSearchCount(contentModel,fieldValueList,BasicUtil.assemblyRequestMap(),BasicUtil.getAppId(),categoryIds);
+		int count= contentBiz.getSearchCount(contentModel,fieldValueList,searchMap,BasicUtil.getAppId(),categoryIds);
 		int total = PageUtil.totalPage(count, size);
 
 		int pageNo = BasicUtil.getInt(ParserUtil.PAGE_NO, 1);
@@ -412,7 +422,6 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		page.setPreUrl(preUrl);
 		page.setLastUrl(lastUrl);
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
-		Map<String, Object> searchMap = BasicUtil.assemblyRequestMap();
 		searchMap.put(ParserUtil.PAGE_NO, pageNo);
 		map.put(SEARCH, searchMap);
 		map.put(ParserUtil.PAGE, page);
@@ -420,6 +429,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		map.put(ParserUtil.IS_DO,false);
 		//设置动态请求的模块路径
 		map.put(ParserUtil.MODEL_NAME, "mcms");
+
 		//解析后的内容
 		String content = "";
 		try {
@@ -437,6 +447,16 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		this.outString(response, content);
 	}
 
+    /**
+     * sql语句检测，存在返回true
+     * @param str
+     * @return
+     */
+	public static boolean sqlFilter(String str){
+		Pattern pattern= Pattern.compile("\\b(and|exec|insert|select|drop|grant|alter|delete|update|count|chr|mid|master|truncate|char|declare|or)\\b|(\\*|;|\\+|'|%)");
+		Matcher matcher=pattern.matcher(str);
+		return matcher.find();
+	}
 
 	private Map get(String key, List<Map> fields) {
 		for (Map field : fields) {
