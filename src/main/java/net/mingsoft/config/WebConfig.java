@@ -89,18 +89,17 @@ public class WebConfig implements WebMvcConfigurer {
 		beanTypeAutoProxyCreator.setInterceptorNames("druidStatInterceptor");
 		return beanTypeAutoProxyCreator;
 	}
-//	XSS过滤器
-//    @Bean
-//    public FilterRegistrationBean xssFilterRegistration() {
-//        XSSEscapeFilter xssFilter = new XSSEscapeFilter();
-//        FilterRegistrationBean registration = new FilterRegistrationBean(xssFilter);
-//        xssFilter.excludes.add(".*file/upload.do");
-//        xssFilter.excludes.add(".*/jsp/editor.do");
-//        xssFilter.excludes.add(".*/?(jpg|js|css|gif|png|ico)$");
-//        xssFilter.excludes.add("/");
-//        registration.addUrlPatterns("/*");
-//        return registration;
-//    }
+	//XSS过滤器
+    @Bean
+    public FilterRegistrationBean xssFilterRegistration() {
+        XSSEscapeFilter xssFilter = new XSSEscapeFilter();
+        FilterRegistrationBean registration = new FilterRegistrationBean(xssFilter);
+        xssFilter.includes.add(".*/search.do");
+        registration.setName("XSSFilter");
+        registration.addUrlPatterns("/*");
+        registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return registration;
+    }
 
 	/**
 	 * RequestContextListener注册

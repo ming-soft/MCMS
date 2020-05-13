@@ -12,7 +12,7 @@
             <div class="ms-content-main-list" id="ms-content-search">
                 <div class="ms-content-main-div">
                     <div class="ms-content-main-div-prompt">您搜索的关键字
-                        <span>{ms:search.basic_title/}</span>
+                        <span>{ms:search.content_title/}</span>
                         <!-- 共7个结果 -->
                     </div>
                     <ul class="ms-content-main-ul">
@@ -55,12 +55,12 @@ new Vue({
   			pageNo = pageNo -1==0 ? 1 : pageNo-1;//上一页
   		}
   		window.location.href="{ms:global.host/}/cms/1/search.do?basic_title={ms:search.basic_title/}&pageNo="+pageNo;
-  		window.event.returnValue=false; 
+  		window.event.returnValue=false;
   	},
   	//首页和尾页
   	indexAndLast:function(pageNo){
   		window.location.href="{ms:global.host/}/cms/1/search.do?basic_title={ms:search.basic_title/}&pageNo="+pageNo;
-  		window.event.returnValue=false; 
+  		window.event.returnValue=false;
   	},
     },
  })

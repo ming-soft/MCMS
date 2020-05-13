@@ -295,9 +295,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
 		Map<String, Object> map = new HashMap<>();
 		// 读取请求字段
-		Map<String, String[]> field =  request.getParameterMap();
-		// 文章字段集合
-		Map<String, Object> articleFieldName = new HashMap<String, Object>();
+		Map<String, Object> field =  BasicUtil.assemblyRequestMap();
 		// 自定义字段集合
 		Map<String, String> diyFieldName = new HashMap<String, String>();
 		CategoryEntity column = null; // 当前栏目
@@ -330,9 +328,9 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
 		// 遍历取字段集合
 		if (field != null) {
-			for (Map.Entry<String, String[]> entry : field.entrySet()) {
+			for (Map.Entry<String, Object> entry : field.entrySet()) {
 				if (entry != null) {
-					String value = entry.getValue()[0]; // 处理由get方法请求中文乱码问题
+					String value = entry.getValue().toString(); // 处理由get方法请求中文乱码问题
 					if (ObjectUtil.isNull(value)) {
 						continue;
 					}
@@ -380,7 +378,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		Map<String, Object> searchMap = BasicUtil.assemblyRequestMap();
+		Map<String, Object> searchMap = field;
 		searchMap.forEach((k,v)->{
 			//sql注入过滤
 			if(sqlFilter(v.toString())){
