@@ -83,7 +83,7 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
     width: 100% !important;
 }
 .ms-search{
-    padding: 8px;
+    padding: 20px 10px 0px;
     background: #fff;
 }
 .ms-search .ms-search-footer{
