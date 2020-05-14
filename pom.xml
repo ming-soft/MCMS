@@ -77,15 +77,8 @@
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-basic</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-upgrader</artifactId>
-			<version>1.0.16</version>
-		</dependency>
+		
+
 	</dependencies>
 	<build>
 		<resources>
@@ -128,6 +121,8 @@
 						<exclude>**/ehcache.xml</exclude>
 						<exclude>**/upgrade/</exclude>
 						<exclude>**/*.java</exclude>
+						<exclude>**/MSApplication.*</exclude>
+						<exclude>**/MSServletInitializer.*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
