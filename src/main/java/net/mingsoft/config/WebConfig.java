@@ -130,8 +130,9 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		// TODO Auto-generated method stub
-		WebMvcConfigurer.super.configureMessageConverters(converters);
 		converters.add(mappingJackson2HttpMessageConverter());
+		WebMvcConfigurer.super.configureMessageConverters(converters);
+		
 	}
 	
 	@Bean
