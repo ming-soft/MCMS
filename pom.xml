@@ -2,13 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<parent>
-		<groupId>net.mingsoft</groupId>
-		<artifactId>ms-pom</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-		<relativePath/>
-	</parent>
-		<modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.mingsoft</groupId>
 	<artifactId>ms-mcms</artifactId>
 	<version>5.0.1-SNAPSHOT</version>
@@ -76,8 +70,9 @@
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
+			<version>1.0.21</version>
 		</dependency>
-		
+
 
 	</dependencies>
 	<build>
@@ -176,7 +171,7 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			
+
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -198,7 +193,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
