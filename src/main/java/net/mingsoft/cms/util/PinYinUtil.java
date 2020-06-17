@@ -30,7 +30,4 @@ public class PinYinUtil {
         return "";
     }
 
-    public static void main(String[] args) throws PinyinException {
-        System.out.println(getPingYin("哈哈6666"));
-    }
 }
