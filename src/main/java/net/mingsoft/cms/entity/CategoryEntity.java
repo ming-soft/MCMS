@@ -20,6 +20,10 @@ private static final long serialVersionUID = 1574925152750L;
 	*/
 	private String categoryTitle;
 	/**
+	* 栏目别名
+	*/
+	private String categoryPinyin;
+	/**
 	* 所属栏目
 	*/
 	private String categoryId;
@@ -110,6 +114,14 @@ private static final long serialVersionUID = 1574925152750L;
 	*/
 	public void setCategoryId(String categoryId) {
 	this.categoryId = categoryId;
+	}
+
+	public String getCategoryPinyin() {
+		return categoryPinyin;
+	}
+
+	public void setCategoryPinyin(String categoryPinyin) {
+		this.categoryPinyin = categoryPinyin;
 	}
 
 	/**

@@ -5,6 +5,7 @@
 	<resultMap id="resultMap" type="net.mingsoft.cms.entity.CategoryEntity">
 			<id column="id" property="id" /><!--编号 -->
 				<result column="category_title" property="categoryTitle" /><!--栏目管理名称 -->
+				<result column="category_pinyin" property="categoryPinyin" /><!--栏目管理名称 -->
 				<result column="category_id" property="categoryId" /><!--所属栏目 -->
 				<result column="category_type" property="categoryType" /><!--栏目管理属性 -->
 				<result column="category_sort" property="categorySort" /><!--自定义顺序 -->
@@ -35,6 +36,7 @@
 		insert into cms_category
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 				<if test="categoryTitle != null and categoryTitle != ''">category_title,</if>
+				<if test="categoryPinyin != null and categoryPinyin != ''">category_pinyin,</if>
 				<if test="categoryId != null and categoryId != ''">category_id,</if>
 				<if test="categoryType != null and categoryType != ''">category_type,</if>
 				<if test="categorySort != null">category_sort,</if>
@@ -60,6 +62,7 @@
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 				<if test="categoryTitle != null and categoryTitle != ''">#{categoryTitle},</if>
+				<if test="categoryPinyin != null and categoryPinyin != ''">#{categoryPinyin},</if>
 				<if test="categoryId != null and categoryId != ''">#{categoryId},</if>
 				<if test="categoryType != null and categoryType != ''">#{categoryType},</if>
 				<if test="categorySort != null">#{categorySort},</if>
@@ -90,6 +93,7 @@
 			update cms_category
 			<set>
 				<if test="categoryTitle != null and categoryTitle != ''">category_title=#{categoryTitle},</if>
+				<if test="categoryPinyin != null and categoryPinyin != ''">category_pinyin=#{categoryPinyin},</if>
 				category_id=#{categoryId},
 				category_parent_id=#{categoryParentId},
 				<if test="categoryType != null and categoryType != ''">category_type=#{categoryType},</if>
@@ -126,6 +130,7 @@
 			select * from cms_category
 			<where>
 				<if test="categoryTitle != null and categoryTitle != ''">and category_title=#{categoryTitle}</if>
+				<if test="categoryPinyin != null and categoryPinyin != ''">and category_pinyin=#{categoryPinyin}</if>
 				<if test="categoryId != null and categoryId != ''">and category_id=#{categoryId}</if>
 				<if test="categoryType != null and categoryType != ''">and category_type=#{categoryType}</if>
 				<if test="categorySort != null"> and category_sort=#{categorySort} </if>
@@ -210,6 +215,7 @@
 		select * from cms_category
 		<where>
 			<if test="categoryTitle != null and categoryTitle != ''"> and category_title=#{categoryTitle}</if>
+			<if test="categoryPinyin != null and categoryPinyin != ''">and category_pinyin=#{categoryPinyin}</if>
 			<if test="categoryId != null and categoryId != ''"> and category_id=#{categoryId}</if>
 			<if test="categoryType != null and categoryType != ''"> and category_type=#{categoryType}</if>
 			<if test="categorySort != null"> and category_sort=#{categorySort} </if>

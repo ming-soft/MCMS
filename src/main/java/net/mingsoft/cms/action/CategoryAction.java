@@ -1,5 +1,7 @@
 package net.mingsoft.cms.action;
 
+import com.github.stuxuhai.jpinyin.PinyinFormat;
+import com.github.stuxuhai.jpinyin.PinyinHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -13,6 +15,7 @@ import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
+import net.mingsoft.cms.util.PinYinUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,11 +37,11 @@ import java.util.List;
 @Controller("cmsCategoryAction")
 @RequestMapping("/${ms.manager.path}/cms/category")
 public class CategoryAction extends BaseAction{
-	
-	
+
+
 	/**
 	 * 注入分类业务层
-	 */	
+	 */
 	@Autowired
 	private ICategoryBiz categoryBiz;
 
@@ -49,7 +52,7 @@ public class CategoryAction extends BaseAction{
 	public String index(HttpServletResponse response,HttpServletRequest request){
 		return "/cms/category/index";
 	}
-	
+
 	/**
 	 * 查询分类列表
 	 * @param category 分类实体
@@ -89,14 +92,14 @@ public class CategoryAction extends BaseAction{
 		List categoryList = categoryBiz.query(category);
 		return ResultData.build().success(new EUListBean(categoryList,(int)BasicUtil.endPage(categoryList).getTotal()));
 	}
-	
+
 	/**
 	 * 返回编辑界面category_form
 	 */
 	@GetMapping("/form")
 	public String form(@ModelAttribute CategoryEntity category,HttpServletResponse response,HttpServletRequest request,ModelMap model){
 		if(category.getId()!=null){
-			BaseEntity categoryEntity = categoryBiz.getEntity(Integer.parseInt(category.getId()));			
+			BaseEntity categoryEntity = categoryBiz.getEntity(Integer.parseInt(category.getId()));
 			model.addAttribute("categoryEntity",categoryEntity);
 		}
 		model.addAttribute("appId",BasicUtil.getAppId());
@@ -119,7 +122,7 @@ public class CategoryAction extends BaseAction{
 		CategoryEntity _category = (CategoryEntity)categoryBiz.getEntity(Integer.parseInt(category.getId()));
 		return ResultData.build().success(_category);
 	}
-	
+
 	@ApiOperation(value = "保存分类列表接口")
 	 @ApiImplicitParams({
     	@ApiImplicitParam(name = "categoryTitle", value = "栏目管理名称", required =true,paramType="query"),
@@ -171,11 +174,13 @@ public class CategoryAction extends BaseAction{
 		if(!StringUtil.checkLength(category.getCategoryParentId()+"", 1, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
 		}
+		//获取拼音
+
 		category.setAppId(BasicUtil.getAppId());
 		categoryBiz.saveEntity(category);
 		return ResultData.build().success(category);
 	}
-	
+
 	/**
 	 * @param category 分类实体
 	 */
@@ -228,7 +233,7 @@ public class CategoryAction extends BaseAction{
 	@RequiresPermissions("cms:category:update")
 	public ResultData update(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response,
 			HttpServletRequest request) {
-		//验证栏目管理名称的值是否合法			
+		//验证栏目管理名称的值是否合法
 		if(StringUtil.isBlank(category.getCategoryTitle())){
 			return ResultData.build().error(getResString("err.empty", this.getResString("category.title")));
 		}
@@ -242,6 +247,16 @@ public class CategoryAction extends BaseAction{
 		if(!StringUtil.checkLength(category.getCategoryParentId()+"", 0, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
 		}
+		 String pingYin = PinYinUtil.getPingYin(category.getCategoryTitle());
+		 CategoryEntity categoryEntity=new CategoryEntity();
+		 categoryEntity.setCategoryPinyin(pingYin);
+		 categoryEntity.setAppId(BasicUtil.getAppId());
+		 Object categoryBizEntity = categoryBiz.getEntity(categoryEntity);
+		 category.setCategoryPinyin(pingYin);
+		 //如果存在此拼音栏目则拼接上id
+		 if(categoryBizEntity!=null){
+			 category.setCategoryPinyin(pingYin+category.getId());
+		 }
 		//判断是否选择子级为所属栏目
 		 CategoryEntity _category = new CategoryEntity();
 		 _category.setCategoryParentId(category.getId());
@@ -258,5 +273,5 @@ public class CategoryAction extends BaseAction{
 	}
 
 
-		
+
 }

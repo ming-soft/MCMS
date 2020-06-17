@@ -23,7 +23,9 @@ package net.mingsoft.cms.biz.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import net.mingsoft.base.entity.BaseEntity;
+import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.entity.CategoryEntity;
+import net.mingsoft.cms.util.PinYinUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,11 +47,11 @@ import net.mingsoft.cms.dao.ICategoryDao;
  @Service("cmscategoryBizImpl")
 public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 
-	
+
 	@Autowired
 	private ICategoryDao categoryDao;
-	
-	
+
+
 	@Override
 	protected IBaseDao getDao() {
 		// TODO Auto-generated method stub
@@ -64,22 +66,30 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 	@Override
 	public void saveEntity(CategoryEntity categoryEntity) {
 		// TODO Auto-generated method stub
+		String pingYin = PinYinUtil.getPingYin(categoryEntity.getCategoryTitle());
+		CategoryEntity category=new CategoryEntity();
+		category.setCategoryPinyin(pingYin);
+		category.setAppId(BasicUtil.getAppId());
+		Object categoryBizEntity = getEntity(category);
 		setParentId(categoryEntity);
+		categoryEntity.setCategoryPinyin(pingYin);
 		super.saveEntity(categoryEntity);
-		//保存链接地址
-		String path=ObjectUtil.isNotNull(categoryEntity.getCategoryParentId())?categoryEntity.getCategoryParentId():"";
-		//判断是否有parentIds
-		if(StringUtils.isNotBlank(path)){
-			categoryEntity.setCategoryPath("/" + path.replaceAll(",", "/") + "/" + categoryEntity.getId());
-		} else {
-			categoryEntity.setCategoryPath("/" + categoryEntity.getId());
+		//拼音存在则拼接id
+		if(categoryBizEntity!=null){
+			categoryEntity.setCategoryPinyin(pingYin+categoryEntity.getId());
 		}
+		CategoryEntity parentCategory = (CategoryEntity)categoryDao.getEntity(Integer.parseInt(categoryEntity.getCategoryId()));
+		//保存链接地址
+		String path=ObjectUtil.isNotNull(parentCategory)?categoryEntity.getCategoryPath():"";
+		categoryEntity.setCategoryPath( path+"/" + categoryEntity.getCategoryPinyin());
 		super.updateEntity(categoryEntity);
 	}
 
 	private void setParentId(CategoryEntity categoryEntity) {
+		String path = "";
 		if(StringUtils.isNotEmpty(categoryEntity.getCategoryId())&&Integer.parseInt(categoryEntity.getCategoryId())>0) {
 			CategoryEntity category = (CategoryEntity)categoryDao.getEntity(Integer.parseInt(categoryEntity.getCategoryId()));
+			path = category.getCategoryPath();
 			if(StringUtils.isEmpty(category.getCategoryParentId())) {
 				categoryEntity.setCategoryParentId(category.getId());
 			} else {
@@ -90,13 +100,7 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 		}
 		//保存时先保存再修改链接地址，修改时直接修改
 		if(StringUtils.isNotBlank(categoryEntity.getId())) {
-			String path = ObjectUtil.isNotNull(categoryEntity.getCategoryParentId()) ? categoryEntity.getCategoryParentId() : "";
-			//判断是否有parentIds
-			if(StringUtils.isNotBlank(path)){
-				categoryEntity.setCategoryPath("/" + path.replaceAll(",", "/") + "/" + categoryEntity.getId());
-			} else {
-				categoryEntity.setCategoryPath("/" + categoryEntity.getId());
-			}
+			categoryEntity.setCategoryPath(path+ "/" + categoryEntity.getCategoryPinyin());
 		}
 
 	}
@@ -110,13 +114,9 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 			} else {
 				x.setCategoryParentId(categoryEntity.getCategoryParentId()+","+categoryEntity.getId());
 			}
-			String path=ObjectUtil.isNotNull(x.getCategoryParentId())?x.getCategoryParentId():"";
+			String path=categoryEntity.getCategoryPath();
 			//判断是否有parentIds
-			if(StringUtils.isNotBlank(path)){
-				x.setCategoryPath("/"+path.replaceAll(",","/")+"/"+x.getId());
-			} else {
-				x.setCategoryPath("/"+x.getId());
-			}
+			x.setCategoryPath(path+"/"+x.getCategoryPinyin());
 			super.updateEntity(x);
 			setChildParentId(x);
 		});
@@ -125,6 +125,15 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 	@Override
 	public void updateEntity(CategoryEntity entity) {
 		setParentId(entity);
+		String pingYin = PinYinUtil.getPingYin(entity.getCategoryTitle());
+		CategoryEntity category=new CategoryEntity();
+		category.setCategoryPinyin(pingYin);
+		category.setAppId(BasicUtil.getAppId());
+		CategoryEntity categoryBizEntity = (CategoryEntity)getEntity(category);
+		//拼音存在则拼接id
+		if(categoryBizEntity!=null&&!categoryBizEntity.getId().equals(entity.getId())){
+			entity.setCategoryPinyin(pingYin+entity.getId());
+		}
 		super.updateEntity(entity);
 		setChildParentId(entity);
 	}
