@@ -205,18 +205,13 @@ public class GeneraterAction extends BaseAction {
 		String dateTime = request.getParameter("dateTime");
 		// 网站风格物理路径
 		List<ContentBean> articleIdList = null;
-		try {
-			// 查出所有文章（根据选择栏目）包括子栏目
-			articleIdList = contentBiz.queryIdsByCategoryIdForParser(columnId, dateTime, null);
-			// 有符合条件的新闻就更新
-			if (articleIdList.size() > 0) {
-				CmsParserUtil.generateBasic(articleIdList);
-			}
-			this.outJson(response, true);
-		} catch (IOException e) {
-			e.printStackTrace();
-			this.outJson(response, false);
+		// 查出所有文章（根据选择栏目）包括子栏目
+		articleIdList = contentBiz.queryIdsByCategoryIdForParser(columnId, dateTime, null);
+		// 有符合条件的新闻就更新
+		if (articleIdList.size() > 0) {
+			CmsParserUtil.generateBasic(articleIdList);
 		}
+		this.outJson(response, true);
 	}
 
 

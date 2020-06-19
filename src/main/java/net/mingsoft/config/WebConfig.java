@@ -2,6 +2,7 @@ package net.mingsoft.config;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -132,17 +133,26 @@ public class WebConfig implements WebMvcConfigurer {
 		// TODO Auto-generated method stub
 		converters.add(mappingJackson2HttpMessageConverter());
 		WebMvcConfigurer.super.configureMessageConverters(converters);
-		
+
 	}
-	
+
 	@Bean
     public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter(){
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         ObjectMapper objectMapper = new ObjectMapper();
+
         //添加此配置
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         converter.setObjectMapper(objectMapper);
         return converter;
     }
-
+	@Bean
+	public ExecutorService crawlExecutorPool() {
+		// 创建线程池
+		ExecutorService pool =
+				new ThreadPoolExecutor(20, 20,
+						0L, TimeUnit.MILLISECONDS,
+						new LinkedBlockingQueue<Runnable>());
+		return pool;
+	}
 }

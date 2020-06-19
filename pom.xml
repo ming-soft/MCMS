@@ -2,6 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+		<groupId>net.mingsoft</groupId>
+        <artifactId>ms-pom</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.mingsoft</groupId>
 	<artifactId>ms-mcms</artifactId>
@@ -70,9 +75,17 @@
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
-			<version>1.0.22</version>
 		</dependency>
-
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-basic</artifactId>
+			<version>1.0.27-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-upgrader</artifactId>
+			<version>1.0.17</version>
+		</dependency>
 
 
 	</dependencies>
@@ -158,11 +171,7 @@
 					<encoding>${project.build.sourceEncoding}</encoding>
 					<showDeprecation>true</showDeprecation>
 					<showWarnings>true</showWarnings>
-					<compilerArguments>
-						<verbose />
-						<bootclasspath>${java.home}/lib/rt.jar:${java.home}/lib/jce.jar</bootclasspath>
-					</compilerArguments>
-					<compilerArgument>-Xlint:unchecked</compilerArgument>
+
 				</configuration>
 				<dependencies>
 					<dependency>
@@ -173,7 +182,10 @@
 				</dependencies>
 			</plugin>
 
-
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>

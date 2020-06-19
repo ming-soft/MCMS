@@ -1,5 +1,8 @@
 package net.mingsoft.cms.util;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.date.TimeInterval;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.PageUtil;
 import freemarker.cache.FileTemplateLoader;
@@ -20,7 +23,11 @@ import net.mingsoft.mdiy.entity.ModelEntity;
 import net.mingsoft.mdiy.parser.TagParser;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.util.WebAppRootListener;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -28,6 +35,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
 
 public class CmsParserUtil extends ParserUtil {
 
@@ -144,7 +152,7 @@ public class CmsParserUtil extends ParserUtil {
 						// 将tag.getContent()写入路径
 						FileUtil.writeString(tag.rendering(), mobilePath, Const.UTF8);
 					}
-					writer = new StringWriter();
+
 				} else {
 					// 遍历分页
 					for (int i = 0; i < totalPageSize; i++) {
@@ -176,7 +184,6 @@ public class CmsParserUtil extends ParserUtil {
 							// 将tag.getContent()写入路径
 							FileUtil.writeString(tag.rendering(), mobilePath, Const.UTF8);
 						}
-						writer = new StringWriter();
 						pageNo++;
 					}
 				}
@@ -199,16 +206,16 @@ public class CmsParserUtil extends ParserUtil {
 	 * @throws MalformedTemplateNameException
 	 * @throws TemplateNotFoundException
 	 */
-	public static void generateBasic(List<ContentBean>  articleIdList)
-			throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException {
+	public static void generateBasic(List<ContentBean>  articleIdList) {
 
 		Map<Object, Object> contentModelMap = new HashMap<Object, Object>();
 		ModelEntity contentModel = null;
-		String writePath = null;
 		// 记录已经生成了文章编号
 		List<Integer> generateIds = new ArrayList<>();
+		ExecutorService pool=SpringUtil.getBean(ExecutorService.class);
 		// 生成文档
 		for (int artId = 0; artId < articleIdList.size();) {
+			String writePath = null;
 			//设置分页类
 			PageBean page = new PageBean();
 			// 文章编号
@@ -235,12 +242,13 @@ public class CmsParserUtil extends ParserUtil {
 			}
 			// 将
 			generateIds.add(articleId);
-			// 组合文章路径如:html/站点id/栏目id/文章id.html
-			writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + articleId);
 			//如果是封面就生成index.html
 			if(Integer.parseInt(articleIdList.get(artId).getCategoryType()) == COLUMN_TYPE_COVER) {
 				writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + ParserUtil.INDEX);
-			}
+			}else {
+                // 组合文章路径如:html/站点id/栏目id/文章id.html
+                writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + articleId);
+            }
 			Map<String, Object> parserParams = new HashMap<String, Object>();
 			parserParams.put(ParserUtil.COLUMN, articleIdList.get(artId));
 			// 判断当前栏目是否有自定义模型
@@ -278,23 +286,46 @@ public class CmsParserUtil extends ParserUtil {
 
 			parserParams.put(IS_DO, false);
 			parserParams.put(ParserUtil.PAGE, page);
-			String content = CmsParserUtil.generate(articleIdList.get(artId).getCategoryUrl(), parserParams, false);
-			FileUtil.writeString(content, writePath, Const.UTF8);
+			String finalWritePath = writePath;
+			HashMap<Object, Object> cloneMap = CollUtil.newHashMap();
+			cloneMap.putAll(parserParams);
+            HttpServletRequest request = SpringUtil.getRequest();
+            pool.execute(() -> {
+				String content = null;
+				try {
+					SpringUtil.setRequest(request);
+					content = CmsParserUtil.generate(columnUrl, cloneMap, false);
+					FileUtil.writeString(content, finalWritePath, Const.UTF8);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
 			// 手机端
+
 			if (ParserUtil.hasMobileFile(columnUrl)) {
-				writePath = ParserUtil.buildMobileHtmlPath(articleColumnPath + File.separator + articleId);
 				//如果是封面就生成index.html
 				if(Integer.parseInt(articleIdList.get(artId).getCategoryType())  == COLUMN_TYPE_COVER) {
 					writePath = ParserUtil.buildMobileHtmlPath(articleColumnPath + File.separator + ParserUtil.INDEX);
+				}else {
+					writePath = ParserUtil.buildMobileHtmlPath(articleColumnPath + File.separator + articleId);
 				}
 				// 判断文件是否存在，若不存在弹出返回信息
 				if (!FileUtil.exist(ParserUtil.buildTempletPath(MOBILE + File.separator + columnUrl))) {
 					artId++;
 					continue;
 				}
+				String finalWritePath1 = writePath;
+				pool.execute(() -> {
+                    SpringUtil.setRequest(request);
 				parserParams.put(MOBILE, BasicUtil.getApp().getAppMobileStyle());
-				content = CmsParserUtil.generate(articleIdList.get(artId).getCategoryUrl(), parserParams, true);
-				FileUtil.writeString(content, writePath, Const.UTF8);
+					String content = null;
+					try {
+						content = CmsParserUtil.generate(columnUrl, parserParams, true);
+						FileUtil.writeString(content, finalWritePath1, Const.UTF8);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				});
 			}
 			artId++;
 		}

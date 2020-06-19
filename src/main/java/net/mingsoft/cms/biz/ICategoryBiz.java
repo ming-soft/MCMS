@@ -23,7 +23,15 @@ public interface ICategoryBiz extends IBaseBiz {
 
     void saveEntity(CategoryEntity entity);
 
+    /**更新父级及子集
+     * @param entity
+     */
     void updateEntity(CategoryEntity entity);
+
+    /**只更新自身
+     * @param entity
+     */
+    void update(CategoryEntity entity);
 
     void delete(int categoryId);
 }

@@ -139,6 +139,11 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 	}
 
 	@Override
+	public void update(CategoryEntity entity) {
+		super.updateEntity(entity);
+	}
+
+	@Override
 	public void delete(int categoryId) {
 		// TODO Auto-generated method stub
 		CategoryEntity category = (CategoryEntity) categoryDao.getEntity(categoryId);
