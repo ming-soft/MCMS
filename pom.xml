@@ -79,7 +79,12 @@
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-basic</artifactId>
-			<version>1.0.27-SNAPSHOT</version>
+			<version>1.0.29-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mdiy</artifactId>
+			<version>1.0.20-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
