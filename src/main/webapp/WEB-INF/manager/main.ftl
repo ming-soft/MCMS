@@ -44,110 +44,26 @@
         <div  class="class-6" >
         </div>
         <div  class="class-7" >
-          <div  class="class-8" >
-            <div class="class-9">
+          <div class="panel">
+            <div class="panel-title">
               常用功能
             </div>
+            <div class="v-space"></div>
+            <div class="panel-content" style="flex-direction: row;flex-wrap: wrap; flex: unset">
+              <div class="mitem"
+                   @click="window.parent.indexVue.openParentMenuInTitle(item.title)"
+                   v-for="item in alwaysList">
+                <!--图标开始-->
+                <i :class="['iconfont',item.icon]"></i>
+                <div class="item-title">
+                  {{ item.title }}
+                </div>
+                <!--文本结束-->
+              </div>
+            </div>
+
           </div>
-          <div  class="class-10" >
-            <div @click="jumpArtcleManager"
-                 class="class-11" >
-              <div  class="class-12" >
-                <!--图片开始-->
-                <img
-                        src="${base}/static/ms-admin/5.0.0/images/1578362848002.png"
-                        class="class-13" />
-                <!--图片结束-->
-              </div>
-              <div class="class-14">
-                文章管理
-              </div>
-            </div>
-            <div  @click="jumpCategorymanager" class="class-15" >
-              <div  class="class-16" >
-                <!--图片开始-->
-                <img
-                        src="${base}/static/ms-admin/5.0.0/images/1578363219309.png"
-                        class="class-17" />
-                <!--图片结束-->
-              </div>
-              <div class="class-18">
-                栏目管理
-              </div>
-            </div>
-            <div  @click="jumpStaticManager" class="class-19" >
-              <div  class="class-20" >
-                <!--图片开始-->
-                <img
-                        src="${base}/static/ms-admin/5.0.0/images/1578363549912.png"
-                        class="class-21" />
-                <!--图片结束-->
-              </div>
-              <div class="class-22">
-                静态化
-              </div>
-            </div>
-            <div  @click="jumpAdmininstatorManager" class="class-23" >
-              <div  class="class-24" >
-                <!--图片开始-->
-                <img
-                        src="${base}/static/ms-admin/5.0.0/images/1578363754088.png"
-                        class="class-25" />
-                <!--图片结束-->
-              </div>
-              <div class="class-26">
-                管理员管理
-              </div>
-            </div>
-            <div  @click="jumpUserManager" class="class-27" >
-              <div  class="class-28" >
-                <!--图片开始-->
-                <img
-                        src="${base}/static/ms-admin/5.0.0/images/1578364450652.png"
-                        class="class-29" />
-                <!--图片结束-->
-              </div>
-              <div class="class-30">
-                角色管理
-              </div>
-            </div>
-            <div  @click="jumpMenuManager" class="class-31" >
-              <div  class="class-32" >
-                <!--图片开始-->
-                <img
-                        src="${base}/static/ms-admin/5.0.0/images/1578363880431.png"
-                        class="class-33" />
-                <!--图片结束-->
-              </div>
-              <div class="class-34">
-                菜单管理
-              </div>
-            </div>
-            <div  @click="jumpTemplateManager" class="class-35" >
-              <div  class="class-36" >
-                <!--图片开始-->
-                <img
-                        src="${base}/static/ms-admin/5.0.0/images/1578363998984.png"
-                        class="class-37" />
-                <!--图片结束-->
-              </div>
-              <div class="class-38">
-                模板管理
-              </div>
-            </div>
-            <div  @click="jumpApplicationManager" class="class-39" >
-              <div  class="class-40" >
-                <!--图片开始-->
-                <img
-                        src="${base}/static/ms-admin/5.0.0/images/1578364095317.png"
-                        class="class-41" />
-                <!--图片结束-->
-              </div>
-              <div class="class-42">
-                应用设置
-              </div>
-            </div>
-          </div>
+
         </div>
         <!--大容器开始-->
         <div  class="class-43" >
@@ -431,7 +347,8 @@
     data: {
       base: ms.base,
       msNewsLast: '',
-      msNewsPath: ''
+      msNewsPath: '',
+      alwaysList: [], //常用功能列表
     },
     methods: {
       jumpArtcleManager: function () {
@@ -481,6 +398,12 @@
           "modelUrl": "model/index.do"
         });
       },
+      getAlwaysList: function () {
+        var markList = localStorage.getItem("markList");
+        if (markList) {
+          this.alwaysList = JSON.parse(markList)
+        }
+      },
       //模板管理
       jumpTemplateManager: function () {
         window.parent.indexVue.open({
@@ -489,6 +412,9 @@
           "modelModelId": 84,
           "modelUrl": "template/index.do"
         });
+      },
+      setCallBackFun: function () {
+        window.parent.indexVue.addCallBackFun(this.getAlwaysList);
       },
       //应用管理
       jumpApplicationManager: function () {
@@ -530,14 +456,71 @@
           that.msNewsLast = res.data.data.rows[0].contentTitle.toString();
           that.msNewsPath = 'https://ms.mingsoft.net/html/1/203/202/' + res.data.data.rows[0].id + '.html';
         });
+        this.setCallBackFun();
       }
     },
     created: function () {
       this.getNewsLast();
+      this.getAlwaysList();
     }
   });
 </script>
 <style>
+  .panel-content .mitem {
+    color: #333333;
+    cursor: pointer;
+    outline-offset: -1px;
+    height: 88px;
+    flex-direction: column;
+    display: flex;
+    animation-duration: 1s;
+    width: 88px;
+    background-repeat: no-repeat;
+    align-items: center;
+
+  }
+  .panel .panel-content .mitem:hover i ,.panel .panel-content .mitem:hover .item-title{
+    color:#409EFF
+  }
+  .panel-content .mitem i {
+    font-size: 36px;
+  }
+  .panel {
+    color: #333333;
+    padding: 10px;
+    outline-offset: -1px;
+    flex: 1;
+    background-color: rgba(255, 255, 255, 1);
+    flex-direction: column;
+    display: flex;
+    animation-duration: 1s;
+    background-repeat: no-repeat;
+  }
+  .panel .panel-title {
+    color: #333333;
+    word-wrap: break-word;
+    font-weight: bold;
+    display: inline-block;
+    animation-duration: 1s;
+    font-size: 16px;
+    padding-left: 10px;
+    margin-top: 5px;
+  }
+  .panel .panel-content {
+    color: #333333;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    outline-offset: -1px;
+    flex: 1;
+    padding-top: 10px;
+    max-width: 100%;
+    flex-direction: column;
+    display: flex;
+    animation-duration: 1s;
+    width: 100%;
+    padding-left: 10px;
+    background-repeat: no-repeat;
+  }
   .custom-body {
   }
   .class-1
