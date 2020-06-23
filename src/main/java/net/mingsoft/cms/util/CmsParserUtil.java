@@ -92,103 +92,91 @@ public class CmsParserUtil extends ParserUtil {
 			Template mobileTemplate = cfg.getTemplate(
 					BasicUtil.getApp().getAppMobileStyle() + File.separator + column.getCategoryListUrl(), Const.UTF8);
 			// pc端模板
-			Template template = cfg.getTemplate(File.separator + column.getCategoryListUrl(), Const.UTF8);
+
 			// 文章的栏目模型编号
 			String columnContentModelId = column.getMdiyModelId();
-			StringWriter writer = new StringWriter();
-			try {
-				// 为了分页添加column,判断栏目是否为父栏目
-				template.process(null, writer);
-				String content = writer.toString();
-				//获取列表页显示的文章数量
-				int pageSize = TagParser.getPageSize(content);
-				//获取总数
-				int totalPageSize = PageUtil.totalPage(articleIdTotal, pageSize);
 
-				String columnListPath;
-				String mobilePath;
-				ModelEntity contentModel = null;
-				// 判断当前栏目是否有自定义模型
-				if (StringUtils.isNotBlank(columnContentModelId)) {
-					// 通过栏目模型编号获取自定义模型实体
-					contentModel = (ModelEntity) SpringUtil.getBean(ModelBizImpl.class).getEntity(Integer.parseInt(columnContentModelId));
-				}
-				int pageNo = 1;
-				PageBean page = new PageBean();
-				page.setSize(pageSize);
-				//全局参数设置
-				Map<String, Object> parserParams = new HashMap<String, Object>();
-				parserParams.put(COLUMN, column);
-				page.setTotal(totalPageSize);
-				parserParams.put(IS_DO, false);
-				parserParams.put(HTML, HTML);
-				parserParams.put(APP_ID, BasicUtil.getAppId());
-				if (contentModel!=null) {
-					// 将自定义模型编号设置为key值
-					parserParams.put(TABLE_NAME, contentModel.getModelTableName());
-				}
-				//如果单站点，就废弃站点地址
-				if(ParserUtil.IS_SINGLE) {
-					parserParams.put(ParserUtil.URL, BasicUtil.getUrl());
+			//获取列表页显示的文章数量
+			int pageSize = 10;
+			//获取总数
+			int totalPageSize = PageUtil.totalPage(articleIdTotal, pageSize);
+
+			String columnListPath;
+			String mobilePath;
+			ModelEntity contentModel = null;
+			// 判断当前栏目是否有自定义模型
+			if (StringUtils.isNotBlank(columnContentModelId)) {
+				// 通过栏目模型编号获取自定义模型实体
+				contentModel = (ModelEntity) SpringUtil.getBean(ModelBizImpl.class).getEntity(Integer.parseInt(columnContentModelId));
+			}
+			int pageNo = 1;
+			PageBean page = new PageBean();
+			page.setSize(pageSize);
+			//全局参数设置
+			Map<String, Object> parserParams = new HashMap<String, Object>();
+			parserParams.put(COLUMN, column);
+			page.setTotal(totalPageSize);
+			parserParams.put(IS_DO, false);
+			parserParams.put(HTML, HTML);
+			parserParams.put(APP_ID, BasicUtil.getAppId());
+			if (contentModel!=null) {
+				// 将自定义模型编号设置为key值
+				parserParams.put(TABLE_NAME, contentModel.getModelTableName());
+			}
+			//如果单站点，就废弃站点地址
+			if(ParserUtil.IS_SINGLE) {
+				parserParams.put(ParserUtil.URL, BasicUtil.getUrl());
+			}
+
+			//文章列表页没有写文章列表标签，总数为0
+			if (totalPageSize <= 0) {
+				// 数据库中第一页是从开始0*size
+				// 首页路径index.html
+				mobilePath = ParserUtil.buildMobileHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX);
+				columnListPath = ParserUtil.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX);
+				// 设置分页的起始位置
+				page.setPageNo(pageNo);
+				parserParams.put(ParserUtil.PAGE, page);
+				String read = ParserUtil.read(File.separator + column.getCategoryListUrl(), false, parserParams);
+				FileUtil.writeString(read, columnListPath, Const.UTF8);
+				// 判断是手机端生成还是pc端,防止重复生成
+				if (ParserUtil.hasMobileFile(column.getCategoryListUrl())) {
+					parserParams.put(ParserUtil.MOBILE, BasicUtil.getApp().getAppMobileStyle());
+					String read1 = ParserUtil.read(File.separator + column.getCategoryListUrl(), true, parserParams);
+					FileUtil.writeString(read1, mobilePath, Const.UTF8);
 				}
 
-				//文章列表页没有写文章列表标签，总数为0
-				if (totalPageSize <= 0) {
-					// 数据库中第一页是从开始0*size
-					// 首页路径index.html
-					mobilePath = ParserUtil.buildMobileHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX);
-					columnListPath = ParserUtil.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX);
+			} else {
+				// 遍历分页
+				for (int i = 0; i < totalPageSize; i++) {
+					if (i == 0) {
+						// 数据库中第一页是从开始0*size
+						// 首页路径index.html
+						mobilePath = ParserUtil
+								.buildMobileHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX);
+						columnListPath = ParserUtil
+								.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX);
+					} else {
+						// 其他路径list-2.html
+						mobilePath = ParserUtil.buildMobileHtmlPath(
+								column.getCategoryPath() + File.separator + ParserUtil.PAGE_LIST + pageNo);
+						columnListPath = ParserUtil
+								.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.PAGE_LIST + pageNo);
+					}
 					// 设置分页的起始位置
 					page.setPageNo(pageNo);
 					parserParams.put(ParserUtil.PAGE, page);
-					TagParser tag = new TagParser(content,parserParams);
-					FileUtil.writeString(tag.rendering(), columnListPath, Const.UTF8);
+					String read = ParserUtil.read(File.separator + column.getCategoryListUrl(), false, parserParams);
+					FileUtil.writeString(read, columnListPath, Const.UTF8);
 					// 判断是手机端生成还是pc端,防止重复生成
 					if (ParserUtil.hasMobileFile(column.getCategoryListUrl())) {
-						writer = new StringWriter();
-						mobileTemplate.process(null, writer);
 						parserParams.put(ParserUtil.MOBILE, BasicUtil.getApp().getAppMobileStyle());
-						tag = new TagParser(writer.toString(), parserParams);
+						String read1 = ParserUtil.read(File.separator + column.getCategoryListUrl(), true, parserParams);
 						// 将tag.getContent()写入路径
-						FileUtil.writeString(tag.rendering(), mobilePath, Const.UTF8);
+						FileUtil.writeString(read1, mobilePath, Const.UTF8);
 					}
-
-				} else {
-					// 遍历分页
-					for (int i = 0; i < totalPageSize; i++) {
-						if (i == 0) {
-							// 数据库中第一页是从开始0*size
-							// 首页路径index.html
-							mobilePath = ParserUtil
-									.buildMobileHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX);
-							columnListPath = ParserUtil
-									.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX);
-						} else {
-							// 其他路径list-2.html
-							mobilePath = ParserUtil.buildMobileHtmlPath(
-									column.getCategoryPath() + File.separator + ParserUtil.PAGE_LIST + pageNo);
-							columnListPath = ParserUtil
-									.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.PAGE_LIST + pageNo);
-						}
-						// 设置分页的起始位置
-						page.setPageNo(pageNo);
-						parserParams.put(ParserUtil.PAGE, page);
-						TagParser tag = new TagParser(content,parserParams);
-						FileUtil.writeString(tag.rendering(), columnListPath, Const.UTF8);
-						// 判断是手机端生成还是pc端,防止重复生成
-						if (ParserUtil.hasMobileFile(column.getCategoryListUrl())) {
-							writer = new StringWriter();
-							mobileTemplate.process(null, writer);
-							parserParams.put(ParserUtil.MOBILE, BasicUtil.getApp().getAppMobileStyle());
-							tag = new TagParser(writer.toString(),parserParams);
-							// 将tag.getContent()写入路径
-							FileUtil.writeString(tag.rendering(), mobilePath, Const.UTF8);
-						}
-						pageNo++;
-					}
+					pageNo++;
 				}
-			} catch (TemplateException e) {
-				e.printStackTrace();
 			}
 		}catch (TemplateNotFoundException e){
 			e.printStackTrace();

@@ -2,13 +2,13 @@
 <html>
     <head>
         <#include "head-file.htm">
-        <link rel="stylesheet" type="text/css" href="{ms:global.host/}/{ms:global.style/}/css/jquery.sinaemotion.css" />
-        <script type="text/javascript" src="{ms:global.host/}/{ms:global.style/}/js/jquery.sinaEmotion.js"></script>
+        <link rel="stylesheet" type="text/css" href="${global.host}/${global.style}/css/jquery.sinaemotion.css" />
+        <script type="text/javascript" src="${global.host}/${global.style}/js/jquery.sinaEmotion.js"></script>
     </head>
 
     <body>
         <#include "head.htm">
-        <div class="ms-banner" style="background:url({ms:global.host/}/{ms:global.style/}/images/news2.png) no-repeat center;">
+        <div class="ms-banner" style="background:url(${global.host}/${global.style}/images/news2.png) no-repeat center;">
             <p class="banner_tit_other animated fadeInLeft">公司动态</p>
             
             <p class="banner_tit_other_des animated fadeInRight">Our company</p>
@@ -18,23 +18,23 @@
                 <#include "menu-left.htm">
                 <div class="ms-content-right">
                     <div class="ms-content-right-position">
-                        <a href="{ms:global.host/}">首页</a>
+                        <a href="${global.host}">首页</a>
                         <span>></span>
-                        <a href="{ms:field.typelink/}">{ms:field.typetitle/}</a>
+                        <a href="${field.typelink}">${field.typetitle}</a>
                     </div>
                     <div class="ms-content-right-main">
                         <div class="ms-content-right-main-title" id="ms-content-right-main-title">
-                            <div class="ms-content-right-main-title-div">{ms:field.title/}</div>
+                            <div class="ms-content-right-main-title-div">${field.title}</div>
                             <div class="ms-content-right-main-icon">
                                 <div class="ms-content-icon-left">
-                                    <div class="ms-content-right-main-icon-source">来源：{ms:field.source/}
+                                    <div class="ms-content-right-main-icon-source">来源：${field.source}
                                         <span class="ms-content-right-vertical">|</span>
                                     </div>
-                                    <div class="ms-content-right-main-icon-time">时间：{ms:field.date?string("yyyy-MM-dd")/}</div>
+                                    <div class="ms-content-right-main-icon-time">时间：${field.date?string("yyyy-MM-dd")}</div>
                                 </div>
                                 <div class="ms-content-icon-right">
                                     <div class="ms-content-right-main-icon-clicks"></div>
-                                    <div class="ms-content-right-main-icon-num">{ms:field.hit/}
+                                    <div class="ms-content-right-main-icon-num">${field.hit}
                                         <span class="ms-content-right-vertical">|</span>
                                     </div>
                                     <div class="ms-content-right-main-icon-comment"></div>
@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <div class="ms-content-right-main-content">
-                            <p>{ms:field.content/}</p><br/>
+                            <p>${field.content!''}</p><br/>
                         </div>
                         <div class="metfield">
 					        <p>上一篇：<a href="{ms:global.url/}{ms:pre.link/}">{ms:pre.title/}</a></p>
@@ -68,13 +68,13 @@
                         </div>
                         <div class="ms-content-right-comment-list">
                             <div class="ms-content-right-comment-list-no-comment" style="display: none;" v-show="commentsList.length == 0">
-                                <img src="{ms:global.host/}/{ms:global.style/}/images/no-comment.png">
+                                <img src="${global.host}/${global.style}/images/no-comment.png">
                             </div>
                             <template v-for="(comments,index) in commentsList">
                                 <div class="ms-content-right-comment-list-div" v-if="index <= listNum">
                                     <div class="ms-content-right-comment-list-left">
                                         <div class="ms-content-right-comment-list-portrait">
-                                            <img :src="'{ms:global.host/}'+ comments.puIcon" onerror="this.src='http://cdn.mingsoft.net/global/images/msheader.png'">
+                                            <img :src="'${global.host}'+ comments.puIcon" onerror="this.src='http://cdn.mingsoft.net/global/images/msheader.png'">
                                         </div>
                                         <div class="ms-content-right-comment-list-content">
                                             <div class="ms-content-right-comment-list-name" v-text="comments.puNickname"></div>
@@ -96,7 +96,7 @@
                                     没有更多评论
                                 </div>
                                 <div class="ms-content-right-comment-list-div-load" style="display: none;">
-                                    <img src="{ms:global.host/}/{ms:global.style/}/images/loading.gif">
+                                    <img src="${global.host}/${global.style}/images/loading.gif">
                                 </div>
                             </div>
                         </div>
@@ -131,8 +131,8 @@
                     if(obj.isAttention == false) {
                         $.ajax({
                             type: "POST",
-                            data: "basicAttentionBasicId={ms:field.id/}&basicAttentionType=2",
-                            url: "{ms:global.host/}/people/attention/save.do",
+                            data: "basicAttentionBasicId=${field.id}&basicAttentionType=2",
+                            url: "${global.host}/people/attention/save.do",
                             success: function(msg) {
                                 if(msg.result) {
                                     obj.attentionNum++;
@@ -146,8 +146,8 @@
                     } else {
                         $.ajax({
                             type: "POST",
-                            data: "basicId={ms:field.id/}&basicAttentionType=2",
-                            url: "{ms:global.host/}/people/attention/delete.do",
+                            data: "basicId=${field.id}&basicAttentionType=2",
+                            url: "${global.host}/people/attention/delete.do",
                             success: function(msg) {
                                 if(msg.result) {
                                     obj.attentionNum--;
@@ -165,8 +165,8 @@
                     var obj = this;
                     $.ajax({
                         type: "POST",
-                        data: "commentBasicId={ms:field.id/}",
-                        url: "{ms:global.host/}/comment/list.do",
+                        data: "commentBasicId=${field.id}",
+                        url: "${global.host}/comment/list.do",
                         success: function(msg) {
                             obj.commentsList = msg.list;
                         }
@@ -184,8 +184,8 @@
                     var obj = this;
                     $.ajax({
                         type: "POST",
-                        data: "commentContent=" + $("textarea[name=comments]").val() + "&isCode=false&commentBasicId={ms:field.id/}",
-                        url: "{ms:global.host/}/people/comment/save.do",
+                        data: "commentContent=" + $("textarea[name=comments]").val() + "&isCode=false&commentBasicId=${field.id}",
+                        url: "${global.host}/people/comment/save.do",
                         success: function(msg) {
                             if(msg.result) {
                                 alert("评论成功");
@@ -207,7 +207,7 @@
                 //登录状态
                 $.ajax({
                     type: "POST",
-                    url: "{ms:global.host/}/checkLoginStatus.do",
+                    url: "${global.host}/checkLoginStatus.do",
                     success: function(msg) {
                         obj.loginStatus = msg.result;
                     }
@@ -216,8 +216,8 @@
                 //关注数
                 $.ajax({
                     type: "POST",
-                    data: "basicAttentionBasicId={ms:field.id/}&basicAttentionType=2",
-                    url: "{ms:global.host/}/attention/count.do",
+                    data: "basicAttentionBasicId=${field.id}&basicAttentionType=2",
+                    url: "${global.host}/attention/count.do",
                     success: function(msg) {
                         obj.attentionNum = msg;
                     }
@@ -225,8 +225,8 @@
                 //是否关注了
                 $.ajax({
                     type: "POST",
-                    data: "basicAttentionBasicId={ms:field.id/}&basicAttentionType=2",
-                    url: "{ms:global.host/}/people/attention/isExists.do",
+                    data: "basicAttentionBasicId=${field.id}&basicAttentionType=2",
+                    url: "${global.host}/people/attention/isExists.do",
                     success: function(msg) {
                         obj.isAttention = msg.result;
                     }

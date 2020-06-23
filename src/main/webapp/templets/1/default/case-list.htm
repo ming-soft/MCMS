@@ -12,27 +12,27 @@
         </div>
         <div class="ms-content-case">
             <div class="ms-content-main">
-                {ms:arclist size=6 ispaging=true}
+                <@arclist size=6 ispaging=true>
                 <div class="ms-content-main-case">
                     <div class="ms-content-main-case-img">
-                        <img src="{ms:global.host/}[field.litpic/]">
+                        <img src="${global.host}${item.litpic}">
                     </div>
                     <div class="ms-content-main-case-explain">
-                        <div class="ms-content-main-case-title">[field.title/]</div>
+                        <div class="ms-content-main-case-title">${item.title}</div>
                         <div class="ms-content-main-case-content">
                             <p class="ms-content-main-case-written">
-                                [field.content/]
+                                ${item.content}
                             </p>
                             <!-- <p class="ms-content-main-case-QRcode">
                                 <img src="./images/1471918025445.png">
                             </p> -->
                         </div>
                         <div class="ms-content-main-case-click">
-                            <a target="_blank" href="[field.source/]">点击查看</a>
+                            <a target="_blank" href="${field.source}">点击查看</a>
                         </div>
                     </div>
                 </div>
-                {/ms:arclist}
+                </@arclist>
             </div>
         </div>
         <#include "footer.htm"/>
