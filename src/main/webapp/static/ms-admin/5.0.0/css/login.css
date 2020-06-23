@@ -141,7 +141,7 @@ textarea::-webkit-input-placeholder {
   flex: 1;
   height: 320px;
   background: #fff;
-  padding: 20px  26px;
+  padding: 20px  54px;
 }
 .login .ms-admin-login-container .ms-admin-login-main .ms-admin-login-warp .ms-admin-login-form h1 {
   line-height: 1;
@@ -173,7 +173,7 @@ textarea::-webkit-input-placeholder {
 }
 .login .ms-admin-login-container .ms-admin-login-main .ms-admin-login-warp .ms-admin-login-form .ms-admin-form-item-code .el-form-item__content .el-input__inner,
 .login .ms-admin-login-container .ms-admin-login-main .ms-admin-login-warp .ms-admin-login-form .ms-admin-form-item-code .el-form-item__content .el-input {
-  width: 110px;
+  width: 97px;
 }
 .login .ms-admin-login-container .ms-admin-login-main .ms-admin-login-warp .ms-admin-login-form .ms-admin-form-item-code .el-form-item__content > img {
   width: 66px;
@@ -183,7 +183,7 @@ textarea::-webkit-input-placeholder {
 .login .ms-admin-login-container .ms-admin-login-main .ms-admin-login-warp .ms-admin-login-form .ms-admin-form-item-code .el-form-item__content p {
   display: flex;
   justify-content: space-between;
-  line-height: 1;
+  line-height: 17px;
   flex-direction: column;
   margin: 0;
 }

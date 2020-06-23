@@ -120,12 +120,6 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
     border-radius: 10px;
     background-color: rgba(144,147,153,.5);
 }
-
-/*缩略图*/
-.el-upload-list--picture-card .el-upload-list__item-thumbnail  {
-    width: 100%;
-    height: auto!important;
-}
 /*饿了么滚动样式*/
 .ms-scrollbar .el-scrollbar__wrap{
     overflow-x: hidden;

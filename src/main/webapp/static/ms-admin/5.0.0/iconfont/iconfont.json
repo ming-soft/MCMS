@@ -48,6 +48,13 @@
       "unicode_decimal": 59074
     },
     {
+      "icon_id": "174849",
+      "name": "特色服务icon",
+      "font_class": "tesefuwuicon",
+      "unicode": "e7a2",
+      "unicode_decimal": 59298
+    },
+    {
       "icon_id": "247483",
       "name": "书",
       "font_class": "shu",
@@ -741,6 +748,13 @@
       "unicode_decimal": 59050
     },
     {
+      "icon_id": "2228997",
+      "name": "打折",
+      "font_class": "dazhe",
+      "unicode": "e79e",
+      "unicode_decimal": 59294
+    },
+    {
       "icon_id": "2245822",
       "name": "红包",
       "font_class": "hongbao",
@@ -1105,6 +1119,13 @@
       "unicode_decimal": 58901
     },
     {
+      "icon_id": "3512889",
+      "name": "地址",
+      "font_class": "dizhi",
+      "unicode": "e79f",
+      "unicode_decimal": 59295
+    },
+    {
       "icon_id": "3555825",
       "name": "加",
       "font_class": "plus",
@@ -1385,6 +1406,13 @@
       "unicode_decimal": 59105
     },
     {
+      "icon_id": "4480718",
+      "name": "网页",
+      "font_class": "wangye",
+      "unicode": "e7a0",
+      "unicode_decimal": 59296
+    },
+    {
       "icon_id": "4549366",
       "name": "水滴",
       "font_class": "shuidi",
@@ -1565,6 +1593,20 @@
       "font_class": "shengyin1",
       "unicode": "e917",
       "unicode_decimal": 59671
+    },
+    {
+      "icon_id": "5296173",
+      "name": "承诺函",
+      "font_class": "chengnuohan",
+      "unicode": "e8f9",
+      "unicode_decimal": 59641
+    },
+    {
+      "icon_id": "5296174",
+      "name": "正品行货",
+      "font_class": "zhengpinhanghuo",
+      "unicode": "e8fa",
+      "unicode_decimal": 59642
     },
     {
       "icon_id": "5309436",
@@ -2120,6 +2162,13 @@
       "unicode_decimal": 60404
     },
     {
+      "icon_id": "7731245",
+      "name": "优惠券",
+      "font_class": "youhuiquan1",
+      "unicode": "e79a",
+      "unicode_decimal": 59290
+    },
+    {
       "icon_id": "7782114",
       "name": "裁剪",
       "font_class": "caijian",
@@ -2666,6 +2715,13 @@
       "unicode_decimal": 59439
     },
     {
+      "icon_id": "9739958",
+      "name": "9-劳联保险@三合一",
+      "font_class": "-laolianbaoxiansanheyi",
+      "unicode": "e7a3",
+      "unicode_decimal": 59299
+    },
+    {
       "icon_id": "9742421",
       "name": "清空",
       "font_class": "qingkong",
@@ -2930,6 +2986,13 @@
       "font_class": "zhanqun",
       "unicode": "e738",
       "unicode_decimal": 59192
+    },
+    {
+      "icon_id": "10833932",
+      "name": "商户管理",
+      "font_class": "shanghuguanli",
+      "unicode": "e79d",
+      "unicode_decimal": 59293
     },
     {
       "icon_id": "11043027",
