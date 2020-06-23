@@ -52,12 +52,8 @@
             <!--头部-->
             <el-header class="ms-admin-header" v-cloak>
                 <#--展示合并菜单-->
-                <div class="ms-admin-header-menu-shrink" @click="collapseMenu = !collapseMenu">
-                    <i class="iconfont" :class="collapseMenu?'icon-liebiaoxiangyou':'icon-shousuo'"></i>
-                </div>
+                <div class="ms-admin-header-menu-shrink" @click="collapseMenu = !collapseMenu"><i class="iconfont" :class="collapseMenu?'icon-liebiaoxiangyou':'icon-shousuo'"></i></div>
                 <!--头部menu-->
-
-
                 <el-menu menu-trigger="hover" class="ms-admin-header-menu" background-color="rgba(255,255,255,1)"
                          text-color="#333333" active-text-color="#409EFF" :default-active="headMenuActive"
                          mode="horizontal">
@@ -87,16 +83,8 @@
                         </div>
                     </el-submenu>
                 </el-menu>
-
-
                 <!--头部右侧-->
                 <div class="ms-admin-mstore">
-                    <div class="ms-admin-mstore-menu-icon" style="padding-left:20px " @click="handleMessage">
-                        <el-badge :value="unreadTotal>0?unreadTotal:null" type="danger" class="item" style="z-index: 1">
-                            <i class="iconfont icon-lingdang" style="color: #909399;"></i>
-                        </el-badge>
-                    </div>
-
                     <el-menu menu-trigger="hover" class="ms-admin-header-menu" background-color="rgba(255,255,255,1)"
                              text-color="#333333" active-text-color="#409EFF"
                              mode="horizontal">
@@ -116,51 +104,21 @@
                             </el-menu-item>
                         </el-submenu>
                     </el-menu>
-                    <#-- <el-dropdown trigger="hover" class="ms-admin-login" placement="top-start"
-                                  @visible-change="loginDown = !loginDown">
-             <span class="el-dropdown-link">
-               <div class="ms-admin-people-head"
-                                  v-text="peopleInfo.managerNickName && peopleInfo.managerNickName.substr(0, 1)"></div>
-               <span v-text='peopleInfo.managerNickName'></span>
-             </span>
-                         <el-dropdown-menu class="ms-admin-login-down" slot="dropdown">
-                             <el-dropdown-item icon="iconfont icon-suo" @click.native='openModal(true)'>修改密码
-                             </el-dropdown-item>
-                             <el-dropdown-item icon="iconfont icon-tuichu1" @click.native='openModal(false)'>退出
-                             </el-dropdown-item>
-                         </el-dropdown-menu>
-                     </el-dropdown>-->
-                    <el-menu menu-trigger="hover" class="ms-admin-header-menu" background-color="rgba(255,255,255,1)"
-                             text-color="#333333" active-text-color="#409EFF"
-                             mode="horizontal">
-                        <el-submenu style="height: 100%;" popper-class="top-operate-select">
-                            <template slot="title">
-                              <span class="el-dropdown-link" style="display:flex;align-items: center;float: left">
-                                <div class="ms-admin-people-head adminhead"
-                                     v-text="peopleInfo.managerNickName && peopleInfo.managerNickName.substr(0, 1)"></div>
-                                <span v-text='peopleInfo.managerNickName'></span>
-                              </span>
-                            </template>
-                            <el-menu-item @click="openModal(true)" style="display: flex;align-items: center">
-                                <i class="iconfont icon-suo to-ele"></i>
-                                <span>修改密码</span>
-                            </el-menu-item>
-<#--                            <el-menu-item @click="subscribe" style="display: flex;align-items: center">-->
-<#--                                <i class="iconfont icon-erweimadenglu to-ele"></i>-->
-<#--                                <span>微信绑定</span>-->
-<#--                            </el-menu-item>-->
-                            <el-menu-item @click="openModal(false)" style="display: flex;align-items: center">
-                                <i class="iconfont icon-tuichu1 to-ele"></i>
-                                <span>退出</span>
-                            </el-menu-item>
-                        </el-submenu>
-                    </el-menu>
-
-                    <#-- <!--mstore按钮&ndash;&gt;
-                     <div class="ms-admin-mstore-icon" @click="open(mstore)">
-                         <span v-if="mstore.syncNum>0" v-text="mstore.syncNum"></span>
-                         <i style="line-height: 42px !important;font-size: 30px;" class="iconfont icon-fenxiang2"></i>
-                     </div>-->
+                    <el-dropdown trigger="hover" class="ms-admin-login" placement="top-start" @visible-change="loginDown = !loginDown">
+						<span class="el-dropdown-link">
+							<div class="ms-admin-people-head" v-text="peopleInfo.managerName && peopleInfo.managerName.substr(0, 2)"></div>
+							<span v-text='peopleInfo.managerName'></span>
+						</span>
+                        <el-dropdown-menu class="ms-admin-login-down" slot="dropdown" @click.native='openModal'>
+                            <el-dropdown-item icon="iconfont icon-suo">修改密码</el-dropdown-item>
+                            <el-dropdown-item icon="iconfont icon-tuichu1">退出</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                    <!--mstore按钮-->
+                    <div class="ms-admin-mstore-icon" @click="open(mstore)">
+                        <span v-if="mstore.syncNum>0" v-text="mstore.syncNum"></span>
+                        <i style="line-height: 42px !important;font-size: 30px;" class="iconfont icon-fenxiang2"></i>
+                    </div>
                 </div>
 
             </el-header>
@@ -523,8 +481,8 @@
                 })
             },
             //  打开修改密码，退出的模态框
-            openModal: function (edit) {
-                edit ?
+            openModal: function () {
+                event.target.innerText.indexOf('修改密码') > -1 ?
                     resetPasswordVue.isShow = true : this.exitSystem();
             },
             // 显示图标
@@ -792,5 +750,8 @@
     .top-operate-select .el-menu--popup {
         width: 162px;
         min-width: 162px;
+    }
+    .ms-admin-login-down{
+        top:55px !important;
     }
 </style>
