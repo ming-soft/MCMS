@@ -369,7 +369,7 @@
 
                         var data = JSON.parse(JSON.stringify(that.form));
 
-                        if (data.contentType != null) {
+                        if (data.contentType) {
                             data.contentType = data.contentType.join(',');
                         }
 
@@ -390,7 +390,11 @@
 
                                 if (that.returnIsShow) {
                                     javascript: history.go(-1);
+                                }else {
+                                    //如果是顶级封面或封面，则重新拿到当前封面id,避免重复保存
+                                    that.list(that.form.contentCategoryId);
                                 }
+
                             } else {
                                 that.$notify({
                                     title: '失败',
