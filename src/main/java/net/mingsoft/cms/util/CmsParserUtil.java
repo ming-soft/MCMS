@@ -96,6 +96,8 @@ public class CmsParserUtil extends ParserUtil {
 			// 文章的栏目模型编号
 			String columnContentModelId = column.getMdiyModelId();
 
+			//ParserUtil.read(File.separator + column.getCategoryListUrl(), false, acrList);
+
 			//获取列表页显示的文章数量
 			int pageSize = 10;
 			//获取总数
@@ -178,7 +180,7 @@ public class CmsParserUtil extends ParserUtil {
 					pageNo++;
 				}
 			}
-		}catch (TemplateNotFoundException e){
+		}catch (Exception e){
 			e.printStackTrace();
 		}
 	}
