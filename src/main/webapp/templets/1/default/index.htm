@@ -2,8 +2,8 @@
 <html>
 <head>
     <#include "head-file.htm">
-    <link rel="stylesheet" type="text/css" href="${global.host}/plugins/bootstrap/3.3.5/css/bootstrap.min.css">
-    <script type="text/javascript" src="${global.host}/plugins/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{ms:global.host/}/plugins/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script type="text/javascript" src="{ms:global.host/}/plugins/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script>
         var ms = {
             base:"http://store.mingsoft.net"
@@ -13,7 +13,7 @@
 </head>
 
 <body>
-<#include "head.htm">
+<#include "head.htm" />
 <!-- <div class="ms-banner">
     <img src="./images/banner.jpg">
 </div> -->
@@ -21,15 +21,15 @@
     <div id="banner_tabs" class="flexslider">
         <ul class="slides">
             <template v-for="banner in bannerList">
-                <li style="background:url(${global.host}/${global.style}/images/03.jpg) no-repeat center;">
+                <li style="background:url({ms:global.host/}/{ms:global.style/}/images/03.jpg) no-repeat center;">
                     <p class="banner_tit animated fadeInLeft">铭飞MS平台</p>
                     <p class="banner_des animated fadeInRight">MCms系统永久完整开源</p>
                 </li>
-                <li style="background:url(${global.host}/${global.style}/images/03.jpg) no-repeat center;">
+                <li style="background:url({ms:global.host/}/{ms:global.style/}/images/03.jpg) no-repeat center;">
                     <p class="banner_tit animated fadeInLeft">MStore</p>
                     <p class="banner_des animated fadeInRight">丰富强大的功能插件、海量精美的行业模板</p>
                 </li>
-                <li style="background:url(${global.host}/${global.style}/images/03.jpg) no-repeat center;">
+                <li style="background:url({ms:global.host/}/{ms:global.style/}/images/03.jpg) no-repeat center;">
                     <p class="banner_tit animated fadeInLeft">优质的服务体验</p>
                     <p class="banner_des animated fadeInRight">人工远程协助服务、永久享受更新升级</p>
                 </li>
@@ -59,23 +59,23 @@
                     <div class="tab-content">
                         <div role="tabpanel" class="tab-pane active" id="model">
                             <div style="display: none;" class="ms-loading" v-show="!loading">
-                                <img src="${global.host}/${global.style}/images/loading.gif" />
+                                <img src="{ms:global.host/}/{ms:global.style/}/images/loading.gif" />
                             </div>
                             <div class="ms-model-content" style="display: none;" v-show="loading">
                                 <template v-for="model in modelList">
                                     <div class="ms-model-list">
                                         <a class="ms-model-img" :href="model.upgraderVersionUrl" target="_blank">
-                                            <img @mouseout="imgMout()" @mouseover="imgMover()" :src="'http://store.mingsoft.net/'+model.img" onerror="this.src='${global.host}/${global.style}/images/no-data.png'" />
+                                            <img @mouseout="imgMout()" @mouseover="imgMover()" :src="'http://store.mingsoft.net/'+model.img" onerror="this.src='{ms:global.host/}/{ms:global.style/}/images/no-data.png'" />
                                         </a>
-                                        <div class="ms-model-mobile-img" v-if="model.mobileImg != '' && model.mobileImg != undefined" style="background: url(${global.host}/${global.style}/images/mobile.png)">
+                                        <div class="ms-model-mobile-img" v-if="model.mobileImg != '' && model.mobileImg != undefined" style="background: url({ms:global.host/}/{ms:global.style/}/images/mobile.png)">
                                             <div>
-                                                <img @mouseout="imgMout()" @mouseover="imgMover()" :src="'http://store.mingsoft.net/'+model.mobileImg" onerror="this.src='${global.host}/${global.style}/images/no-data.png'" />
+                                                <img @mouseout="imgMout()" @mouseover="imgMover()" :src="'http://store.mingsoft.net/'+model.mobileImg" onerror="this.src='{ms:global.host/}/{ms:global.style/}/images/no-data.png'" />
                                             </div>
                                         </div>
                                         <div class="ms-model-info">
                                             <span v-text="model.upgraderVersionName"></span>
                                             <img class="ms-model-info-img" :src="model.upgraderVersionPeopleIcon" onerror="this.src='http://cdn.mingsoft.net/global/images/msheader.png'" />
-                                            <img :src="'${global.host}/${global.style}/images/level-'+model.upgraderVersionStart+'.png'" />
+                                            <img :src="'{ms:global.host/}/{ms:global.style/}/images/level-'+model.upgraderVersionStart+'.png'" />
                                             <div class="ms-model-type">模板</div>
                                         </div>
                                     </div>
@@ -92,12 +92,12 @@
                                 <template v-for="pulg in pulgList">
                                     <div class="ms-model-list">
                                         <a class="ms-model-img" :href="pulg.upgraderVersionUrl" target="_blank">
-                                            <img :src="'http://store.mingsoft.net/'+pulg.img" onerror="this.src='${global.host}/${global.style}/images/no-data.png'" />
+                                            <img :src="'http://store.mingsoft.net/'+pulg.img" onerror="this.src='{ms:global.host/}/{ms:global.style/}/images/no-data.png'" />
                                         </a>
                                         <div class="ms-model-info">
                                             <span v-text="pulg.upgraderVersionName"></span>
                                             <img class="ms-model-info-img" :src="pulg.upgraderVersionPeopleIcon" onerror="this.src='http://cdn.mingsoft.net/global/images/msheader.png'" />
-                                            <img :src="'${global.host}/${global.style}/images/level-'+pulg.upgraderVersionStart+'.png'" />
+                                            <img :src="'{ms:global.host/}/{ms:global.style/}/images/level-'+pulg.upgraderVersionStart+'.png'" />
                                             <div class="ms-model-type">插件</div>
                                         </div>
                                     </div>
@@ -118,29 +118,29 @@
                 <div class="ms-content-case-title">
                     <div class="ms-content-case-title-words">网站案例</div>
                     <div class="ms-content-case-more">
-                        <a href='${global.url}/149/index.html'>MORE>></a>
+                        <a href='{ms:global.url/}/149/index.html'>MORE>></a>
                     </div>
                 </div>
                 <div class="ms-content-case-list">
-                    <@arclist typeid=149 size=6>
+                    {ms:arclist typeid=149 size=6}
                     <div class="ms-content-main-case">
                         <div class="ms-content-main-case-img">
-                            <img src="${global.host}${item.litpic}">
+                            <img src="{ms:global.host/}[field.litpic/]">
                         </div>
                         <div class="ms-content-main-case-explain">
-                            <div class="ms-content-main-case-title">${item.title}</div>
+                            <div class="ms-content-main-case-title">[field.title/]</div>
                             <div class="ms-content-main-case-content">
 
                                 <p class="ms-content-main-case-written">
-                                    ${item.content}
+                                    [field.content/]
                                 </p>
                             </div>
                             <div class="ms-content-main-case-click">
-                                <a target="_blank" href="${item.source}">点击查看</a>
+                                <a target="_blank" href="[field.source/]">点击查看</a>
                             </div>
                         </div>
                     </div>
-                    </@arclist>
+                    {/ms:arclist}
                 </div>
             </div>
         </div>
@@ -190,25 +190,25 @@
                 <div class="ms-content-news-main-title">
                     <div class="ms-content-news-main-title-words">公司动态</div>
                     <div class="ms-content-news-main-title-more">
-                        <a href='${global.url}/59/index.html'>MORE>></a>
+                        <a href='{ms:global.url/}/59/index.html'>MORE>></a>
                     </div>
                 </div>
                 <div class="ms-content-news-main-img-text">
-                    <@arclist typeid=59 size=1>
-                    <img src="${global.host}${item.litpic}">
-                    </@arclist>
+                    {ms:arclist typeid=59 size=1}
+                    <img src="{ms:global.host/}[field.litpic/]">
+                    {/ms:arclist}
                     <ul class="ms-content-news-main-ul">
-                        <@arclist typeid=59 size=6>
+                        {ms:arclist typeid=59 size=6}
                         <li>
-                            <a href="${global.url}${item.link}">
+                            <a href="{ms:global.url/}[field.link/]">
                                 <div class="ms-content-news-main-li-title">
                                     <!-- <span class="ms-content-news-main-li-span">·</span> -->
-                                    <span class="">${item.title}</span>
+                                    <span class="">[field.title/]</span>
                                 </div>
-                                <div class="ms-content-news-main-li-time">${item.date?string("yyyy-mm-dd")}</div>
+                                <div class="ms-content-news-main-li-time">[field.date?string("yyyy-mm-dd")/]</div>
                             </a>
                         </li>
-                        </@arclist>
+                        {/ms:arclist}
                     </ul>
                 </div>
             </div>

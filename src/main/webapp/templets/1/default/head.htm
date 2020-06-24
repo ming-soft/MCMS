@@ -1,17 +1,17 @@
 <div class="ms-head">
     <div class="head-menu">
         <div class="head-men-left head-menu-flex-center">
-            <a href="${global.host}/html/1/index.html">
+            <a href="{ms:global.host/}/html/1/index.html">
                 <img src="http://cdn.mingsoft.net/images/logo.png" />
             </a>
             <ul class="head-menu-list">
                 <li class="head-menu-list-li">走进铭飞
                     <ul class="head-menu-son-list">
                         <li>
-                            <a target="_blank" href='${global.url}/53/index.html'>关于我们</a>
+                            <a target="_blank" href='{ms:global.url/}/53/index.html'>关于我们</a>
                         </li>
                         <li>
-                            <a target="_blank" href='${global.url}/59/index.html'>公司动态</a>
+                            <a target="_blank" href='{ms:global.url/}/59/index.html'>公司动态</a>
                         </li>
                         <li>
                             <a target="_blank" href='http://mingsoft.net/html/1//5527/index.html#faz'>发展历程</a>
@@ -20,12 +20,12 @@
                             <a target="_blank" href='http://mingsoft.net/html/1//5527/index.html#lianx'>加入我们</a>
                         </li>
                         <li>
-                            <a target="_blank" href='${global.url}/19/141/index.html'>联系我们</a>
+                            <a target="_blank" href='{ms:global.url/}/19/141/index.html'>联系我们</a>
                         </li>
                     </ul>
                 </li>
                 <li class="head-menu-list-li">
-                    <a href='${global.url}/149/index.html'>案例</a>
+                    <a href='{ms:global.url/}/149/index.html'>案例</a>
                 </li>
                 <li class="head-menu-list-li">
                     <a target="_blank" href='http://store.mingsoft.net/mstore/index.do'>插件&模板</a>
@@ -35,7 +35,7 @@
                     </ul> -->
                 </li>
                 <li class="head-menu-list-li">
-                    <a target="_blank" href='${global.url}/19/142/index.html'>在线留言</a>
+                    <a target="_blank" href='{ms:global.url/}/19/142/index.html'>在线留言</a>
                 </li>
                 <li class="head-menu-list-li">技术支持
                     <ul class="head-menu-son-list">
@@ -54,7 +54,7 @@
         </div>
         <div class="head-men-right head-menu-flex-center">
             <div class="head-menu-flex-center head-menu-right-search">
-                <form id="searchDataForm" action="${global.host}/mcms/search.do" method="post">
+                <form id="searchDataForm" action="{ms:global.host/}/mcms/search.do" method="post">
                     <input type="text" class='ms-search-input' name="content_title" placeholder="请输入关键字">
                     <!-- <i class="iconfont ms-search-click">&#xe85e;</i> -->
                     <input type="submit" value="" class="ms-search-click">
@@ -63,12 +63,12 @@
             <div class="head-menu-right-content" id="ms-login-vue">
                 <span v-show="!isLogin" style="display: none;">
                     <span>
-                        <a href='${global.host}/mdiyPage/login.do'>登录</a>
-                    </span>|<span><a href='${global.host}/mdiyPage/register.do'>注册</a></span>
+                        <a href='{ms:global.host/}/mdiyPage/login.do'>登录</a>
+                    </span>|<span><a href='{ms:global.host/}/mdiyPage/register.do'>注册</a></span>
                 </span>
                 <div class="topbar-info J_userInfo loginSuccess hide-default" v-show="isLogin" style="display: none;">
-                    <a class="user-name" href="${global.host}/people/center.do">
-                        <img :src="'${global.host}/'+peopleInfo.puIcon" class="loginImg user_icon" onerror="this.src='http://cdn.mingsoft.net/global/images/msheader.png'">
+                    <a class="user-name" href="{ms:global.host/}/people/center.do">
+                        <img :src="'{ms:global.host/}/'+peopleInfo.puIcon" class="loginImg user_icon" onerror="this.src='http://cdn.mingsoft.net/global/images/msheader.png'">
                         <b class="userName ms-userName" v-text="peopleInfo.puNickname"></b>
                     </a>
                     <a href="javascript:;" class="quitLogin" @click="quitLogin">退出</a>
@@ -91,13 +91,13 @@
             var target = this;
             $.ajax({
                 type: "POST",
-                url: "${global.host}/checkLoginStatus.do",
+                url: "{ms:global.host/}/checkLoginStatus.do",
                 success: function(msg) {
                     target.isLogin = msg.result;  //判断用户是否登录，如登录，则target.isLogin===true
                     if(msg.result) {
                         $.ajax({
                             type: "GET",
-                            url: "${global.host}/people/user/info.do",
+                            url: "{ms:global.host/}/people/user/info.do",
                             success: function(msg) {
                                 target.peopleInfo = msg;  //target.peopleInfo为当前登录用户的基本信息
                             }
@@ -112,11 +112,11 @@
                 var target = this;
                 $.ajax({
                     type: "GET",
-                    url: "${global.host}/people/quit.do",
+                    url: "{ms:global.host/}/people/quit.do",
                     success: function(msg) {
                         if(msg.result) {
                             $("body").append("<form id='msHeadForm' action=''></form>");
-                            $("#msHeadForm").attr("action", "${global.host}").submit();
+                            $("#msHeadForm").attr("action", "{ms:global.host/}").submit();
                         }
                     }
                 })

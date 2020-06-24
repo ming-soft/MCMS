@@ -285,7 +285,7 @@
 			<if test="tableName!=null and tableName!='' and diyMap!=null">
 				<foreach item="item" index="index" collection="diyList" open=""
 						 separator="" close="">
-					and d.${item.key} like CONCAT("%",#{item.value},"%")
+					and d.${field.key} like CONCAT("%",#{item.value},"%")
 				</foreach>
 			</if>
 		</where>
