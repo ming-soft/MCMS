@@ -27,7 +27,7 @@
                             <div class="ms-content-right-main-title-div">${field.title}</div>
                             <div class="ms-content-right-main-icon">
                                 <div class="ms-content-icon-left">
-                                    <div class="ms-content-right-main-icon-source">来源：${field.source}
+                                    <div class="ms-content-right-main-icon-source">来源：${field.source!''}
                                         <span class="ms-content-right-vertical">|</span>
                                     </div>
                                     <div class="ms-content-right-main-icon-time">时间：${field.date?string("yyyy-MM-dd")}</div>

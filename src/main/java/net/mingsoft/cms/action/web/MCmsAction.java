@@ -49,6 +49,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -284,7 +285,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 	 */
 	@RequestMapping(value = "search")
 	@ResponseBody
-	public void search(HttpServletRequest request, HttpServletResponse response) {
+	public void search(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		Map<String, Object> map = new HashMap<>();
 		// 读取请求字段
@@ -358,19 +359,6 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
 		//设置分页类
 		PageBean page = new PageBean();
-		//读取模板的分页数量
-		int size = BasicUtil.getInt(ParserUtil.SIZE,10);
-		try {
-			size = TagParser.getPageSize(ParserUtil.read(SEARCH+ParserUtil.HTM_SUFFIX,false ));
-		} catch (TemplateNotFoundException e1) {
-			e1.printStackTrace();
-		} catch (MalformedTemplateNameException e1) {
-			e1.printStackTrace();
-		} catch (ParseException e1) {
-			e1.printStackTrace();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
 		Map<String, Object> searchMap = field;
 		searchMap.forEach((k,v)->{
 			//sql注入过滤
@@ -381,24 +369,31 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
 		//查询数量
 		int count= contentBiz.getSearchCount(contentModel,fieldValueList,searchMap,BasicUtil.getAppId(),categoryIds);
-		int total = PageUtil.totalPage(count, size);
-
+		map.put(ParserUtil.URL, BasicUtil.getUrl());
+		map.put(SEARCH, searchMap);
+		map.put(ParserUtil.APP_ID, BasicUtil.getAppId());
+		map.put(ParserUtil.PAGE, page);
+		map.put(ParserUtil.HTML, ParserUtil.HTML);
+		//动态解析
+		map.put(ParserUtil.IS_DO,false);
+		//设置动态请求的模块路径
+		map.put(ParserUtil.MODEL_NAME, "mcms");
+		searchMap.put(ParserUtil.PAGE_NO, 0);
+		ParserUtil.read(SEARCH+ParserUtil.HTM_SUFFIX,map, page);
+		int total = PageUtil.totalPage(count, page.getSize());
 		int pageNo = BasicUtil.getInt(ParserUtil.PAGE_NO, 1);
 		if(pageNo >= total && total!=0) {
 			pageNo = total;
 		}
 		//获取总数
 		page.setTotal(total);
-		//设置页面显示数量
-		page.setSize(size);
-		//设置列表当前页
 
 		page.setPageNo(pageNo);
 
 		String str = ParserUtil.PAGE_NO+","+ParserUtil.SIZE;
 		//设置分页的统一链接
 		String url = BasicUtil.getUrl()+request.getServletPath() +"?" + BasicUtil.assemblyRequestUrlParams(str.split(","));
-		String pageNoStr = "&"+ParserUtil.SIZE+"="+size+"&"+ParserUtil.PAGE_NO+"=";
+		String pageNoStr = "&"+ParserUtil.SIZE+"="+page.getSize()+"&"+ParserUtil.PAGE_NO+"=";
 		//下一页
 		String nextUrl = url + pageNoStr+((pageNo+1 > total)?total:pageNo+1);
 		//首页
@@ -412,14 +407,8 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		page.setNextUrl(nextUrl);
 		page.setPreUrl(preUrl);
 		page.setLastUrl(lastUrl);
-		map.put(ParserUtil.URL, BasicUtil.getUrl());
+
 		searchMap.put(ParserUtil.PAGE_NO, pageNo);
-		map.put(SEARCH, searchMap);
-		map.put(ParserUtil.PAGE, page);
-		//动态解析
-		map.put(ParserUtil.IS_DO,false);
-		//设置动态请求的模块路径
-		map.put(ParserUtil.MODEL_NAME, "mcms");
 
 		//解析后的内容
 		String content = "";

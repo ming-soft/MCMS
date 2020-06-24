@@ -34,6 +34,8 @@ import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.util.CmsParserUtil;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
@@ -63,6 +65,11 @@ import java.util.List;
 @RequestMapping("/${ms.manager.path}/cms/generate")
 @Scope("request")
 public class GeneraterAction extends BaseAction {
+
+	/*
+	 * log4j日志记录
+	 */
+	protected final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
 	/**
 	 * 文章管理业务层
@@ -163,6 +170,7 @@ public class GeneraterAction extends BaseAction {
 			for (CategoryEntity column : columns) {
 				// 判断模板文件是否存在
 				if (!FileUtil.exist(ParserUtil.buildTempletPath(column.getCategoryUrl()))) {
+					LOG.error("模板不存在：{}",column.getCategoryUrl());
 					continue;
 				}
 				articleIdList = contentBiz.queryIdsByCategoryIdForParser(column.getId(), null, null);

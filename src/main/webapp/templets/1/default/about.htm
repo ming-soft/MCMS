@@ -6,7 +6,7 @@
 
     <body>
         <#include "head.htm"/>
-        <div class="ms-banner" style="background:url({ms:global.host/}/{ms:global.style/}/images/about_us.jpg) no-repeat center;">
+        <div class="ms-banner" style="background:url(${global.host}/${global.style}/images/about_us.jpg) no-repeat center;">
             <p class="banner_tit_about animated fadeInLeft">关于我们</p>
             <p class="banner_tit_about_des animated fadeInRight">About us</p>
         </div>
@@ -15,13 +15,13 @@
                 <#include "menu-left.htm"/>
                 <div class="ms-content-right">
                     <div class="ms-content-right-position">
-                        <a href="{ms:global.host/}">首页</a>
+                        <a href="${global.host}">首页</a>
                         <span>></span>
-                        <a href="{ms:field.typelink/}">${field.typetitle}</a>
+                        <a href="${field.typelink}">${field.typetitle}</a>
                     </div>
                     <div class="ms-content-right-main">
-                        <div class="ms-content-right-main-title">{ms:field.title/}</div>
-                        <div class="ms-content-right-main-content">{ms:field.content/}</div>
+                        <div class="ms-content-right-main-title">${field.title}</div>
+                        <div class="ms-content-right-main-content">${field.content}</div>
                     </div>
                 </div>
             </div>
