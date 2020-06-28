@@ -100,7 +100,11 @@
 			<artifactId>ms-upgrader</artifactId>
 			<version>1.0.17</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.github.stuxuhai</groupId>
+			<artifactId>jpinyin</artifactId>
+			<version>1.1.8</version>
+		</dependency>
 
 	</dependencies>
 	<build>
