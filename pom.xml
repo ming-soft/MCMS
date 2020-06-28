@@ -124,6 +124,26 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2-beta-5</version>
+				<configuration>
+					<appendAssemblyId>false</appendAssemblyId>
+					<!-- 指定assembly配置文件路径 -->
+					<descriptor>assembly-upgrade.xml</descriptor>
+				</configuration>
+				<executions>
+					<execution>
+						<!-- 在执行package打包时，执行assembly:single -->
+						<phase>package</phase>
+						<goals>
+							<!-- 在执行assembly一次 -->
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>2.6</version>
 				<executions>
@@ -196,10 +216,6 @@
 				</dependencies>
 			</plugin>
 
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
