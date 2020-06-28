@@ -42,3 +42,5 @@ ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_3`;
 ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_4`;
 ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_5`;
 ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_6`;
+
+UPDATE `mcms5.0-5.1`.`app` SET `id`='1', `app_name`='MCMS-OPEN', `app_url`='http://localhost:8080/ms-mcms\r\n', `app_logo`='[{\"path\":\"/upload/1/appLogo/1578375538540.jpg\"}]', `app_keyword`='铭飞MCMS', `app_copyright`='版权所有 ©铭飞科技有限公司2012-2019 保留一切权利。', `app_style`='default', `app_description`='铭飞MCMS', `app_datetime`=NULL, `app_mobile_style`='', `app_pay_date`='2019-11-16 00:00:00', `app_pay`='', `app_state`='0', `app_mobile_state`='1', `app_login_page`='', `del`=NULL, `update_date`=NULL, `update_by`=NULL, `create_date`=NULL, `create_by`=NULL WHERE (`id`='1');
