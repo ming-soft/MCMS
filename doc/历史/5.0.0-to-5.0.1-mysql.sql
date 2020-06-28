@@ -35,4 +35,10 @@ ALTER TABLE `cms_category`
 ADD COLUMN `category_pinyin`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `create_by`;
 
 
-UPDATE `mdiy_tag_sql` SET `id`='7', `tag_id`='5', `tag_sql`='select \r\nAPP_NAME as name,\r\napp_logo as logo,\r\napp_keyw&& isDo>\r\n\"${url}\" as url,\r\n\"${url}\" as host,\r\n<#--使用地址栏的域名 -->\r\n<#elseif url??>\r\nCONCAT(\"${url}\",\"/${html}/\",id,\"/<#if m??>${m}</#if>\") as url,\r\n\"${url}\" as host,\r\n<#else>\r\nCONCAT(REPLACE(REPLACE(TRIM(substring_index(app_url,\"\\n\",1)), CHAR(10),\'\'), CHAR(13),\'\'),\"/html/\",id,\"/<#if m??>${m}</#if>\") as url,\r\nREPLACE(REPLACE(TRIM(substring_index(app_url,\"\\n\",1)), CHAR(10),\'\'), CHAR(13),\'\') as host,\r\n</#if>\r\nCONCAT(\"templets/\",id,\"/\",<#if m??>CONCAT(app_style,\"/${m}\")<#else>app_style</#if>) as style <#-- 判断是否为手机端 ->\r\nfrom app where id = ${appId} limit 1', `sort`='1' WHERE (`id`='7');
+UPDATE `db-mcms-5.0`.`mdiy_tag_sql` SET `id`='7', `tag_id`='5', `tag_sql`='select \r\nAPP_NAME as name,\r\napp_logo as logo,\r\napp_keyword as keyword,\r\napp_description as descrip,\r\napp_copyright as copyright,\r\n<#--动态解析 -->\r\n<#if isDo?? && isDo>\r\n\"${url}\" as url,\r\n\"${url}\" as host,\r\n<#--使用地址栏的域名 -->\r\n<#elseif url??>\r\nCONCAT(\"${url}\",\"/${html}/\",id,\"/<#if m??>${m}</#if>\") as url,\r\n\"${url}\" as host,\r\n<#else>\r\nCONCAT(REPLACE(REPLACE(TRIM(substring_index(app_url,\"\\n\",1)), CHAR(10),\'\'), CHAR(13),\'\'),\"/html/\",id,\"/<#if m??>${m}</#if>\") as url,\r\nREPLACE(REPLACE(TRIM(substring_index(app_url,\"\\n\",1)), CHAR(10),\'\'), CHAR(13),\'\') as host,\r\n</#if>\r\nCONCAT(\"templets/\",id,\"/\",<#if m??>CONCAT(app_style,\"/${m}\")<#else>app_style</#if>) as style <#-- 判断是否为手机端 -->\r\nfrom app where id = ${appId} limit 1', `sort`='1' WHERE (`id`='7');
+
+ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_2`;
+ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_3`;
+ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_4`;
+ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_5`;
+ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_6`;
