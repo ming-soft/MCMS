@@ -8,3 +8,37 @@ UPDATE `mdiy_tag_sql` SET `tag_sql`='<#assign _typeid=\"\"/>\r\n<#if column?? &&
 UPDATE `model` SET `model_parent_ids`='264,538' WHERE (`model_id`='540');
 UPDATE `model` SET `model_parent_ids`='264,538' WHERE (`model_id`='542');
 UPDATE `model` SET `model_parent_ids`='264,538' WHERE (`model_id`='553');
+
+
+
+ALTER TABLE `app`
+CHANGE COLUMN `app_id` `id`  int(11) NOT NULL AUTO_INCREMENT COMMENT '站点id' FIRST ;
+
+
+ALTER TABLE `app` DROP FOREIGN KEY `app_ibfk_1`;
+ALTER TABLE `app`
+DROP COLUMN `app_managerid`,
+DROP INDEX `fk_app_manager_1`;
+
+
+ALTER TABLE `app`
+ADD COLUMN `del`  int(1) NULL DEFAULT NULL AFTER `app_login_page`,
+ADD COLUMN `update_date`  datetime NULL DEFAULT NULL COMMENT '修改时间' AFTER `del`,
+ADD COLUMN `update_by`  int(11) NULL DEFAULT NULL COMMENT '修改人' AFTER `update_date`,
+ADD COLUMN `create_date`  datetime NULL DEFAULT NULL COMMENT '创建时间' AFTER `update_by`,
+ADD COLUMN `create_by`  int(11) NULL DEFAULT NULL AFTER `create_date`;
+
+ALTER TABLE `manager`
+ADD COLUMN `manager_admin`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `manager_system_skin_id`;
+
+ALTER TABLE `cms_category`
+ADD COLUMN `category_pinyin`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `create_by`;
+
+
+UPDATE `db-mcms-5.0`.`mdiy_tag_sql` SET `id`='7', `tag_id`='5', `tag_sql`='select \r\nAPP_NAME as name,\r\napp_logo as logo,\r\napp_keyword as keyword,\r\napp_description as descrip,\r\napp_copyright as copyright,\r\n<#--动态解析 -->\r\n<#if isDo?? && isDo>\r\n\"${url}\" as url,\r\n\"${url}\" as host,\r\n<#--使用地址栏的域名 -->\r\n<#elseif url??>\r\nCONCAT(\"${url}\",\"/${html}/\",id,\"/<#if m??>${m}</#if>\") as url,\r\n\"${url}\" as host,\r\n<#else>\r\nCONCAT(REPLACE(REPLACE(TRIM(substring_index(app_url,\"\\n\",1)), CHAR(10),\'\'), CHAR(13),\'\'),\"/html/\",id,\"/<#if m??>${m}</#if>\") as url,\r\nREPLACE(REPLACE(TRIM(substring_index(app_url,\"\\n\",1)), CHAR(10),\'\'), CHAR(13),\'\') as host,\r\n</#if>\r\nCONCAT(\"templets/\",id,\"/\",<#if m??>CONCAT(app_style,\"/${m}\")<#else>app_style</#if>) as style <#-- 判断是否为手机端 -->\r\nfrom app where id = ${appId} limit 1', `sort`='1' WHERE (`id`='7');
+
+ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_2`;
+ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_3`;
+ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_4`;
+ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_5`;
+ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_6`;
