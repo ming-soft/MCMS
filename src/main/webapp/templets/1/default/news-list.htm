@@ -15,7 +15,9 @@
                 <div class="ms-content-right-position">
                     <a href="{ms:global.host/}">首页</a>
                     <span>></span>
-                    <a href="{ms:field.typelink/}">{ms:field.typetitle/}</a>
+                    {ms:channel type='self'}
+                    <a href="{ms:global.url/}[field.typelink/]">[field.typetitle/]</a>
+                    {/ms:channel}
                 </div>
                 <div class="ms-content-main-list">
 
