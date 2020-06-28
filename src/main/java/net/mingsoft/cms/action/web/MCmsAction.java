@@ -200,6 +200,9 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 				return;
 			}
 		}
+		if(sqlFilter(orderby)){
+			orderby = "id";
+		}
 		PageBean page = new PageBean();
 		//根据文章编号查询栏目详情模版
 		CategoryEntity column = (CategoryEntity) categoryBiz.getEntity(Integer.parseInt(article.getContentCategoryId()));
