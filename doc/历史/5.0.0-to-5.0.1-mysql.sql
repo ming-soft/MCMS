@@ -37,6 +37,9 @@ ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_4`;
 ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_5`;
 ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_6`;
 
+ALTER TABLE `mdiy_tag`
+MODIFY COLUMN `tag_type`  varchar(255) NULL DEFAULT NULL COMMENT '标签类型' AFTER `tag_name`;
+
 UPDATE `mdiy_tag` SET `id`='3', `tag_name`='arclist', `tag_type`='page', `tag_description`='文章列表' WHERE (`id`='3');
 UPDATE `mdiy_tag` SET `id`='4', `tag_name`='channel', `tag_type`='list', `tag_description`='通用栏目' WHERE (`id`='4');
 UPDATE `mdiy_tag` SET `id`='5', `tag_name`='global', `tag_type`='single', `tag_description`='全局' WHERE (`id`='5');
