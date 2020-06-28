@@ -107,6 +107,12 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 	@GetMapping("/index.do")
 	public void index(HttpServletRequest req, HttpServletResponse resp) {
 		Map map = BasicUtil.assemblyRequestMap();
+		map.forEach((k,v)->{
+			//sql注入过滤
+			if(sqlFilter(v.toString())){
+				map.put(k,"");
+			}
+		});
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
 		//动态解析
 		map.put(ParserUtil.IS_DO,true);
@@ -203,12 +209,19 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		if(sqlFilter(orderby)){
 			orderby = "id";
 		}
+
 		PageBean page = new PageBean();
 		//根据文章编号查询栏目详情模版
 		CategoryEntity column = (CategoryEntity) categoryBiz.getEntity(Integer.parseInt(article.getContentCategoryId()));
 		//解析后的内容
 		String content = "";
 		Map map = BasicUtil.assemblyRequestMap();
+		map.forEach((k,v)->{
+			//sql注入过滤
+			if(sqlFilter(v.toString())){
+				map.put(k,"");
+			}
+		});
 		//动态解析
 		map.put(ParserUtil.IS_DO,true);
 		//设置动态请求的模块路径
