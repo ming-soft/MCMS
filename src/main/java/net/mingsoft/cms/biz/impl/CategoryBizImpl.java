@@ -22,21 +22,18 @@ The MIT License (MIT) * Copyright (c) 2019 铭飞科技
 package net.mingsoft.cms.biz.impl;
 
 import cn.hutool.core.util.ObjectUtil;
-import net.mingsoft.base.entity.BaseEntity;
+import net.mingsoft.base.biz.impl.BaseBizImpl;
+import net.mingsoft.base.dao.IBaseDao;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.cms.biz.ICategoryBiz;
+import net.mingsoft.cms.dao.ICategoryDao;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.util.PinYinUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import net.mingsoft.base.biz.impl.BaseBizImpl;
-import net.mingsoft.base.dao.IBaseDao;
 
-import java.io.File;
-import java.util.*;
-
-import net.mingsoft.cms.biz.ICategoryBiz;
-import net.mingsoft.cms.dao.ICategoryDao;
+import java.util.List;
 
 /**
  * 分类管理持久化层
@@ -78,9 +75,12 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 		if(categoryBizEntity!=null){
 			categoryEntity.setCategoryPinyin(pingYin+categoryEntity.getId());
 		}
-		CategoryEntity parentCategory = (CategoryEntity)categoryDao.getEntity(Integer.parseInt(categoryEntity.getCategoryId()));
+		CategoryEntity parentCategory = null;
+		if (StringUtils.isNotBlank(categoryEntity.getCategoryId())) {
+			parentCategory = (CategoryEntity)categoryDao.getEntity(Integer.parseInt(categoryEntity.getCategoryId()));
+		}
 		//保存链接地址
-		String path=ObjectUtil.isNotNull(parentCategory)?categoryEntity.getCategoryPath():"";
+		String path=ObjectUtil.isNotNull(parentCategory)?parentCategory.getCategoryPath():"";
 		categoryEntity.setCategoryPath( path+"/" + categoryEntity.getCategoryPinyin());
 		super.updateEntity(categoryEntity);
 	}
