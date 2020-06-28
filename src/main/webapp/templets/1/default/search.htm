@@ -6,31 +6,31 @@
     <body>
         <#include "head.htm"/>
         <div class="ms-banner">
-            <img src="${global.host}/${global.style}/images/search.jpg">
+            <img src="{ms:global.host/}/{ms:global.style/}/images/search.jpg">
         </div>
         <div class="ms-content" id="body">
             <div class="ms-content-main-list" id="ms-content-search">
                 <div class="ms-content-main-div">
                     <div class="ms-content-main-div-prompt">您搜索的关键字
-                        <span>${search.content_title}</span>
+                        <span>{ms:search.content_title/}</span>
                         <!-- 共7个结果 -->
                     </div>
                     <ul class="ms-content-main-ul">
-                        <@arclist size=10 ispaging=true>
+                        {ms:arclist size=10 ispaging=true}
                         <li>
-                            <a href="${global.url}/${field.link}">
-                                ${field.title}
-                                <span class="ms-content-main-li-time">${field.date?string("yyyy-MM-dd")}</span>
+                            <a href="{ms:global.url/}/[field.link/]">
+                                [field.title/]
+                                <span class="ms-content-main-li-time">[field.date?string("yyyy-MM-dd")/]</span>
                             </a>
                         </li>
-                        </@arclist>
+                        {/ms:arclist}
                     </ul>
                 </div>
                 <div class="ms-content-main-page">
-	              	 <a class="ms-content-main-page-first" href="${page.index}">首页</a>
-		             <a class="ms-content-main-page-upper" href="${page.pre}">上一页</a>
-		             <a class="ms-content-main-page-next" href="${page.next}">下一页</a>
-		             <a class="ms-content-main-page-last" href="${page.last}">末页</a>
+	              	 <a class="ms-content-main-page-first" href="{ms:page.index/}">首页</a>
+		             <a class="ms-content-main-page-upper" href="{ms:page.pre/}">上一页</a>
+		             <a class="ms-content-main-page-next" href="{ms:page.next/}">下一页</a>
+		             <a class="ms-content-main-page-last" href="{ms:page.last/}">末页</a>
 	            </div>
             </div>
         </div>
@@ -47,19 +47,19 @@ new Vue({
     methods: {
    	//上下页
   	search:function(flag){
-  		var pageNo = ${search.pageNo};
-  		var total = ${page.total};
+  		var pageNo = {ms:search.pageNo/};
+  		var total = {ms:page.total/};
   		if(flag){
   			pageNo = pageNo==total ? total : pageNo +1;//下一页
   		}else{
   			pageNo = pageNo -1==0 ? 1 : pageNo-1;//上一页
   		}
-  		window.location.href="${global.host}/cms/1/search.do?content_title=${search.content_title}&pageNo="+pageNo;
+  		window.location.href="{ms:global.host/}/cms/1/search.do?basic_title={ms:search.basic_title/}&pageNo="+pageNo;
   		window.event.returnValue=false;
   	},
   	//首页和尾页
   	indexAndLast:function(pageNo){
-  		window.location.href="${global.host}/cms/1/search.do?content_title=${search.content_title}&pageNo="+pageNo;
+  		window.location.href="{ms:global.host/}/cms/1/search.do?basic_title={ms:search.basic_title/}&pageNo="+pageNo;
   		window.event.returnValue=false;
   	},
     },
