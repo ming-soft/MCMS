@@ -51,7 +51,7 @@ public class CmsParserUtil extends ParserUtil {
 		CategoryEntity column = new CategoryEntity();
 		//内容管理栏目编码
 		map.put(COLUMN, column);
-		String content = CmsParserUtil.generate(templatePath, map, false);
+		String content = CmsParserUtil.generate(templatePath, map);
 		FileUtil.writeString(content, ParserUtil.buildHtmlPath(targetPath), Const.UTF8);
 	}
 
@@ -247,7 +247,7 @@ public class CmsParserUtil extends ParserUtil {
 				String content = null;
 				try {
 					SpringUtil.setRequest(request);
-					content = CmsParserUtil.generate(columnUrl, cloneMap, false);
+					content = CmsParserUtil.generate(columnUrl, cloneMap);
 					FileUtil.writeString(content, finalWritePath, Const.UTF8);
 				} catch (IOException e) {
 					e.printStackTrace();

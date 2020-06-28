@@ -39,17 +39,17 @@ import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.biz.IPageBiz;
 import net.mingsoft.mdiy.entity.ModelEntity;
-import net.mingsoft.mdiy.entity.PageEntity;
-import net.mingsoft.mdiy.parser.TagParser;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -116,7 +116,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		String content = "";
 		try {
 			//根据模板路径，参数生成
-			content = CmsParserUtil.generate(ParserUtil.INDEX+ParserUtil.HTM_SUFFIX, map, isMobileDevice(req));
+			content = CmsParserUtil.generate(ParserUtil.INDEX+ParserUtil.HTM_SUFFIX, map);
 		} catch (TemplateNotFoundException e) {
 			e.printStackTrace();
 		} catch (MalformedTemplateNameException e) {
@@ -168,7 +168,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		String content = "";
 		try {
 			//根据模板路径，参数生成
-			content = CmsParserUtil.generate(columnArticles.get(0).getCategoryListUrl(),map, isMobileDevice(req));
+			content = CmsParserUtil.generate(columnArticles.get(0).getCategoryListUrl(),map);
 		} catch (TemplateNotFoundException e) {
 			e.printStackTrace();
 		} catch (MalformedTemplateNameException e) {
@@ -261,7 +261,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		}
 		try {
 			//根据模板路径，参数生成
-			content = CmsParserUtil.generate(column.getCategoryUrl(), map, isMobileDevice(req));
+			content = CmsParserUtil.generate(column.getCategoryUrl(), map);
 		} catch (TemplateNotFoundException e) {
 			e.printStackTrace();
 		} catch (MalformedTemplateNameException e) {
@@ -414,7 +414,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		String content = "";
 		try {
 			//根据模板路径，参数生成
-			content = CmsParserUtil.generate(SEARCH+ParserUtil.HTM_SUFFIX,map, isMobileDevice(request));
+			content = CmsParserUtil.generate(SEARCH+ParserUtil.HTM_SUFFIX,map);
 		} catch (TemplateNotFoundException e) {
 			e.printStackTrace();
 		} catch (MalformedTemplateNameException e) {
