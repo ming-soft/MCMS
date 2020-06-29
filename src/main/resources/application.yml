@@ -3,13 +3,24 @@ server:
   servlet.context-path: /ms-mcms
   servlet.session.timeout: P0DT60M0S #D天H小时M分钟S秒，字符T是紧跟在时分秒之前的，每个单位都必须由数字开始,且时分秒顺序不能乱
 
+#logging:
+#  level:
+#    net.mingsoft: trace
+#  file:
+#    name: mcms.log #会在项目的根目录下生成对应的mcms.log文件，也可以根据实际情况写绝对路径，例如：d:/mcms.log
+#    path: /Users/xianruike/log #会在项目的根目录下生成log目录，里面会生成对应的日期目录，日期目录下面生成日志压缩包备份文件,默认按每10M分割一个日志文件，例如：log/2020-01/app-2020-01-03-18.1.log.gz（表示2020年1月3号下午六点的第一个备份），也可以根据实际情况写绝对路径，例如：d:/log
+
 logging:
-  level:
-    net.mingsoft: trace
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
   file:
-    name: mcms.log #会在项目的根目录下生成对应的mcms.log文件，也可以根据实际情况写绝对路径，例如：d:/mcms.log
-    path: log #会在项目的根目录下生成log目录，里面会生成对应的日期目录，日期目录下面生成日志压缩包备份文件,默认按每10M分割一个日志文件，例如：log/2020-01/app-2020-01-03-18.1.log.gz（表示2020年1月3号下午六点的第一个备份），也可以根据实际情况写绝对路径，例如：d:/log
-    
+    name: "/Users/xianruike/logs/msmc-log/msmc.log"
+    path: "/Users/xianruike/logs/msmc-log"
+    max-size: 10MB
+  level:
+    root: INFO
+
 ms:
   swagger:
     enable: true #启用swagger文档，生产的时候务必关掉
