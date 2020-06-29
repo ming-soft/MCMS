@@ -170,7 +170,6 @@
                 {title: "权限管理", icon: "icon-wode", hide: true},
                 {title: "系统设置", icon: "icon-xitongguanli", hide: true},
                 {title: "内容管理", icon: "icon-neirongguanli", hide: true},
-                {title: "印章管理", icon: "icon-huizhang", hide: true},
                 {title: "会员中心", icon: "icon-huiyuanzhongxin", hide: true},
                 {title: "自定义管理", icon: "icon-zidingyiguanli", hide: true},
             ],
