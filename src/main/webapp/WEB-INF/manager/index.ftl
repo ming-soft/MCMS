@@ -277,18 +277,18 @@
                 })
 
             },
-            connect: function () {
-                var that = this
-                var sockjs = new SockJS("/websocket");
-                var stompClient = Stomp.over(sockjs);
-                stompClient.connect({}, function (frame) {
-                    stompClient.subscribe('/topic/message/' +${Session.manager_session.managerId}, function (greeting) {
-                        if (greeting.body == "list") {
-                            that.getMessage()
-                        }
-                    });
-                });
-            },
+            <#--connect: function () {-->
+            <#--    var that = this-->
+            <#--    var sockjs = new SockJS("/websocket");-->
+            <#--    var stompClient = Stomp.over(sockjs);-->
+            <#--    stompClient.connect({}, function (frame) {-->
+            <#--        stompClient.subscribe('/topic/message/' +${Session.manager_session.managerId}, function (greeting) {-->
+            <#--            if (greeting.body == "list") {-->
+            <#--                that.getMessage()-->
+            <#--            }-->
+            <#--        });-->
+            <#--    });-->
+            <#--},-->
             markMenu: function (title, icon) {
                 var menu = {
                     title: title,
@@ -538,7 +538,7 @@
             //setInterval(this.getMessage,3000)
             // 菜单列表
             this.list();
-            this.connect();
+            // this.connect();
             //获取登录用户信息
             this.managerGet();
             var that = this;
