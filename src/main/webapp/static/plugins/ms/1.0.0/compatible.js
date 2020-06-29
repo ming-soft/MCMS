@@ -1,6 +1,3 @@
-//ie的兼容
-
-//Object.assign 对ie对支持
 if (typeof Object.assign != 'function') {
     Object.assign = function(target) {
         'use strict';
