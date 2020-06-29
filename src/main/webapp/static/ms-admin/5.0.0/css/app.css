@@ -130,3 +130,15 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
 .ms-scrollbar .el-scrollbar__view{
     padding-right: 17px;
 }
+/**后台管理界面的el-menu通用样式**/
+.ms-index .el-menu {
+    border-right: none;
+    background-color: unset;
+    height: calc(100vh - 141px);
+}
+.ms-index .el-menu-item {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-all;
+}

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>造价管理系统</title>
+    <title>MCMS-OPEN</title>
     <#include '/include/head-file.ftl'/>
     <script src="${base}/static/plugins/sockjs/1.4.0/sockjs.min.js"></script>
     <script src="${base}/static/plugins/stomp/2.3.3/stomp.min.js"></script>
@@ -28,7 +28,7 @@
                         <img :src="ms.base+'/static/ms-admin/5.0.0/images/logo.png'"/>
                         <div class="class-1" v-show="!collapseMenu">
                             <div class="class-2">v</div>
-                            2.0
+                            5.1
                         </div>
                     </div>
                     <el-submenu :popper-class="['ms-admin-menu-aside-submenu',theme]" :index="menu.modelId+''"
