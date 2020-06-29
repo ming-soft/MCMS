@@ -45,7 +45,7 @@
         </div>
         <div  class="class-7" >
           <div class="panel">
-            <div class="panel-title">
+            <div v-if="alwaysList.length>0" class="panel-title">
               常用功能
             </div>
             <div class="v-space"></div>
