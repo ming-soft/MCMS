@@ -165,7 +165,8 @@
             collapseMenu: false, //菜单折叠，false不折叠
             currentTab: '工作台', //当前激活tab的name
             tabIndex: 1,
-            // markList: ['项目管理', '组织管理', '客户管理', '合同管理', '印章管理', '绩效管理', '权限管理', '系统设置'],
+            // markList:
+            // ['项目管理', '组织管理', '客户管理', '合同管理', '印章管理', '绩效管理', '权限管理', '系统设置'],
             markList: [
                 {title: "权限管理", icon: "icon-wode", hide: true},
                 {title: "系统设置", icon: "icon-xitongguanli", hide: true},
