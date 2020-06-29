@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MCMS-OPEN</title>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="http://localhost:8081/ms-mcms/plugins/iconfont/1.0.0/iconfont.css" />
+<link rel="stylesheet" type="text/css" href="http://localhost:8081/ms-mcms/templets/1/default//css/base.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:8081/ms-mcms/templets/1/default//css/index.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:8081/ms-mcms/templets/1/default//css/advice.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:8081/ms-mcms/templets/1/default//css/case-list.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:8081/ms-mcms/templets/1/default//css/about.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:8081/ms-mcms/templets/1/default//css/news-list.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:8081/ms-mcms/templets/1/default//css/news-show.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:8081/ms-mcms/templets/1/default//css/center.css">
+
+<script src="http://localhost:8081/ms-mcms/plugins/jquery/1.9.1/jquery-1.9.1.js"></script>
+<script src="http://localhost:8081/ms-mcms/templets/1/default//js/slider.js"></script>
+<script src="http://localhost:8081/ms-mcms/static/plugins/less/3.9.0/less.min.js"></script>
+<!--vue-懒加载-表单验证-->
+<script src="http://localhost:8081/ms-mcms/plugins/vue/2.6.9/vue.min.js"></script>
+<script src="http://localhost:8081/ms-mcms/plugins/validator/10.8.0/validator.min.js"></script>
+<!-- Element -->
+<link rel="stylesheet" href="http://localhost:8081/ms-mcms/plugins/element-ui/2.8.2/index.css">
+<script src="http://localhost:8081/ms-mcms/plugins/element-ui/2.8.2/index.js"></script>
+
+<link rel="stylesheet" type="text/css" href="http://localhost:8081/ms-mcms/templets/1/default//css/animate.css">
+<script src="http://localhost:8081/ms-mcms/static/plugins/axios/0.18.0/axios.min.js"></script>
+<script src="http://localhost:8081/ms-mcms/static/plugins/ms/1.0.0/ms.js"></script>
+<script src="http://localhost:8081/ms-mcms/static/plugins/ms/1.0.0/ms.http.js"></script>
+<script src="http://localhost:8081/ms-mcms/static/plugins/ms/1.0.0/ms.util.js"></script>
+<script src="http://localhost:8081/ms-mcms/api/ms.people.min.js"></script>
+<script src="http://localhost:8081/ms-mcms/static/plugins/plupload/plupload.full.min.js"></script>
+<script src="http://localhost:8081/ms-mcms/static/plugins/qs/6.6.0/qs.min.js"></script>
+<script src="http://localhost:8081/ms-mcms/static/plugins/ms/1.0.0/ms.upload.js"></script>
+<script>
+	window.http = ms.http;
+	ms.base = "http://localhost:8081/ms-mcms";
+	ms.login = 'http://localhost:8081/ms-mcms';
+</script>    <link rel="stylesheet" type="text/css" href="http://localhost:8081/ms-mcms/plugins/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script type="text/javascript" src="http://localhost:8081/ms-mcms/plugins/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script>
+        var ms = {
+            base:"http://store.mingsoft.net"
+        }
+    </script>
+    <script src="http://store.mingsoft.net/api/ms.web.mstore.js"></script>
+</head>
+
+<body>
+<div class="ms-head">
+    <div class="head-menu">
+        <div class="head-men-left head-menu-flex-center">
+            <a href="http://localhost:8081/ms-mcms/html/1/index.html">
+                <img src="http://cdn.mingsoft.net/images/logo.png" />
+            </a>
+            <ul class="head-menu-list">
+                <li class="head-menu-list-li">走进铭飞
+                    <ul class="head-menu-son-list">
+                        <li>
+                            <a target="_blank" href='http://localhost:8081/ms-mcms/html/1//53/index.html'>关于我们</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href='http://localhost:8081/ms-mcms/html/1//59/index.html'>公司动态</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href='http://mingsoft.net/html/1//5527/index.html#faz'>发展历程</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href='http://mingsoft.net/html/1//5527/index.html#lianx'>加入我们</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href='http://localhost:8081/ms-mcms/html/1//19/141/index.html'>联系我们</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="head-menu-list-li">
+                    <a href='http://localhost:8081/ms-mcms/html/1//149/index.html'>案例</a>
+                </li>
+                <li class="head-menu-list-li">
+                    <a target="_blank" href='http://store.mingsoft.net/mstore/index.do'>插件&模板</a>
+                    <!-- <ul class="head-menu-son-list">
+                        <li><a href='http://mstore.mingsoft.net/mstoreShow.do'>模板</a></li>
+                        <li><a href='http://mstore.mingsoft.net/mstoreShow.do'>插件</a></li>
+                    </ul> -->
+                </li>
+                <li class="head-menu-list-li">
+                    <a target="_blank" href='http://localhost:8081/ms-mcms/html/1//19/142/index.html'>在线留言</a>
+                </li>
+                <li class="head-menu-list-li">技术支持
+                    <ul class="head-menu-son-list">
+                        <li>
+                            <a target="_blank" href='http://bbs.mingsoft.net/mbbs/main.do'>开源社区</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href='https://gitee.com/mingSoft/MCMS'>源码下载</a>
+                        </li>
+                        <li>
+                            <a target="_blank" href='http://doc.ms.mingsoft.net/plugs-cms/'>使用手册</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="head-men-right head-menu-flex-center">
+            <div class="head-menu-flex-center head-menu-right-search">
+                <form id="searchDataForm" action="http://localhost:8081/ms-mcms/mcms/search.do" method="post">
+                    <input type="text" class='ms-search-input' name="content_title" placeholder="请输入关键字">
+                    <!-- <i class="iconfont ms-search-click">&#xe85e;</i> -->
+                    <input type="submit" value="" class="ms-search-click">
+                </form>
+            </div>
+            <div class="head-menu-right-content" id="ms-login-vue">
+                <span v-show="!isLogin" style="display: none;">
+                    <span>
+                        <a href='http://localhost:8081/ms-mcms/mdiyPage/login.do'>登录</a>
+                    </span>|<span><a href='http://localhost:8081/ms-mcms/mdiyPage/register.do'>注册</a></span>
+                </span>
+                <div class="topbar-info J_userInfo loginSuccess hide-default" v-show="isLogin" style="display: none;">
+                    <a class="user-name" href="http://localhost:8081/ms-mcms/people/center.do">
+                        <img :src="'http://localhost:8081/ms-mcms/'+peopleInfo.puIcon" class="loginImg user_icon" onerror="this.src='http://cdn.mingsoft.net/global/images/msheader.png'">
+                        <b class="userName ms-userName" v-text="peopleInfo.puNickname"></b>
+                    </a>
+                    <a href="javascript:;" class="quitLogin" @click="quitLogin">退出</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var headVue = new Vue({
+        el: "#ms-login-vue",
+        data: {
+            isLogin: "", //登录状态
+            peopleInfo: "", //个人信息
+            imgUrl:"",
+        },
+        
+        mounted: function() {
+            //获取个人信息
+            var target = this;
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/ms-mcms/checkLoginStatus.do",
+                success: function(msg) {
+                    target.isLogin = msg.result;  //判断用户是否登录，如登录，则target.isLogin===true
+                    if(msg.result) {
+                        $.ajax({
+                            type: "GET",
+                            url: "http://localhost:8081/ms-mcms/people/user/info.do",
+                            success: function(msg) {
+                                target.peopleInfo = msg;  //target.peopleInfo为当前登录用户的基本信息
+                            }
+                        })
+                    }
+                }
+            })
+        },
+        methods: {
+            //退出登录
+            quitLogin: function() {
+                var target = this;
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8081/ms-mcms/people/quit.do",
+                    success: function(msg) {
+                        if(msg.result) {
+                            $("body").append("<form id='msHeadForm' action=''></form>");
+                            $("#msHeadForm").attr("action", "http://localhost:8081/ms-mcms").submit();
+                        }
+                    }
+                })
+            },
+        },
+    })
+    
+    /* $(function(){
+        var r=location.href;
+          if(r.match("53")){
+          $(".head-menu-list-li").removeClass("head-active");
+          $(".head-menu-list-li").eq(0).addClass("head-active");
+        }else if(r.match("141")){
+          $(".head-menu-list-li").removeClass("head-active");
+          $(".head-menu-list-li").eq(0).addClass("head-active");
+        }else if(r.match("59")){
+          $(".head-menu-list-li").removeClass("head-active");
+          $(".head-menu-list-li").eq(0).addClass("head-active");
+        }else if(r.match("155")){
+          $(".head-menu-list-li").removeClass("head-active");
+          $(".head-menu-list-li").eq(1).addClass("head-active");
+        }else if(r.match("142")){
+            $(".head-menu-list-li").removeClass("head-active");
+            $(".head-menu-list-li").eq(3).addClass("head-active");
+          }
+      }) */
+</script><!-- <div class="ms-banner">
+    <img src="./images/banner.jpg">
+</div> -->
+<div id="indexVue">
+    <div id="banner_tabs" class="flexslider">
+        <ul class="slides">
+            <template v-for="banner in bannerList">
+                <li style="background:url(http://localhost:8081/ms-mcms/templets/1/default//images/03.jpg) no-repeat center;">
+                    <p class="banner_tit animated fadeInLeft">铭飞MS平台</p>
+                    <p class="banner_des animated fadeInRight">MCms系统永久完整开源</p>
+                </li>
+                <li style="background:url(http://localhost:8081/ms-mcms/templets/1/default//images/03.jpg) no-repeat center;">
+                    <p class="banner_tit animated fadeInLeft">MStore</p>
+                    <p class="banner_des animated fadeInRight">丰富强大的功能插件、海量精美的行业模板</p>
+                </li>
+                <li style="background:url(http://localhost:8081/ms-mcms/templets/1/default//images/03.jpg) no-repeat center;">
+                    <p class="banner_tit animated fadeInLeft">优质的服务体验</p>
+                    <p class="banner_des animated fadeInRight">人工远程协助服务、永久享受更新升级</p>
+                </li>
+            </template>
+        </ul>
+        <ul class="flex-direction-nav">
+            <li>
+                <a class="flex-prev" href="javascript:;">Previous</a>
+            </li>
+            <li>
+                <a class="flex-next" href="javascript:;">Next</a>
+            </li>
+        </ul>
+    </div>
+    <div class="ms-content-index">
+        <div class="ms-content-template">
+            <div>
+                <ul class="nav nav-tabs ms-index-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#model" aria-controls="model" role="tab" data-toggle="tab">模板</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#plug" aria-controls="plug" role="tab" data-toggle="tab">插件</a>
+                    </li>
+                </ul>
+                <div class="ms-content-all">
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="model">
+                            <div style="display: none;" class="ms-loading" v-show="!loading">
+                                <img src="http://localhost:8081/ms-mcms/templets/1/default//images/loading.gif" />
+                            </div>
+                            <div class="ms-model-content" style="display: none;" v-show="loading">
+                                <template v-for="model in modelList">
+                                    <div class="ms-model-list">
+                                        <a class="ms-model-img" :href="model.upgraderVersionUrl" target="_blank">
+                                            <img @mouseout="imgMout()" @mouseover="imgMover()" :src="'http://store.mingsoft.net/'+model.img" onerror="this.src='http://localhost:8081/ms-mcms/templets/1/default//images/no-data.png'" />
+                                        </a>
+                                        <div class="ms-model-mobile-img" v-if="model.mobileImg != '' && model.mobileImg != undefined" style="background: url(http://localhost:8081/ms-mcms/templets/1/default//images/mobile.png)">
+                                            <div>
+                                                <img @mouseout="imgMout()" @mouseover="imgMover()" :src="'http://store.mingsoft.net/'+model.mobileImg" onerror="this.src='http://localhost:8081/ms-mcms/templets/1/default//images/no-data.png'" />
+                                            </div>
+                                        </div>
+                                        <div class="ms-model-info">
+                                            <span v-text="model.upgraderVersionName"></span>
+                                            <img class="ms-model-info-img" :src="model.upgraderVersionPeopleIcon" onerror="this.src='http://cdn.mingsoft.net/global/images/msheader.png'" />
+                                            <img :src="'http://localhost:8081/ms-mcms/templets/1/default//images/level-'+model.upgraderVersionStart+'.png'" />
+                                            <div class="ms-model-type">模板</div>
+                                        </div>
+                                    </div>
+                                </template>
+                                <div class="ms-model-list" style="display: none;" v-show="loading">
+                                    <div class="ms-model-more">
+                                        <div onclick="window.open('http://store.mingsoft.net/mstoreShow.do')">查看更多</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="plug">
+                            <div class="ms-model-content" style="display: none;" v-show="loading">
+                                <template v-for="pulg in pulgList">
+                                    <div class="ms-model-list">
+                                        <a class="ms-model-img" :href="pulg.upgraderVersionUrl" target="_blank">
+                                            <img :src="'http://store.mingsoft.net/'+pulg.img" onerror="this.src='http://localhost:8081/ms-mcms/templets/1/default//images/no-data.png'" />
+                                        </a>
+                                        <div class="ms-model-info">
+                                            <span v-text="pulg.upgraderVersionName"></span>
+                                            <img class="ms-model-info-img" :src="pulg.upgraderVersionPeopleIcon" onerror="this.src='http://cdn.mingsoft.net/global/images/msheader.png'" />
+                                            <img :src="'http://localhost:8081/ms-mcms/templets/1/default//images/level-'+pulg.upgraderVersionStart+'.png'" />
+                                            <div class="ms-model-type">插件</div>
+                                        </div>
+                                    </div>
+                                </template>
+                                <div class="ms-model-list" style="display: none;" v-show="loading">
+                                    <div class="ms-model-more">
+                                        <div onclick="window.open('http://store.mingsoft.net/mstoreShow.do')">查看更多</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ms-content-case">
+            <div class="ms-content-case-mian">
+                <div class="ms-content-case-title">
+                    <div class="ms-content-case-title-words">网站案例</div>
+                    <div class="ms-content-case-more">
+                        <a href='http://localhost:8081/ms-mcms/html/1//149/index.html'>MORE>></a>
+                    </div>
+                </div>
+                <div class="ms-content-case-list">
+                    <div class="ms-content-main-case">
+                        <div class="ms-content-main-case-img">
+                            <img src="http://localhost:8081/ms-mcms/upload/1//article/1531105696938.jpg">
+                        </div>
+                        <div class="ms-content-main-case-explain">
+                            <div class="ms-content-main-case-title">攀臣广告</div>
+                            <div class="ms-content-main-case-content">
+
+                                <p class="ms-content-main-case-written">
+                                    <p>攀臣广告(上海)有限公司(以下简称:攀臣)是一家专注于亚克力制品(化妆品展架、展览展示道具、展架展柜陈列架、商场展示道具、展示盒、手机宣传架、发光展架、广告灯箱、标识标牌、工艺礼品、奖杯奖牌授权牌、商超货架置物架、台牌台卡台签、相框相架、金银珠宝展示礼盒、抽奖箱收纳箱、办公文具类、家居生活类、各类广告字、机器配套、产品附件配件等等)设计加工制作为一体的公司 。涉及：商务、工业、建筑、交通、商业、家居生活、广告、医学、照明、酒店餐饮、金融银行服务、学校教育、政府事业单位、景点旅游、展厅展览、零售店面、奢侈品、面包糕点等众多业态领域，产品基本覆盖全行业。</p>
+                                </p>
+                            </div>
+                            <div class="ms-content-main-case-click">
+                                <a target="_blank" href="http://www.panchen-china.com/">点击查看</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ms-content-main-case">
+                        <div class="ms-content-main-case-img">
+                            <img src="http://localhost:8081/ms-mcms/upload/1//article/1531105877049.jpg">
+                        </div>
+                        <div class="ms-content-main-case-explain">
+                            <div class="ms-content-main-case-title">华赋科创</div>
+                            <div class="ms-content-main-case-content">
+
+                                <p class="ms-content-main-case-written">
+                                    <p>深圳市华赋科创电子有限公司&nbsp;成立于2009年，主要从事 IC 等电子元器件的推广、销售及开发应用服务。华赋是STMicro、NXP、ONSemi、TI、ADI、Intersil、Infineon、Vishay、Fujitsu、Yageo、Samsung、AOS、Fairchild、Freescale、Cypress、ROHM、HTC、Eastsoft、台湾安国、风华高科、等国内外著名公司的授权代理商或分销商。拥有微控制器、系统管理器件、通信接口器件、数据转换器件、信号调理器件、电源管理器件、存储器、连接器、分立半导体及被动器件等十多个产品种类。香港、深圳两地设立库房，现货库存产品达上万中，支持香港、海外交货。目前已与多家国外分销商建立了战略合作伙伴关系，其中包括：Mouser、 Rochester、Digi-Key、Future、Arrow、Avnet等，为国内客户提供海外订购产品服务，满足客户从研发到批量生产的所有采购需求。</p><p><br/></p>
+                                </p>
+                            </div>
+                            <div class="ms-content-main-case-click">
+                                <a target="_blank" href="http://www.huaful.com/">点击查看</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ms-content-main-case">
+                        <div class="ms-content-main-case-img">
+                            <img src="http://localhost:8081/ms-mcms/upload/1//article/1531105970322.jpg">
+                        </div>
+                        <div class="ms-content-main-case-explain">
+                            <div class="ms-content-main-case-title">洛阳洛龙</div>
+                            <div class="ms-content-main-case-content">
+
+                                <p class="ms-content-main-case-written">
+                                    <p>洛龙区人民政府门户网作为洛阳市洛龙区电子政务（网上行政）建设的重要组成部分，是政府信息公开的法定载体，是政府面向社会服务的平台，是公众与政府交流互动的桥梁，是宣传洛龙的主要窗口，对于促进政府信息公开、推进依法行政、接受公众监督、改进行政管理、全面履行政府职能和建设阳光政府具有重要意义。</p>
+                                </p>
+                            </div>
+                            <div class="ms-content-main-case-click">
+                                <a target="_blank" href="http://www.luolong.gov.cn/ ">点击查看</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ms-content-product">
+            <div class="ms-content-product-main">
+                <div class="ms-content-product-title">
+                    <div class="ms-content-product-title-words">产品方向</div>
+                </div>
+                <div class="ms-content-product-list">
+                    <ul class="ms-content-product-list-ul">
+                        <li>
+                            <div class="ms-content-product-list-img">
+                                <a target="_blank" href="http://www.mingsoft.net/html/1/5523/index.html">
+                                    <img src="http://www.mingsoft.net/templets/1/ming-soft//images/hu1.png"></a>
+                            </div>
+                            <div class="ms-content-product-list-content">
+                                <div class="ms-content-product-list-content-title">
+                                    <a target="_blank" href="http://www.mingsoft.net/html/1/5523/index.html">铭飞建站系统MCMS</a></div>
+                                <div class="ms-content-product-list-content-describe">纯Java开发，MCMS支持PC与MOBILE皮肤定制,同时使用MS团队移动JS插件，支持站群。</div></div>
+                        </li>
+                        <li>
+                            <div class="ms-content-product-list-img">
+                                <a target="_blank" href="http://www.mingsoft.net/html/1/5524/index.html">
+                                    <img src="http://www.mingsoft.net/templets/1/ming-soft//images/hu2.jpg"></a>
+                            </div>
+                            <div class="ms-content-product-list-content">
+                                <div class="ms-content-product-list-content-title">
+                                    <a target="_blank" href="http://www.mingsoft.net/html/1/5524/index.html">移动互联网</a></div>
+                                <div class="ms-content-product-list-content-describe">重新定义移动开发，快速、开放、高性能，数据无缝对接，超过500个模块api 接口，方便实现各种应用。</div></div>
+                        </li>
+                        <li>
+                            <div class="ms-content-product-list-img">
+                                <a target="_blank" href="http://www.mingsoft.net/html/1/5526/index.html">
+                                    <img src="http://www.mingsoft.net/templets/1/ming-soft//images/hu3.jpg"></a>
+                            </div>
+                            <div class="ms-content-product-list-content">
+                                <div class="ms-content-product-list-content-title">
+                                    <a target="_blank" href="http://www.mingsoft.net/html/1/5526/index.html">铭飞物联网</a></div>
+                                <div class="ms-content-product-list-content-describe">MS+物联网，让生产企业真正掌握企业命脉，实现互联网+生产，给企业插上信息化翅膀，共享、共荣大数据时代</div></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="ms-content-news">
+            <div class="ms-content-news-main">
+                <div class="ms-content-news-main-title">
+                    <div class="ms-content-news-main-title-words">公司动态</div>
+                    <div class="ms-content-news-main-title-more">
+                        <a href='http://localhost:8081/ms-mcms/html/1//59/index.html'>MORE>></a>
+                    </div>
+                </div>
+                <div class="ms-content-news-main-img-text">
+                    <img src="http://localhost:8081/ms-mcms/upload/article/1/1461384072200.jpeg">
+                    <ul class="ms-content-news-main-ul">
+                        <li>
+                            <a href="http://localhost:8081/ms-mcms/html/1//59/69/70.html">
+                                <div class="ms-content-news-main-li-title">
+                                    <!-- <span class="ms-content-news-main-li-span">·</span> -->
+                                    <span class="">2015年 铭飞MCms获得最热门开源项目第40位</span>
+                                </div>
+                                <div class="ms-content-news-main-li-time">2028-00-01</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:8081/ms-mcms/html/1//59/68/71.html">
+                                <div class="ms-content-news-main-li-title">
+                                    <!-- <span class="ms-content-news-main-li-span">·</span> -->
+                                    <span class="">国内java开源 cms系统</span>
+                                </div>
+                                <div class="ms-content-news-main-li-time">2028-00-01</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:8081/ms-mcms/html/1//59/68/72.html">
+                                <div class="ms-content-news-main-li-title">
+                                    <!-- <span class="ms-content-news-main-li-span">·</span> -->
+                                    <span class="">2016年CMS开源系统排行榜</span>
+                                </div>
+                                <div class="ms-content-news-main-li-time">2028-00-01</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:8081/ms-mcms/html/1//59/68/73.html">
+                                <div class="ms-content-news-main-li-title">
+                                    <!-- <span class="ms-content-news-main-li-span">·</span> -->
+                                    <span class="">国内java开源商城系统</span>
+                                </div>
+                                <div class="ms-content-news-main-li-time">2028-00-01</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:8081/ms-mcms/html/1//59/68/74.html">
+                                <div class="ms-content-news-main-li-title">
+                                    <!-- <span class="ms-content-news-main-li-span">·</span> -->
+                                    <span class="">国内java开源bbs系统</span>
+                                </div>
+                                <div class="ms-content-news-main-li-time">2028-00-01</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://localhost:8081/ms-mcms/html/1//59/70/177.html">
+                                <div class="ms-content-news-main-li-title">
+                                    <!-- <span class="ms-content-news-main-li-span">·</span> -->
+                                    <span class="">国内开源 java cms，铭飞MCms</span>
+                                </div>
+                                <div class="ms-content-news-main-li-time">2028-00-01</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="ms-footer">
+    <div class="ms-footer-content">
+        <div class="ms-footer-left">
+            <div class="ms-footer-left-column">
+                <span class="ms-footer-left-column-about">
+                	<a href='http://localhost:8081/ms-mcms/html/1//53/index.html'>关于我们</a>
+                </span>|
+                <span class="ms-footer-left-column-course">
+                	<a target="_blank" href='http://mingsoft.net/html/1//5527/index.html#faz'>发展历程</a>
+                </span>|
+                <span class="ms-footer-left-column-contact">
+                	<a target="_blank" href='http://mingsoft.net/html/1//5527/index.html#lianx'>联系我们</a>
+                </span>
+            </div>
+            <span class="ms-footer-left-copyright">版权所有&copy;铭飞科技有限公司2012-2018保留一切权利</span>
+        </div>
+        <div class="ms-footer-right">
+            <img class='ms-footer-right-img-weixin' src="http://localhost:8081/ms-mcms/templets/1/default//images/we-chat.png">
+            <a target="_blank" href='http://tieba.baidu.com/f?kw=%E9%93%AD%E9%A3%9E%E7%A7%91%E6%8A%80&fr=index&fp=0&ie=utf-8'><img class="ms-footer-right-baidu" src="http://localhost:8081/ms-mcms/templets/1/default//images/baidu.png"></a>
+            <a target="_blank" href='http://weibo.com/killfen'><img src="http://localhost:8081/ms-mcms/templets/1/default//images/micro-blog.png"></a>
+        	<div class="ms-footer-right-weixin">
+        		<p></p>
+        		<img alt="" src="http://localhost:8081/ms-mcms/templets/1/default//images/weixin.jpg">
+        	</div>
+        </div>
+    </div>
+</div>
+<script>
+/*导航下拉*/
+$(function(){
+    $(".head-menu-list-li").hover(function(){
+        $(this).find(".head-menu-son-list").fadeToggle();
+    });
+    $('.ms-footer-right-img-weixin').hover(function(){
+    	$('.ms-footer-right-weixin').toggle();
+    });
+});
+
+</script></body>
+</html>
+<script type="text/javascript">
+    var index = new Vue({
+        el: "#indexVue",
+        data: {
+            bannerList: ['01', '02', '03', '04', '05'], //幻灯片列表
+            modelList: [], //模板列表
+            pulgList: [], //插件列表
+            loading: false, //加载状态
+        },
+        methods: {
+            query: function(data, type) {
+                var target = this;
+                ms.web.mstore.list(data, function(json) {
+                    if(type == 'model') {
+                        target.modelList = json.list;
+                    } else {
+                        target.pulgList = json.list;
+                        target.loading = true;
+                    }
+                });
+            },
+            imgMover: function() {
+                var _this = event.target;
+                var ms_top = ($(_this).height()) - 275;
+                if(ms_top < 0) {
+                    ms_top = 0;
+                }
+                $(_this).stop(true);
+                $(_this).animate({
+                    "top": -(ms_top)
+                }, 2500);
+            },
+            imgMout: function() {
+                var _this = event.target;
+                $(_this).stop(true);
+                $(_this).animate({
+                    "top": 0
+                }, 2500);
+            },
+        },
+        mounted: function() {
+            var data = "upgraderVersionType=2&upgraderVersionIndustry=0&orderBy=uv_id&pageSize=5&pageNo=1";
+            this.query(data, 'model');
+            var data = "upgraderVersionType=1&upgraderVersionIndustry=0&orderBy=uv_id&pageSize=5&pageNo=1";
+            this.query(data, 'pulg');
+            /*幻灯*/
+            setTimeout(function() {
+                var bannerSlider = new Slider($('#banner_tabs'), {
+                    time: 5000,
+                    delay: 400,
+                    event: 'hover',
+                    auto: true,
+                    mode: 'fade',
+                    controller: $('#bannerCtrl'),
+                    activeControllerCls: 'active'
+                });
+                $('#banner_tabs .flex-prev').click(function() {
+                    bannerSlider.prev()
+                });
+                $('#banner_tabs .flex-next').click(function() {
+                    bannerSlider.next()
+                });
+            }, 300)
+        },
+    })
+</script>

@@ -1,0 +1,49 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>{ms:field.title/} | {ms:global.name/}</title>
+<meta name="keywords" content="{ms:global.keyword/}"/>
+<meta name="description" content="{ms:global.descrip/}"/>
+<#include "headFile.htm">
+<script type="text/javascript" src="{ms:global.host/}/{ms:global.style/}/js/fun_1009.js"></script>
+<link rel="stylesheet" type="text/css" href="{ms:global.host/}/{ms:global.style/}/css/subpage_temp.css-d=20131024.css" >
+<script type="text/javascript" src="{ms:global.host/}/{ms:global.style/}/js/contact.js"></script>
+</head>
+<body>
+<div id="main">
+	<!--头部-->
+	<#include "head.htm">
+	<!--案例列表页-->
+	<div id="main_container">
+		<section class="main_page_content3">
+			<h1> <img src="{ms:global.host/}/{ms:global.style/}/images/pagetitle3_case.png" class="title">
+				<ul class="page">
+					<li><img src="{ms:global.host/}/{ms:global.style/}/images/where.png"></li>
+					<li style="color:#000">&nbsp;&nbsp;当前位置：网站首页 > </li>
+					<li style="color:#da2821">&nbsp;&nbsp;{ms:field.typetitle/}</li>
+				</ul>
+				<div class="clearBoth"></div>
+			</h1>
+			<div class="news_list">
+				<div class="tantitle">{ms:field.title/}</div>
+				<div class="tanetitle">时间：{ms:field.date?string("yyyy-MM-dd")/}</div>
+				<div class="tancontent">
+					<!--<p style="text-align:center"> <img alt="" src="{ms:field.litpic/}" style="height:200px;"/> </p>感觉文章里加微缩图是很丑的-->
+					<p style="text-indent:2em;">{ms:field.content/}</p>
+					<p style="text-indent:2em;">&nbsp; </p>
+				</div>
+				<div class="taneselect">
+					<div class="tanpre"><a href="{ms:global.url/}{ms:pre.link/}">上一页：<span class="ttitle">{ms:pre.title/}</span></a></div>
+					<div class="tannext"><a href="{ms:global.url/}{ms:next.link/}">下一页：<span class="ttitle">{ms:next.title/}</span></a></div>
+				</div>
+			</div>
+		</section>
+	</div>
+	<!--底部-->
+	<#include "footer.htm">
+</div>
+<!--客服QQ-->
+<#include "online-service.htm">
+</body>
+</html>

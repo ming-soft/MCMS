@@ -1,0 +1,233 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+.about_article{
+	margin-top: 46px;
+}
+
+.about_article h2{
+	width: 200px;
+	text-indent: -9999px;
+	float: left;
+	clear: both;
+	margin-right: 25px;
+}
+
+.about_article#about_who{
+	border-bottom: dotted 1px #989898;
+	padding-bottom: 30px;
+}
+.about_article#about_what{
+	border-bottom: dotted 1px #989898;
+	padding-bottom: 30px;
+}
+.about_article#about_awards{
+	border-bottom: dotted 1px #989898;
+}
+
+.about_article#about_who h2{
+	background-image: url("../images/about_whoweare.png")/*tpa=http://www.design-ebg.com/tw/images/about_whoweare.png*/;
+	height: 90px;
+}
+
+.about_article#about_what h2{
+	background-image: url("../images/about_whatwedo.png")/*tpa=http://www.design-ebg.com/tw/images/about_whatwedo.png*/;
+	height: 44px;
+	margin-top: 72px;
+}
+.about_article#about_awards h2{
+	background-image: url("../images/about_awards.png")/*tpa=http://www.design-ebg.com/tw/images/about_awards.png*/; 
+	height: 44px;
+	margin-top: 20px;
+}
+
+.about_article#about_clients h2{
+	background-image: url("../images/about_clients.png")/*tpa=http://www.design-ebg.com/tw/images/about_clients.png*/; 
+	height: 44px;
+	margin-top: 30px;
+}
+
+
+#about_who_content{
+	background: url("../images/about_who_right_bottom.png")/*tpa=http://www.design-ebg.com/tw/images/about_who_right_bottom.png*/ no-repeat bottom right;
+	float: left;
+	width: 728px;
+}
+
+#about_who_content p{
+	width: 678px;
+	line-height: 22px;
+	margin-bottom: 10px;
+}
+
+#about_who_content a{
+	text-decoration:none;
+	color: #292929;
+}
+
+#about_what_content{
+	width: 700px;
+	float: left;
+	background-image: url("../images/about_service.png")/*tpa=http://www.design-ebg.com/tw/images/about_service.png*/;
+	background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+#about_awards_content{
+	width: 730px;
+	float: left;
+	overflow: hidden;
+}
+#about_clients_content{
+	width: 730px;
+	float: left;
+	overflow: hidden;
+}
+#about_what_content ul{
+	margin-top: 222px;
+	width: 960px;
+}
+
+#about_what_content ul li{
+	display: block;
+	float: left;
+	width: 146px;
+	margin-left: 24px;
+	margin-right: 82px;
+}
+
+#about_what_content ul ul{
+	margin-top: 10px;
+}
+
+#about_what_content ul ul li{
+	display: list-item;
+	float: none;
+	line-height: 22px;
+	font-size: 13px;
+	color: #292929;
+	margin: 0;
+	list-style: none;
+	width: auto;
+	background-image: url("../images/about_list_dot.png")/*tpa=http://www.design-ebg.com/tw/images/about_list_dot.png*/;
+	background-repeat: no-repeat;
+	background-position: 3px 10px;
+	padding-left: 12px;
+}
+
+#about_who_content .orgColor{
+	color:#c78d00;
+	text-decoration:underline;
+}
+
+#about_awards_content .icon_bw {
+	width: 103px;
+	height: 99px;	
+	float: left;
+	position: relative;
+	margin:0;
+	padding:0;
+	border:0;
+	/*text-indent: -999px;*/
+}
+/*#about_awards_content h3:hover {
+	background-position: 0 -99px;
+	cursor: pointer;	
+}
+#ifAward {
+	background-image: url(../images/about_awards_if.png);
+}
+
+#goldenPin {
+	background-image: url(../images/about_awards_goldenpin.png);
+
+}
+
+#gdMark {
+	background-image: url(../images/about_awards_gd.png);
+
+}*/
+#about_awards_content .awardList {
+	float: left;
+	width: 580px;
+	margin-left: 30px;
+}
+
+#about_awards_content div {
+	margin-bottom: 40px;
+}
+
+#about_awards_content span {
+	width: 570px;
+	border-bottom: solid 1px #989898;
+	margin-bottom: 15px;
+	padding-bottom: 8px;
+	float: left;
+}
+
+
+#about_awards_content .awardList ul li{
+	list-style: none;
+	float: left;
+	width: 125px;
+	font-size: 12px;
+	margin-right: 20px;
+	line-height: 18px;
+	margin-bottom: 20px;
+
+}
+
+#about_awards_content .awardList ul li h4{
+	background-image: url("../images/about_awards_yearbracket_left.png")/*tpa=http://www.design-ebg.com/tw/images/about_awards_yearBracket_left.png*/;
+	background-repeat: no-repeat;
+	width: 68px;
+	height: 19px;
+	text-indent: 23px;
+	font-size: 14px;
+	font-weight:100;
+	margin-bottom: 5px;
+}
+
+#about_clients_logo li {
+	float: left;
+	margin-right: 15px;
+	position: relative;
+}
+
+#about_clients_logo {
+	border-bottom: 1px dotted #989898;
+	padding-bottom: 20px;
+	margin-bottom: 5px;
+	padding-left: 10px;
+}
+#about_clients_content ul li {
+	list-style: none;
+}
+
+#about_clients_list li {
+	float: left;
+	width: 172px;
+	font-size: 12px;
+	background-image: url("../images/about_clients_dot.png")/*tpa=http://www.design-ebg.com/tw/images/about_clients_dot.png*/;
+	background-position: left center;
+	background-repeat:no-repeat;
+	text-indent: 10px;
+	margin-bottom: 18px;
+}
+
+#about_clients_list  {
+	padding-top: 20px;
+	border-bottom: 1px dotted #989898;
+	padding-bottom: 5px;
+	display:none;
+	padding-left: 20px;
+}
+#clientList_btnDown, #clientList_btnUp{
+	float: right;
+	cursor: pointer;
+}
+
+#clientList_btnUp {
+	display:none;
+	margin-top: 5px;
+}

@@ -1,0 +1,225 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+.contact_content{
+	padding-top: 48px;
+}
+
+.contact_info{
+	width: 233px;
+	margin-left: 5px;
+	margin-right: 40px;
+	float: left;
+}
+
+.contact_info .group{
+	padding-left: 10px;
+}
+
+.contact_info .group header{
+	height: 35px;
+	margin-top: 29px;
+	border-bottom: 1px dotted black;
+}
+
+.contact_info .group header h3{
+	font-size: 13px;
+	color: black;
+	font-weight: normal;
+}
+
+.contact_info .group header h3 img{
+	vertical-align: middle;
+	margin-right: 5px;
+}
+
+.contact_info .group ul{
+	padding-top: 10px;
+}
+
+.contact_info .group li{
+	font-size: 13px;
+	color: #292929;
+	height: 19px;
+	line-height: 19px;
+	margin-bottom: 6px;
+	padding-left: 40px;
+	list-style: none;
+	background: url("../images/contact_info_icon.png")/*tpa=http://www.design-ebg.com/tw/images/contact_info_icon.png*/ no-repeat;
+}
+
+.contact_info .group li#phone{
+	background-position: 0 -20px;
+}
+
+.contact_info .group li#fax{
+	background-position: 0 -40px;
+}
+
+.contact_info .group li#mail{
+	background-position: 0 -60px;
+}
+
+.contact_info .group li#mail a{
+	color: #292929;
+}
+
+.contact_info .group li#mail a:hover{
+	color: #646464;
+}
+
+.contact_info .group li#add{
+	background-position: 0 -80px;
+}
+
+.contact_info .address{
+	margin-top: 35px;
+	font-size: 13px;
+	line-height: 18px;
+	color: #292929;
+	padding-left: 40px;
+	margin-left: 10px;
+	background: url("../images/contact_info_icon.png")/*tpa=http://www.design-ebg.com/tw/images/contact_info_icon.png*/ no-repeat 0 -80px;
+}
+
+.contact_info .google_map_btn{
+	display: block;
+	width: 97px;
+	height: 23px;
+	background: url("../images/google_map_btn.png")/*tpa=http://www.design-ebg.com/tw/images/google_map_btn.png*/ no-repeat;
+	text-indent: -9999px;
+	margin-top: 5px;
+}
+
+.contact_info .google_map_btn:hover{
+	background-position: -98px 0;
+}
+
+.contact_form{
+	background-color: #1f1f1f;
+	width: 678px;
+	float: left;
+}
+
+.contact_form #notice{
+	border-bottom: 1px dotted white ;
+	padding-left: 28px;
+	padding-top: 22px;
+	padding-bottom: 22px;
+}
+
+.contact_form #notice img{
+	float: left;
+	margin-top: 3px;
+	margin-right: 15px;
+}
+
+.contact_form #notice p{
+	line-height: 20px;
+	color: #b4b4b4;
+	font-size: 12px;
+}
+
+.contact_form #form_list{
+	border-bottom: 1px dotted white ;
+	padding-left: 28px;
+	padding-top: 25px;
+	padding-bottom: 30px;
+}
+
+.contact_form #form_list table{
+	width: 100%;
+}
+
+.contact_form #form_list td{
+	padding-bottom: 18px;
+}
+
+.contact_form #form_list label{
+	color: white;
+	display: block;
+	font-size: 13px;
+	/*line-height: 18px;*/
+	height: 18px;
+	margin-bottom: 5px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.contact_form #form_list .checkbox_value{
+	color: #c6c6c6;
+	font-size: 12px;
+	margin-right: 15px;
+}
+
+.contact_form #form_list label img{
+	vertical-align: top;
+	margin-left: 5px;
+}
+
+.contact_form #form_list input.short{
+	width: 270px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 5px;
+	font-size: 13px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.contact_form #form_list input.long{
+	width: 595px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0 5px;
+	font-size: 13px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.contact_form #form_list textarea{
+	resize: none;
+	width: 595px;
+	height: 180px;
+	padding: 5px 5px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	line-height: 18px;
+}
+
+.contact_form .captcha{
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: 10px;
+}
+
+.contact_form .hint{
+	font-size: 13px;
+	color: #c6c6c6;
+	margin-left: 15px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.contact_form .btn{
+	padding: 20px 42px 20px 28px;
+	text-align: right;
+}
+
+.contact_form .btn input{
+	color: white;
+	width: 54px;
+	height: 54px;
+	line-height: 54px;
+	margin-left: 10px;
+	cursor: pointer;
+	padding: 0;
+	border: none;
+	background-color: transparent;
+	background-image: url("../images/form_btn.png")/*tpa=http://www.design-ebg.com/tw/images/form_Btn.png*/;
+	background-repeat: no-repeat;
+	outline: none; /* for Firefox */
+	hlbr:expression(this.onFocus=this.blur()); /* for IE */
+
+}
+
+.contact_form .btn input:hover{
+	background-position: -55px 0;
+	color: black;
+}

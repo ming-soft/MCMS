@@ -1,0 +1,155 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>活动策划 | {ms:global.name/}</title>
+<meta name="keywords" content="{ms:global.keyword/}"/>
+<meta name="description" content="{ms:global.descrip/}"/>
+<#include "headFile.htm">
+<script type="text/javascript" src="{ms:global.host/}/{ms:global.style/}/js/jquery-backgroundposition.js"></script>
+<script type="text/javascript" src="{ms:global.host/}/{ms:global.style/}/js/jquery.easing.1.3.js"></script>
+<script type="text/javascript" src="{ms:global.host/}/{ms:global.style/}/js/browser_suggest.js"></script>
+<script type="text/javascript" src="{ms:global.host/}/{ms:global.style/}/js/fun_1009.js"></script>
+<script type="text/javascript">
+
+			var _gaq = _gaq || [];
+
+			_gaq.push(['_setAccount', 'UA-10870598-8']);
+
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+
+			  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+
+			  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www/') + '.google-analytics.com/ga.js';
+
+			  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+
+			})();
+
+		</script>
+<script type="text/javascript" src="{ms:global.host/}/{ms:global.style/}/js/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="{ms:global.host/}/{ms:global.style/}/js/jquery.lazyload.js"></script>
+<script type="text/javascript" src="{ms:global.host/}/{ms:global.style/}/js/jquery.waitforimages.js"></script>
+<link rel="stylesheet" type="text/css" href="{ms:global.host/}/{ms:global.style/}/css/index_2014.css" />
+<script src="{ms:global.host/}/{ms:global.style/}/js/index.js"></script>
+<script type="text/javascript" src="{ms:global.host/}/{ms:global.style/}/js/case.js"></script>
+</head>
+<body>
+<div id="main">
+	<!--头部-->
+	<#include "head.htm">
+	<!--中间-->
+	<div id="main_container">
+		<!--上部掉-->
+		<section id="banner">
+			{ms:arclist typeid=192 size=1 orderby=id order=asc}
+				<div id="banner_img_innovation" data-type="movable" data-offsetY="180" style="background:url([field.litpic/]) no-repeat fixed 50% 0"></div>
+			{/ms:arclist}
+			{ms:arclist typeid=192 flag=h}
+				<div id="banner_img_insight" data-type="movable" data-offsetY="100" style="background:url([field.litpic/]) no-repeat fixed 50% 0"></div>
+			{/ms:arclist}
+			{ms:arclist typeid=192 flag=p}
+				<div id="banner_img_line" data-type="movable" data-offsetY="50" style="background:url([field.litpic/]) no-repeat fixed 50% 0"></div>
+			{/ms:arclist}
+			{ms:arclist typeid=192 flag=c}
+				<div id="banner_img_essence" data-type="movable" data-offsetY="20" style="background:url([field.litpic/]) no-repeat fixed 50% 0"></div>
+			{/ms:arclist}
+			{ms:arclist typeid=192 flag=f}
+				<div id="banner_slogan" style="background:url([field.litpic/]) no-repeat center 498px" data-type="none"></div>
+			{/ms:arclist}
+			{ms:arclist typeid=192 size=1}
+				<div id="banner_cover" style="background:url([field.litpic/]) no-repeat center bottom" data-type="none" ></div>
+			{/ms:arclist}
+		</section>
+		<!--内容-->
+		<section id="main_content">
+			<div id="main_content_img_innovation" data-type="movable" data-offsetY="800" data-oriset="200"></div>
+			<div id="main_content_img_line" data-type="movable" data-offsetY="1200" data-oriset="600"></div>
+			<div id="main_content_img_insight" data-type="movable" data-offsetY="950" data-oriset="350"></div>
+			<div id="main_content_img_essence" data-type="movable" data-offsetY="1100" data-oriset="100"></div>
+			<div id="main_content_cover" style="visibility:hidden"></div>
+			<!--简介-->
+			<article id="welcome">
+				<p>策划身为活动策划执行&品牌传播整合领域的专业团队，以超强活动执行能力与品牌设计力为核心，挖掘活动传播本质为策略依归，开创具有创造力的活动策划风范，线上线下全面资源整合传播，创造最大化的品牌价值！</p>
+			</article>
+			<!--服务项目-->
+			<article id="service">
+				<h2>服务项目</h2>
+				<div id="service_content">
+					<div class="serviceBall" id="brand">
+						<div class="out">品牌活动</div>
+						<a class="hover" href="{ms:global.url/}/106/107/index.html">
+						<ul>
+							{ms:channel typeid=107}
+								<li>[field.typetitle/]</li>
+							{/ms:channel}
+						</ul>
+						</a> </div>
+					<div class="serviceBall" id="visual">
+						<div class="out">设计案例</div>
+						<a class="hover" href="{ms:global.url/}/61/65/index.html">
+						<ul style="overflow:hidden; height:100px;">
+							{ms:channel typeid=65}
+								<li>[field.typetitle/]</li>
+							{/ms:channel}
+						</ul>
+						</a> </div>
+					<div class="serviceBall" id="package">
+						<div class="out">整合传播</div>
+						<a class="hover" href="{ms:global.url/}/59/70/index.html">
+						<ul>
+							{ms:channel typeid=70}
+								<li>[field.typetitle/]</li>
+							{/ms:channel}
+						</ul>
+						</a> </div>
+					<div class="clearBoth"></div>
+				</div>
+			</article>
+			<!--品牌活动案例-->
+			<article id="work">
+				<h2>品牌活动</h2>
+				<nav id="works_nav">
+					<ul>
+						{ms:channel class=onse typeid=107}
+							<li class="[field.class/]"><a href="{ms:global.url/}[field.typelink/]">[field.typetitle/]</a></li>
+						{/ms:channel}
+					</ul>
+				</nav>
+				<ul class="works_list">
+				{ms:arclist typeid=107 size=6}
+					<li> <a href="{ms:global.url/}[field.link/]"> <img class="lighten" src="{ms:global.host/}[field.litpic/]" width="376" height="265"> <img class="work_img" width="376" height="265" src={ms:global.host/}[field.litpic/]/>
+						<h3>[field.title/]</h3>
+						</a> 
+					</li>
+				{/ms:arclist}
+					<div class="clearBoth"></div>
+				</ul>
+				<div class="clearBoth"></div>
+			</article>
+		</section>
+		<!--下部掉-->
+		<section id="final">
+			<article id="final_content">
+				<div id="equation_content">
+					<div id="final_equation_1" data-type="movable" data-offsetY="105" data-oriset="110" data-speed="500"></div>
+					<div id="final_equation_2" data-type="movable" data-offsetY="123" data-oriset="128"  data-speed="900"></div>
+					<div id="final_equation_3" data-type="movable" data-offsetY="203" data-oriset="208"  data-speed="2000"></div>
+					<div id="final_equation_4" data-type="movable" data-offsetY="163" data-oriset="168"  data-speed="1500"></div>
+				</div>
+				<div id="time_content">
+					<p id="big_time">0</p>
+					<p id="note">Established in 2008, with over <span></span> hours of professional experiences to help you build up your brand.</p>
+				</div>
+			</article>
+		</section>
+	</div>
+	<!--底部-->
+	<#include "footer.htm">
+</div>
+<!--客服QQ-->
+<#include "online-service.htm">
+</body>
+</html>

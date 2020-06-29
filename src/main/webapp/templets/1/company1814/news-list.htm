@@ -1,0 +1,116 @@
+﻿<!--*新闻列表页*/-->
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<#include "head-file.htm">
+	<script type="text/javascript">
+		var is_moblie = "", //手机端
+			SLIDE = "0", //特效关闭开启 NAVFIXED
+			BCID = "1", //父级ID
+			FOOTER = "1", //页脚
+			CATID = "1", //子菜单
+			SUBFIXED = "1", //子菜单悬浮
+			ONCONTEXT = 1, //禁止右键
+			ONCOPY = 1, //禁止复制
+			ONSELECT = 1, //禁止选择
+			NAVCOLOR = "rgba(67,205,128,.8)", //导航颜色
+			NAVLEFT = "#111"; //导航边线
+	</script>
+</head>
+<body class="backof">
+	<!-- 头部  never -->
+	<#include "head.htm">
+	<script type="text/javascript">
+		$("#1").attr("class", "on");
+	</script>
+	<!-- /头部 -->
+	<div class="nbanner">
+		<a style="height: 300px; background-image: url({ms:global.host/}/{ms:global.style/}images/582184c34ce01.jpg);"></a>
+	</div>
+	<!-- 内容开始 -->
+	<div class="n-back-0">
+		<div class="kwidth pt25">
+			<!-- LEFT -->
+			<div class="content-left">
+				<!-- 子菜单 -->
+				<div class="subcate">
+					<h3 style="background: rgba(67, 205, 128, .8);">
+						<a href="{ms:global.url/}/59/index.html">{ms:channel type=self typeid=59}[field.typetitle/]{/ms:channel}
+						</a>
+					</h3>
+					<ul>
+						{ms:channel type=son typeid=59}
+						<li>
+							<a href="{ms:global.url/}[field.typelink/]">[field.typetitle/]</a>
+						</li>
+						{/ms:channel}
+					</ul>
+					<div class="hg10 backf0"></div>
+					<div class="left-remoon pb15">
+						<h3>
+							推荐项目
+							<a class="ar fr" href="{ms:global.url/}/19/index.html">MORE</a>
+						</h3>
+						{ms:arclist size=1 typeid=61}
+						<a href="{ms:global.url/}/19/index.html">
+							<img src="{ms:global.host/}[field.litpic/]"/>
+						</a>
+						<p>[field.title/]</p>
+						{/ms:arclist}
+					</div>
+				</div>
+				<!-- /子菜单 -->
+				<script type="text/javascript">
+					$(function () {
+						$(".subcate ul li.on a").css("color", NAVCOLOR);
+						$(".subcate ul li").hover(function () {
+							$(this).find("a").css("color", NAVCOLOR);
+						}, function () {
+							if (!$(this).hasClass("on")) {
+								$(this).find("a").css("color", '');
+							}
+						})
+					})
+				</script>
+				<script type="text/javascript">
+					$('.subcate ul li').removeAttr('class')
+					var address = window.location.href
+					if (address.match('59/68')) {
+						$('.subcate ul li:eq(0)').attr('class', 'on')
+					} else if (address.match('59/69')) {
+						$('.subcate ul li:eq(1)').attr('class', 'on')
+					} else if (address.match('59/70')) {
+						$('.subcate ul li:eq(2)').attr('class', 'on')
+					}
+				</script>
+			</div>
+			<!-- /LEFT -->
+			<!-- RIGHT -->
+			<div class="content-right">
+				<h3 class="cat-tit">{ms:channel type=self typeid=59}[field.typetitle/]{/ms:channel}
+				</h3>
+				<div class="news_0_list">
+					<ul>
+						{ms:arclist size=8}
+						<li class="wow slideInUp" data-wow-delay=".1s">
+							<a href="{ms:global.url/}[field.link/]" class="news-more mt15">
+								<h5 class="pb5 f16 a66">[field.title/]</h5>
+								<span class="f12 a99 block y ar">[field.date?string("yyyy-mm-dd")/]
+								</span>
+								<p class="line22 a99 pt5">[field.descrip/]</p>
+								<i class="news-ico"></i>
+							</a>
+						</li> {/ms:arclist}
+					</ul>
+				</div>
+			</div>
+			<!-- /RIGHT -->
+		</div>
+		<!-- 内容开始 -->
+		<!-- footer -->
+		<#include "footer.htm">
+		<!-- /footer -->
+	</div>
+</body>
+
+</html>

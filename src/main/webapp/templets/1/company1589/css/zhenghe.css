@@ -1,0 +1,378 @@
+﻿@charset "utf-8";
+/* CSS Document */
+body{margin:0 auto;padding:0;font-size:12px;font-family:"微软雅黑";color:#000;background-color:#ffffff;min-width:1100px}
+ul,li,dl,dt,dd,form,h1,h2,h3,h4,p,tr,td,th{margin:0px;padding:0px}
+li {list-style-type:none}
+img{border:0}
+.clear{margin:0;padding:0;clear:both}
+.clear hr{margin:0;padding:0;display:none}
+a{color:#343331;text-decoration:none;outline:none}
+a:hover{color:#df494b;text-decoration:none}
+a:active{star:expression(this.onFocus=this.blur())}
+:focus{outline:0}
+.en{font-family:Arial;font-size:11px}
+body,html{overflow-x:hidden}
+/*测试用*/
+#text{position:fixed;top:100px;left:45%;z-index:9999}
+/*测试用*/
+
+
+section{width:100%;overflow:hidden}
+#home{height:569px;position:relative;width:1100px;margin:0 auto;overflow:visible}
+.hgrap{height:85px}
+.banner{height:484px;background:url("../images/banner_02.jpg")/*tpa=http://www.eidea.net.cn/images/banner_02.jpg*/ no-repeat center;background-size:cover;width:100%}
+.bannerbody{width:1100px;position:relative;height:484px;margin:auto}
+.banner_font1{width:441px;height:69px;position:absolute;top:108px;left:0px}
+.banner_font2{width:502px;height:57px;position:absolute;top:197px;left:0px}
+#servies{height:585px}
+#servies h1{font-family:微软雅黑;font-size:22px;text-align:center;font-weight:500;padding-top:18px}
+#servies h1 b{font-family:宋体;font-size:50px;color:#f01f21}
+#servies h1 span{font-family:Arial;font-size:24px}
+.servies_index{width:1000px;overflow:hidden;position:relative;margin:0 auto;height:650px}
+.servies_index_item{width:300px;position:absolute;height:406px;top:60px;left:-1000px}
+#design{left:0px}
+#web{left:350px}
+#mobile{left:700px}
+.servies_font_cn{font-family:微软雅黑;font-size:18px;font-weight:700;text-align:center;padding:0px 0 11px;background:url("../images/serviec_border_21.jpg")/*tpa=http://www.eidea.net.cn/images/serviec_border_21.jpg*/ no-repeat bottom center/*;margin-left:80px*/}
+.ffonts{/*display:none;*/width:300px;padding-top:40px;-moz-opacity:0.0;opacity:0.0}
+.servies_font_en{font-size:16px;font-weight:700;text-align:center/*;margin-left:80px*/}
+.servies_font_en b{font-size:30px;font-family:宋体;color:#f01f21}
+section#client{background:url("../images/clientbg_02.jpg")/*tpa=http://www.eidea.net.cn/images/clientbg_02.jpg*/ no-repeat center;background-size:cover;height:643px}
+section#client h1{font-family:微软雅黑;font-size:22px;text-align:center;font-weight:500;color:#fff;padding:30px 0 82px}
+section#client h1 b{font-family:宋体;font-size:50px;color:#f01f21}
+section#client h1 span{font-family:Arial;font-size:24px}
+.clientscroll{width:832px;margin:0 auto;height:406px;position:relative}
+.clientitem{width:178px;height:178px;overflow:hidden;float:left;display:inline;margin:0px 15px 50px}
+.clientsprev,.clientsnext{position:absolute;width:70px;height:79px;cursor:pointer;top:163px;z-index:20}
+.clientsprev{left:-83px}
+.clientsnext{right:-83px}
+.clientscroll li{/*display:none*/}
+.clientscroll li.on{/*display:block*/}
+#news{height:722px;background:#fff}
+#news h1{font-family:微软雅黑;font-size:22px;text-align:center;font-weight:500;color:#000;padding:30px 0 65px}
+#news h1 b{font-family:宋体;font-size:50px;color:#f01f21}
+#news h1 span{font-family:Arial;font-size:24px}
+.index_news{display:inline;float:left;width:316px;height:194px;overflow:hidden;margin:0 37px 50px}
+.index_news_addtime{color:#707070;font-weight:700;height:12px;overflow:hidden;line-height:0}
+.index_news_addtime b{font-family:宋体;font-size:30px;color:#f01f21}
+.index_news_list{width:1200px;margin:50px auto;height:435px;overflow:hidden}
+
+.index_news_tit{padding-bottom:17px;padding-top:5px}
+.index_news_tit a{font-family:微软雅黑;font-size:16px}
+.index_news_info.inbgh{font-family:微软雅黑;line-height:190%;height:136px;background:url("../images/index_red_17.jpg") bottom left no-repeat}
+.news_seeall{width:100px;height:100px;margin:0 auto;background:url("../images/seeall_27.jpg")/*tpa=http://www.eidea.net.cn/images/seeall_27.jpg*/ no-repeat;overflow:hidden}
+.news_seeall a{display:block;width:100px;height:100px;-moz-opacity:0.0;opacity:0.0;z-index:9;background:url("../images/seeall_27.jpg")/*tpa=http://www.eidea.net.cn/images/seeall_27.jpg*/ 0 -100px no-repeat;text-indent:9999px;line-height:100px;+line-height:0;overflow:hidden}
+#contact{height:764px;background:url("../images/contactbg_02.jpg")/*tpa=http://www.eidea.net.cn/images/contactbg_02.jpg*/ no-repeat center;background-size:cover;color:#fff}
+#contact h1{font-family:微软雅黑;font-size:22px;text-align:center;font-weight:500;color:#fff;padding:30px 0 42px}
+#contact h1 b{font-family:宋体;font-size:50px;color:#f01f21}
+#contact h1 span{font-family:Arial;font-size:24px}
+#contact h1 label{letter-spacing:1px}
+.contact_cont{width:900px;margin:0 auto;height:620px;overflow:hidden}
+.contact_cont_info{height:286px;font-family:微软雅黑;overflow:hidden}
+.contact_cont_info_l,.contact_cont_info_r{float:left;width:50%;height:620px;overflow:hidden}
+.contact_cont_info_r{padding-top:43px}
+#wb,#wx{float:left;display:inline;width:50px;height:50px}
+#wb a,#wx a{display:block;width:50px;height:50px;overflow:hidden;text-indent:9999px;line-height:1000px;-moz-opacity:0.0;opacity:0.0;z-index:9}
+#wb a{background:url("../images/weiboicon_12_.png")/*tpa=http://www.eidea.net.cn/images/weiboicon_12_.png*/ 0px -50px no-repeat}
+#wx a{background:url("../images/weiboicon_14_.png")/*tpa=http://www.eidea.net.cn/images/weiboicon_14_.png*/ 0px -50px no-repeat}
+#wb{background:url("../images/weiboicon_12_.png")/*tpa=http://www.eidea.net.cn/images/weiboicon_12_.png*/ no-repeat}
+#wx{background:url("../images/weiboicon_14_.png")/*tpa=http://www.eidea.net.cn/images/weiboicon_14_.png*/ no-repeat;margin-left:10px}
+.QQ{background:url("../images/qq_03.png")/*tpa=http://www.eidea.net.cn/images/QQ_03.png*/ no-repeat;height:50px;width:160px;overflow:hidden;float:left;display:inline;margin-left:50px;margin-bottom:10px}
+.QQa{background:url("../images/qq_03.png")/*tpa=http://www.eidea.net.cn/images/QQ_03.png*/ no-repeat 0 -50px;display:inline-block;width:50px;height:50px;overflow:hidden;-moz-opacity:0.0;opacity:0.0}
+.QQinfo{display:inline-block;width:110px;height:50px;overflow:hidden;color:#fff;line-height:180%}
+.QQinfo p{text-indent:10px}
+.message_left{width:350px;float:left;display:inline;margin-top:20px}
+.message_left p{background:url("../images/input_14.png")/*tpa=http://www.eidea.net.cn/images/input_14.png*/ no-repeat;width:345px;height:29px;overflow:hidden;padding:6px 0 0 19px;margin-bottom:5px}
+.message_left p input.txt{width:310px;height:22px;overflow:hidden;border:0;padding:0;font-family:微软雅黑;background:#fff}
+.message_right{float:left;display:inline;width:531px;height:115px;overflow:hidden;margin-top:20px;margin-left:19px}
+.message_right p{background:url("../images/textarea_06.png")/*tpa=http://www.eidea.net.cn/images/textarea_06.png*/ no-repeat;width:531px;height:115px;overflow:hidden;padding:8px 0 0 20px}
+.message_right p textarea{width:488px;height:92px;overflow:hidden;font-family:微软雅黑;border:0;padding:0;font-size:12px;background:#fff}
+.mesbtn{width:100px;height:100px;overflow:hidden;background:url("../images/submit_12.png")/*tpa=http://www.eidea.net.cn/images/submit_12.png*/ no-repeat;margin:30px auto 0}
+.mesbtn a{display:block;width:100px;height:100px;background:url("../images/submit_12.png")/*tpa=http://www.eidea.net.cn/images/submit_12.png*/ 0px -100px no-repeat;overflow:hidden;-moz-opacity:0.0;opacity:0.0;z-index:9;text-indent:9999px;line-height:999px}
+#youshi{height:409px}
+#youshi h1{font-family:微软雅黑;font-size:22px;text-align:center;font-weight:500;color:#000;padding:68px 0 40px}
+#youshi h1 b{font-family:宋体;font-size:50px;color:#f01f21}
+#youshi h1 span{font-family:Arial;font-size:24px}
+.youshi_index{width:900px;margin:0 auto;height:200px;overflow:hidden}
+.youshi_index_item{width:200px;height:200px;overflow:hidden;float:left;display:inline;position:relative}
+.youshi_index_itemm{margin:0 150px}
+.youshi_index_item .slight{width:200px;height:200px;overflow:hidden;position:absolute;top:-200px;display:block;background:url("../images/youshi_m_10.png")/*tpa=http://www.eidea.net.cn/images/youshi_m_10.png*/ no-repeat}
+.slight_cn{font-family:微软雅黑;font-size:18px;color:#fff;text-align:center;margin-top:64px}
+.slight_en{font-family:Arial;font-size:16px;text-align:center;margin-top:15px;color:#fff}
+.slight_en b{font-size:30px;font-family:宋体;font-weight:500}
+.mark{width:200px;height:200px;overflow:hidden;background:url("../images/mark.png")/*tpa=http://www.eidea.net.cn/images/mark.png*/ no-repeat;z-index:9;position:absolute;top:0px;left:0px}
+footer{width:100%;background:#000;line-height:200%;height:25px;position:relative}
+.footerb{width:1000px;margin:0 auto;background:#000;height:25px;overflow:hidden;color:#fff;font-family:Arial;font-size:11px;left:50%;margin-left:-500px;position:absolute;z-index:99}
+.footerb span{float:right;font-size:12px}
+
+.link_content{width:100%;background:#000;position:fixed;bottom:-60px;z-index:98}
+.link{width:1000px;margin:0 auto;padding:5px 0;color:#fff;font-size:12px;border-bottom:#404040 1px solid;overflow:hidden}
+.link_title{width:60px;float:left;display:inline-blcok}
+.link_list{float:left;display:inline-blcok;width:940px}
+.link_list a{color:#fff}
+
+.case_tit{padding-top:20px;padding-bottom:40px;text-align:center;color:#000;font-family:微软雅黑;font-size:22px}
+.case_tit span{font-family:Arial;font-size:24px}
+.case_tit b{color:#f01f21;font-size:50px;font-weight:500;font-family:宋体}
+.case_list_tit{width:1100px;height:50px;overflow:hidden;background:#000}
+
+.case_list_l2{float:right}
+.case_detail_tit{height:50px;overflow:hidden}
+#case_detail{width:1100px;margin:0 auto;overflow:hidden}
+.case_detail_tit_ul{text-align:center}
+.case_detail_tit_ul a{cursor:pointer}
+.case_detail_tit_ul ul li{float:left;display:inline-block;height:20px;border-bottom:1px solid #000;width:20px;margin-left:10px}
+.case_detail_tit_ul ul li.on{border-bottom:1px solid #f01f21}
+.case_detail_tit_ul span{float:right;display:block;position:relative}
+.case_detail_tit_ul span .close{background:url("../images/case_detail_close_03.jpg")/*tpa=http://www.eidea.net.cn/images/case_detail_close_03.jpg*/ no-repeat;width:40px;height:40px;overflow:hidden}
+.case_detail_tit_ul span #close{background:url("../images/case_detail_close_03.jpg")/*tpa=http://www.eidea.net.cn/images/case_detail_close_03.jpg*/ 0px -40px no-repeat;-moz-opacity:0.0;opacity:0.0;z-index:9;display:block;width:40px;height:40px;overflow:hidden;position:absolute;top:0px}
+.case_detail_tit_ul font{float:left;display:block;position:relative}
+.case_detail_tit_ul font .case_detail_llwz{background:url("../images/case_detail_llwz.png")/*tpa=http://www.eidea.net.cn/images/case_detail_llwz.png*/ no-repeat;width:100px;height:40px;overflow:hidden}
+.case_detail_tit_ul font .case_detail_llwz2{background:url("../images/case_detail_llwz.png")/*tpa=http://www.eidea.net.cn/images/case_detail_llwz.png*/ 0px -80px no-repeat;width:100px;height:40px;overflow:hidde}
+.case_detail_tit_ul font #llwz{background:url("../images/case_detail_llwz.png")/*tpa=http://www.eidea.net.cn/images/case_detail_llwz.png*/ 0px -40px no-repeat;-moz-opacity:0.0;opacity:0.0;z-index:9;display:block;width:100px;height:40px;overflow:hidden;position:absolute;top:0px}
+.case_detail_bpic{padding-bottom:60px}
+.case_detail_bpic ul li{width:1100px;text-align:center;background:#fff}
+.case_detail_bpic ul li img{max-width:1100px;display:inline-block}
+#backgroundmark{position:fixed;width:100%;height:100%;background:url("../images/markbg_03.png")/*tpa=http://www.eidea.net.cn/images/markbg_03.png*/;z-index:98;display:none}
+#danchu{background:url("../images/danchubg_07.png")/*tpa=http://www.eidea.net.cn/images/danchubg_07.png*/ no-repeat;width:906px;height:444px;overflow:hidden;position:fixed;top:-400px;left:50%;margin-left:-453px;z-index:999}
+#danchu span.cc{float:right;margin-top:10px;margin-right:15px;position:relative}
+.danchuclose{height:22px;width:22px;overflow:hidden;background:url("../images/tanchuclose_03.jpg")/*tpa=http://www.eidea.net.cn/images/tanchuclose_03.jpg*/ no-repeat}
+#danchuclose{display:block;height:22px;width:22px;overflow:hidden;background:url("../images/tanchuclose_03.jpg")/*tpa=http://www.eidea.net.cn/images/tanchuclose_03.jpg*/ 0px -22px no-repeat;-moz-opacity:0.0;opacity:0.0;z-index:9;position:absolute;top:0px}
+
+.ecode{width:300px;height:300px;float:left;display:inline;margin:70px 0 0 102px}
+.ecodeexpress{width:460px;height:300px;overflow:hidden;margin:150px 0 0 0;display:inline;float:left}
+.weibo_font{font-size:30px;font-family:宋体;text-align:center;line-height:160%}
+.weibo_font_en{font-size:30px;font-family:Arial;text-align:center;padding-top:30px}
+.weibo_font_en b{color:#f34f51;font-family:宋体;font-size:30px}
+.phonepic{float:left;margin-top:2px;margin-left:70px}
+.weibo_font_phone{font-size:60px;padding-top:0px}
+.nabout{height:544px;overflow:hidden;background:url("../images/about_bg_02.jpg")/*tpa=http://www.eidea.net.cn/images/about_bg_02.jpg*/ no-repeat center;background-size:cover}
+.nabout_detail{width:952px;margin:0 auto}
+.about_tit{color:#fff;padding-top:20px}
+.nabout_icon_pic{width:200px;height:200px;overflow:hidden;position:relative;margin:0 auto 30px}
+.nabout_icon_pic_info{position:absolute;top:0px;left:0px;width:200px;height:200px}
+.nabout_icon{float:left;display:inline;width:250px;overflow:hidden}
+.pa{padding-top:10px}
+.nnews{height:auto}
+.nabout_icon_detail{color:#fff;line-height:180%}
+.nabout_icon_mid{margin:0 100px}
+.news_list{width:1002px;margin:0 auto;background:url("../images/news_list_bg_16.jpg")/*tpa=http://www.eidea.net.cn/images/news_list_bg_16.jpg*/ repeat-y}
+.news_list_li{width:501px;padding-bottom:28px;border-bottom:1px solid #f4f4f4}
+.news_list_li_pic img{display:block;border:1px #eaedf0 solid;border-right:0px}
+.news_list_li_addtime{margin-top:26px}
+.news_list_li_info{max-height:142px;height:auto !important;background:none;width:470px}
+.news_list_li_se .news_list_li_addtime,.news_list_li_se .news_list_li_info,.news_list_li_se .index_news_tit,.news_list_li_more{padding-left:31px}
+.news_list_li_more{padding-top:28px}
+.news_list_li_more a{color:#f01f21;font-family:Arial;font-size:16px;font-weight:700}
+#ncontact{background:url("../images/contact_bg_02.jpg")/*tpa=http://www.eidea.net.cn/images/contact_bg_02.jpg*/ no-repeat center;background-size:cover;height:339px}
+#ncontact h1{font-family:微软雅黑;font-size:22px;text-align:center;font-weight:500;color:#fff;padding:20px 0 30px}
+#ncontact h1 b{font-family:宋体;font-size:50px;color:#f01f21}
+#ncontact h1 span{font-family:Arial;font-size:24px}
+#ncontact h1 label{letter-spacing:1px}
+.ncontact_cont_info_l{color:#fff}
+.contact_tit{padding-top:40px}
+.erweicode_body{width:900px;margin:0 auto}
+.erweicode_body ul li{float:left;display:inline;width:270px;height:270px;position:relative;overflow:hidden}
+.erweicode_body ul li .markinfo{position:absolute;background:url("../images/markk_06.png")/*tpa=http://www.eidea.net.cn/images/markk_06.png*/;width:270px;height:270px;bottom:270px}
+.erweicode_body ul li .markinfo p.nn{padding:110px 0 0 0;font-family:微软雅黑;font-size:20px;color:#fff;text-align:center}
+.erweicode_body ul li .markinfo p.en{padding:10px 0 0 0;font-family:微软雅黑;font-size:14px;color:#fff;text-align:center}
+.erweicode_body ul li img{display:block}
+.erweicode_body ul li.mid{margin:0 45px}
+.nmessage_tit{font-size:18px;text-align:center;padding-top:72px;padding-bottom:14px}
+.nmessage_tit_b{text-align:center;line-height:200%}
+.nmessage_body{width:900px;margin:0 auto;padding-bottom:30px}
+.nmessage_body .message_left p{background:url("../images/input_14.jpg")/*tpa=http://www.eidea.net.cn/images/input_14.jpg*/ no-repeat}
+.nmessage_body .message_left p input{background:#eee}
+.nmessage_body .message_right p{background:url("../images/textarea_06.jpg")/*tpa=http://www.eidea.net.cn/images/textarea_06.jpg*/ no-repeat}
+.nmessage_body .message_right p textarea{background:#eee}
+#scheme{height:1243px;background:url("../images/scheme_02.jpg")/*tpa=http://www.eidea.net.cn/images/scheme_02.jpg*/ no-repeat center;background-size:cover}
+.scheme_quan{width:200px;height:200px;overflow:hidden;margin:40px auto 50px;background:url("../images/scheme_quan_04.png")/*tpa=http://www.eidea.net.cn/images/scheme_quan_04.png*/ no-repeat center}
+.scheme_detail{border:1px solid #514f4f;width:900px;margin:0 auto;color:#fff;border-left:0;border-right:0;padding:35px 0;line-height:200%;font-family:微软雅黑;padding-left:15px;padding-right:15px}
+.scheme_tit{color:#fff;padding:0 0 40px}
+.scheme_tit label{font-size:16px}
+.scheme_scroll{width:1000px;margin:0 auto;position:relative}
+.scheme_scroll_body{width:700px;margin:0 auto}
+.scheme_scroll_body ul#bd li{background:url("../images/quanq_15_.png")/*tpa=http://www.eidea.net.cn/images/quanq_15_.png*/ no-repeat;width:100px;height:100px;float:left;display:inline-block;overflow:hidden;font-size:16px;line-height:600%;text-align:center;margin-right:50px;cursor:pointer;font-family:微软雅黑}
+.scheme_scroll_body ul#bd li:hover{background:url("../images/quanq_15_.png")/*tpa=http://www.eidea.net.cn/images/quanq_15_.png*/ 0px -100px no-repeat;color:#fff}
+.scheme_scroll_prev,.scheme_scroll_next{height:79px;width:70px;overflow:hidden;background:url("../images/prev.png")/*tpa=http://www.eidea.net.cn/images/prev.png*/ no-repeat;top:0px;z-index:9;position:absolute;cursor:pointer}
+.scheme_scroll_next{background:url("../images/next.png")/*tpa=http://www.eidea.net.cn/images/next.png*/ no-repeat;right:0px}
+.scheme_scroll_body ul#hd li{height:1px;width:20px;margin:0 5px;background:#fff;float:left;display:inline-block}
+.scheme_scroll_body ul#hd{padding-top:30px;width:150px;margin:0 auto}
+.scheme_scroll_body ul#hd li.on{background:#f01f21}
+.scheme_tit2{padding-top:40px;padding-bottom:20px}
+.news_list_li_l{float:left;display:inline;width:501px;overflow:hidden}
+.news_list_li_r{float:right;display:inline;width:501px;overflow:hidden}
+.case_list_body{width:1100px;margin:0 auto;min-height:780px;height:auto !important;_height:780px}
+.case_list_body ul li{position:relative;width:356px;height:171px;overflow:hidden;margin:60px 16px 19px 0;float:left;display:inline;background:url("../images/case_i_bg.jpg")/*tpa=http://www.eidea.net.cn/images/case_i_bg.jpg*/ no-repeat;display:none}
+
+.case_list_body ul li a{display:block;width:356px;height:171px}
+.case_list_body ul li a:hover .case_open{background:url("../images/case_open_03.png")/*tpa=http://www.eidea.net.cn/images/case_open_03.png*/ no-repeat center #f01f21}
+.case_list_body_pic{width:216px;height:146px;overflow:hidden;margin:13px 0 0 13px;float:left;display:inline}
+.case_list_body_name{font-size:20px;font-family:微软雅黑;height:45px;overflow:hidden;color:#fff;text-align:center;line-height:220%}
+.case_list_body_mark{position:absolute;width:348px;background:url("../images/markk_06.png")/*tpa=http://www.eidea.net.cn/images/markk_06.png*/;height:275px;left:1px;top:183px}
+.case_list_body_into{position:absolute;width:80px;height:80px;background:url("../images/cc_03.png")/*tpa=http://www.eidea.net.cn/images/cc_03.png*/ no-repeat;overflow:hidden;z-index:99;top:50%;margin-top:-40px;left:50%;margin-left:-40px;display:none}
+.case_list_body ul li.casela{margin-right:0px}
+.bannerV{position:absolute;top:538px;width:22px;height:21px;left:50%;margin-left:-11px;background:url("../images/bannerv_05.png")/*tpa=http://www.eidea.net.cn/images/bannerV_05.png*/ no-repeat;z-index:101}
+
+.m_contact_tit{height:52px;width:900px;overflow:hidden}
+.m_contact_tit li{height:52px;font-family:微软雅黑;font-size:18px;line-height:200%}
+.m_contact_tit li b{color:#f01f21;font-family:宋体;font-size:50px}
+.art_mobile{width:901px;margin:0 auto;height:443px;position:relative;overflow:hidden}
+.art_mobile_1{position:absolute;bottom:-213px;left:0px;width:286px;height:329px;overflow:hidden;z-index:5}
+.art_mobile_2{position:absolute;bottom:0px;left:284px;width:332px;height:394px;overflow:hidden}
+.art_mobile_3{position:absolute;bottom:-213px;right:0px;width:277px;height:329px;overflow:hidden;z-index:5}
+
+.news_detail{width:1002px;margin:0 auto;overflow:hidden}
+.n_d_top{border-bottom:#dedede 1px solid}
+.n_d_date{color:#969696}
+.n_d_date b{color:#f01f21;font-size:20px}
+.n_d_title{height:57px;line-height:57px}
+.n_d_title font{float:left;display:inline-block;font-size:18px;color:#000000}
+.n_d_title span{float:right;display:inline-block;color:#7a7a7a}
+.n_d_title span a{color:#7a7a7a}
+.n_d_title span a:hover{color:#000000;text-decoration:underline}
+#detail{margin:25px 0;color:#000000;line-height:200%;font-size:12px;min-height:460px}
+.n_d_footer{height:55px;line-height:55px;border-top:#dedede 1px solid;margin-bottom:35px;color:#222222}
+
+.case_content{margin:20px 0;color:#000000}
+.case_con{width:100%;margin-top:50px}
+.case_txt{width:1100px;height:45px}
+.case_wzcon{width:1100px;background:#f2f2f2;color:#000;padding:25px 0;line-height:200%}
+.case_wzcon .text{width:700px;margin:0 auto}
+
+.wap_station{margin:0 auto;width:900px}
+.station_detail{border-bottom:1px solid #514f4f;border-top:1px solid #514f4f;padding:35px 0;line-height:200%;color:#000000}
+.station_list{width:900px;margin:0 auto;padding-bottom:60px;overflow:hidden}
+.s_l_content{width:250px;height:200px;float:left;display:inline-block;margin-right:70px;margin-top:60px}
+.s_l_content_r{width:250px;height:200px;float:right;display:inline-block;margin-top:60px}
+.s_l_C_title{font-size:15px;color:#ff0002}
+.s_l_c_text{margin:30px 0;line-height:200%;color:#000000;background:url("../images/serviec_border_21_.jpg")/*tpa=http://www.eidea.net.cn/images/serviec_border_21_.jpg*/ bottom left no-repeat;height:154px}
+.zd{width:900px;height:4px;overflow:hidden;margin-top:2px;float:left;display:inline-block;z-index:9;background:#fff}
+
+.case_detail_tit_ul span .case_detail_prev,.case_detail_tit_ul span .case_detail_next{width:40px;height:40px;z-index:9;overflow:hidden;display:block;position:absolute}
+.case_detail_tit_ul span .case_detail_prev{background:url("../images/case_detail_left.jpg")/*tpa=http://www.eidea.net.cn/images/case_detail_left.jpg*/ no-repeat;right:100px}
+.case_detail_tit_ul span .case_detail_next{background:url("../images/case_detail_right.jpg")/*tpa=http://www.eidea.net.cn/images/case_detail_right.jpg*/ no-repeat;right:50px}
+.case_detail_tit_ul #prev,.case_detail_tit_ul #next{-moz-opacity:0.0;opacity:0.0;z-index:9;display:block;width:40px;height:40px;position:absolute}
+.case_detail_tit_ul #prev{background:url("../images/case_detail_left.jpg")/*tpa=http://www.eidea.net.cn/images/case_detail_left.jpg*/ 0px -40px no-repeat;right:100px}
+.case_detail_tit_ul #next{background:url("../images/case_detail_right.jpg")/*tpa=http://www.eidea.net.cn/images/case_detail_right.jpg*/ 0px -40px no-repeat;right:50px}
+
+.m_contact_tit{height:52px;width:900px;overflow:hidden}
+.m_contact_tit li{height:52px;font-family:微软雅黑;font-size:18px;line-height:200%}
+.m_contact_tit li b{color:#f01f21;font-family:宋体;font-size:50px}
+.art_mobile{width:901px;margin:0 auto;height:443px;position:relative;overflow:hidden}
+.art_mobile_1{position:absolute;bottom:-213px;left:0px;width:286px;height:329px;overflow:hidden;z-index:5}
+.art_mobile_2{position:absolute;bottom:0px;left:284px;width:332px;height:394px;overflow:hidden}
+.art_mobile_3{position:absolute;bottom:-213px;right:0px;width:277px;height:329px;overflow:hidden;z-index:5}
+
+.news_list_li_l .news_list_li_more{padding-left:0px}
+
+#slideshow{position:absolute;left:50%;margin-left:-950px}
+.index_prev,.index_next{position:absolute;top:50%;margin-top:-10px;z-index:99;width:70px;height:79px;cursor:pointer}
+.index_prev{left:0px}
+.index_next{right:0px}
+ul#banner{height:485px;overflow:hidden;z-index:-9}
+#home{width:auto}
+.weixin{height:575px;overflow:hidden;background:url("../images/weixinbbg_02.jpg")/*tpa=http://www.eidea.net.cn/images/weixinbbg_02.jpg*/ no-repeat;background-size:cover}
+.weixin h1{font-family:微软雅黑;font-size:22px;text-align:center;font-weight:500;color:#fff;padding:20px 0 30px}
+.weixin h1 a{color:#fff}
+.weixin h1 b{font-family:宋体;font-size:50px;color:#f01f21}
+.weixin h1 span{font-family:Arial;font-size:24px}
+.weixin h1 label{letter-spacing:1px;cursor:pointer}
+.weixinbg{width:1000px;margin:0 auto;height:415px;overflow:hidden}
+.weixinitem{float:left;display:block;width:300px;height:415px;background:url("../images/weixinbg_03.png")/*tpa=http://www.eidea.net.cn/images/weixinbg_03.png*/ no-repeat;margin-top:100px}
+.weixinitempic{width:280px;height:140px;overflow:hidden;margin:20px auto}
+.weixinbody{width:280px;overflow:hidden;margin:0 auto}
+.weixinbody .time{font-size:11px;font-family:Arial;color:#707070}
+.weixinbody .time b{font-family:宋体;font-size:30px;color:#f01f21}
+.weixinbody .weixintit{font-size:16px;color:#000}
+.weixinbody .weixinb{margin:20px auto;line-height:180%;height:156px;overflow:hidden}
+.weixinbody .weixinb a{color:#f01f21}
+.weixinitem_mid{margin:0 48px;margin-top:100px}
+.nweixinitem{background:none;width:306px;height:auto;margin-bottom:14px}
+.nweixinitem_mid{margin:0 41px} 
+.weixinbg2{height:auto;overflow:inherit}
+.weixinitembody{background:url("../images/nweixinbg_03.jpg")/*tpa=http://www.eidea.net.cn/images/nweixinbg_03.jpg*/ no-repeat;width:306px;height:421px;overflow:hidden;margin-top:400px}
+
+
+
+
+
+.case_list_info{width:104px;height:145px;overflow:hidden;margin:13px 13px 0 0;display:inline;float:right}
+.cast_list_tit{height:40px;overflow:hidden;font-size:16px;font-weight:700}
+.cast_list_kaifa{height:55px;font-size:12px;/*font-weight:700*/}
+.case_open{width:50px;height:50px;overflow:hidden;background:url("../images/case_open_03.png")/*tpa=http://www.eidea.net.cn/images/case_open_03.png*/ no-repeat #000 center}
+
+.servies_index_itemb{width:300px;height:300px;overflow:hidden;
+	-ms-transition:all 0.5s ease-in-out 0s;
+	-webkit-transition:all 0.5s ease-in-out 0s;
+    -oz-transition:all 0.5s ease-in-out 0s;
+	transition:all 0.5s ease-in-out 0s;
+	
+	-oz-transform:scale(0.5);
+	-ms-transform:scale(0.5);
+	-webkit-transform:scale(0.5);
+	transform:scale(0.5);
+}
+.servies_pic{position:relative;
+	width:217px;height:217px;
+	margin:34px 0 0 41px;
+	-webkit-transition:box-shadow 0.4s ease-in-out 0s;
+	-ms-transition:box-shadow 0.4s ease-in-out 0s;
+	-oz-transition:box-shadow 0.4s ease-in-out 0s;
+	transition:box-shadow 0.4s ease-in-out 0s;
+	border-radius:50%;
+	box-shadow: 0 0 0 37px rgba(255, 255, 255, 0.2), 0 0 3px rgba(115, 114, 23, 0.8) inset;
+}
+
+.servies_index_item img{
+	position:absolute;
+	left:0;
+	top:0;
+	-ms-transform-style: preserve-3d;
+    -ms-transition:all 0.5s ease-in-out 0s;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transition:all 0.5s ease-in-out 0s;
+	-oz-transform-style: preserve-3d;
+    -oz-transition:all 0.5s ease-in-out 0s;
+
+    transform-style: preserve-3d;
+    transition:all 0.5s ease-in-out 0s;
+	border-radius:50%;
+}
+
+.servies_index_item:hover img{
+	-oz-transform:rotateY(-180deg);
+	-ms-transform:rotateY(-180deg);
+	-webkit-transform:rotateY(-180deg);
+	transform:rotateY(-180deg);
+}
+.servies_index_item:hover .servies_pic{
+	box-shadow: 0 0 0 0px rgba(255, 255, 255, 0.8), 0 0 3px rgba(115, 114, 23, 0.8) inset;
+}
+.servies_index_show{
+	-oz-transform:scale(1);
+	-ms-transform:scale(1);
+	-webkit-transform:scale(1);
+	transform:scale(1);
+}
+.servies_pic_bottom{position:absolute;width:217px;height:217px;background:#fff;border-radius:50%}
+.index_news_list .index_news{
+	-ms-transition:all 0.5s ease-in-out 0s;
+	-webkit-transition:all 0.5s ease-in-out 0s;
+    -oz-transition:all 0.5s ease-in-out 0s;
+	transition:all 0.5s ease-in-out 0s;
+	
+	-oz-transform:scale(0.5);
+	-ms-transform:scale(0.5);
+	-webkit-transform:scale(0.5);
+	transform:scale(0.5);
+}
+.index_news_list .index_newss{
+	-oz-transform:scale(1);
+	-ms-transform:scale(1);
+	-webkit-transform:scale(1);
+	transform:scale(1);
+}
+.index_news_list .index_news_info_bg{background:none}
+
+
