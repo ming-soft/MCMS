@@ -3,4 +3,5 @@
 /.settings
 /.*
 .project
+mcms.log
 head-file.ftl
