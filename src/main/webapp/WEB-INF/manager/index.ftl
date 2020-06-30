@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>造价管理系统</title>
+    <title>MCMS-OPEN</title>
     <#include '/include/head-file.ftl'/>
     <script src="${base}/static/plugins/sockjs/1.4.0/sockjs.min.js"></script>
     <script src="${base}/static/plugins/stomp/2.3.3/stomp.min.js"></script>
@@ -28,7 +28,7 @@
                         <img :src="ms.base+'/static/ms-admin/5.0.0/images/logo.png'"/>
                         <div class="class-1" v-show="!collapseMenu">
                             <div class="class-2">v</div>
-                            2.0
+                            5.1
                         </div>
                     </div>
                     <el-submenu :popper-class="['ms-admin-menu-aside-submenu',theme]" :index="menu.modelId+''"
@@ -192,12 +192,12 @@
             collapseMenu: false, //菜单折叠，false不折叠
             currentTab: '工作台', //当前激活tab的name
             tabIndex: 1,
-            // markList: ['项目管理', '组织管理', '客户管理', '合同管理', '印章管理', '绩效管理', '权限管理', '系统设置'],
+            // markList:
+            // ['项目管理', '组织管理', '客户管理', '合同管理', '印章管理', '绩效管理', '权限管理', '系统设置'],
             markList: [
                 {title: "权限管理", icon: "icon-wode", hide: true},
                 {title: "系统设置", icon: "icon-xitongguanli", hide: true},
                 {title: "内容管理", icon: "icon-neirongguanli", hide: true},
-                {title: "印章管理", icon: "icon-huizhang", hide: true},
                 {title: "会员中心", icon: "icon-huiyuanzhongxin", hide: true},
                 {title: "自定义管理", icon: "icon-zidingyiguanli", hide: true},
             ],
@@ -310,18 +310,18 @@
                 })
 
             },
-            connect: function () {
-                var that = this
-                var sockjs = new SockJS("/websocket");
-                var stompClient = Stomp.over(sockjs);
-                stompClient.connect({}, function (frame) {
-                    stompClient.subscribe('/topic/message/' +${Session.manager_session.managerId}, function (greeting) {
-                        if (greeting.body == "list") {
-                            that.getMessage()
-                        }
-                    });
-                });
-            },
+            <#--connect: function () {-->
+            <#--    var that = this-->
+            <#--    var sockjs = new SockJS("/websocket");-->
+            <#--    var stompClient = Stomp.over(sockjs);-->
+            <#--    stompClient.connect({}, function (frame) {-->
+            <#--        stompClient.subscribe('/topic/message/' +${Session.manager_session.managerId}, function (greeting) {-->
+            <#--            if (greeting.body == "list") {-->
+            <#--                that.getMessage()-->
+            <#--            }-->
+            <#--        });-->
+            <#--    });-->
+            <#--},-->
             markMenu: function (title, icon) {
                 var menu = {
                     title: title,
@@ -571,7 +571,7 @@
             //setInterval(this.getMessage,3000)
             // 菜单列表
             this.list();
-            this.connect();
+            // this.connect();
             //获取登录用户信息
             this.managerGet();
             var that = this;
