@@ -52,7 +52,9 @@
             <!--头部-->
             <el-header class="ms-admin-header" v-cloak>
                 <#--展示合并菜单-->
-                <div class="ms-admin-header-menu-shrink" @click="collapseMenu = !collapseMenu"><i class="iconfont" :class="collapseMenu?'icon-liebiaoxiangyou':'icon-shousuo'"></i></div>
+                <div class="ms-admin-header-menu-shrink" @click="collapseMenu = !collapseMenu"><i class="iconfont"
+                                                                                                  :class="collapseMenu?'icon-liebiaoxiangyou':'icon-shousuo'"></i>
+                </div>
                 <!--头部menu-->
                 <el-menu menu-trigger="hover" class="ms-admin-header-menu" background-color="rgba(255,255,255,1)"
                          text-color="#333333" active-text-color="#409EFF" :default-active="headMenuActive"
@@ -104,9 +106,20 @@
                             </el-menu-item>
                         </el-submenu>
                     </el-menu>
-                    <el-dropdown trigger="hover" class="ms-admin-login" placement="top-start" @visible-change="loginDown = !loginDown">
+<#--                    语言切换-->
+                    <el-dropdown @command="handleLanguageClick">
+                      <span class="el-dropdown-link" >
+                         {{locale.text}}<i class="el-icon-arrow-down el-icon--right"></i>
+                      </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item v-for="(item,index) in localeCommands" :command="item">{{item.text}}</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                    <el-dropdown trigger="hover" class="ms-admin-login" placement="top-start"
+                                 @visible-change="loginDown = !loginDown">
 						<span class="el-dropdown-link">
-							<div class="ms-admin-people-head" v-text="peopleInfo.managerName && peopleInfo.managerName.substr(0, 2)"></div>
+							<div class="ms-admin-people-head"
+                                 v-text="peopleInfo.managerName && peopleInfo.managerName.substr(0, 2)"></div>
 							<span v-text='peopleInfo.managerName'></span>
 						</span>
                         <el-dropdown-menu class="ms-admin-login-down" slot="dropdown" @click.native='openModal'>
@@ -123,7 +136,7 @@
 
             </el-header>
             <!--内容-->
-            <el-main class="ms-admin-main" >
+            <el-main class="ms-admin-main">
                 <!--选项卡-->
                 <el-tabs class="ms-admin-tabs" v-model="currentTab" type="card" closable @tab-remove="closeTab"
                          @tab-click='tabClick'>
@@ -148,6 +161,20 @@
         el: "#app",
         data: {
             code: '',
+            locale: {
+                text: '中文',
+                language: 'ch',
+            },
+            localeCommands:[
+                {
+                    text: '中文',
+                    language: 'ch',
+                },
+                {
+                    text: 'English',
+                    language: 'en',
+                }
+            ],
             menuList: [], //菜单接口数据
             asideMenuList: [], //侧边菜单
             parentMenuList: [], //一级菜单
@@ -242,6 +269,12 @@
             }
         },
         methods: {
+            handleLanguageClick: function (val) {
+                this.locale.text = val.text
+                this.locale.language = val.language
+                //语言切换
+                console.log(val)
+            },
             getAuthorization: function () {
 
             },
@@ -554,9 +587,10 @@
 </script>
 <style>
 
-    .adminhead{
-        margin-top: 10px\0;
+    .adminhead {
+        margin-top: 10px \0;
     }
+
     .item {
         margin-right: 19px;
     }
@@ -751,7 +785,8 @@
         width: 162px;
         min-width: 162px;
     }
-    .ms-admin-login-down{
-        top:55px !important;
+
+    .ms-admin-login-down {
+        top: 55px !important;
     }
 </style>

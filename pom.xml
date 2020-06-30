@@ -85,6 +85,7 @@
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-basic</artifactId>
