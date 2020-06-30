@@ -107,14 +107,14 @@
                         </el-submenu>
                     </el-menu>
 <#--                    语言切换-->
-                    <el-dropdown @command="handleLanguageClick">
-                      <span class="el-dropdown-link" >
-                         {{locale.text}}<i class="el-icon-arrow-down el-icon--right"></i>
-                      </span>
-                        <el-dropdown-menu slot="dropdown">
-                            <el-dropdown-item v-for="(item,index) in localeCommands" :command="item">{{item.text}}</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
+<#--                    <el-dropdown @command="handleLanguageClick">-->
+<#--                      <span class="el-dropdown-link" >-->
+<#--                         {{locale.text}}<i class="el-icon-arrow-down el-icon--right"></i>-->
+<#--                      </span>-->
+<#--                        <el-dropdown-menu slot="dropdown">-->
+<#--                            <el-dropdown-item v-for="(item,index) in localeCommands" :command="item">{{item.text}}</el-dropdown-item>-->
+<#--                        </el-dropdown-menu>-->
+<#--                    </el-dropdown>-->
                     <el-dropdown trigger="hover" class="ms-admin-login" placement="top-start"
                                  @visible-change="loginDown = !loginDown">
 						<span class="el-dropdown-link">
