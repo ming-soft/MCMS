@@ -1,0 +1,82 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<#include "head-file.htm">
+	<body>
+		<#include "head.htm">
+		<div class="met-main-box">
+			<div class="met-banner banner-ny-h" data-height='' style=''>
+				<div class="slick-slide">
+					<img class="cover-image" src="{ms:global.host/}/{ms:global.style/}images/1511169993.jpg" sizes="(max-width: 767px) 767px">
+				</div>
+			</div>
+			<div class="met-index-case met-index-body hidden-xs hidden-sm">
+				<div class="container">
+					<div class="case" id="case">
+						<ul class="sliderbox row">
+							{ms:arclist typeid=106}
+							<li class="a-list col-md-4 col-xs-1 col-sm-2">
+								<a href="{ms:field.link/}" title="[field.title/]" target='_self'>[ [field.date?string("yyyy-mm-dd")/]</a>
+							</li>
+							{/ms:arclist}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="met-column-nav bordernone">
+			<div class="container">
+				<div class="row">
+					<div class="product-search col-md-12">
+						<form>
+							<input type="hidden" name="search" value="search">
+							<input type="hidden" name="lang" value="cn">
+							<input type="hidden" name="class1" value="2">
+							<div class="form-group">
+								<div class="input-search">
+									<button type="submit" class="input-search-btn"><i class="iconfont" aria-hidden="true">&#xe70d;</i></button>
+									<input type="text" class="form-control" name="content" value="" placeholder="Search">
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="met-product animsition type-3">
+			<div class="container">
+				<ul class="blocks-2 blocks-sm-2 blocks-md-4 blocks-xlg-4  met-page-ajax met-grid" id="met-grid" data-scale='0.44736842105263'>
+					{ms:arclist typeid=106 ispaging=true}
+					<li class="shown">
+						<div class="widget widget-shadow">
+							<figure class="widget-header cover">
+								<a href="{ms:global.url/}[field.link/]" title="[field.title/]" target='_self'>
+									<img class="ms-height" src="{ms:global.host/}[field.litpic/]" alt="[field.title/]" width="100%" />
+								</a>
+							</figure>
+							<div class="widget-body">
+								<h4 class="widget-title">[field.title/]</h4>
+								<p></p>
+								<p class="ms-overflow">[field.descrip/]</p>
+								<div class="widget-body-footer">
+									<a href="{ms:global.url/}[field.link/]" title="[field.title/]" target='_self' class="btn btn-primary">查看详情</a>
+								</div>
+							</div>
+						</div>
+					</li>
+					{/ms:arclist}
+				</ul>
+				<div class="hidden-xs">
+					<div class='met_pager ms-dis-block'>
+						<a class='Ahover' href="{ms:global.url/}/{ms:page.index/}">首页</a>
+						<a class='Ahover' href="{ms:global.url/}/{ms:page.pre/}">上一页</a>
+						<a class='NextSpan'>当前：{ms:page.cur/}</a>
+						<a class='NextSpan'>总页：{ms:page.total/}</a>
+						<a class='Ahover' href="{ms:global.url/}/{ms:page.next/}">下一页</a>
+						<a class='Ahover' href="{ms:global.url/}/{ms:page.last/}">末页</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<#include "footer.htm">
+	</body>
+</html>

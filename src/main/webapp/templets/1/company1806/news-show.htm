@@ -1,0 +1,96 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<#include "head-file.htm">
+	<body>
+		<#include "head.htm">
+		<section class="met-shownews animsition">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-9 met-shownews-body">
+						<div class="row">
+							<div class="met-shownews-header">
+								<h1>{ms:field.title/}</h1>
+								<div class="info">
+									<span>{ms:field.date?string("yyyy-MM-dd")/}</span>
+									<span>{ms:field.author/}</span>
+									<span><i class="icon wb-eye margin-right-5" aria-hidden="true"></i>{ms:field.hit/}</span>
+								</div>
+							</div>
+							<div class="met-editor ms-p-size lazyload clearfix">
+								<div>
+									{ms:field.content/}
+									<div id="metinfo_additional"></div>
+								</div>
+							</div>
+							<div class="met-shownews-footer">
+								<ul class="pager pager-round">
+									<li class="previous">
+										<a href="{ms:global.url/}{ms:next.link/}" title="{ms:next.title/}">
+											上一篇
+											<span aria-hidden="true" class='hidden-xs'>：{ms:next.title/}</span>
+										</a>
+									</li>
+									<li class="next">
+										<a href="{ms:global.url/}{ms:pre.link/}" title="{ms:pre.title/}">
+											下一篇
+											<span aria-hidden="true" class='hidden-xs'>：{ms:pre.title/}</span>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="row">
+							<div class="met-news-bar">
+								<form>
+									<input type='hidden' name='lang' value='cn' />
+									<input type='hidden' name='class1' value='5' />
+									<div class="form-group">
+										<div class="input-search">
+											<button type="submit" class="input-search-btn"><i class="iconfont" aria-hidden="true">&#xe70d;</i></button>
+											<input type="text" class="form-control" name="searchword" placeholder="Search">
+										</div>
+									</div>
+								</form>
+								<div class="recommend news-list-md">
+									<h3>为您推荐</h3>
+									<div class="list-group list-group-bordered">
+										{ms:arclist size=3}
+										<div class="item-list1">
+											<div class="clearfix">
+												<div class="img pull-left">
+													<a href="{ms:global.url/}[field.link/]" target='_self'>
+														<img class="cover-image" src="{ms:global.host/}[field.litpic/]" alt="[field.title/]">
+													</a>
+												</div>
+												<div class="pull-left con">
+													<a href="{ms:global.url/}[field.link/]" target='_self'>
+														<div class="info1">
+															<h5 class="title">[field.title/]</h5>
+															<p></p>
+															<p class="gray"></p>
+														</div>
+													</a>
+												</div>
+											</div>
+										</div>
+										{/ms:arclist}
+									</div>
+								</div>
+								<ul class="column">
+									{ms:channel type=level}
+									<li>
+										<a href="{ms:global.url/}[field.typelink/]" class="" title="[field.typetitle/]">[field.typetitle/]</a>
+									</li>
+									{/ms:channel}
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<#include "footer.htm">
+	</body>
+</html>

@@ -1,0 +1,121 @@
+﻿<!DOCTYPE HTML>
+<html>
+	<#include "head-file.htm">
+	<body>
+		<#include "head.htm">
+		<link rel="stylesheet" href="{ms:global.host/}/{ms:global.style/}/css/ft-carousel.css" />
+		<style>
+			.ft-carousel .carousel-prev-btn {
+				left: 0;
+				background: url({ms:global.host/}/{ms:global.style/}/images/prev.png) no-repeat;
+			}
+			.ft-carousel .carousel-next-btn {
+				right: 0;
+				background: url({ms:global.host/}/{ms:global.style/}/images/next.png) no-repeat;
+			}
+		</style>
+		<div class="met-position pattern-show">
+			<div class="container">
+				<div class="row">
+					<ol class="breadcrumb">
+						<li>
+							<a href="{ms:global.host/}" title="网站首页">
+								<i class="icon wb-home" aria-hidden="true"></i>网站首页
+							</a>
+						</li>
+						<li class="dropdown">
+							<a href="{ms:global.url/}/106/index.html" title="产品中心">
+								产品中心
+							</a>
+						</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		<div class="page met-showproduct pagetype1 animsition">
+			<div class="met-showproduct-head">
+				<div class="container grey-box">
+					<div class="row">
+						<div class="col-md-7">
+							<div class="example">
+								<div class="ft-carousel" id="carousel_1">
+									<ul class="carousel-inner">
+										<li class="carousel-item"><img src="{ms:global.host/}{ms:field.litpic/}" /></li>
+										<li class="carousel-item"><img src="{ms:global.host/}{ms:field.litpic/}" /></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="visible-xs-block visible-sm-block height-20"></div>
+						<div class="col-md-5 product-intro">
+							<h1>{ms:field.title/}</h1>
+							<p class="description">{ms:field.descrip/}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="met-showproduct-body">
+				<div class="container">
+					<div class="row no-space">
+						<div class="col-md-9 product-content-body">
+							<div class="row">
+								<div class="panel product-detail">
+									<div class="panel-body">
+										<ul class="nav nav-tabs nav-tabs-line met-showproduct-navtabs affix-nav">
+											<li class="active">
+												<a data-toggle="tab" href="#product-details" data-get="product-details">详细信息</a>
+											</li>
+										</ul>
+										<div class="tab-content">
+											<div class="tab-pane met-editor lazyload clearfix active" id="product-details">
+												<div>
+													<div>
+														{ms:field.content/}
+													</div>
+													<p>
+														<img src="{ms:global.host/}{ms:field.litpic/}" />
+													</p>
+													<p>
+														文章来源：{ms:field.source/} | 文章作者：{ms:field.author/}
+													</p>
+													<p>
+														发布时间：{ms:field.date?string("yyyy-MM-dd")/}
+													</p>
+													<div id="metinfo_additional"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="row">
+								<div class="panel product-hot">
+									<div class="panel-body">
+										<h2 class="margin-bottom-15 font-size-16 font-weight-300">热门推荐</h2>
+										<ul class="blocks-2 blocks-sm-3 mob-masonry" data-scale='1'>
+											{ms:arclist size=3}
+											<li>
+												<a href="{ms:global.url/}[field.link/]" target="_blank" class="img" title="[field.title/]">
+													<img src="{ms:global.host/}[field.litpic/]" style='height:200px;width: 200px;' alt="数据仓库升级方案">
+												</a>
+												<a href="{ms:global.url/}[field.link/]" target="_blank" class="txt" title="[field.title/]">[field.title/]</a>
+											</li>
+											{/ms:arclist}
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<#include "footer.htm">
+		<script src="{ms:global.host/}/{ms:global.style/}/js/ft-carousel.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$("#carousel_1").FtCarousel();
+		</script>
+	</body>
+</html>
