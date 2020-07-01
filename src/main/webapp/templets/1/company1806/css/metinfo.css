@@ -11353,7 +11353,7 @@ body.met-navfixed-langlist {
 .met-top-tel {
   font-size: 12px;
   text-align: left;
-  width: 230px;
+  width: 270px;
   display: block;
   overflow: hidden;
   white-space: nowrap;
@@ -11370,7 +11370,7 @@ body.met-navfixed-langlist {
   font-size: 24px;
   color: #0082cb;
   margin: 0;
-  width: 162px;
+  width: 200px;
   display: block;
   overflow: hidden;
   white-space: nowrap;
@@ -14773,5 +14773,9 @@ footer p {
 	font-size: 15px !important;
 	line-height: 1.7;
 	rgb(102, 102, 102)
+}
+
+.c-nav-bar {
+  padding-left: 10%;
 }
 
