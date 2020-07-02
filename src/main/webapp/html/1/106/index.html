@@ -433,17 +433,18 @@
 		</div>
 <footer>
 	<div class="container text-center">
-		<p>我的网站 版权所有 ©铭飞科技有限公司2012-2015 保留一切权利。 </p>
-		<p>本页面内容为网站演示数据，前台页面内容都可以在后台修改。</p>
+		<p>版权所有 ©丰标供应链管理（重庆）有限公司 2019-2020 保留一切权利。 </p>
+		<p><a class="beian" href="http://www.beian.miit.gov.cn)">渝ICP备20000353号-1</a> | zhengqibang.com | 政企帮</p>
 	</div>
 </footer>
 <button type="button" class="btn btn-icon ms-btn-fff btn-squared met-scroll-top hide"><i class="iconfont" aria-hidden="true">&#xe750;</i></button>
 <div class="padding-top-60  hidden-xs hidden-sm"></div>
 <div class="fixed-bottom hidden-xs hidden-sm">
 	<div class="container">
-		<div class="fixed-logo">
-			<img src="http://cdn.mingsoft.net/global/images/MStore.png" />
-		</div>
+<!--		Hide footer logo-->
+<!--		<div class="fixed-logo">-->
+<!--			<img src="http://cdn.mingsoft.net/global/images/MStore.png" />-->
+<!--		</div>-->
 		<div class="row">
 			<div class="data1 text-right col-md-5">
 				<p>互联网大数据首选</p>
@@ -468,5 +469,9 @@
 		}
 		$(".nav-li>a").eq(parseInt(id - 1)).addClass("active");
 	}
+
+	$(document).on('click', 'span.beian', () => {
+		window.open('http://www.beian.miit.gov.cn/', '_blank')
+	})
 </script>	</body>
 </html>
