@@ -192,8 +192,6 @@
             collapseMenu: false, //菜单折叠，false不折叠
             currentTab: '工作台', //当前激活tab的name
             tabIndex: 1,
-            // markList:
-            // ['项目管理', '组织管理', '客户管理', '合同管理', '印章管理', '绩效管理', '权限管理', '系统设置'],
             markList: [
                 {title: "权限管理", icon: "icon-wode", hide: true},
                 {title: "系统设置", icon: "icon-xitongguanli", hide: true},
@@ -310,18 +308,6 @@
                 })
 
             },
-            <#--connect: function () {-->
-            <#--    var that = this-->
-            <#--    var sockjs = new SockJS("/websocket");-->
-            <#--    var stompClient = Stomp.over(sockjs);-->
-            <#--    stompClient.connect({}, function (frame) {-->
-            <#--        stompClient.subscribe('/topic/message/' +${Session.manager_session.managerId}, function (greeting) {-->
-            <#--            if (greeting.body == "list") {-->
-            <#--                that.getMessage()-->
-            <#--            }-->
-            <#--        });-->
-            <#--    });-->
-            <#--},-->
             markMenu: function (title, icon) {
                 var menu = {
                     title: title,
@@ -571,7 +557,6 @@
             //setInterval(this.getMessage,3000)
             // 菜单列表
             this.list();
-            // this.connect();
             //获取登录用户信息
             this.managerGet();
             var that = this;
