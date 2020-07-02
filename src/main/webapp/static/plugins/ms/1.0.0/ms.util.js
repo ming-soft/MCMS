@@ -62,7 +62,7 @@
         fmt: function(de, fmt) {
             var date = new Date(typeof de == "string"?de.replace(/-/g, "/"):de);
             if (!fmt) {
-                fmt = "yyyy-mm-dd";
+                fmt = "yyyy-MM-dd";
             }
             var o = {
                 "M+": date.getMonth() + 1, //月份
