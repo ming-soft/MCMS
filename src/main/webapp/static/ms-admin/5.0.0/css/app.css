@@ -134,7 +134,6 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
 .ms-index .el-menu {
     border-right: none;
     background-color: unset;
-    height: calc(100vh - 141px);
 }
 .ms-index .el-menu-item {
     white-space: nowrap;

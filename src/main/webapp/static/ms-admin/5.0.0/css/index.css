@@ -86,7 +86,7 @@ textarea::-webkit-input-placeholder {
   height: 50px;
 }
 .ms-header button {
-  height: 30px;
+  /*height: 30px;*/
 }
 .ms-pagination {
   padding: 20px 0;

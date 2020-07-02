@@ -43,8 +43,7 @@
         </div>
         <div  class="class-6" >
         </div>
-        <div  class="class-7" >
-          <div class="panel">
+        <div  class="panel" >
             <div  v-if="alwaysList.length>0" class="panel-title">
               常用功能
             </div>
@@ -61,9 +60,6 @@
                 <!--文本结束-->
               </div>
             </div>
-
-          </div>
-
         </div>
         <!--大容器开始-->
         <div  class="class-43" >
@@ -466,35 +462,39 @@
   });
 </script>
 <style>
-  .panel-content .mitem {
-    color: #333333;
-    cursor: pointer;
-    outline-offset: -1px;
-    height: 88px;
-    flex-direction: column;
-    display: flex;
-    animation-duration: 1s;
-    width: 88px;
-    background-repeat: no-repeat;
-    align-items: center;
-
-  }
-  .panel .panel-content .mitem:hover i ,.panel .panel-content .mitem:hover .item-title{
-    color:#409EFF
-  }
-  .panel-content .mitem i {
-    font-size: 36px;
-  }
   .panel {
+    margin-top:10px;
     color: #333333;
-    padding: 10px;
+    padding-right:20px;
+    padding-top:20px;
+    max-width:100%;
+    padding-left:20px;
     outline-offset: -1px;
-    flex: 1;
     background-color: rgba(255, 255, 255, 1);
     flex-direction: column;
     display: flex;
     animation-duration: 1s;
     background-repeat: no-repeat;
+  }
+  .panel .panel-content .mitem:hover i ,.panel .panel-content .mitem:hover .item-title{
+    color:#409EFF
+  }
+  .panel-content .mitem i {
+    font-size: 40px;
+  }
+  .panel-content .mitem {
+    color: #333333;
+    cursor: pointer;
+    outline-offset: -1px;
+    max-width:100%;
+    height: 69px;
+    flex-direction: column;
+    display: flex;
+    animation-duration: 1s;
+    width: 25%;
+    background-repeat: no-repeat;
+    align-items: center;
+    margin-bottom:20px;
   }
   .panel .panel-title {
     color: #333333;
@@ -503,8 +503,6 @@
     display: inline-block;
     animation-duration: 1s;
     font-size: 16px;
-    padding-left: 10px;
-    margin-top: 5px;
   }
   .panel .panel-content {
     color: #333333;
@@ -520,6 +518,14 @@
     width: 100%;
     padding-left: 10px;
     background-repeat: no-repeat;
+  }
+  .panel .panel-content .mitem .item-title{
+    color:#333333;
+    word-wrap:break-word;
+    display:inline-block;
+    animation-duration:1s;
+    font-size:14px;
+    line-height:1.4;
   }
   .custom-body {
   }

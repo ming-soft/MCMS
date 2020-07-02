@@ -66,17 +66,7 @@ public class CmsParserUtil extends ParserUtil {
 	 */
 	public static void generateList(CategoryEntity column, int articleIdTotal)
 			throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException {
-		// 只初始化一次cfg
-		if (ftl == null) {
-			ftl = new FileTemplateLoader(new File(ParserUtil.buildTempletPath()));
-			cfg.setTemplateLoader(ftl);
-		}
-		// 移动端模板
 		try{
-			Template mobileTemplate = cfg.getTemplate(
-					BasicUtil.getApp().getAppMobileStyle() + File.separator + column.getCategoryListUrl(), Const.UTF8);
-			// pc端模板
-
 			// 文章的栏目模型编号
 			String columnContentModelId = column.getMdiyModelId();
 			PageBean page = new PageBean();
@@ -87,7 +77,6 @@ public class CmsParserUtil extends ParserUtil {
 			//获取总数
 
 			String columnListPath;
-			String mobilePath;
 			ModelEntity contentModel = null;
 			// 判断当前栏目是否有自定义模型
 			if (StringUtils.isNotBlank(columnContentModelId)) {
