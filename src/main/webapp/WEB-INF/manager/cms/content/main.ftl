@@ -3,7 +3,6 @@
 <head>
     <title>文章主体</title>
     <#include "../../include/head-file.ftl">
-    <#include "../../include/increase-search.ftl">
 
 </head>
 <body>

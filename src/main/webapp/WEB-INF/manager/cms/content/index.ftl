@@ -4,7 +4,6 @@
 	<meta charset="UTF-8">
 	<title>文章</title>
 	<#include "../../include/head-file.ftl">
-	<#include "../../include/increase-search.ftl">
 </head>
 <body style="overflow: hidden">
 <div id="index"  v-cloak>
