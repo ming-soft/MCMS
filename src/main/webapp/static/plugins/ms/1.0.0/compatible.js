@@ -1,3 +1,8 @@
+/**
+ * 兼容ie 重写合并js对象方法
+ * 在ie浏览器中使用es6 语法"Object.assign()"合并对象报错，可以引用该js
+ */
+
 if (typeof Object.assign != 'function') {
     Object.assign = function(target) {
         'use strict';

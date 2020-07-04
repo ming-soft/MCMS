@@ -1,5 +1,5 @@
 /**
- * 字典类
+ * 字典
  * 初始化：ms.dict.list("A类型,B类型,C类型","子业务类型")
  * 获取值：ms.dict.getDictValue("A类型标签") ；ms.dict.getDictValue("C类型标签",3)
  * 获取值：ms.dict.getDictLabel("B类型值",2)

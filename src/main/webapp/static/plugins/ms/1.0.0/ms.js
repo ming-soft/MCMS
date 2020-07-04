@@ -1,3 +1,6 @@
+/**
+ * 基础变量定义
+ */
 (function(window) {
 	var ms = {
 		base: null, //主机地址

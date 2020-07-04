@@ -1,5 +1,5 @@
 /**
- * 通用工具类
+ * 通用工具方法
  */
 (function() {
 
@@ -55,8 +55,14 @@
         }
         return true;
     }
+    /**
+     * 数字转金额
+     * */
+    function moneyFormatter(cellValue) {
+        return accounting.formatMoney(cellValue, '¥',2)
+    }
 
-    //日期处理
+    //日期工具
     var date = {
         //格式化时间
         fmt: function(de, fmt) {
@@ -106,6 +112,7 @@
         }
     }
 
+    //数组工具
     var array = {
 
         //根据key清理arr里面重复的值
@@ -132,16 +139,8 @@
                 }
             }
             return result;
-        },
-        //根据pro属性与value移除arr对应的值
-        remove: function(arr, attr, value) {
-            for (var j = 0; j < arr.length; j++) {
-                if (arr[j][attr] == value) {
-                    arr.splice(j, 1);
-                    break;
-                }
-            }
         }
+
     }
 
     var convert = {
@@ -204,7 +203,10 @@
         }
     }
 
-
+    /**
+     * window.sessionStorage方法封装
+     * @type {{set: set, get: (function(*=): string), remove: remove}}
+     */
     var store = {
         set: function(key, value) {
             window.sessionStorage.setItem(key, value);
@@ -217,19 +219,137 @@
         }
     }
 
-    var cookie = {
+    /**
+     *
+     * 引入js-xlsx/xlsx.full.min.js
+     * @param dom dom 数据对象
+     * @param fileName 文件名
+     * @param data 数据
+     * @param format
+     * var tableNead = {
+                    column:[
+                        {filed: "projectName",label:"项目名称",width:50},
+                        {filed: "managerNickName",label:"成员名称",width:50},
+                        {filed: "pdmType",label:"种类",width:50,dictDataOptions: []},
+                        {filed: "pdmMoney",label:"收入金额",width:50},
+                    ],
+                    countFiled:["pdmMoney"],
+                };
+     * @returns {*}
+     */
+    function exportTable(dom, fileName, data,format) {
+        /* 从表生成工作簿对象 */
+        var wb = XLSX.utils.table_to_book(dom);
+        var columnWidth = [];
+        var table = [];
+        var tableHead = [];
+        //初始化头部字段
+        format.column.forEach(function (value) {
+            tableHead.push(value.label);
+            columnWidth.push({
+                "wpx": value.width
+            });
+        });
+        table.push(tableHead);
+        var tableFoot = new Array(format.column.length);
 
-    }
+        //遍历，将数据整理重新返回
+        data.map(function (x) {
+            var a = [];
+
+            //遍历中设定需要的那些字段数据
+            format.column.forEach(function (value) {
+                if (x.hasOwnProperty(value.filed)){
+                    //替换字典数据
+                    if (value.dictDataOptions != undefined && value.dictDataOptions.length > 0){
+                        //遍历字典数据，有就替换
+                        var dict = value.dictDataOptions.find(function (val) {
+                            return x[value.filed] == val.dictValue;
+                        })
+                        a.push(dict?dict.dictLabel:"");
+                    }else {
+                        a.push(x[value.filed]);
+                        if (format.countFiled != undefined && format.countFiled.indexOf(value.filed) >= 0) {
+                            tableFoot[0] = '总计';
+                            format.column.findIndex(function (value1, index) {
+                                if (value1.filed == value.filed){
+                                    tableFoot[index] = tableFoot[index] == undefined ? x[value.filed] : tableFoot[index] + x[value.filed];
+                                }
+                            });
+                        }
+                    }
+                }else {
+                    a.push("");
+                }
+            });
+            return a
+        }).forEach(function (v, i) {
+            // 遍历整理后的数据加入table
+            table.push(v)
+        });
+        table.push(tableFoot);
+        var sheet = XLSX2.utils.aoa_to_sheet(table);
+        wb.Sheets.Sheet1 = sheet;
+        wb.Sheets.Sheet1['!cols'] = columnWidth;
+        /* 获取二进制字符串作为输出 */
+        var wbout = XLSX.write(wb, {
+            bookType: 'xlsx',
+            bookSST: true,
+            type: "array"
+        });
+
+        try {
+            //保存文件
+            saveAs(
+                //Blob 对象表示一个不可变、原始数据的类文件对象。
+                //Blob 表示的不一定是JavaScript原生格式的数据。
+                //File 接口基于Blob，继承了 blob 的功能并将其扩展使其支持用户系统上的文件。
+                //返回一个新创建的 Blob 对象，其内容由参数中给定的数组串联组成。
+                new Blob([wbout], {type: "application/octet-stream"}),
+                //设置导出文件名称
+                fileName + '.xlsx'
+            );
+        } catch (e) {
+            if (typeof console !== "undefined") console.log(e, wbout);
+        }
+        return wbout;
+    };
+
+    /**
+     * 打印方法
+     * @param name 模板的名字
+     * @param data 需要绑定的数据
+     */
+    function printFile(name,data){
+        if (name != "" && name != null && name != undefined){
+            ms.http.get(ms.manager+ "/mprint/printTemplate/get.do", {
+                name: name
+            }).then(function (res) {
+                if(data != null && data != undefined && res.data != null){
+                    printVue.open(res.data,data);
+                }else {
+                    console.error("未定义数据,或没有模板数据");
+                }
+            }).catch(function (err) {
+                console.log(err);
+            });
+        }else {
+            console.error("未定义模板名称");
+        }
+    };
 
     var util = {
         getParameter: getParameter,
         treeData:treeData,
         childValidate:childValidate,
+        moneyFormatter:moneyFormatter,
         date: date,
         array: array,
         log: log,
         convert: convert,
         store: store,
+        exportTable:exportTable,
+        printFile:printFile,
     }
 
 

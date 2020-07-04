@@ -1,3 +1,6 @@
+/**
+ * 封装http请求
+ */
 (function() {
 
     axios.defaults.timeout = 1000 * 60;
