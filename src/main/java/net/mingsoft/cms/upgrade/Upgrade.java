@@ -5,7 +5,7 @@ import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.SpringUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
-import net.mingsoft.cms.util.PinYinUtil;
+import net.mingsoft.basic.util.PinYinUtil;
 
 import java.util.List;
 
