@@ -5,3 +5,4 @@
 .project
 logs
 head-file.ftl
+doc/.DS_Store
