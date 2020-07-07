@@ -28,7 +28,7 @@ import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.dao.ICategoryDao;
 import net.mingsoft.cms.entity.CategoryEntity;
-import net.mingsoft.cms.util.PinYinUtil;
+import net.mingsoft.basic.util.PinYinUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
