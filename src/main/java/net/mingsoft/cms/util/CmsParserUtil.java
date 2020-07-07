@@ -29,6 +29,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
+/**
+ * 文章解析工具类
+ */
 public class CmsParserUtil extends ParserUtil {
 
 	/**
