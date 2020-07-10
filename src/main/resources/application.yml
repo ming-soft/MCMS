@@ -1,6 +1,6 @@
 server:
-  port: 8081
-  servlet.context-path: /ms-mcms
+  port: 80
+  servlet.context-path: /
   servlet.session.timeout: P0DT60M0S #D天H小时M分钟S秒，字符T是紧跟在时分秒之前的，每个单位都必须由数字开始,且时分秒顺序不能乱
 
 #logging:
@@ -25,7 +25,7 @@ ms:
   swagger:
     enable: true #启用swagger文档，生产的时候务必关掉
   manager:
-    path: /ms #后台访问的路径，如:http://项目/ms/login.do，生成的时候建议修改
+    path: /admin #后台访问的路径，如:http://项目/ms/login.do，生成的时候建议修改
     view-path: /WEB-INF/manager #后台视图层路径配置
 
   upload:
