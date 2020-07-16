@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+    <#include "/m/head-file.htm">
+    <link rel="stylesheet" type="text/css" href="{ms:global.host/}/plugins/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script type="text/javascript" src="{ms:global.host/}/plugins/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <body>
+        <#include "/m/head.htm">
+        <div id="indexVue">
+            <div class="ms-banner">
+                <div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{&quot;directionNav&quot;:false}'>
+                    <ul class="am-slides">
+                        <template v-for="banner in bannerList">
+                            <li>
+                                <img :src="'{ms:global.host/}/{ms:global.style/}/images/'+banner+'.png'">
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </div>
+            <div class="ms-content-template">
+                <div>
+                    <ul class="nav nav-tabs ms-index-tabs" role="tablist">
+                        <li role="presentation" id="ms-model" class="active ms-active">
+                            <a @click="tabShow('model')" href="#model">模板</a>
+                        </li>
+                        <li role="presentation" id="ms-plug" class="ms-active">
+                            <a @click="tabShow('plug')" href="#plug">插件</a>
+                        </li>
+                    </ul>
+                    <div class="ms-content-all">
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="model">
+                                <div style="display: none;" class="ms-loading" v-show="!loading">
+                                    <img src="{ms:global.host/}/{ms:global.style/}/images/loading.gif" />
+                                </div>
+                                <div class="ms-model-content" style="display: none;" v-show="loading">
+                                    <template v-for="model in modelList">
+                                        <div class="ms-model-list">
+                                            <a class="ms-model-img" :href="model.upgraderVersionUrl" target="_blank">
+                                                <img :src="'http://mstore.mingsoft.net/'+model.upgraderVersionImg" onerror="this.src='{ms:global.host/}/{ms:global.style/}/images/no-data.png'" />
+                                            </a>
+                                            <div class="ms-model-mobile-img" v-if="model.upgraderVersionMobileImg != '' && model.upgraderVersionMobileImg != undefined" style="background-image: url({ms:global.host/}/{ms:global.style/}/images/mobile.png)">
+                                                <div>
+                                                    <img :src="'http://mstore.mingsoft.net/'+model.upgraderVersionMobileImg" onerror="this.src='{ms:global.host/}/{ms:global.style/}/images/no-data.png'" />
+                                                </div>
+                                            </div>
+                                            <div class="ms-model-info">
+                                                <span v-text="model.upgraderVersionName"></span>
+                                                <img class="ms-model-info-img" :src="model.upgraderVersionPeopleIcon" onerror="this.src='http://cdn.mingsoft.net/global/images/msheader.png'" />
+                                                <img :src="'{ms:global.host/}/{ms:global.style/}/images/level-'+model.upgraderVersionStart+'.png'" width="60px" />
+                                                <div class="ms-model-type">模板</div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <div class="ms-model-list" style="display: none;" v-show="loading">
+                                        <div class="ms-model-more">
+                                            <div onclick="window.open('http://mstore.mingsoft.net/mstoreShow.do')">查看更多>></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="plug">
+                                <div class="ms-model-content" style="display: none;" v-show="loading">
+                                    <template v-for="pulg in pulgList">
+                                        <div class="ms-model-list">
+                                            <a class="ms-model-img" :href="pulg.upgraderVersionUrl" target="_blank">
+                                                <img :src="'http://mstore.mingsoft.net/'+pulg.upgraderVersionImg" onerror="this.src='{ms:global.host/}/{ms:global.style/}/images/no-data.png'" />
+                                            </a>
+                                            <div class="ms-model-info">
+                                                <span v-text="pulg.upgraderVersionName"></span>
+                                                <img class="ms-model-info-img" :src="'{ms:global.host/}/'+ pulg.upgraderVersionPeopleIcon" onerror="this.src='http://cdn.mingsoft.net/global/images/msheader.png'" />
+                                                <img :src="'{ms:global.host/}/{ms:global.style/}/images/level-'+pulg.upgraderVersionStart+'.png'"  width="60px"/>
+                                                <div class="ms-model-type">插件</div>
+                                            </div>
+                                        </div>
+                                    </template>
+                                    <div class="ms-model-list" style="display: none;" v-show="loading">
+                                        <div class="ms-model-more">
+                                            <div onclick="window.open('http://mstore.mingsoft.net/mstoreShow.do')">查看更多>></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ms-index-content">
+                <div class="ms-case">
+                    <div data-am-widget="list_news" class="am-list-news am-list-news-default ms-case-div">
+                        <!--列表标题-->
+                        <div class="am-list-news-hd am-cf ms-case-title">
+                            <!--带更多链接-->
+                            <a href="{ms:global.url/}/149/index.html" class="">
+                                <h2 class="ms-case-title-h2">网站案例</h2>
+                                <span class="am-list-news-more am-fr ms-case-more">MORE &raquo;</span>
+                            </a>
+                        </div>
+                        <div class="ms-case-list-div">
+                            <ul data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-gallery-imgbordered">
+                                {ms:arclist typeid=149 size=4}
+                                <li>
+                                    <div class="am-gallery-item ms-case-div-li">
+                                        <a href='[field.source/]'>
+                                            <img class="ms-case-list-img" src="{ms:global.host/}[field.litpic/]" alt="[field.title/]" />
+                                        </a>
+                                    </div>
+                                </li>
+                                {/ms:arclist}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="ms-product">
+                    <div class="container ms-product-container">
+                        <div id="slide" class="slide" class="index-slide" alt="star">
+                            <h2>产品方向</h2>
+                            <div class="img img2" data-slide-imgid="0" onclick="left()">
+						        <a href="http://www.mingsoft.net/html/1/5524/index.html">
+						            <img src="http://www.mingsoft.net/templets/1/ming-soft//images/hu2.jpg">
+						        </a>
+						    </div>
+						    <div class="img img3" data-slide-imgid="1">
+						    	<a href="http://www.mingsoft.net/html/1/5523/index.html">
+						            <img src="http://www.mingsoft.net/templets/1/ming-soft//images/hu1.png">
+						        </a>
+						    </div>
+						    <div class="img img4" data-slide-imgid="2" onclick="right()">
+						        <a href="http://www.mingsoft.net/html/1/5526/index.html">
+						            <img src="http://www.mingsoft.net/templets/1/ming-soft//images/hu3.jpg">
+						        </a>
+						    </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ms-news">
+                    <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+                        <div class="am-list-news-hd am-cf ms-news-title">
+                            <!--带更多链接-->
+                            <a href="{ms:global.url/}/59/index.html" class="">
+                                <h2 class="ms-news-title-h2">公司动态</h2>
+                                <span class="am-list-news-more am-fr ms-news-more">MORE &raquo;</span>
+                            </a>
+                        </div>
+                        <div class="am-list-news-bd ms-product-news-list">
+                            <ul class="am-list">
+                                {ms:arclist typeid=59 size=6}
+                                <li class="am-g am-list-item-dated ms-product-news-list-li">
+                                    <a href="{ms:global.url/}[field.link/]" class="am-list-item-hd ">[field.title/]</a>
+                                    <span class="am-list-date">[field.date?string("yyyy-mm-dd")/]</span>
+                                </li>
+                                {/ms:arclist}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <#include "/m/footer.htm">
+    </body>
+    <script>
+        var index = new Vue({
+            el: "#indexVue",
+            data: {
+                bannerList: ['01', '02', '03', '04', '05'],
+                modelList: [], //模板列表
+                pulgList: [], //插件列表
+                loading: false, //加载状态
+            },
+            methods: {
+                //切换tab
+                tabShow: function(type) {
+                    event.preventDefault();
+                    $(".tab-pane").removeClass("active");
+                    $(".ms-active").removeClass("active");
+                    $("#ms-" + type).addClass("active");
+                    $("#" + type).addClass("active");
+                },
+                //加载列表
+                query: function(data, type) {
+                    var target = this;
+                    $.ajax({
+                        type: "POST",
+                        data: data,
+                        url: "http://mstore.mingsoft.net//mstore/list.do", //
+                        success: function(msg) {
+                            if(type == 'model') {
+                                target.modelList = msg.list;
+                            } else {
+                                target.pulgList = msg.list;
+                                target.loading = true;
+                            }
+                        }
+                    })
+                },
+            },
+            mounted: function() {
+                var data = "upgraderVersionType=2&upgraderVersionIndustry=0&orderBy=uv_id&pageSize=4&pageNo=1";
+                this.query(data, 'model');
+                var data = "upgraderVersionType=1&upgraderVersionIndustry=0&orderBy=uv_id&pageSize=4&pageNo=1";
+                this.query(data, 'pulg');
+            }
+        })
+    </script>
+</html>

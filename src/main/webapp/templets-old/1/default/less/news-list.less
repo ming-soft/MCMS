@@ -1,0 +1,186 @@
+.ms-content{
+	.ms-content-left{
+			width: 230px;
+			float: left;
+			margin-right: 20px;
+			.ms-content-left-title{
+				font-weight: bold;
+				background-color: #009aff;
+				color: #fff;
+				height: 40px;
+				line-height: 40px;
+				width: 190px;
+				padding: 0 20px;
+			}
+			.ms-content-left-ul{
+				a:hover{
+					li{
+						background-color: #54bcfe;
+					}
+					color: #fff;
+				}
+				background-color: #fff;
+				margin-top: 1px;
+				width: 230px;
+				a{
+					color: #999999;
+				}
+				li{
+					height: 40px;
+					line-height: 40px;
+					font-size: 14px;
+					cursor: pointer;
+					/*width: 190px;*/
+					padding: 0 20px;
+					.ms-content-left-li-more{
+						float: right;
+					}
+				}
+				.ms-content-left-li-first{
+					li{
+						background-color: #54bcfe;
+					}
+					color: #fff;
+				}
+			}
+		}
+	/*新闻列表*/
+	margin: 20px 0 ;
+	a:visited{color:#000000;}
+	.ms-content-new-list{
+		overflow: hidden;
+		margin-top: 20px;
+	}
+	.ms-content-right-position{
+		a:hover{
+			color:#0099ff;
+		}
+		font-size: 14px;
+		overflow: hidden;
+    	margin-bottom: 20px;
+		span{
+			padding: 0 5px;
+		}
+	}
+	#ms-content-search{
+		float: none;
+	    width: 100%;
+	    margin-top: 20px;
+	}
+	.ms-content-main-list{
+		
+		float: right;
+    	/*margin-bottom: 40px;*/
+		width: 950px;
+		
+		min-height: 400px;
+		/*margin: auto;*/
+		.ms-content-main-div{
+			background-color: #fff;
+			padding-bottom: 30px;
+			.ms-content-main-ul{
+				a:link{color:#333;text-decoration:none}
+				a:visited{color:#333;text-decoration:none}
+				a:active{color:#333;text-decoration:none}
+				a:hover{color:#0099ff;text-decoration:none}
+				margin: 0 20px;
+				li{
+					border-bottom: 1px dotted #eee;
+					padding: 12px 0;
+					overflow: hidden;
+				}
+				.ms-content-main-li-span{
+					padding-right: 10px;
+					float: left;
+				}
+				.ms-content-main-li-title{
+					float: left;
+					color:#333;
+				    overflow: hidden;
+				    text-overflow: ellipsis;
+				    -webkit-line-clamp: 1;
+				    -webkit-box-orient: vertical;
+				    display: -webkit-box;
+				    font-size: 14px;
+				    width: 500px;
+				}
+				.ms-content-main-li-time{
+					float: right;
+					color: #999999;
+					font-size: 14px;
+				}
+			}
+		}
+	}
+	.ms-content-main-page{
+		a{
+			color:#999;
+			font-size:14px;
+		}
+		a:hover{
+		 	 background-color: #eee;
+		 }
+		text-align: center;
+	    margin-top: 30px;
+	    margin-bottom: 50px;
+		.ms-content-main-page-first,.ms-content-main-page-last{
+			border: 1px solid #ddd;
+			padding: 10px 15px;
+			margin-right:-5px;
+		}
+		.ms-content-main-page-upper,.ms-content-main-page-next{
+			border-top:1px solid #ddd;
+			border-bottom:1px solid #ddd;
+			/*border: 1px solid #ddd;*/
+			padding: 10px 15px;
+			margin-right:-5px;
+		}
+		.ms-content-main-page-upper{
+			border-right: 1px solid #ddd;
+		}
+		.ms-content-main-page-first{
+			border-top-left-radius: 4px;
+			border-bottom-left-radius: 4px;
+		}
+		.ms-content-main-page-last{
+			border-top-right-radius: 4px;
+			border-bottom-right-radius: 4px;
+		}
+	}
+	/*搜索列表*/
+	.ms-content-main-div{
+		.ms-content-main-div-prompt{
+			border-bottom: 1px solid #d0cfcf99;
+			padding-top: 20px;
+		    padding-left: 20px;
+		    padding-bottom: 10px;
+		    font-size: 14px;
+		    color: #999999;
+			span{
+				color: #0198ff;
+			}
+		}
+		.ms-content-main-ul{
+			li{
+				height: 22px;
+    			line-height: 22px;
+			}
+			a{
+				font-size:14px;
+			}
+			.ms-content-main-li-title:hover{
+			 	 color: #0099ff;
+			 }
+			.ms-content-main-ul-result{
+				color: #0198ff;
+			}
+		}
+		.ms-content-main-div-nothing{
+			font-size: 14px;
+		    color: #999999;
+		    padding-top: 20px;
+		    padding-left: 20px;
+		    text-align: center;
+		}
+	}
+}

@@ -1,0 +1,89 @@
+ul,
+ol,
+li,
+div {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	margin: 0;
+	font-family: "寰蒋闆呴粦";
+	background-color: #1F1F1F;
+}
+
+.example {
+	width: 624px;
+	height: 336px;
+	font-size: 40px;
+	text-align: center;
+	margin: 20px auto;
+	background-color: #464576;
+}
+
+.carousel-item {
+	line-height: 336px;
+	color: #fff;
+	font-family: Arial Black
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+.ft-carousel {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.ft-carousel .carousel-inner {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+}
+
+.ft-carousel .carousel-inner .carousel-item {
+	float: left;
+	height: 100%;
+}
+
+.ft-carousel .carousel-item img {
+	width: 100%;
+}
+
+.ft-carousel .carousel-indicators {
+	position: absolute;
+	left: 0;
+	bottom: 10px;
+	width: 100%;
+	text-align: center;
+	font-size: 0;
+}
+
+.ft-carousel .carousel-indicators span {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	background-color: #fff;
+	margin: 0 4px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.ft-carousel .carousel-indicators span.active {
+	background-color: #de3a3a;
+}
+
+.ft-carousel .carousel-btn {
+	position: absolute;
+	top: 50%;
+	width: 50px;
+	height: 45px;
+	margin-top: -25px;
+	cursor: pointer;
+}
+
