@@ -15,7 +15,8 @@
 						<ul class="sliderbox row">
 							{ms:arclist typeid=59}
 							<li class="a-list col-md-4 col-xs-1 col-sm-2">
-								<a href="{ms:field.link/}" title="[field.title/]" target='_self'>[ [field.date?string("yyyy-mm-dd")/]</a>
+								<!--<a href="{ms:field.link/}" title="[field.title/]" target='_self'>[ [field.date?string("yyyy-mm-dd")/]</a>-->
+								<a href="{ms:field.link/}" title="[field.title/]" target='_self'>[ [field.title/] ]</a>
 							</li>
 							{/ms:arclist}
 						</ul>
@@ -33,9 +34,6 @@
 								<a href="{ms:global.url/}[field.typelink/]?id=2&type=[field.typeindex/]" class="link" title="[field.typetitle/]">[field.typetitle/]</a>
 							</li>
 							{/ms:channel}
-							<li>
-								<a href="{ms:global.url/}/87/index.html?id=7&type=6" class="link" title="联系我们">联系我们</a>
-							</li>
 						</ul>
 						<script type="text/javascript">
 							var type = location.search;
