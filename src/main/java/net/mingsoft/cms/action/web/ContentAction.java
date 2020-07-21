@@ -4,13 +4,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import net.mingsoft.base.entity.BaseEntity;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.util.BasicUtil;
-import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.biz.IContentBiz;
+import net.mingsoft.cms.biz.IHistoryLogBiz;
 import net.mingsoft.cms.entity.ContentEntity;
+import net.mingsoft.cms.entity.HistoryLogEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,14 +18,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 /**
  * 文章管理控制层
@@ -37,13 +36,16 @@ import java.util.List;
 @Controller("WebcmsContentAction")
 @RequestMapping("/cms/content")
 public class ContentAction extends net.mingsoft.cms.action.BaseAction{
-	
-	
+
+
 	/**
 	 * 注入文章业务层
-	 */	
+	 */
 	@Autowired
 	private IContentBiz contentBiz;
+
+	@Autowired
+	private IHistoryLogBiz historyLogBiz;
 
 	/**
 	 * 查询文章列表
@@ -79,7 +81,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		List contentList = contentBiz.query(content);
 		return ResultData.build().success(new EUListBean(contentList,(int)BasicUtil.endPage(contentList).getTotal()));
 	}
-	
+
 
 	/**
 	 * 获取文章
@@ -106,7 +108,25 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 			this.outString(response, "document.write(0)");
 			return;
 		}
+	 	//获取ip
+		String ip = BasicUtil.getIp();
+		//获取端口（移动/web..）
+		boolean isMobileDevice = BasicUtil.isMobileDevice();
+
 		ContentEntity content = (ContentEntity)contentBiz.getEntity(contentId);
+	 	//浏览数+1
+		content.setContentHit(content.getContentHit()+1);
+		contentBiz.updateEntity(content);
+
+
+		// cms_history 增加相应记录
+		HistoryLogEntity entity = new HistoryLogEntity();
+		entity.setHlIsMobile(isMobileDevice);
+		entity.setHlIp(ip);
+		entity.setContentId(content.getId());
+		entity.setCreateDate(new Date());
+		historyLogBiz.saveEntity(entity);
+
 	 	if(content == null){
 			this.outString(response, "document.write(0)");
 			return;
