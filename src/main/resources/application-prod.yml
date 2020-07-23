@@ -1,8 +1,7 @@
 spring:
   datasource:
-    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
-    url: jdbc:sqlserver://localhost:1433;DatabaseName=db-mcms
+    url: jdbc:mysql://47.90.56.50:3306/db-mcms-open?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    password: Zqb#2020win
     filters: wall,mergeStat
     type: com.alibaba.druid.pool.DruidDataSource
