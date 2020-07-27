@@ -48,7 +48,7 @@ spring:
       stat-view-servlet:
         enabled: true #启用druid监控
   profiles:
-    active: prod
+    active: dev
   mvc:
     pathmatch:
       use-suffix-pattern: true
