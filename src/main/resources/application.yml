@@ -22,6 +22,7 @@ ms:
     path: upload #文件上传路径，可以根据实际写绝对路径
     mapping: /upload/** #修改需要谨慎，系统第一次部署可以随意修改，如果已经有了上传数据，再次修改会导致之前上传的文件404
     denied: .exe,.jsp
+    back-up: /upload_back
     multipart:
       #最大上传文件大小 单位：KB
       max-file-size: 10240
