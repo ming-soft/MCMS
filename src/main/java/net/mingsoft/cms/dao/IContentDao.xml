@@ -207,7 +207,6 @@
 			<if test="updateBy &gt; 0"> and ct.update_by=#{updateBy} </if>
 			<if test="updateDate != null"> and update_date=#{updateDate} </if>
 			<if test="del != null"> and ct.del=#{del} </if>
-			<include refid="net.mingsoft.base.dao.IBaseDao.sqlWhere"></include>
 		</where>
 		order by id desc
 	</select>

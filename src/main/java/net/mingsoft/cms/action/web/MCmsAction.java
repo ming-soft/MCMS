@@ -193,13 +193,13 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		//参数文章编号
 		ContentEntity article = (ContentEntity) contentBiz.getEntity(BasicUtil.getInt(ParserUtil.ID));
 		if(ObjectUtil.isNull(article)){
-			this.outJson(resp, null,false,getResString("err.empty", this.getResString("id")));
+			this.outJson(resp,false,getResString("err.empty", this.getResString("id")));
 			return;
 		}
 		if(StringUtils.isNotBlank(order)){
 			//防注入
 			if(!order.toLowerCase().equals("asc")&&!order.toLowerCase().equals("desc")){
-				this.outJson(resp, null,false,getResString("err.error", this.getResString("order")));
+				this.outJson(resp,false,getResString("err.error", this.getResString("order")));
 				return;
 			}
 		}
