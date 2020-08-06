@@ -249,10 +249,10 @@ public class CategoryAction extends BaseAction{
 		 CategoryEntity categoryEntity=new CategoryEntity();
 		 categoryEntity.setCategoryPinyin(pingYin);
 		 categoryEntity.setAppId(BasicUtil.getAppId());
-		 Object categoryBizEntity = categoryBiz.getEntity(categoryEntity);
+		 CategoryEntity categoryBizEntity = (CategoryEntity)categoryBiz.getEntity(categoryEntity);
 		 category.setCategoryPinyin(pingYin);
 		 //如果存在此拼音栏目则拼接上id
-		 if(categoryBizEntity!=null){
+		 if(categoryBizEntity!=null&&!categoryBizEntity.getId().equals(category.getId())){
 			 category.setCategoryPinyin(pingYin+category.getId());
 		 }
 		//判断是否选择子级为所属栏目
