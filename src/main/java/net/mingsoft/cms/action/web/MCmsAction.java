@@ -52,9 +52,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 动态生成页面，需要后台配置自定义页数据
@@ -105,10 +106,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 	public void index(HttpServletRequest req, HttpServletResponse resp) {
 		Map map = BasicUtil.assemblyRequestMap();
 		map.forEach((k,v)->{
-			//sql注入过滤
-			if(sqlFilter(v.toString())){
-				map.put(k,"");
-			}
+			map.put(k,v.toString().replaceAll("('|\"|\\\\)","\\$1"));
 		});
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
 		//动态解析
@@ -193,20 +191,18 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		//参数文章编号
 		ContentEntity article = (ContentEntity) contentBiz.getEntity(BasicUtil.getInt(ParserUtil.ID));
 		if(ObjectUtil.isNull(article)){
-			this.outJson(resp,false,getResString("err.empty", this.getResString("id")));
+			this.outJson(resp, null,false,getResString("err.empty", this.getResString("id")));
 			return;
 		}
 		if(StringUtils.isNotBlank(order)){
 			//防注入
 			if(!order.toLowerCase().equals("asc")&&!order.toLowerCase().equals("desc")){
-				this.outJson(resp,false,getResString("err.error", this.getResString("order")));
+				this.outJson(resp, null,false,getResString("err.error", this.getResString("order")));
 				return;
 			}
 		}
-		if(sqlFilter(orderby)){
-			orderby = "id";
-		}
 
+		orderby= orderby.replaceAll("('|\"|\\\\)","\\$1");
 		PageBean page = new PageBean();
 		//根据文章编号查询栏目详情模版
 		CategoryEntity column = (CategoryEntity) categoryBiz.getEntity(Integer.parseInt(article.getContentCategoryId()));
@@ -215,9 +211,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		Map map = BasicUtil.assemblyRequestMap();
 		map.forEach((k,v)->{
 			//sql注入过滤
-			if(sqlFilter(v.toString())){
-				map.put(k,"");
-			}
+			map.put(k,v.toString().replaceAll("('|\"|\\\\)","\\$1"));
 		});
 		//动态解析
 		map.put(ParserUtil.IS_DO,true);
@@ -314,6 +308,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		if(!StringUtil.isBlank(categoryIds) && !categoryIds.contains(",")){
 			typeId = Integer.parseInt(categoryIds);
 		}
+		String url = BasicUtil.getUrl();
 		//记录自定义模型字段名
 		List filedStr = new ArrayList<>();
 		//根据栏目确定自定义模型
@@ -337,7 +332,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		if (field != null) {
 			for (Map.Entry<String, Object> entry : field.entrySet()) {
 				if (entry != null) {
-					String value = entry.getValue().toString(); // 处理由get方法请求中文乱码问题
+					String value = entry.getValue().toString().replaceAll("('|\"|\\\\)","\\$1"); // 处理由get方法请求中文乱码问题
 					if (ObjectUtil.isNull(value)) {
 						continue;
 					}
@@ -373,16 +368,16 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		//设置分页类
 		PageBean page = new PageBean();
 		Map<String, Object> searchMap = field;
+		StringBuilder urlParams=new StringBuilder();
 		searchMap.forEach((k,v)->{
 			//sql注入过滤
-			if(sqlFilter(v.toString())){
-				searchMap.put(k,"");
-			}
+			searchMap.put(k,v.toString().replaceAll("('|\"|\\\\)","\\$1"));
+			urlParams.append(k).append("=").append(searchMap.get(k)).append("&");
 		});
 
 		//查询数量
 		int count= contentBiz.getSearchCount(contentModel,fieldValueList,searchMap,BasicUtil.getAppId(),categoryIds);
-		map.put(ParserUtil.URL, BasicUtil.getUrl());
+		map.put(ParserUtil.URL, url);
 		map.put(SEARCH, searchMap);
 		map.put(ParserUtil.APP_ID, BasicUtil.getAppId());
 		map.put(ParserUtil.PAGE, page);
@@ -403,10 +398,9 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
 		page.setPageNo(pageNo);
 
-		String str = ParserUtil.PAGE_NO+","+ParserUtil.SIZE;
 		//设置分页的统一链接
-		String url = BasicUtil.getUrl()+request.getServletPath() +"?" + BasicUtil.assemblyRequestUrlParams(str.split(","));
-		String pageNoStr = "&"+ParserUtil.SIZE+"="+page.getSize()+"&"+ParserUtil.PAGE_NO+"=";
+		 url = url +request.getServletPath() +"?" + urlParams;
+		String pageNoStr = ParserUtil.SIZE+"="+page.getSize()+"&"+ParserUtil.PAGE_NO+"=";
 		//下一页
 		String nextUrl = url + pageNoStr+((pageNo+1 > total)?total:pageNo+1);
 		//首页
@@ -440,25 +434,6 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		this.outString(response, content);
 	}
 
-    /**
-     * sql语句检测，存在返回true
-     * @param str
-     * @return
-     */
-	public static boolean sqlFilter(String str){
-		Pattern pattern= Pattern.compile("\\b(and|exec|insert|select|drop|grant|alter|delete|update|count|chr|mid|master|truncate|char|declare|or)\\b|(\\*|;|\\+|'|%)");
-		Matcher matcher=pattern.matcher(str);
-		return matcher.find();
-	}
-
-	private Map get(String key, List<Map> fields) {
-		for (Map field : fields) {
-			if(key.equals(field.get("key"))){
-				return field;
-			}
-		}
-		return null;
-	}
 
 	/**
 	 * 存储自定义模型字段和接口参数
