@@ -37,7 +37,7 @@
                             <p class="ms-login-float login-code-text">
                                 <span class="login-code-rompt">看不清?</span>
                                 <br/>
-                                <spna class="login-code-change" @click="code">换一张</span>
+                                <span class="login-code-change" @click="code">换一张</span>
                             </p>
                         </div>
                         <div class="ms-login-button" @click="login" :disabled="butState != '注册'" :class="{'ms-but-disabled':butState != '注册'}" v-text="butState">注册</div>
@@ -153,7 +153,7 @@
                         return false;
                     }
                     return true;
-                    
+
                 },
                 //判断确定密码
                 checkPeopleRePassword: function() {
@@ -174,7 +174,7 @@
                         return false;
                     }
                     return true;
-                    
+
                 },
                  //判断验证码
                 checkPeopleCode: function() {
@@ -205,7 +205,7 @@
                                     target.code();
                                 } else {
                                 	alert("注册成功！");
-                                    $("body").append("<form action='{ms:global.host/}/mcms/login.do' id='goForm'></form>");
+                                    $("body").append("<form action='{ms:global.host/}/mdiyPage/login.do' id='goForm'></form>");
                                     $("#goForm").submit();
                                 }
                                 target.butState = '注册';
