@@ -149,6 +149,24 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
+
+                    <el-col span="12" v-if="form.categoryType == 3">
+                        <el-form-item prop="categoryDiyUrl">
+                            <template slot='label'>自定义链接
+                                <el-popover slot="label" placement="top-start" title="提示" trigger="hover">
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html"
+                                       target="_blank">[field.typeurl/]</a>
+                                    <i class="el-icon-question" slot="reference"></i>
+                                </el-popover>
+                            </template>
+                            <el-input
+                                    :disabled="false"
+                                    v-model="form.categoryDiyUrl"
+                                    :style="{width: '100%'}"
+                                    placeholder="请输入自定义链接">
+                            </el-input>
+                        </el-form-item>
+                    </el-col>
                 </el-row>
                 <el-form-item label="栏目管理关键字" prop="categoryKeyword" >
                     <template slot='label'>栏目关键字
@@ -207,21 +225,6 @@
                         <i class="el-icon-plus"></i>
                         <div slot="tip" class="el-upload__tip">最多上传1张图片</div>
                     </el-upload>
-                </el-form-item>
-                <el-form-item prop="categoryDiyUrl">
-                    <template slot='label'>自定义链接
-                        <el-popover slot="label" placement="top-start" title="提示" trigger="hover">
-                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html"
-                               target="_blank">[field.typeurl/]</a>
-                            <i class="el-icon-question" slot="reference"></i>
-                        </el-popover>
-                    </template>
-                    <el-input
-                            :disabled="false"
-                            v-model="form.categoryDiyUrl"
-                            :style="{width: '100%'}"
-                            placeholder="请输入自定义链接">
-                    </el-input>
                 </el-form-item>
             </el-form>
         </el-scrollbar>

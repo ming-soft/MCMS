@@ -10,16 +10,6 @@
 </head>
 <body class="custom-body">
 <div id="app" v-cloak>
-    <div class="class-1" >
-        <el-alert style="line-height: 22px;padding: 20px;"
-                  title=""
-                  type="success"
-                  :closable="false"
-                  show-icon>
-            更新栏目列表，推荐使用指定栏目更新。系统提示“更新中”请不要刷新页面或点击其他菜单。<br/>
-            根据时间与栏目类型生成文章
-        </el-alert>
-    </div>
     <el-form ref="form" label-width="100px" size="mini">
         <div class="class-2" >
             <div class="class-3" >
@@ -64,7 +54,13 @@
             </div>
             <div class="class-13" >
                 <div class="class-14" >
-                    <el-form-item  label="文章栏目">
+                    <el-form-item>
+                        <template slot='label'>文章栏目
+                            <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="根据时间与栏目类型生成文章">
+                                <i class="el-icon-question" slot="reference"></i>
+                            </el-popover>
+                        </template>
+
                         <tree-select v-model="contentSection"
                                      :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
                                      :options="treeList" :style="{width:'100%'}"
@@ -103,7 +99,14 @@
             </div>
             <div class="class-23" >
                 <div class="class-24" >
-                    <el-form-item  label="生成栏目">
+                    <el-form-item>
+
+                        <template slot='label'>生成栏目
+                            <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="更新栏目列表，推荐使用指定栏目更新。系统提示“更新中”请不要刷新页面或点击其他菜单。">
+                                <i class="el-icon-question" slot="reference"></i>
+                            </el-popover>
+                        </template>
+
                         <tree-select v-model="section"
                                      :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
                                      :options="treeList" :style="{width:'100%'}"
