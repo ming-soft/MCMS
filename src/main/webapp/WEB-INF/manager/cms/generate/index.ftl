@@ -15,7 +15,7 @@
             <div class="class-3" >
                 <div class="class-4" >
                     <el-form-item >
-                        <template slot='label'>主题模板
+                        <template slot='label'>主页模板
                             <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="更新主页，如果系统存在引导页面可以手动修改主页位置文件名,default.html引导页面index.html主页。">
                                 <i class="el-icon-question" slot="reference"></i>
                             </el-popover>
@@ -24,7 +24,7 @@
                         <el-select v-model="template"
                                    :filterable="true"
                                    :clearable="false"
-                                   placeholder="请选择主题模板">
+                                   placeholder="请选择主页模板">
                             <el-option v-for='item in templateOptions' :key="item" :value="item"
                                        :label="item"></el-option>
                         </el-select>
