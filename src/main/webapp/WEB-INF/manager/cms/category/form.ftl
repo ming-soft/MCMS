@@ -77,7 +77,7 @@
                 </el-row>
                 <el-row
                         gutter="0"
-                        justify="start" align="top">
+                        justify="start" align="top" v-if="form.categoryType != '3'">
                     <el-col span="12">
                         <el-form-item prop="categoryUrl" :label="form.categoryType =='1'? '内容模板' : '封面模板'">
                             <el-select v-model="form.categoryUrl"
@@ -111,7 +111,7 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-row gutter="0" justify="start" align="top">
+                <el-row gutter="0" justify="start" align="top" >
                     <el-col span="12">
                         <el-form-item prop="categoryListUrl" v-if="form.categoryType == '1'">
                             <template slot='label'>列表模板
@@ -150,7 +150,7 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-form-item label="栏目管理关键字" prop="categoryKeyword">
+                <el-form-item label="栏目管理关键字" prop="categoryKeyword" >
                     <template slot='label'>栏目关键字
                         <el-popover slot="label" placement="top-start" title="提示" trigger="hover">
                             <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html"
@@ -182,7 +182,7 @@
                             placeholder="栏目管理描述，对栏目管理关键字的扩展">
                     </el-input>
                 </el-form-item>
-                <el-form-item label="" prop="categoryImg">
+                <el-form-item label="" prop="categoryImg" >
                     <template slot='label'>缩略图
                         <el-popover slot="label" placement="top-start" title="提示"  trigger="hover">
                             <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html"
@@ -275,6 +275,9 @@
                 }, {
                     "value": "2",
                     "label": "封面"
+                },{
+                    "value": "3",
+                    "label": "链接"
                 }],
                 categoryListUrlOptions: [],
                 categoryUrlOptions: [],
@@ -354,7 +357,7 @@
                 if (that.form.id > 0) {
                     url = ms.manager + "/cms/category/update.do";
                 }
-
+                console.log("aaa")
                 this.$refs.form.validate(function (valid) {
                     if (valid) {
                         //栏目属性为封面则不需要列表模板
