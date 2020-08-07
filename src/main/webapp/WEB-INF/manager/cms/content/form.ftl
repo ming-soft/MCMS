@@ -12,238 +12,250 @@
         <el-button size="mini" icon="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回
         </el-button>
     </el-header>
-    <el-main class="ms-container">
-
+    <el-main class="ms-container" style="position:relative;">
         <el-scrollbar style="height: 100%;">
-
-        <el-tabs v-model="activeName" style="height: calc(100% - 10px);">
-            <el-tab-pane v-for="(item, index) in editableTabs"
-                         :key="index"
-                         :label="item.title"
-                         :name="item.name">
-        <el-scrollbar class="ms-scrollbar" style="height: 100%;">
-            <el-form v-if="item.title=='文章编辑'" ref="form" :model="form" :rules="rules" label-width="120px" size="mini">
-                <el-row
-                        gutter="0"
-                        justify="start" align="top">
-                    <el-col :span="returnIsShow?'12':'24'">
-                        <el-form-item label="文章标题" prop="contentTitle">
-                            <template slot='label'>文章标题
-                                <el-popover placement="top-start" title="提示" trigger="hover" >
-                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{ms:field.title/}</a>
-                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.title/]</a>
+            <el-tabs v-model="activeName" style="height: calc(100% - 10px);">
+                <el-tab-pane style="position:relative;" v-for="(item, index) in editableTabs" :key="index"
+                             :label="item.title" :name="item.name">
+                    <el-form v-if="item.title=='文章编辑'" ref="form" :model="form" :rules="rules" label-width="120px"
+                             size="mini">
+                        <el-row gutter="0" justify="start" align="top">
+                            <el-col :span="returnIsShow?'12':'24'">
+                                <el-form-item label="文章标题" prop="contentTitle">
+                                    <template slot='label'>文章标题
+                                        <el-popover placement="top-start" title="提示" trigger="hover">
+                                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html"
+                                               target="_blank">{ms:field.title/}</a>
+                                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
+                                               target="_blank">[field.title/]</a>
+                                            <i class="el-icon-question" slot="reference"></i>
+                                        </el-popover>
+                                    </template>
+                                    <el-input v-model="form.contentTitle"
+                                              :disabled="false"
+                                              :style="{width:  '100%'}"
+                                              :clearable="true"
+                                              placeholder="请输入文章标题">
+                                    </el-input>
+                                </el-form-item>
+                            </el-col>
+                            <el-col span="12" v-if="returnIsShow">
+                                <el-form-item label="所属栏目" prop="contentCategoryId">
+                                    <template slot='label'>所属栏目
+                                        <el-popover placement="top-start" title="提示" trigger="hover">
+                                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html"
+                                               target="_blank">{ms:field.typetitle/}</a>
+                                            <i class="el-icon-question" slot="reference"></i>
+                                        </el-popover>
+                                    </template>
+                                    <tree-select :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
+                                                 :options="contentCategoryIdOptions" :style="{width:'100%'}"
+                                                 @change="categoryChange"
+                                                 v-model="form.contentCategoryId"></tree-select>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row
+                                gutter="0"
+                                justify="start" align="top">
+                            <el-col span="12">
+                                <el-form-item label="文章类型" prop="contentType">
+                                    <el-select v-model="form.contentType"
+                                               :style="{width: '100%'}"
+                                               :filterable="false"
+                                               :disabled="false"
+                                               :multiple="true" :clearable="true"
+                                               placeholder="请选择文章类型">
+                                        <el-option v-for='item in contentTypeOptions' :key="item.dictValue"
+                                                   :value="item.dictValue"
+                                                   :label="item.dictLabel"></el-option>
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                            <el-col span="12">
+                                <el-form-item label="发布时间" prop="contentDatetime">
+                                    <template slot='label'>发布时间
+                                        <el-popover placement="top-start" title="提示" trigger="hover">
+                                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html"
+                                               target="_blank">{ms:field.date?string("yyyy-MM-dd")/}</a>
+                                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
+                                               target="_blank">[field.date?string("yyyy-MM-dd")/]</a>
+                                            <i class="el-icon-question" slot="reference"></i>
+                                        </el-popover>
+                                    </template>
+                                    <el-date-picker
+                                            v-model="form.contentDatetime"
+                                            placeholder="请选择发布时间"
+                                            start-placeholder=""
+                                            end-placeholder=""
+                                            :readonly="false"
+                                            :disabled="false"
+                                            :editable="true"
+                                            :clearable="true"
+                                            format="yyyy-MM-dd HH:mm:ss"
+                                            value-format="yyyy-MM-dd HH:mm:ss"
+                                            :style="{width:'100%'}"
+                                            type="datetime">
+                                    </el-date-picker>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row
+                                gutter="0"
+                                justify="start" align="top">
+                            <el-col span="12">
+                                <el-form-item label="文章作者" prop="contentAuthor">
+                                    <template slot='label'>文章作者
+                                        <el-popover placement="top-start" title="提示" trigger="hover">
+                                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html"
+                                               target="_blank">{ms:field.author/}</a>
+                                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
+                                               target="_blank">[field.author/]</a>
+                                            <i class="el-icon-question" slot="reference"></i>
+                                        </el-popover>
+                                    </template>
+                                    <el-input v-model="form.contentAuthor"
+                                              :disabled="false"
+                                              :style="{width:  '100%'}"
+                                              :clearable="true"
+                                              placeholder="请输入文章作者">
+                                    </el-input>
+                                </el-form-item>
+                            </el-col>
+                            <el-col span="12">
+                                <el-form-item label="文章来源" prop="contentSource">
+                                    <template slot='label'>文章来源
+                                        <el-popover placement="top-start" title="提示" trigger="hover">
+                                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html"
+                                               target="_blank">{ms:field.source/}</a>
+                                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
+                                               target="_blank">[field.source/]</a>
+                                            <i class="el-icon-question" slot="reference"></i>
+                                        </el-popover>
+                                    </template>
+                                    <el-input v-model="form.contentSource"
+                                              :disabled="false"
+                                              :style="{width:  '100%'}"
+                                              :clearable="true"
+                                              placeholder="请输入文章来源">
+                                    </el-input>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row
+                                gutter="0"
+                                justify="start" align="top">
+                            <el-col span="12">
+                                <el-form-item label="" prop="contentDisplay">
+                                    <template slot='label'>是否显示
+                                        <el-popover slot="label" placement="top-start" title="提示" width="200"
+                                                    trigger="hover"
+                                                    content="选择否后前端将不显示，需要重新生成才有效果">
+                                            <i class="el-icon-question" slot="reference"></i>
+                                        </el-popover>
+                                    </template>
+                                    <el-radio-group v-model="form.contentDisplay"
+                                                    :style="{width: ''}"
+                                                    :disabled="false">
+                                        <el-radio :style="{display: true ? 'inline-block' : 'block'}"
+                                                  :label="item.value"
+                                                  v-for='(item, index) in contentDisplayOptions'
+                                                  :key="item.value + index">
+                                            {{true? item.label : item.value}}
+                                        </el-radio>
+                                    </el-radio-group>
+                                </el-form-item>
+                            </el-col>
+                            <el-col span="12">
+                                <el-form-item label="自定义顺序" prop="contentSort">
+                                    <el-input-number
+                                            v-model="form.contentSort"
+                                            :disabled="false"
+                                            controls-position="">
+                                    </el-input-number>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-form-item label="" prop="contentImg">
+                            <template slot='label'>文章缩略图
+                                <el-popover placement="top-start" title="提示" trigger="hover">
+                                    文章缩略图,支持jpg格式
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html"
+                                       target="_blank">{ms:field.litpic/}</a>
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
+                                       target="_blank">[field.litpic/]</a>
                                     <i class="el-icon-question" slot="reference"></i>
                                 </el-popover>
                             </template>
-                            <el-input v-model="form.contentTitle"
-                                      :disabled="false"
-                                      :style="{width:  '100%'}"
-                                      :clearable="true"
-                                      placeholder="请输入文章标题">
-                            </el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col span="12" v-if="returnIsShow">
-                        <el-form-item label="所属栏目" prop="contentCategoryId">
-                            <template slot='label'>所属栏目
-                                <el-popover placement="top-start" title="提示" trigger="hover" >
-                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{ms:field.typetitle/}</a>
-                                    <i class="el-icon-question" slot="reference"></i>
-                                </el-popover>
-                            </template>
-                            <tree-select :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
-                                         :options="contentCategoryIdOptions" :style="{width:'100%'}"
-                                         @change="categoryChange"
-                                         v-model="form.contentCategoryId"></tree-select>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row
-                        gutter="0"
-                        justify="start" align="top">
-                    <el-col span="12">
-                        <el-form-item label="文章类型" prop="contentType">
-                            <el-select v-model="form.contentType"
-                                       :style="{width: '100%'}"
-                                       :filterable="false"
-                                       :disabled="false"
-                                       :multiple="true" :clearable="true"
-                                       placeholder="请选择文章类型">
-                                <el-option v-for='item in contentTypeOptions' :key="item.dictValue"
-                                           :value="item.dictValue"
-                                           :label="item.dictLabel"></el-option>
-                            </el-select>
-                        </el-form-item>
-                    </el-col>
-                    <el-col span="12">
-                        <el-form-item label="发布时间" prop="contentDatetime">
-                            <template slot='label'>发布时间
-                                <el-popover placement="top-start" title="提示" trigger="hover" >
-                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{ms:field.date?string("yyyy-MM-dd")/}</a>
-                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.date?string("yyyy-MM-dd")/]</a>
-                                    <i class="el-icon-question" slot="reference"></i>
-                                </el-popover>
-                            </template>
-                            <el-date-picker
-                                    v-model="form.contentDatetime"
-                                    placeholder="请选择发布时间"
-                                    start-placeholder=""
-                                    end-placeholder=""
-                                    :readonly="false"
+                            <el-upload
+                                    :file-list="form.contentImg"
+                                    :action="ms.base+'/file/upload.do'"
+                                    :on-remove="contentImghandleRemove"
+                                    :style="{width:''}"
+                                    :limit="1"
+                                    :on-exceed="contentImghandleExceed"
                                     :disabled="false"
-                                    :editable="true"
-                                    :clearable="true"
-                                    format="yyyy-MM-dd HH:mm:ss"
-                                    value-format="yyyy-MM-dd HH:mm:ss"
-                                    :style="{width:'100%'}"
-                                    type="datetime">
-                            </el-date-picker>
+                                    :data="{uploadPath:'/${appId}/cms/content','isRename':true}"
+                                    :on-success="contentImgSuccess"
+                                    accept="image/*"
+                                    list-type="picture-card">
+                                <i class="el-icon-plus"></i>
+                                <div slot="tip" class="el-upload__tip">最多上传1张图片</div>
+                            </el-upload>
                         </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row
-                        gutter="0"
-                        justify="start" align="top">
-                    <el-col span="12">
-                        <el-form-item label="文章作者" prop="contentAuthor">
-                            <template slot='label'>文章作者
-                                <el-popover placement="top-start" title="提示" trigger="hover" >
-                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{ms:field.author/}</a>
-                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.author/]</a>
+                        <el-form-item label="关键字" prop="contentKeyword">
+                            <template slot='label'>关键字
+                                <el-popover placement="top-start" title="提示" trigger="hover">
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html"
+                                       target="_blank">{{ms:field.keyword/}</a>
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
+                                       target="_blank">[field.keyword/]</a>
                                     <i class="el-icon-question" slot="reference"></i>
                                 </el-popover>
                             </template>
-                            <el-input v-model="form.contentAuthor"
-                                      :disabled="false"
-                                      :style="{width:  '100%'}"
-                                      :clearable="true"
-                                      placeholder="请输入文章作者">
-                            </el-input>
-                        </el-form-item>
-                    </el-col>
-                    <el-col span="12">
-                        <el-form-item label="文章来源" prop="contentSource">
-                            <template slot='label'>文章来源
-                                <el-popover placement="top-start" title="提示" trigger="hover" >
-                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{ms:field.source/}</a>
-                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.source/]</a>
-                                    <i class="el-icon-question" slot="reference"></i>
-                                </el-popover>
-                            </template>
-                            <el-input v-model="form.contentSource"
-                                      :disabled="false"
-                                      :style="{width:  '100%'}"
-                                      :clearable="true"
-                                      placeholder="请输入文章来源">
-                            </el-input>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-row
-                        gutter="0"
-                        justify="start" align="top">
-                    <el-col span="12">
-                        <el-form-item label="" prop="contentDisplay">
-                            <template slot='label'>是否显示
-                                <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover"
-                                            content="选择否后前端将不显示，需要重新生成才有效果">
-                                    <i class="el-icon-question" slot="reference"></i>
-                                </el-popover>
-                            </template>
-                            <el-radio-group v-model="form.contentDisplay"
-                                            :style="{width: ''}"
-                                            :disabled="false">
-                                <el-radio :style="{display: true ? 'inline-block' : 'block'}" :label="item.value"
-                                          v-for='(item, index) in contentDisplayOptions' :key="item.value + index">
-                                    {{true? item.label : item.value}}
-                                </el-radio>
-                            </el-radio-group>
-                        </el-form-item>
-                    </el-col>
-                    <el-col span="12">
-                        <el-form-item label="自定义顺序" prop="contentSort">
-                            <el-input-number
-                                    v-model="form.contentSort"
+                            <el-input
+                                    type="textarea" :rows="5"
                                     :disabled="false"
-                                    controls-position="">
-                            </el-input-number>
+                                    v-model="form.contentKeyword"
+                                    :style="{width: '100%'}"
+                                    placeholder="请输入文章关键字">
+                            </el-input>
                         </el-form-item>
-                    </el-col>
-                </el-row>
-                <el-form-item label="" prop="contentImg">
-                    <template slot='label'>文章缩略图
-                        <el-popover placement="top-start" title="提示" trigger="hover" >
-                            文章缩略图,支持jpg格式
-                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{ms:field.litpic/}</a>
-                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.litpic/]</a>
-                            <i class="el-icon-question" slot="reference"></i>
-                        </el-popover>
-                    </template>
-                    <el-upload
-                            :file-list="form.contentImg"
-                            :action="ms.base+'/file/upload.do'"
-                            :on-remove="contentImghandleRemove"
-                            :style="{width:''}"
-                            :limit="1"
-                            :on-exceed="contentImghandleExceed"
-                            :disabled="false"
-                            :data="{uploadPath:'/${appId}/cms/content','isRename':true}"
-                            :on-success="contentImgSuccess"
-                            accept="image/*"
-                            list-type="picture-card">
-                        <i class="el-icon-plus"></i>
-                        <div slot="tip" class="el-upload__tip">最多上传1张图片</div>
-                    </el-upload>
-                </el-form-item>
-                <el-form-item label="关键字" prop="contentKeyword">
-                    <template slot='label'>关键字
-                        <el-popover placement="top-start" title="提示" trigger="hover" >
-                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{{ms:field.keyword/}</a>
-                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.keyword/]</a>
-                            <i class="el-icon-question" slot="reference"></i>
-                        </el-popover>
-                    </template>
-                    <el-input
-                            type="textarea" :rows="5"
-                            :disabled="false"
-                            v-model="form.contentKeyword"
-                            :style="{width: '100%'}"
-                            placeholder="请输入文章关键字">
-                    </el-input>
-                </el-form-item>
-                <el-form-item label="描述" prop="contentDescription">
-                    <template slot='label'>描述
-                        <el-popover placement="top-start" title="提示" trigger="hover" >
-                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{ms:field.descrip/}</a>
-                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.descrip/]</a>
-                            <i class="el-icon-question" slot="reference"></i>
-                        </el-popover>
-                    </template>
-                    <el-input
-                            type="textarea" :rows="5"
-                            :disabled="false"
-                            v-model="form.contentDescription"
-                            :style="{width: '100%'}"
-                            placeholder="请输入对该文章的简短描述，以便用户查看文章简略">
-                    </el-input>
-                </el-form-item>
-                <el-form-item label="文章内容" prop="contentDetails">
-                    <template slot='label'>文章内容
-                        <el-popover placement="top-start" title="提示" trigger="hover" >
-                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{ms:field.content/}</a>
-                            <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.content/]</a>
-                            <i class="el-icon-question" slot="reference"></i>
-                        </el-popover>
-                    </template>
-                    <vue-ueditor-wrap style="line-height: 0px" v-model="form.contentDetails"
-                                      :config="editorConfig"></vue-ueditor-wrap>
-                </el-form-item>
-            </el-form>
-            <div :id="'model'+index" v-else></div>
-        </el-scrollbar>
-            </el-tab-pane>
-        </el-tabs>
-
+                        <el-form-item label="描述" prop="contentDescription">
+                            <template slot='label'>描述
+                                <el-popover placement="top-start" title="提示" trigger="hover">
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html"
+                                       target="_blank">{ms:field.descrip/}</a>
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
+                                       target="_blank">[field.descrip/]</a>
+                                    <i class="el-icon-question" slot="reference"></i>
+                                </el-popover>
+                            </template>
+                            <el-input
+                                    type="textarea" :rows="5"
+                                    :disabled="false"
+                                    v-model="form.contentDescription"
+                                    :style="{width: '100%'}"
+                                    placeholder="请输入对该文章的简短描述，以便用户查看文章简略">
+                            </el-input>
+                        </el-form-item>
+                        <el-form-item label="文章内容" prop="contentDetails">
+                            <template slot='label'>文章内容
+                                <el-popover placement="top-start" title="提示" trigger="hover">
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html"
+                                       target="_blank">{ms:field.content/}</a>
+                                    <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
+                                       target="_blank">[field.content/]</a>
+                                    <i class="el-icon-question" slot="reference"></i>
+                                </el-popover>
+                            </template>
+                            <vue-ueditor-wrap style="line-height: 0px" v-model="form.contentDetails"
+                                              :config="editorConfig"></vue-ueditor-wrap>
+                        </el-form-item>
+                    </el-form>
+                    <div :id="'model'+index" v-else></div>
+                </el-tab-pane>
+            </el-tabs>
         </el-scrollbar>
     </el-main>
 </div>
@@ -395,7 +407,7 @@
 
                                 if (that.returnIsShow) {
                                     javascript: history.go(-1);
-                                }else {
+                                } else {
                                     //如果是顶级封面或封面，则重新拿到当前封面id,避免重复保存
                                     that.list(that.form.contentCategoryId);
                                 }
@@ -488,7 +500,7 @@
                     "id": id
                 }).then(function (res) {
                     if (res.result && res.data) {
-                        if (res.data.contentType&&res.data.contentType!='') {
+                        if (res.data.contentType && res.data.contentType != '') {
                             res.data.contentType = res.data.contentType.split(',');
                         } else {
                             res.data.contentType = [];
@@ -630,5 +642,8 @@
 
     #form {
         overflow: hidden;
+    }
+    .el-scrollbar__bar.is-vertical{
+        width: 6px!important;
     }
 </style>
