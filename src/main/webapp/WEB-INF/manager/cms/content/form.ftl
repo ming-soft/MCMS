@@ -13,6 +13,9 @@
         </el-button>
     </el-header>
     <el-main class="ms-container">
+
+        <el-scrollbar style="height: 100%;">
+
         <el-tabs v-model="activeName" style="height: calc(100% - 10px);">
             <el-tab-pane v-for="(item, index) in editableTabs"
                          :key="index"
@@ -240,6 +243,8 @@
         </el-scrollbar>
             </el-tab-pane>
         </el-tabs>
+
+        </el-scrollbar>
     </el-main>
 </div>
 </body>

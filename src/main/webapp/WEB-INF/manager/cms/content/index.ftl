@@ -10,7 +10,7 @@
 	<!--左侧-->
 	<el-container class="index-menu">
 		<div class="left-tree">
-			<el-scrollbar style="height: 100vh;">
+			<el-scrollbar style="height: 100%;">
 				<el-tree :indent="5" v-loading="loading" highlight-current :expand-on-click-node="false" default-expand-all :empty-text="emptyText" :data="treeData" :props="defaultProps" @node-click="handleNodeClick" style="padding: 10px;height: 100%;"></el-tree>
 			</el-scrollbar>
 		</div>

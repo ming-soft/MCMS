@@ -16,7 +16,6 @@
                   type="success"
                   :closable="false"
                   show-icon>
-            更新主页，如果系统存在引导页面可以手动修改主页位置文件名,default.html引导页面index.html主页。<br/>
             更新栏目列表，推荐使用指定栏目更新。系统提示“更新中”请不要刷新页面或点击其他菜单。<br/>
             根据时间与栏目类型生成文章
         </el-alert>
@@ -25,7 +24,13 @@
         <div class="class-2" >
             <div class="class-3" >
                 <div class="class-4" >
-                    <el-form-item  label="主题模板">
+                    <el-form-item >
+                        <template slot='label'>主题模板
+                            <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="更新主页，如果系统存在引导页面可以手动修改主页位置文件名,default.html引导页面index.html主页。">
+                                <i class="el-icon-question" slot="reference"></i>
+                            </el-popover>
+                        </template>
+
                         <el-select v-model="template"
                                    :filterable="true"
                                    :clearable="false"
