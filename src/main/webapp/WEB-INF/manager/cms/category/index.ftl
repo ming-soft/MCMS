@@ -44,11 +44,13 @@
                  </el-table-column>
             <el-table-column label="属性" align="center" prop="categoryType" :formatter="categoryTypeFormat" width="70">
             </el-table-column>
-                <el-table-column label="链接地址" align="left" prop="categoryPath" show-overflow-tooltip>
-					<template slot-scope="scope">
-						<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="'{ms:global.url/}'+scope.row.categoryPath+'/index.html'" @click="copyUrl">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
-					</template>
-				</el-table-column>
+			<el-table-column label="排序" align="center" prop="categorySort"  width="70">
+			</el-table-column>
+			<el-table-column label="链接地址" align="left" prop="categoryPath" show-overflow-tooltip>
+				<template slot-scope="scope">
+					<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="'{ms:global.url/}'+scope.row.categoryPath+'/index.html'" @click="copyUrl">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
+				</template>
+			</el-table-column>
             <el-table-column label="列表地址" align="left" prop="categoryListUrl" show-overflow-tooltip>
             </el-table-column>
             <el-table-column label="内容地址" align="left" prop="categoryUrl" show-overflow-tooltip>
