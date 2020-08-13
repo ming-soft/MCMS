@@ -276,38 +276,7 @@
             getAuthorization: function () {
 
             },
-            subscribe: function () {
-                var h = this.$createElement
-                var that = this;
-                ms.http.get(
-                    ms.manager + "/lic/info"
-                ).then(function (res) {
-                    that.$msgbox({
-                        title: '关注公众号接收系统通知',
-                        message: h('p', null, [h('el-image', {
-                                attrs: {
-                                    src: 'http://www.meczj.com/wx/employee/qrCode?code=' + encodeURIComponent(res.data),
-                                },
-                                style: {
-                                    width: "80%",
-                                    height: "300px"
-                                }
-                            }
-                        ), h('el-alert', {
-                                props: {
-                                    title: '一人一码，请确认当前登录用户信息再进行绑定，如果绑定错误，请取消关注 铭软 公众号再重新扫码绑定',
-                                    closable: false
-                                },
-                            }
-                        )]),
-                        showConfirmButton: false,
-                        center: true
-                    })
-                }).catch(function (err) {
-                    console.log(err)
-                })
 
-            },
             markMenu: function (title, icon) {
                 var menu = {
                     title: title,
@@ -560,25 +529,12 @@
             //获取登录用户信息
             this.managerGet();
             var that = this;
-            ms.http.get(ms.manager + "/upgrader/sync.do").then(function (data) {
-                if (data.syncStoreUrl != undefined) {
-                    data.syncStoreUrl += "?client=${client}";
-                    that.mstore = data;
+            ms.http.get(ms.manager + "/upgrader/sync.do").then(function (res) {
+                if (res.result) {
+                    res.data.syncStoreUrl += "/#/?client=${client}";
+                    that.mstore = res.data;
                 }
             })
-            var sub ={
-                modelUrl:'http://store.i.mingsoft.net/#/'+"?client=${client}",
-                modelTitle:'mstore',
-                isStore:true,
-                modelModelId:'mstore',
-            }
-            this.editableTabs.push(sub)
-            this.currentTab = sub.modelTitle;
-            this.headMenuActive = sub.modelModelId
-            this.$nextTick(function () {
-                that.asideMenuActive = sub.modelId;
-            })
-
         },
     })
 </script>
