@@ -102,10 +102,10 @@ public class CmsParserUtil extends ParserUtil {
 			if(ParserUtil.IS_SINGLE) {
 				parserParams.put(ParserUtil.URL, BasicUtil.getUrl());
 			}
-			int totalPageSize = PageUtil.totalPage(articleIdTotal, page.getSize());
-			page.setTotal(totalPageSize);
 			parserParams.put(ParserUtil.PAGE, page);
 			ParserUtil.read(File.separator + column.getCategoryListUrl(),parserParams, page);
+			int totalPageSize = PageUtil.totalPage(articleIdTotal, page.getSize());
+			page.setTotal(totalPageSize);
 			//文章列表页没有写文章列表标签，总数为0
 			if (totalPageSize <= 0) {
 				// 数据库中第一页是从开始0*size
