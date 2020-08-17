@@ -561,22 +561,10 @@
             this.managerGet();
             var that = this;
             ms.http.get(ms.manager + "/upgrader/sync.do").then(function (data) {
-                if (data.syncStoreUrl != undefined) {
-                    data.syncStoreUrl += "?client=${client}";
-                    that.mstore = data;
+                if (data.data.syncStoreUrl != undefined) {
+                    data.data.syncStoreUrl += "/#/?client=${client}";
+                    that.mstore = data.data;
                 }
-            })
-            var sub ={
-                modelUrl:'http://store.i.mingsoft.net/#/'+"?client=${client}",
-                modelTitle:'mstore',
-                isStore:true,
-                modelModelId:'mstore',
-            }
-            this.editableTabs.push(sub)
-            this.currentTab = sub.modelTitle;
-            this.headMenuActive = sub.modelModelId
-            this.$nextTick(function () {
-                that.asideMenuActive = sub.modelId;
             })
 
         },

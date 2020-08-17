@@ -93,11 +93,6 @@
 		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mdiy</artifactId>
-			<version>1.0.20-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-upgrader</artifactId>
 			<version>1.0.18-SNAPSHOT</version>
 		</dependency>
