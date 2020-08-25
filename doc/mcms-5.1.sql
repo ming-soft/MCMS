@@ -1,17 +1,17 @@
 /*
  Navicat MySQL Data Transfer
 
- Source Server         : localhost
+ Source Server         : 192.168.0.8
  Source Server Type    : MySQL
- Source Server Version : 50720
- Source Host           : localhost:3306
- Source Schema         : mcms-5.1
+ Source Server Version : 50731
+ Source Host           : 192.168.0.8:3316
+ Source Schema         : mcms-dev-5.0
 
  Target Server Type    : MySQL
- Target Server Version : 50720
+ Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 29/06/2020 14:31:53
+ Date: 25/08/2020 17:52:11
 */
 
 SET NAMES utf8mb4;
@@ -48,7 +48,7 @@ CREATE TABLE `app`  (
 -- ----------------------------
 -- Records of app
 -- ----------------------------
-INSERT INTO `app` VALUES (1, 'MCMS-OPEN', 'http://localhost:8080/ms-mcms\r\n', '[{\"path\":\"/upload/1/appLogo/1578375538540.jpg\"}]', '铭飞MCMS', '版权所有 ©铭飞科技有限公司2012-2019 保留一切权利。', 'default', '铭飞MCMS', NULL, '', '2019-11-16 00:00:00', '', 0, 1, '', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `app` VALUES (1, 'MCMS-OPEN', 'http://localhost:8080\r\n', '[{\"path\":\"/upload/1/appLogo/1578375538540.jpg\",\"url\":\"/upload/1/appLogo/1578375538540.jpg\",\"uid\":1598334819572,\"status\":\"success\"}]', '铭飞MCMS', '版权所有 ©铭飞科技有限公司2012-2019 保留一切权利。', 'default', '铭飞MCMS', NULL, '', '2019-11-16 00:00:00', '', 0, 1, '', NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for cms_category
@@ -86,51 +86,51 @@ CREATE TABLE `cms_category`  (
 -- ----------------------------
 -- Records of cms_category
 -- ----------------------------
-INSERT INTO `cms_category` VALUES (19, '联系我们', NULL, NULL, '', '', '/19', NULL, 0, 1, 50, '2015-09-01 15:31:30', '0', NULL, 'contact.htm', 'contact.htm', 0, '2', '0', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (23, '常见问题', NULL, NULL, '', '', '/23', NULL, 0, 1, 50, '2015-09-01 15:33:54', '0', NULL, 'about.htm', 'liebiao.htm', 0, '1', '0', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (33, '投资', NULL, NULL, '', '', '/33', NULL, 0, 1, 50, '2015-09-02 00:32:02', '0', NULL, 'detail.htm', 'list.htm', 0, '1', '0', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (52, '招商加盟', NULL, NULL, '', '', '/52', NULL, 0, 1, 50, '2016-03-15 17:35:38', '0', NULL, 'about.htm', 'about.htm', 0, '2', '0', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (53, '关于我们', NULL, NULL, '', '', '/53', NULL, 0, 1, 50, '2016-03-16 17:16:11', '0', NULL, 'about.htm', 'about.htm', 0, '2', '0', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (59, '新闻中心', NULL, NULL, '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '', '/59', NULL, 0, 1, 50, '2016-03-26 13:18:53', '0', NULL, 'news-show.htm', 'news-list.htm', 0, '1', '0', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (61, '客户案例', NULL, NULL, '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '', '/61', NULL, 0, 1, 50, '2016-03-26 13:26:34', '0', NULL, 'case-show.htm', 'case-list.htm', 0, '1', '0', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (62, '新闻', NULL, NULL, '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '', '/62', NULL, 0, 1, 50, '2016-03-26 13:27:39', '0', NULL, 'news-show.htm', 'news-list.htm', 0, '1', '0', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (63, '服务', NULL, NULL, '我们为您提供网站策划、网页设计、程序开发、网站推广、域名注册、虚拟主机、企业邮箱等网站建设相关服务；为您提供iOS/Android/Windows Phone等移动平台的APP应用开发；为您提供办公系统、客户关系管理系统、电子政务系统等行业应用系统的开发；为您提供软件定制开发和系统集成服务。', '建站资源共享学习平台!', '/63', NULL, 0, 1, 50, '2016-03-26 13:29:07', '0', NULL, 'service.htm', 'service.htm', 0, '2', '0', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (65, '网站设计', NULL, NULL, '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '精选案例展示', '/61/65', '61', 0, 1, 50, '2016-03-26 14:34:49', '0', NULL, 'case-show.htm', 'case-list.htm', 3, '1', '61', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (66, '手机应用', NULL, NULL, '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '精选案例展示', '/61/66', '61', 0, 1, 50, '2016-03-26 14:35:49', '0', NULL, 'case-show.htm', 'case-list.htm', 1, '1', '61', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (67, '平面设计', NULL, NULL, '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '精选案例展示', '/61/67', '61', 0, 1, 50, '2016-03-26 14:36:15', '0', NULL, 'case-show.htm', 'case-list.htm', 2, '1', '61', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (68, '公司新闻', NULL, NULL, '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '', '/59/68', '59', 0, 1, 50, '2016-03-27 09:39:22', '0', NULL, 'news-show.htm', 'news-list.htm', 3, '1', '59', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (69, '行业新闻', NULL, NULL, '', '', '/59/69', '59', 0, 1, 50, '2016-03-27 09:39:48', '0', NULL, 'news-show.htm', 'news-list.htm', 2, '1', '59', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (70, '最新动态', NULL, NULL, '新闻中心', '', '/59/70', '59', 0, 1, 50, '2016-03-27 09:40:22', '0', NULL, 'news-show.htm', 'news-list.htm', 1, '1', '59', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (83, '研发团队', NULL, NULL, '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '', '/62/83', '62', 0, 1, 50, '2016-03-28 16:51:31', '0', NULL, 'news-show.htm', 'news-list.htm', 2, '1', '62', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (84, '研发成果', NULL, NULL, '专业提供网站模板，网页模板，教程培训，程序插件，网站素材等建站资源。设计者：如果您是模板设计师，插件制作者。我们致力于打造一个优秀的建站资源共享学习平台！您可以在这里放心出售您的模板和插件，我们提供版权保护。购买者：购买本站资源，我们提供“三重保障”(担保交易+人工介入+售后服务)，保障购买者的合法权益。织梦猫已经上路，我们将为此不懈努', '专业提供网站模板，网页模板，教程培训，程序插件，网站素材等建站资源。我们致力于打造一个优秀的建站资源共享学习平台！', '/62/84', '62', 0, 1, 50, '2016-03-28 16:54:29', '0', NULL, 'news-show.htm', 'news-list.htm', 1, '1', '62', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (87, '客户的声音', NULL, NULL, '', '', '/87', NULL, 0, 1, 50, '2016-03-30 10:27:42', '0', NULL, 'solution.htm', 'about.htm', 0, '2', '0', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (93, '关于我们', NULL, NULL, '关于我们', '关于我们', '/93', NULL, 0, 1, 50, '2016-04-11 19:52:30', '0', NULL, 'about.htm', 'about.htm', 0, '2', '0', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (94, '主营业务', NULL, NULL, '关于我们', '关于我们', '/93/94', '93', 0, 1, 50, '2016-04-11 19:54:05', '0', NULL, 'about.htm', 'about.htm', 5, '2', '93', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (95, '企业文化', NULL, NULL, '关于我们', '关于我们', '/93/95', '93', 0, 1, 50, '2016-04-11 19:54:43', '0', NULL, 'about.htm', 'about-list.htm', 4, '2', '93', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (96, '资质荣誉', NULL, NULL, '', '', '/93/96', '93', 0, 1, 50, '2016-04-11 19:55:18', '0', NULL, 'about.htm', 'news-list.htm', 0, '2', '93', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (97, '合作伙伴', NULL, NULL, '', '', '/93/97', '93', 0, 1, 50, '2016-04-11 19:55:41', '0', NULL, 'about.htm', 'about.htm', 0, '2', '93', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (98, '企业优势', NULL, NULL, '生态农庄', '关于我们', '/93/98', '93', 0, 1, 50, '2016-04-11 19:56:04', '0', NULL, 'about.htm', 'about.htm', 0, '2', '93', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (99, '服务项目', NULL, NULL, '', '', '/99', NULL, 0, 1, 50, '2016-04-11 20:32:40', '0', NULL, 'service.htm', 'product.htm', 0, '2', '0', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (100, '首页幻灯', NULL, NULL, '', '', '/100', NULL, 0, 1, 50, '2016-04-11 20:56:40', '0', NULL, 'about.htm', 'about.htm', 0, '1', '0', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (101, ' 全案设计', NULL, NULL, '品牌策划年度服务是岳派品牌机构的主要服务方式之一，以一年或更长时间作为服务周期，为企业进行有计划、有步骤的策划、设计、执行等，进行一体化品牌策划推广服务。', '专业服务', '/99/101', '99', 0, 1, 50, '2016-04-11 21:04:41', '0', NULL, 'servise.htm', 'about-list.htm', 3, '2', '99', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (102, '企业形象设计', NULL, NULL, 'LOGO 标志设计 VIS设计 宣传物料设计视觉是人们接受外部信息的最重要和最主要的通道。设计科学、实施有利的视觉识别，是传播企业经营理念、建立企业知名度、塑造企业形象的快速便捷之途', '专业服务', '/99/102', '99', 0, 1, 50, '2016-04-11 21:05:11', '0', NULL, 'servise.htm', 'about-list.htm', 4, '2', '99', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (103, '产品包装设计', NULL, NULL, '竞争的优势不仅在于产品，也源于产品包装的设计，一个产品的包装直接影响顾客购买心理，产品的包装是最直接的广告 ,由表及里是自然界认识事物不变的定律。', '专业服务', '/99/103', '99', 0, 1, 50, '2016-04-11 21:05:42', '0', NULL, 'servise.htm', 'news-list.htm', 2, '2', '99', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (104, '连锁店设计', NULL, NULL, '连锁店的CI和一般企业的作法有相当大的差异，最主要的因素就是与目标接触的场合不同。连锁店与消费者之间最常发生的接触就是在门店，创造视觉的个性化与标准化，来\r\n加深人们的印象', '专业服务', '/99/104', '99', 0, 1, 50, '2016-04-11 21:05:57', '0', NULL, 'servise.htm', 'news-list.htm', 0, '2', '99', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (106, '产品列表', '[]', NULL, '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '我们的作品', '/106', NULL, 0, 1, 50, '2016-04-11 21:15:27', '0', NULL, 'product-show.htm', 'product-list.htm', 0, '1', '', 0, '2019-12-28 14:37:22', NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (107, '产品一类', NULL, NULL, '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '我们的作品', '/106/107', '106', 0, 1, 50, '2016-04-11 21:15:43', '0', NULL, 'product-show.htm', 'product-list.htm', 2, '1', '106', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (108, '产品二类', NULL, NULL, '', '', '/106/108', '106', 0, 1, 50, '2016-04-11 21:16:21', '0', NULL, 'product-show.htm', 'product-list.htm', 1, '1', '106', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (115, '专家研究院', NULL, NULL, '', '', '/115', NULL, 0, 1, 50, '2016-04-11 21:29:24', '0', NULL, 'show.htm', 'service.htm', 0, '1', '0', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (133, '网站优化', NULL, NULL, '关于我们', '网站设计 网站制作 网站维护 网站改版', '/53/133', '53', 0, 1, 50, '2016-04-17 18:32:05', '0', NULL, 'about.htm', NULL, 3, '2', '53', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (134, '网络营销', NULL, NULL, '', '网站整站优化 网页结构优化 网站关键词优化', '/53/134', '53', 0, 1, 50, '2016-04-17 18:33:01', '0', NULL, 'about.htm', NULL, 2, '2', '53', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (135, '域名注册', NULL, NULL, '关于我们', '英文国际域名 英文国内域名 中文国际域名 中文国内域名', '/53/135', '53', 0, 1, 50, '2016-04-17 18:33:47', '0', NULL, 'about.htm', NULL, 1, '2', '53', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (136, '优化报价', NULL, NULL, '联系我们', '', '/52/136', '52', 0, 1, 50, '2016-04-17 21:13:17', '0', NULL, 'about.htm', 'about.htm', 0, '2', '52', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (138, '服务中心', NULL, NULL, '我们为您提供网站策划、网页设计、程序开发、网站推广、域名注册、虚拟主机、企业邮箱等网站建设相关服务；为您提供iOS/Android/Windows Phone等移动平台的APP应用开发；为您提供办公系统、客户关系管理系统、电子政务系统等行业应用系统的开发；为您提供软件定制开发和系统集成服务。', '', '/63/138', '63', 0, 1, 50, '2016-04-29 17:15:49', '0', NULL, 'service.htm', 'service.htm', 0, '2', '63', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (141, '联系我们', NULL, NULL, '', '', '/19/141', '19', 0, 1, 50, '2016-05-04 14:42:07', '0', NULL, 'contact.htm', 'contact.htm', 2, '2', '19', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (142, '在线留言', NULL, NULL, '', '', '/19/142', '19', 0, 1, 50, '2016-05-04 14:42:31', '0', NULL, 'advice.htm', NULL, 1, '2', '19', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (146, '人才招聘', '[]', '', '', '', '/146', NULL, 0, 1, 50, '2016-05-19 17:49:37', '0', NULL, 'about.htm', 'about.htm', 0, '2', '', 0, '2020-01-09 11:21:38', NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (147, '长图', NULL, NULL, '', '', '/100/147', '100', 0, 1, 50, '2016-06-02 17:23:49', '0', NULL, 'index.html', 'index.html', 0, '1', '100', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (148, '短图', NULL, NULL, '', '', '/100/148', '100', 0, 1, 50, '2016-06-02 17:24:21', '0', NULL, 'index.html', 'index.html', 0, '1', '100', 0, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `cms_category` VALUES (149, '网站案例', '[]', NULL, '', '', '/149', NULL, 0, 1, 50, '2018-07-09 11:07:41', NULL, NULL, 'case-list.htm', 'case-list.htm', 1, '1', '', 0, '2019-12-28 17:49:38', NULL, NULL, NULL, NULL);
+INSERT INTO `cms_category` VALUES (19, '联系我们', NULL, NULL, '', '', '/lianxiwomen19', NULL, 0, 1, 50, '2015-09-01 15:31:30', '0', NULL, 'contact.htm', 'contact.htm', 0, '2', '0', 0, NULL, NULL, NULL, NULL, 'lianxiwomen19');
+INSERT INTO `cms_category` VALUES (23, '常见问题', NULL, NULL, '', '', '/changjianwenti', NULL, 0, 1, 50, '2015-09-01 15:33:54', '0', NULL, 'about.htm', 'liebiao.htm', 0, '1', '0', 0, NULL, NULL, NULL, NULL, 'changjianwenti');
+INSERT INTO `cms_category` VALUES (33, '投资', NULL, NULL, '', '', '/touzi', NULL, 0, 1, 50, '2015-09-02 00:32:02', '0', NULL, 'detail.htm', 'list.htm', 0, '1', '0', 0, NULL, NULL, NULL, NULL, 'touzi');
+INSERT INTO `cms_category` VALUES (52, '招商加盟', NULL, NULL, '', '', '/zhaoshangjiameng', NULL, 0, 1, 50, '2016-03-15 17:35:38', '0', NULL, 'about.htm', 'about.htm', 0, '2', '0', 0, NULL, NULL, NULL, NULL, 'zhaoshangjiameng');
+INSERT INTO `cms_category` VALUES (53, '关于我们', NULL, NULL, '', '', '/guanyuwomen53', NULL, 0, 1, 50, '2016-03-16 17:16:11', '0', NULL, 'about.htm', 'about.htm', 0, '2', '0', 0, NULL, NULL, NULL, NULL, 'guanyuwomen53');
+INSERT INTO `cms_category` VALUES (59, '新闻中心', NULL, NULL, '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '', '/xinwenzhongxin', NULL, 0, 1, 50, '2016-03-26 13:18:53', '0', NULL, 'news-show.htm', 'news-list.htm', 0, '1', '0', 0, NULL, NULL, NULL, NULL, 'xinwenzhongxin');
+INSERT INTO `cms_category` VALUES (61, '客户案例', NULL, NULL, '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '', '/kehuanli', NULL, 0, 1, 50, '2016-03-26 13:26:34', '0', NULL, 'case-show.htm', 'case-list.htm', 0, '1', '0', 0, NULL, NULL, NULL, NULL, 'kehuanli');
+INSERT INTO `cms_category` VALUES (62, '新闻', NULL, NULL, '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '', '/xinwen', NULL, 0, 1, 50, '2016-03-26 13:27:39', '0', NULL, 'news-show.htm', 'news-list.htm', 0, '1', '0', 0, NULL, NULL, NULL, NULL, 'xinwen');
+INSERT INTO `cms_category` VALUES (63, '服务', NULL, NULL, '我们为您提供网站策划、网页设计、程序开发、网站推广、域名注册、虚拟主机、企业邮箱等网站建设相关服务；为您提供iOS/Android/Windows Phone等移动平台的APP应用开发；为您提供办公系统、客户关系管理系统、电子政务系统等行业应用系统的开发；为您提供软件定制开发和系统集成服务。', '建站资源共享学习平台!', '/fuwu', NULL, 0, 1, 50, '2016-03-26 13:29:07', '0', NULL, 'service.htm', 'service.htm', 0, '2', '0', 0, NULL, NULL, NULL, NULL, 'fuwu');
+INSERT INTO `cms_category` VALUES (65, '网站设计', NULL, NULL, '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '精选案例展示', '/kehuanli/wangzhansheji', '61', 0, 1, 50, '2016-03-26 14:34:49', '0', NULL, 'case-show.htm', 'case-list.htm', 3, '1', '61', 0, NULL, NULL, NULL, NULL, 'wangzhansheji');
+INSERT INTO `cms_category` VALUES (66, '手机应用', NULL, NULL, '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '精选案例展示', '/kehuanli/shoujiyingyong', '61', 0, 1, 50, '2016-03-26 14:35:49', '0', NULL, 'case-show.htm', 'case-list.htm', 1, '1', '61', 0, NULL, NULL, NULL, NULL, 'shoujiyingyong');
+INSERT INTO `cms_category` VALUES (67, '平面设计', NULL, NULL, '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '精选案例展示', '/kehuanli/pingmiansheji', '61', 0, 1, 50, '2016-03-26 14:36:15', '0', NULL, 'case-show.htm', 'case-list.htm', 2, '1', '61', 0, NULL, NULL, NULL, NULL, 'pingmiansheji');
+INSERT INTO `cms_category` VALUES (68, '公司新闻', NULL, NULL, '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '', '/xinwenzhongxin/gongsixinwen', '59', 0, 1, 50, '2016-03-27 09:39:22', '0', NULL, 'news-show.htm', 'news-list.htm', 3, '1', '59', 0, NULL, NULL, NULL, NULL, 'gongsixinwen');
+INSERT INTO `cms_category` VALUES (69, '行业新闻', NULL, NULL, '', '', '/xinwenzhongxin/xingyexinwen', '59', 0, 1, 50, '2016-03-27 09:39:48', '0', NULL, 'news-show.htm', 'news-list.htm', 2, '1', '59', 0, NULL, NULL, NULL, NULL, 'xingyexinwen');
+INSERT INTO `cms_category` VALUES (70, '最新动态', NULL, NULL, '新闻中心', '', '/xinwenzhongxin/zuixindongtai', '59', 0, 1, 50, '2016-03-27 09:40:22', '0', NULL, 'news-show.htm', 'news-list.htm', 1, '1', '59', 0, NULL, NULL, NULL, NULL, 'zuixindongtai');
+INSERT INTO `cms_category` VALUES (83, '研发团队', NULL, NULL, '您可以通过以下新闻与公司动态进一步了解我们。我们所签约的客户，无论他们的项目是大或者是小，我们都将提供100%的服务', '', '/xinwen/yanfatuandui', '62', 0, 1, 50, '2016-03-28 16:51:31', '0', NULL, 'news-show.htm', 'news-list.htm', 2, '1', '62', 0, NULL, NULL, NULL, NULL, 'yanfatuandui');
+INSERT INTO `cms_category` VALUES (84, '研发成果', NULL, NULL, '专业提供网站模板，网页模板，教程培训，程序插件，网站素材等建站资源。设计者：如果您是模板设计师，插件制作者。我们致力于打造一个优秀的建站资源共享学习平台！您可以在这里放心出售您的模板和插件，我们提供版权保护。购买者：购买本站资源，我们提供“三重保障”(担保交易+人工介入+售后服务)，保障购买者的合法权益。织梦猫已经上路，我们将为此不懈努', '专业提供网站模板，网页模板，教程培训，程序插件，网站素材等建站资源。我们致力于打造一个优秀的建站资源共享学习平台！', '/xinwen/yanfachengguo', '62', 0, 1, 50, '2016-03-28 16:54:29', '0', NULL, 'news-show.htm', 'news-list.htm', 1, '1', '62', 0, NULL, NULL, NULL, NULL, 'yanfachengguo');
+INSERT INTO `cms_category` VALUES (87, '客户的声音', NULL, NULL, '', '', '/kehudeshengyin', NULL, 0, 1, 50, '2016-03-30 10:27:42', '0', NULL, 'solution.htm', 'about.htm', 0, '2', '0', 0, NULL, NULL, NULL, NULL, 'kehudeshengyin');
+INSERT INTO `cms_category` VALUES (93, '关于我们', NULL, NULL, '关于我们', '关于我们', '/guanyuwomen', NULL, 0, 1, 50, '2016-04-11 19:52:30', '0', NULL, 'about.htm', 'about.htm', 0, '2', '0', 0, NULL, NULL, NULL, NULL, 'guanyuwomen');
+INSERT INTO `cms_category` VALUES (94, '主营业务', NULL, NULL, '关于我们', '关于我们', '/guanyuwomen/zhuyingyewu', '93', 0, 1, 50, '2016-04-11 19:54:05', '0', NULL, 'about.htm', 'about.htm', 5, '2', '93', 0, NULL, NULL, NULL, NULL, 'zhuyingyewu');
+INSERT INTO `cms_category` VALUES (95, '企业文化', NULL, NULL, '关于我们', '关于我们', '/guanyuwomen/qiyewenhua', '93', 0, 1, 50, '2016-04-11 19:54:43', '0', NULL, 'about.htm', 'about-list.htm', 4, '2', '93', 0, NULL, NULL, NULL, NULL, 'qiyewenhua');
+INSERT INTO `cms_category` VALUES (96, '资质荣誉', NULL, NULL, '', '', '/guanyuwomen/zizhirongyu', '93', 0, 1, 50, '2016-04-11 19:55:18', '0', NULL, 'about.htm', 'news-list.htm', 0, '2', '93', 0, NULL, NULL, NULL, NULL, 'zizhirongyu');
+INSERT INTO `cms_category` VALUES (97, '合作伙伴', NULL, NULL, '', '', '/guanyuwomen/hezuohuoban', '93', 0, 1, 50, '2016-04-11 19:55:41', '0', NULL, 'about.htm', 'about.htm', 0, '2', '93', 0, NULL, NULL, NULL, NULL, 'hezuohuoban');
+INSERT INTO `cms_category` VALUES (98, '企业优势', NULL, NULL, '生态农庄', '关于我们', '/guanyuwomen/qiyeyoushi', '93', 0, 1, 50, '2016-04-11 19:56:04', '0', NULL, 'about.htm', 'about.htm', 0, '2', '93', 0, NULL, NULL, NULL, NULL, 'qiyeyoushi');
+INSERT INTO `cms_category` VALUES (99, '服务项目', NULL, NULL, '', '', '/fuwuxiangmu', NULL, 0, 1, 50, '2016-04-11 20:32:40', '0', NULL, 'service.htm', 'product.htm', 0, '2', '0', 0, NULL, NULL, NULL, NULL, 'fuwuxiangmu');
+INSERT INTO `cms_category` VALUES (100, '首页幻灯', NULL, NULL, '', '', '/shouyehuandeng', NULL, 0, 1, 50, '2016-04-11 20:56:40', '0', NULL, 'about.htm', 'about.htm', 0, '1', '0', 0, NULL, NULL, NULL, NULL, 'shouyehuandeng');
+INSERT INTO `cms_category` VALUES (101, ' 全案设计', NULL, NULL, '品牌策划年度服务是岳派品牌机构的主要服务方式之一，以一年或更长时间作为服务周期，为企业进行有计划、有步骤的策划、设计、执行等，进行一体化品牌策划推广服务。', '专业服务', '/fuwuxiangmu/ quanansheji', '99', 0, 1, 50, '2016-04-11 21:04:41', '0', NULL, 'servise.htm', 'about-list.htm', 3, '2', '99', 0, NULL, NULL, NULL, NULL, ' quanansheji');
+INSERT INTO `cms_category` VALUES (102, '企业形象设计', NULL, NULL, 'LOGO 标志设计 VIS设计 宣传物料设计视觉是人们接受外部信息的最重要和最主要的通道。设计科学、实施有利的视觉识别，是传播企业经营理念、建立企业知名度、塑造企业形象的快速便捷之途', '专业服务', '/fuwuxiangmu/qiyexingxiangsheji', '99', 0, 1, 50, '2016-04-11 21:05:11', '0', NULL, 'servise.htm', 'about-list.htm', 4, '2', '99', 0, NULL, NULL, NULL, NULL, 'qiyexingxiangsheji');
+INSERT INTO `cms_category` VALUES (103, '产品包装设计', NULL, NULL, '竞争的优势不仅在于产品，也源于产品包装的设计，一个产品的包装直接影响顾客购买心理，产品的包装是最直接的广告 ,由表及里是自然界认识事物不变的定律。', '专业服务', '/fuwuxiangmu/chanpinbaozhuangsheji', '99', 0, 1, 50, '2016-04-11 21:05:42', '0', NULL, 'servise.htm', 'news-list.htm', 2, '2', '99', 0, NULL, NULL, NULL, NULL, 'chanpinbaozhuangsheji');
+INSERT INTO `cms_category` VALUES (104, '连锁店设计', NULL, NULL, '连锁店的CI和一般企业的作法有相当大的差异，最主要的因素就是与目标接触的场合不同。连锁店与消费者之间最常发生的接触就是在门店，创造视觉的个性化与标准化，来\r\n加深人们的印象', '专业服务', '/fuwuxiangmu/liansuodiansheji', '99', 0, 1, 50, '2016-04-11 21:05:57', '0', NULL, 'servise.htm', 'news-list.htm', 0, '2', '99', 0, NULL, NULL, NULL, NULL, 'liansuodiansheji');
+INSERT INTO `cms_category` VALUES (106, '产品列表', '[]', NULL, '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '我们的作品', '/chanpinliebiao', NULL, 0, 1, 50, '2016-04-11 21:15:27', '0', NULL, 'product-show.htm', 'product-list.htm', 0, '1', '', 0, '2019-12-28 14:37:22', NULL, NULL, NULL, 'chanpinliebiao');
+INSERT INTO `cms_category` VALUES (107, '产品一类', NULL, NULL, '新颖的设计方案，大胆的革新思想，灵活的运用最新技术，是品网视觉的特点，我们只做有灵魂的设计', '我们的作品', '/chanpinliebiao/chanpinyilei', '106', 0, 1, 50, '2016-04-11 21:15:43', '0', NULL, 'product-show.htm', 'product-list.htm', 2, '1', '106', 0, NULL, NULL, NULL, NULL, 'chanpinyilei');
+INSERT INTO `cms_category` VALUES (108, '产品二类', NULL, NULL, '', '', '/chanpinliebiao/chanpinerlei', '106', 0, 1, 50, '2016-04-11 21:16:21', '0', NULL, 'product-show.htm', 'product-list.htm', 1, '1', '106', 0, NULL, NULL, NULL, NULL, 'chanpinerlei');
+INSERT INTO `cms_category` VALUES (115, '专家研究院', NULL, NULL, '', '', '/zhuanjiayanjiuyuan', NULL, 0, 1, 50, '2016-04-11 21:29:24', '0', NULL, 'show.htm', 'service.htm', 0, '1', '0', 0, NULL, NULL, NULL, NULL, 'zhuanjiayanjiuyuan');
+INSERT INTO `cms_category` VALUES (133, '网站优化', NULL, NULL, '关于我们', '网站设计 网站制作 网站维护 网站改版', '/guanyuwomen53/wangzhanyouhua', '53', 0, 1, 50, '2016-04-17 18:32:05', '0', NULL, 'about.htm', NULL, 3, '2', '53', 0, NULL, NULL, NULL, NULL, 'wangzhanyouhua');
+INSERT INTO `cms_category` VALUES (134, '网络营销', NULL, NULL, '', '网站整站优化 网页结构优化 网站关键词优化', '/guanyuwomen53/wangluoyingxiao', '53', 0, 1, 50, '2016-04-17 18:33:01', '0', NULL, 'about.htm', NULL, 2, '2', '53', 0, NULL, NULL, NULL, NULL, 'wangluoyingxiao');
+INSERT INTO `cms_category` VALUES (135, '域名注册', NULL, NULL, '关于我们', '英文国际域名 英文国内域名 中文国际域名 中文国内域名', '/guanyuwomen53/yumingzhuce', '53', 0, 1, 50, '2016-04-17 18:33:47', '0', NULL, 'about.htm', NULL, 1, '2', '53', 0, NULL, NULL, NULL, NULL, 'yumingzhuce');
+INSERT INTO `cms_category` VALUES (136, '优化报价', NULL, NULL, '联系我们', '', '/zhaoshangjiameng/youhuabaojia', '52', 0, 1, 50, '2016-04-17 21:13:17', '0', NULL, 'about.htm', 'about.htm', 0, '2', '52', 0, NULL, NULL, NULL, NULL, 'youhuabaojia');
+INSERT INTO `cms_category` VALUES (138, '服务中心', NULL, NULL, '我们为您提供网站策划、网页设计、程序开发、网站推广、域名注册、虚拟主机、企业邮箱等网站建设相关服务；为您提供iOS/Android/Windows Phone等移动平台的APP应用开发；为您提供办公系统、客户关系管理系统、电子政务系统等行业应用系统的开发；为您提供软件定制开发和系统集成服务。', '', '/fuwu/fuwuzhongxin', '63', 0, 1, 50, '2016-04-29 17:15:49', '0', NULL, 'service.htm', 'service.htm', 0, '2', '63', 0, NULL, NULL, NULL, NULL, 'fuwuzhongxin');
+INSERT INTO `cms_category` VALUES (141, '联系我们', NULL, NULL, '', '', '/lianxiwomen19/lianxiwomen', '19', 0, 1, 50, '2016-05-04 14:42:07', '0', NULL, 'contact.htm', 'contact.htm', 2, '2', '19', 0, NULL, NULL, NULL, NULL, 'lianxiwomen');
+INSERT INTO `cms_category` VALUES (142, '在线留言', NULL, NULL, '', '', '/lianxiwomen19/zaixianliuyan', '19', 0, 1, 50, '2016-05-04 14:42:31', '0', NULL, 'advice.htm', NULL, 1, '2', '19', 0, NULL, NULL, NULL, NULL, 'zaixianliuyan');
+INSERT INTO `cms_category` VALUES (146, '人才招聘', '[]', '', '', '', '/rencaizhaopin', NULL, 0, 1, 50, '2016-05-19 17:49:37', '0', NULL, 'about.htm', 'about.htm', 0, '2', '', 0, '2020-01-09 11:21:38', NULL, NULL, NULL, 'rencaizhaopin');
+INSERT INTO `cms_category` VALUES (147, '长图', NULL, NULL, '', '', '/shouyehuandeng/changtu', '100', 0, 1, 50, '2016-06-02 17:23:49', '0', NULL, 'index.html', 'index.html', 0, '1', '100', 0, NULL, NULL, NULL, NULL, 'changtu');
+INSERT INTO `cms_category` VALUES (148, '短图', NULL, NULL, '', '', '/shouyehuandeng/duantu', '100', 0, 1, 50, '2016-06-02 17:24:21', '0', NULL, 'index.html', 'index.html', 0, '1', '100', 0, NULL, NULL, NULL, NULL, 'duantu');
+INSERT INTO `cms_category` VALUES (149, '网站案例', '[]', NULL, '', '', '/wangzhananli', NULL, 0, 1, 50, '2018-07-09 11:07:41', NULL, NULL, 'case-list.htm', 'case-list.htm', 1, '1', '', 0, '2019-12-28 17:49:38', NULL, NULL, NULL, 'wangzhananli');
 
 -- ----------------------------
 -- Table structure for cms_content
@@ -446,7 +446,7 @@ CREATE TABLE `mdiy_page`  (
 INSERT INTO `mdiy_page` VALUES (1, 1, 0, 'people/register.htm', '注册', 'cms', 'register', NULL, NULL, NULL, '2020-01-09 19:56:45', 0);
 INSERT INTO `mdiy_page` VALUES (2, 1, 0, 'people/login.htm', '登入', 'cms', 'login', NULL, NULL, NULL, '2020-01-09 19:56:40', 0);
 INSERT INTO `mdiy_page` VALUES (3, 1, 0, 'people/center.htm', '个人中心', 'cms', 'people/center', NULL, NULL, NULL, '2020-01-09 19:56:29', 0);
-INSERT INTO `mdiy_page` VALUES (4, 1, 0, 'people/passworld-change.htm', '修改密码', 'cms', 'people/password-change', NULL, NULL, NULL, '2020-01-09 14:46:52', 0);
+INSERT INTO `mdiy_page` VALUES (4, 1, 0, 'people/password-change.htm', '修改密码', 'cms', 'people/password-change', NULL, NULL, 57, '2020-08-25 14:42:46', 0);
 
 -- ----------------------------
 -- Table structure for mdiy_post_feedback
@@ -458,7 +458,12 @@ CREATE TABLE `mdiy_post_feedback`  (
   `words` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '留言',
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '意见反馈' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '意见反馈' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of mdiy_post_feedback
+-- ----------------------------
+INSERT INTO `mdiy_post_feedback` VALUES ('18612254067', '12', '12', 1);
 
 -- ----------------------------
 -- Table structure for mdiy_tag
@@ -820,11 +825,13 @@ CREATE TABLE `system_log`  (
   `create_by` int(11) NULL DEFAULT NULL COMMENT '创建人',
   `app_id` int(11) NULL DEFAULT NULL COMMENT '站点id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of system_log
 -- ----------------------------
 INSERT INTO `system_log` VALUES (7, NULL, 'success', '{\n	\"result\":true,\n	\"code\":200\n}', '{\n	\"ids\":[\"291\"]\n}', '内网IP', '/ms-mcms/ms/model/delete.do', 'msopen', 'manage', 'POST', 'net.mingsoft.basic.action.ModelAction.delete()', 'delete', '127.0.0.1', '批量删除模块表', 0, NULL, NULL, '2020-01-09 21:33:16', NULL, NULL);
+INSERT INTO `system_log` VALUES (8, NULL, 'success', '{\n	\"result\":true,\n	\"code\":200\n}', '{\n	\"createBy\":[\"0\"],\n	\"createDate\":[\"\"],\n	\"del\":[\"0\"],\n	\"id\":[\"1\"],\n	\"remarks\":[\"\"],\n	\"updateBy\":[\"0\"],\n	\"updateDate\":[\"\"],\n	\"order\":[\"\"],\n	\"appName\":[\"MCMS-OPEN\"],\n	\"appDescription\":[\"铭飞MCMS\"],\n	\"appLogo\":[\"[{\\\"path\\\":\\\"/upload/1/appLogo/1578375538540.jpg\\\",\\\"url\\\":\\\"/upload/1/appLogo/1578375538540.jpg\\\",\\\"uid\\\":1598334819572,\\\"status\\\":\\\"success\\\"}]\"],\n	\"appStyle\":[\"default\"],\n	\"appMobileStyle\":[\"\"],\n	\"appKeyword\":[\"铭飞MCMS\"],\n	\"appCopyright\":[\"版权所有 ©铭飞科技有限公司2012-2019 保留一切权利。\"],\n	\"appUrl\":[\"http://localhost:8080\"],\n	\"appDatetime\":[\"\"],\n	\"appPayDate\":[\"2019-11-16 00:00:00\"],\n	\"appPay\":[\"\"],\n	\"appLoginPage\":[\"\"],\n	\"appId\":[\"1\"],\n	\"appHostUrl\":[\"http://localhost:8080\"]\n}', '内网IP', '/ms/app/update.do', 'msopen', 'manage', 'POST', 'net.mingsoft.basic.action.AppAction.update()', 'update', '127.0.0.1', '更新站点信息', 0, NULL, NULL, '2020-08-25 13:55:24', NULL, 1);
+INSERT INTO `system_log` VALUES (9, NULL, 'success', '{\n	\"result\":true,\n	\"code\":200,\n	\"data\":{\n		\"createBy\":0,\n		\"del\":0,\n		\"id\":\"\",\n		\"order\":\"\",\n		\"pageAppId\":1,\n		\"pageId\":4,\n		\"pageKey\":\"people/password-change\",\n		\"pageModelId\":0,\n		\"pagePath\":\"people/password-change.htm\",\n		\"pageTitle\":\"修改密码\",\n		\"pageType\":\"cms\",\n		\"remarks\":\"\",\n		\"sqlWhereList\":[],\n		\"updateBy\":57,\n		\"updateDate\":\"2020-08-25 14:42:45\"\n	}\n}', '{\n	\"createBy\":[\"0\"],\n	\"createDate\":[\"\"],\n	\"del\":[\"0\"],\n	\"id\":[\"\"],\n	\"remarks\":[\"\"],\n	\"updateBy\":[\"0\"],\n	\"updateDate\":[\"2020-01-09 14:46:52\"],\n	\"order\":[\"\"],\n	\"pageId\":[\"4\"],\n	\"pageModelId\":[\"0\"],\n	\"pageAppId\":[\"1\"],\n	\"pagePath\":[\"people/password-change.htm\"],\n	\"pageTitle\":[\"修改密码\"],\n	\"pageKey\":[\"people/password-change\"],\n	\"pageType\":[\"cms\"]\n}', '内网IP', '/ms/mdiy/page/update.do', 'msopen', 'manage', 'POST', 'net.mingsoft.mdiy.action.PageAction.update()', 'update', '127.0.0.1', '更新自定义页面接口', 0, NULL, NULL, '2020-08-25 14:42:46', NULL, 1);
 
 SET FOREIGN_KEY_CHECKS = 1;
