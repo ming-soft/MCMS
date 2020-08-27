@@ -1,25 +1,23 @@
 package net.mingsoft.cms.bean;
 
-import net.mingsoft.cms.entity.CategoryEntity;
+import net.mingsoft.cms.entity.ContentEntity;
 
 /**
-* 文章实体
-* @author 铭飞开发团队
-* 创建日期：2019-11-28 15:12:32<br/>
-* 历史修订：<br/>
-*/
-public class ContentBean extends CategoryEntity {
+ * 文章实体bean
+ */
+public class ContentBean extends ContentEntity {
 
-	/**
-	 * 文章编号
-	 */
-	private int articleId;
+    /**
+     * 静态化地址
+     */
+    private String staticUrl;
 
-	public int getArticleId() {
-		return articleId;
-	}
 
-	public void setArticleId(int articleId) {
-		this.articleId = articleId;
-	}
+    public String getStaticUrl() {
+        return staticUrl;
+    }
+
+    public void setStaticUrl(String staticUrl) {
+        this.staticUrl = staticUrl;
+    }
 }

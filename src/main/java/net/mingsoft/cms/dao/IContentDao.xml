@@ -26,7 +26,32 @@
 				<result column="del" property="del" /><!--删除标记 -->
 	</resultMap>
 
-	<resultMap id="resultBean" type="net.mingsoft.cms.bean.ContentBean">
+	<resultMap id="resultContentMap" type="net.mingsoft.cms.bean.ContentBean">
+		<id column="id" property="id" /><!--编号 -->
+		<result column="content_title" property="contentTitle" /><!--文章标题 -->
+		<result column="content_category_id" property="contentCategoryId" /><!--所属栏目 -->
+		<result column="content_type" property="contentType" /><!--文章类型 -->
+		<result column="content_display" property="contentDisplay" /><!--是否显示 -->
+		<result column="content_author" property="contentAuthor" /><!--文章作者 -->
+		<result column="content_source" property="contentSource" /><!--文章来源 -->
+		<result column="content_datetime" property="contentDatetime" /><!--发布时间 -->
+		<result column="content_sort" property="contentSort" /><!--自定义顺序 -->
+		<result column="content_img" property="contentImg" /><!--文章缩略图 -->
+		<result column="content_description" property="contentDescription" /><!--描述 -->
+		<result column="content_keyword" property="contentKeyword" /><!--关键字 -->
+		<result column="content_details" property="contentDetails" /><!--文章内容 -->
+		<result column="content_url" property="contentUrl" /><!--文章跳转链接地址 -->
+		<result column="static_url" property="staticUrl" /><!--静态地址 -->
+		<result column="content_hit" property="contentHit" /><!--点击次数 -->
+		<result column="app_id" property="appId" /><!--文章管理的应用id -->
+		<result column="create_by" property="createBy" /><!--创建人 -->
+		<result column="create_date" property="createDate" /><!--创建时间 -->
+		<result column="update_by" property="updateBy" /><!--修改人 -->
+		<result column="update_date" property="updateDate" /><!--修改时间 -->
+		<result column="del" property="del" /><!--删除标记 -->
+	</resultMap>
+
+	<resultMap id="resultBean" type="net.mingsoft.cms.bean.CategoryBean">
 		<id column="id" property="id" /><!--编号 -->
 		<id column="article_Id" property="articleId" /><!--编号 -->
 		<result column="category_title" property="categoryTitle" /><!--栏目管理名称 -->
@@ -184,8 +209,9 @@
 			select * from cms_content order by id desc
 		</select>
 	<!--条件查询-->
-	<select id="query" resultMap="resultMap">
-		select ct.* from cms_content ct join cms_category cc on ct.content_category_id=cc.id
+	<select id="query" resultMap="resultContentMap">
+		select ct.*,CONCAT("/html/",ct.app_id,cc.category_path,"/",ct.id,".html") AS static_url
+		 from cms_content ct join cms_category cc on ct.content_category_id=cc.id
 		<where>
 			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT('%',#{contentTitle},'%')</if>
 			<if test="contentCategoryId != null and contentCategoryId != ''"> and content_category_id=#{contentCategoryId}</if>

@@ -3,15 +3,13 @@ package net.mingsoft.cms.util;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.PageUtil;
-import freemarker.cache.FileTemplateLoader;
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
-import freemarker.template.Template;
 import freemarker.template.TemplateNotFoundException;
 import net.mingsoft.base.constant.Const;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.SpringUtil;
-import net.mingsoft.cms.bean.ContentBean;
+import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IModelBiz;
@@ -151,7 +149,7 @@ public class CmsParserUtil extends ParserUtil {
 	 * @throws MalformedTemplateNameException
 	 * @throws TemplateNotFoundException
 	 */
-	public static void generateBasic(List<ContentBean>  articleIdList) {
+	public static void generateBasic(List<CategoryBean>  articleIdList) {
 
 		Map<Object, Object> contentModelMap = new HashMap<Object, Object>();
 		ModelEntity contentModel = null;
@@ -214,7 +212,7 @@ public class CmsParserUtil extends ParserUtil {
 			parserParams.put(ID, articleId);
 			// 第一篇文章没有上一篇
 			if (artId > 0) {
-				ContentBean preCaBean = articleIdList.get(artId - 1);
+				CategoryBean preCaBean = articleIdList.get(artId - 1);
 				//判断当前文档是否与上一页文章在同一栏目下，并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
 				if( articleColumnPath.contains(preCaBean.getCategoryId()+"")){
 					page.setPreId(preCaBean.getArticleId());
@@ -222,7 +220,7 @@ public class CmsParserUtil extends ParserUtil {
 			}
 			// 最后一篇文章没有下一篇
 			if (artId + 1 < articleIdList.size()) {
-				ContentBean nextCaBean = articleIdList.get(artId + 1);
+				CategoryBean nextCaBean = articleIdList.get(artId + 1);
 				//判断当前文档是否与下一页文章在同一栏目下并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
 				if(articleColumnPath.contains(nextCaBean.getCategoryId()+"")){
 					page.setNextId(nextCaBean.getArticleId());

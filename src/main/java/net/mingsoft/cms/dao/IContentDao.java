@@ -3,7 +3,7 @@ package net.mingsoft.cms.dao;
 import net.mingsoft.base.dao.IBaseDao;
 import java.util.*;
 
-import net.mingsoft.cms.bean.ContentBean;
+import net.mingsoft.cms.bean.CategoryBean;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -22,7 +22,7 @@ public interface IContentDao extends IBaseDao {
      * @param endTime 结束时间
      * @return
      */
-    public List<ContentBean> queryIdsByCategoryIdForParser(@Param("categoryId")String categoryId, @Param("appId")int appId , @Param("beginTime") String beginTime, @Param("endTime") String endTime, @Param("orderBy")String orderBy, @Param("order")String order);
+    public List<CategoryBean> queryIdsByCategoryIdForParser(@Param("categoryId")String categoryId, @Param("appId")int appId , @Param("beginTime") String beginTime, @Param("endTime") String endTime, @Param("orderBy")String orderBy, @Param("order")String order);
 
     /**
      * 根据查询文章实体总数
