@@ -215,18 +215,12 @@ public class CmsParserUtil extends ParserUtil {
 			// 第一篇文章没有上一篇
 			if (artId > 0) {
 				ContentBean preCaBean = articleIdList.get(artId - 1);
-				//判断当前文档是否与上一页文章在同一栏目下，并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
-				if( articleColumnPath.contains(preCaBean.getCategoryId()+"")){
 					page.setPreId(preCaBean.getArticleId());
-				}
 			}
 			// 最后一篇文章没有下一篇
 			if (artId + 1 < articleIdList.size()) {
 				ContentBean nextCaBean = articleIdList.get(artId + 1);
-				//判断当前文档是否与下一页文章在同一栏目下并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
-				if(articleColumnPath.contains(nextCaBean.getCategoryId()+"")){
 					page.setNextId(nextCaBean.getArticleId());
-				}
 			}
 
 			parserParams.put(IS_DO, false);
