@@ -22,14 +22,14 @@ The MIT License (MIT) * Copyright (c) 2019 铭飞科技
 package net.mingsoft.cms.biz.impl;
 
 import net.mingsoft.basic.util.BasicUtil;
-import net.mingsoft.cms.bean.ContentBean;
+import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.mdiy.entity.ModelEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
 import java.util.*;
-import net.mingsoft.cms.entity.ContentEntity;
+
 import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.dao.IContentDao;
 
@@ -54,11 +54,11 @@ public class ContentBizImpl extends BaseBizImpl implements IContentBiz {
 	}
 
 	@Override
-	public List<ContentBean> queryIdsByCategoryIdForParser(String categoryId, String beginTime, String endTime) {
+	public List<CategoryBean> queryIdsByCategoryIdForParser(String categoryId, String beginTime, String endTime) {
 		return this.contentDao.queryIdsByCategoryIdForParser(categoryId,BasicUtil.getAppId(), beginTime, endTime,null,null);
 	}
 	@Override
-	public List<ContentBean> queryIdsByCategoryIdForParser(String categoryId, String beginTime, String endTime, String orderBy, String order) {
+	public List<CategoryBean> queryIdsByCategoryIdForParser(String categoryId, String beginTime, String endTime, String orderBy, String order) {
 		return this.contentDao.queryIdsByCategoryIdForParser(categoryId, BasicUtil.getAppId(), beginTime, endTime,orderBy,order);
 	}
 

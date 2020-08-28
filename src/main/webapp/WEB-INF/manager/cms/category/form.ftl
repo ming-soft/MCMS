@@ -18,8 +18,8 @@
                         gutter="0"
                         justify="start" align="top">
                     <el-col span="12">
-                        <el-form-item label="栏目管理名称" prop="categoryTitle">
-                            <template slot='label'>栏目管理名称
+                        <el-form-item label="栏目名称" prop="categoryTitle">
+                            <template slot='label'>栏目名称
                                 <el-popover slot="label" placement="top-start" title="提示" trigger="hover">
                                     <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html"
                                        target="_blank">{ms:field.typetitle/}</a>
@@ -51,7 +51,10 @@
                         <el-form-item prop="categoryType">
                             <template slot='label'>栏目类型
                                 <el-popover slot="label" placement="top-start" title="提示" trigger="hover">
-                                    列表：常用于带列表、详情的业务，例如：新闻列表、图片列表<br>封面：常用单篇文章显示，例如：关于我们、公司介绍<br>跳转：栏目外链接，需要配合自定义标签使用<br>修改栏目时如果该栏目存在文章则不能修改栏目类型
+                                    列表：常用于带列表、详情的业务，例如：新闻列表、图片列表<br>
+                                    封面：常用单篇文章显示，例如：关于我们、公司介绍<br>
+                                    跳转：栏目外链接，需要配合逻辑判断&lt;#if&gt;和自定义链接使用<br>
+                                    修改栏目时如果该栏目存在文章则不能修改栏目类型
                                     <i class="el-icon-question" slot="reference"></i>
                                 </el-popover>
                             </template>

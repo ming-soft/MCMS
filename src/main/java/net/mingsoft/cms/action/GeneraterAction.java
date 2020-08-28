@@ -27,7 +27,7 @@ import cn.hutool.core.io.FileUtil;
 import net.mingsoft.basic.biz.IModelBiz;
 import net.mingsoft.basic.entity.AppEntity;
 import net.mingsoft.basic.util.BasicUtil;
-import net.mingsoft.cms.bean.ContentBean;
+import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
@@ -163,7 +163,7 @@ public class GeneraterAction extends BaseAction {
             categoryEntity.setAppId(app.getAppId());
 			columns = categoryBiz.query(categoryEntity);
 		}
-		List<ContentBean> articleIdList = null;
+		List<CategoryBean> articleIdList = null;
 		try {
 			// 1、设置模板文件夹路径
 			// 获取栏目列表模版
@@ -182,7 +182,7 @@ public class GeneraterAction extends BaseAction {
 					break;
 				case "2":// 单页
 					if(articleIdList.size()==0){
-						ContentBean columnArticleIdBean=new ContentBean();
+						CategoryBean columnArticleIdBean=new CategoryBean();
 						CopyOptions copyOptions=CopyOptions.create();
 						copyOptions.setIgnoreError(true);
 						BeanUtil.copyProperties(column,columnArticleIdBean,copyOptions);
@@ -212,7 +212,7 @@ public class GeneraterAction extends BaseAction {
 	public void generateArticle(HttpServletRequest request, HttpServletResponse response, @PathVariable String columnId) {
 		String dateTime = request.getParameter("dateTime");
 		// 网站风格物理路径
-		List<ContentBean> articleIdList = null;
+		List<CategoryBean> articleIdList = null;
 		// 查出所有文章（根据选择栏目）包括子栏目
 		articleIdList = contentBiz.queryIdsByCategoryIdForParser(columnId, dateTime, null);
 		// 有符合条件的新闻就更新

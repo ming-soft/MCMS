@@ -29,7 +29,7 @@ import freemarker.template.TemplateNotFoundException;
 import net.mingsoft.base.constant.Const;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.StringUtil;
-import net.mingsoft.cms.bean.ContentBean;
+import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
@@ -143,7 +143,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		int size = BasicUtil.getInt(ParserUtil.SIZE,10);
 
 		//获取文章总数
-		List<ContentBean> columnArticles = contentBiz.queryIdsByCategoryIdForParser(String.valueOf(typeId), null, null);
+		List<CategoryBean> columnArticles = contentBiz.queryIdsByCategoryIdForParser(String.valueOf(typeId), null, null);
 		//判断栏目下是否有文章
 		if(columnArticles.size()==0){
 			this.outJson(resp, false);
@@ -220,7 +220,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
 		map.put(ParserUtil.PAGE, page);
 		map.put(ParserUtil.ID, article.getId());
-		List<ContentBean> articleIdList = contentBiz.queryIdsByCategoryIdForParser(column.getCategoryId(), null, null,orderby,order);
+		List<CategoryBean> articleIdList = contentBiz.queryIdsByCategoryIdForParser(column.getCategoryId(), null, null,orderby,order);
 		Map<Object, Object> contentModelMap = new HashMap<Object, Object>();
 		ModelEntity contentModel = null;
 		for (int artId = 0; artId < articleIdList.size();) {
@@ -250,7 +250,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 			}
 			// 第一篇文章没有上一篇
 			if (artId > 0) {
-				ContentBean preCaBean = articleIdList.get(artId - 1);
+				CategoryBean preCaBean = articleIdList.get(artId - 1);
 				//判断当前文档是否与上一页文章在同一栏目下，并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
 				if(articleColumnPath.contains(preCaBean.getCategoryId()+"")){
 					page.setPreId(preCaBean.getArticleId());
@@ -258,7 +258,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 			}
 			// 最后一篇文章没有下一篇
 			if (artId + 1 < articleIdList.size()) {
-				ContentBean nextCaBean = articleIdList.get(artId + 1);
+				CategoryBean nextCaBean = articleIdList.get(artId + 1);
 				//判断当前文档是否与下一页文章在同一栏目下并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
 				if(articleColumnPath.contains(nextCaBean.getCategoryId()+"")){
 					page.setNextId(nextCaBean.getArticleId());

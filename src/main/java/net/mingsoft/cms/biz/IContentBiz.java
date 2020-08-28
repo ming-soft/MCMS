@@ -1,7 +1,7 @@
 package net.mingsoft.cms.biz;
 
 import net.mingsoft.base.biz.IBaseBiz;
-import net.mingsoft.cms.bean.ContentBean;
+import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.mdiy.entity.ModelEntity;
 
 import java.util.List;
@@ -16,9 +16,9 @@ import java.util.Map;
  */
 public interface IContentBiz extends IBaseBiz {
 
-    List<ContentBean> queryIdsByCategoryIdForParser(String categoryId, String beginTime, String endTime);
+    List<CategoryBean> queryIdsByCategoryIdForParser(String categoryId, String beginTime, String endTime);
 
-    List<ContentBean> queryIdsByCategoryIdForParser(String categoryId, String beginTime, String endTime, String orderBy, String order);
+    List<CategoryBean> queryIdsByCategoryIdForParser(String categoryId, String beginTime, String endTime, String orderBy, String order);
 
     int getSearchCount(ModelEntity contentModel, List diyList, Map whereMap, int appId, String categoryIds);
 }
