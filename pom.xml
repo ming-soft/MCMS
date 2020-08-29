@@ -2,64 +2,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-		<groupId>net.mingsoft</groupId>
-        <artifactId>ms-pom</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-    </parent>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.2.2.RELEASE</version>
+	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.mingsoft</groupId>
-	<artifactId>ms-mcms</artifactId>
-	<version>5.0.1-SNAPSHOT</version>
-	<name>${project.groupId}:${project.artifactId}</name>
-	<description>ms-mcms tools Library</description>
-	<url>https://github.com/ming-soft/ms-mcms</url>
-	<licenses>
-		<license>
-			<name>The MIT License (MIT)</name>
-			<url>http://mit-license.org</url>
-		</license>
-	</licenses>
-	<developers>
-		<developer>
-			<name>mingsoft develop group</name>
-			<email>service@mingsoft.net</email>
-			<organization>mingsoft</organization>
-			<organizationUrl>http://www.mingsoft.net</organizationUrl>
-		</developer>
-	</developers>
-
-	<scm>
-		<connection>scm:git://github.com/ming-soft/ms-mcms.git</connection>
-		<developerConnection>scm:git@github.com:ming-soft/ms-mcms.git</developerConnection>
-		<url>https://github.com/ming-soft/ms-mcms</url>
-	</scm>
-	<distributionManagement>
-		<snapshotRepository>
-			<id>sonatype-nexus-snapshots</id>
-			<name>Sonatype Nexus snapshot repository</name>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>sonatype-nexus-staging</id>
-			<name>Sonatype Nexus release repository</name>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
+	<artifactId>mcms</artifactId>
+	<version>5.0.0</version>
+	<name>ms-mcms</name>
 	<properties>
 		<java.version>1.8</java.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<repositories>
 		<repository>
 			<id>sonatype-nexus-snapshots</id>
 			<name>Sonatype Nexus Snapshots</name>
-			<url>http://maven.aliyun.com/nexus/content/repositories/central/</url>
+			<url>http://repo1.maven.org/maven2/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
 			<snapshots>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</snapshots>
 		</repository>
 		<repository>
@@ -67,7 +32,7 @@
 			<name>Sonatype Snapshots</name>
 			<url>https://oss.sonatype.org/content/groups/public/</url>
 			<releases>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
@@ -75,17 +40,11 @@
 		</repository>
 	</repositories>
 	<dependencies>
-<!-- 如果使用的是mysql8.0需要使用8.0的驱动 -->
-<!--		<dependency>-->
-<!--			<groupId>mysql</groupId>-->
-<!--			<artifactId>mysql-connector-java</artifactId>-->
-<!--			<version>8.0.11</version>-->
-<!--		</dependency>-->
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
+			<version>1.0.24</version>
 		</dependency>
-
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-basic</artifactId>
@@ -101,100 +60,16 @@
 			<artifactId>jpinyin</artifactId>
 			<version>1.1.8</version>
 		</dependency>
-
+		<!-- 此部分是铭飞平台MStroe的客户端（MStore不在铭飞开源产品范围），如果不需要使用MStore可以删除掉 -->
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-upgrader</artifactId>
+			<version>1.0.17</version>
+		</dependency>
 	</dependencies>
 	<build>
-		<resources>
-			<resource>
-				<directory>src/main/java</directory>
-			</resource>
-			<resource>
-				<directory>src/main/webapp</directory>
-				<excludes>
-					<exclude>html/</exclude>
-					<exclude>static/</exclude>
-					<exclude>upload/</exclude>
-					<exclude>templets/</exclude>
-				</excludes>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
-		</resources>
+		<finalName>ms-mcms</finalName>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2-beta-5</version>
-				<configuration>
-					<appendAssemblyId>false</appendAssemblyId>
-					<!-- 指定assembly配置文件路径 -->
-					<descriptor>assembly-upgrade.xml</descriptor>
-				</configuration>
-				<executions>
-					<execution>
-						<!-- 在执行package打包时，执行assembly:single -->
-						<phase>package</phase>
-						<goals>
-							<!-- 在执行assembly一次 -->
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.6</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<excludes>
-						<!--注意这玩意从编译结果目录开始算目录结构 -->
-						<exclude>**/static/plugins/</exclude>
-						<exclude>**/static/skin/</exclude>
-						<exclude>**/application*.yml</exclude>
-						<exclude>**/Dockerfile</exclude>
-						<exclude>**/ehcache.xml</exclude>
-						<exclude>**/upgrade/</exclude>
-						<exclude>**/*.java</exclude>
-						<exclude>**/MSApplication.*</exclude>
-						<exclude>**/MSServletInitializer.*</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
-				<configuration>
-					<excludes>
-						<exclude>**/static/plugins/</exclude>
-						<exclude>**/static/skin/</exclude>
-						<exclude>**/application*.yml</exclude>
-						<exclude>**/Dockerfile</exclude>
-						<exclude>**/ehcache.xml</exclude>
-						<exclude>**/upgrade/</exclude>
-						<exclude>**/config/</exclude>
-						<exclude>**/MSApplication.java</exclude>
-						<exclude>**/MSServletInitializer.java</exclude>
-					</excludes>
-				</configuration>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -202,76 +77,34 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
-					<encoding>${project.build.sourceEncoding}</encoding>
-					<showDeprecation>true</showDeprecation>
-					<showWarnings>true</showWarnings>
-
 				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.codehaus.plexus</groupId>
-						<artifactId>plexus-compiler-eclipse</artifactId>
-						<version>2.1</version>
-					</dependency>
-				</dependencies>
 			</plugin>
-
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
-				<configuration>
-					<charset>UTF-8</charset>
-					<encoding>UTF-8</encoding>
-					<docencoding>UTF-8</docencoding>
-					<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
-					<additionalparam>-Xdoclint:none</additionalparam>
-				</configuration>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>attach-javadocs</id>
 						<goals>
-							<goal>jar</goal>
+							<goal>repackage</goal>
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
-					<arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
+					<fork>true</fork>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.7</version>
-				<extensions>true</extensions>
-				<configuration>
-					<serverId>sonatype-nexus-staging</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>true</autoReleaseAfterClose>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.5</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/webapp</directory>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+			</resource>
+		</resources>
 		<defaultGoal>compile</defaultGoal>
-
-		<finalName>ms-mcms</finalName>
 	</build>
 </project>
