@@ -48,12 +48,7 @@
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-basic</artifactId>
-			<version>1.0.29-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-upgrader</artifactId>
-			<version>1.0.18-SNAPSHOT</version>
+			<version>1.0.30-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.stuxuhai</groupId>
@@ -63,8 +58,8 @@
 		<!-- 此部分是铭飞平台MStroe的客户端（MStore不在铭飞开源产品范围），如果不需要使用MStore可以删除掉 -->
 		<dependency>
 			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-upgrader</artifactId>
-			<version>1.0.17</version>
+			<artifactId>store-client</artifactId>
+			<version>2.0</version>
 		</dependency>
 	</dependencies>
 	<build>
