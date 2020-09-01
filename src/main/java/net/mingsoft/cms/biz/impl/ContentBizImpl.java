@@ -23,6 +23,7 @@ package net.mingsoft.cms.biz.impl;
 
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.bean.CategoryBean;
+import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.mdiy.entity.ModelEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,12 +55,9 @@ public class ContentBizImpl extends BaseBizImpl implements IContentBiz {
 	}
 
 	@Override
-	public List<CategoryBean> queryIdsByCategoryIdForParser(String categoryId, String beginTime, String endTime) {
-		return this.contentDao.queryIdsByCategoryIdForParser(categoryId,BasicUtil.getAppId(), beginTime, endTime,null,null);
-	}
-	@Override
-	public List<CategoryBean> queryIdsByCategoryIdForParser(String categoryId, String beginTime, String endTime, String orderBy, String order) {
-		return this.contentDao.queryIdsByCategoryIdForParser(categoryId, BasicUtil.getAppId(), beginTime, endTime,orderBy,order);
+	public List<CategoryBean> queryIdsByCategoryIdForParser(ContentBean contentBean) {
+		contentBean.setAppId(BasicUtil.getAppId());
+		return this.contentDao.queryIdsByCategoryIdForParser(contentBean);
 	}
 
 	@Override

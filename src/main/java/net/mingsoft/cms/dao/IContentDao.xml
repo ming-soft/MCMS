@@ -239,17 +239,17 @@
 	</select>
 
 	<sql id="queryWhereCategoryId" databaseId="mysql">
-		find_in_set('${categoryId}',CATEGORY_PARENT_ID)
+		find_in_set('${contentCategoryId}',CATEGORY_PARENT_ID)
 	</sql>
 	<sql id="queryWhereCategoryId" databaseId="oracle" >
-		instr(','||'${categoryId}'||',', ','||CATEGORY_PARENT_ID||',')>0
+		instr(','||'${contentCategoryId}'||',', ','||CATEGORY_PARENT_ID||',')>0
 	</sql>
 	<sql id="queryWhereCategoryId" databaseId="sqlServer">
-		CHARINDEX(','+'${categoryId}'+',' , ','+CATEGORY_PARENT_ID +',')>0
+		CHARINDEX(','+'${contentCategoryId}'+',' , ','+CATEGORY_PARENT_ID +',')>0
 	</sql>
 
 	<!-- 根据站点编号、开始、结束时间和栏目编号查询文章编号集合 -->
-	<select id="queryIdsByCategoryIdForParser" resultMap="resultBean">
+	<select id="queryIdsByCategoryIdForParser" resultMap="resultBean" >
 			select
 			cms_content.id article_id,c.*
 			FROM cms_content
@@ -259,8 +259,8 @@
 				cms_content.app_id = #{appId}
 			</if>
 			<!-- 查询子栏目数据 -->
-			<if test="categoryId &gt; 0">
-				and (content_category_id=#{categoryId} or content_category_id in
+			<if test="contentCategoryId &gt; 0">
+				and (content_category_id=#{contentCategoryId} or content_category_id in
 				(select id FROM cms_category where <include refid="queryWhereCategoryId"></include>))
 			</if>
 			<if test="beginTime!=null and beginTime!=''">
@@ -269,8 +269,17 @@
 			<if test="endTime!=null and endTime!=''">
 				and content_datetime &gt;= #{endTime}
 			</if>
-			<if test="orderBy!=null and order!=null and orderBy!='' and order!=''">
-				ORDER BY `${orderBy}` ${order}
+			<if test="flag!=null and flag!=''">
+			and cms_content.content_type in ( #{flag})
+			</if>
+			<if  test="noflag!=null and noflag!=''">
+			and (cms_content.content_type not in ( #{noflag}  ) or cms_content.content_type is null)
+			</if>
+			<if test="orderBy!=null  and orderBy!='' ">
+				ORDER BY ${orderBy}
+				<if  test="order!=null and order!=''">
+				${order}
+				</if>
 			</if>
 
 	</select>

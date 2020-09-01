@@ -28,10 +28,13 @@ import net.mingsoft.basic.biz.IModelBiz;
 import net.mingsoft.basic.entity.AppEntity;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.bean.CategoryBean;
+import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.util.CmsParserUtil;
+import net.mingsoft.mdiy.bean.AttributeBean;
+import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
@@ -50,7 +53,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -173,7 +178,23 @@ public class GeneraterAction extends BaseAction {
 					LOG.error("模板不存在：{}",column.getCategoryUrl());
 					continue;
 				}
-				articleIdList = contentBiz.queryIdsByCategoryIdForParser(column.getId(), null, null);
+				//获取模板中列表标签中的条件
+				Map<String, Object> map = new HashMap<>();
+				map.put(ParserUtil.APP_ID, BasicUtil.getAppId());
+				PageBean page = new PageBean();
+				map.put(ParserUtil.HTML, ParserUtil.HTML);
+				map.put(ParserUtil.URL, BasicUtil.getUrl());
+				map.put(ParserUtil.PAGE, page);
+				ContentBean contentBean = new ContentBean();
+				contentBean.setContentCategoryId(column.getId());
+				AttributeBean attributeBean = new AttributeBean();
+				// 获取文章列表模板标签属性
+				ParserUtil.read(column.getCategoryListUrl(),map, page,attributeBean);
+				contentBean.setFlag(attributeBean.getFlag());
+				contentBean.setNoflag(attributeBean.getNoflag());
+				contentBean.setOrder(attributeBean.getOrder());
+				contentBean.setOrderBy(attributeBean.getOrderby());
+				articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
 				// 判断列表类型
 				switch (column.getCategoryType()) {
 					//TODO 暂时先用字符串代替
@@ -209,15 +230,61 @@ public class GeneraterAction extends BaseAction {
 	@RequestMapping("/{columnId}/generateArticle")
 	@RequiresPermissions("cms:generate:article")
 	@ResponseBody
-	public void generateArticle(HttpServletRequest request, HttpServletResponse response, @PathVariable String columnId) {
+	public void generateArticle(HttpServletRequest request, HttpServletResponse response, @PathVariable String columnId) throws IOException {
 		String dateTime = request.getParameter("dateTime");
 		// 网站风格物理路径
 		List<CategoryBean> articleIdList = null;
-		// 查出所有文章（根据选择栏目）包括子栏目
-		articleIdList = contentBiz.queryIdsByCategoryIdForParser(columnId, dateTime, null);
-		// 有符合条件的新闻就更新
-		if (articleIdList.size() > 0) {
-			CmsParserUtil.generateBasic(articleIdList);
+		List<CategoryEntity> categoryList = null;
+		AttributeBean attributeBean = new AttributeBean();
+		ContentBean contentBean = new ContentBean();
+		contentBean.setBeginTime(dateTime);
+		Map<String, Object> map = new HashMap<>();
+		map.put(ParserUtil.APP_ID, BasicUtil.getAppId());
+		PageBean page = new PageBean();
+		map.put(ParserUtil.HTML, ParserUtil.HTML);
+		map.put(ParserUtil.URL, BasicUtil.getUrl());
+		map.put(ParserUtil.PAGE, page);
+		if(Integer.parseInt(columnId) == 0){
+			CategoryEntity categoryEntity = new CategoryEntity();
+			categoryList = categoryBiz.query(categoryEntity);
+			for(CategoryEntity category : categoryList){
+				contentBean.setContentCategoryId(category.getId());
+				// 判断模板文件是否存在
+				if (!FileUtil.exist(ParserUtil.buildTempletPath(category.getCategoryUrl()))) {
+					LOG.error("模板不存在：{}",category.getCategoryUrl());
+					continue;
+				}
+				// 获取文章列表表属性
+				ParserUtil.read(category.getCategoryListUrl(),map, page,attributeBean);
+				contentBean.setFlag(attributeBean.getFlag());
+				contentBean.setNoflag(attributeBean.getNoflag());
+				contentBean.setOrder(attributeBean.getOrder());
+				contentBean.setOrderBy(attributeBean.getOrderby());
+				articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
+				// 有符合条件的就更新
+				if (articleIdList.size() > 0) {
+					CmsParserUtil.generateBasic(articleIdList);
+				}
+			}
+		}else {
+			CategoryEntity category = (CategoryEntity) categoryBiz.getEntity(Integer.parseInt(columnId));
+			// 获取文章列表表属性
+			// 判断模板文件是否存在
+			if (!FileUtil.exist(ParserUtil.buildTempletPath(category.getCategoryUrl()))) {
+				LOG.error("模板不存在：{}",category.getCategoryUrl());
+				return;
+			}
+			ParserUtil.read(category.getCategoryListUrl(),map, page,attributeBean);
+			contentBean.setFlag(attributeBean.getFlag());
+			contentBean.setNoflag(attributeBean.getNoflag());
+			contentBean.setOrder(attributeBean.getOrder());
+			contentBean.setOrderBy(attributeBean.getOrderby());
+			contentBean.setContentCategoryId(columnId);
+			articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
+			// 有符合条件的就更新
+			if (articleIdList.size() > 0) {
+				CmsParserUtil.generateBasic(articleIdList);
+			}
 		}
 		this.outJson(response, true);
 	}

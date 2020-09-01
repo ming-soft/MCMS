@@ -11,6 +11,7 @@ import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.SpringUtil;
 import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.entity.CategoryEntity;
+import net.mingsoft.mdiy.bean.AttributeBean;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.biz.impl.ModelBizImpl;
@@ -101,7 +102,8 @@ public class CmsParserUtil extends ParserUtil {
 				parserParams.put(ParserUtil.URL, BasicUtil.getUrl());
 			}
 			parserParams.put(ParserUtil.PAGE, page);
-			ParserUtil.read(File.separator + column.getCategoryListUrl(),parserParams, page);
+			AttributeBean attributeBean = new AttributeBean();
+			ParserUtil.read(File.separator + column.getCategoryListUrl(),parserParams, page,attributeBean);
 			int totalPageSize = PageUtil.totalPage(articleIdTotal, page.getSize());
 			page.setTotal(totalPageSize);
 			//文章列表页没有写文章列表标签，总数为0
@@ -156,7 +158,7 @@ public class CmsParserUtil extends ParserUtil {
 		// 记录已经生成了文章编号
 		List<Integer> generateIds = new ArrayList<>();
 		ExecutorService pool=SpringUtil.getBean(ExecutorService.class);
-		// 生成文档
+		// 生成文章
 		for (int artId = 0; artId < articleIdList.size();) {
 			String writePath = null;
 			//设置分页类
@@ -165,6 +167,11 @@ public class CmsParserUtil extends ParserUtil {
 			int articleId = articleIdList.get(artId).getArticleId();
 			// 文章的栏目路径
 			String articleColumnPath = articleIdList.get(artId).getCategoryPath();
+			// 该文章相关分类
+			String categoryParentId = articleIdList.get(artId).getId() ;
+			if(StringUtils.isNotBlank(articleIdList.get(artId).getCategoryParentId())){
+				categoryParentId += ','+articleIdList.get(artId).getCategoryParentId();
+			}
 			// 文章的模板路径
 			String columnUrl = articleIdList.get(artId).getCategoryUrl();
 			// 文章的栏目模型编号
@@ -213,12 +220,18 @@ public class CmsParserUtil extends ParserUtil {
 			// 第一篇文章没有上一篇
 			if (artId > 0) {
 				CategoryBean preCaBean = articleIdList.get(artId - 1);
+				//判断当前文档是否与上一页文章在同一栏目下，并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
+//				if( categoryParentId.contains(preCaBean.getCategoryId()+"")){
 					page.setPreId(preCaBean.getArticleId());
+//				}
 			}
 			// 最后一篇文章没有下一篇
 			if (artId + 1 < articleIdList.size()) {
 				CategoryBean nextCaBean = articleIdList.get(artId + 1);
+				//判断当前文档是否与下一页文章在同一栏目下并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
+//				if(categoryParentId.contains(nextCaBean.getCategoryId()+"")){
 					page.setNextId(nextCaBean.getArticleId());
+//				}
 			}
 
 			parserParams.put(IS_DO, false);

@@ -4,6 +4,7 @@ import net.mingsoft.base.dao.IBaseDao;
 import java.util.*;
 
 import net.mingsoft.cms.bean.CategoryBean;
+import net.mingsoft.cms.bean.ContentBean;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -16,13 +17,10 @@ public interface IContentDao extends IBaseDao {
 
     /**
      * 查询文章编号集合
-     * @param categoryId 栏目编号
-     * @param appId 站点编号
-     * @param beginTime 开始时间
-     * @param endTime 结束时间
+     * @contentBean
      * @return
      */
-    public List<CategoryBean> queryIdsByCategoryIdForParser(@Param("categoryId")String categoryId, @Param("appId")int appId , @Param("beginTime") String beginTime, @Param("endTime") String endTime, @Param("orderBy")String orderBy, @Param("order")String order);
+    public List<CategoryBean> queryIdsByCategoryIdForParser(ContentBean contentBean);
 
     /**
      * 根据查询文章实体总数
