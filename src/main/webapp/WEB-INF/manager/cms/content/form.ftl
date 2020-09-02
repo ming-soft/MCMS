@@ -195,7 +195,7 @@
                                     :limit="1"
                                     :on-exceed="contentImghandleExceed"
                                     :disabled="false"
-                                    :data="{uploadPath:'/${appId}/cms/content','isRename':true}"
+                                    :data="{uploadPath:'/cms/content','isRename':true ,'appId':true}"
                                     :on-success="contentImgSuccess"
                                     accept="image/*"
                                     list-type="picture-card">
