@@ -36,6 +36,7 @@ import net.mingsoft.cms.util.CmsParserUtil;
 import net.mingsoft.mdiy.bean.AttributeBean;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.util.ParserUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -173,27 +174,30 @@ public class GeneraterAction extends BaseAction {
 			// 1、设置模板文件夹路径
 			// 获取栏目列表模版
 			for (CategoryEntity column : columns) {
-				// 判断模板文件是否存在
-				if (!FileUtil.exist(ParserUtil.buildTempletPath(column.getCategoryUrl()))) {
-					LOG.error("模板不存在：{}",column.getCategoryUrl());
-					continue;
-				}
-				//获取模板中列表标签中的条件
-				Map<String, Object> map = new HashMap<>();
-				map.put(ParserUtil.APP_ID, BasicUtil.getAppId());
-				PageBean page = new PageBean();
-				map.put(ParserUtil.HTML, ParserUtil.HTML);
-				map.put(ParserUtil.URL, BasicUtil.getUrl());
-				map.put(ParserUtil.PAGE, page);
 				ContentBean contentBean = new ContentBean();
 				contentBean.setContentCategoryId(column.getId());
-				AttributeBean attributeBean = new AttributeBean();
-				// 获取文章列表模板标签属性
-				ParserUtil.read(column.getCategoryListUrl(),map, page,attributeBean);
-				contentBean.setFlag(attributeBean.getFlag());
-				contentBean.setNoflag(attributeBean.getNoflag());
-				contentBean.setOrder(attributeBean.getOrder());
-				contentBean.setOrderBy(attributeBean.getOrderby());
+				// 分类是列表，链接
+				if(!column.getCategoryType().equals("2")) {
+					// 判断模板文件是否存在
+					if (!FileUtil.exist(ParserUtil.buildTempletPath(column.getCategoryListUrl()))) {
+						LOG.error("模板不存在：{}", column.getCategoryUrl());
+						continue;
+					}
+					//获取模板中列表标签中的条件
+					Map<String, Object> map = new HashMap<>();
+					map.put(ParserUtil.APP_ID, BasicUtil.getAppId());
+					PageBean page = new PageBean();
+					map.put(ParserUtil.HTML, ParserUtil.HTML);
+					map.put(ParserUtil.URL, BasicUtil.getUrl());
+					map.put(ParserUtil.PAGE, page);
+					AttributeBean attributeBean = new AttributeBean();
+					// 获取文章列表模板标签属性
+					ParserUtil.read(column.getCategoryListUrl(), map, page, attributeBean);
+					contentBean.setFlag(attributeBean.getFlag());
+					contentBean.setNoflag(attributeBean.getNoflag());
+					contentBean.setOrder(attributeBean.getOrder());
+					contentBean.setOrderBy(attributeBean.getOrderby());
+				}
 				articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
 				// 判断列表类型
 				switch (column.getCategoryType()) {
@@ -249,17 +253,20 @@ public class GeneraterAction extends BaseAction {
 			categoryList = categoryBiz.query(categoryEntity);
 			for(CategoryEntity category : categoryList){
 				contentBean.setContentCategoryId(category.getId());
-				// 判断模板文件是否存在
-				if (!FileUtil.exist(ParserUtil.buildTempletPath(category.getCategoryUrl()))) {
-					LOG.error("模板不存在：{}",category.getCategoryUrl());
-					continue;
+				// 分类是列表，链接
+				if(!category.getCategoryType().equals("2")){
+					// 判断模板文件是否存在
+					if (!FileUtil.exist(ParserUtil.buildTempletPath(category.getCategoryListUrl())) || StringUtils.isEmpty(category.getCategoryListUrl())) {
+						LOG.error("模板不存在：{}",category.getCategoryUrl());
+						continue;
+					}
+					// 获取文章列表表属性
+					ParserUtil.read(category.getCategoryListUrl(),map, page,attributeBean);
+					contentBean.setFlag(attributeBean.getFlag());
+					contentBean.setNoflag(attributeBean.getNoflag());
+					contentBean.setOrder(attributeBean.getOrder());
+					contentBean.setOrderBy(attributeBean.getOrderby());
 				}
-				// 获取文章列表表属性
-				ParserUtil.read(category.getCategoryListUrl(),map, page,attributeBean);
-				contentBean.setFlag(attributeBean.getFlag());
-				contentBean.setNoflag(attributeBean.getNoflag());
-				contentBean.setOrder(attributeBean.getOrder());
-				contentBean.setOrderBy(attributeBean.getOrderby());
 				articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
 				// 有符合条件的就更新
 				if (articleIdList.size() > 0) {
@@ -268,18 +275,21 @@ public class GeneraterAction extends BaseAction {
 			}
 		}else {
 			CategoryEntity category = (CategoryEntity) categoryBiz.getEntity(Integer.parseInt(columnId));
-			// 获取文章列表表属性
-			// 判断模板文件是否存在
-			if (!FileUtil.exist(ParserUtil.buildTempletPath(category.getCategoryUrl()))) {
-				LOG.error("模板不存在：{}",category.getCategoryUrl());
-				return;
-			}
-			ParserUtil.read(category.getCategoryListUrl(),map, page,attributeBean);
-			contentBean.setFlag(attributeBean.getFlag());
-			contentBean.setNoflag(attributeBean.getNoflag());
-			contentBean.setOrder(attributeBean.getOrder());
-			contentBean.setOrderBy(attributeBean.getOrderby());
 			contentBean.setContentCategoryId(columnId);
+			// 分类是列表，链接
+			if(!category.getCategoryType().equals("2")){
+				// 获取文章列表表属性
+				// 判断模板文件是否存在
+				if (!FileUtil.exist(ParserUtil.buildTempletPath(category.getCategoryUrl()))) {
+					LOG.error("模板不存在：{}",category.getCategoryUrl());
+					return;
+				}
+				ParserUtil.read(category.getCategoryListUrl(),map, page,attributeBean);
+				contentBean.setFlag(attributeBean.getFlag());
+				contentBean.setNoflag(attributeBean.getNoflag());
+				contentBean.setOrder(attributeBean.getOrder());
+				contentBean.setOrderBy(attributeBean.getOrderby());
+			}
 			articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
 			// 有符合条件的就更新
 			if (articleIdList.size() > 0) {

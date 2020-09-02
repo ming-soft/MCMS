@@ -276,10 +276,20 @@
 			and (cms_content.content_type not in ( #{noflag}  ) or cms_content.content_type is null)
 			</if>
 			<if test="orderBy!=null  and orderBy!='' ">
-				ORDER BY ${orderBy}
-				<if  test="order!=null and order!=''">
-				${order}
+				<if test="orderBy=='date'">ORDER BY content_datetime</if>
+				<if test="orderBy=='hit'">ORDER BY content_hit</if>
+				<if test="orderBy=='sort'">ORDER BY content_sort</if>
+				<if  test="orderBy!='date' and orderBy!='hit' and orderBy!='sort'">
+					ORDER BY cms_content.id
 				</if>
+				<choose>
+					<when test="order!=null and order!=''">
+						${order}
+					</when>
+					<otherwise>
+						desc
+					</otherwise>
+				</choose>
 			</if>
 
 	</select>
