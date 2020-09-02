@@ -529,7 +529,7 @@
             //获取登录用户信息
             this.managerGet();
             var that = this;
-            ms.http.get(ms.manager + "/upgrader/sync.do").then(function (res) {
+            ms.http.get(ms.manager + "/store/sync.do").then(function (res) {
                 if (res.result) {
                     res.data.syncStoreUrl += "/#/?client=${client}";
                     that.mstore = res.data;
