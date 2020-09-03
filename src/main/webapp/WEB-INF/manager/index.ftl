@@ -6,7 +6,6 @@
     <#include '/include/head-file.ftl'/>
     <script src="${base}/static/plugins/sockjs/1.4.0/sockjs.min.js"></script>
     <script src="${base}/static/plugins/stomp/2.3.3/stomp.min.js"></script>
-    <script src="${base}/static/plugins/ms/compoents/store.umd.min.js"></script>
     <style>
         .to-ele {
             font-size: 18px;
@@ -129,7 +128,10 @@
                         </el-dropdown-menu>
                     </el-dropdown>
                     <!--mstore按钮-->
-                    <ms-store client="${client}"></ms-store>
+                    <div class="ms-admin-mstore-icon" @click="open(mstore)">
+                        <span v-if="mstore.syncNum>0" v-text="mstore.syncNum"></span>
+                        <i style="line-height: 42px !important;font-size: 30px;" class="iconfont icon-fenxiang2"></i>
+                    </div>
                 </div>
 
             </el-header>
@@ -526,6 +528,13 @@
             this.list();
             //获取登录用户信息
             this.managerGet();
+            var that = this;
+            ms.http.get(ms.manager + "/store/sync.do").then(function (res) {
+                if (res.result) {
+                    res.data.syncStoreUrl += "/#/?client=${client}";
+                    that.mstore = res.data;
+                }
+            })
         },
     })
 </script>
