@@ -62,7 +62,11 @@
 						that.treeData = [];
 					} else {
 						that.emptyText = '';
-						that.treeData = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
+						// 过滤掉栏目类型为链接属性
+						that.treeData = res.data.rows.filter(function (item) {
+							 return item.categoryType =='2' || item.categoryType =='1'
+						})
+						that.treeData = ms.util.treeData(that.treeData, 'id', 'categoryId', 'children');
 						that.treeData = [{
 							id: 0,
 							categoryTitle: '全部',
