@@ -34,4 +34,10 @@ public interface IContentDao extends IBaseDao {
      */
     int getSearchCount(@Param("tableName") String tableName, @Param("diyList") List diyList,@Param("map") Map<String, Object> map,
                        @Param("websiteId") int websiteId, @Param("ids") String ids);
+
+    /**
+     * 分类编号删除文章
+     * @param ids
+     */
+    void deleteEntityByCategoryIds(@Param("ids") int[] ids);
 }

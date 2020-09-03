@@ -159,13 +159,14 @@
 
 		<!--根据id获取-->
 		<select id="getEntity" resultMap="resultMap" parameterType="int">
-			select * from cms_content where id=#{id}
+			select * from cms_content where id=#{id} and del=0
 		</select>
 
 		<!--根据实体获取-->
 		<select id="getByEntity" resultMap="resultMap" parameterType="net.mingsoft.cms.entity.ContentEntity">
 			select * from cms_content
 			<where>
+				del=0
 				<if test="contentTitle != null and contentTitle != ''">and  content_title like CONCAT('%',#{contentTitle},'%')</if>
 				<if test="contentCategoryId != null and contentCategoryId != ''">and content_category_id=#{contentCategoryId}</if>
 				<if test="contentType != null and contentType != ''">and content_type=#{contentType}</if>
@@ -185,7 +186,6 @@
 				<if test="createDate != null"> and create_date=#{createDate} </if>
 				<if test="updateBy &gt; 0"> and update_by=#{updateBy} </if>
 				<if test="updateDate != null"> and update_date=#{updateDate} </if>
-				<if test="del != null"> and del=#{del} </if>
 			</where>
 			limit 0,1
 		</select>
@@ -193,12 +193,21 @@
 
 		<!--删除-->
 		<delete id="deleteEntity" parameterType="int">
-			delete from cms_content  where id=#{id}
+			update  cms_content set del=1  where id=#{id}
+		</delete>
+
+		<!--删除-->
+		<delete id="deleteEntityByCategoryIds" >
+			update  cms_content set del=1
+			<where>
+				content_category_id  in <foreach collection="ids" item="item" index="index"
+							open="(" separator="," close=")">#{item}</foreach>
+			</where>
 		</delete>
 
 		<!--批量删除-->
 		<delete id="delete" >
-			delete from cms_content
+			update  cms_content set del=1
 			<where>
 				id  in <foreach collection="ids" item="item" index="index"
 										 open="(" separator="," close=")">#{item}</foreach>
@@ -206,7 +215,7 @@
 		</delete>
 		<!--查询全部-->
 		<select id="queryAll" resultMap="resultMap">
-			select * from cms_content order by id desc
+			select * from cms_content where del=0 order by id desc
 		</select>
 	<!--条件查询-->
 	<select id="query" resultMap="resultContentMap">
@@ -214,6 +223,7 @@
 		select ct.*,cc.category_path from cms_content ct
 		join cms_category cc on ct.content_category_id=cc.id
 		<where>
+			ct.del=0
 			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT('%',#{contentTitle},'%')</if>
 			<if test="contentCategoryId != null and contentCategoryId != ''"> and content_category_id=#{contentCategoryId}</if>
 			<if test="contentType != null and contentType != ''"> and content_type LIKE CONCAT('%',#{contentType},'%')</if>
@@ -233,7 +243,6 @@
 			<if test="createDate != null"> and ct.create_date=#{createDate} </if>
 			<if test="updateBy &gt; 0"> and ct.update_by=#{updateBy} </if>
 			<if test="updateDate != null"> and update_date=#{updateDate} </if>
-			<if test="del != null"> and ct.del=#{del} </if>
 		</where>
 		)ct ORDER BY date_format(ct.content_datetime,'%Y-%m-%d') desc,content_sort desc
 	</select>
@@ -254,9 +263,9 @@
 			cms_content.id article_id,c.*
 			FROM cms_content
 			LEFT JOIN cms_category c ON content_category_id = c.id
-			where
+			where del=0
 			<if test="appId &gt; 0">
-				cms_content.app_id = #{appId}
+				and cms_content.app_id = #{appId}
 			</if>
 			<!-- 查询子栏目数据 -->
 			<if test="contentCategoryId &gt; 0">
@@ -302,7 +311,7 @@
 		<if test="tableName!=null and tableName!='' and diyMap!=null">left join ${tableName} d on d.link_id=a.id
 		</if>
 		<where>
-			a.app_id = #{websiteId}
+			a.del=0 and a.app_id = #{websiteId}
 			<if test="ids!=null and ids!=''">
 				and FIND_IN_SET(content_category_id,#{ids})
 			</if>

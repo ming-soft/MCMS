@@ -27,6 +27,7 @@ import net.mingsoft.base.dao.IBaseDao;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.dao.ICategoryDao;
+import net.mingsoft.cms.dao.IContentDao;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.basic.util.PinYinUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -47,6 +48,9 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 
 	@Autowired
 	private ICategoryDao categoryDao;
+
+	@Autowired
+	private IContentDao contentDao;
 
 
 	@Override
@@ -157,7 +161,8 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 				ids[i] = Integer.parseInt(childrenList.get(i).getId());
 			}
 			categoryDao.delete(ids);
-			deleteEntity(categoryId);
+			// 删除文章
+			contentDao.deleteEntityByCategoryIds(ids);
 		}
 	}
 }
