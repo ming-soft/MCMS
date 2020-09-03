@@ -183,7 +183,7 @@
 			//删除
 			del: function (row) {
 				var that = this;
-				that.$confirm('此操作将永久删除所选内容, 是否继续?', '提示', {
+				that.$confirm('此操作将永久删除分类和分类下的文章, 是否继续?', '提示', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 					type: 'warning'
