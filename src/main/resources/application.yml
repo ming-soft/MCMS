@@ -11,8 +11,8 @@ logging:
 
 ms:
   mstore:
-    http: http://store.i.mingsoft.net
-    host: store.i.mingsoft.net
+    http: http://store.new.mingsoft.net
+    host: store.new.mingsoft.net
   swagger:
     enable: true #启用swagger文档，生产的时候务必关掉
   manager:
