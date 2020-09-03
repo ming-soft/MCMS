@@ -622,6 +622,9 @@
 
             if (this.form.id) {
                 this.get(this.form.id);
+            }eles{
+                //当前时间
+                this.form.contentDatetime = ms.util.date.fmt(Date.now(),"yyyy-MM-dd hh:mm:ss")
             }
 
             if (this.type) {
