@@ -232,7 +232,7 @@
 			<if test="dictId != null"> and dict_id=#{dictId} </if>
 			<if test="categoryFlag != null and categoryFlag != ''"> and category_flag=#{categoryFlag}</if>
 			<if test="categoryPath != null and categoryPath != ''"> and category_path=#{categoryPath}</if>
-			<if test="categoryParentId != null and categoryParentId != ''"> and category_parent_id=#{categoryParentId}</if>
+			<if test="categoryParentId != null and categoryParentId != ''"> and  find_in_set(#{categoryParentId},category_parent_id)</if>
 			<if test="createBy &gt; 0"> and create_by=#{createBy} </if>
 			<if test="createDate != null"> and create_date=#{createDate} </if>
 			<if test="updateBy &gt; 0"> and update_by=#{updateBy} </if>
