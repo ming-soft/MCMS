@@ -263,7 +263,7 @@
 			cms_content.id article_id,c.*
 			FROM cms_content
 			LEFT JOIN cms_category c ON content_category_id = c.id
-			where del=0
+			where cms_content.del=0
 			<if test="appId &gt; 0">
 				and cms_content.app_id = #{appId}
 			</if>
