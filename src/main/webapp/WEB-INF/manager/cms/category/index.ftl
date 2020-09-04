@@ -42,7 +42,7 @@
 				</el-table-column>
                  <el-table-column label="标题" align="left" prop="categoryTitle">
                  </el-table-column>
-            <el-table-column label="属性" align="center" prop="categoryType" :formatter="categoryTypeFormat" width="70">
+            <el-table-column label="类型" align="center" prop="categoryType" :formatter="categoryTypeFormat" width="70">
             </el-table-column>
 			<el-table-column label="排序" align="center" prop="categorySort"  width="70">
 			</el-table-column>
