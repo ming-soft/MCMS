@@ -7,7 +7,7 @@
     <script src="${base}/static/plugins/sockjs/1.4.0/sockjs.min.js"></script>
     <script src="${base}/static/plugins/stomp/2.3.3/stomp.min.js"></script>
     <!-- 此部分是铭飞平台MStroe的客户端（MStore不在铭飞开源产品范围），如果不需要使用MStore可以删除掉 -->
-    <script src="https://cdn.mingsoft.net/ms/1.0/store.umd.min.js"></script>
+    <script src="https://cdn.mingsoft.net/ms/1.0/ms-web.umd.min.js"></script>
     <style>
         .to-ele {
             font-size: 18px;
@@ -88,7 +88,7 @@
                     </el-submenu>
                 </el-menu>
                 <!--头部右侧-->
-                <div class="ms-admin-mstore">
+                <div class="ms-admin-header-right">
                     <el-menu menu-trigger="hover" class="ms-admin-header-menu" background-color="rgba(255,255,255,1)"
                              text-color="#333333" active-text-color="#409EFF"
                              mode="horizontal">
@@ -652,26 +652,6 @@
 
     .ms-admin-header-menu-all .ms-admin-header-menu-all-item:hover {
         color: rgba(64, 158, 255, 1);
-    }
-
-    .ms-admin-mstore .ms-admin-mstore-menu-icon {
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        width: 48px;
-        color: rgba(51, 51, 51, 1);
-    }
-
-    .ms-admin-mstore .ms-admin-login .el-dropdown-link:hover,
-    .ms-admin-mstore .ms-admin-mstore-menu-icon:hover {
-        background: rgba(250, 250, 250, 1);
-    }
-
-    .ms-admin-mstore .ms-admin-mstore-menu-icon i {
-        font-size: 18px;
-        margin: 0 5px 0 0;
     }
 
     .ms-admin-login-down {

@@ -250,7 +250,7 @@ textarea::-webkit-input-placeholder {
 .ms-admin-logo-pack{
   width: 64px!important;
 }
-.ms-admin-mstore {
+.ms-admin-header-right {
   margin-left: auto;
   min-width: 200px;
   display: flex;
@@ -259,7 +259,7 @@ textarea::-webkit-input-placeholder {
   padding: 0;
   line-height: 1;
 }
-.ms-admin-mstore .ms-admin-people-head {
+.ms-admin-header-right .ms-admin-people-head {
   width: 30px !important;
   height: 30px !important;
   margin-right: 10px;
@@ -270,37 +270,7 @@ textarea::-webkit-input-placeholder {
   background: #0099ff;
   color: #fff;
 }
-.ms-admin-mstore .ms-admin-mstore-icon {
-  min-width: 50px;
-  width: 50px;
-  height: 50px;
-  background-color: #0080FF;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-}
-.ms-admin-mstore .ms-admin-mstore-icon span {
-  border-radius: 50%;
-  font-weight: initial;
-  font-size: 12px;
-  color: #fff;
-  background: #f00;
-  position: absolute;
-  width: 1.2em;
-  height: 1.2em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  top: 0.6em;
-  right: 0.6em;
-  z-index: 2;
-}
-.ms-admin-mstore .ms-admin-mstore-icon .iconfont {
-  color: #fff;
-  animation: rubberBand 1.4s 1s both infinite;
-  font-size: 1.5em;
-}
+
 .ms-admin-login {
   display: flex;
   align-items: center;
