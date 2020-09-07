@@ -108,7 +108,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 	public void index(HttpServletRequest req, HttpServletResponse resp) {
 		Map map = BasicUtil.assemblyRequestMap();
 		map.forEach((k,v)->{
-			map.put(k,v.toString().replaceAll("('|\"|\\\\)","\\$1"));
+            map.put(k,v.toString().replaceAll("('|\"|\\\\)","\\\\$1"));
 		});
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
 		//动态解析
@@ -140,6 +140,9 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 	@GetMapping("/list.do")
 	public void list(HttpServletRequest req, HttpServletResponse resp) {
 		Map map = BasicUtil.assemblyRequestMap();
+		map.forEach((k,v)->{
+			map.put(k,v.toString().replaceAll("('|\"|\\\\)","\\\\$1"));
+		});
 		//获取栏目编号
 		int typeId = BasicUtil.getInt(ParserUtil.TYPE_ID,0);
 		int size = BasicUtil.getInt(ParserUtil.SIZE,10);
@@ -205,7 +208,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 			}
 		}
 
-		orderby= orderby.replaceAll("('|\"|\\\\)","\\$1");
+		orderby= orderby.replaceAll("('|\"|\\\\)","\\\\$1");
 		PageBean page = new PageBean();
 		//用于详情上下页获取当前文章列表对应的分类，根据文章查询只能获取自身分类
 		String typeId = BasicUtil.getString(ParserUtil.TYPE_ID,article.getContentCategoryId());
@@ -216,7 +219,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		Map map = BasicUtil.assemblyRequestMap();
 		map.forEach((k,v)->{
 			//sql注入过滤
-			map.put(k,v.toString().replaceAll("('|\"|\\\\)","\\$1"));
+			map.put(k,v.toString().replaceAll("('|\"|\\\\)","\\\\$1"));
 		});
 		//动态解析
 		map.put(ParserUtil.IS_DO,true);
@@ -340,7 +343,8 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		if (field != null) {
 			for (Map.Entry<String, Object> entry : field.entrySet()) {
 				if (entry != null) {
-					String value = entry.getValue().toString().replaceAll("('|\"|\\\\)","\\$1"); // 处理由get方法请求中文乱码问题
+					String value = entry.getValue().toString().replaceAll("('|\"|\\\\)","\\\\$1"); // 处理由get方法请求中文乱码问题
+					value=clearXss(value);
 					if (ObjectUtil.isNull(value)) {
 						continue;
 					}
@@ -379,7 +383,8 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		StringBuilder urlParams=new StringBuilder();
 		searchMap.forEach((k,v)->{
 			//sql注入过滤
-			searchMap.put(k,v.toString().replaceAll("('|\"|\\\\)","\\$1"));
+			searchMap.put(k,v.toString().replaceAll("('|\"|\\\\)","\\\\$1"));
+			searchMap.put(k,clearXss(searchMap.get(k).toString()));
 			urlParams.append(k).append("=").append(searchMap.get(k)).append("&");
 		});
 
@@ -443,6 +448,23 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		this.outString(response, content);
 	}
 
+	// 清除路径中的转义字符
+	private String clearXss(String value) {
+
+		if (value == null || "".equals(value)) {
+			return value;
+		}
+
+		value = value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+		value = value.replaceAll("\\(", "&#40;").replace("\\)", "&#41;");
+		value = value.replaceAll("'", "&#39;");
+		value = value.replaceAll("eval\\((.*)\\)", "");
+		value = value.replaceAll("[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']",
+				"\"\"");
+		value = value.replace("script", "");
+
+		return value;
+	}
 
 	/**
 	 * 存储自定义模型字段和接口参数
