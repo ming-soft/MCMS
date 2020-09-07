@@ -54,17 +54,17 @@
             <!--头部-->
             <el-header class="ms-admin-header" v-cloak>
                 <#--展示合并菜单-->
-                <div class="ms-admin-header-menu-shrink" @click="collapseMenu = !collapseMenu"><i class="iconfont"
-                                                                                                  :class="collapseMenu?'icon-liebiaoxiangyou':'icon-shousuo'"></i>
+                <div class="ms-admin-header-menu-shrink" @click="collapseMenu = !collapseMenu">
+                    <i class="iconfont"
+                       :class="collapseMenu?'icon-liebiaoxiangyou':'icon-shousuo'"></i>
                 </div>
                 <!--头部menu-->
-                <el-menu menu-trigger="hover" class="ms-admin-header-menu" background-color="rgba(255,255,255,1)"
-                         text-color="#333333" active-text-color="#409EFF" :default-active="headMenuActive"
+                <el-menu menu-trigger="hover" class="ms-admin-header-menu"  :default-active="headMenuActive"
                          mode="horizontal">
                     <el-submenu style="height: 100%;">
 
                         <template slot="title">
-                            <i class="iconfont icon-gezi" style="font-size: 17px"></i>
+                            <i class="iconfont icon-gezi" style="font-size: 17px;margin-right:8PX"></i>
                             <span>功能大全</span>
                         </template>
                         <div class="ms-admin-header-menu-all">
@@ -89,8 +89,7 @@
                 </el-menu>
                 <!--头部右侧-->
                 <div class="ms-admin-header-right">
-                    <el-menu menu-trigger="hover" class="ms-admin-header-menu" background-color="rgba(255,255,255,1)"
-                             text-color="#333333" active-text-color="#409EFF"
+                    <el-menu menu-trigger="hover" class="ms-admin-header-menu"
                              mode="horizontal">
                         <el-submenu style="height: 100%;" popper-class="theme-select">
                             <template slot="title">
@@ -108,27 +107,36 @@
                             </el-menu-item>
                         </el-submenu>
                     </el-menu>
-<#--                    语言切换-->
-<#--                    <el-dropdown @command="handleLanguageClick">-->
-<#--                      <span class="el-dropdown-link" >-->
-<#--                         {{locale.text}}<i class="el-icon-arrow-down el-icon--right"></i>-->
-<#--                      </span>-->
-<#--                        <el-dropdown-menu slot="dropdown">-->
-<#--                            <el-dropdown-item v-for="(item,index) in localeCommands" :command="item">{{item.text}}</el-dropdown-item>-->
-<#--                        </el-dropdown-menu>-->
-<#--                    </el-dropdown>-->
-                    <el-dropdown trigger="hover" class="ms-admin-login" placement="top-start"
-                                 @visible-change="loginDown = !loginDown">
-						<span class="el-dropdown-link">
-							<div class="ms-admin-people-head"
-                                 v-text="peopleInfo.managerName && peopleInfo.managerName.substr(0, 2)"></div>
-							<span v-text='peopleInfo.managerName'></span>
-						</span>
-                        <el-dropdown-menu class="ms-admin-login-down" slot="dropdown" @click.native='openModal'>
-                            <el-dropdown-item icon="iconfont icon-suo">修改密码</el-dropdown-item>
-                            <el-dropdown-item icon="iconfont icon-tuichu1">退出</el-dropdown-item>
-                        </el-dropdown-menu>
-                    </el-dropdown>
+                    <#--                    语言切换-->
+                    <#--                    <el-dropdown @command="handleLanguageClick">-->
+                    <#--                      <span class="el-dropdown-link" >-->
+                    <#--                         {{locale.text}}<i class="el-icon-arrow-down el-icon--right"></i>-->
+                    <#--                      </span>-->
+                    <#--                        <el-dropdown-menu slot="dropdown">-->
+                    <#--                            <el-dropdown-item v-for="(item,index) in localeCommands" :command="item">{{item.text}}</el-dropdown-item>-->
+                    <#--                        </el-dropdown-menu>-->
+                    <#--                    </el-dropdown>-->
+
+                    <el-menu menu-trigger="hover" class="ms-admin-header-menu " mode="horizontal">
+                        <el-submenu>
+                            <template slot="title" >
+                                <span class="ms-admin-people-head"
+                                     v-text="peopleInfo.managerName && peopleInfo.managerName.substr(0, 2)"></span>
+                                <span v-text='peopleInfo.managerName'></span>
+                            </template>
+                            <el-menu-item @click="handleCommand('ms-theme-light')"
+                                          style="display: flex;align-items: center" @click.native='openModal'>
+                                <i class="el-icon-key"></i>
+                                <span slot="title">修改密码</span>
+
+                            </el-menu-item>
+                            <el-menu-item @click="handleCommand('ms-theme-dark')"
+                                          style="display: flex;align-items: center" @click.native='openModal'>
+                                <i class="el-icon-switch-button"></i>
+                                <span slot="title">退出</span>
+                            </el-menu-item>
+                        </el-submenu>
+                    </el-menu>
                     <!--mstore按钮-->
                     <ms-store client="${client}"></ms-store>
                 </div>
@@ -143,8 +151,8 @@
                                  :name="item.modelTitle"
                                  :data-modelId='item.modelId' :data-modelModelId='item.modelModelId'>
                         <keep-alive>
-                            <iframe :src='item.isStore?item.modelUrl:ms.manager+"/"+item.modelUrl+(item.modelUrl.indexOf("?")==-1?"?":"&")+"modelId="+item.modelId+"&modelCode="+item.modelCode+"&modelTitle="+encodeURI(item.modelTitle)'
-                                    :ref="item.modelTitle"></iframe>
+                            <!--iframe :src='item.isStore?item.modelUrl:ms.manager+"/"+item.modelUrl+(item.modelUrl.indexOf("?")==-1?"?":"&")+"modelId="+item.modelId+"&modelCode="+item.modelCode+"&modelTitle="+encodeURI(item.modelTitle)'
+                                    :ref="item.modelTitle"></iframe-->
                         </keep-alive>
                     </el-tab-pane>
                 </el-tabs>
@@ -164,7 +172,7 @@
                 text: '中文',
                 language: 'ch',
             },
-            localeCommands:[
+            localeCommands: [
                 {
                     text: '中文',
                     language: 'ch',
@@ -568,7 +576,7 @@
     }
 
     .ms-admin-header-menu-shrink:hover {
-        background: rgba(250, 250, 250, 1);
+        background: rgba(250, 250, 250, 0.2);
     }
 
     .el-menu-vertical-demo:not(.el-menu--collapse) {
@@ -602,11 +610,29 @@
     .ms-admin-header-menu .el-submenu__title {
         height: 50px !important;
         line-height: 50px !important;
+        display: flex;
+        align-items: center;
+
+    }
+    .ms-admin-header-menu .el-submenu__title:hover {
+        background-color: #F2F6FC !important;
+        color:#409EFF !important;
     }
 
-    .ms-admin-header-menu .el-submenu__title:hover {
-        background: rgba(250, 250, 250, 1) !important;
+    .ms-admin-header-menu .el-submenu__title:hover i{
+        color:#409EFF !important;
     }
+
+    .ms-admin-header-menu .el-submenu__icon-arrow {
+        margin-top: 4px  !important;
+    }
+
+    .ms-admin-header-menu .el-menu-item:focus, .ms-admin-header-menu .el-menu-item:hover {
+        background-color: #F2F6FC !important;
+        color:#409EFF !important;
+    }
+
+
 
     .ms-admin-header-menu-all {
         width: 560px;
@@ -653,6 +679,7 @@
     .ms-admin-header-menu-all .ms-admin-header-menu-all-item:hover {
         color: rgba(64, 158, 255, 1);
     }
+
 
     .ms-admin-login-down {
         top: 55px !important;
@@ -701,10 +728,6 @@
         font-weight: normal;
     }
 
-    .theme-select .el-menu--popup {
-        width: 100px;
-        min-width: 100px;
-    }
 
     .top-operate-select .el-menu--popup {
         width: 162px;
