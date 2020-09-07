@@ -14,9 +14,6 @@ logging:
 
 ms:
 #  scheme: https #解决使用代理服务器代理应用时标签解析域名依旧为http的问题
-  mstore:
-    http: http://store.new.mingsoft.net
-    host: store.new.mingsoft.net
   swagger:
     enable: true #启用swagger文档，生产的时候务必关掉
   manager:
@@ -70,6 +67,7 @@ spring:
     expose-spring-macro-helpers: true
     prefer-file-system-access: false
     template-loader-path: classpath:/WEB-INF/manager,classpath:/WEB-INF
+    #template-loader-path: file:WEB-INF/,file:WEB-INF/manager,classpath:/,classpath:/WEB-INF/manager,classpath:/WEB-INF 管理页面WEB-INF/manger单独配置在jar外面，修改部分ftl避免重新jar打包
     settings:
       template_update_delay: 1
       default_encoding: UTF-8
