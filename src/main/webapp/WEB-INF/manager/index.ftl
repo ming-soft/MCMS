@@ -6,6 +6,7 @@
     <#include '/include/head-file.ftl'/>
     <script src="${base}/static/plugins/sockjs/1.4.0/sockjs.min.js"></script>
     <script src="${base}/static/plugins/stomp/2.3.3/stomp.min.js"></script>
+    <!-- 此部分是铭飞平台MStroe的客户端（MStore不在铭飞开源产品范围），如果不需要使用MStore可以删除掉 -->
     <script src="https://cdn.mingsoft.net/ms/1.0/store.umd.min.js"></script>
     <style>
         .to-ele {

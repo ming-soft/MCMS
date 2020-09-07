@@ -176,8 +176,8 @@ public class GeneraterAction extends BaseAction {
 			for (CategoryEntity column : columns) {
 				ContentBean contentBean = new ContentBean();
 				contentBean.setContentCategoryId(column.getId());
-				// 分类是列表，链接
-				if(!column.getCategoryType().equals("2")) {
+				// 分类是列表
+				if(column.getCategoryType().equals("1")) {
 					// 判断模板文件是否存在
 					if (!FileUtil.exist(ParserUtil.buildTempletPath(column.getCategoryListUrl()))) {
 						LOG.error("模板不存在：{}", column.getCategoryUrl());
@@ -253,8 +253,8 @@ public class GeneraterAction extends BaseAction {
 			categoryList = categoryBiz.query(categoryEntity);
 			for(CategoryEntity category : categoryList){
 				contentBean.setContentCategoryId(category.getId());
-				// 分类是列表，链接
-				if(!category.getCategoryType().equals("2")){
+				// 分类是列表
+				if(category.getCategoryType().equals("1")){
 					// 判断模板文件是否存在
 					if (!FileUtil.exist(ParserUtil.buildTempletPath(category.getCategoryListUrl())) || StringUtils.isEmpty(category.getCategoryListUrl())) {
 						LOG.error("模板不存在：{}",category.getCategoryUrl());
@@ -276,8 +276,8 @@ public class GeneraterAction extends BaseAction {
 		}else {
 			CategoryEntity category = (CategoryEntity) categoryBiz.getEntity(Integer.parseInt(columnId));
 			contentBean.setContentCategoryId(columnId);
-			// 分类是列表，链接
-			if(!category.getCategoryType().equals("2")){
+			// 分类是列表
+			if(category.getCategoryType().equals("1")){
 				// 获取文章列表表属性
 				// 判断模板文件是否存在
 				if (!FileUtil.exist(ParserUtil.buildTempletPath(category.getCategoryUrl()))) {
