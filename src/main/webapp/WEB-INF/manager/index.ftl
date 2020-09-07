@@ -59,7 +59,7 @@
                        :class="collapseMenu?'icon-liebiaoxiangyou':'icon-shousuo'"></i>
                 </div>
                 <!--头部menu-->
-                <el-menu menu-trigger="hover" class="ms-admin-header-menu"  :default-active="headMenuActive"
+                <el-menu menu-trigger="hover" class="ms-admin-header-menu" :default-active="headMenuActive"
                          mode="horizontal">
                     <el-submenu style="height: 100%;">
 
@@ -91,7 +91,7 @@
                 <div class="ms-admin-header-right">
                     <el-menu menu-trigger="hover" class="ms-admin-header-menu"
                              mode="horizontal">
-                        <el-submenu style="height: 100%;" popper-class="theme-select">
+                        <el-submenu style="height: 100%;" popper-class="ms-admin-header-menu-item">
                             <template slot="title">
                                 <i class="iconfont icon-pifu" style="font-size: 18px"></i>
                             </template>
@@ -118,10 +118,10 @@
                     <#--                    </el-dropdown>-->
 
                     <el-menu menu-trigger="hover" class="ms-admin-header-menu " mode="horizontal">
-                        <el-submenu>
-                            <template slot="title" >
+                        <el-submenu popper-class="ms-admin-header-menu-item">
+                            <template slot="title">
                                 <span class="ms-admin-people-head"
-                                     v-text="peopleInfo.managerName && peopleInfo.managerName.substr(0, 2)"></span>
+                                      v-text="peopleInfo.managerName && peopleInfo.managerName.substr(0, 2)"></span>
                                 <span v-text='peopleInfo.managerName'></span>
                             </template>
                             <el-menu-item @click="handleCommand('ms-theme-light')"
@@ -151,8 +151,8 @@
                                  :name="item.modelTitle"
                                  :data-modelId='item.modelId' :data-modelModelId='item.modelModelId'>
                         <keep-alive>
-                            <!--iframe :src='item.isStore?item.modelUrl:ms.manager+"/"+item.modelUrl+(item.modelUrl.indexOf("?")==-1?"?":"&")+"modelId="+item.modelId+"&modelCode="+item.modelCode+"&modelTitle="+encodeURI(item.modelTitle)'
-                                    :ref="item.modelTitle"></iframe-->
+                            <iframe :src='item.isStore?item.modelUrl:ms.manager+"/"+item.modelUrl+(item.modelUrl.indexOf("?")==-1?"?":"&")+"modelId="+item.modelId+"&modelCode="+item.modelCode+"&modelTitle="+encodeURI(item.modelTitle)'
+                                    :ref="item.modelTitle"></iframe>
                         </keep-alive>
                     </el-tab-pane>
                 </el-tabs>
@@ -540,29 +540,58 @@
 </script>
 <style>
 
-    .adminhead {
-        margin-top: 10px \0;
+    .ms-admin-logo {
+        display: flex;
+        align-items: center;
+        overflow: hidden;
     }
 
-    .item {
-        margin-right: 19px;
+    .ms-admin-logo img {
+        padding: 14px 0;
+        width: 50px;
     }
 
-    .ms-notice-menu {
-        padding: 0px;
-        width: 400px;
+    .ms-admin-logo > div {
+        display: flex;
+        align-items: center;
     }
 
-    .ms-notice-menu-type {
-        color: #ccc;
-        font-weight: 500;
-        font-family: 黑体 !important;
+    .ms-admin-logo > div span {
+        margin-top: -6px;
+        position: absolute;
+        margin-left: 10px;
+        font-size: 12px;
+
     }
 
-    .ms-notice-menu-border {
-        border-bottom: 1px solid rgb(239, 239, 239);
-        font-weight: bold;
-        font-family: 黑体 !important;
+    .ms-admin-logo .iconfont {
+        color: #fff;
+        margin-left: auto;
+        margin-right: 20px;
+        cursor: pointer;
+    }
+
+
+    .ms-admin-header-right {
+        margin-left: auto;
+        min-width: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0;
+        line-height: 1;
+    }
+
+    .ms-admin-header-right .ms-admin-people-head {
+        width: 30px !important;
+        height: 30px !important;
+        margin-right: 10px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #0099ff;
+        color: #fff;
     }
 
     .ms-admin-header-menu-shrink {
@@ -588,6 +617,43 @@
         height: 100vh;
     }
 
+    .ms-admin-menu-aside {
+        width: auto !important;
+        height: 100%;
+        position: relative;
+        overflow: visible;
+    }
+
+
+    .ms-admin-menu-aside .ms-admin-menu .el-menu--inline .is-active {
+        border-left: 2px solid #0099ff;
+    }
+
+
+
+
+    .ms-admin-menu-aside .ms-menu-expand i {
+        font-weight: bolder;
+        font-size: 14px;
+        color: #333;
+        position: absolute;
+        transform: rotate(90deg);
+        right: 40%;
+    }
+
+    .ms-admin-menu-aside .ms-menu-expand::before {
+        border-color: transparent transparent #eee;
+        border-style: none solid solid;
+        border-width: 0 30px 22px;
+        content: "";
+        display: block;
+        height: 0;
+        left: -10px;
+        width: 30px;
+    }
+
+
+
     .ms-admin-menu-aside .el-submenu__title,
     .ms-admin-menu-aside .el-menu-item {
         color: rgba(255, 255, 255, 1);
@@ -607,6 +673,50 @@
         color: rgba(255, 255, 255, 1) !important;
     }
 
+
+    .ms-admin-header {
+        display: flex;
+        padding: 0;
+        background-color: rgba(255, 255, 255, 1);
+        height: 50px !important;
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+        z-index: 1;
+    }
+
+    .ms-admin-header .ms-admin-header-menu {
+        border-bottom: none;
+        position: relative;
+    }
+
+    .ms-admin-header .ms-admin-header-menu > .ms-admin-menu-item > * {
+        height: 50px !important;
+        line-height: 50px !important;
+        border-bottom: none !important;
+        font-size: 1em;
+    }
+
+
+
+    .ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu > li {
+        margin: 0;
+        padding: 0 20px;
+        text-align: left;
+        display: -webkit-inline-box;
+        display: inline-block;
+        height: 50px;
+        line-height: 50px;
+        font-weight: normal;
+        font-size: 14px;
+        color: #333;
+    }
+
+    .ms-admin-header .ms-admin-header-menu .ms-admin-shortcut-menu > li:hover {
+        cursor: pointer;
+        color: #0099ff;
+    }
+
+
+
     .ms-admin-header-menu .el-submenu__title {
         height: 50px !important;
         line-height: 50px !important;
@@ -614,24 +724,29 @@
         align-items: center;
 
     }
+
+
     .ms-admin-header-menu .el-submenu__title:hover {
         background-color: #F2F6FC !important;
-        color:#409EFF !important;
+        color: #409EFF !important;
     }
 
-    .ms-admin-header-menu .el-submenu__title:hover i{
-        color:#409EFF !important;
+    .ms-admin-header-menu .el-submenu__title:hover i {
+        color: #409EFF !important;
     }
 
     .ms-admin-header-menu .el-submenu__icon-arrow {
-        margin-top: 4px  !important;
+        margin-top: 4px !important;
     }
 
-    .ms-admin-header-menu .el-menu-item:focus, .ms-admin-header-menu .el-menu-item:hover {
+    .ms-admin-header-menu-item .el-menu-item:hover {
         background-color: #F2F6FC !important;
-        color:#409EFF !important;
+        color: #409EFF !important;
     }
 
+    .ms-admin-header-menu-item .el-menu-item:hover i {
+        color: #409EFF !important;
+    }
 
 
     .ms-admin-header-menu-all {
@@ -680,10 +795,6 @@
         color: rgba(64, 158, 255, 1);
     }
 
-
-    .ms-admin-login-down {
-        top: 55px !important;
-    }
 
     .ms-admin-menu-aside-submenu .el-menu-item {
         line-height: 40px;
@@ -734,7 +845,79 @@
         min-width: 162px;
     }
 
-    .ms-admin-login-down {
-        top: 55px !important;
+
+    .ms-admin-container {
+        height: auto;
+    }
+
+    .ms-admin-container > .ms-admin-main {
+        padding: 0;
+        background-color: #fff;
+        z-index: 0;
+    }
+
+    .ms-admin-container > .ms-admin-main .ms-admin-tabs {
+        height: calc(100vh - 50px);
+        display: flex;
+        flex-direction: column;
+    }
+
+    .ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__content {
+        height: 100%;
+    }
+
+    .ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__content .el-tab-pane {
+        height: 100%;
+    }
+
+    .ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__header {
+        background: #fafafa;
+        margin-bottom: 0;
+    }
+
+    .ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__header .el-tabs__nav-scroll .el-tabs__nav {
+        border-left: none;
+        border-radius: 0;
+    }
+
+    .ms-admin-container > .ms-admin-main .ms-admin-tabs .ms-admin-refresh {
+        float: right;
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        border-left: 1px solid #e6e6e6;
+        cursor: pointer;
+        position: relative;
+    }
+
+    .ms-admin-container > .ms-admin-main .ms-admin-tabs .ms-admin-refresh::before {
+        position: absolute;
+        left: 34%;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #999;
+    }
+
+    .ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__nav-next,
+    .ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__nav-prev {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__nav-next {
+        border-left: 1px solid #e6e6e6;
+    }
+
+    .ms-admin-container > .ms-admin-main .ms-admin-tabs .el-tabs__nav-prev {
+        border-right: 1px solid #e6e6e6;
+    }
+
+    .ms-admin-container > .ms-admin-main iframe {
+        width: 100%;
+        height: 100%;
+        border: none !important;
     }
 </style>

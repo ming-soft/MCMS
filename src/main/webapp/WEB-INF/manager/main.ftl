@@ -11,7 +11,7 @@
   <meta name="app-mobile-web-app-status-bar-style" content="black-translucent"/>
   <script src="${base}/static/plugins/vue/2.6.9/vue.min.js"></script>
   <!--通用图标-->
-  <link rel="stylesheet" href="${base}/static/ms-admin/5.0.0/iconfont/iconfont.css" />
+  <link rel="stylesheet" href="${base}/static/plugins/iconfont/1.0.0/iconfont.css" />
   <script src="${base}/static/plugins/element-ui/2.12.0/index.js"></script>
   <link rel="stylesheet" href="${base}/static/plugins/element-ui/2.12.0/index.css" />
   <!--网络请求框架-->
