@@ -146,7 +146,7 @@
           <div  class="class-66" >
             <!--图片开始-->
             <img
-                    src="${base}/static/ms-admin/5.0.0/images/1577687056305.png"
+                    src="${base}/static/images/1577687056305.png"
                     class="class-67" />
             <!--图片结束-->
           </div>
@@ -163,7 +163,7 @@
           <div  class="class-72" >
             <!--图片开始-->
             <img
-                    src="${base}/static/ms-admin/5.0.0/images/1577687056305.png"
+                    src="${base}/static/images/1577687056305.png"
                     class="class-73" />
             <!--图片结束-->
           </div>
@@ -180,7 +180,7 @@
           <div  class="class-78" >
             <!--图片开始-->
             <img
-                    src="${base}/static/ms-admin/5.0.0/images/1577687056305.png"
+                    src="${base}/static/images/1577687056305.png"
                     class="class-79" />
             <!--图片结束-->
           </div>
@@ -197,7 +197,7 @@
           <div  class="class-84" >
             <!--图片开始-->
             <img
-                    src="${base}/static/ms-admin/5.0.0/images/1577687056305.png"
+                    src="${base}/static/images/1577687056305.png"
                     class="class-85" />
             <!--图片结束-->
           </div>
@@ -297,7 +297,7 @@
               <div  class="class-126" >
                 <!--图片开始-->
                 <img
-                        src="${base}/static/ms-admin/5.0.0/images/1577687023678.png"
+                        src="${base}/static/images/1577687023678.png"
                         class="class-127" />
                 <!--图片结束-->
               </div>
@@ -314,7 +314,7 @@
               <div  class="class-132" >
                 <!--图片开始-->
                 <img
-                        src="${base}/static/ms-admin/5.0.0/images/1577687056305.png"
+                        src="${base}/static/images/1577687056305.png"
                         class="class-133" />
                 <!--图片结束-->
               </div>
@@ -1090,7 +1090,7 @@
   .class-44
   {
     color:#333333;
-    background-image:url(${base}/static/ms-admin/5.0.0/images/1578104008987.png);
+    background-image:url(${base}/static/images/1578104008987.png);
     outline:none;
     outline-offset:-1px;
     background-size:cover;
@@ -1132,7 +1132,7 @@
   .class-47
   {
     color:#333333;
-    background-image:url(${base}/static/ms-admin/5.0.0/images/1578367666376.png);
+    background-image:url(${base}/static/images/1578367666376.png);
     outline:none;
     outline-offset:-1px;
     background-size:cover;
@@ -1174,7 +1174,7 @@
   .class-50
   {
     color:#333333;
-    background-image:url(${base}/static/ms-admin/5.0.0/images/1578366770290.png);
+    background-image:url(${base}/static/images/1578366770290.png);
     outline:none;
     outline-offset:-1px;
     background-size:cover;
@@ -1216,7 +1216,7 @@
   .class-53
   {
     color:#333333;
-    background-image:url(${base}/static/ms-admin/5.0.0/images/1578368816112.png);
+    background-image:url(${base}/static/images/1578368816112.png);
     outline:none;
     outline-offset:-1px;
     background-size:cover;
@@ -1302,7 +1302,7 @@
   .class-59
   {
     color:#333333;
-    background-image:url(${base}/static/ms-admin/5.0.0/images/1577257489392.png);
+    background-image:url(${base}/static/images/1577257489392.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1348,7 +1348,7 @@
   .class-62
   {
     color:#333333;
-    background-image:url(${base}/static/ms-admin/5.0.0/images/1577151868190.png);
+    background-image:url(${base}/static/images/1577151868190.png);
     outline:none;
     outline-offset:-1px;
     height:40px;
@@ -1764,7 +1764,7 @@
   .class-96
   {
     color:#333333;
-    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031206821.png);
+    background-image:url(${base}/static/images/1578031206821.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1808,7 +1808,7 @@
   .class-99
   {
     color:#333333;
-    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031321635.png);
+    background-image:url(${base}/static/images/1578031321635.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1852,7 +1852,7 @@
   .class-102
   {
     color:#333333;
-    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031484700.png);
+    background-image:url(${base}/static/images/1578031484700.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1896,7 +1896,7 @@
   .class-105
   {
     color:#333333;
-    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031264207.png);
+    background-image:url(${base}/static/images/1578031264207.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1940,7 +1940,7 @@
   .class-108
   {
     color:#333333;
-    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031682848.png);
+    background-image:url(${base}/static/images/1578031682848.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1984,7 +1984,7 @@
   .class-111
   {
     color:#333333;
-    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031639173.png);
+    background-image:url(${base}/static/images/1578031639173.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -2028,7 +2028,7 @@
   .class-114
   {
     color:#333333;
-    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031215338.png);
+    background-image:url(${base}/static/images/1578031215338.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -2072,7 +2072,7 @@
   .class-117
   {
     color:#333333;
-    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031228196.png);
+    background-image:url(${base}/static/images/1578031228196.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -2116,7 +2116,7 @@
   .class-120
   {
     color:#333333;
-    background-image:url(${base}/static/ms-admin/5.0.0/images/1578031234719.png);
+    background-image:url(${base}/static/images/1578031234719.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;

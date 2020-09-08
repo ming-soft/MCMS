@@ -27,7 +27,7 @@
                          text-color="rgba(255,255,255,1)" active-text-color="rgba(255,255,255,1)"
                          :collapse="collapseMenu" :unique-opened='true' ref='menu' @open="asideMenuOpen">
                     <div class="ms-admin-logo" :style="{display: 'flex','padding-left': (collapseMenu?'5px':'22px')}">
-                        <img :src="ms.base+'/static/ms-admin/5.0.0/images/logo.png'"/>
+                        <img :src="ms.base+'/static/images/logo.png'"/>
                         <div class="class-1" v-show="!collapseMenu">
                             <div class="class-2">v</div>
                             5.1
