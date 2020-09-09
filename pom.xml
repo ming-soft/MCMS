@@ -51,9 +51,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <!-- 自定义打包 重写包含依赖，包含不存在的依赖，jar里没有pom里的依赖
                 <configuration>
                     <layout>ZIP</layout>
-                    <!-- 重写包含依赖，包含不存在的依赖，jar里没有pom里的依赖 -->
                     <includes>
                         <include>
                             <groupId>non-exists</groupId>
@@ -61,9 +61,9 @@
                         </include>
                     </includes>
                     <fork>true</fork>
-                </configuration>
+                </configuration>-->
             </plugin>
-            <!--拷贝第三方依赖文件到指定目录-->
+            <!--拷贝第三方依赖文件到指定目录 ${project.build.directory}/lib /lib是依赖jar包的输出目录，根据自己喜好配置
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
@@ -74,7 +74,6 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <!--target/lib是依赖jar包的输出目录，根据自己喜好配置-->
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
                             <excludeTransitive>false</excludeTransitive>
                             <stripVersion>false</stripVersion>
@@ -82,8 +81,8 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <!-- 自定义打zip包 -->
+            </plugin>-->
+            <!-- 自定义打zip包
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
@@ -102,7 +101,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
         <resources>
             <resource>
