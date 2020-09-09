@@ -39,13 +39,12 @@
         </fileSet>
         <fileSet>
             <directory>src/main/webapp/WEB-INF</directory>
-            <outputDirectory>./lib/WEB-INF</outputDirectory>
+            <outputDirectory>./WEB-INF</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>./bin</directory>
             <includes>
                 <include>*.sh</include>
-                <include>*.cmd</include>
                 <include>*.bat</include>
             </includes>
             <outputDirectory>./</outputDirectory>

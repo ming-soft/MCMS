@@ -487,7 +487,6 @@
     cursor: pointer;
     outline-offset: -1px;
     max-width:100%;
-    height: 69px;
     flex-direction: column;
     display: flex;
     animation-duration: 1s;
