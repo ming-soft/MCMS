@@ -1,0 +1,55 @@
+<assembly>
+    <id>bin</id>
+    <formats>
+        <format>zip</format>
+        <format>tar.gz</format>
+    </formats>
+
+    <fileSets>
+        <!-- 从目标目录拷贝文件去压缩 -->
+        <fileSet>
+            <directory>target</directory>
+            <includes>
+                <include>*.jar</include>
+            </includes>
+            <outputDirectory>./</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>target/lib</directory>
+            <outputDirectory>./lib</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/resources</directory>
+            <outputDirectory>./config</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/webapp/static</directory>
+            <outputDirectory>./static</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/webapp/html</directory>
+            <outputDirectory>./html</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/webapp/templets</directory>
+            <outputDirectory>./templets</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/webapp/upload</directory>
+            <outputDirectory>./upload</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>src/main/webapp/WEB-INF</directory>
+            <outputDirectory>./lib/WEB-INF</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>./bin</directory>
+            <includes>
+                <include>*.sh</include>
+                <include>*.cmd</include>
+                <include>*.bat</include>
+            </includes>
+            <outputDirectory>./</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>
