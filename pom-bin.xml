@@ -110,8 +110,7 @@
             <resource>
                 <directory>src/main/java</directory>
                 <excludes>
-                    <!--打包生产-->
-                    <exclude>*.java</exclude>
+                    <exclude>**/*.java</exclude>
                 </excludes>
             </resource>
             <resource>
