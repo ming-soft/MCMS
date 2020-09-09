@@ -1,0 +1,399 @@
+body{
+    font-size: 16px !important;
+    font-family: inherit !important;
+}
+.ms-head{
+    *{
+        box-sizing: initial !important;
+    }
+    box-sizing: initial !important;
+}
+.ms-content-index {
+    #ms-content-main-case-left {
+        margin-right: 0px;
+    }
+    min-height: 550px;
+    /*网站案例*/
+    .ms-content-template {
+        .ms-index-tabs {
+        	
+            text-align: center;
+            border: none;
+            margin-bottom: 3px;
+            li {
+            	a:hover{
+            		color: #333;
+            	}
+            	margin-right: 15px;
+                float: none;
+                display: inline-block;
+                font-size: 2.4rem;
+                a {
+                    border: none !important;
+                    color: #777;
+                    background-color: white;
+                    padding: 10px 0px;
+                    font-size: 20px;
+                }
+            }
+            .active {
+                a {
+                    border-bottom: 2px solid #00b0ff !important;
+                    color:#333;
+                }
+            }
+        }
+        .ms-content-all {
+            min-height: 700px;
+            padding: 20px 0;
+            width: 100%;
+            background: #fafafa;
+            .tab-content {
+                background: #fafafa;
+                width: 1200px;
+                margin: auto;
+                overflow: hidden;
+                padding-bottom: 20px;
+                .ms-model-content {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    .ms-model-list {
+                        .ms-model-more {
+                            width: 385px;
+                            height: 347px;
+                            background-color: white;
+                            line-height: 364px;
+                            text-align: center;
+                            background-size:100% 100%;  
+                            background-image: url(../images/more.png);
+                            div {
+                                border: 1px solid #aaa;
+                                color: #666;
+                                padding: 6px 18px;
+                                display: inline-block;
+                                line-height: 1;
+                                border-radius: 30px;
+                                font-size: 1.4rem;
+                                cursor: pointer;
+                                &:hover {
+                                    background: #aaa;
+                                    color: white;
+                                }
+                            }
+                        }
+                        display: inline-block;
+                        position: relative;
+                        margin: 20px 0 0 0;
+                        .ms-model-info {
+                            padding: 18px;
+                            background: white;
+                            span {
+                                display: block;
+                                margin-bottom: 18px;
+                                color: #666;
+                            }
+                            .ms-model-info-img {
+                                width: 35px;
+                                height: 35px;
+                                border-radius: 50%;
+                                margin-right: 6px;
+                            }
+                            .ms-model-type {
+                                color: #fb803c;
+                                display: inline-block;
+                                float: right;
+                                font-size: 2.4rem;
+                            }
+                        }
+                        .ms-model-img {
+                            overflow: hidden;
+                            position: relative;
+                            height: 235px;
+                            z-index: 2;
+                            display: block;
+                            img {
+                                width: 385px;
+                                position: relative;
+                            }
+                        }
+                        .ms-model-mobile-img {
+                            position: absolute;
+                            overflow: hidden;
+                            z-index: 3;
+                            right: 0;
+                            top: 0;
+                            height: 285px;
+                            div {
+                                width: 150px;
+                                height: 192px;
+                                padding: 0px 15px 0px 26px;
+                                margin-top: 47px;
+                                overflow: hidden;
+                                position: relative;
+                                img {
+                                    width: 100%;
+                                    position: relative;
+                                    min-height: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .ms-content-case {
+        width: 100%;
+        /*height: 300px;*/
+        overflow: hidden;
+        background-color: #fff;
+        .ms-content-case-mian {
+            width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding-bottom: 40px;
+            .ms-content-case-title {
+                overflow: hidden;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 20px;
+                padding-top: 20px;
+                .ms-content-case-title-words {
+                    float: left;
+                    font-size: 20px;
+                }
+                .ms-content-case-more {
+                    float: right;
+                    font-size: 14px;
+                    color: #999;
+                    cursor: pointer;
+                    a:link {
+                        color: #999;
+                        text-decoration: none
+                    }
+                    a:visited {
+                        color: #999;
+                        text-decoration: none
+                    }
+                }
+            }
+            .ms-content-case-list {
+                .ms-content-main-case:nth-child(3n) {
+                    margin-right: 0;
+                }
+                .ms-content-main-case {
+                    border: 1px solid #f0f0f0;
+                    width: 384px;
+                    height: 332px;
+                    margin-right: 22px;
+                    float: left;
+                    position: relative;
+                    overflow: hidden;
+                    color: #ffffff;
+                    margin-top: 20px;
+                    &:hover {
+                        .ms-content-main-case-explain {
+                            display: block;
+                        }
+                    }
+                    .ms-content-main-case-img {
+                        width: 384px;
+                        height: 334px;
+                        img {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                    .ms-content-main-case-explain {
+                        display: none;
+                        width: 100%;
+                        height: 100%;
+                        background-color: #0099ff;
+                        opacity: 0.9;
+                        position: absolute;
+                        top: 0px;
+                        left: 0px;
+                        .ms-content-main-case-title {
+                            font-size: 22px;
+                            text-align: center;
+                            margin: 20px 0;
+                            padding: 0 20px;
+                            height: 22px;
+                            line-height: 22px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            -webkit-line-clamp: 1;
+                            -webkit-box-orient: vertical;
+                            display: -webkit-box;
+                        }
+                        .ms-content-main-case-content {
+                            min-height: 215px;
+                            p {
+                                font-size: 14px;
+                                padding: 0 30px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                -webkit-line-clamp: 4;
+                                -webkit-box-orient: vertical;
+                                display: -webkit-box;
+                                img {
+                                    width: 90px;
+                                    text-align: center;
+                                    margin: 10px 0 0 0;
+                                    height: 90px;
+                                }
+                            }
+                        }
+                        .ms-content-main-case-click {
+                            text-align: center;
+                            a {
+                                border: 1px solid #ffffff;
+                                border-radius: 17px;
+                                padding: 5px 39px;
+                                color: #ffffff;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    /*产品方向*/
+    .ms-content-product {
+        background: #fafafa;
+        .ms-content-product-main {
+            width: 1200px;
+            padding: 20px 0;
+            margin: auto;
+            .ms-content-product-title {
+                .ms-content-product-title-words {
+                    font-size: 20px;
+                }
+                padding: 15px 0;
+                font-size: 18px;
+                text-align: center;
+                border-bottom: 1px solid #eee;
+            }
+            .ms-content-product-list {
+                margin: 20px 0;
+                .ms-content-product-list-ul {
+                    li:last-child {
+                        margin-right: 0;
+                    }
+                    overflow: hidden;
+                    li {
+                        width: 384px;
+                        margin-right: 22px;
+                        background-color: #fff;
+                        float: left;
+                        img {
+                            width: 100%;
+                        }
+                        .ms-content-product-list-content {
+                            a:hover {
+                                color: #0099ff;
+                            }
+                            margin: 0 20px;
+                            .ms-content-product-list-content-title {
+                                margin: 18px 0;
+                                a {
+                                    color: #555;
+                                    font-size: 16px;
+                                    &:hover {
+                                        color: #0099ff;
+                                    }
+                                }
+                            }
+                            .ms-content-product-list-content-describe {
+                                font-size: 12px;
+                                color: #999;
+                                padding-bottom: 20px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .ms-content-news-main-title-more,.ms-content-case-more{
+    	padding-top: 9px;
+    	font-size:14px;
+    	a:hover{
+    		color: #0099ff !important;
+    	}
+    }
+    /*公司动态*/
+    .ms-content-news {
+        margin-bottom: 40px;
+        background-color: #fff;
+        .ms-content-news-main {
+            width: 1200px;
+            margin: auto;
+            .ms-content-news-main-title {
+                overflow: hidden;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 20px;
+                padding-top: 40px;
+                line-height: 1;
+                .ms-content-news-main-title-words {
+                    float: left;
+                    font-size: 20px;
+                }
+                .ms-content-news-main-title-more {
+                    float: right;
+                    font-size: 14px;
+                    color: #999;
+                    cursor: pointer;
+                    a:link {
+                        color: #999;
+                        text-decoration: none
+                    }
+                    a:visited {
+                        color: #999;
+                        text-decoration: none
+                    }
+                }
+            }
+            .ms-content-news-main-img-text {
+                margin-top: 21px;
+                height: 250px;
+                padding-bottom: 40px;
+                overflow: hidden;
+                img {
+                    float: left;
+                    margin-right: 20px;
+                    width: 420px;
+					height: 251px;
+                }
+                .ms-content-news-main-ul {
+                    span:hover {
+                        color: #0099ff;
+                    }
+                    overflow: hidden;
+                    li {
+                        overflow: hidden;
+                        margin-bottom: 14px;
+                        border-bottom: 1px dotted #eee;
+                        padding-bottom: 10px;
+                        line-height: 1;
+                        .ms-content-news-main-li-title {
+                            float: left;
+                            font-size: 14px;
+                            color: #555;
+                            height: 19px;
+                            .ms-content-news-main-li-span {
+                                margin-right: 12px;
+                            }
+                            .ms-content-news-main-li-title {}
+                        }
+                        .ms-content-news-main-li-time {
+                            float: right;
+                            font-size: 14px;
+                            color: #999;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
