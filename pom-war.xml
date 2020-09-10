@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -12,6 +12,7 @@
     <artifactId>ms-mcms</artifactId>
     <version>5.1-SNAPSHOT</version>
     <name>ms-mcms</name>
+    <packaging>war</packaging>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -28,7 +29,30 @@
             <artifactId>store-client</artifactId>
             <version>5.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-servlet-api</artifactId>
+            <version>7.0.42</version>
+            <scope>provided</scope>
+        </dependency>
+
     </dependencies>
+
     <build>
         <finalName>ms-mcms</finalName>
         <plugins>
@@ -51,20 +75,30 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <warSourceExcludes>src/main/resources/**</warSourceExcludes>
+                    <warName>store</warName>
+                </configuration>
+            </plugin>
+
         </plugins>
         <resources>
             <resource>
-                <directory>src/main/java</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
+                <filtering>true</filtering>
+                <directory>src/main/webapp</directory>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
             <resource>
-                <directory>src/main/webapp</directory>
+                <directory>src/main/java</directory>
             </resource>
         </resources>
         <defaultGoal>compile</defaultGoal>
