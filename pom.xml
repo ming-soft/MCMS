@@ -12,9 +12,35 @@
     <artifactId>ms-mcms</artifactId>
     <version>5.1</version>
     <name>ms-mcms</name>
+    <packaging>war</packaging>
     <properties>
         <java.version>1.8</java.version>
     </properties>
+    <repositories>
+        <repository>
+            <id>deploy</id>
+            <name>ms</name>
+            <url>http://192.168.0.8:5000/repository/maven-public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <distributionManagement>
+        <snapshotRepository>
+            <id>deploy</id>
+            <name>Sonatype Nexus snapshot repository</name>
+            <url>http://192.168.0.8:5000/repository/maven-snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>deploy</id>
+            <name>Sonatype Nexus release repository</name>
+            <url>http://192.168.0.8:5000/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
 
     <dependencies>
         <dependency>
@@ -22,11 +48,62 @@
             <artifactId>ms-mpeople</artifactId>
             <version>1.0.26</version>
         </dependency>
+        <dependency>
+            <groupId>net.mingsoft</groupId>
+            <artifactId>ms-basic</artifactId>
+            <version>1.0.31</version>
+        </dependency>
+        <dependency>
+            <groupId>net.mingsoft</groupId>
+            <artifactId>ms-mweixin</artifactId>
+            <version>1.0.11-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.mingsoft</groupId>
+            <artifactId>ms-mpay</artifactId>
+            <version>1.0.6-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.mingsoft</groupId>
+            <artifactId>ms-mcomment</artifactId>
+            <version>1.0.3-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.mingsoft</groupId>
+            <artifactId>ms-mattention</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>net.mingsoft</groupId>
+            <artifactId>ms-msend</artifactId>
+            <version>1.0.11-SNAPSHOT</version>
+        </dependency>
         <!-- 此部分是铭飞平台MStroe的客户端（MStore不在铭飞开源产品范围），如果不需要使用MStore可以删除掉 -->
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>store-client</artifactId>
             <version>5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-servlet-api</artifactId>
+            <version>7.0.42</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -38,7 +115,9 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
     </dependencies>
+
     <build>
         <finalName>ms-mcms</finalName>
         <plugins>
@@ -61,20 +140,30 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <warSourceExcludes>src/main/resources/**</warSourceExcludes>
+                    <warName>store</warName>
+                </configuration>
+            </plugin>
+
         </plugins>
         <resources>
             <resource>
-                <directory>src/main/java</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
+                <filtering>true</filtering>
+                <directory>src/main/webapp</directory>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
             <resource>
-                <directory>src/main/webapp</directory>
+                <directory>src/main/java</directory>
             </resource>
         </resources>
         <defaultGoal>compile</defaultGoal>
