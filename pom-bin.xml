@@ -53,7 +53,6 @@
                 </executions>
                 <!--打包生产-->
                 <configuration>
-                    <layout>ZIP</layout>
                     <fork>true</fork>
                 </configuration>
             </plugin>
