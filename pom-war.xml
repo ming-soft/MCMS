@@ -27,7 +27,7 @@
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>store-client</artifactId>
-            <version>5.0</version>
+            <version>5.1</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
