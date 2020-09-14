@@ -16,31 +16,6 @@
     <properties>
         <java.version>1.8</java.version>
     </properties>
-    <repositories>
-        <repository>
-            <id>deploy</id>
-            <name>ms</name>
-            <url>http://192.168.0.8:5000/repository/maven-public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <distributionManagement>
-        <snapshotRepository>
-            <id>deploy</id>
-            <name>Sonatype Nexus snapshot repository</name>
-            <url>http://192.168.0.8:5000/repository/maven-snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>deploy</id>
-            <name>Sonatype Nexus release repository</name>
-            <url>http://192.168.0.8:5000/repository/maven-releases/</url>
-        </repository>
-    </distributionManagement>
 
     <dependencies>
         <dependency>
@@ -48,36 +23,7 @@
             <artifactId>ms-mpeople</artifactId>
             <version>1.0.26</version>
         </dependency>
-        <dependency>
-            <groupId>net.mingsoft</groupId>
-            <artifactId>ms-basic</artifactId>
-            <version>1.0.31</version>
-        </dependency>
-        <dependency>
-            <groupId>net.mingsoft</groupId>
-            <artifactId>ms-mweixin</artifactId>
-            <version>1.0.11-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>net.mingsoft</groupId>
-            <artifactId>ms-mpay</artifactId>
-            <version>1.0.6-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>net.mingsoft</groupId>
-            <artifactId>ms-mcomment</artifactId>
-            <version>1.0.3-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>net.mingsoft</groupId>
-            <artifactId>ms-mattention</artifactId>
-            <version>1.0.3</version>
-        </dependency>
-        <dependency>
-            <groupId>net.mingsoft</groupId>
-            <artifactId>ms-msend</artifactId>
-            <version>1.0.11-SNAPSHOT</version>
-        </dependency>
+
         <!-- 此部分是铭飞平台MStroe的客户端（MStore不在铭飞开源产品范围），如果不需要使用MStore可以删除掉 -->
         <dependency>
             <groupId>net.mingsoft</groupId>
@@ -115,7 +61,6 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
     </dependencies>
 
     <build>
@@ -149,7 +94,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <warSourceExcludes>src/main/resources/**</warSourceExcludes>
-                    <warName>store</warName>
+                    <warName>mcms</warName>
                 </configuration>
             </plugin>
 
