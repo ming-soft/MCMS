@@ -94,7 +94,7 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <warSourceExcludes>src/main/resources/**</warSourceExcludes>
-                    <warName>store</warName>
+                    <warName>mcms</warName>
                 </configuration>
             </plugin>
 
