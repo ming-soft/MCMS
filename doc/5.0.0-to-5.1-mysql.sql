@@ -28,8 +28,6 @@ ADD COLUMN `manager_admin`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general
 ALTER TABLE `cms_category`
 ADD COLUMN `category_pinyin`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `create_by`;
 
-UPDATE `manager` SET `manager_admin`='super' WHERE (`manager_id`=57);
-
 
 ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_2`;
 ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_3`;
