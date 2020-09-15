@@ -1,5 +1,8 @@
 package net.mingsoft.cms.entity;
 
+import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -337,5 +340,69 @@ private static final long serialVersionUID = 1574925152750L;
 	*/
 	public String getCategoryParentId() {
 	return this.categoryParentId;
+	}
+
+	/**
+	 * 获取栏目标题 （标签使用）
+	 */
+	public String getTypetitle() {
+		return this.categoryTitle;
+	}
+	/**
+	 * 获取栏目链接 （标签使用，动态链接不考虑）
+	 */
+	public String getTypelink() {
+		return "3".equals(this.categoryType)?this.categoryDiyUrl:this.categoryPath+"/index.html";
+	}
+	/**
+	 * 获取栏目关键字 （标签使用）
+	 */
+	public String getTypekeyword() {
+		return this.categoryKeyword;
+	}
+
+	/**
+	 * 获取栏目url （标签使用）
+	 */
+	public String getTypeurl() {
+		return this.categoryDiyUrl;
+	}
+	/**
+	 * 获取栏目属性 （标签使用）
+	 */
+	public String getFlag() {
+		return this.categoryFlag;
+	}
+	/**
+	 * 获取栏目父级Id （标签使用）
+	 */
+	public String getParentid() {
+		return this.categoryParentId;
+	}
+	/**
+	 * 获取栏目描述（标签使用）
+	 */
+	public String getTypedescrip() {
+		return this.categoryDescrip;
+	}
+	/**
+	 * 获取栏目Id（标签使用）
+	 */
+	public String getTypeid() {
+		return this.id;
+	}
+	/**
+	 * 获取栏目图片 (标签使用）
+	 */
+	public String getTypelitpic() {
+		if(StrUtil.isNotBlank(categoryImg)){
+			try{
+				JSONArray objects = JSON.parseArray(categoryImg);
+				return objects.getJSONObject(0).getString("path");
+			}catch (Exception e){
+
+			}
+		}
+		return "";
 	}
 }

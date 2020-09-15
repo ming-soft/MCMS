@@ -38,6 +38,8 @@ public class CmsParserUtil extends ParserUtil {
 	 */
 	private static int COLUMN_TYPE_COVER = 2;
 
+	private final static String FIELD="field";
+
 	/**
 	 * 指定模板，指定路径进行生成静态页面，会自定识别pc与移动端
 	 *
@@ -90,6 +92,8 @@ public class CmsParserUtil extends ParserUtil {
 			//全局参数设置
 			Map<String, Object> parserParams = new HashMap<String, Object>();
 			parserParams.put(COLUMN, column);
+			//标签中使用field获取当前栏目
+			parserParams.put(FIELD, column);
 			parserParams.put(IS_DO, false);
 			parserParams.put(HTML, HTML);
 			parserParams.put(APP_ID, BasicUtil.getAppId());
