@@ -212,6 +212,12 @@
                             title: '更新成功！',
                             type: 'success'
                         });
+                    }else {
+                        that.$notify({
+                            title: '生成失败',
+                            message:data.msg,
+                            type: 'error'
+                        });
                     }
                 }).catch(function (err) {
                     that.$notify({
@@ -235,6 +241,12 @@
                         that.$notify({
                             title: '更新成功！',
                             type: 'success'
+                        });
+                    }else {
+                        that.$notify({
+                            title: '生成失败！',
+                            message:data.msg,
+                            type: 'error'
                         });
                     }
                 }).catch(function (err) {

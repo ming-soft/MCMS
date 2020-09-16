@@ -24,7 +24,10 @@ package net.mingsoft.cms.action;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.io.FileUtil;
+import net.mingsoft.base.entity.ResultData;
+import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.biz.IModelBiz;
+import net.mingsoft.basic.constant.e.BusinessTypeEnum;
 import net.mingsoft.basic.entity.AppEntity;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.bean.CategoryBean;
@@ -120,8 +123,9 @@ public class GeneraterAction extends BaseAction {
 	 */
 	@RequestMapping("/generateIndex")
 	@RequiresPermissions("cms:generate:index")
+    @LogAnn(title = "生成主页", businessType = BusinessTypeEnum.UPDATE)
 	@ResponseBody
-	public void generateIndex(HttpServletRequest request, HttpServletResponse response) {
+	public ResultData generateIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		// 模版文件名称
 		String tmpFileName = request.getParameter("url");
 		// 生成后的文件名称
@@ -129,15 +133,10 @@ public class GeneraterAction extends BaseAction {
 
 		// 获取文件所在路径 首先判断用户输入的模版文件是否存在
 		if (!FileUtil.exist(ParserUtil.buildTempletPath())) {
-			this.outJson(response, false, getResString("templet.file"));
+		    return ResultData.build().error(getResString("templet.file"));
 		} else {
-			try {
-				CmsParserUtil.generate(tmpFileName, generateFileName);
-				this.outJson(response, true);
-			} catch (IOException e) {
-				e.printStackTrace();
-				this.outJson(response, false);
-			}
+            CmsParserUtil.generate(tmpFileName, generateFileName);
+            return ResultData.build().success();
 		}
 	}
 
@@ -151,9 +150,10 @@ public class GeneraterAction extends BaseAction {
 	 * @param CategoryId
 	 */
 	@RequestMapping("/{CategoryId}/genernateColumn")
+    @LogAnn(title = "生成栏目", businessType = BusinessTypeEnum.UPDATE)
 	@RequiresPermissions("cms:generate:column")
 	@ResponseBody
-	public void genernateColumn(HttpServletRequest request, HttpServletResponse response, @PathVariable int CategoryId) {
+	public ResultData genernateColumn(HttpServletRequest request, HttpServletResponse response, @PathVariable int CategoryId) throws IOException {
 		// 获取站点id
 		AppEntity app = BasicUtil.getApp();
 		List<CategoryEntity> columns = new ArrayList<CategoryEntity>();
@@ -170,7 +170,6 @@ public class GeneraterAction extends BaseAction {
 			columns = categoryBiz.query(categoryEntity);
 		}
 		List<CategoryBean> articleIdList = null;
-		try {
 			// 1、设置模板文件夹路径
 			// 获取栏目列表模版
 			for (CategoryEntity column : columns) {
@@ -217,11 +216,8 @@ public class GeneraterAction extends BaseAction {
 					break;
 				}
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			this.outJson(response, false);
-		}
-		this.outJson(response, true);
+
+        return ResultData.build().success();
 	}
 
 	/**
@@ -233,8 +229,9 @@ public class GeneraterAction extends BaseAction {
 	 */
 	@RequestMapping("/{columnId}/generateArticle")
 	@RequiresPermissions("cms:generate:article")
+    @LogAnn(title = "生成文章", businessType = BusinessTypeEnum.UPDATE)
 	@ResponseBody
-	public void generateArticle(HttpServletRequest request, HttpServletResponse response, @PathVariable String columnId) throws IOException {
+	public ResultData generateArticle(HttpServletRequest request, HttpServletResponse response, @PathVariable String columnId) throws IOException {
 		String dateTime = request.getParameter("dateTime");
 		// 网站风格物理路径
 		List<CategoryBean> articleIdList = null;
@@ -282,7 +279,7 @@ public class GeneraterAction extends BaseAction {
 				// 判断模板文件是否存在
 				if (!FileUtil.exist(ParserUtil.buildTempletPath(category.getCategoryUrl()))) {
 					LOG.error("模板不存在：{}",category.getCategoryUrl());
-					return;
+                    return ResultData.build().error(getResString("templet.file"));
 				}
 				ParserUtil.read(category.getCategoryListUrl(),map, page,attributeBean);
 				contentBean.setFlag(attributeBean.getFlag());
@@ -296,7 +293,7 @@ public class GeneraterAction extends BaseAction {
 				CmsParserUtil.generateBasic(articleIdList);
 			}
 		}
-		this.outJson(response, true);
+        return ResultData.build().success();
 	}
 
 
