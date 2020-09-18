@@ -21,7 +21,7 @@
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mpeople</artifactId>
-            <version>1.0.26</version>
+            <version>1.0.28</version>
         </dependency>
 
         <!-- 此部分是铭飞平台MStroe的客户端（MStore不在铭飞开源产品范围），如果不需要使用MStore可以删除掉 -->
@@ -69,7 +69,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>

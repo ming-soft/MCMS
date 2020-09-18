@@ -15,13 +15,14 @@
     <packaging>war</packaging>
     <properties>
         <java.version>1.8</java.version>
+        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mpeople</artifactId>
-            <version>1.0.26</version>
+            <version>1.0.28</version>
         </dependency>
         <!-- 此部分是铭飞平台MStroe的客户端（MStore不在铭飞开源产品范围），如果不需要使用MStore可以删除掉 -->
         <dependency>
