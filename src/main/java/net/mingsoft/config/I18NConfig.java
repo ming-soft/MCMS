@@ -19,13 +19,13 @@ public class I18NConfig {
 
     @Value("${ms.local.default:zh_CN}")
     private String defaultLocal;
-    @Value("${ms.local.messages:zh_CN,en_US}")
-    private String messages;
+    @Value("$ms.local.local-messages:zh_CN,en_US}")
+    private String localMessages;
 
     @PostConstruct
     public void init() throws IOException, TemplateException {
         configuration.setSharedVariable("localDefault",defaultLocal);
-        configuration.setSharedVariable("localMessages",messages.split(","));
+        configuration.setSharedVariable("localMessages",localMessages.split(","));
     }
 
 }

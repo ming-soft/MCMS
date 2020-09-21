@@ -15,7 +15,7 @@ logging:
 ms:
   local:
     default: zh_CN #默认语言
-    messages: zh_CN,en_US #全部语言
+    local-messages: zh_CN,en_US #全部语言
 #  scheme: https #解决使用代理服务器代理应用时标签解析域名依旧为http的问题
   swagger:
     enable: true #启用swagger文档，生产的时候务必关掉
