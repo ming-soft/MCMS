@@ -28,7 +28,7 @@
 	<a href="http://cms.demo.mingsoft.net/ms/login.do"  target="_blank">在线演示</a> 
 	<a href="http://doc.mingsoft.net/plugs-cms/"  target="_blank">在线使用手册</a>
 	<a href="https://mingsoft.ke.qq.com/?tuin=383187f3#tab=1&category=-1" target="_blank">腾讯课堂在线视频</a><br/>
-	<a href="https://ke.qq.com/course/478498"  target="_blank">代码生成器视频教程</a><br/>
+	<a href="https://ke.qq.com/course/3026403"  target="_blank">代码生成器视频教程</a><br/>
 	<a href="https://cloud.189.cn/t/I3maM3uURjmm"  target="_blank">Windows一键运行版本\Linux一键运行版本</a>
 </p>
 
@@ -153,8 +153,7 @@ git clone https://gitee.com/mingSoft/MCMS.git<br/>
 
 
 # 文档
-* MCms标签手册 http://doc.mingsoft.net/mcms-tag-guide
-* 快速开发手册 http://doc.mingsoft.net/dev-guide/
+* 使用手册 http://doc.mingsoft.net/plugs-cms/
 
 # 软件截图
 
