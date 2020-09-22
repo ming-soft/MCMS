@@ -385,7 +385,9 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 			//sql注入过滤
 			searchMap.put(k,v.toString().replaceAll("('|\"|\\\\)","\\\\$1"));
 			searchMap.put(k,clearXss(searchMap.get(k).toString()));
-			urlParams.append(k).append("=").append(searchMap.get(k)).append("&");
+			if(!ParserUtil.SIZE.equals(k)&&!ParserUtil.PAGE_NO.equals(k)){
+				urlParams.append(k).append("=").append(searchMap.get(k)).append("&");
+			}
 		});
 
 		//查询数量
@@ -428,8 +430,6 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		page.setNextUrl(nextUrl);
 		page.setPreUrl(preUrl);
 		page.setLastUrl(lastUrl);
-
-		searchMap.put(ParserUtil.PAGE_NO, pageNo);
 
 		//解析后的内容
 		String content = "";

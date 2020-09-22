@@ -225,7 +225,8 @@
 		<where>
 			ct.del=0
 			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT('%',#{contentTitle},'%')</if>
-			<if test="contentCategoryId != null and contentCategoryId != ''"> and content_category_id=#{contentCategoryId}</if>
+			<if test="contentCategoryId != null and contentCategoryId != ''"> 	and (content_category_id=#{contentCategoryId} or content_category_id in
+				(select id FROM cms_category where <include refid="queryWhereCategoryId"></include>))</if>
 			<if test="contentType != null and contentType != ''"> and content_type LIKE CONCAT('%',#{contentType},'%')</if>
 			<if test="contentDisplay != null and contentDisplay != ''"> and content_display=#{contentDisplay}</if>
 			<if test="contentAuthor != null and contentAuthor != ''"> and content_author=#{contentAuthor}</if>
