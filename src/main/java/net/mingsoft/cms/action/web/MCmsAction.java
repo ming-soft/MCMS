@@ -343,11 +343,11 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		if (field != null) {
 			for (Map.Entry<String, Object> entry : field.entrySet()) {
 				if (entry != null) {
-					String value = entry.getValue().toString().replaceAll("('|\"|\\\\)","\\\\$1"); // 处理由get方法请求中文乱码问题
-					value=clearXss(value);
-					if (ObjectUtil.isNull(value)) {
+					if (ObjectUtil.isNull(entry.getValue())) {
 						continue;
 					}
+                    String value = entry.getValue().toString().replaceAll("('|\"|\\\\)","\\\\$1"); // 处理由get方法请求中文乱码问题
+                    value=clearXss(value);
 					if (request.getMethod().equals(RequestMethod.GET)) { // 如果是get方法需要将请求地址参数转码
 						try {
 							value = new String(value.getBytes("ISO-8859-1"), Const.UTF8);
@@ -383,11 +383,13 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		StringBuilder urlParams=new StringBuilder();
 		searchMap.forEach((k,v)->{
 			//sql注入过滤
-			searchMap.put(k,v.toString().replaceAll("('|\"|\\\\)","\\\\$1"));
-			searchMap.put(k,clearXss(searchMap.get(k).toString()));
-			if(!ParserUtil.SIZE.equals(k)&&!ParserUtil.PAGE_NO.equals(k)){
-				urlParams.append(k).append("=").append(searchMap.get(k)).append("&");
-			}
+            if(v!=null){
+                searchMap.put(k,v.toString().replaceAll("('|\"|\\\\)","\\\\$1"));
+                searchMap.put(k,clearXss(searchMap.get(k).toString()));
+                if(!ParserUtil.SIZE.equals(k)&&!ParserUtil.PAGE_NO.equals(k)){
+                    urlParams.append(k).append("=").append(searchMap.get(k)).append("&");
+                }
+            }
 		});
 
 		//查询数量
