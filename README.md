@@ -1,6 +1,6 @@
 
 <p align="center">
-	<a href="https://ms.mingsoft.net/"><img src="http://ms.mingsoft.net/templets/1/ms/images/logo-blue.png" ></a>
+	<a href="https://www.mingsoft.net/"><img src="http://cdn.mingsoft.net/global/images/logo-blue.png"  width="50" height=""50></a>
 </p>
 <p align="center">
 	<strong>价值源自分享</strong>
@@ -193,10 +193,10 @@ git clone https://gitee.com/mingSoft/MCMS.git<br/>
 
 <table>
 	<tr>
-		<td><img src="http://ms.mingsoft.net/upload/1/article/1572421127803.gif"/></td>
+		<td><img src="//www.mingsoft.net/upload/1/cms/content/1600746325257.gif"/></td>
 	</tr>
 	<tr>
-		<td><img src="http://ms.mingsoft.net/upload/1/article/1572421308885.gif"/></td>
+		<td><img src="//www.mingsoft.net/upload/1/cms/content/1600746514131.gif"/></td>
 	</tr>	
 </table>
 
@@ -204,10 +204,10 @@ git clone https://gitee.com/mingSoft/MCMS.git<br/>
 
 <table>
 	<tr>
-		<td><img src="http://ms.mingsoft.net/upload/1/article/1572419454270.gif"/></td>
+		<td><img src="//www.mingsoft.net/upload/1/cms/content/1600746629646.gif"/></td>
 	</tr>
 	<tr>
-		<td><img src="http://ms.mingsoft.net/upload/1/article/1572419347761.gif"/></td>
+		<td><img src="//www.mingsoft.net/upload/1/cms/content/1600746692814.gif"/></td>
 	</tr>	
 </table>
 
