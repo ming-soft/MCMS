@@ -34,8 +34,7 @@
 				<el-table-column label="编号" width="120" prop="id">
 					<template slot='header'>编号
 						<el-popover placement="top-start" title="提示" trigger="hover" >
-							<a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{ms:field.typeid/}</a>
-							<a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">[field.typeid/]</a>
+							<a href="http://doc.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">${'$'}{field.id}</a>
 							<i class="el-icon-question" slot="reference"></i>
 						</el-popover>
 					</template>
@@ -48,7 +47,7 @@
 			</el-table-column>
 			<el-table-column label="链接地址" align="left" prop="categoryPath" show-overflow-tooltip>
 				<template slot-scope="scope">
-					<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="'{ms:global.url/}'+scope.row.categoryPath+'/index.html'" @click="copyUrl">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
+					<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="'${'$'}{global.url}'+scope.row.categoryPath+'/index.html'" @click="copyUrl">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
 				</template>
 			</el-table-column>
             <el-table-column label="列表地址" align="left" prop="categoryListUrl" show-overflow-tooltip>

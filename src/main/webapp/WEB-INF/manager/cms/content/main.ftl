@@ -63,8 +63,7 @@
             <el-table-column label="编号" width="70" prop="id">
                 <template slot='header'>编号
                     <el-popover placement="top-start" title="提示" trigger="hover" >
-                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{ms:field.id/}</a>
-                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.id/]</a>
+                        <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.id}</a>
                         <i class="el-icon-question" slot="reference"></i>
                     </el-popover>
                 </template>
@@ -80,8 +79,7 @@
             <el-table-column label="点击量" width="90" align="right" prop="contentHit">
                 <template slot='header'>点击量
                     <el-popover placement="top-start" title="提示" trigger="hover" >
-                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/nei-rong-biao-qian-ms-field.html" target="_blank">{ms:field.hit/}</a>
-                        <a href="http://doc.ms.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">[field.hit/]</a>
+                        <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.hit}</a>
                         <i class="el-icon-question" slot="reference"></i>
                     </el-popover>
                 </template>
