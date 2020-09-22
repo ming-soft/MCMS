@@ -19,8 +19,8 @@
                         {ms:arclist size=10 ispaging=true}
                         <li>
                             <a href="{ms:global.url/}/[field.link/]">
-                                [field.title/]
-                                <span class="ms-content-main-li-time">[field.date?string("yyyy-MM-dd")/]</span>
+                              ${field.title}
+                                <span class="ms-content-main-li-time">${field.date?string("yyyy-MM-dd")}</span>
                             </a>
                         </li>
                         {/ms:arclist}

@@ -326,7 +326,9 @@
 			and a.content_source like CONCAT("%",#{map.content_source},"%")
 			</if>
 			<if test="map.content_type!=null">
-			and a.content_type like CONCAT("%",#{map.content_type},"%")
+				and <foreach item="item" index="index" collection="map.content_type.split(',')"  open="(" separator="or" close=")">
+					FIND_IN_SET('${item}',a.content_type)
+				</foreach>
 			</if>
 			<if test="map.content_description!=null">
 			and a.content_description like CONCAT("%",#{map.content_description},"%")
@@ -336,6 +338,9 @@
 			</if>
 			<if test="map.content_details!=null">
 			and a.content_details like CONCAT("%",#{map.content_details},"%")
+			</if>
+			<if test="map.content_datetime_start!=null and map.content_datetime_end!=null">
+				and a.content_datetime between #{map.content_datetime_start} and #{map.content_datetime_end}
 			</if>
 			<if test="tableName!=null and tableName!='' and diyMap!=null">
 				<foreach item="item" index="index" collection="diyList" open=""
