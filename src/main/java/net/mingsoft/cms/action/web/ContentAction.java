@@ -103,10 +103,9 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	@ApiImplicitParam(name = "contentId", value = "文章编号", required = true,paramType="path")
 	@GetMapping(value = "/{contentId}/hit")
 	@ResponseBody
-	public void hit(@PathVariable @ApiIgnore int contentId, HttpServletRequest request, HttpServletResponse response){
+	public String hit(@PathVariable @ApiIgnore int contentId, HttpServletRequest request, HttpServletResponse response){
 	 	if(contentId<=0){
-			this.outString(response, "document.write(0)");
-			return;
+			return "document.write(0)";
 		}
 	 	//获取ip
 		String ip = BasicUtil.getIp();
@@ -114,10 +113,12 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		boolean isMobileDevice = BasicUtil.isMobileDevice();
 
 		ContentEntity content = (ContentEntity)contentBiz.getEntity(contentId);
+		if(content == null){
+			return "document.write(0)";
+		}
 	 	//浏览数+1
 		content.setContentHit(content.getContentHit()+1);
 		contentBiz.updateEntity(content);
-
 
 		// cms_history 增加相应记录
 		HistoryLogEntity entity = new HistoryLogEntity();
@@ -126,17 +127,10 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		entity.setContentId(content.getId());
 		entity.setCreateDate(new Date());
 		historyLogBiz.saveEntity(entity);
-
-	 	if(content == null){
-			this.outString(response, "document.write(0)");
-			return;
-		}
 		if(content.getAppId() == null || content.getAppId() != BasicUtil.getAppId()){
-			this.outString(response, "document.write(0)");
-			return;
+			return "document.write(0)";
 		}
-		this.outString(response, "document.write(" + content.getContentHit() + ")");
-		return;
+		return "document.write(" + content.getContentHit() + ")";
 	}
 
 }
