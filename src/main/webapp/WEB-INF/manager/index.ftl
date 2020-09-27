@@ -507,7 +507,10 @@
             dictList: function () {
                 var that = this;
                 ms.http.get(ms.base + '/mdiy/dict/list.do', {dictType: '消息类型', pageSize: 99999}).then(function (res) {
-                    that.messageTypeList = res.rows;
+                    if(res.result){
+                        res = res.data;
+                        that.messageTypeList = res.rows;
+                    }
                 }).catch(function (err) {
                     console.log(err);
                 });

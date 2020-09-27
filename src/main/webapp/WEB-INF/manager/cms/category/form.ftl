@@ -418,7 +418,9 @@
                 ms.http.get(ms.manager + "/mdiy/model/list.do", {
                     modelType: 'zdymx_wz'
                 }).then(function (data) {
-                    that.mdiyModelIdOptions = data.data.rows;
+                    if(data.result){
+                        that.mdiyModelIdOptions = data.data.rows;
+                    }
                 }).catch(function (err) {
                     console.log(err);
                 });
@@ -460,10 +462,12 @@
                 ms.http.post(ms.manager + "/cms/content/list.do", {
                     contentCategoryId: id
                 }).then(function (data) {
-                    if (data.data.total > 0) {
-                        that.categoryTypeDisabled = true;
-                    } else {
-                        that.categoryTypeDisabled = false;
+                    if(data.result){
+                        if (data.data.total > 0) {
+                            that.categoryTypeDisabled = true;
+                        } else {
+                            that.categoryTypeDisabled = false;
+                        }
                     }
                 }).catch(function (err) {
                     console.log(err);
@@ -494,7 +498,10 @@
                     dictType: '栏目属性',
                     pageSize: 99999
                 }).then(function (res) {
-                    that.categoryFlagOptions = res.rows;
+                    if(res.result){
+                        res = res.data;
+                        that.categoryFlagOptions = res.rows;
+                    }
                 }).catch(function (err) {
                     console.log(err);
                 });

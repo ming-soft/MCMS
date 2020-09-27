@@ -543,7 +543,10 @@
                     dictType: '文章属性',
                     pageSize: 99999
                 }).then(function (data) {
-                    that.contentTypeOptions = data.rows;
+                    if(data.result){
+                        data = data.data;
+                        that.contentTypeOptions = data.rows;
+                    }
                 }).catch(function (err) {
                     console.log(err);
                 });
