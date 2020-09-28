@@ -47,7 +47,7 @@
 			</el-table-column>
 			<el-table-column label="链接地址" align="left" prop="categoryPath" show-overflow-tooltip>
 				<template slot-scope="scope">
-					<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="'${'$'}{global.url}'+scope.row.categoryPath+'/index.html'" @click="copyUrl">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
+					<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="'${'$'}{ms:global.url}'+scope.row.categoryPath+'/index.html'" @click="copyUrl">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
 				</template>
 			</el-table-column>
             <el-table-column label="列表地址" align="left" prop="categoryListUrl" show-overflow-tooltip>
