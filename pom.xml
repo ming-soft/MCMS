@@ -99,10 +99,10 @@
 				<directory>src/main/webapp</directory>
 				<excludes>
 					<!--打包生产 -->
-					<exclude>static/</exclude>
-					<exclude>html/</exclude>
-					<exclude>upload/</exclude>
-					<exclude>templets/</exclude>
+					<!-- <exclude>static/</exclude> -->
+					<!-- <exclude>html/</exclude> -->
+					<!-- <exclude>upload/</exclude> -->
+					<!-- <exclude>templets/</exclude> -->
 				</excludes>
 			</resource>
 			<resource>
