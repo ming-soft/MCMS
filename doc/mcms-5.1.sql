@@ -15,13 +15,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Current Database: `mcms-dev-5.1-1`
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `mcms-dev-5.1-1` /*!40100 DEFAULT CHARACTER SET utf8 */;
-
-USE `mcms-dev-5.1-1`;
 
 --
 -- Table structure for table `app`
