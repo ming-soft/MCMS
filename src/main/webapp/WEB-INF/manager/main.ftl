@@ -423,7 +423,7 @@
       },
       //铭飞开发文档
       jumpMCMSDocument: function () {
-        window.open("http://doc.ms.mingsoft.net/plugs-cms/");
+        window.open("http://doc.mingsoft.net/plugs-cms/");
       },
       enterQQOneGroup: function () {
         window.open("https://shang.qq.com/wpa/qunwpa?idkey=ebf251dc9758de6b9c78c499956431cba73e28b3f0b72c0fc28242e98b20fca2");
