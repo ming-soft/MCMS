@@ -540,11 +540,15 @@
             this.categoryUrlOptionsGet();
             this.categoryFlagOptionsGet();
             this.form.id = ms.util.getParameter("id");
+            this.form.child = ms.util.getParameter("child");
 
-            if (this.form.id) {
+            this.categoryTypeDisabled = false;
+            if (this.form.id != undefined && this.form.child == undefined) {
+                this.categoryTypeDisabled = true;
                 this.get(this.form.id);
-            } else {
-                this.categoryTypeDisabled = false;
+            } else if (this.form.child) {
+                this.form.id = null;
+                this.form.categoryId = this.form.child;
             }
         }
     });
