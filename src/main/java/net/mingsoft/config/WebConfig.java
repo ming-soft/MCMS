@@ -45,6 +45,9 @@ public class WebConfig implements WebMvcConfigurer {
 	 */
 	@Value("${ms.upload.path}")
 	private String uploadFloderPath;
+
+	@Value("${ms.upload.template}")
+	private String template;
 	/**
 	 * 上传路径映射
 	 */
@@ -69,7 +72,7 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/upload/**").addResourceLocations("/upload/","file:upload/");
-		registry.addResourceHandler("/templets/**").addResourceLocations("/templets/","file:templets/");
+		registry.addResourceHandler("/templets/**").addResourceLocations(File.separator+template+File.separator,"file:"+template+File.separator);
 		registry.addResourceHandler("/html/**").addResourceLocations("/html/","file:html/");
 		//三种映射方式 webapp下、当前目录下、jar内
 		registry.addResourceHandler("/app/**").addResourceLocations("/app/","file:app/", "classpath:/app/");
