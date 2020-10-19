@@ -62,10 +62,10 @@
 					{{scope.row.categoryType == '2'?scope.row.categoryUrl:''}}
 				</template>
             </el-table-column>
-					<el-table-column label="操作" width="120" align="center">
+					<el-table-column label="操作" width="150" align="center">
 					<template slot-scope="scope">
 						<@shiro.hasPermission name="cms:category:save">
-						<el-link type="primary" :underline="false" @click="save(scope.row.id, scope.row.id)">新增子栏目</el-link>
+							<el-link type="primary" :underline="false" @click="save(scope.row.id, scope.row.id)"><i class="el-icon-plus"></i>子栏目</el-link>
 						</@shiro.hasPermission>
 						<@shiro.hasPermission name="cms:category:update">
 						<el-link type="primary" :underline="false" @click="save(scope.row.id)">编辑</el-link>
@@ -234,9 +234,9 @@
 				return value;
 			},
 			//新增
-			save: function (id, child) {
+			save: function (id, childId) {
 				if (id) {
-					location.href = this.manager + "/cms/category/form.do?id=" + id + "&child=" + child;
+					location.href = this.manager + "/cms/category/form.do?id=" + id + "&childId=" + childId;
 				} else {
 					location.href = this.manager + "/cms/category/form.do";
 				}

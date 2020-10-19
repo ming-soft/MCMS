@@ -540,15 +540,18 @@
             this.categoryUrlOptionsGet();
             this.categoryFlagOptionsGet();
             this.form.id = ms.util.getParameter("id");
-            this.form.child = ms.util.getParameter("child");
+            this.form.childId = ms.util.getParameter("childId");// 判断是否增加子栏目
 
-            this.categoryTypeDisabled = false;
-            if (this.form.id != undefined && this.form.child == undefined) {
+            // 判断三种状态，默认为编辑状态
+            this.categoryTypeDisabled = false;// 控制栏目分类是否可编辑
+            if (this.form.id != undefined && this.form.childId == undefined) {
+                // 切换新增状态，id&childId 为空
                 this.categoryTypeDisabled = true;
                 this.get(this.form.id);
-            } else if (this.form.child) {
+            } else if (this.form.childId) {
+                // 切换新增子栏目状态，id&childId 不为空
                 this.form.id = null;
-                this.form.categoryId = this.form.child;
+                this.form.categoryId = this.form.childId;
             }
         }
     });
