@@ -542,10 +542,10 @@
             this.form.id = ms.util.getParameter("id");
             this.form.childId = ms.util.getParameter("childId");// 判断是否增加子栏目
 
-            // 判断三种状态，默认为编辑状态
+            // 判断三种状态，默认为新增状态
             this.categoryTypeDisabled = false;// 控制栏目分类是否可编辑
-            if (this.form.id != undefined && this.form.childId == undefined) {
-                // 切换新增状态，id&childId 为空
+            if (this.form.id != undefined && (this.form.childId == undefined  || this.form.childId == "undefined")) {
+                // 切换编辑状态，id不为空 childId 为空
                 this.categoryTypeDisabled = true;
                 this.get(this.form.id);
             } else if (this.form.childId) {
