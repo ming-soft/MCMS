@@ -97,15 +97,7 @@
         </plugins>
         <resources>
             <resource>
-                <filtering>true</filtering>
                 <directory>src/main/webapp</directory>
-                <!--打包生产jar -->
-                <!--                <excludes>-->
-                <!--                     <exclude>static/</exclude>-->
-                <!--                     <exclude>html/</exclude>-->
-                <!--                     <exclude>upload/</exclude>-->
-                <!--                     <exclude>templets/</exclude>-->
-                <!--                </excludes>-->
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
