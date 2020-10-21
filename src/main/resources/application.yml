@@ -19,11 +19,12 @@ ms:
   manager:
     path: /ms #后台访问的路径，如:http://项目/ms/login.do，生产的时候建议修改
     view-path: /WEB-INF/manager #后台视图层路径配置
-    check-code: true #默认开启验证码验证，false验证码不验证
+    check-code: false #默认开启验证码验证，false验证码不验证
 
   upload:
+    enable-web: false  #启用web层的上传
     template: template #模板文件夹支持重命名，不支持路径
-    path: upload #文件上传路径，可以根据实际写绝对路径
+    path: D:\gitbck #文件上传路径，可以根据实际写绝对路径
     mapping: /upload/** #修改需要谨慎，系统第一次部署可以随意修改，如果已经有了上传数据，再次修改会导致之前上传的文件404
     denied: .exe,.jsp
     back-up: /upload_back
@@ -75,6 +76,11 @@ spring:
       time_format: HH:mm:ss
       datetime_format: yyyy-MM-dd HH:mm:ss
       number_format: 0.##
+  http:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
 
 mybatis:
   configuration:
