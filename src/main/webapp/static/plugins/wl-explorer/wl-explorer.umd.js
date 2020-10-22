@@ -35392,12 +35392,12 @@ var es_function_name = __webpack_require__("b0c0");
 // EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom-collections.for-each.js
 var web_dom_collections_for_each = __webpack_require__("159b");
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"f1e9705e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/pages/WlExplorer/index.vue?vue&type=template&id=222e5389&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"f1e9705e-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/pages/WlExplorer/index.vue?vue&type=template&id=43b3b612&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"wl-explorer",on:{"contextmenu":function($event){$event.preventDefault();}}},[_c('el-form',{staticClass:"wl-header-file",attrs:{"inline":true,"size":_vm.size,"model":_vm.file},nativeOn:{"submit":function($event){$event.preventDefault();}}},[_c('el-form-item',{staticClass:"file-path-box"},[_c('div',{directives:[{name:"show",rawName:"v-show",value:(!_vm.layout.edit_path),expression:"!layout.edit_path"}],staticClass:"file-path-text",class:{ small: _vm.size == 'small' },on:{"click":_vm.handleFilePath}},[_c('img',{staticClass:"file-path-img",attrs:{"src":__webpack_require__("c836"),"alt":"文件夹","title":"文件夹"}}),_vm._v(" "+_vm._s(_vm.file.path)+" ")]),(_vm.layout.edit_path)?_c('el-autocomplete',{ref:"file-path-ipt",staticClass:"u-full",attrs:{"placeholder":"请输入文件路径","fetch-suggestions":_vm.pathQuerySearch},on:{"select":_vm.filePathChange},nativeOn:{"keyup":function($event){if(!$event.type.indexOf('key')&&_vm._k($event.keyCode,"enter",13,$event.key,"Enter")){ return null; }return _vm.filePathChange($event)}},model:{value:(_vm.file.path),callback:function ($$v) {_vm.$set(_vm.file, "path", $$v)},expression:"file.path"}},[_c('img',{staticClass:"file-path-img",attrs:{"slot":"prefix","src":__webpack_require__("c836"),"alt":"文件夹","title":"文件夹"},slot:"prefix"})]):_vm._e()],1),_c('el-form-item',{staticClass:"file-handle-box"},[_c('el-tooltip',{attrs:{"content":"返回","effect":"dark","placement":"bottom"}},[_c('i',{staticClass:"iconfont icon-wl-left file-path-handle",class:{ 'u-disabled': _vm.pathIsStart },on:{"click":function($event){return _vm.pathBtn('prv')}}})]),_c('el-tooltip',{attrs:{"content":"前进","effect":"dark","placement":"bottom"}},[_c('i',{staticClass:"iconfont icon-wl-right file-path-handle",class:{ 'u-disabled': _vm.pathIsEnd },on:{"click":function($event){return _vm.pathBtn('next')}}})]),_c('el-tooltip',{attrs:{"content":"上级目录","effect":"dark","placement":"bottom"}},[_c('i',{staticClass:"iconfont icon-wl-up file-path-handle",class:{ 'u-disabled': _vm.path.level === 1 },on:{"click":function($event){return _vm.pathBtn('top')}}})])],1),_c('el-tooltip',{attrs:{"content":"切换显示方式","effect":"dark","placement":"bottom"}},[_c('el-form-item',{staticClass:"file-show-list-box"},[_c('i',{directives:[{name:"show",rawName:"v-show",value:(_vm.layout.show_list),expression:"layout.show_list"}],staticClass:"iconfont icon-wl-list file-show-type",on:{"click":function($event){_vm.layout.show_list = !_vm.layout.show_list}}}),_c('i',{directives:[{name:"show",rawName:"v-show",value:(!_vm.layout.show_list),expression:"!layout.show_list"}],staticClass:"iconfont icon-wl-grid file-show-type",on:{"click":function($event){_vm.layout.show_list = !_vm.layout.show_list}}})])],1)],1),_c('el-scrollbar',{staticClass:"wl-main-scroll"},[_c('div',{staticClass:"wl-main-list"},[_c('el-table',{directives:[{name:"show",rawName:"v-show",value:(_vm.layout.show_list),expression:"layout.show_list"}],ref:"wl-table",staticClass:"wl-table",attrs:{"highlight-current-row":"","border":_vm.showBorder,"data":_vm.self_data},on:{"selection-change":_vm.filrChecked}},[(_vm.showCheckbox)?_c('el-table-column',{attrs:{"align":"center","type":"selection","width":"55"}}):_vm._e(),(_vm.showIndex)?_c('el-table-column',{attrs:{"align":"center","type":"index","label":"序号","width":"55"}}):_vm._e(),_vm._t("table-column-top"),_vm._l((_vm.selfColumns),function(i){return _c('el-table-column',{key:i._id,attrs:{"show-overflow-tooltip":"","prop":i.prop,"width":i.width,"label":i.label,"fixed":i.fixed,"align":i.align,"sort-by":i.sortBy,"sortable":i.sortable,"min-width":i.minWidth,"formatter":i.formatter,"column-key":i.columnKey,"class-name":i.className,"sort-method":i.sortMethod,"header-align":i.headerAlign,"render-header":i.renderHeader,"label-class-name":i.labelClassName},scopedSlots:_vm._u([{key:"default",fn:function(scope){return [(i.prop !== _vm.selfProps.name)?[_vm._v(" "+_vm._s(i.formatter ? i.formatter( scope.row, scope.column, scope.row[i.prop], scope.$index ) : scope.row[i.prop])+" ")]:_c('div',{staticClass:"wl-name-col wl-is-folder",on:{"click":function($event){return _vm.enterTheLower(scope.row, scope.row[_vm.selfIsFolder])}}},[_c('div',{staticClass:"namecol-iconbox"},[_c('img',{staticClass:"name-col-icon",attrs:{"src":_vm.fileTypeIcon(scope.row),"alt":"文件类型图标"}})]),_c('div',{staticClass:"namecol-textbox"},[_vm._v(" "+_vm._s(i.formatter ? i.formatter( scope.row, scope.column, scope.row[i.prop], scope.$index ) : scope.row[i.prop])+" ")])])]}}],null,true)})}),_vm._t("table-column-bottom")],2),_c('ul',{directives:[{name:"show",rawName:"v-show",value:(!_vm.layout.show_list),expression:"!layout.show_list"}],staticClass:"wl-list"},_vm._l((_vm.self_data),function(i,idx){return _c('li',{key:i.Id,staticClass:"wl-list-item wl-is-folder"},[_c('el-checkbox',{staticClass:"wl-checkbox",class:{ 'wl-checkbox-checked': i._checked },on:{"change":function($event){return _vm.listItemCheck($event, i)}},model:{value:(i._checked),callback:function ($$v) {_vm.$set(i, "_checked", $$v)},expression:"i._checked"}}),_c('div',{on:{"click":function($event){return _vm.enterTheLower(i, i[_vm.selfIsFolder])}}},[_c('img',{staticClass:"name-col-icon",attrs:{"src":_vm.fileTypeIcon(i),"alt":"文件类型图标"}}),_c('p',{staticClass:"list-item-name",attrs:{"title":i[_vm.selfProps.name]}},[_vm._v(" "+_vm._s(i.formatter ? i.formatter(i, null, i[_vm.selfProps.name], idx) : i[_vm.selfProps.name])+" ")])])],1)}),0),_vm._t("main")],2)]),_vm._t("default"),(_vm.usePreview)?[_c('file-view',{directives:[{name:"show",rawName:"v-show",value:(_vm.layout.view),expression:"layout.view"}],ref:"file-view",staticClass:"file-view-components",attrs:{"previewType":_vm.previewType,"previewOptions":_vm.previewOptions},on:{"close":function($event){_vm.layout.view = false}}})]:_vm._e(),_c('el-dialog',{attrs:{"title":"移动文件","width":"520px","visible":_vm.layout.move},on:{"update:visible":function($event){return _vm.$set(_vm.layout, "move", $event)}}},[_c('wlTreeSelect',{staticClass:"u-full",attrs:{"size":_vm.size,"data":_vm.tree_path,"props":_vm.selfMoveProps,"nodeKey":_vm.selfProps.pathId},model:{value:(_vm.move_selected),callback:function ($$v) {_vm.move_selected=$$v},expression:"move_selected"}}),_c('span',{staticClass:"dialog-footer",attrs:{"slot":"footer"},slot:"footer"},[_c('el-button',{attrs:{"size":_vm.size},on:{"click":function($event){_vm.layout.move = false}}},[_vm._v("取 消")]),_c('submit-btn',{attrs:{"size":_vm.size,"status":_vm.load.move},on:{"btn":_vm.fileMove}},[_vm._v("确 定")])],1)],1),(_vm.useUpload)?[_c('fade-in',{directives:[{name:"show",rawName:"v-show",value:(_vm.layout.upload),expression:"layout.upload"}]},[_c('h3',{staticClass:"edit-header"},[_vm._v("上传文件")]),_c('el-scrollbar',{staticClass:"scroll"},[_c('el-form',{ref:"template_form",staticClass:"template_form rule-form",attrs:{"size":_vm.size,"label-position":"top"}},[_c('el-form-item',{attrs:{"label":"文件路径"}},[_c('wlTreeSelect',{staticClass:"u-full",attrs:{"size":_vm.size,"data":_vm.tree_path,"props":_vm.selfMoveProps,"nodeKey":_vm.selfProps.pathId},on:{"change":_vm.uploadPathChange},model:{value:(_vm.upload_selected),callback:function ($$v) {_vm.upload_selected=$$v},expression:"upload_selected"}})],1),_c('el-form-item',{attrs:{"label":"导入文件"}},[_c('uploadItem',{ref:"upload-item",attrs:{"size":_vm.size,"reg":_vm.uploadReg,"url":_vm.uploadUrl,"limit":_vm.uploadLimit,"regFuc":_vm.uploadRegFuc,"options":_vm.uploadOptions,"headers":_vm.uploadHeaders},on:{"beforeUpload":_vm.uploadBefore,"uploadSuccess":_vm.uploadSuccess,"uploadError":_vm.uploadError}})],1)],1)],1),_c('div',{staticClass:"submit-btn-box"},[_c('submit-btn',{attrs:{"size":_vm.size,"status":_vm.load.upload},on:{"btn":function($event){return _vm.saveUpload()}}},[_vm._v("保存")]),_c('el-button',{attrs:{"size":_vm.size},on:{"click":function($event){_vm.layout.upload = false}}},[_vm._v("取消")])],1)],1)]:_vm._e()],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/pages/WlExplorer/index.vue?vue&type=template&id=222e5389&
+// CONCATENATED MODULE: ./src/pages/WlExplorer/index.vue?vue&type=template&id=43b3b612&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.filter.js
 var es_array_filter = __webpack_require__("4de4");
@@ -37064,79 +37064,6 @@ var upload_item_component = normalizeComponent(
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
  // 导入防抖组件
 
  // 导入预览组件
@@ -37721,6 +37648,10 @@ var guid = "00000000-0000-0000-0000-000000000000";
       if (["jpg", "jpeg", "png", "gif", "bmp"].includes(_suffix)) {
         // 图片
         _path = __webpack_require__("b4e9");
+
+        if (row.imgUrl != undefined) {
+          _path = row.imgUrl;
+        }
       } else if (["zip", "rar", "7z"].includes(_suffix)) {
         _path = __webpack_require__("1640");
       } else if (["avi", "mp4", "rmvb", "flv", "mov", "m2v", "mkv"].includes(_suffix)) {
