@@ -395,14 +395,6 @@ private static final long serialVersionUID = 1574925152750L;
 	 * 获取栏目图片 (标签使用）
 	 */
 	public String getTypelitpic() {
-		if(StrUtil.isNotBlank(categoryImg)){
-			try{
-				JSONArray objects = JSON.parseArray(categoryImg);
-				return objects.getJSONObject(0).getString("path");
-			}catch (Exception e){
-
-			}
-		}
-		return "";
+		return categoryImg;
 	}
 }

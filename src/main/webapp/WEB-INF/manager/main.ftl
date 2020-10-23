@@ -448,9 +448,9 @@
         var that = this;
         axios.create({
           withCredentials: true
-        }).get("https://ms.mingsoft.net/cms/content/list.do?contentCategoryId=202").then(function (res) {
+        }).get("https://mingsoft.net/cms/content/list.do?contentCategoryId=202").then(function (res) {
           that.msNewsLast = res.data.data.rows[0].contentTitle.toString();
-          that.msNewsPath = 'https://ms.mingsoft.net/html/1/203/202/' + res.data.data.rows[0].id + '.html';
+          that.msNewsPath = 'https://mingsoft.net/html/1/203/202/' + res.data.data.rows[0].id + '.html';
         });
         this.setCallBackFun();
       }
