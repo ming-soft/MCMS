@@ -7,6 +7,7 @@ import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateNotFoundException;
 import net.mingsoft.base.constant.Const;
+import net.mingsoft.basic.holder.DataHolder;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.SpringUtil;
 import net.mingsoft.cms.bean.CategoryBean;
@@ -244,10 +245,12 @@ public class CmsParserUtil extends ParserUtil {
 			HashMap<Object, Object> cloneMap = CollUtil.newHashMap();
 			cloneMap.putAll(parserParams);
             HttpServletRequest request = SpringUtil.getRequest();
+            Integer appId = (Integer) DataHolder.get("appId");
             pool.execute(() -> {
 				String content = null;
 				try {
 					SpringUtil.setRequest(request);
+					DataHolder.set("appId", appId);
 					content = CmsParserUtil.generate(columnUrl, cloneMap);
 					FileUtil.writeString(content, finalWritePath, Const.UTF8);
 				} catch (IOException e) {
