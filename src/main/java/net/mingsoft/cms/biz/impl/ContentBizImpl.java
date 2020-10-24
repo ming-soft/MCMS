@@ -98,14 +98,16 @@ public class ContentBizImpl extends BaseBizImpl implements IContentBiz {
 	 * 任务调度静态化任务
 	 */
 	public void staticizeTask(Integer appId, String tmpFileName, String generateFileName) {
-		Date now = new Date();
-		LOG.info("定时静态化任务", now);
-		//生成栏目，更新所有栏目
+		LOG.info("定时静态化任务", new Date());
 		try {
+			//将任务采集传过来的appId导入到线程变量中
+			//当前线程使用appId时优先使用此数据
 			DataHolder.set(ParserUtil.APP_ID, appId);
+			//调用三种静态化
 			genernateColumn();
 			generaterIndex(tmpFileName, generateFileName);
-			generateArticle(DateUtil.format(now, "yyyy-MM-dd"));
+			//生成文章日期默认为执行日期的上一天
+			generateArticle(DateUtil.format(DateUtil.yesterday(), "yyyy-MM-dd"));
 			LOG.info("静态化完成", new Date());
 		} catch (IOException e) {
 			LOG.info("静态化失败", new Date());
@@ -113,7 +115,9 @@ public class ContentBizImpl extends BaseBizImpl implements IContentBiz {
 		}
 	}
 
-	//文章
+	/*
+	 * 生成文章逻辑
+	 */
 	private void generateArticle(String dateTime) throws IOException {
 		// 网站风格物理路径
 		List<CategoryBean> articleIdList = null;
@@ -154,13 +158,14 @@ public class ContentBizImpl extends BaseBizImpl implements IContentBiz {
 		}
 	}
 
-	//栏目
+	/*
+	 * 生成栏目逻辑
+	 */
 	private void genernateColumn() throws IOException {
 		List<CategoryEntity> columns = new ArrayList<>();
 		// 获取所有的内容管理栏目
 		CategoryEntity categoryEntity=new CategoryEntity();
-		Integer appId = (Integer) DataHolder.get(ParserUtil.APP_ID);
-		categoryEntity.setAppId(appId);
+		categoryEntity.setAppId(BasicUtil.getAppId());
 		columns = categoryDao.query(categoryEntity);
 		List<CategoryBean> articleIdList = null;
 		// 1、设置模板文件夹路径
@@ -211,13 +216,14 @@ public class ContentBizImpl extends BaseBizImpl implements IContentBiz {
 		}
 	}
 
-	//主页
+	/*
+	 * 生成主页逻辑
+	 */
 	private void generaterIndex(String templatePath, String targetPath) throws IOException {
 		if (!FileUtil.exist(ParserUtil.buildTempletPath())) {
 			LOG.info("模板文件不存在");
 			return;
 		}
-		Integer appId = (Integer) DataHolder.get(ParserUtil.APP_ID);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(ParserUtil.IS_DO, false);
 		CategoryEntity column = new CategoryEntity();
@@ -230,7 +236,7 @@ public class ContentBizImpl extends BaseBizImpl implements IContentBiz {
 		//设置生成的路径
 		map.put(ParserUtil.HTML, ParserUtil.HTML);
 		//设置站点编号
-		map.put(ParserUtil.APP_ID, appId);
+		map.put(ParserUtil.APP_ID, BasicUtil.getAppId());
 		String read = ParserUtil.read(templatePath, map);
 		FileUtil.writeString(read, ParserUtil.buildHtmlPath(targetPath), Const.UTF8);
 	}
