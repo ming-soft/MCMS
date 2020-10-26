@@ -8,4 +8,4 @@ ALTER TABLE `mdiy_model`
 CHANGE COLUMN `model_app_id` `app_id`  int(11) NULL DEFAULT NULL COMMENT '应用编号' AFTER `model_json`;
 
 ALTER TABLE `mdiy_dict`
-ADD COLUMN `dict_enable`  varchar(11) NULL COMMENT '启用状态' AFTER `is_child`;
+ADD COLUMN `dict_enable`  varchar(11) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '1' COMMENT '启用状态' AFTER `is_child`;
