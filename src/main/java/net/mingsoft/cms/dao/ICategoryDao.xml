@@ -240,7 +240,6 @@
 			<if test="del != null"> and del=#{del} </if>
 			<include refid="net.mingsoft.base.dao.IBaseDao.sqlWhere"></include>
 		</where>
-		order by id desc
 	</select>
 
 </mapper>
