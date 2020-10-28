@@ -219,7 +219,7 @@
 		</select>
 	<!--条件查询-->
 	<select id="query" resultMap="resultContentMap">
-		select ct.*,CONCAT("/html/",ct.app_id,category_path,"/",ct.id,".html") AS static_url from (
+		select ct.*,CONCAT('/html/',ct.app_id,category_path,'/',ct.id,'.html') AS static_url from (
 		select ct.*,cc.category_path from cms_content ct
 		join cms_category cc on ct.content_category_id=cc.id
 		<where>
