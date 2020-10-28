@@ -9,3 +9,6 @@ CHANGE COLUMN `model_app_id` `app_id`  int(11) NULL DEFAULT NULL COMMENT '应用
 
 ALTER TABLE `mdiy_dict`
 ADD COLUMN `dict_enable`  varchar(11) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '1' COMMENT '启用状态' AFTER `is_child`;
+
+ALTER TABLE `cms_category` ADD COLUMN `leaf`  bigint(1) NULL DEFAULT NULL COMMENT '是否是叶子节点' AFTER `category_pinyin`;
+ALTER TABLE `cms_category` ADD COLUMN `top_id`  int(11) NULL DEFAULT NULL COMMENT '顶级id' AFTER `leaf`;
