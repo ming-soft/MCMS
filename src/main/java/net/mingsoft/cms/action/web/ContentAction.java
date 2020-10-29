@@ -1,5 +1,6 @@
 package net.mingsoft.cms.action.web;
 
+import cn.hutool.core.util.ObjectUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -117,7 +118,11 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 			return "document.write(0)";
 		}
 	 	//浏览数+1
-		content.setContentHit(content.getContentHit()+1);
+		if(ObjectUtil.isNotEmpty(content.getContentHit())){
+			content.setContentHit(content.getContentHit()+1);
+		}else {
+			content.setContentHit(1);
+		}
 		contentBiz.updateEntity(content);
 
 		// cms_history 增加相应记录

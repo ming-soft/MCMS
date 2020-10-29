@@ -1,0 +1,66 @@
+
+
+
+        <!--导航 - start -->
+                <div               class="header">
+        <!--中间区域 - start -->
+                <div               class="center">
+        <!--左侧 - start -->
+                <div               class="left">
+            <a href="${global.url}"     
+                    >
+    ${field.typetitle}
+            </a>
+{ms:channel active='nav-sel' type='nav' flag='n'}
+            <a href="${global.url}${field.typelink}"     
+                             class="${field.active}">
+    ${field.typetitle}
+            </a>
+        {/ms:channel}
+                </div>
+            <!--左侧 -end -->
+        <!--手机端 - start -->
+                <div          @click='switchShow(["1601304203000_30278"]);'              class="h5-menu">
+            <i          class="iconfont icon-caidan icon"     ></i>
+        <!--手机端菜单 - start -->
+                <div        id="key_1601304203000_30278"
+      style="background-color:#2D548F;top:60px;left:0px;flex-direction:column;display:none;width:100vw;box-sizing:border-box;padding-top:0px;position:absolute;padding-left:0px;">
+{ms:channel type='nav' flag='n'}
+            <a href="${global.url}${field.typelink}"     
+                             class="class-1">
+    ${field.typetitle}
+            </a>
+        {/ms:channel}
+                </div>
+            <!--手机端菜单 -end -->
+                </div>
+            <!--手机端 -end -->
+        <!--副链接 - start -->
+                <div               class="right">
+            <a href="http://www.gov.cn/"     
+                   target="_blank"
+                    >
+    中国政府网
+            </a>
+            <span      >
+    |
+            </span>
+            <a href="http://www.jxrd.gov.cn/"     
+                   target="_blank"
+                    >
+    省人大
+            </a>
+            <span      >
+    |
+            </span>
+            <a href="http://jxzx.jxnews.com.cn/"     
+                   target="_blank"
+                    >
+    省政协
+            </a>
+                </div>
+            <!--副链接 -end -->
+                </div>
+            <!--中间区域 -end -->
+                </div>
+            <!--导航 -end -->
