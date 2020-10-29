@@ -41,158 +41,112 @@
     <div id="app" v-cloak>
                 <#include "header.htm"/>
                 <#include "search.htm"/>
-                <div               class="ms-content">
-<div class="ms-channel-path">
-    <span class="ms-channel-path-label">
-        当前位置：
-    </span>
-    <a href="/" class="ms-channel-path-index">
-        首页
-    </a>
-         {ms:channel type="path"}
-    <i class="iconfont icon-youjiantou"></i>
-    <a href="{ms:global.url/}${field.typelink}" class="ms-channel-path-link">
-        ${field.typetitle}
-    </a>
-    {/ms:channel}   
-
-</div>                <div               class="detail">
-                <div               class="body">
-            <a href="${global.url}${field.typelink}"     
-                             class="type-title">
-    ${field.typetitle}
+                <div               class="ms-channel-path">
+            <span          class="ms-channel-path-label"     >
+    当前位置：
+            </span>
+            <a href="#"     
+                             class="ms-channel-path-index">
+    首页 
             </a>
+                    {ms:channel type="path"}
+                    <i class="iconfont icon-youjiantou"></i>
+                    <a href="{ms:global.url/}${field.typelink}" class="ms-channel-path-link">
+                        ${field.typetitle}
+                    </a>
+                    {/ms:channel}
                 </div>
-        <!--新闻列表(一行) - start -->
-{ms:arclist ispaging=true}
-                <div               class="ms-news-one-line">
-            <i          class="iconfont icon-fangkuai ms-news-one-line-dot"     ></i>
-            <a href="${global.url}${field.link}"     
-                             class="ms-news-one-line-link">
+                <div               class="detail">
+                <div               class="top">
+            <span          class="title"     >
     ${field.title}
-            </a>
-            <span          class="ms-news-one-line-date"     >
+            </span>
+                <div               class="date">
+            <span      >
+    发布时间：
+            </span>
+            <span      >
     ${field.date?string("yyyy-MM-dd")}
             </span>
-                </div>
-        {/ms:arclist}
-            <!--新闻列表(一行) -end -->
-    <#assign pagerCount=3 />
-
-    <#assign pageCount=page.total />
-    <#assign currentPage=page.cur />
-    <#assign halfPagerCount=(pagerCount-1)/2/> 
-    <#assign showPrevMore=false />
-    <#assign showNextMore=false />
-    <#assign arr=[] />
-
-    <#--判断是否有翻页-->
-    <#if pageCount gt pagerCount>
-        <#if currentPage gt pagerCount - halfPagerCount>
-            <#assign showPrevMore=true />
-        </#if>
-        <#if currentPage lt pageCount - halfPagerCount>
-            <#assign showNextMore=true />
-        </#if>
-    </#if>
-
-    <#--计算页码-->
-    <#if showPrevMore&&!showNextMore>
-        <#assign startPage=pageCount - (pagerCount - 2) />
-        <#list startPage..pageCount-1 as x>
-            <#assign arr=arr+[x] />
-        </#list>
-    <#elseif !showPrevMore && showNextMore>
-        <#list 2..pagerCount as x>
-            <#assign arr=arr+[x] />
-        </#list>
-    <#elseif showPrevMore && showNextMore>
-        <#assign offset=(pagerCount / 2)?floor - 1 />
-        <#list currentPage - offset..currentPage + offset as x>
-            <#assign arr=arr+[x] />
-        </#list>
-    <#else>
-        <#list 2..pageCount as x>
-            <#if x lt pageCount>
-                <#assign arr=arr+[x] />
-            </#if>
-        </#list>
-    </#if>
-
-    <div class="ms-page">
-        <a href="{ms:global.url/}{ms:page.pre/}">
-        <i class="iconfont icon-zuojiantou ms-page-pre"></i>
-        </a>
-
-        <#--第一页-->
-        <#if pageCount gt 0>
-            <a href="{ms:global.url/}{ms:page.index/}">
-                <#if 1==currentPage>
-                    <span class="ms-page-no-sel">1</span>
-                    <#else>
-                    <span class="ms-page-no">1</span>
-                </#if>
-            </a>
-        </#if>
-
-
-        <#--翻页的省略号-->
-        <#if showPrevMore>
-            <span class="ms-page-dot">
-                ...
+            <span      >
+    浏览次数：
             </span>
-        </#if>       
-
-        <#--中间的页码-->
-        <#list arr as x>
-            <a href="{ms:global.url/}${field.categoryPath}/list-${x}.html">
-                <#if x==currentPage>
-                    <span class="ms-page-no-sel">${x}</span>
-                    <#else>
-                    <span class="ms-page-no">${x}</span>
-                </#if>
-            </a>
-        </#list>   
-
-
-        <#-- 最后一页-->
-        <#if pageCount gt 1>
-            <a href="{ms:global.url/}${field.categoryPath}/list-${pageCount}.html">
-                <#if pageCount==currentPage>
-                    <span class="ms-page-no-sel">${pageCount}</span>
-                <#else>
-                    <span class="ms-page-no">${pageCount}</span>
-                </#if>
-            </a>
-        </#if>
-
-            
-        <a href="{ms:global.url/}{ms:page.next/}">
-            <i class="iconfont icon-youjiantou ms-page-next"></i>
-        </a>
-        <span>
-            前往
-            <input type="number" onchange="location.href='{ms:global.url/}${field.categoryPath}/'+((this.value<=1?'index':('list-'+(this.value>${pageCount}?${pageCount}:this.value)))+'.html')">
-            页
-        </span>   
-
-
-    </div>
-    
+            <span      >
+    ${field.hit}
+            </span>
+            <span      >
+    字体：
+            </span>
+            <span      >
+    [ 
+            </span>
+            <span      >
+    大 
+            </span>
+            <span      >
+    中
+            </span>
+            <span      >
+    小 
+            </span>
+            <span      >
+    ]
+            </span>
                 </div>
                 </div>
-        <!--返回顶部 - start -->
-                <div               class="ms-right-fixed-top">
-        <!--内容区域 - start -->
+                <div               class="body">
+            <span          class="body-text"     >
+    ${field.content}
+            </span>
+                </div>
+                <div               class="body-bottom">
+                <div               class="ms-share">
+            <span      >
+    分享
+            </span>
+                </div>
+                <div               class="body-bottom-right">
+            <a href="#"     
+                             class="print">
+    打印页面
+            </a>
+            <a href="#"     
+                             class="close">
+    关闭页面
+            </a>
+                </div>
+                </div>
+                </div>
+                <div               class="ms-next-pre">
+                <div               class="pre">
+            <span      >
+    上一篇：
+            </span>
+            <a href="${global.url}${pre.link}"     
+                    >
+    ${pre.title}
+            </a>
+                </div>
+                <div               class="next">
+            <span      >
+    下一篇：
+            </span>
+            <a href="${global.url}${next.link}"
+                    >
+    ${next.title}
+            </a>
+                </div>
+                </div>
+        <!--右漂浮 - start -->
+                <div               class="right-fixed">
                 <div               class="content">
             <i          class="iconfont icon-shang"     ></i>
             <span      >
     回到顶部
             </span>
                 </div>
-            <!--内容区域 -end -->
                 </div>
-            <!--返回顶部 -end -->
+            <!--右漂浮 -end -->
                 <#include "footer.htm"/>
     </div>
 </body>
@@ -552,269 +506,305 @@ var app = new Vue({
             padding-left:0px;
             border-top-left-radius:0px;
     }
-    .ms-content 
+    .ms-channel-path 
     {
+            margin-right:auto;
+            align-items:center;
+            flex-wrap:nowrap;
+            flex-direction:row;
+            display:flex;
+            width:100%;
+            margin-bottom:10px;
+            box-sizing:border-box;
+            margin-top:10px;
+            height:30px;
+            margin-left:auto;
+    }
+    .ms-channel-path .ms-channel-path-label 
+    {
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:14PX;
+            margin-bottom:0px;
+            margin-top:0px;
+    }
+    .ms-channel-path .ms-channel-path-index 
+    {
+            cursor:pointer;
+            color:#000;
+            font-size:14PX;
+            text-decoration:none;
+            margin-bottom:0px;
+            margin-top:0px;
+    }
+    .ms-channel-path >i 
+    {
+    }
+    .ms-channel-path .ms-channel-path-link 
+    {
+            cursor:pointer;
+            color:#000;
+            font-size:14PX;
+            text-decoration:none;
+            margin-bottom:0px;
+            margin-top:0px;
+    }
+    .detail 
+    {
+            background-color:#FFFFFF;
             align-items:center;
             flex-direction:column;
             display:flex;
-            padding-right:0px;
-            box-sizing:border-box;
-            justify-content:center;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:100%;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:0px;
-            height:100%;
-    }
-    .ms-content .ms-channel-path 
-    {
-            align-items:center;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
             box-sizing:border-box;
             margin-left:auto;
+            min-height:800px;
             margin-right:auto;
             padding-bottom:0px;
             flex-wrap:nowrap;
-            width:1170px;
+            width:100%;
             margin-bottom:10px;
             padding-top:0px;
+            position:relative;
             padding-left:0px;
             margin-top:10px;
-            height:30px;
-    }
-    .ms-content .ms-channel-path .ms-channel-path-label 
-    {
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:14PX;
-            margin-bottom:0px;
-            margin-top:0px;
-    }
-    .ms-content .ms-channel-path .ms-channel-path-index 
-    {
-            cursor:pointer;
-            color:#000;
-            font-size:14PX;
-            text-decoration:none;
-            margin-bottom:0px;
-            margin-top:0px;
-    }
-    .ms-content .ms-channel-path >i 
-    {
-            margin-bottom:0px;
-            margin-top:0px;
-    }
-    .ms-content .ms-channel-path .ms-channel-path-link 
-    {
-            cursor:pointer;
-            color:#000;
-            font-size:14PX;
-            text-decoration:none;
-            margin-bottom:0px;
-            margin-top:0px;
-    }
-    .ms-content .detail 
-    {
-            background-color:#FFFFFF;
-            align-items:flex-start;
-            flex-direction:column;
-            display:flex;
-            padding-right:20px;
-            box-sizing:border-box;
-            margin-left:0px;
-            min-height:800px;
-            margin-right:0px;
-            padding-bottom:20px;
-            flex-wrap:nowrap;
-            width:1170px;
-            margin-bottom:10px;
-            padding-top:20px;
-            position:relative;
-            padding-left:20px;
-            margin-top:0px;
             height:300px;
     }
-    .ms-content .detail .body 
+    .detail .top 
     {
             align-items:center;
-            flex-direction:row;
+            flex-direction:column;
             display:flex;
-            padding-right:0px;
             box-sizing:border-box;
-            justify-content:flex-start;
-            margin-left:0px;
-            margin-right:0px;
-            padding-bottom:10px;
+            justify-content:center;
+            border-bottom-color:#EBEEF5;
+            padding-bottom:32px;
             flex-wrap:nowrap;
-            width:100%;
-            margin-bottom:10px;
-            padding-top:10px;
-            padding-left:20px;
+            width:90%;
+            margin-bottom:0px;
+            border-bottom-style:solid;
+            padding-top:32px;
+            border-bottom-width:1px;
             margin-top:0px;
     }
-    .ms-content .detail .body .type-title 
-    {
-            cursor:pointer;
-            padding-bottom:0px;
-            color:#000;
-            font-size:18PX;
-            text-decoration:none;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-    }
-    .ms-content .detail .ms-news-one-line 
-    {
-            align-items:center;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            box-sizing:border-box;
-            background-position:20px center;
-            justify-content:flex-start;
-            margin-left:0px;
-            margin-right:0px;
-            padding-bottom:10px;
-            flex-wrap:nowrap;
-            width:100%;
-            margin-bottom:0px;
-            padding-top:10px;
-            padding-left:20px;
-            background-repeat:no-repeat;
-            background-position-x:20px;
-            margin-top:0px;
-    }
-    .ms-content .detail .ms-news-one-line .ms-news-one-line-dot 
+    .detail .top .title 
     {
             padding-bottom:0px;
-            padding-right:0px;
-            font-size:12PX;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-    }
-    .ms-content .detail .ms-news-one-line .ms-news-one-line-link 
-    {
-            cursor:pointer;
-            color:#000;
-            padding-right:0px;
-            text-decoration:none;
-            margin-left:0px;
-            margin-right:0px;
-            padding-bottom:0px;
-            font-size:16PX;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-            background-position-x:20px;
-    }
-    .ms-content .detail .ms-news-one-line .ms-news-one-line-date 
-    {
-            margin-right:10px;
-            padding-bottom:0px;
-            color:#9C9C9C;
             flex-direction:row;
             word-wrap:break-word;
             display:inline-block;
-            font-size:14px;
-            margin-bottom:0px;
+            font-size:28PX;
             padding-top:0px;
-            padding-left:0px;
-            margin-left:10px;
     }
-    .ms-content .detail .ms-page 
+    .detail .top .date 
     {
             align-items:center;
             flex-direction:row;
-            bottom:0px;
             display:flex;
-            padding-right:0px;
             box-sizing:border-box;
             justify-content:center;
             margin-left:0px;
-            padding-bottom:0px;
+            margin-right:0px;
             flex-wrap:nowrap;
-            left:0px;
             width:100%;
             margin-bottom:0px;
             padding-top:0px;
+            margin-top:0px;
+            height:100%;
+    }
+    .detail .top .date span 
+    {
+            font-size:16PX;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+    }
+    .detail .body 
+    {
+            align-items:center;
+            flex-wrap:nowrap;
+            flex-direction:column;
+            display:flex;
+            width:90%;
+            margin-bottom:0px;
+            box-sizing:border-box;
+            padding-top:32px;
+            justify-content:center;
+            margin-top:0px;
+    }
+    .detail .body .body-text 
+    {
+            margin-right:auto;
+            padding-bottom:0px;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:18PX;
+            line-height:32px;
+            margin-bottom:0px;
+            padding-top:0px;
+            margin-top:0px;
+            margin-left:0px;
+    }
+    .detail .body-bottom 
+    {
+            flex-direction:row;
+            bottom:0px;
+            display:flex;
+            box-sizing:border-box;
+            margin-left:0px;
+            flex-wrap:nowrap;
+            width:100%;
+            margin-bottom:0px;
             position:absolute;
             padding-left:0px;
             margin-top:0px;
-            height:40px;
+            height:60px;
     }
-    .ms-content .detail .ms-page .ms-page-left 
+    .detail .body-bottom .ms-share 
     {
+            align-items:center;
+            flex-direction:row;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            justify-content:flex-start;
+            flex-wrap:nowrap;
+            width:85%;
             margin-bottom:0px;
+            padding-left:20px;
             margin-top:0px;
-            margin-left:0px;
+            height:100%;
     }
-    .ms-content .detail .ms-page .ms-page-no 
+    .detail .body-bottom .ms-share span 
     {
-            text-align:center;
+            font-size:14px;
+            padding-left:0px;
             flex-direction:row;
             word-wrap:break-word;
             display:inline-block;
-            width:40px;
-            font-size:16PX;
-            margin-top:0px;
-            margin-left:0px;
     }
-    .ms-content .detail .ms-page .ms-page-no-sel 
+    .detail .body-bottom .body-bottom-right 
     {
-            color:#409EFF;
-            text-align:center;
+            align-items:center;
+            flex-wrap:nowrap;
+            flex-direction:row;
+            display:flex;
+            padding-right:20px;
+            width:15%;
+            box-sizing:border-box;
+            padding-left:20px;
+            justify-content:space-between;
+            height:100%;
+    }
+    .detail .body-bottom .body-bottom-right .print 
+    {
+            cursor:pointer;
+            color:#000;
+            padding-right:0px;
+            font-size:14px;
+            text-decoration:none;
+            margin-bottom:0px;
+            padding-left:0px;
+            margin-top:0px;
+    }
+    .detail .body-bottom .body-bottom-right .close 
+    {
+            cursor:pointer;
+            color:#000;
+            padding-right:0px;
+            font-size:14px;
+            text-decoration:none;
+            margin-bottom:0px;
+            padding-left:0px;
+            margin-top:0px;
+    }
+    .ms-next-pre 
+    {
+            flex-direction:row;
+            display:flex;
+            padding-right:10px;
+            box-sizing:border-box;
+            margin-left:auto;
+            margin-right:auto;
+            flex-wrap:nowrap;
+            width:100%;
+            margin-bottom:0px;
+            padding-left:10px;
+            margin-top:0px;
+            height:60px;
+    }
+    .ms-next-pre .pre 
+    {
+            align-items:center;
+            flex-wrap:nowrap;
+            flex-direction:row;
+            display:flex;
+            width:50%;
+            box-sizing:border-box;
+            margin-bottom:0px;
+            justify-content:flex-start;
+            margin-top:0px;
+            height:100%;
+    }
+    .ms-next-pre .pre span 
+    {
+            font-size:14px;
             flex-direction:row;
             word-wrap:break-word;
             display:inline-block;
-            width:40px;
-            font-size:16PX;
-            margin-top:0px;
-            margin-left:0px;
     }
-    .ms-content .detail .ms-page .ms-page-dot 
+    .ms-next-pre .pre a 
     {
-            text-align:center;
+            cursor:pointer;
+            font-size:14px;
+            text-decoration:none;
+            color:#000;
+    }
+    .ms-next-pre .next 
+    {
+            align-items:center;
+            flex-wrap:nowrap;
+            flex-direction:row;
+            display:flex;
+            width:50%;
+            box-sizing:border-box;
+            justify-content:flex-start;
+            height:100%;
+    }
+    .ms-next-pre .next span 
+    {
+            font-size:14px;
             flex-direction:row;
             word-wrap:break-word;
             display:inline-block;
-            width:40px;
-            font-size:16PX;
-            margin-top:0px;
-            margin-left:0px;
     }
-    .ms-content .detail .ms-page .ms-page-right 
+    .ms-next-pre .next a 
     {
-            margin-top:0px;
-            margin-left:0px;
+            cursor:pointer;
+            padding-bottom:0px;
+            color:#000;
+            font-size:14px;
+            text-decoration:none;
+            padding-top:0px;
     }
-    .ms-right-fixed-top 
+    .right-fixed 
     {
             margin:0 auto;
             align-items:center;
             flex-direction:row;
             display:flex;
-            padding-right:0px;
             box-sizing:border-box;
             justify-content:center;
             margin-left:0px;
-            padding-bottom:0px;
             flex-wrap:nowrap;
             width:1200px;
             margin-bottom:0px;
             position:relative;
-            padding-top:0px;
-            padding-left:0px;
             margin-top:0px;
             height:0px;
     }
-    .ms-right-fixed-top >.content 
+    .right-fixed .content 
     {
             align-items:center;
             flex-direction:column;
@@ -832,15 +822,16 @@ var app = new Vue({
             padding-left:0px;
             z-index:1;
     }
-    .ms-right-fixed-top >.content i 
+    .right-fixed .content i 
     {
             padding-bottom:0px;
+            color:#909399;
+            padding-right:0px;
             padding-top:0px;
             padding-left:0px;
-            padding-right:0px;
             margin-left:0px;
     }
-    .ms-right-fixed-top >.content span 
+    .right-fixed .content span 
     {
             background-color:#909399;
             color:#FFFFFF;
@@ -1524,7 +1515,7 @@ var app = new Vue({
                 padding-left:0px;
                 border-top-left-radius:0px;
         }
-        .ms-content .ms-channel-path 
+        .ms-channel-path 
         {
                 margin-right:auto;
                 align-items:center;
@@ -1538,14 +1529,14 @@ var app = new Vue({
                 height:30px;
                 margin-left:auto;
         }
-        .ms-content .ms-channel-path .ms-channel-path-label 
+        .ms-channel-path .ms-channel-path-label 
         {
                 font-size:14PX;
                 flex-direction:row;
                 word-wrap:break-word;
                 display:inline-block;
         }
-        .ms-content .ms-channel-path .ms-channel-path-index 
+        .ms-channel-path .ms-channel-path-index 
         {
                 cursor:pointer;
                 color:#000;
@@ -1554,7 +1545,7 @@ var app = new Vue({
                 margin-bottom:0px;
                 margin-top:0px;
         }
-        .ms-content .ms-channel-path .ms-channel-path-link 
+        .ms-channel-path .ms-channel-path-link 
         {
                 cursor:pointer;
                 color:#000;
@@ -1563,112 +1554,241 @@ var app = new Vue({
                 margin-bottom:0px;
                 margin-top:0px;
         }
-        .ms-content .detail 
+        .detail 
         {
                 background-color:#FFFFFF;
-                align-items:flex-start;
+                align-items:center;
                 flex-direction:column;
                 display:flex;
-                padding-right:8px;
                 box-sizing:border-box;
                 margin-left:auto;
                 min-height:800px;
                 margin-right:auto;
-                padding-bottom:8px;
+                padding-bottom:0px;
                 flex-wrap:nowrap;
                 width:100%;
                 margin-bottom:10px;
-                padding-top:8px;
+                padding-top:0px;
                 position:relative;
-                padding-left:8px;
-                margin-top:0px;
+                padding-left:0px;
+                margin-top:10px;
                 height:300px;
         }
-        .ms-content .detail .body 
+        .detail .top 
         {
                 align-items:center;
-                flex-direction:row;
+                flex-direction:column;
                 display:flex;
-                padding-right:0px;
                 box-sizing:border-box;
-                justify-content:flex-start;
-                padding-bottom:10px;
+                justify-content:center;
+                border-bottom-color:#EBEEF5;
+                padding-bottom:32px;
                 flex-wrap:nowrap;
-                width:100%;
-                margin-bottom:10px;
-                padding-top:10px;
-                padding-left:10px;
+                width:90%;
+                margin-bottom:0px;
+                border-bottom-style:solid;
+                padding-top:32px;
+                border-bottom-width:1px;
                 margin-top:0px;
         }
-        .ms-content .detail .body .type-title 
+        .detail .top .title 
         {
-                cursor:pointer;
-                padding-bottom:0px;
-                color:#000;
-                font-size:18PX;
-                text-decoration:none;
-                margin-bottom:0px;
-                padding-top:0px;
-                padding-left:0px;
-        }
-        .ms-content .detail .ms-news-one-line 
-        {
-                background-color:#FFFFFF;
-                align-items:center;
-                flex-direction:row;
-                background-image:url("http://www.gov.cn/govweb/xhtml/2016gov/images/public/point.jpg");
-                display:flex;
-                padding-right:0px;
-                box-sizing:border-box;
-                justify-content:flex-start;
-                margin-left:0px;
-                margin-right:0px;
-                padding-bottom:10px;
-                flex-wrap:nowrap;
-                width:100%;
-                margin-bottom:0px;
-                background-size:auto;
-                padding-top:10px;
-                background-position:left center;
-                padding-left:10px;
-                background-repeat:no-repeat;
-                background-position-x:10px;
-                margin-top:0px;
-        }
-        .ms-content .detail .ms-news-one-line .ms-news-one-line-link 
-        {
-                cursor:pointer;
-                white-space:nowrap;
-                color:#000;
-                padding-right:0px;
-                text-decoration:none;
-                margin-left:0px;
                 margin-right:0px;
                 padding-bottom:0px;
-                overflow:hidden;
-                width:70%;
-                font-size:16PX;
-                margin-bottom:0px;
-                padding-top:0px;
-                text-overflow:ellipsis;
-                padding-left:10px;
-                background-position-x:20px;
-        }
-        .ms-content .detail .ms-news-one-line .ms-news-one-line-date 
-        {
-                margin-right:10px;
-                padding-bottom:0px;
-                color:#9C9C9C;
                 flex-direction:row;
                 word-wrap:break-word;
                 display:inline-block;
-                font-size:14px;
+                font-size:28PX;
+                padding-top:0px;
+        }
+        .detail .top .date 
+        {
+                align-items:center;
+                flex-direction:row;
+                display:flex;
+                box-sizing:border-box;
+                justify-content:center;
+                margin-left:0px;
+                margin-right:0px;
+                flex-wrap:nowrap;
+                width:100%;
                 margin-bottom:0px;
                 padding-top:0px;
-                padding-left:0px;
-                margin-left:10px;
+                margin-top:0px;
+                height:100%;
         }
-        .ms-right-fixed-top 
+        .detail .top .date span 
+        {
+                font-size:16PX;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+        }
+        .detail .body 
+        {
+                align-items:center;
+                flex-wrap:nowrap;
+                flex-direction:column;
+                display:flex;
+                width:90%;
+                margin-bottom:0px;
+                box-sizing:border-box;
+                padding-top:32px;
+                justify-content:center;
+                margin-top:0px;
+        }
+        .detail .body .body-text 
+        {
+                margin-right:auto;
+                padding-bottom:0px;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                font-size:18PX;
+                line-height:32px;
+                margin-bottom:0px;
+                padding-top:0px;
+                margin-top:0px;
+                margin-left:0px;
+        }
+        .detail .body-bottom 
+        {
+                flex-direction:row;
+                bottom:0px;
+                display:flex;
+                box-sizing:border-box;
+                margin-left:0px;
+                flex-wrap:nowrap;
+                width:100%;
+                margin-bottom:0px;
+                position:absolute;
+                padding-left:0px;
+                margin-top:0px;
+                height:60px;
+        }
+        .detail .body-bottom .ms-share 
+        {
+                align-items:center;
+                flex-direction:row;
+                display:flex;
+                padding-right:0px;
+                box-sizing:border-box;
+                justify-content:flex-start;
+                flex-wrap:nowrap;
+                width:100%;
+                margin-bottom:0px;
+                padding-left:20px;
+                margin-top:0px;
+                height:100%;
+        }
+        .detail .body-bottom .ms-share span 
+        {
+                font-size:14px;
+                padding-left:0px;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+        }
+        .detail .body-bottom .body-bottom-right 
+        {
+                align-items:center;
+                flex-wrap:nowrap;
+                flex-direction:row;
+                display:none;
+                padding-right:20px;
+                width:30%;
+                box-sizing:border-box;
+                padding-left:20px;
+                justify-content:space-between;
+                height:100%;
+        }
+        .detail .body-bottom .body-bottom-right .print 
+        {
+                cursor:pointer;
+                color:#000;
+                padding-right:0px;
+                font-size:14px;
+                text-decoration:none;
+                padding-left:0px;
+        }
+        .detail .body-bottom .body-bottom-right .close 
+        {
+                cursor:pointer;
+                color:#000;
+                padding-right:0px;
+                font-size:14px;
+                text-decoration:none;
+                padding-left:0px;
+        }
+        .ms-next-pre 
+        {
+                flex-direction:row;
+                display:flex;
+                padding-right:10px;
+                box-sizing:border-box;
+                margin-left:auto;
+                margin-right:auto;
+                flex-wrap:nowrap;
+                width:100%;
+                margin-bottom:0px;
+                padding-left:10px;
+                margin-top:0px;
+                height:60px;
+        }
+        .ms-next-pre .pre 
+        {
+                align-items:center;
+                flex-wrap:nowrap;
+                flex-direction:row;
+                display:flex;
+                width:50%;
+                box-sizing:border-box;
+                margin-bottom:0px;
+                justify-content:flex-start;
+                margin-top:0px;
+                height:100%;
+        }
+        .ms-next-pre .pre span 
+        {
+                font-size:14px;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+        }
+        .ms-next-pre .pre a 
+        {
+                cursor:pointer;
+                font-size:14px;
+                text-decoration:none;
+                color:#000;
+        }
+        .ms-next-pre .next 
+        {
+                align-items:center;
+                flex-wrap:nowrap;
+                flex-direction:row;
+                display:flex;
+                width:50%;
+                box-sizing:border-box;
+                padding-left:0px;
+                justify-content:flex-start;
+                height:100%;
+        }
+        .ms-next-pre .next span 
+        {
+                font-size:14px;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+        }
+        .ms-next-pre .next a 
+        {
+                cursor:pointer;
+                font-size:14px;
+                text-decoration:none;
+                color:#000;
+        }
+        .right-fixed 
         {
                 margin:0 auto;
                 align-items:center;
@@ -1684,7 +1804,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:0px;
         }
-        .ms-right-fixed-top >.content 
+        .right-fixed .content 
         {
                 align-items:center;
                 flex-direction:column;
@@ -1702,11 +1822,16 @@ var app = new Vue({
                 padding-left:0px;
                 z-index:1;
         }
-        .ms-right-fixed-top >.content i 
+        .right-fixed .content i 
         {
+                padding-bottom:0px;
+                color:#909399;
+                padding-right:0px;
+                padding-top:0px;
+                padding-left:0px;
                 margin-left:0px;
         }
-        .ms-right-fixed-top >.content span 
+        .right-fixed .content span 
         {
                 background-color:#909399;
                 color:#FFFFFF;
