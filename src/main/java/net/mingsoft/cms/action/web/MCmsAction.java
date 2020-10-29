@@ -26,7 +26,9 @@ import cn.hutool.core.util.PageUtil;
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateNotFoundException;
+import net.bytebuddy.implementation.bytecode.Throw;
 import net.mingsoft.base.constant.Const;
+import net.mingsoft.basic.exception.BusinessException;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.bean.CategoryBean;
@@ -105,7 +107,8 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 	 * 动态列表页
 	 */
 	@GetMapping("/index.do")
-	public void index(HttpServletRequest req, HttpServletResponse resp) {
+	@ResponseBody
+	public String index(HttpServletRequest req, HttpServletResponse resp) {
 		Map map = BasicUtil.assemblyRequestMap();
 		map.forEach((k,v)->{
             map.put(k,v.toString().replaceAll("('|\"|\\\\)","\\\\$1"));
@@ -129,7 +132,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.outString(resp, content);
+		return content;
 	}
 
 	/**
@@ -137,8 +140,9 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 	 * @param req
 	 * @param resp
 	 */
+	@ResponseBody
 	@GetMapping("/list.do")
-	public void list(HttpServletRequest req, HttpServletResponse resp) {
+	public String list(HttpServletRequest req, HttpServletResponse resp) {
 		Map map = BasicUtil.assemblyRequestMap();
 		map.forEach((k,v)->{
 			map.put(k,v.toString().replaceAll("('|\"|\\\\)","\\\\$1"));
@@ -152,7 +156,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		List<CategoryBean> columnArticles = contentBiz.queryIdsByCategoryIdForParser(contentBean);
 		//判断栏目下是否有文章
 		if(columnArticles.size()==0){
-			this.outJson(resp, false);
+			return "";
 		}
 		//设置分页类
 		PageBean page = new PageBean();
@@ -185,7 +189,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.outString(resp, content);
+		return content;
 	}
 
 	/**
@@ -193,18 +197,17 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 	 * @param id 文章编号
 	 */
 	@GetMapping("/view.do")
-	public void view(String orderby,String order,HttpServletRequest req, HttpServletResponse resp) {
+	@ResponseBody
+	public String view(String orderby,String order,HttpServletRequest req, HttpServletResponse resp) {
 		//参数文章编号
 		ContentEntity article = (ContentEntity) contentBiz.getEntity(BasicUtil.getInt(ParserUtil.ID));
 		if(ObjectUtil.isNull(article)){
-			this.outJson(resp, null,false,getResString("err.empty", this.getResString("id")));
-			return;
+			throw new BusinessException(this.getResString("err.empty", this.getResString("id"))) ;
 		}
 		if(StringUtils.isNotBlank(order)){
 			//防注入
 			if(!order.toLowerCase().equals("asc")&&!order.toLowerCase().equals("desc")){
-				this.outJson(resp, null,false,getResString("err.error", this.getResString("order")));
-				return;
+				throw new BusinessException(this.getResString("err.error", this.getResString("order")));
 			}
 		}
 
@@ -239,7 +242,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		ModelEntity contentModel = null;
 		for (int artId = 0; artId < articleIdList.size();) {
 			//如果不是当前文章则跳过
-			if(!articleIdList.get(artId).getArticleId().equals(article.getId())){
+			if(articleIdList.get(artId).getArticleId().equals(article.getId())){
 				artId++;
 				continue;
 			}
@@ -289,7 +292,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.outString(resp, content);
+		return content;
 	}
 
 
@@ -303,7 +306,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 	 */
 	@RequestMapping(value = "search")
 	@ResponseBody
-	public void search(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public String search(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		Map<String, Object> map = new HashMap<>();
 		// 读取请求字段
@@ -447,7 +450,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.outString(response, content);
+		return content;
 	}
 
 	// 清除路径中的转义字符
