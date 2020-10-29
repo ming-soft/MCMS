@@ -12,7 +12,7 @@ import java.util.List;
  * 创建日期：2019-11-28 15:12:32<br/>
  * 历史修订：<br/>
  */
-public interface ICategoryBiz extends IBaseBiz {
+public interface ICategoryBiz extends IBaseBiz<CategoryEntity> {
 
     /**
      * 查询当前分类下的所有子分类

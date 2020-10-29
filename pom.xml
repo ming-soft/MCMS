@@ -36,6 +36,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>dm</groupId>
+			<artifactId>dm.jdbc.driver</artifactId>
+			<version>7.0.1</version>
+		</dependency>
+
+		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
 		</dependency>

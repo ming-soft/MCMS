@@ -4,7 +4,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import net.mingsoft.base.entity.BaseEntity;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.bean.EUListBean;
@@ -24,6 +23,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+
 /**
  * 文章管理控制层
  * @author 铭飞开发团队
@@ -33,7 +33,7 @@ import java.util.List;
 @Api(value = "文章接口")
 @Controller("cmsContentAction")
 @RequestMapping("/${ms.manager.path}/cms/content")
-public class ContentAction extends BaseAction{
+public class ContentAction extends BaseAction {
 	
 	
 	/**
@@ -86,23 +86,19 @@ public class ContentAction extends BaseAction{
     })
 	@RequestMapping("/list")
 	@ResponseBody
-	public ResultData list(@ModelAttribute @ApiIgnore ContentEntity content,HttpServletResponse response, HttpServletRequest request,@ApiIgnore ModelMap model,BindingResult result) {
+	public ResultData list(@ModelAttribute @ApiIgnore ContentEntity content, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model, BindingResult result) {
 		content.setAppId(BasicUtil.getAppId());
 		BasicUtil.startPage();
 		List contentList = contentBiz.query(content);
-		return ResultData.build().success(new EUListBean(contentList,(int)BasicUtil.endPage(contentList).getTotal()));
+		return ResultData.build().success(new EUListBean(contentList,(int) BasicUtil.endPage(contentList).getTotal()));
 	}
 	
 	/**
 	 * 返回编辑界面content_form
 	 */
 	@GetMapping("/form")
-	public String form(@ModelAttribute ContentEntity content,HttpServletResponse response,HttpServletRequest request,ModelMap model){
-		if(content.getId()!=null){
-			BaseEntity contentEntity = contentBiz.getEntity(Integer.parseInt(content.getId()));			
-			model.addAttribute("contentEntity",contentEntity);
-		}
-		model.addAttribute("appId",BasicUtil.getAppId());
+	public String form(@ModelAttribute ContentEntity content, HttpServletResponse response, HttpServletRequest request, ModelMap model){
+		model.addAttribute("appId", BasicUtil.getAppId());
 		return "/cms/content/form";
 	}
 
@@ -114,12 +110,12 @@ public class ContentAction extends BaseAction{
     @ApiImplicitParam(name = "id", value = "编号", required =true,paramType="query")
 	@GetMapping("/get")
 	@ResponseBody
-	public ResultData get(@ModelAttribute @ApiIgnore ContentEntity content,HttpServletResponse response, HttpServletRequest request,@ApiIgnore ModelMap model){
+	public ResultData get(@ModelAttribute @ApiIgnore ContentEntity content, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model){
 		if(content.getId()==null) {
 			return ResultData.build().error();
 		}
 		content.setAppId(BasicUtil.getAppId());
-		ContentEntity _content = (ContentEntity)contentBiz.getEntity(Integer.parseInt(content.getId()));
+		ContentEntity _content = contentBiz.getById(content.getId());
 		return ResultData.build().success(_content);
 	}
 	
@@ -177,7 +173,7 @@ public class ContentAction extends BaseAction{
 			return ResultData.build().error(getResString("err.length", this.getResString("content.url"), "0", "200"));
 		}
 		content.setAppId(BasicUtil.getAppId());
-		contentBiz.saveEntity(content);
+		contentBiz.save(content);
 		return ResultData.build().success(content);
 	}
 	
@@ -189,7 +185,7 @@ public class ContentAction extends BaseAction{
 	@ResponseBody
 	@LogAnn(title = "删除文章", businessType = BusinessTypeEnum.DELETE)
 	@RequiresPermissions("cms:content:del")
-	public ResultData delete(@RequestBody List<ContentEntity> contents,HttpServletResponse response, HttpServletRequest request) {
+	public ResultData delete(@RequestBody List<ContentEntity> contents, HttpServletResponse response, HttpServletRequest request) {
 		int[] ids = new int[contents.size()];
 		for(int i = 0;i<contents.size();i++){
 			ids[i] =Integer.parseInt(contents.get(i).getId()) ;
@@ -230,7 +226,7 @@ public class ContentAction extends BaseAction{
 	@LogAnn(title = "更新文章", businessType = BusinessTypeEnum.UPDATE)
 	@RequiresPermissions("cms:content:update")
 	public ResultData update(@ModelAttribute @ApiIgnore ContentEntity content, HttpServletResponse response,
-			HttpServletRequest request) {
+                             HttpServletRequest request) {
 		//验证文章标题的值是否合法			
 		if(StringUtil.isBlank(content.getContentTitle())){
 			return ResultData.build().error(getResString("err.empty", this.getResString("content.title")));

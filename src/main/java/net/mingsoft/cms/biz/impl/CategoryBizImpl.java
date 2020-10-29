@@ -21,18 +21,21 @@ The MIT License (MIT) * Copyright (c) 2019 铭飞科技
 
 package net.mingsoft.cms.biz.impl;
 
+import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.basic.util.PinYinUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.dao.ICategoryDao;
 import net.mingsoft.cms.dao.IContentDao;
 import net.mingsoft.cms.entity.CategoryEntity;
-import net.mingsoft.basic.util.PinYinUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,7 +46,8 @@ import java.util.List;
  * 历史修订：<br/>
  */
  @Service("cmscategoryBizImpl")
-public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
+ @Transactional(rollbackFor = RuntimeException.class)
+public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> implements ICategoryBiz {
 
 
 	@Autowired
@@ -74,25 +78,36 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 		Object categoryBizEntity = getEntity(category);
 		setParentId(categoryEntity);
 		categoryEntity.setCategoryPinyin(pingYin);
-		super.saveEntity(categoryEntity);
+		//更新新的父级
+		if(StrUtil.isNotBlank(categoryEntity.getCategoryId())&&!"0".equals(categoryEntity.getCategoryId())){
+			CategoryEntity parent = getById(categoryEntity.getCategoryId());
+			//如果之前是叶子节点就更新
+			if(parent.getLeaf()){
+				parent.setLeaf(false);
+				updateById(parent);
+			}
+		}
+		categoryEntity.setLeaf(false);
+		super.save(categoryEntity);
 		//拼音存在则拼接id
 		if(categoryBizEntity!=null){
 			categoryEntity.setCategoryPinyin(pingYin+categoryEntity.getId());
 		}
 		CategoryEntity parentCategory = null;
 		if (StringUtils.isNotBlank(categoryEntity.getCategoryId())) {
-			parentCategory = (CategoryEntity)categoryDao.getEntity(Integer.parseInt(categoryEntity.getCategoryId()));
+			parentCategory = (CategoryEntity)getById(categoryEntity.getCategoryId());
 		}
 		//保存链接地址
 		String path=ObjectUtil.isNotNull(parentCategory)?parentCategory.getCategoryPath():"";
 		categoryEntity.setCategoryPath( path+"/" + categoryEntity.getCategoryPinyin());
-		super.updateEntity(categoryEntity);
+		setTopId(categoryEntity);
+		super.updateById(categoryEntity);
 	}
 
 	private void setParentId(CategoryEntity categoryEntity) {
 		String path = "";
-		if(StringUtils.isNotEmpty(categoryEntity.getCategoryId())&&Integer.parseInt(categoryEntity.getCategoryId())>0) {
-			CategoryEntity category = (CategoryEntity)categoryDao.getEntity(Integer.parseInt(categoryEntity.getCategoryId()));
+		if(StringUtils.isNotEmpty(categoryEntity.getCategoryId())&&Long.parseLong(categoryEntity.getCategoryId())>0) {
+			CategoryEntity category = (CategoryEntity)getById(categoryEntity.getCategoryId());
 			path = category.getCategoryPath();
 			if(StringUtils.isEmpty(category.getCategoryParentId())) {
 				categoryEntity.setCategoryParentId(category.getId());
@@ -138,7 +153,9 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 		if(categoryBizEntity!=null&&!categoryBizEntity.getId().equals(entity.getId())){
 			entity.setCategoryPinyin(pingYin+entity.getId());
 		}
-		super.updateEntity(entity);
+		setParentLeaf(entity);
+		setTopId(entity);
+		super.updateById(entity);
 		setChildParentId(entity);
 	}
 
@@ -164,5 +181,55 @@ public class CategoryBizImpl extends BaseBizImpl implements ICategoryBiz {
 			// 删除文章
 			contentDao.deleteEntityByCategoryIds(ids);
 		}
+	}
+
+	/**
+	 * 设置父级叶子节点
+	 * @param entity
+	 */
+	private void setParentLeaf(CategoryEntity entity){
+		Assert.notNull(entity);
+		CategoryEntity categoryEntity = getById(entity.getId());
+		//如果父级不为空并且修改了父级则需要更新父级
+		if(!entity.getCategoryId().equals(categoryEntity.getId())){
+			//更新旧的父级
+			if(StrUtil.isNotBlank(categoryEntity.getCategoryId())&&!"0".equals(categoryEntity.getCategoryId())){
+				CategoryEntity parent = getById(categoryEntity.getCategoryId());
+				//如果修改了父级则需要判断父级是否还有子节点
+				boolean leaf = parent.getLeaf();
+				//查找不等于当前更新的分类子集，有则不是叶子节点
+				parent.setLeaf(count(lambdaQuery().eq(CategoryEntity::getCategoryId,parent.getId()).ne(CategoryEntity::getId,entity.getId()))==0);
+				if(leaf!=parent.getLeaf()){
+					updateById(parent);
+				}
+
+			}
+			//更新新的父级
+			if(StrUtil.isNotBlank(entity.getCategoryId())&&!"0".equals(entity.getCategoryId())){
+				CategoryEntity parent = getById(entity.getCategoryId());
+				//如果之前是叶子节点就更新
+				if(parent.getLeaf()){
+					parent.setLeaf(false);
+					updateById(parent);
+				}
+			}
+		}
+	}
+
+	/**
+	 * 设置顶级id
+	 * @param entity
+	 */
+	private void setTopId(CategoryEntity entity){
+		String categoryParentId = entity.getCategoryParentId();
+		if(StrUtil.isNotBlank(categoryParentId)){
+			String[] ids = categoryParentId.split(",");
+			//如果有ParentId就取第一个
+			if(ids.length>0){
+				entity.setTopId(ids[0]);
+				return;
+			}
+		}
+		entity.setTopId("0");
 	}
 }

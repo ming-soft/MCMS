@@ -1,11 +1,17 @@
 package net.mingsoft.config;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.toolkit.JdbcUtils;
+import net.mingsoft.interceptor.DMInnerInterceptor;
+import net.mingsoft.interceptor.MysqlInnerInterceptor;
 import org.springframework.aop.Advisor;
 import net.mingsoft.basic.filter.XSSEscapeFilter;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
@@ -37,6 +43,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.mingsoft.basic.interceptor.ActionInterceptor;
 import net.mingsoft.basic.util.BasicUtil;
 
+import javax.sql.DataSource;
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
@@ -59,6 +67,23 @@ public class WebConfig implements WebMvcConfigurer {
 	}
 
 
+	@Bean
+	public MybatisPlusInterceptor mybatisPlusInterceptor(DataSource dataSource) {
+		MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+		try {
+			//mysql 添加转换sql
+			DbType dbType = JdbcUtils.getDbType(dataSource.getConnection().getMetaData().getURL());
+			if(DbType.MYSQL==dbType){
+				interceptor.addInnerInterceptor(new MysqlInnerInterceptor());
+			}else if(DbType.DM==dbType){
+				interceptor.addInnerInterceptor( new DMInnerInterceptor());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return interceptor;
+	}
 	/**
 	 * 增加对rest api鉴权的spring mvc拦截器
 	 */

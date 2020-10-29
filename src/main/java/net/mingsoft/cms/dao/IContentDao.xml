@@ -245,7 +245,7 @@
 			<if test="updateBy &gt; 0"> and ct.update_by=#{updateBy} </if>
 			<if test="updateDate != null"> and update_date=#{updateDate} </if>
 		</where>
-		)ct ORDER BY date_format(ct.content_datetime,'%Y-%m-%d') desc,content_sort desc
+		)ct ORDER BY ct.content_datetime desc,content_sort desc
 	</select>
 
 	<sql id="queryWhereCategoryId" databaseId="mysql">

@@ -3,6 +3,7 @@ package net.mingsoft.cms.biz;
 import net.mingsoft.base.biz.IBaseBiz;
 import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.bean.ContentBean;
+import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.mdiy.entity.ModelEntity;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.Map;
  * 创建日期：2019-11-28 15:12:32<br/>
  * 历史修订：<br/>
  */
-public interface IContentBiz extends IBaseBiz {
+public interface IContentBiz extends IBaseBiz<ContentEntity> {
 
     /**
      * 根据文章属性查询

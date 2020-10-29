@@ -4,16 +4,15 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import net.mingsoft.base.entity.BaseEntity;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.constant.e.BusinessTypeEnum;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.basic.util.PinYinUtil;
 import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
-import net.mingsoft.basic.util.PinYinUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +24,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+
 /**
  * 分类管理控制层
  * @author 铭飞开发团队
@@ -34,7 +34,7 @@ import java.util.List;
 @Api(value = "分类接口")
 @Controller("cmsCategoryAction")
 @RequestMapping("/${ms.manager.path}/cms/category")
-public class CategoryAction extends BaseAction{
+public class CategoryAction extends BaseAction {
 
 
 	/**
@@ -84,23 +84,19 @@ public class CategoryAction extends BaseAction{
     })
 	@RequestMapping("/list")
 	@ResponseBody
-	public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category,HttpServletResponse response, HttpServletRequest request,@ApiIgnore ModelMap model,BindingResult result) {
+	public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model, BindingResult result) {
 		category.setAppId(BasicUtil.getAppId());
 		BasicUtil.startPage();
 		List categoryList = categoryBiz.query(category);
-		return ResultData.build().success(new EUListBean(categoryList,(int)BasicUtil.endPage(categoryList).getTotal()));
+		return ResultData.build().success(new EUListBean(categoryList,(int) BasicUtil.endPage(categoryList).getTotal()));
 	}
 
 	/**
 	 * 返回编辑界面category_form
 	 */
 	@GetMapping("/form")
-	public String form(@ModelAttribute CategoryEntity category,HttpServletResponse response,HttpServletRequest request,ModelMap model){
-		if(category.getId()!=null){
-			BaseEntity categoryEntity = categoryBiz.getEntity(Integer.parseInt(category.getId()));
-			model.addAttribute("categoryEntity",categoryEntity);
-		}
-		model.addAttribute("appId",BasicUtil.getAppId());
+	public String form(@ModelAttribute CategoryEntity category, HttpServletResponse response, HttpServletRequest request, ModelMap model){
+		model.addAttribute("appId", BasicUtil.getAppId());
 		return "/cms/category/form";
 	}
 
@@ -112,12 +108,12 @@ public class CategoryAction extends BaseAction{
     @ApiImplicitParam(name = "id", value = "编号", required =true,paramType="query")
 	@GetMapping("/get")
 	@ResponseBody
-	public ResultData get(@ModelAttribute @ApiIgnore CategoryEntity category,HttpServletResponse response, HttpServletRequest request,@ApiIgnore ModelMap model){
+	public ResultData get(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model){
 		if(category.getId()==null) {
 			return ResultData.build().error();
 		}
 		category.setAppId(BasicUtil.getAppId());
-		CategoryEntity _category = (CategoryEntity)categoryBiz.getEntity(Integer.parseInt(category.getId()));
+		CategoryEntity _category = (CategoryEntity)categoryBiz.getById(category.getId());
 		return ResultData.build().success(_category);
 	}
 
@@ -187,7 +183,7 @@ public class CategoryAction extends BaseAction{
 	@ResponseBody
 	@LogAnn(title = "删除分类", businessType = BusinessTypeEnum.DELETE)
 	@RequiresPermissions("cms:category:del")
-	public ResultData delete(@RequestBody List<CategoryEntity> categorys,HttpServletResponse response, HttpServletRequest request) {
+	public ResultData delete(@RequestBody List<CategoryEntity> categorys, HttpServletResponse response, HttpServletRequest request) {
 		for(int i = 0;i<categorys.size();i++){
 			categoryBiz.delete(Integer.parseInt(categorys.get(i).getId()));
 		}
@@ -230,7 +226,7 @@ public class CategoryAction extends BaseAction{
 	@LogAnn(title = "更新分类", businessType = BusinessTypeEnum.UPDATE)
 	@RequiresPermissions("cms:category:update")
 	public ResultData update(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response,
-			HttpServletRequest request) {
+                             HttpServletRequest request) {
 		//验证栏目管理名称的值是否合法
 		if(StringUtil.isBlank(category.getCategoryTitle())){
 			return ResultData.build().error(getResString("err.empty", this.getResString("category.title")));
