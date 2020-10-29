@@ -81,11 +81,10 @@ spring:
       force: true
       charset: utf-8
       enabled: true
-#mybatis-plus:
-#  global-config:
-#    db-config:
-#      id-type: auto
-#      column-format: "\"%s\""
-mybatis:
+mybatis-plus:
+  global-config:
+    db-config:
+      column-format: "\"%s\""
+      id-type: assign_id
   configuration:
     database-id: mysql
