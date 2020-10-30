@@ -24,12 +24,12 @@ public class AppHandler implements TenantLineHandler {
         if(localPage!=null&&localPage.getTotal()==0){
             PageHelper.clearPage();
         }
-        int appId = BasicUtil.getAppId();
+        //int appId = BasicUtil.getAppId();
         if(localPage!=null&&localPage.getTotal()==0){
             PageHelper.startPage(localPage.getPageNum(),localPage.getPageSize(),localPage.isCount());
             PageHelper.orderBy(localPage.getOrderBy());
         }
-        return new LongValue(appId);
+        return new LongValue(1);
     }
 
     @Override
