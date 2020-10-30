@@ -27,7 +27,6 @@ public class Upgrade {
             String pingYin = PinYinUtil.getPingYin(x.getCategoryTitle());
             CategoryEntity category=new CategoryEntity();
             category.setCategoryPinyin(pingYin);
-            category.setAppId(BasicUtil.getAppId());
             CategoryEntity categoryBizEntity = (CategoryEntity)categoryBiz.getEntity(category);
             x.setCategoryPinyin(pingYin);
             //拼音存在则拼接id

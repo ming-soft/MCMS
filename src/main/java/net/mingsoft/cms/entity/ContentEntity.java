@@ -1,6 +1,7 @@
 package net.mingsoft.cms.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import net.mingsoft.base.entity.BaseEntity;
@@ -77,6 +78,7 @@ private static final long serialVersionUID = 1574925152617L;
 	/**
 	* 文章管理的应用id
 	*/
+	@TableField(exist = false)
 	private Integer appId;
 	/**
 	* 点击次数

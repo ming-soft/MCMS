@@ -85,7 +85,6 @@ public class CategoryAction extends BaseAction {
 	@RequestMapping("/list")
 	@ResponseBody
 	public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model, BindingResult result) {
-		category.setAppId(BasicUtil.getAppId());
 		BasicUtil.startPage();
 		List categoryList = categoryBiz.query(category);
 		return ResultData.build().success(new EUListBean(categoryList,(int) BasicUtil.endPage(categoryList).getTotal()));
@@ -112,7 +111,6 @@ public class CategoryAction extends BaseAction {
 		if(category.getId()==null) {
 			return ResultData.build().error();
 		}
-		category.setAppId(BasicUtil.getAppId());
 		CategoryEntity _category = (CategoryEntity)categoryBiz.getById(category.getId());
 		return ResultData.build().success(_category);
 	}
@@ -170,7 +168,6 @@ public class CategoryAction extends BaseAction {
 		}
 		//获取拼音
 
-		category.setAppId(BasicUtil.getAppId());
 		categoryBiz.saveEntity(category);
 		return ResultData.build().success(category);
 	}
@@ -244,7 +241,6 @@ public class CategoryAction extends BaseAction {
 		 String pingYin = PinYinUtil.getPingYin(category.getCategoryTitle());
 		 CategoryEntity categoryEntity=new CategoryEntity();
 		 categoryEntity.setCategoryPinyin(pingYin);
-		 categoryEntity.setAppId(BasicUtil.getAppId());
 		 CategoryEntity categoryBizEntity = (CategoryEntity)categoryBiz.getEntity(categoryEntity);
 		 category.setCategoryPinyin(pingYin);
 		 //如果存在此拼音栏目则拼接上id
@@ -254,14 +250,12 @@ public class CategoryAction extends BaseAction {
 		//判断是否选择子级为所属栏目
 		 CategoryEntity _category = new CategoryEntity();
 		 _category.setCategoryParentId(category.getId());
-		 _category.setAppId(BasicUtil.getAppId());
 		 List<CategoryEntity> categoryList = categoryBiz.queryChilds(_category);
 		 for(CategoryEntity item:categoryList){
 			 if(item.getId().equals(category.getCategoryId())){
 				 return ResultData.build().error(getResString("cannot.select.child"));
 			 }
 		 }
-		 category.setAppId(BasicUtil.getAppId());
 		categoryBiz.updateEntity(category);
 		return ResultData.build().success(category);
 	}

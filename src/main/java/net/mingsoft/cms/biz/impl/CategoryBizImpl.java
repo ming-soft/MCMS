@@ -74,7 +74,6 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 		String pingYin = PinYinUtil.getPingYin(categoryEntity.getCategoryTitle());
 		CategoryEntity category=new CategoryEntity();
 		category.setCategoryPinyin(pingYin);
-		category.setAppId(BasicUtil.getAppId());
 		Object categoryBizEntity = getEntity(category);
 		setParentId(categoryEntity);
 		categoryEntity.setCategoryPinyin(pingYin);
@@ -147,7 +146,6 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 		String pingYin = PinYinUtil.getPingYin(entity.getCategoryTitle());
 		CategoryEntity category=new CategoryEntity();
 		category.setCategoryPinyin(pingYin);
-		category.setAppId(BasicUtil.getAppId());
 		CategoryEntity categoryBizEntity = (CategoryEntity)getEntity(category);
 		//拼音存在则拼接id
 		if(categoryBizEntity!=null&&!categoryBizEntity.getId().equals(entity.getId())){

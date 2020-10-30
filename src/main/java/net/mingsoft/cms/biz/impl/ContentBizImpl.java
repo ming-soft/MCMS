@@ -58,7 +58,6 @@ public class ContentBizImpl extends BaseBizImpl<IContentDao, ContentEntity> impl
 
 	@Override
 	public List<CategoryBean> queryIdsByCategoryIdForParser(ContentBean contentBean) {
-		contentBean.setAppId(BasicUtil.getAppId());
 		return this.contentDao.queryIdsByCategoryIdForParser(contentBean);
 	}
 

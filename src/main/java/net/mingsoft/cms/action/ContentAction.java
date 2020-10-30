@@ -87,7 +87,6 @@ public class ContentAction extends BaseAction {
 	@RequestMapping("/list")
 	@ResponseBody
 	public ResultData list(@ModelAttribute @ApiIgnore ContentEntity content, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model, BindingResult result) {
-		content.setAppId(BasicUtil.getAppId());
 		BasicUtil.startPage();
 		List contentList = contentBiz.query(content);
 		return ResultData.build().success(new EUListBean(contentList,(int) BasicUtil.endPage(contentList).getTotal()));
@@ -114,7 +113,6 @@ public class ContentAction extends BaseAction {
 		if(content.getId()==null) {
 			return ResultData.build().error();
 		}
-		content.setAppId(BasicUtil.getAppId());
 		ContentEntity _content = contentBiz.getById(content.getId());
 		return ResultData.build().success(_content);
 	}
@@ -172,7 +170,6 @@ public class ContentAction extends BaseAction {
 		if(!StringUtil.checkLength(content.getContentUrl()+"", 0, 200)){
 			return ResultData.build().error(getResString("err.length", this.getResString("content.url"), "0", "200"));
 		}
-		content.setAppId(BasicUtil.getAppId());
 		contentBiz.save(content);
 		return ResultData.build().success(content);
 	}
@@ -247,7 +244,6 @@ public class ContentAction extends BaseAction {
 		if(!StringUtil.checkLength(content.getContentUrl()+"", 0, 200)){
 			return ResultData.build().error(getResString("err.length", this.getResString("content.url"), "0", "200"));
 		}
-		content.setAppId(BasicUtil.getAppId());
 		contentBiz.updateEntity(content);
 		return ResultData.build().success(content);
 	}

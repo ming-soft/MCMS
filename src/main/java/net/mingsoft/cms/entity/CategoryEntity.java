@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import net.mingsoft.base.entity.BaseEntity;
@@ -84,6 +85,7 @@ private static final long serialVersionUID = 1574925152750L;
 	/**
 	* 应用编号
 	*/
+	@TableField(exist = false)
 	private Integer appId;
 	/**
 	* 字典对应编号
