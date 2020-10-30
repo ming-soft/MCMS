@@ -29,7 +29,7 @@ public class AppHandler implements TenantLineHandler {
             PageHelper.startPage(localPage.getPageNum(),localPage.getPageSize(),localPage.isCount());
             PageHelper.orderBy(localPage.getOrderBy());
         }
-        return new LongValue(2);
+        return new LongValue(appId);
     }
 
     @Override
