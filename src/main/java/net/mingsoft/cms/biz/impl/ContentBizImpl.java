@@ -25,7 +25,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
-import net.mingsoft.base.constant.Const;
+import net.mingsoft.basic.constant.Const;
 import net.mingsoft.basic.holder.DataHolder;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.bean.CategoryBean;
@@ -103,7 +103,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		try {
 			//将任务采集传过来的appId导入到线程变量中
 			//当前线程使用appId时优先使用此数据
-			DataHolder.set(ParserUtil.APP_ID, appId);
+			DataHolder.set(net.mingsoft.basic.constant.Const.APP_ID, appId);
 			//调用三种静态化
 			genernateColumn();
 			generaterIndex(tmpFileName, generateFileName);
@@ -127,7 +127,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		ContentBean contentBean = new ContentBean();
 		contentBean.setBeginTime(dateTime);
 		Map<String, Object> map = new HashMap<>();
-		map.put(ParserUtil.APP_ID, BasicUtil.getAppId());
+		map.put(net.mingsoft.basic.constant.Const.APP_ID, BasicUtil.getAppId());
 		PageBean page = new PageBean();
 		map.put(ParserUtil.HTML, ParserUtil.HTML);
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
@@ -183,7 +183,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 				}
 				//获取模板中列表标签中的条件
 				Map<String, Object> map = new HashMap<>();
-				map.put(ParserUtil.APP_ID, BasicUtil.getAppId());
+				map.put(net.mingsoft.basic.constant.Const.APP_ID, BasicUtil.getAppId());
 				PageBean page = new PageBean();
 				map.put(ParserUtil.HTML, ParserUtil.HTML);
 				map.put(ParserUtil.URL, BasicUtil.getUrl());
@@ -237,9 +237,9 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		//设置生成的路径
 		map.put(ParserUtil.HTML, ParserUtil.HTML);
 		//设置站点编号
-		map.put(ParserUtil.APP_ID, BasicUtil.getAppId());
+		map.put(Const.APP_ID, BasicUtil.getAppId());
 		String read = ParserUtil.read(templatePath, map);
-		FileUtil.writeString(read, ParserUtil.buildHtmlPath(targetPath), Const.UTF8);
+		FileUtil.writeString(read, ParserUtil.buildHtmlPath(targetPath), net.mingsoft.base.constant.Const.UTF8);
 	}
 
 }
