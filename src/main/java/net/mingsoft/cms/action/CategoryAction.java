@@ -182,7 +182,7 @@ public class CategoryAction extends BaseAction {
 	@RequiresPermissions("cms:category:del")
 	public ResultData delete(@RequestBody List<CategoryEntity> categorys, HttpServletResponse response, HttpServletRequest request) {
 		for(int i = 0;i<categorys.size();i++){
-			categoryBiz.delete(Integer.parseInt(categorys.get(i).getId()));
+			categoryBiz.delete(categorys.get(i).getId());
 		}
 		return ResultData.build().success();
 	}

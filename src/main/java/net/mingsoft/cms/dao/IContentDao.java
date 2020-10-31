@@ -41,5 +41,5 @@ public interface IContentDao extends IBaseDao<ContentEntity> {
      * 分类编号删除文章
      * @param ids
      */
-    void deleteEntityByCategoryIds(@Param("ids") int[] ids);
+    void deleteEntityByCategoryIds(@Param("ids") String[] ids);
 }
