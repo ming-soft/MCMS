@@ -22,6 +22,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -183,11 +184,11 @@ public class ContentAction extends BaseAction {
 	@LogAnn(title = "删除文章", businessType = BusinessTypeEnum.DELETE)
 	@RequiresPermissions("cms:content:del")
 	public ResultData delete(@RequestBody List<ContentEntity> contents, HttpServletResponse response, HttpServletRequest request) {
-		int[] ids = new int[contents.size()];
+		List<String> ids = new ArrayList<>();
 		for(int i = 0;i<contents.size();i++){
-			ids[i] =Integer.parseInt(contents.get(i).getId()) ;
+			ids.add(contents.get(i).getId());
 		}
-		contentBiz.delete(ids);
+		contentBiz.removeByIds(ids);
 		return ResultData.build().success();
 	}
 	/**
