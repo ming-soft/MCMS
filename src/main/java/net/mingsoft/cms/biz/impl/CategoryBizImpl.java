@@ -37,6 +37,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -163,21 +164,21 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 	}
 
 	@Override
-	public void delete(int categoryId) {
+	public void delete(String categoryId) {
 		// TODO Auto-generated method stub
-		CategoryEntity category = (CategoryEntity) categoryDao.getEntity(categoryId);
+		CategoryEntity category = (CategoryEntity) categoryDao.selectById(categoryId);
 		//删除父类
 		if(category != null){
 			category.setCategoryParentId(null);
 			List<CategoryEntity> childrenList = categoryDao.queryChildren(category);
-			int[] ids = new int[childrenList.size()];
+			List<String> ids = new ArrayList<>();
 			for(int i = 0; i < childrenList.size(); i++){
 				//删除子类
-				ids[i] = Integer.parseInt(childrenList.get(i).getId());
+				ids.add(childrenList.get(i).getId());
 			}
-			categoryDao.delete(ids);
+			categoryDao.deleteBatchIds(ids);
 			// 删除文章
-			contentDao.deleteEntityByCategoryIds(ids);
+			contentDao.deleteEntityByCategoryIds(ids.toArray(new String[ids.size()]));
 		}
 	}
 

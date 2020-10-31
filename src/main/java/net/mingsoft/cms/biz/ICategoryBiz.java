@@ -33,5 +33,5 @@ public interface ICategoryBiz extends IBaseBiz<CategoryEntity> {
      */
     void update(CategoryEntity entity);
 
-    void delete(int categoryId);
+    void delete(String categoryId);
 }
