@@ -254,10 +254,10 @@
 	<!-- 根据站点编号、开始、结束时间和栏目编号查询文章编号集合 -->
 	<select id="queryIdsByCategoryIdForParser" resultMap="resultBean" >
 			select
-			cms_content.id article_id,c.*
+			ct.id article_id,c.*
 			FROM cms_content ct
 			LEFT JOIN cms_category c ON content_category_id = c.id
-			where cms_content.del=0
+			where ct.del=0
 
 			<!-- 查询子栏目数据 -->
 			<if test="contentCategoryId &gt; 0">
@@ -271,17 +271,17 @@
 				and content_datetime &gt;= #{endTime}
 			</if>
 			<if test="flag!=null and flag!=''">
-			and cms_content.content_type in ( #{flag})
+			and ct.content_type in ( #{flag})
 			</if>
 			<if  test="noflag!=null and noflag!=''">
-			and (cms_content.content_type not in ( #{noflag}  ) or cms_content.content_type is null)
+			and (ct.content_type not in ( #{noflag}  ) or ct.content_type is null)
 			</if>
 			<if test="orderBy!=null  and orderBy!='' ">
 				<if test="orderBy=='date'">ORDER BY content_datetime</if>
 				<if test="orderBy=='hit'">ORDER BY content_hit</if>
 				<if test="orderBy=='sort'">ORDER BY content_sort</if>
 				<if  test="orderBy!='date' and orderBy!='hit' and orderBy!='sort'">
-					ORDER BY cms_content.id
+					ORDER BY ct.id
 				</if>
 				<choose>
 					<when test="order!=null and order!=''">
