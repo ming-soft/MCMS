@@ -255,7 +255,7 @@
 	<select id="queryIdsByCategoryIdForParser" resultMap="resultBean" >
 			select
 			cms_content.id article_id,c.*
-			FROM cms_content
+			FROM cms_content ct
 			LEFT JOIN cms_category c ON content_category_id = c.id
 			where cms_content.del=0
 
