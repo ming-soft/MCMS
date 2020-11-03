@@ -3,7 +3,7 @@
     <formats>
         <format>dir</format>
     </formats>
-
+    <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
         <!-- 从目标目录拷贝文件去压缩 -->
         <fileSet>

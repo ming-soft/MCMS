@@ -18,7 +18,8 @@
 	<!-- <packaging>war</packaging> -->
 	<properties>
 		<java.version>1.8</java.version>
-	</properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
 
 
@@ -156,6 +157,7 @@
                 </configuration>
             </plugin>
 
+
             <!-- 打包war包使用 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -171,13 +173,6 @@
             <resource>
 
                 <directory>src/main/webapp</directory>
-                <excludes>
-                    <!--打包生产 -->
-                    <!-- <exclude>static/</exclude> -->
-                    <!-- <exclude>html/</exclude> -->
-                    <!-- <exclude>upload/</exclude> -->
-                    <!-- <exclude>templets/</exclude> -->
-                </excludes>
 				<excludes>
 					<!--打包生产 -->
 					 <exclude>static/</exclude>

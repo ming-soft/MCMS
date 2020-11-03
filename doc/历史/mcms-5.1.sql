@@ -1,8 +1,3 @@
--- MySQL dump 10.13  Distrib 5.6.40, for Win64 (x86_64)
---
--- Host: 192.168.0.8    Database: mcms-dev-5.1-1
--- ------------------------------------------------------
--- Server version	5.7.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,14 +9,6 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Current Database: `mcms-dev-5.1-1`
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `mcms-dev-5.1-1` /*!40100 DEFAULT CHARACTER SET utf8 */;
-
-USE `mcms-dev-5.1-1`;
 
 --
 -- Table structure for table `app`
