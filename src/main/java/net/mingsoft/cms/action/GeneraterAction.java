@@ -161,12 +161,10 @@ public class GeneraterAction extends BaseAction {
 		if (CategoryId>0) {
 			CategoryEntity categoryEntity = new CategoryEntity();
 			categoryEntity.setId(CategoryId+"");
-			categoryEntity.setAppId(app.getAppId());
 			columns = categoryBiz.queryChilds(categoryEntity);
 		} else {
 			// 获取所有的内容管理栏目
             CategoryEntity categoryEntity=new CategoryEntity();
-            categoryEntity.setAppId(app.getAppId());
 			columns = categoryBiz.query(categoryEntity);
 		}
 		List<CategoryBean> articleIdList = null;

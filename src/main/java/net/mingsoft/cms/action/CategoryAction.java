@@ -1,19 +1,19 @@
 package net.mingsoft.cms.action;
 
+import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import net.mingsoft.base.entity.BaseEntity;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.constant.e.BusinessTypeEnum;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.basic.util.PinYinUtil;
 import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
-import net.mingsoft.basic.util.PinYinUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +25,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+
 /**
  * 分类管理控制层
  * @author 铭飞开发团队
@@ -34,7 +35,7 @@ import java.util.List;
 @Api(value = "分类接口")
 @Controller("cmsCategoryAction")
 @RequestMapping("/${ms.manager.path}/cms/category")
-public class CategoryAction extends BaseAction{
+public class CategoryAction extends BaseAction {
 
 
 	/**
@@ -84,23 +85,18 @@ public class CategoryAction extends BaseAction{
     })
 	@RequestMapping("/list")
 	@ResponseBody
-	public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category,HttpServletResponse response, HttpServletRequest request,@ApiIgnore ModelMap model,BindingResult result) {
-		category.setAppId(BasicUtil.getAppId());
+	public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model, BindingResult result) {
 		BasicUtil.startPage();
 		List categoryList = categoryBiz.query(category);
-		return ResultData.build().success(new EUListBean(categoryList,(int)BasicUtil.endPage(categoryList).getTotal()));
+		return ResultData.build().success(new EUListBean(categoryList,(int) BasicUtil.endPage(categoryList).getTotal()));
 	}
 
 	/**
 	 * 返回编辑界面category_form
 	 */
 	@GetMapping("/form")
-	public String form(@ModelAttribute CategoryEntity category,HttpServletResponse response,HttpServletRequest request,ModelMap model){
-		if(category.getId()!=null){
-			BaseEntity categoryEntity = categoryBiz.getEntity(Integer.parseInt(category.getId()));
-			model.addAttribute("categoryEntity",categoryEntity);
-		}
-		model.addAttribute("appId",BasicUtil.getAppId());
+	public String form(@ModelAttribute CategoryEntity category, HttpServletResponse response, HttpServletRequest request, ModelMap model){
+		model.addAttribute("appId", BasicUtil.getAppId());
 		return "/cms/category/form";
 	}
 
@@ -112,12 +108,11 @@ public class CategoryAction extends BaseAction{
     @ApiImplicitParam(name = "id", value = "编号", required =true,paramType="query")
 	@GetMapping("/get")
 	@ResponseBody
-	public ResultData get(@ModelAttribute @ApiIgnore CategoryEntity category,HttpServletResponse response, HttpServletRequest request,@ApiIgnore ModelMap model){
+	public ResultData get(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model){
 		if(category.getId()==null) {
 			return ResultData.build().error();
 		}
-		category.setAppId(BasicUtil.getAppId());
-		CategoryEntity _category = (CategoryEntity)categoryBiz.getEntity(Integer.parseInt(category.getId()));
+		CategoryEntity _category = (CategoryEntity)categoryBiz.getById(category.getId());
 		return ResultData.build().success(_category);
 	}
 
@@ -172,9 +167,16 @@ public class CategoryAction extends BaseAction{
 		if(!StringUtil.checkLength(category.getCategoryParentId()+"", 1, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
 		}
-		//获取拼音
+		//判断拼音是否重复
+		if(StrUtil.isNotBlank(category.getCategoryPinyin())) {
+			CategoryEntity _category = new CategoryEntity();
+			_category.setCategoryPinyin(category.getCategoryPinyin());
+			List<CategoryEntity> query = categoryBiz.query(_category);
+			if (query.size() > 0) {
+				return ResultData.build().error(getResString("err.exist", this.getResString("category.pinyin")));
+			}
+		}
 
-		category.setAppId(BasicUtil.getAppId());
 		categoryBiz.saveEntity(category);
 		return ResultData.build().success(category);
 	}
@@ -187,9 +189,9 @@ public class CategoryAction extends BaseAction{
 	@ResponseBody
 	@LogAnn(title = "删除分类", businessType = BusinessTypeEnum.DELETE)
 	@RequiresPermissions("cms:category:del")
-	public ResultData delete(@RequestBody List<CategoryEntity> categorys,HttpServletResponse response, HttpServletRequest request) {
+	public ResultData delete(@RequestBody List<CategoryEntity> categorys, HttpServletResponse response, HttpServletRequest request) {
 		for(int i = 0;i<categorys.size();i++){
-			categoryBiz.delete(Integer.parseInt(categorys.get(i).getId()));
+			categoryBiz.delete(categorys.get(i).getId());
 		}
 		return ResultData.build().success();
 	}
@@ -230,7 +232,7 @@ public class CategoryAction extends BaseAction{
 	@LogAnn(title = "更新分类", businessType = BusinessTypeEnum.UPDATE)
 	@RequiresPermissions("cms:category:update")
 	public ResultData update(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response,
-			HttpServletRequest request) {
+                             HttpServletRequest request) {
 		//验证栏目管理名称的值是否合法
 		if(StringUtil.isBlank(category.getCategoryTitle())){
 			return ResultData.build().error(getResString("err.empty", this.getResString("category.title")));
@@ -245,10 +247,22 @@ public class CategoryAction extends BaseAction{
 		if(!StringUtil.checkLength(category.getCategoryParentId()+"", 0, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
 		}
+		 //判断拼音是否重复并且是否和原拼音相同
+		 if(StrUtil.isNotBlank(category.getCategoryPinyin()) && !categoryBiz.getById(category.getId()).getCategoryPinyin().equals(category.getCategoryPinyin())) {
+			 CategoryEntity _category = new CategoryEntity();
+			 _category.setCategoryPinyin(category.getCategoryPinyin());
+			 List<CategoryEntity> query = categoryBiz.query(_category);
+			 if (query.size() > 0) {
+				 return ResultData.build().error(getResString("err.exist", this.getResString("category.pinyin")));
+			 }
+		 }
 		 String pingYin = PinYinUtil.getPingYin(category.getCategoryTitle());
+		 //如果用户填写了拼音则使用用户填写的
+		 if (StrUtil.isNotBlank(category.getCategoryPinyin())) {
+		 	pingYin = category.getCategoryPinyin();
+		 }
 		 CategoryEntity categoryEntity=new CategoryEntity();
 		 categoryEntity.setCategoryPinyin(pingYin);
-		 categoryEntity.setAppId(BasicUtil.getAppId());
 		 CategoryEntity categoryBizEntity = (CategoryEntity)categoryBiz.getEntity(categoryEntity);
 		 category.setCategoryPinyin(pingYin);
 		 //如果存在此拼音栏目则拼接上id
@@ -258,14 +272,12 @@ public class CategoryAction extends BaseAction{
 		//判断是否选择子级为所属栏目
 		 CategoryEntity _category = new CategoryEntity();
 		 _category.setCategoryParentId(category.getId());
-		 _category.setAppId(BasicUtil.getAppId());
 		 List<CategoryEntity> categoryList = categoryBiz.queryChilds(_category);
 		 for(CategoryEntity item:categoryList){
 			 if(item.getId().equals(category.getCategoryId())){
 				 return ResultData.build().error(getResString("cannot.select.child"));
 			 }
 		 }
-		 category.setAppId(BasicUtil.getAppId());
 		categoryBiz.updateEntity(category);
 		return ResultData.build().success(category);
 	}

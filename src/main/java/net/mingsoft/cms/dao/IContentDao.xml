@@ -43,7 +43,6 @@
 		<result column="content_url" property="contentUrl" /><!--文章跳转链接地址 -->
 		<result column="static_url" property="staticUrl" /><!--静态地址 -->
 		<result column="content_hit" property="contentHit" /><!--点击次数 -->
-		<result column="app_id" property="appId" /><!--文章管理的应用id -->
 		<result column="create_by" property="createBy" /><!--创建人 -->
 		<result column="create_date" property="createDate" /><!--创建时间 -->
 		<result column="update_by" property="updateBy" /><!--修改人 -->
@@ -67,7 +66,6 @@
 		<result column="mdiy_model_id" property="mdiyModelId" /><!--栏目管理的内容模型id -->
 		<result column="category_datetime" property="categoryDatetime" /><!--类别发布时间 -->
 		<result column="category_manager_id" property="categoryManagerId" /><!--发布用户id -->
-		<result column="app_id" property="appId" /><!--应用编号 -->
 		<result column="dict_id" property="dictId" /><!--字典对应编号 -->
 		<result column="category_flag" property="categoryFlag" /><!--栏目属性 -->
 		<result column="category_path" property="categoryPath" /><!--栏目路径 -->
@@ -98,7 +96,6 @@
 				<if test="contentDetails != null and contentDetails != ''">content_details,</if>
 				<if test="contentUrl != null and contentUrl != ''">content_url,</if>
 				<if test="contentHit != null">content_hit,</if>
-				<if test="appId != null">app_id,</if>
 				<if test="createBy &gt; 0">create_by,</if>
 				<if test="createDate != null">create_date,</if>
 				<if test="updateBy &gt; 0">update_by,</if>
@@ -120,7 +117,6 @@
 				<if test="contentDetails != null and contentDetails != ''">#{contentDetails},</if>
 				<if test="contentUrl != null and contentUrl != ''">#{contentUrl},</if>
 				<if test="contentHit != null">#{contentHit},</if>
-				<if test="appId != null">#{appId},</if>
 				<if test="createBy &gt; 0">#{createBy},</if>
 				<if test="createDate != null">#{createDate},</if>
 				<if test="updateBy &gt; 0">#{updateBy},</if>
@@ -147,7 +143,6 @@
 				<if test="contentDetails != null ">content_details=#{contentDetails},</if>
 				<if test="contentUrl != null and contentUrl != ''">content_url=#{contentUrl},</if>
 				<if test="contentHit != null">content_hit=#{contentHit},</if>
-				<if test="appId != null">app_id=#{appId},</if>
 				<if test="createBy &gt; 0">create_by=#{createBy},</if>
 				<if test="createDate != null">create_date=#{createDate},</if>
 				<if test="updateBy &gt; 0">update_by=#{updateBy},</if>
@@ -181,7 +176,6 @@
 				<if test="contentDetails != null and contentDetails != ''">and content_details=#{contentDetails}</if>
 				<if test="contentUrl != null and contentUrl != ''">and content_url=#{contentUrl}</if>
 				<if test="contentHit != null">and content_hit=#{contentHit}</if>
-				<if test="appId != null"> and app_id=#{appId} </if>
 				<if test="createBy &gt; 0"> and create_by=#{createBy} </if>
 				<if test="createDate != null"> and create_date=#{createDate} </if>
 				<if test="updateBy &gt; 0"> and update_by=#{updateBy} </if>
@@ -219,7 +213,7 @@
 		</select>
 	<!--条件查询-->
 	<select id="query" resultMap="resultContentMap">
-		select ct.*,CONCAT("/html/",ct.app_id,category_path,"/",ct.id,".html") AS static_url from (
+		select ct.*,CONCAT('/html/',ct.app_id,category_path,'/',ct.id,'.html') AS static_url from (
 		select ct.*,cc.category_path from cms_content ct
 		join cms_category cc on ct.content_category_id=cc.id
 		<where>
@@ -239,13 +233,12 @@
 			<if test="contentDetails != null and contentDetails != ''"> and content_details=#{contentDetails}</if>
 			<if test="contentUrl != null and contentUrl != ''"> and content_url=#{contentUrl}</if>
 			<if test="contentHit != null"> and content_hit=#{contentHit}</if>
-			<if test="appId != null"> and ct.app_id=#{appId} </if>
 			<if test="createBy &gt; 0"> and ct.create_by=#{createBy} </if>
 			<if test="createDate != null"> and ct.create_date=#{createDate} </if>
 			<if test="updateBy &gt; 0"> and ct.update_by=#{updateBy} </if>
 			<if test="updateDate != null"> and update_date=#{updateDate} </if>
 		</where>
-		)ct ORDER BY date_format(ct.content_datetime,'%Y-%m-%d') desc,content_sort desc
+		)ct ORDER BY ct.content_datetime desc,content_sort desc
 	</select>
 
 	<sql id="queryWhereCategoryId" databaseId="mysql">
@@ -261,13 +254,11 @@
 	<!-- 根据站点编号、开始、结束时间和栏目编号查询文章编号集合 -->
 	<select id="queryIdsByCategoryIdForParser" resultMap="resultBean" >
 			select
-			cms_content.id article_id,c.*
-			FROM cms_content
+			ct.id article_id,c.*
+			FROM cms_content ct
 			LEFT JOIN cms_category c ON content_category_id = c.id
-			where cms_content.del=0
-			<if test="appId &gt; 0">
-				and cms_content.app_id = #{appId}
-			</if>
+			where ct.del=0
+
 			<!-- 查询子栏目数据 -->
 			<if test="contentCategoryId &gt; 0">
 				and (content_category_id=#{contentCategoryId} or content_category_id in
@@ -280,17 +271,17 @@
 				and content_datetime &gt;= #{endTime}
 			</if>
 			<if test="flag!=null and flag!=''">
-			and cms_content.content_type in ( #{flag})
+			and ct.content_type in ( #{flag})
 			</if>
 			<if  test="noflag!=null and noflag!=''">
-			and (cms_content.content_type not in ( #{noflag}  ) or cms_content.content_type is null)
+			and (ct.content_type not in ( #{noflag}  ) or ct.content_type is null)
 			</if>
 			<if test="orderBy!=null  and orderBy!='' ">
 				<if test="orderBy=='date'">ORDER BY content_datetime</if>
 				<if test="orderBy=='hit'">ORDER BY content_hit</if>
 				<if test="orderBy=='sort'">ORDER BY content_sort</if>
 				<if  test="orderBy!='date' and orderBy!='hit' and orderBy!='sort'">
-					ORDER BY cms_content.id
+					ORDER BY ct.id
 				</if>
 				<choose>
 					<when test="order!=null and order!=''">
@@ -312,7 +303,7 @@
 		<if test="tableName!=null and tableName!='' and diyMap!=null">left join ${tableName} d on d.link_id=a.id
 		</if>
 		<where>
-			a.del=0 and a.app_id = #{websiteId}
+			a.del=0
 			<if test="ids!=null and ids!=''">
 				and FIND_IN_SET(content_category_id,#{ids})
 			</if>

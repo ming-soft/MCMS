@@ -1,13 +1,16 @@
 package net.mingsoft.cms.upgrade;
 
 import cn.hutool.core.util.StrUtil;
+import io.swagger.models.auth.In;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.SpringUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.basic.util.PinYinUtil;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author by 铭飞开源团队
@@ -17,30 +20,44 @@ import java.util.List;
 public class Upgrade {
 
     /**
-     * 菜单拼音升级
+     * 更新栏目分类的顶级节点和叶子节点
      */
     public void upgrade(){
         ICategoryBiz categoryBiz = SpringUtil.getBean(ICategoryBiz.class);
         List<CategoryEntity> list = categoryBiz.queryAll();
-        //先更新所有栏目的拼音
+
         list.forEach(x->{
-            String pingYin = PinYinUtil.getPingYin(x.getCategoryTitle());
-            CategoryEntity category=new CategoryEntity();
-            category.setCategoryPinyin(pingYin);
-            category.setAppId(BasicUtil.getAppId());
-            CategoryEntity categoryBizEntity = (CategoryEntity)categoryBiz.getEntity(category);
-            x.setCategoryPinyin(pingYin);
-            //拼音存在则拼接id
-            if(categoryBizEntity!=null&&!categoryBizEntity.getId().equals(x.getId())){
-                x.setCategoryPinyin(pingYin+x.getId());
+
+            //将parentId第一行设为顶级节点
+            String topId = "0";
+            String parentId = x.getParentid();
+            if (parentId != null) {
+                topId = parentId.split(",")[0];
             }
-            categoryBiz.update(x);
-        });
-        //再更新路径
-        list.forEach(x->{
-            if(StrUtil.isBlank(x.getCategoryId())||x.getCategoryId().equals("0")){
-                categoryBiz.updateEntity(x);
+            x.setTopId(topId);
+
+            String id = x.getId();
+            boolean leaf = true;
+            //判断是否叶子，循环查找，如果有节点的父节点中包含该节点的id则判断为否跳出循环
+            for (int i = 0; i< list.size(); i++) {
+                String pId = list.get(i).getParentid();
+                if (pId == null) {
+                    continue;
+                }
+                leaf = !pId.contains(id);
+                //如果不是叶子就跳出循环，不需要再判断了
+                if (!leaf) {
+                    break;
+                }
             }
+            x.setLeaf(leaf);
+            //更新
+            Map<String, String> fields = new HashMap<>();
+            fields.put("leaf", x.getLeaf()?"1":"0");
+            fields.put("top_id", x.getTopId());
+            Map<String, String> where = new HashMap<>();
+            where.put("id", x.getId());
+            categoryBiz.updateBySQL("cms_category", fields, where);
         });
 
     }

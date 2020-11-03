@@ -1,7 +1,16 @@
+#spring:
+#  datasource:
+#    url: jdbc:mysql://192.168.0.8:3316/mcms-dev-5.2-1?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+#    username: admin
+#    password: 123456789
+#    filters: wall,mergeStat
+#    type: com.alibaba.druid.pool.DruidDataSource
+
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/db-mcms-open?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&serverTimezone=Asia/Shanghai
-    username: root
-    password: root
+    driver-class-name: dm.jdbc.driver.DmDriver
+    url: jdbc:dm://192.168.0.8:5236
+    username: SYSDBA
+    password: SYSDBA
     filters: wall,mergeStat
     type: com.alibaba.druid.pool.DruidDataSource

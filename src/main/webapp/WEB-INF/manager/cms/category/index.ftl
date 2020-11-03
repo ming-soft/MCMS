@@ -47,7 +47,7 @@
 			</el-table-column>
 			<el-table-column label="链接地址" align="left" prop="categoryPath" show-overflow-tooltip>
 				<template slot-scope="scope">
-					<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="'${'$'}{global.url}'+scope.row.categoryPath+'/index.html'" @click="copyUrl">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
+					<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="'${'$'}{ms:global.url}'+scope.row.categoryPath+'/index.html'" @click="copyUrl">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
 				</template>
 			</el-table-column>
             <el-table-column label="列表地址" align="left" prop="categoryListUrl" show-overflow-tooltip>
@@ -62,8 +62,11 @@
 					{{scope.row.categoryType == '2'?scope.row.categoryUrl:''}}
 				</template>
             </el-table-column>
-					<el-table-column label="操作" width="120" align="center">
+					<el-table-column label="操作" width="150" align="center">
 					<template slot-scope="scope">
+						<@shiro.hasPermission name="cms:category:save">
+							<el-link type="primary" :underline="false" @click="save(scope.row.id, scope.row.id)"><i class="el-icon-plus"></i>子栏目</el-link>
+						</@shiro.hasPermission>
 						<@shiro.hasPermission name="cms:category:update">
 						<el-link type="primary" :underline="false" @click="save(scope.row.id)">编辑</el-link>
 						</@shiro.hasPermission>
@@ -231,9 +234,9 @@
 				return value;
 			},
 			//新增
-			save: function (id) {
+			save: function (id, childId) {
 				if (id) {
-					location.href = this.manager + "/cms/category/form.do?id=" + id;
+					location.href = this.manager + "/cms/category/form.do?id=" + id + "&childId=" + childId;
 				} else {
 					location.href = this.manager + "/cms/category/form.do";
 				}

@@ -1,11 +1,13 @@
 package net.mingsoft.cms.dao;
 
 import net.mingsoft.base.dao.IBaseDao;
-import java.util.*;
-
 import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.bean.ContentBean;
+import net.mingsoft.cms.entity.ContentEntity;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * 文章持久层
@@ -13,7 +15,7 @@ import org.apache.ibatis.annotations.Param;
  * 创建日期：2019-11-28 15:12:32<br/>
  * 历史修订：<br/>
  */
-public interface IContentDao extends IBaseDao {
+public interface IContentDao extends IBaseDao<ContentEntity> {
 
     /**
      * 查询文章编号集合
@@ -32,12 +34,12 @@ public interface IContentDao extends IBaseDao {
      *            list[2]:是否是等值查询 list[3]:字段的值
      * @return 文章实体总数
      */
-    int getSearchCount(@Param("tableName") String tableName, @Param("diyList") List diyList,@Param("map") Map<String, Object> map,
+    int getSearchCount(@Param("tableName") String tableName, @Param("diyList") List diyList, @Param("map") Map<String, Object> map,
                        @Param("websiteId") int websiteId, @Param("ids") String ids);
 
     /**
      * 分类编号删除文章
      * @param ids
      */
-    void deleteEntityByCategoryIds(@Param("ids") int[] ids);
+    void deleteEntityByCategoryIds(@Param("ids") String[] ids);
 }

@@ -1,16 +1,21 @@
 package net.mingsoft.cms.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import net.mingsoft.base.entity.BaseEntity;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
+
 /**
 * 文章实体
 * @author 铭飞开发团队
 * 创建日期：2019-11-28 15:12:32<br/>
 * 历史修订：<br/>
 */
+@TableName("cms_content")
 public class ContentEntity extends BaseEntity {
 
 private static final long serialVersionUID = 1574925152617L;
@@ -73,6 +78,7 @@ private static final long serialVersionUID = 1574925152617L;
 	/**
 	* 文章管理的应用id
 	*/
+	@TableField(exist = false)
 	private Integer appId;
 	/**
 	* 点击次数

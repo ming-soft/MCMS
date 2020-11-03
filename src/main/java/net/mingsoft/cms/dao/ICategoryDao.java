@@ -1,11 +1,10 @@
 package net.mingsoft.cms.dao;
 
 import net.mingsoft.base.dao.IBaseDao;
-import java.util.*;
-
 import net.mingsoft.cms.entity.CategoryEntity;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * 分类持久层
@@ -14,13 +13,13 @@ import org.springframework.stereotype.Component;
  * 历史修订：<br/>
  */
 @Component("cmsCategoryDao")
-public interface ICategoryDao extends IBaseDao {
+public interface ICategoryDao extends IBaseDao<CategoryEntity> {
 
     /**
      * 查询当前分类下面的所有子分类
      * @param category 必须存在categoryId categoryParentId
      * @return
      */
-    public List<net.mingsoft.cms.entity.CategoryEntity> queryChildren(CategoryEntity category);
+    public List<CategoryEntity> queryChildren(CategoryEntity category);
 
 }

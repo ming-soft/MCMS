@@ -4,16 +4,21 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.annotation.JSONField;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import net.mingsoft.base.entity.BaseEntity;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
+
 /**
 * 分类实体
 * @author 铭飞开发团队
 * 创建日期：2019-11-28 15:12:32<br/>
 * 历史修订：<br/>
 */
+@TableName("cms_category")
 public class CategoryEntity extends BaseEntity {
 
 private static final long serialVersionUID = 1574925152750L;
@@ -80,6 +85,7 @@ private static final long serialVersionUID = 1574925152750L;
 	/**
 	* 应用编号
 	*/
+	@TableField(exist = false)
 	private Integer appId;
 	/**
 	* 字典对应编号
@@ -98,6 +104,31 @@ private static final long serialVersionUID = 1574925152750L;
 	*/
 	private String categoryParentId;
 
+	/**
+	 * 叶子节点
+	 */
+	private Boolean leaf;
+
+	/**
+	 * 顶级id
+	 */
+	private String topId;
+
+	public Boolean getLeaf() {
+		return leaf;
+	}
+
+	public void setLeaf(Boolean leaf) {
+		this.leaf = leaf;
+	}
+
+	public String getTopId() {
+		return topId;
+	}
+
+	public void setTopId(String topId) {
+		this.topId = topId;
+	}
 
 	/**
 	* 设置栏目管理名称

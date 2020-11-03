@@ -1,19 +1,15 @@
 package net.mingsoft.config;
 
-import java.io.File;
-import java.util.List;
-import java.util.concurrent.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import org.springframework.aop.Advisor;
+import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.support.spring.stat.BeanTypeAutoProxyCreator;
+import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.mingsoft.basic.filter.XSSEscapeFilter;
-import org.springframework.aop.support.DefaultPointcutAdvisor;
-import org.springframework.aop.support.JdkRegexpMethodPointcut;
+import net.mingsoft.basic.interceptor.ActionInterceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
-import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -21,21 +17,16 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.support.http.StatViewServlet;
-import com.alibaba.druid.support.http.WebStatFilter;
-import com.alibaba.druid.support.spring.stat.BeanTypeAutoProxyCreator;
-import com.alibaba.druid.support.spring.stat.DruidStatInterceptor;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import net.mingsoft.basic.interceptor.ActionInterceptor;
-import net.mingsoft.basic.util.BasicUtil;
+import java.io.File;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -45,6 +36,9 @@ public class WebConfig implements WebMvcConfigurer {
 	 */
 	@Value("${ms.upload.path}")
 	private String uploadFloderPath;
+
+	@Value("${ms.upload.template}")
+	private String template;
 	/**
 	 * 上传路径映射
 	 */
@@ -55,7 +49,10 @@ public class WebConfig implements WebMvcConfigurer {
 		return new ActionInterceptor();
 	}
 
-
+	@Bean
+	public ConfigurationCustomizer configurationCustomizer() {
+		return configuration -> configuration.setUseDeprecatedExecutor(false);
+	}
 	/**
 	 * 增加对rest api鉴权的spring mvc拦截器
 	 */
@@ -68,12 +65,12 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/upload/**").addResourceLocations("/upload/","file:upload/");
-		registry.addResourceHandler("/templets/**").addResourceLocations("/templets/","file:templets/");
+		registry.addResourceHandler(uploadMapping).addResourceLocations(File.separator+uploadFloderPath+File.separator,"file:"+uploadFloderPath+File.separator);
+		registry.addResourceHandler("/templets/**").addResourceLocations(File.separator+template+File.separator,"file:"+template+File.separator);
 		registry.addResourceHandler("/html/**").addResourceLocations("/html/","file:html/");
 		//三种映射方式 webapp下、当前目录下、jar内
 		registry.addResourceHandler("/app/**").addResourceLocations("/app/","file:app/", "classpath:/app/");
-		registry.addResourceHandler("/static/**","/**").addResourceLocations("/static/","file:static/","classpath:/static/","classpath:/META-INF/resources/");
+		registry.addResourceHandler("/static/**").addResourceLocations("/static/","file:static/","classpath:/static/","classpath:/META-INF/resources/");
 		registry.addResourceHandler("/api/**").addResourceLocations("/api/","file:api/", "classpath:/api/");
 		if(new File(uploadFloderPath).isAbsolute()){
 			//如果指定了绝对路径，上传的文件都映射到uploadMapping下

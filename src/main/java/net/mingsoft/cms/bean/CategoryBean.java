@@ -13,16 +13,16 @@ public class CategoryBean extends CategoryEntity {
 	/**
 	 * 文章编号
 	 */
-	private int articleId;
+	private String articleId;
 
 
 
 
-	public int getArticleId() {
+	public String getArticleId() {
 		return articleId;
 	}
 
-	public void setArticleId(int articleId) {
+	public void setArticleId(String articleId) {
 		this.articleId = articleId;
 	}
 }

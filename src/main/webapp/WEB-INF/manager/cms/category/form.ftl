@@ -169,6 +169,24 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
+                <el-row
+                        :gutter="0"
+                        justify="start" align="top">
+                    <el-col :span="12">
+                        <el-form-item  label="栏目拼音" prop="categoryPinyin">
+                            <el-input
+                                    v-model="form.categoryPinyin"
+                                    :disabled="false"
+                                    :readonly="false"
+                                    :style="{width:  '100%'}"
+                                    :clearable="true"
+                                    placeholder="默认拼音根据名称生成">
+                            </el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                    </el-col>
+                </el-row>
                 <el-form-item label="栏目管理关键字" prop="categoryKeyword" >
                     <template slot='label'>栏目关键字
                         <el-popover slot="label" placement="top-start" title="提示" trigger="hover">
@@ -249,7 +267,7 @@
                     // 栏目管理名称
                     categoryTitle: '',
                     // 所属栏目
-                    categoryId: '',
+                    categoryId: null,
                     // 栏目管理属性
                     categoryType: '1',
                     // 自定义顺序
@@ -258,6 +276,8 @@
                     categoryListUrl: '',
                     // 内容模板
                     categoryUrl: '',
+                    // 栏目拼音
+                    categoryPinyin: '',
                     // 栏目管理关键字
                     categoryKeyword: '',
                     // 栏目管理描述
@@ -418,7 +438,9 @@
                 ms.http.get(ms.manager + "/mdiy/model/list.do", {
                     modelType: 'zdymx_wz'
                 }).then(function (data) {
-                    that.mdiyModelIdOptions = data.data.rows;
+                    if(data.result){
+                        that.mdiyModelIdOptions = data.data.rows;
+                    }
                 }).catch(function (err) {
                     console.log(err);
                 });
@@ -460,10 +482,12 @@
                 ms.http.post(ms.manager + "/cms/content/list.do", {
                     contentCategoryId: id
                 }).then(function (data) {
-                    if (data.data.total > 0) {
-                        that.categoryTypeDisabled = true;
-                    } else {
-                        that.categoryTypeDisabled = false;
+                    if(data.result){
+                        if (data.data.total > 0) {
+                            that.categoryTypeDisabled = true;
+                        } else {
+                            that.categoryTypeDisabled = false;
+                        }
                     }
                 }).catch(function (err) {
                     console.log(err);
@@ -494,7 +518,10 @@
                     dictType: '栏目属性',
                     pageSize: 99999
                 }).then(function (res) {
-                    that.categoryFlagOptions = res.rows;
+                    if(res.result){
+                        res = res.data;
+                        that.categoryFlagOptions = res.rows;
+                    }
                 }).catch(function (err) {
                     console.log(err);
                 });
@@ -533,11 +560,18 @@
             this.categoryUrlOptionsGet();
             this.categoryFlagOptionsGet();
             this.form.id = ms.util.getParameter("id");
+            this.form.childId = ms.util.getParameter("childId");// 判断是否增加子栏目
 
-            if (this.form.id) {
+            // 判断三种状态，默认为新增状态
+            this.categoryTypeDisabled = false;// 控制栏目分类是否可编辑
+            if (this.form.id != undefined && (this.form.childId == undefined  || this.form.childId == "undefined")) {
+                // 切换编辑状态，id不为空 childId 为空
+                this.categoryTypeDisabled = true;
                 this.get(this.form.id);
-            } else {
-                this.categoryTypeDisabled = false;
+            } else if (this.form.childId) {
+                // 切换新增子栏目状态，id&childId 不为空
+                this.form.id = null;
+                this.form.categoryId = this.form.childId;
             }
         }
     });

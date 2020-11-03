@@ -160,15 +160,15 @@ public class CmsParserUtil extends ParserUtil {
 		Map<Object, Object> contentModelMap = new HashMap<Object, Object>();
 		ModelEntity contentModel = null;
 		// 记录已经生成了文章编号
-		List<Integer> generateIds = new ArrayList<>();
-		ExecutorService pool=SpringUtil.getBean(ExecutorService.class);
+		List<String> generateIds = new ArrayList<>();
+		ExecutorService pool= SpringUtil.getBean(ExecutorService.class);
 		// 生成文章
 		for (int artId = 0; artId < articleIdList.size();) {
 			String writePath = null;
 			//设置分页类
 			PageBean page = new PageBean();
 			// 文章编号
-			int articleId = articleIdList.get(artId).getArticleId();
+			String articleId = articleIdList.get(artId).getArticleId();
 			// 文章的栏目路径
 			String articleColumnPath = articleIdList.get(artId).getCategoryPath();
 			// 该文章相关分类
