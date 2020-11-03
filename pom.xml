@@ -21,22 +21,10 @@
 	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-
-
 	<dependencies>
-
-		<dependency>
-			<groupId>dm</groupId>
-			<artifactId>dm.jdbc.driver</artifactId>
-			<version>8.0.0</version>
-		</dependency>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-db</artifactId>
 		</dependency>
 
 		<!-- 此部分是铭飞平台MStroe的客户端（MStore不在铭飞开源产品范围），如果不需要使用MStore可以删除掉 -->
