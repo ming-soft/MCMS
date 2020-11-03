@@ -27,7 +27,6 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
-import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.PinYinUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.dao.ICategoryDao;
@@ -74,6 +73,10 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 	public void saveEntity(CategoryEntity categoryEntity) {
 		// TODO Auto-generated method stub
 		String pingYin = PinYinUtil.getPingYin(categoryEntity.getCategoryTitle());
+		//如果用户自己填入了拼音则使用用户的
+		if (StrUtil.isNotBlank(categoryEntity.getCategoryPinyin())) {
+			pingYin = categoryEntity.getCategoryPinyin();
+		}
 		CategoryEntity category=new CategoryEntity();
 		category.setCategoryPinyin(pingYin);
 		Object categoryBizEntity = getEntity(category);

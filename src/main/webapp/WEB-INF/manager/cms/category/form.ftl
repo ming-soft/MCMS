@@ -169,6 +169,24 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
+                <el-row
+                        :gutter="0"
+                        justify="start" align="top">
+                    <el-col :span="12">
+                        <el-form-item  label="栏目拼音" prop="categoryPinyin">
+                            <el-input
+                                    v-model="form.categoryPinyin"
+                                    :disabled="false"
+                                    :readonly="false"
+                                    :style="{width:  '100%'}"
+                                    :clearable="true"
+                                    placeholder="默认拼音根据名称生成">
+                            </el-input>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="12">
+                    </el-col>
+                </el-row>
                 <el-form-item label="栏目管理关键字" prop="categoryKeyword" >
                     <template slot='label'>栏目关键字
                         <el-popover slot="label" placement="top-start" title="提示" trigger="hover">
@@ -258,6 +276,8 @@
                     categoryListUrl: '',
                     // 内容模板
                     categoryUrl: '',
+                    // 栏目拼音
+                    categoryPinyin: '',
                     // 栏目管理关键字
                     categoryKeyword: '',
                     // 栏目管理描述

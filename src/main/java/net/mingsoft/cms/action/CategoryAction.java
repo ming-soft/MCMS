@@ -1,5 +1,6 @@
 package net.mingsoft.cms.action;
 
+import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -166,7 +167,15 @@ public class CategoryAction extends BaseAction {
 		if(!StringUtil.checkLength(category.getCategoryParentId()+"", 1, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
 		}
-		//获取拼音
+		//判断拼音是否重复
+		if(StrUtil.isNotBlank(category.getCategoryPinyin())) {
+			CategoryEntity _category = new CategoryEntity();
+			_category.setCategoryPinyin(category.getCategoryPinyin());
+			List<CategoryEntity> query = categoryBiz.query(_category);
+			if (query.size() > 0) {
+				return ResultData.build().error(getResString("err.exist", this.getResString("category.pinyin")));
+			}
+		}
 
 		categoryBiz.saveEntity(category);
 		return ResultData.build().success(category);
@@ -238,7 +247,20 @@ public class CategoryAction extends BaseAction {
 		if(!StringUtil.checkLength(category.getCategoryParentId()+"", 0, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
 		}
+		 //判断拼音是否重复并且是否和原拼音相同
+		 if(StrUtil.isNotBlank(category.getCategoryPinyin()) && !categoryBiz.getById(category.getId()).getCategoryPinyin().equals(category.getCategoryPinyin())) {
+			 CategoryEntity _category = new CategoryEntity();
+			 _category.setCategoryPinyin(category.getCategoryPinyin());
+			 List<CategoryEntity> query = categoryBiz.query(_category);
+			 if (query.size() > 0) {
+				 return ResultData.build().error(getResString("err.exist", this.getResString("category.pinyin")));
+			 }
+		 }
 		 String pingYin = PinYinUtil.getPingYin(category.getCategoryTitle());
+		 //如果用户填写了拼音则使用用户填写的
+		 if (StrUtil.isNotBlank(category.getCategoryPinyin())) {
+		 	pingYin = category.getCategoryPinyin();
+		 }
 		 CategoryEntity categoryEntity=new CategoryEntity();
 		 categoryEntity.setCategoryPinyin(pingYin);
 		 CategoryEntity categoryBizEntity = (CategoryEntity)categoryBiz.getEntity(categoryEntity);
