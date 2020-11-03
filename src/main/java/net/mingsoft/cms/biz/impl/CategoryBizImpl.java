@@ -24,6 +24,7 @@ package net.mingsoft.cms.biz.impl;
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
 import net.mingsoft.basic.util.BasicUtil;
@@ -88,6 +89,10 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 			}
 		}
 		categoryEntity.setLeaf(false);
+		//如果是新增栏目一定是叶子节点
+		if (StrUtil.isEmpty(categoryEntity.getId())) {
+			categoryEntity.setLeaf(true);
+		}
 		super.save(categoryEntity);
 		//拼音存在则拼接id
 		if(categoryBizEntity!=null){
@@ -190,14 +195,15 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 		Assert.notNull(entity);
 		CategoryEntity categoryEntity = getById(entity.getId());
 		//如果父级不为空并且修改了父级则需要更新父级
-		if(!entity.getCategoryId().equals(categoryEntity.getId())){
+		if(!entity.getCategoryId().equals(categoryEntity.getCategoryId())){
 			//更新旧的父级
 			if(StrUtil.isNotBlank(categoryEntity.getCategoryId())&&!"0".equals(categoryEntity.getCategoryId())){
 				CategoryEntity parent = getById(categoryEntity.getCategoryId());
 				//如果修改了父级则需要判断父级是否还有子节点
 				boolean leaf = parent.getLeaf();
 				//查找不等于当前更新的分类子集，有则不是叶子节点
-				parent.setLeaf(count(lambdaQuery().eq(CategoryEntity::getCategoryId,parent.getId()).ne(CategoryEntity::getId,entity.getId()))==0);
+				QueryWrapper<CategoryEntity> queryWrapper = new QueryWrapper<>();
+				parent.setLeaf(count(queryWrapper.eq("category_id",parent.getId()).ne("id",entity.getId()))==0);
 				if(leaf!=parent.getLeaf()){
 					updateById(parent);
 				}
