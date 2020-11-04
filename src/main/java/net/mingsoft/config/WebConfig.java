@@ -66,7 +66,7 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler(uploadMapping).addResourceLocations(File.separator+uploadFloderPath+File.separator,"file:"+uploadFloderPath+File.separator);
-		registry.addResourceHandler("/templets/**").addResourceLocations(File.separator+template+File.separator,"file:"+template+File.separator);
+		registry.addResourceHandler("/template/**").addResourceLocations(File.separator+template+File.separator,"file:"+template+File.separator);
 		registry.addResourceHandler("/html/**").addResourceLocations("/html/","file:html/");
 		//三种映射方式 webapp下、当前目录下、jar内
 		registry.addResourceHandler("/app/**").addResourceLocations("/app/","file:app/", "classpath:/app/");
