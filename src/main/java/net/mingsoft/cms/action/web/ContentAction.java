@@ -132,7 +132,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		entity.setContentId(content.getId());
 		entity.setCreateDate(new Date());
 		historyLogBiz.saveEntity(entity);
-		if(content.getAppId() == null || content.getAppId() != BasicUtil.getAppId()){
+		if(content.getAppId() == null || content.getAppId() != BasicUtil.getApp().getAppId()){
 			return "document.write(0)";
 		}
 		return "document.write(" + content.getContentHit() + ")";

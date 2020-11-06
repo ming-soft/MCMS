@@ -396,10 +396,12 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		});
 
 		//查询数量
-		int count= contentBiz.getSearchCount(contentModel,fieldValueList,searchMap,BasicUtil.getAppId(),categoryIds);
+		int count= contentBiz.getSearchCount(contentModel,fieldValueList,searchMap,BasicUtil.getApp().getAppId(),categoryIds);
 		map.put(ParserUtil.URL, url);
 		map.put(SEARCH, searchMap);
-		map.put(ParserUtil.APP_ID, BasicUtil.getAppId());
+		if(BasicUtil.getWebsiteApp() != null){
+			map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+		}
 		map.put(ParserUtil.PAGE, page);
 		map.put(ParserUtil.HTML, ParserUtil.HTML);
 		//动态解析

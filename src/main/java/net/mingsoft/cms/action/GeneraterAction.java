@@ -182,7 +182,9 @@ public class GeneraterAction extends BaseAction {
 					}
 					//获取模板中列表标签中的条件
 					Map<String, Object> map = new HashMap<>();
-					map.put(ParserUtil.APP_ID, BasicUtil.getAppId());
+					if(BasicUtil.getWebsiteApp() != null){
+						map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+					}
 					PageBean page = new PageBean();
 					map.put(ParserUtil.HTML, ParserUtil.HTML);
 					map.put(ParserUtil.URL, BasicUtil.getUrl());
@@ -238,7 +240,9 @@ public class GeneraterAction extends BaseAction {
 		ContentBean contentBean = new ContentBean();
 		contentBean.setBeginTime(dateTime);
 		Map<String, Object> map = new HashMap<>();
-		map.put(ParserUtil.APP_ID, BasicUtil.getAppId());
+		if(BasicUtil.getWebsiteApp() != null){
+			map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+		}
 		PageBean page = new PageBean();
 		map.put(ParserUtil.HTML, ParserUtil.HTML);
 		map.put(ParserUtil.URL, BasicUtil.getUrl());

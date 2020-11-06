@@ -96,7 +96,9 @@ public class CmsParserUtil extends ParserUtil {
 			parserParams.put(FIELD, column);
 			parserParams.put(IS_DO, false);
 			parserParams.put(HTML, HTML);
-			parserParams.put(APP_ID, BasicUtil.getAppId());
+			if(BasicUtil.getWebsiteApp() != null){
+				parserParams.put(APP_ID, BasicUtil.getWebsiteApp().getAppId());
+			}
 			if (contentModel!=null) {
 				// 将自定义模型编号设置为key值
 				parserParams.put(TABLE_NAME, contentModel.getModelTableName());

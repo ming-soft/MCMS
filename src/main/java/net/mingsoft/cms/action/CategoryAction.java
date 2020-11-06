@@ -96,7 +96,7 @@ public class CategoryAction extends BaseAction {
 	 */
 	@GetMapping("/form")
 	public String form(@ModelAttribute CategoryEntity category, HttpServletResponse response, HttpServletRequest request, ModelMap model){
-		model.addAttribute("appId", BasicUtil.getAppId());
+		model.addAttribute("appId", BasicUtil.getApp().getAppId());
 		return "/cms/category/form";
 	}
 

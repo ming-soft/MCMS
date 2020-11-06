@@ -83,7 +83,9 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 
 	@Override
 	public List<CategoryBean> queryIdsByCategoryIdForParser(ContentBean contentBean) {
-		contentBean.setAppId(BasicUtil.getAppId());
+		if(BasicUtil.getWebsiteApp() !=null){
+			contentBean.setAppId( BasicUtil.getWebsiteApp().getAppId());
+		}
 		return this.contentDao.queryIdsByCategoryIdForParser(contentBean);
 	}
 
@@ -103,7 +105,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		try {
 			//将任务采集传过来的appId导入到线程变量中
 			//当前线程使用appId时优先使用此数据
-			DataHolder.set(net.mingsoft.basic.constant.Const.APP_ID, appId);
+			DataHolder.set(ParserUtil.APP_ID, appId);
 			//调用三种静态化
 			genernateColumn();
 			generaterIndex(tmpFileName, generateFileName);
@@ -127,7 +129,9 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		ContentBean contentBean = new ContentBean();
 		contentBean.setBeginTime(dateTime);
 		Map<String, Object> map = new HashMap<>();
-		map.put(net.mingsoft.basic.constant.Const.APP_ID, BasicUtil.getAppId());
+		if(BasicUtil.getWebsiteApp() != null){
+			map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+		}
 		PageBean page = new PageBean();
 		map.put(ParserUtil.HTML, ParserUtil.HTML);
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
@@ -166,7 +170,9 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		List<CategoryEntity> columns = new ArrayList<>();
 		// 获取所有的内容管理栏目
 		CategoryEntity categoryEntity=new CategoryEntity();
-		categoryEntity.setAppId(BasicUtil.getAppId());
+		if(BasicUtil.getWebsiteApp() !=null){
+			categoryEntity.setAppId( BasicUtil.getWebsiteApp().getAppId());
+		}
 		columns = categoryDao.query(categoryEntity);
 		List<CategoryBean> articleIdList = null;
 		// 1、设置模板文件夹路径
@@ -183,7 +189,9 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 				}
 				//获取模板中列表标签中的条件
 				Map<String, Object> map = new HashMap<>();
-				map.put(net.mingsoft.basic.constant.Const.APP_ID, BasicUtil.getAppId());
+				if(BasicUtil.getWebsiteApp() != null){
+					map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+				}
 				PageBean page = new PageBean();
 				map.put(ParserUtil.HTML, ParserUtil.HTML);
 				map.put(ParserUtil.URL, BasicUtil.getUrl());
@@ -237,7 +245,9 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		//设置生成的路径
 		map.put(ParserUtil.HTML, ParserUtil.HTML);
 		//设置站点编号
-		map.put(Const.APP_ID, BasicUtil.getAppId());
+		if(BasicUtil.getWebsiteApp() !=null){
+			map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+		}
 		String read = ParserUtil.read(templatePath, map);
 		FileUtil.writeString(read, ParserUtil.buildHtmlPath(targetPath), net.mingsoft.base.constant.Const.UTF8);
 	}

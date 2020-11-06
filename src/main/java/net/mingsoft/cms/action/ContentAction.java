@@ -98,7 +98,7 @@ public class ContentAction extends BaseAction {
 	 */
 	@GetMapping("/form")
 	public String form(@ModelAttribute ContentEntity content, HttpServletResponse response, HttpServletRequest request, ModelMap model){
-		model.addAttribute("appId", BasicUtil.getAppId());
+		model.addAttribute("appId", BasicUtil.getApp().getAppId());
 		return "/cms/content/form";
 	}
 
@@ -176,7 +176,7 @@ public class ContentAction extends BaseAction {
 	}
 	
 	/**
-	 * @param content 文章实体
+	 * @param contents 文章实体
 	 */
 	@ApiOperation(value = "批量删除文章列表接口")
 	@PostMapping("/delete")
