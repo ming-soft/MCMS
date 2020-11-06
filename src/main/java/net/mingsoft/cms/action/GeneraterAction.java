@@ -243,7 +243,7 @@ public class GeneraterAction extends BaseAction {
 		map.put(ParserUtil.HTML, ParserUtil.HTML);
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
 		map.put(ParserUtil.PAGE, page);
-		if(Integer.parseInt(columnId) == 0){
+		if(StringUtils.isNotEmpty(columnId)){
 			CategoryEntity categoryEntity = new CategoryEntity();
 			categoryList = categoryBiz.query(categoryEntity);
 			for(CategoryEntity category : categoryList){
