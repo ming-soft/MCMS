@@ -147,20 +147,20 @@ public class GeneraterAction extends BaseAction {
 	 *
 	 * @param request
 	 * @param response
-	 * @param CategoryId
+	 * @param categoryId
 	 */
-	@RequestMapping("/{CategoryId}/genernateColumn")
+	@RequestMapping("/{categoryId}/genernateColumn")
     @LogAnn(title = "生成栏目", businessType = BusinessTypeEnum.UPDATE)
 	@RequiresPermissions("cms:generate:column")
 	@ResponseBody
-	public ResultData genernateColumn(HttpServletRequest request, HttpServletResponse response, @PathVariable int CategoryId) throws IOException {
+	public ResultData genernateColumn(HttpServletRequest request, HttpServletResponse response, @PathVariable String categoryId) throws IOException {
 		// 获取站点id
 		AppEntity app = BasicUtil.getApp();
 		List<CategoryEntity> columns = new ArrayList<CategoryEntity>();
 		// 如果栏目id小于0则更新所有的栏目，否则只更新选中的栏目
-		if (CategoryId>0) {
+		if (!"0".equals(categoryId)) {
 			CategoryEntity categoryEntity = new CategoryEntity();
-			categoryEntity.setId(CategoryId+"");
+			categoryEntity.setId(categoryId);
 			columns = categoryBiz.queryChilds(categoryEntity);
 		} else {
 			// 获取所有的内容管理栏目
@@ -243,7 +243,8 @@ public class GeneraterAction extends BaseAction {
 		map.put(ParserUtil.HTML, ParserUtil.HTML);
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
 		map.put(ParserUtil.PAGE, page);
-		if(StringUtils.isNotEmpty(columnId)){
+		// 生成所有栏目的文章
+		if("0".equals(columnId)){
 			CategoryEntity categoryEntity = new CategoryEntity();
 			categoryList = categoryBiz.query(categoryEntity);
 			for(CategoryEntity category : categoryList){
@@ -262,6 +263,7 @@ public class GeneraterAction extends BaseAction {
 					contentBean.setOrder(attributeBean.getOrder());
 					contentBean.setOrderBy(attributeBean.getOrderby());
 				}
+				//将文章列表标签中的中的参数
 				articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
 				// 有符合条件的就更新
 				if (articleIdList.size() > 0) {
@@ -269,7 +271,7 @@ public class GeneraterAction extends BaseAction {
 				}
 			}
 		}else {
-			CategoryEntity category = (CategoryEntity) categoryBiz.getEntity(Integer.parseInt(columnId));
+			CategoryEntity category = (CategoryEntity) categoryBiz.getById(columnId);
 			contentBean.setContentCategoryId(columnId);
 			// 分类是列表
 			if(category.getCategoryType().equals("1")){
