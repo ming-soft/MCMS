@@ -108,6 +108,7 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 		//保存链接地址
 		String path=ObjectUtil.isNotNull(parentCategory)?parentCategory.getCategoryPath():"";
 		categoryEntity.setCategoryPath( path+"/" + categoryEntity.getCategoryPinyin());
+		removeVirgule(categoryEntity);
 		setTopId(categoryEntity);
 		super.updateById(categoryEntity);
 	}
@@ -144,6 +145,8 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 			String path=categoryEntity.getCategoryPath();
 			//判断是否有parentIds
 			x.setCategoryPath(path+"/"+x.getCategoryPinyin());
+			//去除多余的/符号
+			removeVirgule(x);
 			super.updateEntity(x);
 			setChildParentId(x);
 		});
@@ -152,7 +155,8 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 	@Override
 	public void updateEntity(CategoryEntity entity) {
 		setParentId(entity);
-		String pingYin = PinYinUtil.getPingYin(entity.getCategoryTitle());
+		String pingYin =entity.getCategoryPinyin();
+	if(StrUtil.isNotBlank(pingYin)){
 		CategoryEntity category=new CategoryEntity();
 		category.setCategoryPinyin(pingYin);
 		CategoryEntity categoryBizEntity = (CategoryEntity)getEntity(category);
@@ -160,10 +164,22 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 		if(categoryBizEntity!=null&&!categoryBizEntity.getId().equals(entity.getId())){
 			entity.setCategoryPinyin(pingYin+entity.getId());
 		}
+	}
 		setParentLeaf(entity);
 		setTopId(entity);
+		removeVirgule(entity);
 		super.updateById(entity);
 		setChildParentId(entity);
+	}
+
+	/**去除多余的/符号
+	 * @param entity
+	 */
+	private void removeVirgule(CategoryEntity entity) {
+
+		if (entity.getCategoryPath().startsWith("/")) {
+			entity.setCategoryPath(entity.getCategoryPath().substring(1));
+		}
 	}
 
 	@Override

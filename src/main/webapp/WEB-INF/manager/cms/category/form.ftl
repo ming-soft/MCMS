@@ -253,6 +253,21 @@
     var form = new Vue({
         el: '#form',
         data: function () {
+            var that = this
+            //验证拼音是否存在
+            var validatorCategoryPinyin = function (rule, value, callback) {
+               //
+                ms.http.get(ms.manager+'/cms/category/verifyPingYin.do',{
+                    id:that.form.id,
+                    categoryPinyin:that.form.categoryPinyin,
+                }).then(function (res) {
+                    if(!res.result){
+                        callback(new Error(res.msg));
+                    }else {
+                        return  callback();
+                    }
+                })
+            }
             return {
                 treeList: [{
                     id: '0',
@@ -318,6 +333,11 @@
                         "required": true,
                         "message": "请选择列表模板"
                     }],
+                        categoryPinyin:[
+                            {
+                                validator: validatorCategoryPinyin, trigger: 'blur'
+                            }
+                            ],
                     // 内容模板
                     categoryUrl: [{
                         "required": true,

@@ -1,10 +1,12 @@
 package net.mingsoft.cms.action;
 
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import net.mingsoft.base.entity.BaseEntity;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.bean.EUListBean;
@@ -282,6 +284,18 @@ public class CategoryAction extends BaseAction {
 		return ResultData.build().success(category);
 	}
 
+	@ApiOperation(value = "验证拼音")
+	@GetMapping("/verifyPingYin")
+	@ResponseBody
+	public ResultData verifyPingYin(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model){
+	 	int count = categoryBiz.count(Wrappers.<CategoryEntity>lambdaQuery()
+				.ne(StrUtil.isNotBlank(category.getId()), CategoryEntity::getId, category.getId())
+				.eq(CategoryEntity::getCategoryPinyin, category.getCategoryPinyin()));
 
+		if(count>0){
+			return ResultData.build().error("存在相同拼音的栏目");
+		}
+		return ResultData.build().success();
+	}
 
 }

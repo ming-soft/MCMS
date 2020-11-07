@@ -84,7 +84,6 @@ spring:
 mybatis-plus:
   global-config:
     db-config:
-      column-format: "\"%s\"" #增加这个需要增加 ms-db
       id-type: assign_id
   configuration:
     database-id: mysql
