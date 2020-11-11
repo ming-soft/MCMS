@@ -60,7 +60,7 @@
                 {{emptyText}}
             </template>
             <el-table-column type="selection" width="40"></el-table-column>
-            <el-table-column label="编号" width="70" prop="id">
+            <el-table-column label="编号" width="200" prop="id">
                 <template slot='header'>编号
                     <el-popover placement="top-start" title="提示" trigger="hover" >
                         <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.id}</a>
