@@ -108,7 +108,6 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 		//保存链接地址
 		String path=ObjectUtil.isNotNull(parentCategory)?parentCategory.getCategoryPath():"";
 		categoryEntity.setCategoryPath( path+"/" + categoryEntity.getCategoryPinyin());
-		removeVirgule(categoryEntity);
 		setTopId(categoryEntity);
 		super.updateById(categoryEntity);
 	}
@@ -146,7 +145,6 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 			//判断是否有parentIds
 			x.setCategoryPath(path+"/"+x.getCategoryPinyin());
 			//去除多余的/符号
-			removeVirgule(x);
 			super.updateEntity(x);
 			setChildParentId(x);
 		});
@@ -167,20 +165,10 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 	}
 		setParentLeaf(entity);
 		setTopId(entity);
-		removeVirgule(entity);
 		super.updateById(entity);
 		setChildParentId(entity);
 	}
 
-	/**去除多余的/符号
-	 * @param entity
-	 */
-	private void removeVirgule(CategoryEntity entity) {
-
-		if (entity.getCategoryPath().startsWith("/")) {
-			entity.setCategoryPath(entity.getCategoryPath().substring(1));
-		}
-	}
 
 	@Override
 	public void update(CategoryEntity entity) {
