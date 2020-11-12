@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 5100
   servlet.session.timeout: P0DT60M0S #D天H小时M分钟S秒，字符T是紧跟在时分秒之前的，每个单位都必须由数字开始,且时分秒顺序不能乱
 #  ssl: #https证书配置 配置了之后只能通过https访问应用
 #    key-store: ms.pfx 证书文件
