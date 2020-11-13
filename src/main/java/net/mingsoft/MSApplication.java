@@ -13,7 +13,7 @@ import java.util.Locale;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"net.mingsoft"})
-@MapperScan(basePackages={"**.dao","**.mapper"})
+@MapperScan(basePackages={"**.dao","com.baomidou.**.mapper"})
 @ServletComponentScan(basePackages = {"net.mingsoft"})
 public class MSApplication {
 	public static void main(String[] args) {
