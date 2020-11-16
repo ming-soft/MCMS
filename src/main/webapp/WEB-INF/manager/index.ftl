@@ -33,15 +33,15 @@
                             5.1
                         </div>
                     </div>
-                    <el-submenu :popper-class="['ms-admin-menu-aside-submenu',theme]" :index="menu.modelId+''"
-                                :data-index="menu.modelId+''" v-for="(menu,i) in asideMenuList" :key='i'>
+                    <el-submenu :popper-class="['ms-admin-menu-aside-submenu',theme]" :index="menu.id+''"
+                                :data-index="menu.id+''" v-for="(menu,i) in asideMenuList" :key='i'>
                         <template slot="title">
                             <i class='ms-admin-icon iconfont' :class="menu.modelIcon"></i>
                             <span>{{menu.modelTitle}}</span>
                         </template>
                         <!-- 子菜单 -->
-                        <el-menu-item :index="sub.modelId+''" :data-index="sub.modelId"
-                                      v-for="(sub,index) in getSubMenu(menu.modelId)"
+                        <el-menu-item :index="sub.id+''" :data-index="sub.id"
+                                      v-for="(sub,index) in getSubMenu(menu.id)"
                                       :key='sub.modelModelId' v-text="sub.modelTitle"
                                       @click.self='open(sub)'></el-menu-item>
                     </el-submenu>
@@ -149,9 +149,9 @@
                          @tab-click='tabClick'>
                     <el-tab-pane v-for="(item, index) in editableTabs" :key="index" :label="item.modelTitle"
                                  :name="item.modelTitle"
-                                 :data-modelId='item.modelId' :data-modelModelId='item.modelModelId'>
+                                 :data-id='item.id' :data-modelModelId='item.modelModelId'>
                         <keep-alive>
-                            <iframe :src='item.isStore?item.modelUrl:ms.manager+"/"+item.modelUrl+(item.modelUrl.indexOf("?")==-1?"?":"&")+"modelId="+item.modelId+"&modelCode="+item.modelCode+"&modelTitle="+encodeURI(item.modelTitle)'
+                            <iframe :src='item.isStore?item.modelUrl:ms.manager+"/"+item.modelUrl+(item.modelUrl.indexOf("?")==-1?"?":"&")+"id="+item.id+"&modelCode="+item.modelCode+"&modelTitle="+encodeURI(item.modelTitle)'
                                     :ref="item.modelTitle"></iframe>
                         </keep-alive>
                     </el-tab-pane>
@@ -339,7 +339,7 @@
                 this.currentTab = sub.modelTitle;
                 this.headMenuActive = sub.modelModelId
                 this.$nextTick(function () {
-                    that.asideMenuActive = sub.modelId;
+                    that.asideMenuActive = sub.id;
                 })
                 // 处理其他逻辑
                 setTimeout(function () {
@@ -351,16 +351,16 @@
                 }, 16)
             },
             tabClick: function (tab) {
-                this.asideMenuActive = tab.$el.dataset.modelid
+                this.asideMenuActive = tab.$el.dataset.id
                 this.headMenuActive = tab.$el.dataset.modelmodelid
                 console.log(this.editableTabs)
             },
             // 获取当前菜单的子菜单
-            getSubMenu: function (modelId) {
+            getSubMenu: function (id) {
                 var result = [];
                 var that = this;
                 that.subMenuList && that.subMenuList.forEach(function (item) {
-                    item.modelModelId == modelId ? result.push(item) : ''
+                    item.modelModelId == id ? result.push(item) : ''
                 })
                 return result;
             },
@@ -376,7 +376,7 @@
                             var nextTab = arr[index + 1] || arr[index - 1];
                             if (nextTab) {
                                 that.currentTab = nextTab.modelTitle
-                                that.asideMenuActive = nextTab.modelId
+                                that.asideMenuActive = nextTab.id
                                 that.headMenuActive = nextTab.modelModelId
                             }
                         }
@@ -394,7 +394,7 @@
                     })
                     if (result) {
                         that.asideMenuList.forEach(function (menu, index, arr) {
-                            if (menu.modelId == modelModelId) {
+                            if (menu.id == modelModelId) {
                                 var flag = false;
                                 that.markList.forEach(function (item, index, array) {
                                     if (item.title == menu.modelTitle) {
@@ -429,12 +429,12 @@
             // 头部导航打开菜单
             openMenu: function (menu, index) {
                 this.asideMenuList.some(function (item, index) {
-                    return item.modelId == menu.modelId
+                    return item.id == menu.id
                 }) || this.asideMenuList.push(menu)
-                // this.getSubMenu(menu.modelId)[0] && this.$refs.menu.open(this.getSubMenu(menu.modelId)[0].modelTitle);
+                // this.getSubMenu(menu.id)[0] && this.$refs.menu.open(this.getSubMenu(menu.id)[0].modelTitle);
                 var children = [];
                 this.menuList.forEach(function (tab) {
-                    if (tab.modelModelId == menu.modelId) {
+                    if (tab.modelModelId == menu.id) {
                         children.push(tab)
                     }
                 })
@@ -445,7 +445,7 @@
                     that.shortcutMenu = false
                 }, 50)
                 that.$nextTick(function () {
-                    that.$refs.menu.open(String(menu.modelId))
+                    that.$refs.menu.open(String(menu.id))
                 })
             },
             managerGet: function () {
