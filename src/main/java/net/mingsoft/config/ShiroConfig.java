@@ -1,6 +1,6 @@
 package net.mingsoft.config;
 
-import net.mingsoft.basic.security.BaseAuthRealm;
+import net.mingsoft.basic.security.ManagerAuthRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -100,7 +100,7 @@ public class ShiroConfig {
 	 * 必须写这个类，并加上 @Bean 注解，目的是注入 CustomRealm， 否则会影响 CustomRealm类 中其他类的依赖注入
 	 */
 	@Bean
-	public BaseAuthRealm customRealm() {
-		return new BaseAuthRealm();
+	public ManagerAuthRealm customRealm() {
+		return new ManagerAuthRealm();
 	}
 }
