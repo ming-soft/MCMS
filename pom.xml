@@ -24,8 +24,45 @@
 	<dependencies>
 		<dependency>
 			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-ad</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-clean</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mattention</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mcomment</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mpay</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-msend</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-quartz</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-spider</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.mingsoft</groupId>
+			<artifactId>ms-mweixin</artifactId>
+		</dependency>
+
 		<!-- 此部分是铭飞平台MStroe的客户端（MStore不在铭飞开源产品范围），如果不需要使用MStore可以删除掉 -->
 		<dependency>
 			<groupId>net.mingsoft</groupId>

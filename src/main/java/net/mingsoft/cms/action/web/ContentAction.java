@@ -12,6 +12,7 @@ import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.biz.IHistoryLogBiz;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.cms.entity.HistoryLogEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -104,8 +105,8 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	@ApiImplicitParam(name = "contentId", value = "文章编号", required = true,paramType="path")
 	@GetMapping(value = "/{contentId}/hit")
 	@ResponseBody
-	public String hit(@PathVariable @ApiIgnore int contentId, HttpServletRequest request, HttpServletResponse response){
-	 	if(contentId<=0){
+	public String hit(@PathVariable @ApiIgnore String contentId, HttpServletRequest request, HttpServletResponse response){
+		if(StringUtils.isEmpty(contentId)){
 			return "document.write(0)";
 		}
 	 	//获取ip
@@ -113,7 +114,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		//获取端口（移动/web..）
 		boolean isMobileDevice = BasicUtil.isMobileDevice();
 
-		ContentEntity content = (ContentEntity)contentBiz.getEntity(contentId);
+		ContentEntity content = contentBiz.getById(contentId);
 		if(content == null){
 			return "document.write(0)";
 		}
@@ -132,7 +133,10 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		entity.setContentId(content.getId());
 		entity.setCreateDate(new Date());
 		historyLogBiz.saveEntity(entity);
-		if(content.getAppId() == null || content.getAppId() != BasicUtil.getApp().getAppId()){
+		// 单站点不存在appid
+		if(content.getAppId() == null ){
+			return "document.write(" + content.getContentHit() + ")";
+		}else if(content.getAppId() != BasicUtil.getApp().getAppId()){
 			return "document.write(0)";
 		}
 		return "document.write(" + content.getContentHit() + ")";
