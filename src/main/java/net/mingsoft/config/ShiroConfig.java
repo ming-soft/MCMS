@@ -1,6 +1,6 @@
 package net.mingsoft.config;
 
-import net.mingsoft.basic.security.ManagerAuthRealm;
+import net.mingsoft.basic.realm.ManagerAuthRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
