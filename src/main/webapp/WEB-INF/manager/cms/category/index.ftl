@@ -31,7 +31,7 @@
 					{{emptyText}}
 				</template>
 				<el-table-column type="selection" width="40"></el-table-column>
-				<el-table-column label="编号" width="220" prop="id" show-overflow-tooltip>
+				<el-table-column label="编号" width="100" prop="id" show-overflow-tooltip>
 					<template slot='header'>编号
 						<el-popover placement="top-start" title="提示" trigger="hover" >
 							<a href="http://doc.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">${'$'}{field.id}</a>
@@ -48,24 +48,24 @@
             </el-table-column>
 			<el-table-column label="排序" align="center" prop="categorySort"  width="70">
 			</el-table-column>
-			<el-table-column label="链接地址" align="left" prop="categoryPath" show-overflow-tooltip>
+			<el-table-column label="链接地址" align="left" prop="categoryPath" min-width="200" show-overflow-tooltip>
 				<template slot-scope="scope">
-					<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="'${'$'}{ms:global.url}'+scope.row.categoryPath+'/index.html'" @click="copyContent">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
+					<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="'{ms:global.url/}'+scope.row.categoryPath+'/index.html'" @click="copyContent">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
 				</template>
 			</el-table-column>
-            <el-table-column label="列表地址" align="left" prop="categoryListUrl" show-overflow-tooltip>
+            <el-table-column label="列表地址" align="left" prop="categoryListUrl" width="100" show-overflow-tooltip>
             </el-table-column>
-            <el-table-column label="内容地址" align="left" prop="categoryUrl" show-overflow-tooltip>
+            <el-table-column label="内容地址" align="left" prop="categoryUrl" width="100" show-overflow-tooltip>
 				<template slot-scope="scope">
 					{{scope.row.categoryType == '1'?scope.row.categoryUrl:''}}
 				</template>
             </el-table-column>
-            <el-table-column label="封面地址" align="left" prop="categoryUrl" show-overflow-tooltip>
+            <el-table-column label="封面地址" align="left" prop="categoryUrl" width="100" show-overflow-tooltip>
 				<template slot-scope="scope">
 					{{scope.row.categoryType == '2'?scope.row.categoryUrl:''}}
 				</template>
             </el-table-column>
-            <el-table-column label="栏目属性" align="left" prop="categoryFlag" show-overflow-tooltip>
+            <el-table-column label="栏目属性" align="left" prop="categoryFlag" width="100" show-overflow-tooltip>
 				<template slot-scope="scope">
 					{{getDictLabel(scope.row.categoryFlag)}}
 				</template>
@@ -95,14 +95,14 @@
 	var indexVue = new Vue({
 		el: '#index',
 		data: {
-			dataList: [],
 			//分类列表
-			selectionList: [],
+			dataList: [],
 			//分类列表选中
-			loading: true,
+			selectionList: [],
 			//加载状态
-			emptyText: '',
+			loading: true,
 			//提示文字
+			emptyText: '',
 			categoryFlagOptions: [],
 			manager: ms.manager,
 			loadState: false,
@@ -146,9 +146,8 @@
 			//根据字典数据值获取字典标签名
 			getDictLabel: function (v) {
 				var that = this;
-				v = v.split(",");
 				var labels = [];
-				v.forEach(function (item) {
+				v.split(",").forEach(function (item) {
 					for (var key in that.categoryFlagOptions) {
 						if (item == that.categoryFlagOptions[key].dictValue) {
 							labels.push(that.categoryFlagOptions[key].dictLabel);

@@ -91,7 +91,6 @@
                                             start-placeholder=""
                                             end-placeholder=""
                                             :readonly="false"
-
                                             :disabled="false"
                                             :editable="true"
                                             :clearable="true"
@@ -259,8 +258,8 @@
             return {
                 saveDisabled: false,
                 activeName: 'form',
-                model: undefined,
                 //自定义模型实例
+                model: undefined,
                 editableTabs: [{
                     title: '文章编辑',
                     name: 'form'
@@ -612,7 +611,7 @@
             this.contentTypeOptionsGet();
 
             this.form.id = ms.util.getParameter("id");
-            if (ms.util.getParameter("categoryId") != 'undefined' && ms.util.getParameter("categoryId") != 'null') {
+            if (ms.util.getParameter("categoryId")) {
                 this.form.contentCategoryId = ms.util.getParameter("categoryId");
             }
             this.type = ms.util.getParameter("type");

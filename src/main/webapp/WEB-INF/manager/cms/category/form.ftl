@@ -334,7 +334,7 @@
                         validator: validatorCategoryPinyin, trigger: 'blur'
                     }, {
                         "pattern": /^[^[!@#$"'%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]+$/,
-                        "message": "栏目管理名称格式不匹配"
+                        "message": "拼音格式不匹配"
                     }],
                     // 内容模板
                     categoryUrl: [{
@@ -375,23 +375,17 @@
             },
             'form.categoryTitle': function (n) {
                 var regu = "[[!@'\"#$%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]";
+                this.rules.categoryPinyin =  [{
+                    "validator": this.validatorCategoryPinyin, trigger: 'blur'
+                }, {
+                    "pattern": /^[^[!@#$"'%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]+$/,
+                    "message": "拼音格式不匹配"
+                }];
                 if (this.regularCheck(regu, n)) {
-                    this.rules.categoryPinyin = [{
-                        "validator": this.validatorCategoryPinyin, trigger: 'blur'
-                    },{
+                    this.rules.categoryPinyin.push({
                         "required": true,
                         "message": "请输入栏目拼音名称"
-                    }, {
-                        "pattern": /^[^[!@#$"'%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]+$/,
-                        "message": "栏目管理名称格式不匹配"
-                    }];
-                }else {
-                    this.rules.categoryPinyin = [{
-                        "validator": this.validatorCategoryPinyin, trigger: 'blur'
-                    }, {
-                        "pattern": /^[^[!@#$"'%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]+$/,
-                        "message": "栏目管理名称格式不匹配"
-                    }];
+                    });
                 }
             },
         },
@@ -427,7 +421,6 @@
                 if (that.form.id > 0) {
                     url = ms.manager + "/cms/category/update.do";
                 }
-                console.log("aaa")
                 this.$refs.form.validate(function (valid) {
                     if (valid) {
                         //栏目属性为封面则不需要列表模板
