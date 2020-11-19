@@ -31,12 +31,15 @@
 					{{emptyText}}
 				</template>
 				<el-table-column type="selection" width="40"></el-table-column>
-				<el-table-column label="编号" width="220" prop="id">
+				<el-table-column label="编号" width="220" prop="id" show-overflow-tooltip>
 					<template slot='header'>编号
 						<el-popover placement="top-start" title="提示" trigger="hover" >
 							<a href="http://doc.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">${'$'}{field.id}</a>
 							<i class="el-icon-question" slot="reference"></i>
 						</el-popover>
+					</template>
+					<template slot-scope="scope">
+						<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="scope.row.id" @click="copyContent(true)">{{scope.row.id}}</span>
 					</template>
 				</el-table-column>
                  <el-table-column label="标题" align="left" prop="categoryTitle">
@@ -47,7 +50,7 @@
 			</el-table-column>
 			<el-table-column label="链接地址" align="left" prop="categoryPath" show-overflow-tooltip>
 				<template slot-scope="scope">
-					<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="'${'$'}{ms:global.url}'+scope.row.categoryPath+'/index.html'" @click="copyUrl">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
+					<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="'${'$'}{ms:global.url}'+scope.row.categoryPath+'/index.html'" @click="copyContent">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
 				</template>
 			</el-table-column>
             <el-table-column label="列表地址" align="left" prop="categoryListUrl" show-overflow-tooltip>
@@ -60,6 +63,11 @@
             <el-table-column label="封面地址" align="left" prop="categoryUrl" show-overflow-tooltip>
 				<template slot-scope="scope">
 					{{scope.row.categoryType == '2'?scope.row.categoryUrl:''}}
+				</template>
+            </el-table-column>
+            <el-table-column label="栏目属性" align="left" prop="categoryFlag" show-overflow-tooltip>
+				<template slot-scope="scope">
+					{{getDictLabel(scope.row.categoryFlag)}}
 				</template>
             </el-table-column>
 					<el-table-column label="操作" width="150" align="center">
@@ -95,6 +103,7 @@
 			//加载状态
 			emptyText: '',
 			//提示文字
+			categoryFlagOptions: [],
 			manager: ms.manager,
 			loadState: false,
 			categoryTypeOptions: [{
@@ -134,6 +143,21 @@
 			}
 		},
 		methods: {
+			//根据字典数据值获取字典标签名
+			getDictLabel: function (v) {
+				var that = this;
+				v = v.split(",");
+				var labels = [];
+				v.forEach(function (item) {
+					for (var key in that.categoryFlagOptions) {
+						if (item == that.categoryFlagOptions[key].dictValue) {
+							labels.push(that.categoryFlagOptions[key].dictLabel);
+							break;
+						}
+					}
+				});
+				return labels.toString();
+			},
 			//查询列表
 			list: function () {
 				var that = this;
@@ -166,13 +190,17 @@
 					}
 				}, 500);
 			},
-			copyUrl: function () {
+			copyContent: function (id) {
+				var msg = "链接地址已保存到剪切板";
+				if (id == true) {
+					msg = "编号已保存到剪切板";
+				}
 				var clipboard = new ClipboardJS('.copyBtn');
 				var self = this;
 				clipboard.on('success', function (e) {
 					self.$notify({
 						title: '提示',
-						message: "链接地址已保存到剪切板",
+						message: msg,
 						type: 'success'
 					});
 					clipboard.destroy();
@@ -217,6 +245,21 @@
 					});
 				});
 			},
+			//获取categoryFlag数据源
+			categoryFlagOptionsGet: function () {
+				var that = this;
+				ms.http.get(ms.base + '/mdiy/dict/list.do', {
+					dictType: '栏目属性',
+					pageSize: 99999
+				}).then(function (res) {
+					if(res.result){
+						res = res.data;
+						that.categoryFlagOptions = res.rows;
+					}
+				}).catch(function (err) {
+					console.log(err);
+				});
+			},
 			//表格数据转换
 			categoryTypeFormat: function (row, column, cellValue, index) {
 				var value = "";
@@ -249,6 +292,7 @@
 		created: function () {
 			/* this.categoryListUrlOptionsGet();
              this.categoryUrlOptionsGet();*/
+			this.categoryFlagOptionsGet();
 			this.list();
 		}
 	});

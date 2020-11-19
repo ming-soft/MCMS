@@ -180,7 +180,7 @@
                                     :readonly="false"
                                     :style="{width:  '100%'}"
                                     :clearable="true"
-                                    placeholder="默认拼音根据名称生成">
+                                    placeholder="默认拼音根据名称生成，含有特殊字符请手动输入">
                             </el-input>
                         </el-form-item>
                     </el-col>
@@ -325,19 +325,17 @@
                     categoryTitle: [{
                         "required": true,
                         "message": "请选择栏目管理名称"
-                    }, {
-                        "pattern": /^[^[!@#$%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]+$/,
-                        "message": "栏目管理名称格式不匹配"
                     }],
                     categoryListUrl: [{
                         "required": true,
                         "message": "请选择列表模板"
                     }],
-                        categoryPinyin:[
-                            {
-                                validator: validatorCategoryPinyin, trigger: 'blur'
-                            }
-                            ],
+                    categoryPinyin:[{
+                        validator: validatorCategoryPinyin, trigger: 'blur'
+                    }, {
+                        "pattern": /^[^[!@#$"'%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]+$/,
+                        "message": "栏目管理名称格式不匹配"
+                    }],
                     // 内容模板
                     categoryUrl: [{
                         "required": true,
@@ -374,10 +372,40 @@
                         }
                     }
                 });
-            }
+            },
+            'form.categoryTitle': function (n) {
+                var regu = "[[!@'\"#$%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]";
+                if (this.regularCheck(regu, n)) {
+                    this.rules.categoryPinyin = [{
+                        "validator": this.validatorCategoryPinyin, trigger: 'blur'
+                    },{
+                        "required": true,
+                        "message": "请输入栏目拼音名称"
+                    }, {
+                        "pattern": /^[^[!@#$"'%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]+$/,
+                        "message": "栏目管理名称格式不匹配"
+                    }];
+                }else {
+                    this.rules.categoryPinyin = [{
+                        "validator": this.validatorCategoryPinyin, trigger: 'blur'
+                    }, {
+                        "pattern": /^[^[!@#$"'%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]+$/,
+                        "message": "栏目管理名称格式不匹配"
+                    }];
+                }
+            },
         },
         computed: {},
         methods: {
+            //正则校验regu 正则表达式，str被校验的字段，符合返回true否则false
+            regularCheck: function(regu, str) {
+                var re = new RegExp(regu);
+                if (re.test(str)) {
+                    return true;
+                }else{
+                    return false;
+                }
+            },
             getTree: function () {
                 var that = this;
                 ms.http.get(ms.manager + "/cms/category/list.do", {

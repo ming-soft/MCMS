@@ -91,6 +91,7 @@
                                             start-placeholder=""
                                             end-placeholder=""
                                             :readonly="false"
+
                                             :disabled="false"
                                             :editable="true"
                                             :clearable="true"
@@ -303,7 +304,9 @@
                     // 关键字
                     contentKeyword: '',
                     // 文章内容
-                    contentDetails: ''
+                    contentDetails: '',
+
+                    contentDatetime: ms.util.date.fmt(Date.now(),"yyyy-MM-dd hh:mm:ss"),
                 },
                 contentTypeOptions: [],
                 categoryIdOptions: [],
@@ -607,6 +610,7 @@
         created: function () {
             this.contentCategoryIdOptionsGet();
             this.contentTypeOptionsGet();
+
             this.form.id = ms.util.getParameter("id");
             if (ms.util.getParameter("categoryId") != 'undefined' && ms.util.getParameter("categoryId") != 'null') {
                 this.form.contentCategoryId = ms.util.getParameter("categoryId");
@@ -615,9 +619,6 @@
 
             if (this.form.id) {
                 this.get(this.form.id);
-            }else{
-                //当前时间
-                this.form.contentDatetime = ms.util.date.fmt(Date.now(),"yyyy-MM-dd hh:mm:ss")
             }
 
             if (this.type) {
