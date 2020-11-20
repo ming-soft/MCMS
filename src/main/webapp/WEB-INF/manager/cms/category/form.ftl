@@ -378,7 +378,7 @@
                 this.rules.categoryPinyin =  [{
                     "validator": this.validatorCategoryPinyin, trigger: 'blur'
                 }, {
-                    "pattern": /^[^[!@#$"'%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]+$/,
+                    "pattern": /^[^[!@#$"'%^&*()_+-/~?！\\、@#￥%…&*（）——+—？》《：“‘’\s]+$/,
                     "message": "拼音格式不匹配"
                 }];
                 if (this.regularCheck(regu, n)) {
