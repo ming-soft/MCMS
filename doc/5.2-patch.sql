@@ -49,6 +49,10 @@ ADD CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `cms_cate
 
 ALTER TABLE `cms_category`
 MODIFY COLUMN `category_id` bigint(20) NULL DEFAULT NULL COMMENT '所属栏目' AFTER `id`;
+ALTER TABLE `cms_category`
+DROP COLUMN `category_manager_id`;
+ALTER TABLE `cms_category`
+DROP COLUMN `app_id`;
 
 ALTER TABLE`app`
 DROP COLUMN `app_mobile_style`,
@@ -82,6 +86,9 @@ ALTER TABLE `model`
 CHANGE COLUMN `model_modelid` `model_id` int(22) NULL DEFAULT NULL COMMENT '模块的父模块id' AFTER `model_code`,
 CHANGE COLUMN `model_modelmanagerid` `manager_id` int(11) NULL DEFAULT NULL COMMENT '模块关联的关联员id' AFTER `model_icon`;
 ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_1`;
+
+ALTER TABLE `model`
+MODIFY COLUMN `IS_CHILD` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '扩展业务标记' AFTER `model_parent_ids`;
 
 ALTER TABLE `model`
 RENAME INDEX `model_modelid` TO `idx_model_id`,

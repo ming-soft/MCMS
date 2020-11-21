@@ -78,10 +78,6 @@ private static final long serialVersionUID = 1574925152750L;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date categoryDatetime;
-	/**
-	* 发布用户id
-	*/
-	private Integer categoryManagerId;
 
 	/**
 	* 字典对应编号
@@ -289,19 +285,6 @@ private static final long serialVersionUID = 1574925152750L;
 	*/
 	public Date getCategoryDatetime() {
 	return this.categoryDatetime;
-	}
-	/**
-	* 设置发布用户id
-	*/
-	public void setCategoryManagerId(Integer categoryManagerId) {
-	this.categoryManagerId = categoryManagerId;
-	}
-
-	/**
-	* 获取发布用户id
-	*/
-	public Integer getCategoryManagerId() {
-	return this.categoryManagerId;
 	}
 
 	/**
