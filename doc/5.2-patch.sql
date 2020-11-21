@@ -184,4 +184,27 @@ DROP COLUMN `app_id`;
 
 
 
+DROP TABLE IF EXISTS `system_log`;
 
+ CREATE TABLE If Not Exists `log` (
+        `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+        `log_error_msg` VARCHAR(4000) DEFAULT NULL COMMENT '错误消息',
+        `log_result` VARCHAR(4000) DEFAULT NULL COMMENT '返回参数',
+        `log_param` VARCHAR(4000) DEFAULT NULL COMMENT '请求参数',
+        `log_location` VARCHAR(255) DEFAULT NULL COMMENT '所在地区',
+        `log_user` VARCHAR(255) DEFAULT NULL COMMENT '操作人员',
+        `log_user_type` VARCHAR(255) DEFAULT NULL COMMENT '用户类型',
+        `log_business_type` VARCHAR(255) DEFAULT NULL COMMENT '业务类型',
+        `log_status` VARCHAR(255) DEFAULT NULL COMMENT '请求状态',
+        `log_url` VARCHAR(255) DEFAULT NULL COMMENT '请求地址',
+        `log_request_method` VARCHAR(255) DEFAULT NULL COMMENT '请求方式',
+        `log_method` VARCHAR(255) DEFAULT NULL COMMENT '请求方法',
+        `log_ip` VARCHAR(255) DEFAULT NULL COMMENT 'IP',
+        `log_title` VARCHAR(255) DEFAULT NULL COMMENT '标题',
+        `del` INT(1) DEFAULT 0 COMMENT '删除标记',
+        `update_date` DATETIME DEFAULT NULL COMMENT '修改时间',
+        `update_by` INT(11) DEFAULT NULL COMMENT '修改人',
+        `create_date` DATETIME DEFAULT NULL COMMENT '创建时间',
+        `create_by` INT(11) DEFAULT NULL COMMENT '创建人',
+     PRIMARY KEY (`id`) USING BTREE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统日志';

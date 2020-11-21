@@ -240,7 +240,6 @@
 		)ct ORDER BY ct.content_datetime desc,content_sort desc
 	</select>
 
-
 	<!-- 根据站点编号、开始、结束时间和栏目编号查询文章编号集合 -->
 	<select id="queryIdsByCategoryIdForParser" resultMap="resultBean" >
 			select
@@ -252,7 +251,7 @@
 			<!-- 查询子栏目数据 -->
 			<if test="categoryId &gt; 0">
 				and (ct.category_id=#{categoryId} or ct.category_id in
-				(select id FROM cms_category where <include refid="queryWhereCategoryId"></include>))
+				(select id FROM cms_category where find_in_set('${categoryId}',CATEGORY_PARENT_ID)))
 			</if>
 			<if test="beginTime!=null and beginTime!=''">
 				and content_datetime &gt;= #{beginTime}
