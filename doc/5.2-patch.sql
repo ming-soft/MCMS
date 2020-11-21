@@ -46,6 +46,8 @@ ALTER TABLE `cms_content`
 CHANGE COLUMN `content_category_id` `category_id` bigint(20) UNSIGNED NULL COMMENT '所属栏目' AFTER `id`;
 ALTER TABLE `cms_content`
 ADD CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `cms_category` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `cms_content`
+DROP COLUMN `app_id`;
 
 ALTER TABLE `cms_category`
 MODIFY COLUMN `category_id` bigint(20) NULL DEFAULT NULL COMMENT '所属栏目' AFTER `id`;
@@ -53,6 +55,16 @@ ALTER TABLE `cms_category`
 DROP COLUMN `category_manager_id`;
 ALTER TABLE `cms_category`
 DROP COLUMN `app_id`;
+ALTER TABLE `cms_category`
+MODIFY COLUMN `category_id` bigint(20) ZEROFILL NULL DEFAULT NULL COMMENT '所属栏目' AFTER `id`,
+MODIFY COLUMN `mdiy_model_id` int(11) NULL DEFAULT NULL COMMENT '栏目管理的内容模型id' AFTER `dict_id`;
+
+ALTER TABLE `cms_category`
+MODIFY COLUMN `mdiy_model_id` int(11) NULL DEFAULT NULL COMMENT '栏目管理的内容模型id' AFTER `dict_id`;
+
+# 注意这里改了类型,原有空的数据需要set null
+ALTER TABLE `cms_category`
+MODIFY COLUMN `category_id` bigint(20) NULL DEFAULT NULL COMMENT '所属栏目' AFTER `id`;
 
 ALTER TABLE`app`
 DROP COLUMN `app_mobile_style`,
@@ -130,6 +142,11 @@ ALTER TABLE `mdiy_tag_sql` DROP FOREIGN KEY `mdiy_tag_sql_ibfk_1`;
 
 ALTER TABLE `mdiy_tag_sql`
 ADD CONSTRAINT `fk_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `mdiy_tag` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+ALTER TABLE `mdiy_model`
+MODIFY COLUMN `model_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '自定义模型类型，自定义表单不用该字段' AFTER `model_name`,
+MODIFY COLUMN `model_field` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '模型字段' AFTER `create_by`,
+MODIFY COLUMN `model_custom_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类型，自定义表单：post，自定义模型：model' AFTER `model_field`;
 
 ALTER TABLE `mdiy_tag_sql`
 RENAME INDEX `fk_mdiy_tag_id` TO `fk_ts_tag_id`;

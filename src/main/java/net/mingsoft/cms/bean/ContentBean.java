@@ -12,10 +12,10 @@ import java.util.Date;
  */
 public class ContentBean extends ContentEntity {
 
-    /**
-     * 静态化地址
-     */
-    private String staticUrl;
+//    /**
+//     * 静态化地址
+//     */
+//    private String staticUrl;
 
     /**
      * 开始时间
@@ -37,13 +37,13 @@ public class ContentBean extends ContentEntity {
      */
     private String noflag;
 
-    public String getStaticUrl() {
-        return staticUrl;
-    }
-
-    public void setStaticUrl(String staticUrl) {
-        this.staticUrl = staticUrl;
-    }
+//    public String getStaticUrl() {
+//        return staticUrl;
+//    }
+//
+//    public void setStaticUrl(String staticUrl) {
+//        this.staticUrl = staticUrl;
+//    }
 
     public String getBeginTime() {
         return beginTime;

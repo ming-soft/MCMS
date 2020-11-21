@@ -40,7 +40,7 @@
 		<result column="content_keyword" property="contentKeyword" /><!--关键字 -->
 		<result column="content_details" property="contentDetails" /><!--文章内容 -->
 		<result column="content_url" property="contentUrl" /><!--文章跳转链接地址 -->
-		<result column="static_url" property="staticUrl" /><!--静态地址 -->
+<!--		<result column="static_url" property="staticUrl" />&lt;!&ndash;静态地址 &ndash;&gt;-->
 		<result column="content_hit" property="contentHit" /><!--点击次数 -->
 		<result column="create_by" property="createBy" /><!--创建人 -->
 		<result column="create_date" property="createDate" /><!--创建时间 -->
@@ -211,7 +211,8 @@
 		</select>
 	<!--条件查询-->
 	<select id="query" resultMap="resultContentMap">
-		select ct.*,CONCAT('/html/',ct.app_id,category_path,'/',ct.id,'.html') AS static_url from (
+		<!--,CONCAT('/html/',ct.app_id,category_path,'/',ct.id,'.html') AS static_url-->
+		select ct.* from (
 		select ct.*,cc.category_path from cms_content ct
 		join cms_category cc on ct.category_id=cc.id
 		<where>
