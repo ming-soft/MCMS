@@ -18,7 +18,6 @@
 				<result column="content_details" property="contentDetails" /><!--文章内容 -->
 				<result column="content_url" property="contentUrl" /><!--文章跳转链接地址 -->
 				<result column="content_hit" property="contentHit" /><!--点击次数 -->
-				<result column="app_id" property="appId" /><!--文章管理的应用id -->
 				<result column="create_by" property="createBy" /><!--创建人 -->
 				<result column="create_date" property="createDate" /><!--创建时间 -->
 				<result column="update_by" property="updateBy" /><!--修改人 -->
@@ -219,7 +218,7 @@
 		<where>
 			ct.del=0
 			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT('%',#{contentTitle},'%')</if>
-			<if test="categoryId != null and categoryId != ''"> 	and (category_id=#{categoryId} or category_id in
+			<if test="categoryId != null and categoryId != ''"> 	and (ct.category_id=#{categoryId} or ct.category_id in
 				(select id FROM cms_category where <include refid="queryWhereCategoryId"></include>))</if>
 			<if test="contentType != null and contentType != ''"> and content_type LIKE CONCAT('%',#{contentType},'%')</if>
 			<if test="contentDisplay != null and contentDisplay != ''"> and content_display=#{contentDisplay}</if>
@@ -256,12 +255,12 @@
 			select
 			ct.id article_id,c.*
 			FROM cms_content ct
-			LEFT JOIN cms_category c ON category_id = c.id
+			LEFT JOIN cms_category c ON ct.category_id = c.id
 			where ct.del=0
 
 			<!-- 查询子栏目数据 -->
 			<if test="categoryId &gt; 0">
-				and (category_id=#{categoryId} or category_id in
+				and (ct.category_id=#{categoryId} or ct.category_id in
 				(select id FROM cms_category where <include refid="queryWhereCategoryId"></include>))
 			</if>
 			<if test="beginTime!=null and beginTime!=''">
@@ -305,7 +304,7 @@
 		<where>
 			a.del=0
 			<if test="ids!=null and ids!=''">
-				and FIND_IN_SET(category_id,#{ids})
+				and FIND_IN_SET(a.category_id,#{ids})
 			</if>
 			<if test="map.content_title!=null">
 			and a.content_title like CONCAT("%",#{map.content_title},"%")
