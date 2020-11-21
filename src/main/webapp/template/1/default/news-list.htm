@@ -1,0 +1,857 @@
+
+
+
+
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>{ms:global.name/}</title>
+    <meta http-equiv="content-type" content="text/html" />
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache" />
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="app-mobile-web-app-capable" content="yes"/>
+    <meta name="app-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="keywords" content="{ms:global.keyword/}" />
+    <meta name="description" content="{ms:global.descrip/}" />
+    <script type="text/javascript" src="{ms:global.host/}/static/plugins/vue/2.6.9/vue.min.js"></script>
+    <link rel="stylesheet" href="{ms:global.host/}/static/plugins/minireset/0.0.2/minireset.min.css" />
+    <link rel="stylesheet" href="https://cdn.mingsoft.net/iconfont/iconfont.css" />
+    <link rel="stylesheet" href="{ms:global.host/}/static/plugins/animate/4.1.0/animate.min.css">
+    <script src="{ms:global.host/}/static/plugins/element-ui/2.12.0/index.js"></script>
+    <link rel="stylesheet" href="{ms:global.host/}/static/plugins/element-ui/2.12.0/index.css" />
+
+    <link rel="stylesheet" href="{ms:global.host/}/{ms:global.style/}/css/app.css" />
+
+    <!--网络请求框架-->
+    <script src="{ms:global.host/}/static/plugins/axios/0.18.0/axios.min.js"></script>
+    <script src="{ms:global.host/}/static/plugins/qs/6.6.0/qs.min.js"></script>
+    <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.js"></script>
+    <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.http.js"></script>
+    <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.util.js"></script>
+    <script>
+        ms.base = "";
+    </script>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+
+        <#include "header.htm"/>
+
+<div class="ms-content">
+<div class="ms-channel-path">
+<span class="ms-channel-path-label">
+当前位置：
+</span>
+<a href="/" class="ms-channel-path-index">
+首页
+</a>
+{ms:channel type="path"}
+<i class="iconfont icon-youjiantou"></i>
+<a href="{ms:global.url/}${field.typelink}" class="ms-channel-path-link">
+${field.typetitle}
+</a>
+{/ms:channel}
+</div>
+<div class="detail">
+<div class="body">
+<a href="${global.url}${field.typelink}"
+class="type-title">
+${field.typetitle}
+</a>
+</div> <!--新闻列表(一行)-start-->
+{ms:arclist size=15 ispaging=true}
+<div class="ms-news-one-line">
+<i class="iconfont icon-fangkuai ms-news-one-line-dot" ></i>
+<a href="${global.url}${field.link}"
+class="ms-news-one-line-link">
+${field.title}
+</a>
+<span class="ms-news-one-line-date" >
+${field.date?string("yyyy-MM-dd")}
+</span>
+</div>
+{/ms:arclist} <!--新闻列表(一行)-end-->
+<#assign pagerCount=3 />
+<#assign pageCount=page.total />
+<#assign currentPage=page.cur />
+<#assign halfPagerCount=(pagerCount-1)/2/>
+<#assign showPrevMore=false />
+<#assign showNextMore=false />
+<#assign arr=[] />
+<#--判断是否有翻页-->
+<#if pageCount gt pagerCount>
+<#if currentPage gt pagerCount - halfPagerCount>
+<#assign showPrevMore=true />
+</#if>
+<#if currentPage lt pageCount - halfPagerCount>
+<#assign showNextMore=true />
+</#if>
+</#if>
+<#--计算页码-->
+<#if showPrevMore&&!showNextMore>
+<#assign startPage=pageCount - (pagerCount - 2) />
+<#list startPage..pageCount-1 as x>
+<#assign arr=arr+[x] />
+</#list>
+<#elseif !showPrevMore && showNextMore>
+<#list 2..pagerCount as x>
+<#assign arr=arr+[x] />
+</#list>
+<#elseif showPrevMore && showNextMore>
+<#assign offset=(pagerCount / 2)?floor - 1 />
+<#list currentPage - offset..currentPage + offset as x>
+<#assign arr=arr+[x] />
+</#list>
+<#else>
+<#list 2..pageCount as x>
+<#if x lt pageCount>
+<#assign arr=arr+[x] />
+</#if>
+</#list>
+</#if>
+<div class="ms-page">
+<a href="{ms:global.url/}{ms:page.pre/}">
+<i class="iconfont icon-zuojiantou ms-page-pre"></i>
+</a>
+<#--第一页-->
+<#if pageCount gt 0>
+<a href="{ms:global.url/}{ms:page.index/}">
+<#if 1==currentPage>
+<span class="ms-page-no-sel">1</span>
+<#else>
+<span class="ms-page-no">1</span>
+</#if>
+</a>
+</#if>
+<#--翻页的省略号-->
+<#if showPrevMore>
+<span class="ms-page-dot">
+...
+</span>
+</#if>
+<#--中间的页码-->
+<#list arr as x>
+<a href="{ms:global.url/}${field.categoryPath}/list-${x}.html">
+<#if x==currentPage>
+<span class="ms-page-no-sel">${x}</span>
+<#else>
+<span class="ms-page-no">${x}</span>
+</#if>
+</a>
+</#list>
+<#-- 最后一页-->
+<#if pageCount gt 1>
+<a href="{ms:global.url/}${field.categoryPath}/list-${pageCount}.html">
+<#if pageCount==currentPage>
+<span class="ms-page-no-sel">${pageCount}</span>
+<#else>
+<span class="ms-page-no">${pageCount}</span>
+</#if>
+</a>
+</#if>
+<a href="{ms:global.url/}{ms:page.next/}">
+<i class="iconfont icon-youjiantou ms-page-next"></i>
+</a>
+<#--span>
+前往
+<input type="number" onchange="location.href='{ms:global.url/}${field.categoryPath}/'+((this.value<=1?'index':('list-'+(this.value>${pageCount}?${pageCount}:this.value)))+'.html')">
+页
+</span-->
+</div>
+</div> </div>        <!--返回顶部-start-->
+
+<div class="ms-right-fixed-top">
+<!--内容区域-start-->
+<div class="content">
+<i class="iconfont icon-shang" ></i>
+<span >
+回到顶部
+</span>
+</div> <!--内容区域-end-->
+</div>        <!--返回顶部-end-->
+
+        <#include "footer.htm"/>
+    </div>
+</body>
+</html>
+
+<script>
+var app = new Vue({
+    el: '#app',
+    watch:{
+    },
+    data: {
+    },
+    methods: {
+       switchShow:function(arr){
+       var that = this
+           arr.forEach(function(x){
+              let e = that.$el.querySelector("#key_"+x)
+               if(e){
+                   e.style.display=e.style.display=='none'?'flex':'none'
+               }
+           })
+       },
+    },
+    created(){
+    }
+})
+</script>
+
+<style>
+    body {
+        background-color:#f5f5f5;
+        box-sizing:border-box;
+        font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Segoe UI", "Helvetica Neue", "PingFang SC", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei", 微软雅黑, sans-serif;
+        moz-box-sizing:border-box;
+        webkit-box-sizing:border-box;
+    }
+
+    .ms-content 
+    {
+            align-items:center;
+            flex-direction:column;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            justify-content:center;
+            padding-bottom:0px;
+            flex-wrap:nowrap;
+            width:100%;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:0px;
+    }
+    .ms-content .ms-channel-path 
+    {
+            align-items:center;
+            flex-direction:row;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            margin-left:auto;
+            margin-right:auto;
+            padding-bottom:0px;
+            flex-wrap:nowrap;
+            width:1170px;
+            margin-bottom:10px;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:10px;
+            height:30px;
+    }
+    .ms-content .ms-channel-path .ms-channel-path-label 
+    {
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:14PX;
+            margin-bottom:0px;
+            margin-top:0px;
+    }
+    .ms-content .ms-channel-path .ms-channel-path-index 
+    {
+            cursor:pointer;
+            color:#000;
+            font-size:14PX;
+            text-decoration:none;
+            margin-bottom:0px;
+            margin-top:0px;
+    }
+    .ms-content .ms-channel-path >i 
+    {
+            margin-bottom:0px;
+            margin-top:0px;
+    }
+    .ms-content .ms-channel-path .ms-channel-path-link 
+    {
+            cursor:pointer;
+            color:#000;
+            font-size:14PX;
+            text-decoration:none;
+            margin-bottom:0px;
+            margin-top:0px;
+    }
+    .ms-content .detail 
+    {
+            background-color:#FFFFFF;
+            align-items:flex-start;
+            flex-direction:column;
+            display:flex;
+            padding-right:20px;
+            box-sizing:border-box;
+            margin-left:0px;
+            min-height:800px;
+            margin-right:0px;
+            padding-bottom:20px;
+            flex-wrap:nowrap;
+            width:1170px;
+            margin-bottom:10px;
+            padding-top:20px;
+            position:relative;
+            padding-left:20px;
+            margin-top:0px;
+    }
+    .ms-content .detail .body 
+    {
+            align-items:center;
+            flex-direction:row;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            justify-content:flex-start;
+            margin-left:0px;
+            margin-right:0px;
+            padding-bottom:10px;
+            flex-wrap:nowrap;
+            width:100%;
+            margin-bottom:10px;
+            padding-top:10px;
+            padding-left:20px;
+            margin-top:0px;
+    }
+    .ms-content .detail .body .type-title 
+    {
+            cursor:pointer;
+            padding-bottom:0px;
+            color:#000;
+            font-size:18PX;
+            text-decoration:none;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+    }
+    .ms-content .detail .ms-news-one-line 
+    {
+            align-items:center;
+            flex-direction:row;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            background-position:20px center;
+            justify-content:flex-start;
+            margin-left:0px;
+            margin-right:0px;
+            padding-bottom:10px;
+            flex-wrap:nowrap;
+            width:100%;
+            margin-bottom:0px;
+            padding-top:10px;
+            padding-left:20px;
+            background-repeat:no-repeat;
+            background-position-x:20px;
+            margin-top:0px;
+    }
+    .ms-content .detail .ms-news-one-line .ms-news-one-line-dot 
+    {
+            padding-bottom:0px;
+            padding-right:0px;
+            font-size:12PX;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+    }
+    .ms-content .detail .ms-news-one-line .ms-news-one-line-link 
+    {
+            cursor:pointer;
+            color:#000;
+            padding-right:0px;
+            text-decoration:none;
+            margin-left:0px;
+            margin-right:0px;
+            padding-bottom:0px;
+            font-size:16PX;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            background-position-x:20px;
+    }
+    .ms-content .detail .ms-news-one-line .ms-news-one-line-date 
+    {
+            margin-right:10px;
+            padding-bottom:0px;
+            color:#9C9C9C;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:14px;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            margin-left:10px;
+    }
+    .ms-content .detail .ms-page 
+    {
+            align-items:center;
+            flex-direction:row;
+            bottom:0px;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            justify-content:center;
+            margin-left:0px;
+            padding-bottom:0px;
+            flex-wrap:nowrap;
+            left:0px;
+            width:100%;
+            margin-bottom:0px;
+            padding-top:0px;
+            position:absolute;
+            padding-left:0px;
+            margin-top:0px;
+            height:40px;
+    }
+    .ms-content .detail .ms-page .ms-page-pre 
+    {
+            cursor:pointer;
+            padding-bottom:0px;
+            color:#000000;
+            padding-right:0px;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:0px;
+            margin-left:0px;
+    }
+    .ms-content .detail .ms-page .ms-page-pre:hover
+    {
+                    color:#409EFF;
+    }
+    .ms-content .detail .ms-page .ms-page-no 
+    {
+            cursor:pointer;
+            color:#000000;
+            text-align:center;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            padding-right:0px;
+            margin-left:0px;
+            padding-bottom:0px;
+            width:40px;
+            font-size:16PX;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:0px;
+    }
+    .ms-content .detail .ms-page .ms-page-no:hover
+    {
+                    color:#409EFF;
+    }
+    .ms-content .detail .ms-page .ms-page-no-sel 
+    {
+            color:#409EFF;
+            text-align:center;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            width:40px;
+            font-size:16PX;
+            margin-top:0px;
+            margin-left:0px;
+    }
+    .ms-content .detail .ms-page .ms-page-dot 
+    {
+            text-align:center;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            width:40px;
+            font-size:16PX;
+            margin-top:0px;
+            margin-left:0px;
+    }
+    .ms-content .detail .ms-page .ms-page-next 
+    {
+            cursor:pointer;
+            padding-bottom:0px;
+            color:#000000;
+            padding-right:0px;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:0px;
+            margin-left:0px;
+    }
+    .ms-right-fixed-top 
+    {
+            margin:0 auto;
+            align-items:center;
+            flex-direction:row;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            justify-content:center;
+            margin-left:0px;
+            padding-bottom:0px;
+            flex-wrap:nowrap;
+            width:1200px;
+            margin-bottom:0px;
+            position:relative;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:0px;
+            height:0px;
+    }
+    .ms-right-fixed-top >.content 
+    {
+            align-items:center;
+            flex-direction:column;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            margin-left:600px;
+            padding-bottom:0px;
+            top:400px;
+            flex-wrap:nowrap;
+            left:50%;
+            width:40px;
+            position:fixed;
+            padding-top:0px;
+            padding-left:0px;
+            z-index:1;
+    }
+    .ms-right-fixed-top >.content i 
+    {
+            padding-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            padding-right:0px;
+            margin-left:0px;
+    }
+    .ms-right-fixed-top >.content span 
+    {
+            background-color:#909399;
+            color:#FFFFFF;
+            text-align:center;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            padding-right:5px;
+            margin-left:0px;
+            padding-bottom:5px;
+            width:50px;
+            font-size:14px;
+            padding-top:5px;
+            padding-left:5px;
+            height:40%;
+    }
+@media (max-width: 768px){
+        .ms-content 
+        {
+                align-items:center;
+                flex-direction:column;
+                display:flex;
+                padding-right:0px;
+                box-sizing:border-box;
+                justify-content:center;
+                padding-bottom:0px;
+                flex-wrap:nowrap;
+                width:100%;
+                margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
+                margin-top:0px;
+                height:unset;
+        }
+        .ms-content .ms-channel-path 
+        {
+                margin-right:auto;
+                align-items:center;
+                flex-wrap:nowrap;
+                flex-direction:row;
+                display:flex;
+                width:100%;
+                margin-bottom:10px;
+                box-sizing:border-box;
+                margin-top:10px;
+                height:30px;
+                margin-left:auto;
+        }
+        .ms-content .ms-channel-path .ms-channel-path-label 
+        {
+                font-size:14PX;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+        }
+        .ms-content .ms-channel-path .ms-channel-path-index 
+        {
+                cursor:pointer;
+                color:#000;
+                font-size:14PX;
+                text-decoration:none;
+                margin-bottom:0px;
+                margin-top:0px;
+        }
+        .ms-content .ms-channel-path .ms-channel-path-link 
+        {
+                cursor:pointer;
+                color:#000;
+                font-size:14PX;
+                text-decoration:none;
+                margin-bottom:0px;
+                margin-top:0px;
+        }
+        .ms-content .detail 
+        {
+                background-color:#FFFFFF;
+                align-items:flex-start;
+                flex-direction:column;
+                display:flex;
+                padding-right:8px;
+                box-sizing:border-box;
+                margin-left:0px;
+                min-height:800px;
+                margin-right:0px;
+                padding-bottom:8px;
+                flex-wrap:nowrap;
+                width:100%;
+                margin-bottom:10px;
+                padding-top:8px;
+                position:relative;
+                padding-left:8px;
+                margin-top:0px;
+        }
+        .ms-content .detail .body 
+        {
+                align-items:center;
+                flex-direction:row;
+                display:flex;
+                padding-right:0px;
+                box-sizing:border-box;
+                justify-content:flex-start;
+                padding-bottom:10px;
+                flex-wrap:nowrap;
+                width:100%;
+                margin-bottom:10px;
+                padding-top:10px;
+                padding-left:10px;
+                margin-top:0px;
+        }
+        .ms-content .detail .body .type-title 
+        {
+                cursor:pointer;
+                padding-bottom:0px;
+                color:#000;
+                font-size:18PX;
+                text-decoration:none;
+                margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
+        }
+        .ms-content .detail .ms-news-one-line 
+        {
+                align-items:center;
+                flex-direction:row;
+                display:flex;
+                padding-right:0px;
+                box-sizing:border-box;
+                justify-content:space-between;
+                margin-left:0px;
+                margin-right:0px;
+                padding-bottom:0px;
+                flex-wrap:nowrap;
+                width:100%;
+                margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
+                background-repeat:no-repeat;
+                background-position-x:10px;
+                margin-top:0px;
+        }
+        .ms-content .detail .ms-news-one-line .ms-news-one-line-dot 
+        {
+                padding-bottom:0px;
+                padding-right:0px;
+                font-size:12PX;
+                margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
+        }
+        .ms-content .detail .ms-news-one-line .ms-news-one-line-link 
+        {
+                cursor:pointer;
+                white-space:nowrap;
+                color:#000;
+                padding-right:0px;
+                text-decoration:none;
+                margin-left:0px;
+                margin-right:0px;
+                padding-bottom:0px;
+                overflow:hidden;
+                width:70%;
+                font-size:16PX;
+                margin-bottom:0px;
+                padding-top:0px;
+                text-overflow:ellipsis;
+                padding-left:10px;
+                background-position-x:20px;
+        }
+        .ms-content .detail .ms-news-one-line .ms-news-one-line-date 
+        {
+                color:#9C9C9C;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                padding-right:0px;
+                margin-left:10px;
+                margin-right:10px;
+                padding-bottom:0px;
+                font-size:14px;
+                margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
+        }
+        .ms-content .detail .ms-page 
+        {
+                align-items:center;
+                flex-direction:row;
+                bottom:0px;
+                display:flex;
+                padding-right:0px;
+                box-sizing:border-box;
+                justify-content:center;
+                margin-left:0px;
+                padding-bottom:0px;
+                flex-wrap:nowrap;
+                left:0px;
+                width:100%;
+                margin-bottom:0px;
+                padding-top:0px;
+                position:absolute;
+                padding-left:0px;
+                margin-top:0px;
+                height:40px;
+        }
+        .ms-content .detail .ms-page .ms-page-pre 
+        {
+                cursor:pointer;
+                padding-bottom:0px;
+                color:#000000;
+                padding-right:0px;
+                margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
+                margin-top:0px;
+                margin-left:0px;
+        }
+        .ms-content .detail .ms-page .ms-page-no 
+        {
+                cursor:pointer;
+                color:#000000;
+                text-align:center;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                padding-right:0px;
+                margin-left:0px;
+                padding-bottom:0px;
+                width:40px;
+                font-size:16PX;
+                margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
+                margin-top:0px;
+        }
+        .ms-content .detail .ms-page .ms-page-no-sel 
+        {
+                color:#409EFF;
+                text-align:center;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                width:40px;
+                font-size:16PX;
+                margin-top:0px;
+                margin-left:0px;
+        }
+        .ms-content .detail .ms-page .ms-page-dot 
+        {
+                text-align:center;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                width:40px;
+                font-size:16PX;
+                margin-top:0px;
+                margin-left:0px;
+        }
+        .ms-content .detail .ms-page .ms-page-next 
+        {
+                cursor:pointer;
+                padding-bottom:0px;
+                color:#000000;
+                padding-right:0px;
+                margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
+                margin-top:0px;
+                margin-left:0px;
+        }
+        .ms-right-fixed-top 
+        {
+                margin:0 auto;
+                align-items:center;
+                flex-direction:row;
+                display:flex;
+                box-sizing:border-box;
+                justify-content:center;
+                margin-left:0px;
+                flex-wrap:nowrap;
+                width:100%;
+                margin-bottom:0px;
+                position:relative;
+                margin-top:0px;
+                height:0px;
+        }
+        .ms-right-fixed-top >.content 
+        {
+                align-items:center;
+                flex-direction:column;
+                display:flex;
+                padding-right:0px;
+                box-sizing:border-box;
+                margin-left:600px;
+                padding-bottom:0px;
+                top:400px;
+                flex-wrap:nowrap;
+                left:50%;
+                width:40px;
+                position:fixed;
+                padding-top:0px;
+                padding-left:0px;
+                z-index:1;
+        }
+        .ms-right-fixed-top >.content i 
+        {
+                margin-left:0px;
+        }
+        .ms-right-fixed-top >.content span 
+        {
+                background-color:#909399;
+                color:#FFFFFF;
+                text-align:center;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                padding-right:5px;
+                margin-left:0px;
+                padding-bottom:5px;
+                width:50px;
+                font-size:14px;
+                padding-top:5px;
+                padding-left:5px;
+                height:40%;
+        }
+
+}</style>
