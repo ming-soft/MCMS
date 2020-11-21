@@ -47,8 +47,13 @@ CHANGE COLUMN `content_category_id` `category_id` bigint(20) UNSIGNED NULL COMME
 ALTER TABLE `cms_content`
 ADD CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `cms_category` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
-ALTER TABLE `mcms-5.2`.`cms_category`
+ALTER TABLE `cms_category`
 MODIFY COLUMN `category_id` bigint(20) NULL DEFAULT NULL COMMENT '所属栏目' AFTER `id`;
+
+ALTER TABLE`app`
+DROP COLUMN `app_mobile_style`,
+DROP COLUMN `app_mobile_state`,
+DROP COLUMN `app_login_page`;
 
 ALTER TABLE `role`
 CHANGE COLUMN `role_managerid` `manager_id` int(11) NULL DEFAULT 0 COMMENT '角色管理员编号' AFTER `role_name`;
@@ -96,6 +101,12 @@ ADD CONSTRAINT `fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON 
 ALTER TABLE `manager`
 RENAME INDEX `fk_manager_role_1` TO `fk_manager_role_id`;
 
+ALTER TABLE `manager`
+MODIFY COLUMN `manager_admin` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '管理员标识，超级管理员：super，子管理员：open' AFTER `manager_system_skin_id`;
+ALTER TABLE `manager`
+DROP COLUMN `manager_time`,
+DROP COLUMN `manager_system_skin_id`;
+
 ALTER TABLE `cms_history_log`
 CHANGE COLUMN `hl_people_id` `people_id` int(20) NULL DEFAULT NULL COMMENT '用户id' AFTER `content_id`,
 MODIFY COLUMN `content_id` bigint(20) UNSIGNED NOT NULL COMMENT '文章编号' AFTER `id`;
@@ -105,6 +116,9 @@ ALTER TABLE `mdiy_dict`
 RENAME INDEX `dict_value` TO `inx_dict_value`,
 RENAME INDEX `dict_label` TO `inx_dict_label`;
 
+ALTER TABLE `mdiy_dict`
+DROP COLUMN `dict_parent_id`;
+
 ALTER TABLE `mdiy_tag_sql` DROP FOREIGN KEY `mdiy_tag_sql_ibfk_1`;
 
 ALTER TABLE `mdiy_tag_sql`
@@ -112,6 +126,9 @@ ADD CONSTRAINT `fk_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `mdiy_tag` (`id`) O
 
 ALTER TABLE `mdiy_tag_sql`
 RENAME INDEX `fk_mdiy_tag_id` TO `fk_ts_tag_id`;
+
+ALTER TABLE `mdiy_page`
+DROP COLUMN `page_model_id`;
 
 ALTER TABLE `people_address` DROP FOREIGN KEY `people_address_ibfk_1`;
 
