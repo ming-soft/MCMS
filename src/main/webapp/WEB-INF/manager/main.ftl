@@ -359,20 +359,20 @@
         window.parent.indexVue.open({
           "modelId": 708,
           "modelTitle": "栏目管理",
-          "modelModelId": 706,
+          "modelId": 706,
           "modelUrl": "cms/category/index.do"
         });
       },
       //静态化
     jumpStaticManager: function () {
-        window.parent.indexVue.open({"modelId":709,"modelTitle":"静态化","modelModelId":706,"modelUrl":"cms/generate/index.do"});
+        window.parent.indexVue.open({"modelId":709,"modelTitle":"静态化","modelId":706,"modelUrl":"cms/generate/index.do"});
       },
       //管理员管理
       jumpAdmininstatorManager: function () {
         window.parent.indexVue.open({
           "modelId": 411,
           "modelTitle": "管理员管理",
-          "modelModelId": 23,
+          "modelId": 23,
           "modelUrl": "basic/manager/index.do"
         });
       },
@@ -381,7 +381,7 @@
         window.parent.indexVue.open({
           "modelId": 406,
           "modelTitle": "角色管理",
-          "modelModelId": 23,
+          "modelId": 23,
           "modelUrl": "basic/role/index.do"
         });
       },
@@ -390,7 +390,7 @@
         window.parent.indexVue.open({
           "modelId": 183,
           "modelTitle": "菜单管理",
-          "modelModelId": 23,
+          "modelId": 23,
           "modelUrl": "model/index.do"
         });
       },
@@ -405,7 +405,7 @@
         window.parent.indexVue.open({
           "modelId": 87,
           "modelTitle": "模板管理",
-          "modelModelId": 84,
+          "modelId": 84,
           "modelUrl": "template/index.do"
         });
       },
@@ -417,7 +417,7 @@
         window.parent.indexVue.open({
           "modelId": 86,
           "modelTitle": "应用管理",
-          "modelModelId": 84,
+          "modelId": 84,
           "modelUrl": "app/-1/edit.do"
         });
       },
