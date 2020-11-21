@@ -27,7 +27,7 @@ private static final long serialVersionUID = 1574925152617L;
 	/**
 	* 所属栏目
 	*/
-	private String contentCategoryId;
+	private String categoryId;
 	/**
 	* 文章类型
 	*/
@@ -78,8 +78,7 @@ private static final long serialVersionUID = 1574925152617L;
 	/**
 	* 文章管理的应用id
 	*/
-	@TableField(exist = false)
-	private Integer appId;
+
 	/**
 	* 点击次数
 	*/
@@ -106,19 +105,15 @@ private static final long serialVersionUID = 1574925152617L;
 	public String getContentTitle() {
 	return this.contentTitle;
 	}
-	/**
-	* 设置所属栏目
-	*/
-	public void setContentCategoryId(String contentCategoryId) {
-	this.contentCategoryId = contentCategoryId;
+
+	public String getCategoryId() {
+		return categoryId;
 	}
 
-	/**
-	* 获取所属栏目
-	*/
-	public String getContentCategoryId() {
-	return this.contentCategoryId;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
 	}
+
 	/**
 	* 设置文章类型
 	*/
@@ -262,17 +257,5 @@ private static final long serialVersionUID = 1574925152617L;
 	public String getContentUrl() {
 	return this.contentUrl;
 	}
-	/**
-	* 设置文章管理的应用id
-	*/
-	public void setAppId(Integer appId) {
-	this.appId = appId;
-	}
 
-	/**
-	* 获取文章管理的应用id
-	*/
-	public Integer getAppId() {
-	return this.appId;
-	}
 }

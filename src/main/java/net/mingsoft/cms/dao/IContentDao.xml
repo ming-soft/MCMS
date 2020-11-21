@@ -5,7 +5,7 @@
 	<resultMap id="resultMap" type="net.mingsoft.cms.entity.ContentEntity">
 			<id column="id" property="id" /><!--编号 -->
 				<result column="content_title" property="contentTitle" /><!--文章标题 -->
-				<result column="content_category_id" property="contentCategoryId" /><!--所属栏目 -->
+				<result column="category_id" property="categoryId" /><!--所属栏目 -->
 				<result column="content_type" property="contentType" /><!--文章类型 -->
 				<result column="content_display" property="contentDisplay" /><!--是否显示 -->
 				<result column="content_author" property="contentAuthor" /><!--文章作者 -->
@@ -29,7 +29,7 @@
 	<resultMap id="resultContentMap" type="net.mingsoft.cms.bean.ContentBean">
 		<id column="id" property="id" /><!--编号 -->
 		<result column="content_title" property="contentTitle" /><!--文章标题 -->
-		<result column="content_category_id" property="contentCategoryId" /><!--所属栏目 -->
+		<result column="category_id" property="categoryId" /><!--所属栏目 -->
 		<result column="content_type" property="contentType" /><!--文章类型 -->
 		<result column="content_display" property="contentDisplay" /><!--是否显示 -->
 		<result column="content_author" property="contentAuthor" /><!--文章作者 -->
@@ -83,7 +83,7 @@
 		insert into cms_content
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 				<if test="contentTitle != null and contentTitle != ''">content_title,</if>
-				<if test="contentCategoryId != null and contentCategoryId != ''">content_category_id,</if>
+				<if test="categoryId != null and categoryId != ''">category_id,</if>
 				<if test="contentType != null ">content_type,</if>
 				<if test="contentDisplay != null and contentDisplay != ''">content_display,</if>
 				<if test="contentAuthor != null and contentAuthor != ''">content_author,</if>
@@ -104,7 +104,7 @@
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 				<if test="contentTitle != null and contentTitle != ''">#{contentTitle},</if>
-				<if test="contentCategoryId != null and contentCategoryId != ''">#{contentCategoryId},</if>
+				<if test="categoryId != null and categoryId != ''">#{categoryId},</if>
 				<if test="contentType != null ">#{contentType},</if>
 				<if test="contentDisplay != null and contentDisplay != ''">#{contentDisplay},</if>
 				<if test="contentAuthor != null and contentAuthor != ''">#{contentAuthor},</if>
@@ -130,7 +130,7 @@
 			update cms_content
 			<set>
 				<if test="contentTitle != null and contentTitle != ''">content_title=#{contentTitle},</if>
-				<if test="contentCategoryId != null and contentCategoryId != ''">content_category_id=#{contentCategoryId},</if>
+				<if test="categoryId != null and categoryId != ''">category_id=#{categoryId},</if>
 				<if test="contentType != null ">content_type=#{contentType},</if>
 				<if test="contentDisplay != null and contentDisplay != ''">content_display=#{contentDisplay},</if>
 				<if test="contentAuthor != null ">content_author=#{contentAuthor},</if>
@@ -163,7 +163,7 @@
 			<where>
 				del=0
 				<if test="contentTitle != null and contentTitle != ''">and  content_title like CONCAT('%',#{contentTitle},'%')</if>
-				<if test="contentCategoryId != null and contentCategoryId != ''">and content_category_id=#{contentCategoryId}</if>
+				<if test="categoryId != null and categoryId != ''">and category_id=#{categoryId}</if>
 				<if test="contentType != null and contentType != ''">and content_type=#{contentType}</if>
 				<if test="contentDisplay != null and contentDisplay != ''">and content_display=#{contentDisplay}</if>
 				<if test="contentAuthor != null and contentAuthor != ''">and content_author=#{contentAuthor}</if>
@@ -194,7 +194,7 @@
 		<delete id="deleteEntityByCategoryIds" >
 			update  cms_content set del=1
 			<where>
-				content_category_id  in <foreach collection="ids" item="item" index="index"
+				category_id  in <foreach collection="ids" item="item" index="index"
 							open="(" separator="," close=")">#{item}</foreach>
 			</where>
 		</delete>
@@ -215,11 +215,11 @@
 	<select id="query" resultMap="resultContentMap">
 		select ct.*,CONCAT('/html/',ct.app_id,category_path,'/',ct.id,'.html') AS static_url from (
 		select ct.*,cc.category_path from cms_content ct
-		join cms_category cc on ct.content_category_id=cc.id
+		join cms_category cc on ct.category_id=cc.id
 		<where>
 			ct.del=0
 			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT('%',#{contentTitle},'%')</if>
-			<if test="contentCategoryId != null and contentCategoryId != ''"> 	and (content_category_id=#{contentCategoryId} or content_category_id in
+			<if test="categoryId != null and categoryId != ''"> 	and (category_id=#{categoryId} or category_id in
 				(select id FROM cms_category where <include refid="queryWhereCategoryId"></include>))</if>
 			<if test="contentType != null and contentType != ''"> and content_type LIKE CONCAT('%',#{contentType},'%')</if>
 			<if test="contentDisplay != null and contentDisplay != ''"> and content_display=#{contentDisplay}</if>
@@ -242,13 +242,13 @@
 	</select>
 
 	<sql id="queryWhereCategoryId" databaseId="mysql">
-		find_in_set('${contentCategoryId}',CATEGORY_PARENT_ID)
+		find_in_set('${categoryId}',CATEGORY_PARENT_ID)
 	</sql>
 	<sql id="queryWhereCategoryId" databaseId="oracle" >
-		instr(','||'${contentCategoryId}'||',', ','||CATEGORY_PARENT_ID||',')>0
+		instr(','||'${categoryId}'||',', ','||CATEGORY_PARENT_ID||',')>0
 	</sql>
 	<sql id="queryWhereCategoryId" databaseId="sqlServer">
-		CHARINDEX(','+'${contentCategoryId}'+',' , ','+CATEGORY_PARENT_ID +',')>0
+		CHARINDEX(','+'${categoryId}'+',' , ','+CATEGORY_PARENT_ID +',')>0
 	</sql>
 
 	<!-- 根据站点编号、开始、结束时间和栏目编号查询文章编号集合 -->
@@ -256,12 +256,12 @@
 			select
 			ct.id article_id,c.*
 			FROM cms_content ct
-			LEFT JOIN cms_category c ON content_category_id = c.id
+			LEFT JOIN cms_category c ON category_id = c.id
 			where ct.del=0
 
 			<!-- 查询子栏目数据 -->
-			<if test="contentCategoryId &gt; 0">
-				and (content_category_id=#{contentCategoryId} or content_category_id in
+			<if test="categoryId &gt; 0">
+				and (category_id=#{categoryId} or category_id in
 				(select id FROM cms_category where <include refid="queryWhereCategoryId"></include>))
 			</if>
 			<if test="beginTime!=null and beginTime!=''">
@@ -298,14 +298,14 @@
 		select count(*) from
 		cms_content a
 		left join cms_category c
-		ON a.content_category_id
+		ON a.category_id
 		= c.id
 		<if test="tableName!=null and tableName!='' and diyMap!=null">left join ${tableName} d on d.link_id=a.id
 		</if>
 		<where>
 			a.del=0
 			<if test="ids!=null and ids!=''">
-				and FIND_IN_SET(content_category_id,#{ids})
+				and FIND_IN_SET(category_id,#{ids})
 			</if>
 			<if test="map.content_title!=null">
 			and a.content_title like CONCAT("%",#{map.content_title},"%")

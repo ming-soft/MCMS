@@ -42,3 +42,105 @@ SET FOREIGN_KEY_CHECKS=1;
 ALTER TABLE `mdiy_dict`
 MODIFY COLUMN `dict_remarks`  varchar(1000) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '备注信息' AFTER `dict_parent_id`;
 
+ALTER TABLE `cms_content`
+CHANGE COLUMN `content_category_id` `category_id` bigint(20) UNSIGNED NULL COMMENT '所属栏目' AFTER `id`;
+ALTER TABLE `cms_content`
+ADD CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `cms_category` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+ALTER TABLE `mcms-5.2`.`cms_category`
+MODIFY COLUMN `category_id` bigint(20) NULL DEFAULT NULL COMMENT '所属栏目' AFTER `id`;
+
+ALTER TABLE `role`
+CHANGE COLUMN `role_managerid` `manager_id` int(11) NULL DEFAULT 0 COMMENT '角色管理员编号' AFTER `role_name`;
+ALTER TABLE `role`
+CHANGE COLUMN `role_managerid` `manager_id` int(11) NULL DEFAULT 0 COMMENT '角色管理员编号' AFTER `role_name`,
+DROP INDEX `role_managerid`,
+ADD INDEX `inx_role_manage_id`(`manager_id`) USING BTREE;
+
+ALTER TABLE `role_model`
+CHANGE COLUMN `rm_modelid` `model_id` int(22) NULL DEFAULT NULL COMMENT '模块编号' FIRST,
+CHANGE COLUMN `rm_roleid` `role_id` int(22) NULL DEFAULT NULL COMMENT '角色编号' AFTER `model_id`;
+ALTER TABLE `role_model` DROP FOREIGN KEY `role_model_ibfk_1`;
+
+ALTER TABLE `role_model` DROP FOREIGN KEY `role_model_ibfk_2`;
+
+ALTER TABLE `role_model`
+ADD CONSTRAINT `fk_rm_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+ADD CONSTRAINT `fk_rm_model_id` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+ALTER TABLE `role_model`
+RENAME INDEX `rm_modelid` TO `fk_model_id`,
+RENAME INDEX `fk_role_model_role_1` TO `fk_role_id`,
+DROP INDEX `index`;
+
+ALTER TABLE `model`
+CHANGE COLUMN `model_modelid` `model_id` int(22) NULL DEFAULT NULL COMMENT '模块的父模块id' AFTER `model_code`,
+CHANGE COLUMN `model_modelmanagerid` `manager_id` int(11) NULL DEFAULT NULL COMMENT '模块关联的关联员id' AFTER `model_icon`;
+ALTER TABLE `model` DROP FOREIGN KEY `model_ibfk_1`;
+
+ALTER TABLE `model`
+RENAME INDEX `model_modelid` TO `idx_model_id`,
+DROP INDEX `sys_c009201`,
+DROP INDEX `model_code`,
+ADD CONSTRAINT `fk_model_id` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+
+ALTER TABLE `manager` DROP FOREIGN KEY `manager_ibfk_1`;
+
+ALTER TABLE `manager`
+CHANGE COLUMN `manager_roleid` `role_id` int(11) NULL DEFAULT NULL COMMENT '角色编号' AFTER `id`,
+CHANGE COLUMN `manager_peopleid` `people_id` int(11) NULL DEFAULT 0 COMMENT '用户编号即商家编号' AFTER `role_id`;
+ALTER TABLE `manager`
+ADD CONSTRAINT `fk_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE SET NULL ON UPDATE NO ACTION;
+
+ALTER TABLE `manager`
+RENAME INDEX `fk_manager_role_1` TO `fk_manager_role_id`;
+
+ALTER TABLE `cms_history_log`
+CHANGE COLUMN `hl_people_id` `people_id` int(20) NULL DEFAULT NULL COMMENT '用户id' AFTER `content_id`,
+MODIFY COLUMN `content_id` bigint(20) UNSIGNED NOT NULL COMMENT '文章编号' AFTER `id`;
+
+
+ALTER TABLE `mdiy_dict`
+RENAME INDEX `dict_value` TO `inx_dict_value`,
+RENAME INDEX `dict_label` TO `inx_dict_label`;
+
+ALTER TABLE `mdiy_tag_sql` DROP FOREIGN KEY `mdiy_tag_sql_ibfk_1`;
+
+ALTER TABLE `mdiy_tag_sql`
+ADD CONSTRAINT `fk_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `mdiy_tag` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+ALTER TABLE `mdiy_tag_sql`
+RENAME INDEX `fk_mdiy_tag_id` TO `fk_ts_tag_id`;
+
+ALTER TABLE `people_address` DROP FOREIGN KEY `people_address_ibfk_1`;
+
+ALTER TABLE `people_address`
+CHANGE COLUMN `PA_PEOPLE_ID` `PEOPLE_ID` int(11) NOT NULL COMMENT '对应用户基础信息拓展表的id' AFTER `id`,
+ADD CONSTRAINT `fk_pa_people_id` FOREIGN KEY (`PEOPLE_ID`) REFERENCES `people` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+ALTER TABLE `people_address`
+RENAME INDEX `PA_PEOPLE_ID` TO `inx_people_id`;
+
+
+
+ALTER TABLE `people_user`
+CHANGE COLUMN `pu_people_id` `people_id` int(11) NOT NULL COMMENT '用户id关联people表的（people_id）' FIRST,
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (`people_id`) USING BTREE;
+
+
+ALTER TABLE `people_user`
+RENAME INDEX `pu_people_id` TO `inx_people_id`;
+ALTER TABLE `people_user`
+ADD CONSTRAINT `fk_pu_people_id` FOREIGN KEY (`people_id`) REFERENCES `people` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+ALTER TABLE `people_user`
+RENAME INDEX `pu_people_id` TO `inx_people_id`;
+
+
+ALTER TABLE `system_log`
+DROP COLUMN `app_id`;
+
+
+
+

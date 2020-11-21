@@ -83,9 +83,6 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 
 	@Override
 	public List<CategoryBean> queryIdsByCategoryIdForParser(ContentBean contentBean) {
-		if(BasicUtil.getWebsiteApp() !=null){
-			contentBean.setAppId( BasicUtil.getWebsiteApp().getAppId());
-		}
 		return this.contentDao.queryIdsByCategoryIdForParser(contentBean);
 	}
 
@@ -140,7 +137,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		CategoryEntity categoryEntity = new CategoryEntity();
 		categoryList = categoryDao.query(categoryEntity);
 		for(CategoryEntity category : categoryList){
-			contentBean.setContentCategoryId(category.getId());
+			contentBean.setCategoryId(category.getId());
 			// 分类是列表
 			if(category.getCategoryType().equals("1")){
 				// 判断模板文件是否存在
@@ -170,16 +167,13 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		List<CategoryEntity> columns = new ArrayList<>();
 		// 获取所有的内容管理栏目
 		CategoryEntity categoryEntity=new CategoryEntity();
-		if(BasicUtil.getWebsiteApp() !=null){
-			categoryEntity.setAppId( BasicUtil.getWebsiteApp().getAppId());
-		}
 		columns = categoryDao.query(categoryEntity);
 		List<CategoryBean> articleIdList = null;
 		// 1、设置模板文件夹路径
 		// 获取栏目列表模版
 		for (CategoryEntity column : columns) {
 			ContentBean contentBean = new ContentBean();
-			contentBean.setContentCategoryId(column.getId());
+			contentBean.setCategoryId(column.getId());
 			// 分类是列表
 			if(column.getCategoryType().equals("1")) {
 				// 判断模板文件是否存在

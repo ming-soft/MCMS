@@ -82,11 +82,7 @@ private static final long serialVersionUID = 1574925152750L;
 	* 发布用户id
 	*/
 	private Integer categoryManagerId;
-	/**
-	* 应用编号
-	*/
-	@TableField(exist = false)
-	private Integer appId;
+
 	/**
 	* 字典对应编号
 	*/
@@ -307,19 +303,7 @@ private static final long serialVersionUID = 1574925152750L;
 	public Integer getCategoryManagerId() {
 	return this.categoryManagerId;
 	}
-	/**
-	* 设置应用编号
-	*/
-	public void setAppId(Integer appId) {
-	this.appId = appId;
-	}
 
-	/**
-	* 获取应用编号
-	*/
-	public Integer getAppId() {
-	return this.appId;
-	}
 	/**
 	* 设置字典对应编号
 	*/

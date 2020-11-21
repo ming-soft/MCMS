@@ -42,7 +42,7 @@
                         <!-- 子菜单 -->
                         <el-menu-item :index="sub.id+''" :data-index="sub.id"
                                       v-for="(sub,index) in getSubMenu(menu.id)"
-                                      :key='sub.modelModelId' v-text="sub.modelTitle"
+                                      :key='sub.modelId' v-text="sub.modelTitle"
                                       @click.self='open(sub)'></el-menu-item>
                     </el-submenu>
                     <!-- 收缩按钮 -->
@@ -149,7 +149,7 @@
                          @tab-click='tabClick'>
                     <el-tab-pane v-for="(item, index) in editableTabs" :key="index" :label="item.modelTitle"
                                  :name="item.modelTitle"
-                                 :data-id='item.id' :data-modelModelId='item.modelModelId'>
+                                 :data-id='item.id' :data-modelId='item.modelId'>
                         <keep-alive>
                             <iframe :src='item.isStore?item.modelUrl:ms.manager+"/"+item.modelUrl+(item.modelUrl.indexOf("?")==-1?"?":"&")+"id="+item.id+"&modelCode="+item.modelCode+"&modelTitle="+encodeURI(item.modelTitle)'
                                     :ref="item.modelTitle"></iframe>
@@ -234,7 +234,7 @@
             menuList: function (n, o) {
                 var that = this;
                 n && n.forEach(function (item, index) {
-                    item.modelModelId ? that.subMenuList.push(item) : that.parentMenuList.push(item)
+                    item.modelId ? that.subMenuList.push(item) : that.parentMenuList.push(item)
                 })
             },
             parentMenuList: function (n, o) {
@@ -337,7 +337,7 @@
                 }
 
                 this.currentTab = sub.modelTitle;
-                this.headMenuActive = sub.modelModelId
+                this.headMenuActive = sub.modelId
                 this.$nextTick(function () {
                     that.asideMenuActive = sub.id;
                 })
@@ -352,7 +352,7 @@
             },
             tabClick: function (tab) {
                 this.asideMenuActive = tab.$el.dataset.id
-                this.headMenuActive = tab.$el.dataset.modelmodelid
+                this.headMenuActive = tab.$el.dataset.modelId
                 console.log(this.editableTabs)
             },
             // 获取当前菜单的子菜单
@@ -360,7 +360,7 @@
                 var result = [];
                 var that = this;
                 that.subMenuList && that.subMenuList.forEach(function (item) {
-                    item.modelModelId == id ? result.push(item) : ''
+                    item.modelId == id ? result.push(item) : ''
                 })
                 return result;
             },
@@ -369,15 +369,15 @@
                 var that = this;
                 // 关闭的面板是当前激活面板
                 if (that.currentTab == targetName) {
-                    var modelModelId = null
+                    var modelId = null
                     that.editableTabs.forEach(function (tab, index, arr) {
                         if (tab.modelTitle == targetName) {
-                            modelModelId = arr[index].modelModelId
+                            modelId = arr[index].modelId
                             var nextTab = arr[index + 1] || arr[index - 1];
                             if (nextTab) {
                                 that.currentTab = nextTab.modelTitle
                                 that.asideMenuActive = nextTab.id
-                                that.headMenuActive = nextTab.modelModelId
+                                that.headMenuActive = nextTab.modelId
                             }
                         }
                     })
@@ -390,11 +390,11 @@
                 // 关闭左侧父菜单
                 if (that.editableTabs.length) {
                     var result = that.editableTabs.every(function (item) {
-                        return item.modelModelId !== modelModelId
+                        return item.modelId !== modelId
                     })
                     if (result) {
                         that.asideMenuList.forEach(function (menu, index, arr) {
-                            if (menu.id == modelModelId) {
+                            if (menu.id == modelId) {
                                 var flag = false;
                                 that.markList.forEach(function (item, index, array) {
                                     if (item.title == menu.modelTitle) {
@@ -434,7 +434,7 @@
                 // this.getSubMenu(menu.id)[0] && this.$refs.menu.open(this.getSubMenu(menu.id)[0].modelTitle);
                 var children = [];
                 this.menuList.forEach(function (tab) {
-                    if (tab.modelModelId == menu.id) {
+                    if (tab.modelId == menu.id) {
                         children.push(tab)
                     }
                 })

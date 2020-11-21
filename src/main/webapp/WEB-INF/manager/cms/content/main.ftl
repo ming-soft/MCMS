@@ -68,7 +68,7 @@
                     </el-popover>
                 </template>
             </el-table-column>
-            <el-table-column label="栏目名" align="left" prop="contentCategoryId" :formatter="contentCategoryIdFormat" width="100">
+            <el-table-column label="栏目名" align="left" prop="categoryId" :formatter="contentCategoryIdFormat" width="100">
             </el-table-column>
             <el-table-column label="文章标题" align="left" prop="contentTitle" show-overflow-tooltip>
             </el-table-column>
@@ -129,9 +129,9 @@
                 type: 'input'
             }, {
                 action: 'and',
-                field: 'content_category_id',
+                field: 'category_id',
                 el: 'eq',
-                model: 'contentCategoryId',
+                model: 'categoryId',
                 name: '所属栏目',
                 key: 'id',
                 title: 'categoryTitle',
@@ -268,7 +268,7 @@
                 contentTitle: null,
                 // 文章类型
                 contentType: null,
-                contentCategoryId: ''
+                categoryId: ''
             }
         },
         methods: {
@@ -371,7 +371,7 @@
                 if (id) {
                     location.href = this.manager + "/cms/content/form.do?id=" + id;
                 } else {
-                    location.href = this.manager + "/cms/content/form.do?categoryId=" + this.form.contentCategoryId;
+                    location.href = this.manager + "/cms/content/form.do?categoryId=" + this.form.categoryId;
                 }
             },
             //表格数据转换
@@ -468,7 +468,7 @@
         mounted: function () {
             this.contentCategoryIdOptionsGet();
             this.contentTypeOptionsGet();
-            this.form.contentCategoryId = ms.util.getParameter("categoryId");
+            this.form.categoryId = ms.util.getParameter("categoryId");
             if (history.hasOwnProperty("state")) {
                 this.form = history.state.form;
                 this.currentPage = history.state.page.pageNo;

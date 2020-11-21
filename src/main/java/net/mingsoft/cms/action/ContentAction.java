@@ -65,7 +65,7 @@ public class ContentAction extends BaseAction {
 	@ApiOperation(value = "查询文章列表接口")
 	@ApiImplicitParams({
     	@ApiImplicitParam(name = "contentTitle", value = "文章标题", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "contentCategoryId", value = "所属栏目", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryId", value = "所属栏目", required =false,paramType="query"),
     	@ApiImplicitParam(name = "contentType", value = "文章类型", required =false,paramType="query"),
     	@ApiImplicitParam(name = "contentDisplay", value = "是否显示", required =false,paramType="query"),
     	@ApiImplicitParam(name = "contentAuthor", value = "文章作者", required =false,paramType="query"),
@@ -121,7 +121,7 @@ public class ContentAction extends BaseAction {
 	@ApiOperation(value = "保存文章列表接口")
 	 @ApiImplicitParams({
     	@ApiImplicitParam(name = "contentTitle", value = "文章标题", required =true,paramType="query"),
-		@ApiImplicitParam(name = "contentCategoryId", value = "所属栏目", required =false,paramType="query"),
+		@ApiImplicitParam(name = "categoryId", value = "所属栏目", required =false,paramType="query"),
 		@ApiImplicitParam(name = "contentType", value = "文章类型", required =false,paramType="query"),
 		@ApiImplicitParam(name = "contentDisplay", value = "是否显示", required =false,paramType="query"),
 		@ApiImplicitParam(name = "contentAuthor", value = "文章作者", required =false,paramType="query"),
@@ -199,7 +199,7 @@ public class ContentAction extends BaseAction {
 	 @ApiImplicitParams({
 	    @ApiImplicitParam(name = "id", value = "编号", required =true,paramType="query"),
     	@ApiImplicitParam(name = "contentTitle", value = "文章标题", required =true,paramType="query"),
-		@ApiImplicitParam(name = "contentCategoryId", value = "所属栏目", required =false,paramType="query"),
+		@ApiImplicitParam(name = "categoryId", value = "所属栏目", required =false,paramType="query"),
 		@ApiImplicitParam(name = "contentType", value = "文章类型", required =false,paramType="query"),
 		@ApiImplicitParam(name = "contentDisplay", value = "是否显示", required =false,paramType="query"),
 		@ApiImplicitParam(name = "contentAuthor", value = "文章作者", required =false,paramType="query"),

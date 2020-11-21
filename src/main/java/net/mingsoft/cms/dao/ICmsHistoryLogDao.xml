@@ -6,7 +6,7 @@
 			<id column="id" property="id" /><!--编号 -->
 				<result column="content_id" property="contentId" /><!--文章编号 -->
 				<result column="hl_ip" property="hlIp" /><!--浏览ip -->
-				<result column="hl_people_id" property="hlPeopleId" /><!--用户id -->
+				<result column="people_id" property="peopleId" /><!--用户id -->
 				<result column="hl_is_mobile" property="hlIsMobile" /><!--是否为移动端 -->
 				<result column="create_by" property="createBy" /><!--创建人 -->
 				<result column="create_date" property="createDate" /><!--创建时间 -->
@@ -22,7 +22,7 @@
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 				<if test="contentId != null and contentId != ''">content_id,</if>
 				<if test="hlIp != null and hlIp != ''">hl_ip,</if>
-				<if test="hlPeopleId != null and hlPeopleId != ''">hl_people_id,</if>
+				<if test="peopleId != null and peopleId != ''">people_id,</if>
 				<if test="hlIsMobile != null">hl_is_mobile,</if>
 				<if test="createBy &gt; 0">create_by,</if>
 				<if test="createDate != null">create_date,</if>
@@ -33,7 +33,7 @@
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 				<if test="contentId != null and contentId != ''">#{contentId},</if>
 				<if test="hlIp != null and hlIp != ''">#{hlIp},</if>
-				<if test="hlPeopleId != null and hlPeopleId != ''">#{hlPeopleId},</if>
+				<if test="peopleId != null and peopleId != ''">#{peopleId},</if>
 				<if test="hlIsMobile != null">#{hlIsMobile},</if>
 				<if test="createBy &gt; 0">#{createBy},</if>
 				<if test="createDate != null">#{createDate},</if>
@@ -49,7 +49,7 @@
 			<set>
 				<if test="contentId != null and contentId != ''">content_id=#{contentId},</if>
 				<if test="hlIp != null and hlIp != ''">hl_ip=#{hlIp},</if>
-				<if test="hlPeopleId != null and hlPeopleId != ''">hl_people_id=#{hlPeopleId},</if>
+				<if test="peopleId != null and peopleId != ''">people_id=#{peopleId},</if>
 				<if test="hlIsMobile != null">hl_is_mobile=#{hlIsMobile},</if>
 				<if test="createBy &gt; 0">create_by=#{createBy},</if>
 				<if test="createDate != null">create_date=#{createDate},</if>
@@ -71,7 +71,7 @@
 			<where>
 				<if test="contentId != null and contentId != ''">and content_id=#{contentId}</if>
 				<if test="hlIp != null and hlIp != ''">and hl_ip=#{hlIp}</if>
-				<if test="hlPeopleId != null and hlPeopleId != ''">and hl_people_id=#{hlPeopleId}</if>
+				<if test="peopleId != null and peopleId != ''">and people_id=#{peopleId}</if>
 				<if test="hlIsMobile != null"> and hl_is_mobile=#{hlIsMobile} </if>
 				<if test="createBy &gt; 0"> and create_by=#{createBy} </if>
 				<if test="createDate != null"> and create_date=#{createDate} </if>
@@ -106,7 +106,7 @@
 		<where>
 			<if test="contentId != null and contentId != ''"> and content_id=#{contentId}</if>
 			<if test="hlIp != null and hlIp != ''"> and hl_ip=#{hlIp}</if>
-			<if test="hlPeopleId != null and hlPeopleId != ''"> and hl_people_id=#{hlPeopleId}</if>
+			<if test="peopleId != null and peopleId != ''"> and people_id=#{peopleId}</if>
 			<if test="hlIsMobile != null"> and hl_is_mobile=#{hlIsMobile} </if>
 			<if test="createBy &gt; 0"> and create_by=#{createBy} </if>
 			<if test="createDate != null"> and create_date=#{createDate} </if>

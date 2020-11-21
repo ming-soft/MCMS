@@ -38,7 +38,7 @@
                                 </el-form-item>
                             </el-col>
                             <el-col span="12" v-if="returnIsShow">
-                                <el-form-item label="所属栏目" prop="contentCategoryId">
+                                <el-form-item label="所属栏目" prop="categoryId">
                                     <template slot='label'>所属栏目
                                         <el-popover placement="top-start" title="提示" trigger="hover">
                                             <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
@@ -49,7 +49,7 @@
                                     <tree-select :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
                                                  :options="contentCategoryIdOptions" :style="{width:'100%'}"
                                                  @change="categoryChange"
-                                                 v-model="form.contentCategoryId"></tree-select>
+                                                 v-model="form.categoryId"></tree-select>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -285,7 +285,7 @@
                     // 文章标题
                     contentTitle: '',
                     // 所属栏目
-                    contentCategoryId: '',
+                    categoryId: '',
                     // 文章类型
                     contentType: [],
                     // 是否显示
@@ -327,7 +327,7 @@
                         "required": true,
                         "message": "发布时间不能为空"
                     }],
-                    contentCategoryId: [{
+                    categoryId: [{
                         "required": true,
                         "message": "所属栏目不能为空"
                     }]
@@ -339,7 +339,7 @@
             currCategory: function () {
                 var that = this;
                 return this.categoryIdOptions.find(function (value) {
-                    return value.id === that.form.contentCategoryId;
+                    return value.id === that.form.categoryId;
                 });
             }
         },
@@ -365,7 +365,7 @@
                         that.saveDisabled = true; //判断
 
                         if (that.categoryIdOptions.filter(function (f) {
-                            return f['id'] == that.form.contentCategoryId;
+                            return f['id'] == that.form.categoryId;
                         })[0].categoryType == '2' && that.returnIsShow) {
                             that.$notify({
                                 title: '提示',
@@ -401,7 +401,7 @@
                                     javascript: history.go(-1);
                                 } else {
                                     //如果是顶级封面或封面，则重新拿到当前封面id,避免重复保存
-                                    that.list(that.form.contentCategoryId);
+                                    that.list(that.form.categoryId);
                                 }
 
                             } else {
@@ -483,7 +483,7 @@
                 });
             },
             getValue: function (data) {
-                this.form.contentCategoryId = data.id;
+                this.form.categoryId = data.id;
             },
             //获取当前文章
             get: function (id) {
@@ -509,7 +509,7 @@
 
                         that.form = res.data;
                         var category = that.categoryIdOptions.filter(function (f) {
-                            return f['id'] == that.form.contentCategoryId;
+                            return f['id'] == that.form.categoryId;
                         });
 
                         if (category.length == 1) {
@@ -580,10 +580,10 @@
                 });
             },
             //查询列表
-            list: function (contentCategoryId) {
+            list: function (categoryId) {
                 var that = this;
                 ms.http.post(ms.manager + "/cms/content/list.do", {
-                    contentCategoryId: contentCategoryId
+                    categoryId: categoryId
                 }).then(function (res) {
                     if (res.result && res.data.total > 0) {
                         if (res.data.rows[0].contentType) {
@@ -612,7 +612,7 @@
 
             this.form.id = ms.util.getParameter("id");
             if (ms.util.getParameter("categoryId")) {
-                this.form.contentCategoryId = ms.util.getParameter("categoryId");
+                this.form.categoryId = ms.util.getParameter("categoryId");
             }
             this.type = ms.util.getParameter("type");
 
@@ -621,7 +621,7 @@
             }
 
             if (this.type) {
-                this.list(this.form.contentCategoryId);
+                this.list(this.form.categoryId);
                 this.returnIsShow = false;
             }
         }

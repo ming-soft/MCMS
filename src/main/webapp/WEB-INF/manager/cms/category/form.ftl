@@ -521,7 +521,7 @@
             contentList: function (id) {
                 var that = this;
                 ms.http.post(ms.manager + "/cms/content/list.do", {
-                    contentCategoryId: id
+                    categoryId: id
                 }).then(function (data) {
                     if(data.result){
                         if (data.data.total > 0) {

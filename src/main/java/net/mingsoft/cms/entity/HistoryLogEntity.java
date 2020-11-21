@@ -24,9 +24,9 @@ private static final long serialVersionUID = 1577064243576L;
 	*/
 	private String hlIp;
 	/**
-	* 用户id
+	* 用户idp
 	*/
-	private String hlPeopleId;
+	private String peopleId;
 	/**
 	* 是否为移动端
 	*/
@@ -59,19 +59,15 @@ private static final long serialVersionUID = 1577064243576L;
 	public String getHlIp() {
 	return this.hlIp;
 	}
-	/**
-	* 设置用户id
-	*/
-	public void setHlPeopleId(String hlPeopleId) {
-	this.hlPeopleId = hlPeopleId;
+
+	public String getPeopleId() {
+		return peopleId;
 	}
 
-	/**
-	* 获取用户id
-	*/
-	public String getHlPeopleId() {
-	return this.hlPeopleId;
+	public void setPeopleId(String peopleId) {
+		this.peopleId = peopleId;
 	}
+
 	/**
 	* 设置是否为移动端
 	*/

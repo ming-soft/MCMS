@@ -172,7 +172,7 @@ public class GeneraterAction extends BaseAction {
 			// 获取栏目列表模版
 			for (CategoryEntity column : columns) {
 				ContentBean contentBean = new ContentBean();
-				contentBean.setContentCategoryId(column.getId());
+				contentBean.setCategoryId(column.getId());
 				// 分类是列表
 				if(column.getCategoryType().equals("1")) {
 					// 判断模板文件是否存在
@@ -252,7 +252,7 @@ public class GeneraterAction extends BaseAction {
 			CategoryEntity categoryEntity = new CategoryEntity();
 			categoryList = categoryBiz.query(categoryEntity);
 			for(CategoryEntity category : categoryList){
-				contentBean.setContentCategoryId(category.getId());
+				contentBean.setCategoryId(category.getId());
 				// 分类是列表
 				if(category.getCategoryType().equals("1")){
 					// 判断模板文件是否存在
@@ -276,7 +276,7 @@ public class GeneraterAction extends BaseAction {
 			}
 		}else {
 			CategoryEntity category = (CategoryEntity) categoryBiz.getById(columnId);
-			contentBean.setContentCategoryId(columnId);
+			contentBean.setCategoryId(columnId);
 			// 分类是列表
 			if(category.getCategoryType().equals("1")){
 				// 获取文章列表表属性

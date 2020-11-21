@@ -151,7 +151,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		int typeId = BasicUtil.getInt(ParserUtil.TYPE_ID,0);
 		int size = BasicUtil.getInt(ParserUtil.SIZE,10);
 		ContentBean contentBean = new ContentBean();
-		contentBean.setContentCategoryId(String.valueOf(typeId));
+		contentBean.setCategoryId(String.valueOf(typeId));
 		//获取文章总数
 		List<CategoryBean> columnArticles = contentBiz.queryIdsByCategoryIdForParser(contentBean);
 		//判断栏目下是否有文章
@@ -214,7 +214,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		orderby= orderby.replaceAll("('|\"|\\\\)","\\\\$1");
 		PageBean page = new PageBean();
 		//用于详情上下页获取当前文章列表对应的分类，根据文章查询只能获取自身分类
-		String typeId = BasicUtil.getString(ParserUtil.TYPE_ID,article.getContentCategoryId());
+		String typeId = BasicUtil.getString(ParserUtil.TYPE_ID,article.getCategoryId());
 		//根据文章编号查询栏目详情模版
 		CategoryEntity column = (CategoryEntity) categoryBiz.getEntity(Integer.parseInt(typeId));
 		//解析后的内容
@@ -234,7 +234,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		map.put(ParserUtil.PAGE, page);
 		map.put(ParserUtil.ID, article.getId());
 		ContentBean contentBean = new ContentBean();
-		contentBean.setContentCategoryId(String.valueOf(typeId));
+		contentBean.setCategoryId(String.valueOf(typeId));
 		contentBean.setOrderBy(orderby);
 		contentBean.setOrder(order);
 		List<CategoryBean> articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);

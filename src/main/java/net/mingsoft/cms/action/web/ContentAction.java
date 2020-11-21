@@ -56,7 +56,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	@ApiOperation(value = "查询文章列表接口")
 	@ApiImplicitParams({
     	@ApiImplicitParam(name = "contentTitle", value = "文章标题", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "contentCategoryId", value = "所属栏目", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryId", value = "所属栏目", required =false,paramType="query"),
     	@ApiImplicitParam(name = "contentType", value = "文章类型", required =false,paramType="query"),
     	@ApiImplicitParam(name = "contentDisplay", value = "是否显示", required =false,paramType="query"),
     	@ApiImplicitParam(name = "contentAuthor", value = "文章作者", required =false,paramType="query"),
@@ -133,12 +133,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		entity.setContentId(content.getId());
 		entity.setCreateDate(new Date());
 		historyLogBiz.saveEntity(entity);
-		// 单站点不存在appid
-		if(content.getAppId() == null ){
-			return "document.write(" + content.getContentHit() + ")";
-		}else if(content.getAppId() != BasicUtil.getApp().getAppId()){
-			return "document.write(0)";
-		}
+
 		return "document.write(" + content.getContentHit() + ")";
 	}
 
