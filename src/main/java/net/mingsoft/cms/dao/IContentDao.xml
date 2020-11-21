@@ -219,7 +219,7 @@
 			ct.del=0
 			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT('%',#{contentTitle},'%')</if>
 			<if test="categoryId != null and categoryId != ''"> 	and (ct.category_id=#{categoryId} or ct.category_id in
-				(select id FROM cms_category where <include refid="queryWhereCategoryId"></include>))</if>
+				(select id FROM cms_category where find_in_set('${categoryId}',CATEGORY_PARENT_ID)))</if>
 			<if test="contentType != null and contentType != ''"> and content_type LIKE CONCAT('%',#{contentType},'%')</if>
 			<if test="contentDisplay != null and contentDisplay != ''"> and content_display=#{contentDisplay}</if>
 			<if test="contentAuthor != null and contentAuthor != ''"> and content_author=#{contentAuthor}</if>
@@ -240,15 +240,6 @@
 		)ct ORDER BY ct.content_datetime desc,content_sort desc
 	</select>
 
-	<sql id="queryWhereCategoryId" databaseId="mysql">
-		find_in_set('${categoryId}',CATEGORY_PARENT_ID)
-	</sql>
-	<sql id="queryWhereCategoryId" databaseId="oracle" >
-		instr(','||'${categoryId}'||',', ','||CATEGORY_PARENT_ID||',')>0
-	</sql>
-	<sql id="queryWhereCategoryId" databaseId="sqlServer">
-		CHARINDEX(','+'${categoryId}'+',' , ','+CATEGORY_PARENT_ID +',')>0
-	</sql>
 
 	<!-- 根据站点编号、开始、结束时间和栏目编号查询文章编号集合 -->
 	<select id="queryIdsByCategoryIdForParser" resultMap="resultBean" >
