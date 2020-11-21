@@ -47,8 +47,10 @@
                 </div>
                 <div class="class-10" >
                     <el-form-item>
-                        <el-button type="primary" @click="updataIndex" :loading="homeLoading">{{homeLoading?'更新中':'生成主页'}}</el-button>
-                        <el-button plain @click="viewIndex">预览主页</el-button>
+                        <@shiro.hasPermission name="cms:generate:index">
+                            <el-button type="primary" @click="updataIndex" :loading="homeLoading">{{homeLoading?'更新中':'生成主页'}}</el-button>
+                        </@shiro.hasPermission>
+                            <el-button plain @click="viewIndex">预览主页</el-button>
                     </el-form-item>
                 </div>
             </div>
@@ -92,9 +94,12 @@
                     </el-form-item>
                 </div>
                 <div class="class-20" >
-                    <el-form-item>
-                        <el-button type="primary" @click="updateArticle" :loading="articleLoading">{{articleLoading?'更新中':'生成文章'}}</el-button>
-                    </el-form-item>
+                    <@shiro.hasPermission name="cms:generate:article">
+                        <el-form-item>
+                            <el-button type="primary" @click="updateArticle" :loading="articleLoading">{{articleLoading?'更新中':'生成文章'}}</el-button>
+                        </el-form-item>
+                    </@shiro.hasPermission>
+
                 </div>
             </div>
             <div class="class-23" >
@@ -116,9 +121,12 @@
                 </div>
 
                 <div class="class-30" >
+                    <@shiro.hasPermission name="cms:generate:column">
                     <el-form-item>
                         <el-button type="primary" @click="updateColumn" :loading="columnLoading">{{columnLoading?'更新中':'生成栏目'}}</el-button>
                     </el-form-item>
+                    </@shiro.hasPermission>
+
                 </div>
             </div>
         </div>
