@@ -4,6 +4,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -34,6 +35,7 @@ private static final long serialVersionUID = 1574925152750L;
 	/**
 	* 所属栏目
 	*/
+	@TableField(insertStrategy = FieldStrategy.NOT_EMPTY, updateStrategy = FieldStrategy.NOT_EMPTY, whereStrategy = FieldStrategy.NOT_EMPTY)
 	private String categoryId;
 	/**
 	* 栏目管理属性
@@ -70,7 +72,7 @@ private static final long serialVersionUID = 1574925152750L;
 	/**
 	* 栏目管理的内容模型id
 	*/
-	private String mdiyModelId;
+	private Integer mdiyModelId;
 	/**
 	* 类别发布时间
 	*/
@@ -260,19 +262,15 @@ private static final long serialVersionUID = 1574925152750L;
 	public String getCategoryDiyUrl() {
 	return this.categoryDiyUrl;
 	}
-	/**
-	* 设置栏目管理的内容模型id
-	*/
-	public void setMdiyModelId(String mdiyModelId) {
-	this.mdiyModelId = mdiyModelId;
+
+	public Integer getMdiyModelId() {
+		return mdiyModelId;
 	}
 
-	/**
-	* 获取栏目管理的内容模型id
-	*/
-	public String getMdiyModelId() {
-	return this.mdiyModelId;
+	public void setMdiyModelId(Integer mdiyModelId) {
+		this.mdiyModelId = mdiyModelId;
 	}
+
 	/**
 	* 设置类别发布时间
 	*/

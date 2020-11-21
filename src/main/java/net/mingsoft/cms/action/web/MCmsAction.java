@@ -252,17 +252,17 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 				categoryParentId += ','+articleIdList.get(artId).getCategoryParentId();
 			}
 			// 文章的栏目模型编号
-			String columnContentModelId = articleIdList.get(artId).getMdiyModelId();
+			Integer columnContentModelId = articleIdList.get(artId).getMdiyModelId();
 			Map<String, Object> parserParams = new HashMap<String, Object>();
 			parserParams.put(ParserUtil.COLUMN, articleIdList.get(artId));
 			// 判断当前栏目是否有自定义模型
-			if ( StringUtils.isNotBlank(columnContentModelId) && Integer.parseInt(columnContentModelId)>0) {
+			if ( columnContentModelId != null && columnContentModelId > 0) {
 				// 通过当前栏目的模型编号获取，自定义模型表名
 				if (contentModelMap.containsKey(columnContentModelId)) {
 					parserParams.put(ParserUtil.TABLE_NAME, contentModel.getModelTableName());
 				} else {
 					// 通过栏目模型编号获取自定义模型实体
-					 contentModel=(ModelEntity)modelBiz.getEntity(Integer.parseInt(columnContentModelId));
+					 contentModel=(ModelEntity)modelBiz.getEntity(columnContentModelId);
 					// 将自定义模型编号设置为key值
 					contentModelMap.put(columnContentModelId, contentModel.getModelTableName());
 					parserParams.put(ParserUtil.TABLE_NAME, contentModel.getModelTableName());
@@ -330,7 +330,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 			column = (CategoryEntity) categoryBiz.getEntity(Integer.parseInt(typeId+""));
 			// 获取表单类型的id
 			if (column != null&&ObjectUtil.isNotNull(column.getMdiyModelId())) {
-				contentModel = (ModelEntity) modelBiz.getEntity(Integer.parseInt(column.getMdiyModelId()));
+				contentModel = (ModelEntity) modelBiz.getEntity(column.getMdiyModelId());
 				if (contentModel != null) {
 					Map<String,String> fieldMap = contentModel.getFieldMap();
 					for (String s : fieldMap.keySet()) {
