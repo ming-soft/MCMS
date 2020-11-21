@@ -146,15 +146,6 @@
 			</where>
 			limit 0,1
 		</select>
-	<sql id="queryWhereCategoryId" databaseId="mysql">
-		find_in_set('${id}',CATEGORY_PARENT_ID)
-	</sql>
-	<sql id="queryWhereCategoryId" databaseId="oracle" >
-		instr(','||'${id}'||',', ','||CATEGORY_PARENT_ID||',')>0
-	</sql>
-	<sql id="queryWhereCategoryId" databaseId="sqlServer">
-		CHARINDEX(','+'${id}'+',' , ','+CATEGORY_PARENT_ID +',')>0
-	</sql>
 
 	<!-- 模糊查询开始 -->
 	<select id="queryChildren" resultMap="resultMap">
@@ -170,7 +161,7 @@
 				find_in_set(#{categoryParentId},CATEGORY_PARENT_ID)
 			</if>
 			<if test="categoryParentId == null or  categoryParentId ==''">
-				<include refid="queryWhereCategoryId"></include>
+				find_in_set('${id}',CATEGORY_PARENT_ID)
 			</if>
 			<if test="id != null">
 				or id=#{id}

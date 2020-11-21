@@ -72,7 +72,7 @@ public class CmsParserUtil extends ParserUtil {
 			throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException {
 		try{
 			// 文章的栏目模型编号
-			String columnContentModelId = column.getMdiyModelId();
+			Integer columnContentModelId = column.getMdiyModelId();
 			PageBean page = new PageBean();
 			page.setSize(10);
 			//获取分页数量
@@ -83,9 +83,9 @@ public class CmsParserUtil extends ParserUtil {
 			String columnListPath;
 			ModelEntity contentModel = null;
 			// 判断当前栏目是否有自定义模型
-			if (StringUtils.isNotBlank(columnContentModelId)) {
+			if (columnContentModelId != null) {
 				// 通过栏目模型编号获取自定义模型实体
-				contentModel = (ModelEntity) SpringUtil.getBean(ModelBizImpl.class).getEntity(Integer.parseInt(columnContentModelId));
+				contentModel = (ModelEntity) SpringUtil.getBean(ModelBizImpl.class).getEntity(columnContentModelId);
 			}
 			int pageNo = 1;
 
@@ -181,8 +181,8 @@ public class CmsParserUtil extends ParserUtil {
 			// 文章的模板路径
 			String columnUrl = articleIdList.get(artId).getCategoryUrl();
 			// 文章的栏目模型编号
-			String columnContentModelId = "";
-			if(StringUtils.isNotBlank(articleIdList.get(artId).getMdiyModelId()) && Integer.parseInt(articleIdList.get(artId).getMdiyModelId())>0){
+			Integer columnContentModelId = null;
+			if(articleIdList.get(artId).getMdiyModelId() != null && articleIdList.get(artId).getMdiyModelId() > 0){
 				columnContentModelId = articleIdList.get(artId).getMdiyModelId();
 			}
 			// 文章是否已经生成了，生成了就跳过
@@ -208,14 +208,14 @@ public class CmsParserUtil extends ParserUtil {
 			Map<String, Object> parserParams = new HashMap<String, Object>();
 			parserParams.put(ParserUtil.COLUMN, articleIdList.get(artId));
 			// 判断当前栏目是否有自定义模型
-			if (StringUtils.isNotBlank(columnContentModelId)) {
+			if (columnContentModelId != null) {
 				// 通过当前栏目的模型编号获取，自定义模型表名
 				if (contentModelMap.containsKey(columnContentModelId)) {
 					parserParams.put(TABLE_NAME, contentModel.getModelTableName());
 				} else {
 					// 通过栏目模型编号获取自定义模型实体
 					contentModel = (ModelEntity) SpringUtil.getBean(IModelBiz.class)
-							.getEntity(Integer.parseInt(columnContentModelId));
+							.getEntity(columnContentModelId);
 					// 将自定义模型编号设置为key值
 					contentModelMap.put(columnContentModelId, contentModel.getModelTableName());
 					parserParams.put(TABLE_NAME, contentModel.getModelTableName());
