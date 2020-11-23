@@ -292,4 +292,15 @@ public class CategoryAction extends BaseAction {
 		return ResultData.build().success();
 	}
 
+	@ApiOperation(value = "批量更新模版")
+	@GetMapping("/updateTemplate")
+	@ResponseBody
+	public ResultData updateTemplate(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model){
+
+	 	//父栏目是列表
+
+		//父栏目是封面
+
+		return ResultData.build().success();
+	}
 }
