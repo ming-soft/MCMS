@@ -76,11 +76,11 @@
 							<el-link type="primary" :underline="false" @click="save(scope.row.id, scope.row.id)"><i class="el-icon-plus"></i>子栏目</el-link>
 						</@shiro.hasPermission>
 						<@shiro.hasPermission name="cms:category:save">
-							<el-link type="primary" :underline="false" @click="copyCategory(scope.row.id)">复制栏目</el-link>
+							<el-link type="primary" :underline="false" @click="copyCategory(scope.row.id)">克隆</el-link>
 						</@shiro.hasPermission>
-						<@shiro.hasPermission name="cms:category:update">
-							<el-link type="primary" :underline="false" v-if="scope.row.categoryType == '1' || scope.row.categoryType == '2'" @click="updateTemplate(scope.row.id)">应用子栏目</el-link>
-						</@shiro.hasPermission>
+<#--						<@shiro.hasPermission name="cms:category:update">-->
+<#--							<el-link type="primary" :underline="false" v-if="scope.row.categoryType == '1' || scope.row.categoryType == '2'" @click="updateTemplate(scope.row.id)">应用子栏目</el-link>-->
+<#--						</@shiro.hasPermission>-->
 						<@shiro.hasPermission name="cms:category:update">
 						<el-link type="primary" :underline="false" @click="save(scope.row.id)">编辑</el-link>
 						</@shiro.hasPermission>
