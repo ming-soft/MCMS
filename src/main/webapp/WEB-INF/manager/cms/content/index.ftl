@@ -11,7 +11,23 @@
 	<el-container class="index-menu">
 		<div class="left-tree" style="position:relative;">
 			<el-scrollbar style="height: 100%;">
-				<el-tree :indent="5" v-loading="loading" highlight-current :expand-on-click-node="false" default-expand-all :empty-text="emptyText" :data="treeData" :props="defaultProps" @node-click="handleNodeClick" style="padding: 10px;height: 100%;"></el-tree>
+				<el-tree
+						:indent="5"
+						v-loading="loading"
+						highlight-current
+						:expand-on-click-node="false"
+						default-expand-all
+						:empty-text="emptyText"
+						:data="treeData"
+						:props="defaultProps"
+						@node-click="handleNodeClick"
+						style="padding: 10px;height: 100%;">
+						<span class="custom-tree-node" slot-scope="{ node, data }">
+						<el-tooltip class="item" effect="dark" :content="data.categoryTitle" placement="top-start">
+							<span :style="data.categoryType == '3' ? 'color: #dcdfe6' : ''">{{ data.categoryTitle }}</span>
+						</span>
+					</el-tooltip>
+				</el-tree>
 			</el-scrollbar>
 		</div>
 		<iframe :src="action" class="ms-iframe-style">
@@ -39,8 +55,9 @@
 				if (data.categoryType == '1') {
 					this.action = ms.manager + "/cms/content/main.do?categoryId=" + data.id;
 				} else if (data.categoryType == '2') {
-					this.action = ms.manager + "/cms/content/form.do?categoryId=" + data.id + "&type=2";
-				} else {
+					this.action = ms.manager + "/cms/content/form.do?categoryId=" + data.id + "& type=2";
+					//id=0时为最顶级节点全部节点
+				} else if (data.id == 0){
 					this.action = ms.manager + "/cms/content/main.do";
 				}
 			},
@@ -63,9 +80,7 @@
 					} else {
 						that.emptyText = '';
 						// 过滤掉栏目类型为链接属性
-						that.treeData = res.data.rows.filter(function (item) {
-							 return item.categoryType =='2' || item.categoryType =='1'
-						})
+						that.treeData = res.data.rows;
 						that.treeData = ms.util.treeData(that.treeData, 'id', 'categoryId', 'children');
 						that.treeData = [{
 							id: 0,
