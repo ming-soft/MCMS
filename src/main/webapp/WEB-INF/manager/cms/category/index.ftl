@@ -75,6 +75,12 @@
 						<@shiro.hasPermission name="cms:category:save">
 							<el-link type="primary" :underline="false" @click="save(scope.row.id, scope.row.id)"><i class="el-icon-plus"></i>子栏目</el-link>
 						</@shiro.hasPermission>
+						<@shiro.hasPermission name="cms:category:save">
+							<el-link type="primary" :underline="false" @click="copyCategory(scope.row.id)">克隆</el-link>
+						</@shiro.hasPermission>
+<#--						<@shiro.hasPermission name="cms:category:update">-->
+<#--							<el-link type="primary" :underline="false" v-if="scope.row.categoryType == '1' || scope.row.categoryType == '2'" @click="updateTemplate(scope.row.id)">应用子栏目</el-link>-->
+<#--						</@shiro.hasPermission>-->
 						<@shiro.hasPermission name="cms:category:update">
 						<el-link type="primary" :underline="false" @click="save(scope.row.id)">编辑</el-link>
 						</@shiro.hasPermission>
@@ -143,6 +149,54 @@
 			}
 		},
 		methods: {
+			//复制栏目
+			copyCategory: function(id) {
+				var that = this;
+				ms.http.get(ms.manager + "/cms/category/copyCategory.do", {
+					id: id
+				}).then(function (res) {
+					if (res.result) {
+						that.$notify({
+							title: '成功',
+							message: '复制成功',
+							type: 'success'
+						});
+						that.list();
+					} else {
+						that.$notify({
+							title: '失败',
+							message: res.msg,
+							type: 'warning'
+						});
+					}
+				}).catch(function (err) {
+					console.log(err);
+				});
+			},
+			//应用子栏目模板
+			updateTemplate: function(id) {
+				var that = this;
+				ms.http.get(ms.manager + "/cms/category/updateTemplate.do", {
+					id: id
+				}).then(function (res) {
+					if (res.result) {
+						that.$notify({
+							title: '成功',
+							message: '应用成功',
+							type: 'success'
+						});
+						that.list();
+					} else {
+						that.$notify({
+							title: '失败',
+							message: res.msg,
+							type: 'warning'
+						});
+					}
+				}).catch(function (err) {
+					console.log(err);
+				});
+			},
 			//根据字典数据值获取字典标签名
 			getDictLabel: function (v) {
 				var that = this;
