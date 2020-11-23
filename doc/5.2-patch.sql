@@ -74,7 +74,6 @@ DROP COLUMN `app_login_page`;
 ALTER TABLE `role`
 CHANGE COLUMN `role_managerid` `manager_id` int(11) NULL DEFAULT 0 COMMENT '角色管理员编号' AFTER `role_name`;
 ALTER TABLE `role`
-CHANGE COLUMN `role_managerid` `manager_id` int(11) NULL DEFAULT 0 COMMENT '角色管理员编号' AFTER `role_name`,
 DROP INDEX `role_managerid`,
 ADD INDEX `inx_role_manage_id`(`manager_id`) USING BTREE;
 
