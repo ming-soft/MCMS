@@ -22,11 +22,9 @@
 						:props="defaultProps"
 						@node-click="handleNodeClick"
 						style="padding: 10px;height: 100%;">
-						<span class="custom-tree-node" slot-scope="{ node, data }">
-						<el-tooltip class="item" effect="dark" :content="data.categoryTitle" placement="top-start">
-							<span :style="data.categoryType == '3' ? 'color: #dcdfe6' : ''">{{ data.categoryTitle }}</span>
+						<span class="custom-tree-node" slot-scope="{ node, data }" >
+							<span :style="data.categoryType == '3' ? 'color: #dcdfe6' : ''" :title="data.categoryTitle">{{ data.categoryTitle }}</span>
 						</span>
-					</el-tooltip>
 				</el-tree>
 			</el-scrollbar>
 		</div>
