@@ -244,4 +244,41 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 		}
 		entity.setTopId("0");
 	}
+
+	@Override
+	public void copyCategory(CategoryEntity category) {
+		String oldId = category.getId();
+		//先保存被复制第一层栏目，因为第一层栏目不需要变更父级栏目
+		category = getById(oldId);
+		//id、拼音和路径按照原来的业务逻辑生成
+		category.setId(null);
+		category.setCategoryPinyin(null);
+		category.setCategoryPath(null);
+		saveEntity(category);
+		//传入简要被复制子栏目的id和复制后的生成的id，复制的子栏目全部使用
+		recursionCopyChilds(oldId, category.getId());
+	}
+
+	/*
+	* 递归复制子栏目
+	* @param oldParentId：被复制的父级栏目id（需要数据库原来存在该数据）
+	* @param newParentId：复制栏目后新父级的id（新插入数据的id）
+	* */
+	private void recursionCopyChilds(String oldParentId, String newParentId) {
+		CategoryEntity _category = new CategoryEntity();
+		_category.setCategoryId(oldParentId);
+		List<CategoryEntity> childs = query(_category);
+		for (CategoryEntity child : childs) {
+			String childId = child.getId();
+			//id、拼音和路径按照原来的业务逻辑生成
+			child.setId(null);
+			child.setCategoryPinyin(null);
+			child.setCategoryPath(null);
+			child.setCategoryId(newParentId);
+			saveEntity(child);
+			//如果该栏目下还有子栏目则继续复制该栏目里的子栏目
+			recursionCopyChilds(childId, child.getId());
+		}
+	}
+
 }

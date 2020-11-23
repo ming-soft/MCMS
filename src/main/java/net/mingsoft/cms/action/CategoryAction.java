@@ -16,6 +16,7 @@ import net.mingsoft.basic.util.PinYinUtil;
 import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,6 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 分类管理控制层
@@ -296,8 +296,13 @@ public class CategoryAction extends BaseAction {
 	@ApiOperation(value = "批量更新模版")
 	@GetMapping("/updateTemplate")
 	@ResponseBody
+	@RequiresPermissions("cms:category:update")
 	public ResultData updateTemplate(@ModelAttribute @ApiIgnore CategoryEntity category){
+		if (category ==null || StringUtils.isEmpty(category.getId())) {
+			return ResultData.build().error(getResString("err.error", this.getResString("id")));
+		}
 		category = categoryBiz.getById(category.getId());
+
 		List<CategoryEntity> childs = categoryBiz.queryChilds(category);
 		//更新与父节点相同类型的子栏目的模板内容
 		for (int i =0; i < childs.size(); i++) {
@@ -307,6 +312,18 @@ public class CategoryAction extends BaseAction {
 				categoryBiz.updateEntity(childs.get(i));
 			}
 		}
+		return ResultData.build().success();
+	}
+
+	@ApiOperation(value = "复制栏目")
+	@GetMapping("/copyCategory")
+	@ResponseBody
+	@RequiresPermissions("cms:category:save")
+	public ResultData copyCategory(@ModelAttribute @ApiIgnore CategoryEntity category){
+		if (category == null || StringUtils.isEmpty(category.getId())) {
+			return ResultData.build().error(getResString("err.error", this.getResString("id")));
+		}
+		categoryBiz.copyCategory(category);
 		return ResultData.build().success();
 	}
 
