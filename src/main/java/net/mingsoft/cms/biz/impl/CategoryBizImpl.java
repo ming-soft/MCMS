@@ -202,7 +202,7 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 		Assert.notNull(entity);
 		CategoryEntity categoryEntity = getById(entity.getId());
 		//如果父级不为空并且修改了父级则需要更新父级
-		if(!entity.getCategoryId().equals(categoryEntity.getCategoryId())){
+		if(entity.getCategoryId() != null && !entity.getCategoryId().equals(categoryEntity.getCategoryId())){
 			//更新旧的父级
 			if(StrUtil.isNotBlank(categoryEntity.getCategoryId())&&!"0".equals(categoryEntity.getCategoryId())){
 				CategoryEntity parent = getById(categoryEntity.getCategoryId());

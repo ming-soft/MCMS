@@ -27,6 +27,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 分类管理控制层
@@ -180,7 +181,7 @@ public class CategoryAction extends BaseAction {
 	}
 
 	/**
-	 * @param category 分类实体
+	 * @param categorys 分类实体
 	 */
 	@ApiOperation(value = "批量删除分类列表接口")
 	@PostMapping("/delete")
@@ -295,12 +296,18 @@ public class CategoryAction extends BaseAction {
 	@ApiOperation(value = "批量更新模版")
 	@GetMapping("/updateTemplate")
 	@ResponseBody
-	public ResultData updateTemplate(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model){
-
-	 	//父栏目是列表
-
-		//父栏目是封面
-
+	public ResultData updateTemplate(@ModelAttribute @ApiIgnore CategoryEntity category){
+		category = categoryBiz.getById(category.getId());
+		List<CategoryEntity> childs = categoryBiz.queryChilds(category);
+		//更新与父节点相同类型的子栏目的模板内容
+		for (int i =0; i < childs.size(); i++) {
+			if (childs.get(i).getCategoryType().equals(category.getCategoryType())) {
+				childs.get(i).setCategoryUrl(category.getCategoryUrl());
+				childs.get(i).setCategoryListUrl(category.getCategoryListUrl());
+				categoryBiz.updateEntity(childs.get(i));
+			}
+		}
 		return ResultData.build().success();
 	}
+
 }
