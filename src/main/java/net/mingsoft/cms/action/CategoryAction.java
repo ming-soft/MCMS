@@ -302,7 +302,7 @@ public class CategoryAction extends BaseAction {
 			return ResultData.build().error(getResString("err.error", this.getResString("id")));
 		}
 		category = categoryBiz.getById(category.getId());
-
+		category.setCategoryParentId(null);
 		List<CategoryEntity> childs = categoryBiz.queryChilds(category);
 		//更新与父节点相同类型的子栏目的模板内容
 		for (int i =0; i < childs.size(); i++) {
