@@ -477,7 +477,7 @@
             getColumnContentModelId: function () {
                 var that = this;
                 ms.http.get(ms.manager + "/mdiy/model/list.do", {
-                    modelType: 'zdymx_wz'
+                    modelType: 'cms'
                 }).then(function (data) {
                     if(data.result){
                         that.mdiyModelIdOptions = data.data.rows;
