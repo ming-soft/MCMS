@@ -53,7 +53,7 @@
 				if (data.categoryType == '1') {
 					this.action = ms.manager + "/cms/content/main.do?categoryId=" + data.id;
 				} else if (data.categoryType == '2') {
-					this.action = ms.manager + "/cms/content/form.do?categoryId=" + data.id + "& type=2";
+					this.action = ms.manager + "/cms/content/form.do?categoryId=" + data.id + "&type=2";
 					//id=0时为最顶级节点全部节点
 				} else if (data.id == 0){
 					this.action = ms.manager + "/cms/content/main.do";

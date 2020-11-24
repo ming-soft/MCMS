@@ -364,17 +364,17 @@
                     if (valid) {
                         that.saveDisabled = true; //判断
 
-                        if (that.categoryIdOptions.filter(function (f) {
-                            return f['id'] == that.form.categoryId;
-                        })[0].categoryType == '2' && that.returnIsShow) {
-                            that.$notify({
-                                title: '提示',
-                                message: '所属栏目不能为封面',
-                                type: 'error'
-                            });
-                            that.saveDisabled = false;
-                            return;
-                        }
+                        // if (that.categoryIdOptions.filter(function (f) {
+                        //     return f['id'] == that.form.categoryId;
+                        // })[0].categoryType == '2' && that.returnIsShow) {
+                        //     that.$notify({
+                        //         title: '提示',
+                        //         message: '所属栏目不能为封面',
+                        //         type: 'error'
+                        //     });
+                        //     that.saveDisabled = false;
+                        //     return;
+                        // }
 
                         var data = JSON.parse(JSON.stringify(that.form));
 
