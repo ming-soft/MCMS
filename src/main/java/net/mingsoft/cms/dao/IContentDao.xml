@@ -251,7 +251,7 @@
 			<!-- 查询子栏目数据 -->
 			<if test="categoryId &gt; 0">
 				and (ct.category_id=#{categoryId} or ct.category_id in
-				(select id FROM cms_category where find_in_set('${categoryId}',CATEGORY_PARENT_ID)))
+				(select id FROM cms_category where find_in_set('${categoryId}',CATEGORY_PARENT_ID)) <if test="typetitle!=null and typetitle!=''">  and category_title=#{typetitle}</if> )
 			</if>
 			<if test="beginTime!=null and beginTime!=''">
 				and content_datetime &gt;= #{beginTime}
