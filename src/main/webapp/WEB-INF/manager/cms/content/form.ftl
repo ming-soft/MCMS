@@ -42,7 +42,8 @@
                                     <template slot='label'>所属栏目
                                         <el-popover placement="top-start" title="提示" trigger="hover">
                                             <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
-                                               target="_blank">${'$'}{field.typetitle}</a>
+                                               target="_blank">${'$'}{field.typetitle}</a><br/>
+                                            不能为链接和封面类型新建文章
                                             <i class="el-icon-question" slot="reference"></i>
                                         </el-popover>
                                     </template>
@@ -530,6 +531,11 @@
                     pageSize: 9999
                 }).then(function (res) {
                     if (res.result) {
+                        res.data.rows.forEach(function (item) {
+                            if (item.categoryType == '2' || item.categoryType == '3') {
+                                item.isDisabled = true;
+                            }
+                        });
                         that.contentCategoryIdOptions = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
                         that.categoryIdOptions = res.data.rows;
                         that.changeModel();
@@ -555,12 +561,20 @@
             },
             //contentImg文件上传完成回调
             contentImgSuccess: function (response, file, fileList) {
-                this.form.contentImg.push({
-                    url: file.url,
-                    name: file.name,
-                    path: response,
-                    uid: file.uid
-                });
+                if(response.result){
+                    this.form.contentImg.push({
+                        url: file.url,
+                        name: file.name,
+                        path: response.data,
+                        uid: file.uid
+                    });
+                }else {
+                    this.$notify({
+                        title: response.msg,
+                        type: 'warning'
+                    });
+                }
+
             },
             contentImghandleRemove: function (file, files) {
                 var index = -1;

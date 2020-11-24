@@ -569,12 +569,20 @@
             },
             //categoryImg文件上传完成回调
             categoryImgSuccess: function (response, file, fileList) {
-                this.form.categoryImg.push({
-                    url: file.url,
-                    name: file.name,
-                    path: response,
-                    uid: file.uid
-                });
+                if(response.result){
+                    this.form.categoryImg.push({
+                        url: file.url,
+                        name: file.name,
+                        path: response.data,
+                        uid: file.uid
+                    });
+                }else {
+                    this.$notify({
+                        title: response.msg,
+                        type: 'warning'
+                    });
+                }
+
             },
             //上传超过限制
             categoryImghandleExceed: function (files, fileList) {
