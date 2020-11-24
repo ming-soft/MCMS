@@ -524,6 +524,52 @@
                     console.log(err);
                 });
             },
+            //根据封面获取当前文章
+            getByFengMian: function (categoryId) {
+                var that = this;
+                ms.http.get(ms.manager + "/cms/content/getByFengMian.do", {
+                    "categoryId": categoryId
+                }).then(function (res) {
+                    if (res.result) {
+                        if (res.data != null) {
+                            if (res.data.contentType && res.data.contentType != '') {
+                                res.data.contentType = res.data.contentType.split(',');
+                            } else {
+                                res.data.contentType = [];
+                            }
+
+                            if (res.data.contentImg) {
+                                res.data.contentImg = JSON.parse(res.data.contentImg);
+                                res.data.contentImg.forEach(function (value) {
+                                    value.url = ms.base + value.path;
+                                });
+                            } else {
+                                res.data.contentImg = [];
+                            }
+
+                            that.form = res.data;
+                            var category = that.categoryIdOptions.filter(function (f) {
+                                return f['id'] == that.form.categoryId;
+                            });
+
+                            if (category.length == 1) {
+                                if (category[0].categoryType == '2') {
+                                    that.returnIsShow = false;
+                                }
+                            }
+                            that.changeModel();
+                        }
+                    } else {
+                        that.$notify({
+                            title: '失败',
+                            message: "获取错误",
+                            type: 'warning'
+                        });
+                    }
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            },
             //获取contentCategoryId数据源
             contentCategoryIdOptionsGet: function () {
                 var that = this;
@@ -633,9 +679,8 @@
             if (this.form.id) {
                 this.get(this.form.id);
             }
-
             if (this.type) {
-                this.list(this.form.categoryId);
+                this.getByFengMian(this.form.categoryId);
                 this.returnIsShow = false;
             }
         }

@@ -117,6 +117,24 @@ public class ContentAction extends BaseAction {
 		ContentEntity _content = contentBiz.getById(content.getId());
 		return ResultData.build().success(_content);
 	}
+	/**
+	 * 获取文章
+	 * @param content 文章实体
+	 */
+	@ApiOperation(value = "根据封面获取文章列表接口")
+    @ApiImplicitParam(name = "categoryId", value = "分类编号", required =true,paramType="query")
+	@GetMapping("/getByFengMian")
+	@ResponseBody
+	public ResultData getByFengMian(@ModelAttribute @ApiIgnore ContentEntity content){
+		if(content.getCategoryId() == null) {
+			return ResultData.build().error();
+		}
+		List<ContentEntity> list = contentBiz.lambdaQuery().eq(ContentEntity::getCategoryId, content.getCategoryId()).list();
+		if (list.size() > 1) {
+			LOG.error("获取封面文章异常");
+		}
+		return ResultData.build().success(list.size() > 0 ? list.get(0) : null);
+	}
 	
 	@ApiOperation(value = "保存文章列表接口")
 	 @ApiImplicitParams({
