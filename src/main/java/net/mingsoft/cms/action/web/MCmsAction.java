@@ -38,7 +38,6 @@ import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.cms.util.CmsParserUtil;
-import net.mingsoft.mdiy.bean.AttributeBean;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.biz.IPageBiz;
@@ -409,8 +408,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 		//设置动态请求的模块路径
 		map.put(ParserUtil.MODEL_NAME, "mcms");
 		searchMap.put(ParserUtil.PAGE_NO, 0);
-		AttributeBean attributeBean = new AttributeBean();
-		ParserUtil.read(SEARCH+ParserUtil.HTM_SUFFIX,map, page,attributeBean);
+		ParserUtil.read(SEARCH+ParserUtil.HTM_SUFFIX,map, page);
 		int total = PageUtil.totalPage(count, page.getSize());
 		int pageNo = BasicUtil.getInt(ParserUtil.PAGE_NO, 1);
 		if(pageNo >= total && total!=0) {

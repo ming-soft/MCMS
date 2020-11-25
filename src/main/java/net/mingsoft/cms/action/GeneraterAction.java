@@ -36,7 +36,6 @@ import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.util.CmsParserUtil;
-import net.mingsoft.mdiy.bean.AttributeBean;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -173,6 +172,7 @@ public class GeneraterAction extends BaseAction {
 			for (CategoryEntity column : columns) {
 				ContentBean contentBean = new ContentBean();
 				contentBean.setCategoryId(column.getId());
+
 				// 分类是列表
 				if(column.getCategoryType().equals("1")) {
 					// 判断模板文件是否存在
@@ -189,13 +189,6 @@ public class GeneraterAction extends BaseAction {
 					map.put(ParserUtil.HTML, ParserUtil.HTML);
 					map.put(ParserUtil.URL, BasicUtil.getUrl());
 					map.put(ParserUtil.PAGE, page);
-					AttributeBean attributeBean = new AttributeBean();
-					// 获取文章列表模板标签属性
-					ParserUtil.read(column.getCategoryListUrl(), map, page, attributeBean);
-					contentBean.setFlag(attributeBean.getFlag());
-					contentBean.setNoflag(attributeBean.getNoflag());
-					contentBean.setOrder(attributeBean.getOrder());
-					contentBean.setOrderBy(attributeBean.getOrderby());
 				}
 				articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
 				// 判断列表类型
@@ -236,7 +229,6 @@ public class GeneraterAction extends BaseAction {
 		// 网站风格物理路径
 		List<CategoryBean> articleIdList = null;
 		List<CategoryEntity> categoryList = null;
-		AttributeBean attributeBean = new AttributeBean();
 		ContentBean contentBean = new ContentBean();
 		contentBean.setBeginTime(dateTime);
 		Map<String, Object> map = new HashMap<>();
@@ -260,12 +252,7 @@ public class GeneraterAction extends BaseAction {
 						LOG.error("模板不存在：{}",category.getCategoryUrl());
 						continue;
 					}
-					// 获取文章列表表属性
-					ParserUtil.read(category.getCategoryListUrl(),map, page,attributeBean);
-					contentBean.setFlag(attributeBean.getFlag());
-					contentBean.setNoflag(attributeBean.getNoflag());
-					contentBean.setOrder(attributeBean.getOrder());
-					contentBean.setOrderBy(attributeBean.getOrderby());
+
 				}
 				//将文章列表标签中的中的参数
 				articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
@@ -285,11 +272,6 @@ public class GeneraterAction extends BaseAction {
 					LOG.error("模板不存在：{}",category.getCategoryUrl());
                     return ResultData.build().error(getResString("templet.file"));
 				}
-				ParserUtil.read(category.getCategoryListUrl(),map, page,attributeBean);
-				contentBean.setFlag(attributeBean.getFlag());
-				contentBean.setNoflag(attributeBean.getNoflag());
-				contentBean.setOrder(attributeBean.getOrder());
-				contentBean.setOrderBy(attributeBean.getOrderby());
 			}
 			articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
 			// 有符合条件的就更新

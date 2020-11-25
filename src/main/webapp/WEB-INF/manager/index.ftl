@@ -328,7 +328,8 @@
                 })
 
                 if (sub.syncStoreUrl) {
-                    sub.modelUrl = sub.syncStoreUrl
+                    //sub.modelUrl = "http://store.web.i.mingsoft.net/#/?client=localhost:8080//ms";
+                    sub.modelUrl = sub.syncStoreUrl;
                     sub.modelTitle = 'mstore';
                     sub.isStore = true;
                     !result ? this.editableTabs.push(sub) : ""

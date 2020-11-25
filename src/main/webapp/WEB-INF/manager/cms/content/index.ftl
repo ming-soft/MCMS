@@ -122,7 +122,7 @@
 	#index .left-tree{
 		min-height: 100vh;
 		background: #fff;
-		width: 180px;
+		width: 220px;
 		border-right: solid 1px #e6e6e6;
 	}
 
