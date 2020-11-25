@@ -68,7 +68,7 @@
                     </el-popover>
                 </template>
             </el-table-column>
-            <el-table-column label="栏目名" align="left" prop="categoryId" :formatter="contentCategoryIdFormat" width="100">
+            <el-table-column label="栏目名" align="left" prop="categoryId" :formatter="contentCategoryIdFormat" width="180">
             </el-table-column>
             <el-table-column label="文章标题" align="left" prop="contentTitle" show-overflow-tooltip>
             </el-table-column>
