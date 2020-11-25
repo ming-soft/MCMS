@@ -123,9 +123,9 @@ public class ContentAction extends BaseAction {
 	 */
 	@ApiOperation(value = "根据封面获取文章列表接口")
     @ApiImplicitParam(name = "categoryId", value = "分类编号", required =true,paramType="query")
-	@GetMapping("/getByFengMian")
+	@GetMapping("/getFromFengMian")
 	@ResponseBody
-	public ResultData getByFengMian(@ModelAttribute @ApiIgnore ContentEntity content){
+	public ResultData getFromFengMian(@ModelAttribute @ApiIgnore ContentEntity content){
 		if(content.getCategoryId() == null) {
 			return ResultData.build().error();
 		}
