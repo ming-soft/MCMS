@@ -11,7 +11,6 @@ import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.SpringUtil;
 import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.entity.CategoryEntity;
-import net.mingsoft.mdiy.bean.AttributeBean;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.biz.impl.ModelBizImpl;
@@ -108,8 +107,7 @@ public class CmsParserUtil extends ParserUtil {
 				parserParams.put(ParserUtil.URL, BasicUtil.getUrl());
 			}
 			parserParams.put(ParserUtil.PAGE, page);
-			AttributeBean attributeBean = new AttributeBean();
-			ParserUtil.read(File.separator + column.getCategoryListUrl(),parserParams, page,attributeBean);
+			ParserUtil.read(File.separator + column.getCategoryListUrl(),parserParams, page);
 			int totalPageSize = PageUtil.totalPage(articleIdTotal, page.getSize());
 			page.setTotal(totalPageSize);
 			//文章列表页没有写文章列表标签，总数为0
