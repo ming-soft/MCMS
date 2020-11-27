@@ -71,25 +71,36 @@ public class CmsParserUtil extends ParserUtil {
 			throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException {
 		try{
 			// 文章的栏目模型编号
-			Integer columnContentModelId = column.getMdiyModelId();
 			PageBean page = new PageBean();
-			page.setSize(10);
-			//获取分页数量
 
-			//获取列表页显示的文章数量
-			//获取总数
+			//获取列表中的size
+			page.setSize(ParserUtil.getPageSize(column.getCategoryListUrl(),20));
+			page.setRcount(articleIdTotal);
+
+			int totalPageSize = PageUtil.totalPage(articleIdTotal, page.getSize());
+			page.setTotal(totalPageSize);
+
+			//获取模板中列表标签中的条件
+			Map<String, Object> map = new HashMap<>();
+			if (BasicUtil.getWebsiteApp() != null) {
+				map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+			}
+
+			map.put(ParserUtil.HTML, ParserUtil.HTML);
+			map.put(ParserUtil.URL, BasicUtil.getUrl());
+			map.put(ParserUtil.PAGE, page);
 
 			String columnListPath;
 			ModelEntity contentModel = null;
 			// 判断当前栏目是否有自定义模型
-			if (columnContentModelId != null) {
+			if (column.getMdiyModelId() != null) {
 				// 通过栏目模型编号获取自定义模型实体
-				contentModel = (ModelEntity) SpringUtil.getBean(ModelBizImpl.class).getEntity(columnContentModelId);
+				contentModel = (ModelEntity) SpringUtil.getBean(ModelBizImpl.class).getEntity(column.getMdiyModelId());
 			}
-			int pageNo = 1;
 
 			//全局参数设置
 			Map<String, Object> parserParams = new HashMap<String, Object>();
+			parserParams.put(ParserUtil.PAGE, page);
 			parserParams.put(COLUMN, column);
 			//标签中使用field获取当前栏目
 			parserParams.put(FIELD, column);
@@ -106,17 +117,15 @@ public class CmsParserUtil extends ParserUtil {
 			if(ParserUtil.IS_SINGLE) {
 				parserParams.put(ParserUtil.URL, BasicUtil.getUrl());
 			}
-			parserParams.put(ParserUtil.PAGE, page);
-			ParserUtil.read(File.separator + column.getCategoryListUrl(),parserParams, page);
-			int totalPageSize = PageUtil.totalPage(articleIdTotal, page.getSize());
-			page.setTotal(totalPageSize);
+
+			int pageNo = 1;
 			//文章列表页没有写文章列表标签，总数为0
 			if (totalPageSize <= 0) {
 				// 数据库中第一页是从开始0*size
 				columnListPath = ParserUtil.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX);
 				// 设置分页的起始位置
 				page.setPageNo(pageNo);
-				String read = ParserUtil.read(File.separator + column.getCategoryListUrl(), parserParams);
+				String read = ParserUtil.rendering(File.separator + column.getCategoryListUrl(), parserParams);
 				FileUtil.writeString(read, columnListPath, Const.UTF8);
 
 			} else {
@@ -134,7 +143,7 @@ public class CmsParserUtil extends ParserUtil {
 					}
 					// 设置分页的起始位置
 					page.setPageNo(pageNo);
-					String read = ParserUtil.read(File.separator + column.getCategoryListUrl(), parserParams);
+					String read = ParserUtil.rendering(File.separator + column.getCategoryListUrl(), parserParams);
 					FileUtil.writeString(read, columnListPath, Const.UTF8);
 					pageNo++;
 				}

@@ -229,7 +229,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		if(BasicUtil.getWebsiteApp() !=null){
 			map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
 		}
-		String read = ParserUtil.read(templatePath, map);
+		String read = ParserUtil.rendering(templatePath, map);
 		FileUtil.writeString(read, ParserUtil.buildHtmlPath(targetPath), net.mingsoft.base.constant.Const.UTF8);
 	}
 

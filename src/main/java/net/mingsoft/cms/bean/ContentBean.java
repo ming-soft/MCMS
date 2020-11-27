@@ -37,13 +37,7 @@ public class ContentBean extends ContentEntity {
      */
     private String noflag;
 
-//    public String getStaticUrl() {
-//        return staticUrl;
-//    }
-//
-//    public void setStaticUrl(String staticUrl) {
-//        this.staticUrl = staticUrl;
-//    }
+
 
     public String getBeginTime() {
         return beginTime;
