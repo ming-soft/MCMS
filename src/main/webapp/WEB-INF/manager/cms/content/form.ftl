@@ -525,9 +525,9 @@
                 });
             },
             //根据封面获取当前文章
-            getByFengMian: function (categoryId) {
+            getFromFengMian: function (categoryId) {
                 var that = this;
-                ms.http.get(ms.manager + "/cms/content/getByFengMian.do", {
+                ms.http.get(ms.manager + "/cms/content/getFromFengMian.do", {
                     "categoryId": categoryId
                 }).then(function (res) {
                     if (res.result) {
@@ -680,7 +680,7 @@
                 this.get(this.form.id);
             }
             if (this.type) {
-                this.getByFengMian(this.form.categoryId);
+                this.getFromFengMian(this.form.categoryId);
                 this.returnIsShow = false;
             }
         }

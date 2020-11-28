@@ -34,7 +34,6 @@ import net.mingsoft.cms.dao.ICategoryDao;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.cms.util.CmsParserUtil;
-import net.mingsoft.mdiy.bean.AttributeBean;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.entity.ModelEntity;
 import net.mingsoft.mdiy.util.ParserUtil;
@@ -122,7 +121,6 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		// 网站风格物理路径
 		List<CategoryBean> articleIdList = null;
 		List<CategoryEntity> categoryList = null;
-		AttributeBean attributeBean = new AttributeBean();
 		ContentBean contentBean = new ContentBean();
 		contentBean.setBeginTime(dateTime);
 		Map<String, Object> map = new HashMap<>();
@@ -145,12 +143,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 					LOG.error("模板不存在：{}",category.getCategoryUrl());
 					continue;
 				}
-				// 获取文章列表表属性
-				ParserUtil.read(category.getCategoryListUrl(),map, page,attributeBean);
-				contentBean.setFlag(attributeBean.getFlag());
-				contentBean.setNoflag(attributeBean.getNoflag());
-				contentBean.setOrder(attributeBean.getOrder());
-				contentBean.setOrderBy(attributeBean.getOrderby());
+
 			}
 			articleIdList = queryIdsByCategoryIdForParser(contentBean);
 			// 有符合条件的就更新
@@ -190,13 +183,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 				map.put(ParserUtil.HTML, ParserUtil.HTML);
 				map.put(ParserUtil.URL, BasicUtil.getUrl());
 				map.put(ParserUtil.PAGE, page);
-				AttributeBean attributeBean = new AttributeBean();
-				// 获取文章列表模板标签属性
-				ParserUtil.read(column.getCategoryListUrl(), map, page, attributeBean);
-				contentBean.setFlag(attributeBean.getFlag());
-				contentBean.setNoflag(attributeBean.getNoflag());
-				contentBean.setOrder(attributeBean.getOrder());
-				contentBean.setOrderBy(attributeBean.getOrderby());
+
 			}
 			articleIdList = contentDao.queryIdsByCategoryIdForParser(contentBean);
 			// 判断列表类型
@@ -242,7 +229,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		if(BasicUtil.getWebsiteApp() !=null){
 			map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
 		}
-		String read = ParserUtil.read(templatePath, map);
+		String read = ParserUtil.rendering(templatePath, map);
 		FileUtil.writeString(read, ParserUtil.buildHtmlPath(targetPath), net.mingsoft.base.constant.Const.UTF8);
 	}
 
