@@ -70,7 +70,7 @@ MODIFY COLUMN `dict_remarks`  varchar(1000) CHARACTER SET utf8 COLLATE utf8_bin 
 
 
 #规范字段开始
-# 注意这里改了类型,原有空的数据需要set null
+UPDATE `cms_category` SET `category_id` = NULL WHERE `category_id` = "";
 ALTER TABLE `cms_category`
 MODIFY COLUMN `category_id` bigint(20) NULL DEFAULT NULL COMMENT '所属栏目' AFTER `id`;
 ALTER TABLE `cms_category`
