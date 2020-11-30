@@ -58,7 +58,7 @@
                 <div class="class-14" >
                     <el-form-item>
                         <template slot='label'>文章栏目
-                            <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="根据时间与栏目类型生成文章">
+                            <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="生成对应栏目属性为列表的内容数据，例如：新闻详情、产品详情">
                                 <i class="el-icon-question" slot="reference"></i>
                             </el-popover>
                         </template>
@@ -73,7 +73,7 @@
                 <div class="class-17" >
                     <el-form-item>
                         <template slot='label'>指定时间
-                            <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="指定时间需要小于生成文章的发布时间">
+                            <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="根据内容的发布时间来生成，例如：2020-10-10，则生成10月10号以后发布的内容">
                                 <i class="el-icon-question" slot="reference"></i>
                             </el-popover>
                         </template>
@@ -107,7 +107,7 @@
                     <el-form-item>
 
                         <template slot='label'>生成栏目
-                            <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="更新栏目列表，推荐使用指定栏目更新。系统提示“更新中”请不要刷新页面或点击其他菜单。">
+                            <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="生成栏目属性为列表、封面的内容数据，例如：关于我们、公司介绍、新闻列表、产品列表">
                                 <i class="el-icon-question" slot="reference"></i>
                             </el-popover>
                         </template>
