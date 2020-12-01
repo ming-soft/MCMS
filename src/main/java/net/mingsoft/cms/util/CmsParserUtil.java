@@ -192,6 +192,7 @@ public class CmsParserUtil extends ParserUtil {
 			if(articleIdList.get(artId).getMdiyModelId() != null && articleIdList.get(artId).getMdiyModelId() > 0){
 				columnContentModelId = articleIdList.get(artId).getMdiyModelId();
 			}
+
 			// 文章是否已经生成了，生成了就跳过
 			if (generateIds.contains(articleId)) {
 				artId++;
@@ -208,10 +209,11 @@ public class CmsParserUtil extends ParserUtil {
 			//如果是封面就生成index.html
 			if(Integer.parseInt(articleIdList.get(artId).getCategoryType()) == COLUMN_TYPE_COVER) {
 				writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + ParserUtil.INDEX);
-			}else {
+			} else {
                 // 组合文章路径如:html/站点id/栏目id/文章id.html
                 writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + articleId);
             }
+
 			Map<String, Object> parserParams = new HashMap<String, Object>();
 			parserParams.put(ParserUtil.COLUMN, articleIdList.get(artId));
 			// 判断当前栏目是否有自定义模型

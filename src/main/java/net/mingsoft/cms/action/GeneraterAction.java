@@ -24,6 +24,8 @@ package net.mingsoft.cms.action;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.biz.IModelBiz;
@@ -61,12 +63,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @ClassName: GeneraterAction
  * @Description:TODO 生成器
  * @author: 铭飞开发团队
  * @date: 2018年1月31日 下午2:52:07
- *
  * @Copyright: 2018 www.mingsoft.net Inc. All rights reserved.
  */
 @Controller("cmsGenerater")
@@ -101,10 +101,7 @@ public class GeneraterAction extends BaseAction {
     private String managerPath;
 
     /**
-
-
-
-     /**
+     * /**
      * 更新主页
      *
      * @return
@@ -182,11 +179,11 @@ public class GeneraterAction extends BaseAction {
                 //TODO 暂时先用字符串代替
                 case "1": // 列表
 
-					// 判断模板文件是否存在
-					if (!FileUtil.exist(ParserUtil.buildTempletPath(column.getCategoryListUrl()))) {
-						LOG.error("模板不存在：{}", column.getCategoryUrl());
-						continue;
-					}
+                    // 判断模板文件是否存在
+                    if (!FileUtil.exist(ParserUtil.buildTempletPath(column.getCategoryListUrl()))) {
+                        LOG.error("模板不存在：{}", column.getCategoryUrl());
+                        continue;
+                    }
 
                     CmsParserUtil.generateList(column, articleIdList.size());
                     break;
@@ -221,7 +218,7 @@ public class GeneraterAction extends BaseAction {
         String dateTime = request.getParameter("dateTime");
         // 网站风格物理路径
         List<CategoryBean> articleIdList = null;
-        List<CategoryEntity> categoryList = null;
+        List<CategoryEntity> categoryList = new ArrayList<CategoryEntity>();
         ContentBean contentBean = new ContentBean();
         contentBean.setBeginTime(dateTime);
         Map<String, Object> map = new HashMap<>();
@@ -234,44 +231,38 @@ public class GeneraterAction extends BaseAction {
         map.put(ParserUtil.PAGE, page);
         // 生成所有栏目的文章
         if ("0".equals(columnId)) {
-            CategoryEntity categoryEntity = new CategoryEntity();
-            categoryList = categoryBiz.query(categoryEntity);
-            for (CategoryEntity category : categoryList) {
-                contentBean.setCategoryId(category.getId());
-                // 分类是列表
-                if (category.getCategoryType().equals("1")) {
-                    // 判断模板文件是否存在
-                    if (!FileUtil.exist(ParserUtil.buildTempletPath(category.getCategoryListUrl())) || StringUtils.isEmpty(category.getCategoryListUrl())) {
-                        LOG.error("模板不存在：{}", category.getCategoryUrl());
-                        continue;
-                    }
-
-                }
-                //将文章列表标签中的中的参数
-                articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
-                // 有符合条件的就更新
-                if (articleIdList.size() > 0) {
-                    CmsParserUtil.generateBasic(articleIdList);
-                }
-            }
+            categoryList = categoryBiz.list(Wrappers.<CategoryEntity>lambdaQuery()
+                    .isNull(CategoryEntity::getCategoryParentId));
         } else {
             CategoryEntity category = (CategoryEntity) categoryBiz.getById(columnId);
-            contentBean.setCategoryId(columnId);
+            categoryList.add(category);
+        }
+
+        for (CategoryEntity category : categoryList) {
+            contentBean.setCategoryId(category.getId());
+            //将文章列表标签中的中的参数
+            articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
             // 分类是列表
             if (category.getCategoryType().equals("1")) {
-                // 获取文章列表表属性
                 // 判断模板文件是否存在
-                if (!FileUtil.exist(ParserUtil.buildTempletPath(category.getCategoryUrl()))) {
+                if (!FileUtil.exist(ParserUtil.buildTempletPath(category.getCategoryListUrl())) || StringUtils.isEmpty(category.getCategoryListUrl())) {
                     LOG.error("模板不存在：{}", category.getCategoryUrl());
-                    return ResultData.build().error(getResString("templet.file"));
+                    continue;
                 }
+            } else if (category.getCategoryType().equals("2")) {
+                CategoryBean columnArticleIdBean = new CategoryBean();
+                CopyOptions copyOptions = CopyOptions.create();
+                copyOptions.setIgnoreError(true);
+                BeanUtil.copyProperties(category, columnArticleIdBean, copyOptions);
+                articleIdList.add(columnArticleIdBean);
             }
-            articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
             // 有符合条件的就更新
             if (articleIdList.size() > 0) {
                 CmsParserUtil.generateBasic(articleIdList);
             }
         }
+
+
         return ResultData.build().success();
     }
 
