@@ -173,6 +173,9 @@ public class CmsParserUtil extends ParserUtil {
 		ExecutorService pool= SpringUtil.getBean(ExecutorService.class);
 		// 生成文章
 		for (int artId = 0; artId < articleIdList.size();) {
+
+
+
 			String writePath = null;
 			//设置分页类
 			PageBean page = new PageBean();
