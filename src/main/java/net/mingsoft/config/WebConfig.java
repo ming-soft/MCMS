@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.mingsoft.basic.filter.XSSEscapeFilter;
 import net.mingsoft.basic.interceptor.ActionInterceptor;
+import net.mingsoft.basic.resolver.MSLocaleResolver;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
@@ -151,5 +152,10 @@ public class WebConfig implements WebMvcConfigurer {
 						0L, TimeUnit.MILLISECONDS,
 						new LinkedBlockingQueue<Runnable>());
 		return pool;
+	}
+
+	@Bean
+	public MSLocaleResolver localeResolver(){
+		return new MSLocaleResolver();
 	}
 }

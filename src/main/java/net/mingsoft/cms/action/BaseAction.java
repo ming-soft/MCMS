@@ -14,7 +14,7 @@ public class BaseAction extends net.mingsoft.mdiy.action.BaseAction{
         try {
             str = super.getResString(key);
         } catch (MissingResourceException e) {
-            str = net.mingsoft.cms.constant.Const.RESOURCES.getString(key);
+            str = getLocaleString(key,net.mingsoft.cms.constant.Const.RESOURCES);
         }
 
         return str;
