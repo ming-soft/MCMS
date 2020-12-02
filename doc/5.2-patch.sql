@@ -80,7 +80,8 @@ DROP COLUMN `app_id`;
 ALTER TABLE `cms_category`
 MODIFY COLUMN `category_id` bigint(20) ZEROFILL NULL DEFAULT NULL COMMENT '所属栏目' AFTER `id`,
 MODIFY COLUMN `mdiy_model_id` int(11) NULL DEFAULT NULL COMMENT '栏目管理的内容模型id' AFTER `dict_id`;
-
+ALTER TABLE `cms_category`
+CHANGE COLUMN `category_parent_id` `category_parent_ids` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '父类型编号，多个id逗号' AFTER `mdiy_model_id`;
 
 ALTER TABLE `cms_content`
 CHANGE COLUMN `content_category_id` `category_id` bigint(20) UNSIGNED NULL COMMENT '所属栏目' AFTER `id`;

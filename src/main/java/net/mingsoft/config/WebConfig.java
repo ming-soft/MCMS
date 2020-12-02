@@ -154,6 +154,10 @@ public class WebConfig implements WebMvcConfigurer {
 		return pool;
 	}
 
+	/**
+	 * 国际化配置拦截
+	 * @return
+	 */
 	@Bean
 	public MSLocaleResolver localeResolver(){
 		return new MSLocaleResolver();
