@@ -104,7 +104,7 @@ public class CmsParserUtil extends ParserUtil {
 			//标签中使用field获取当前栏目
 			parserParams.put(FIELD, column);
 			parserParams.put(IS_DO, false);
-			parserParams.put(HTML, HTML);
+			parserParams.put(HTML, htmlDir);
 			if(BasicUtil.getWebsiteApp() != null){
 				parserParams.put(APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
 			}
