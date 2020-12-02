@@ -31,7 +31,6 @@ import java.util.concurrent.ExecutorService;
  * 文章解析工具类
  */
 public class CmsParserUtil extends ParserUtil {
-
 	/**
 	 * 封面
 	 */
@@ -48,14 +47,14 @@ public class CmsParserUtil extends ParserUtil {
 	 *            生成后的路径，默认生成的html文件，所以不能带.html后缀，
 	 * @throws IOException
 	 */
-	public static void generate(String templatePath, String targetPath) throws IOException {
+	public static void generate(String templatePath, String targetPath,String htmlDir) throws IOException {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(IS_DO, false);
 		CategoryEntity column = new CategoryEntity();
 		//内容管理栏目编码
 		map.put(COLUMN, column);
-		String content = CmsParserUtil.generate(templatePath, map);
-		FileUtil.writeString(content, ParserUtil.buildHtmlPath(targetPath), Const.UTF8);
+		String content = CmsParserUtil.generate(templatePath, map,htmlDir);
+		FileUtil.writeString(content, ParserUtil.buildHtmlPath(targetPath,htmlDir), Const.UTF8);
 	}
 
 	/**
@@ -67,7 +66,7 @@ public class CmsParserUtil extends ParserUtil {
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	public static void generateList(CategoryEntity column, int articleIdTotal)
+	public static void generateList(CategoryEntity column, int articleIdTotal,String htmlDir)
 			throws TemplateNotFoundException, MalformedTemplateNameException, ParseException, IOException {
 		try{
 			// 文章的栏目模型编号
@@ -86,7 +85,7 @@ public class CmsParserUtil extends ParserUtil {
 				map.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
 			}
 
-			map.put(ParserUtil.HTML, ParserUtil.HTML);
+			map.put(ParserUtil.HTML, htmlDir);
 			map.put(ParserUtil.URL, BasicUtil.getUrl());
 			map.put(ParserUtil.PAGE, page);
 
@@ -122,7 +121,7 @@ public class CmsParserUtil extends ParserUtil {
 			//文章列表页没有写文章列表标签，总数为0
 			if (totalPageSize <= 0) {
 				// 数据库中第一页是从开始0*size
-				columnListPath = ParserUtil.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX);
+				columnListPath = ParserUtil.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX,htmlDir);
 				// 设置分页的起始位置
 				page.setPageNo(pageNo);
 				String read = ParserUtil.rendering(File.separator + column.getCategoryListUrl(), parserParams);
@@ -135,11 +134,11 @@ public class CmsParserUtil extends ParserUtil {
 						// 数据库中第一页是从开始0*size
 						// 首页路径index.html
 						columnListPath = ParserUtil
-								.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX);
+								.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX,htmlDir);
 					} else {
 						// 其他路径list-2.html
 						columnListPath = ParserUtil
-								.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.PAGE_LIST + pageNo);
+								.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.PAGE_LIST + pageNo,htmlDir);
 					}
 					// 设置分页的起始位置
 					page.setPageNo(pageNo);
@@ -164,7 +163,7 @@ public class CmsParserUtil extends ParserUtil {
 	 * @throws MalformedTemplateNameException
 	 * @throws TemplateNotFoundException
 	 */
-	public static void generateBasic(List<CategoryBean>  articleIdList) {
+	public static void generateBasic(List<CategoryBean>  articleIdList,String htmlDir) {
 
 		Map<Object, Object> contentModelMap = new HashMap<Object, Object>();
 		ModelEntity contentModel = null;
@@ -211,10 +210,10 @@ public class CmsParserUtil extends ParserUtil {
 			generateIds.add(articleId);
 			//如果是封面就生成index.html
 			if(Integer.parseInt(articleIdList.get(artId).getCategoryType()) == COLUMN_TYPE_COVER) {
-				writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + ParserUtil.INDEX);
+				writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + ParserUtil.INDEX,htmlDir);
 			} else {
                 // 组合文章路径如:html/站点id/栏目id/文章id.html
-                writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + articleId);
+                writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + articleId,htmlDir);
             }
 
 			Map<String, Object> parserParams = new HashMap<String, Object>();
@@ -262,7 +261,7 @@ public class CmsParserUtil extends ParserUtil {
 				String content = null;
 				try {
 					SpringUtil.setRequest(request);
-					content = CmsParserUtil.generate(columnUrl, cloneMap);
+					content = CmsParserUtil.generate(columnUrl, cloneMap,htmlDir);
 					FileUtil.writeString(content, finalWritePath, Const.UTF8);
 				} catch (IOException e) {
 					e.printStackTrace();

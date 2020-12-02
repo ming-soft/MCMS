@@ -100,6 +100,9 @@ public class GeneraterAction extends BaseAction {
     @Value("${ms.manager.path}")
     private String managerPath;
 
+    @Value("${ms.diy.html-dir:html}")
+    private String htmlDir;
+
     /**
      * /**
      * 更新主页
@@ -131,7 +134,7 @@ public class GeneraterAction extends BaseAction {
         if (!FileUtil.exist(ParserUtil.buildTempletPath())) {
             return ResultData.build().error(getResString("templet.file"));
         } else {
-            CmsParserUtil.generate(tmpFileName, generateFileName);
+            CmsParserUtil.generate(tmpFileName, generateFileName,htmlDir);
             return ResultData.build().success();
         }
     }
@@ -185,7 +188,7 @@ public class GeneraterAction extends BaseAction {
                         continue;
                     }
 
-                    CmsParserUtil.generateList(column, articleIdList.size());
+                    CmsParserUtil.generateList(column, articleIdList.size(),htmlDir);
                     break;
                 case "2":// 单页
                     if (articleIdList.size() == 0) {
@@ -195,7 +198,7 @@ public class GeneraterAction extends BaseAction {
                         BeanUtil.copyProperties(column, columnArticleIdBean, copyOptions);
                         articleIdList.add(columnArticleIdBean);
                     }
-                    CmsParserUtil.generateBasic(articleIdList);
+                    CmsParserUtil.generateBasic(articleIdList,htmlDir);
                     break;
             }
         }
@@ -226,7 +229,7 @@ public class GeneraterAction extends BaseAction {
             map.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
         }
         PageBean page = new PageBean();
-        map.put(ParserUtil.HTML, ParserUtil.HTML);
+        map.put(ParserUtil.HTML, htmlDir);
         map.put(ParserUtil.URL, BasicUtil.getUrl());
         map.put(ParserUtil.PAGE, page);
         // 生成所有栏目的文章
@@ -258,7 +261,7 @@ public class GeneraterAction extends BaseAction {
             }
             // 有符合条件的就更新
             if (articleIdList.size() > 0) {
-                CmsParserUtil.generateBasic(articleIdList);
+                CmsParserUtil.generateBasic(articleIdList,htmlDir);
             }
         }
 
@@ -277,7 +280,7 @@ public class GeneraterAction extends BaseAction {
     public String viewIndex(HttpServletRequest request, @PathVariable String position, HttpServletResponse response) {
         AppEntity app = BasicUtil.getApp();
         // 组织主页预览地址
-        String indexPosition = app.getAppHostUrl() + File.separator + ParserUtil.HTML + File.separator + app.getAppDir()
+        String indexPosition = app.getAppHostUrl() + File.separator + htmlDir+ File.separator + app.getAppDir()
                 + File.separator + position + ParserUtil.HTML_SUFFIX;
         return "redirect:" + indexPosition;
     }

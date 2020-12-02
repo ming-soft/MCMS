@@ -41,6 +41,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
@@ -72,6 +73,9 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 	 */
 	@Autowired
 	private ICategoryDao categoryDao;
+
+	@Value("${ms.diy.html-dir:html}")
+	private String htmlDir;
 
 
 	@Override
@@ -128,7 +132,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 			map.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
 		}
 		PageBean page = new PageBean();
-		map.put(ParserUtil.HTML, ParserUtil.HTML);
+		map.put(ParserUtil.HTML, htmlDir);
 		map.put(ParserUtil.URL, BasicUtil.getUrl());
 		map.put(ParserUtil.PAGE, page);
 
@@ -148,7 +152,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 			articleIdList = queryIdsByCategoryIdForParser(contentBean);
 			// 有符合条件的就更新
 			if (articleIdList.size() > 0) {
-				CmsParserUtil.generateBasic(articleIdList);
+				CmsParserUtil.generateBasic(articleIdList,htmlDir);
 			}
 		}
 	}
@@ -180,7 +184,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 					map.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
 				}
 				PageBean page = new PageBean();
-				map.put(ParserUtil.HTML, ParserUtil.HTML);
+				map.put(ParserUtil.HTML, htmlDir);
 				map.put(ParserUtil.URL, BasicUtil.getUrl());
 				map.put(ParserUtil.PAGE, page);
 
@@ -190,7 +194,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 			switch (column.getCategoryType()) {
 				//TODO 暂时先用字符串代替
 				case "1": // 列表
-					CmsParserUtil.generateList(column, articleIdList.size());
+					CmsParserUtil.generateList(column, articleIdList.size(),htmlDir);
 					break;
 				case "2":// 单页
 					if(articleIdList.size()==0){
@@ -200,7 +204,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 						BeanUtil.copyProperties(column,columnArticleIdBean,copyOptions);
 						articleIdList.add(columnArticleIdBean);
 					}
-					CmsParserUtil.generateBasic(articleIdList);
+					CmsParserUtil.generateBasic(articleIdList,htmlDir);
 					break;
 			}
 		}
@@ -224,13 +228,13 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 			map.put(ParserUtil.URL, BasicUtil.getUrl());
 		}
 		//设置生成的路径
-		map.put(ParserUtil.HTML, ParserUtil.HTML);
+		map.put(ParserUtil.HTML, htmlDir);
 		//设置站点编号
 		if(BasicUtil.getWebsiteApp() !=null){
 			map.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
 		}
 		String read = ParserUtil.rendering(templatePath, map);
-		FileUtil.writeString(read, ParserUtil.buildHtmlPath(targetPath), net.mingsoft.base.constant.Const.UTF8);
+		FileUtil.writeString(read, ParserUtil.buildHtmlPath(targetPath,htmlDir), net.mingsoft.base.constant.Const.UTF8);
 	}
 
 }

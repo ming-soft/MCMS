@@ -46,6 +46,7 @@ import net.mingsoft.mdiy.entity.ModelEntity;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -102,6 +103,10 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
     private IModelBiz modelBiz;
 
 
+    @Value("${ms.diy.html-dir:html}")
+    private String htmlDir;
+
+
     /**
      * 动态列表页
      */
@@ -121,7 +126,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         String content = "";
         try {
             //根据模板路径，参数生成
-            content = CmsParserUtil.generate(ParserUtil.INDEX + ParserUtil.HTM_SUFFIX, map);
+            content = CmsParserUtil.generate(ParserUtil.INDEX + ParserUtil.HTM_SUFFIX, map,htmlDir);
         } catch (TemplateNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedTemplateNameException e) {
@@ -179,7 +184,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         String content = "";
         try {
             //根据模板路径，参数生成
-            content = CmsParserUtil.generate(columnArticles.get(0).getCategoryListUrl(), map);
+            content = CmsParserUtil.generate(columnArticles.get(0).getCategoryListUrl(),map,htmlDir);
         } catch (TemplateNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedTemplateNameException e) {
@@ -281,7 +286,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         }
         try {
             //根据模板路径，参数生成
-            content = CmsParserUtil.generate(column.getCategoryUrl(), map);
+            content = CmsParserUtil.generate(column.getCategoryUrl(), map,htmlDir);
         } catch (TemplateNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedTemplateNameException e) {
@@ -332,7 +337,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         int typeId = 0;
         String categoryIds = BasicUtil.getString("categoryId");
         //当传递了栏目编号，但不是栏目集合
-        if (!StringUtil.isBlank(categoryIds) && !categoryIds.contains(",")) {
+        if (StringUtils.isNotBlank(categoryIds) && !categoryIds.contains(",")) {
             typeId = Integer.parseInt(categoryIds);
         }
 
@@ -385,7 +390,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
                     }
 
                     // 保存至自定义字段集合
-                    if (!StringUtil.isBlank(value)) {
+                    if (StringUtils.isNotBlank(value)) {
                         diyFieldName.put(entry.getKey(), value);
                         //判断请求中的是否是自定义模型中的字段
                         if (filedStr.contains(entry.getKey())) {
@@ -430,7 +435,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
             params.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
         }
         params.put(ParserUtil.PAGE, page);
-        params.put(ParserUtil.HTML, ParserUtil.HTML);
+        params.put(ParserUtil.HTML, htmlDir);
         //动态解析
         params.put(ParserUtil.IS_DO, false);
         //设置动态请求的模块路径
@@ -473,7 +478,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
             params.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
         }
         params.put(ParserUtil.PAGE, page);
-        params.put(ParserUtil.HTML, ParserUtil.HTML);
+        params.put(ParserUtil.HTML, htmlDir);
         //动态解析
         params.put(ParserUtil.IS_DO, false);
         //设置动态请求的模块路径
@@ -483,7 +488,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         String content = "";
         try {
             //根据模板路径，参数生成
-            content = CmsParserUtil.generate(SEARCH + ParserUtil.HTM_SUFFIX, params);
+            content = CmsParserUtil.generate(SEARCH + ParserUtil.HTM_SUFFIX, params,htmlDir);
         } catch (TemplateNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedTemplateNameException e) {
