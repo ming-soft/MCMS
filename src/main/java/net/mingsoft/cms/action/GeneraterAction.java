@@ -223,7 +223,7 @@ public class GeneraterAction extends BaseAction {
         contentBean.setBeginTime(dateTime);
         Map<String, Object> map = new HashMap<>();
         if (BasicUtil.getWebsiteApp() != null) {
-            map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+            map.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
         }
         PageBean page = new PageBean();
         map.put(ParserUtil.HTML, ParserUtil.HTML);
@@ -277,7 +277,7 @@ public class GeneraterAction extends BaseAction {
     public String viewIndex(HttpServletRequest request, @PathVariable String position, HttpServletResponse response) {
         AppEntity app = BasicUtil.getApp();
         // 组织主页预览地址
-        String indexPosition = app.getAppHostUrl() + File.separator + ParserUtil.HTML + File.separator + app.getAppId()
+        String indexPosition = app.getAppHostUrl() + File.separator + ParserUtil.HTML + File.separator + app.getAppDir()
                 + File.separator + position + ParserUtil.HTML_SUFFIX;
         return "redirect:" + indexPosition;
     }

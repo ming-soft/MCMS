@@ -83,7 +83,7 @@ public class CmsParserUtil extends ParserUtil {
 			//获取模板中列表标签中的条件
 			Map<String, Object> map = new HashMap<>();
 			if (BasicUtil.getWebsiteApp() != null) {
-				map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+				map.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
 			}
 
 			map.put(ParserUtil.HTML, ParserUtil.HTML);
@@ -107,7 +107,7 @@ public class CmsParserUtil extends ParserUtil {
 			parserParams.put(IS_DO, false);
 			parserParams.put(HTML, HTML);
 			if(BasicUtil.getWebsiteApp() != null){
-				parserParams.put(APP_ID, BasicUtil.getWebsiteApp().getAppId());
+				parserParams.put(APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
 			}
 			if (contentModel!=null) {
 				// 将自定义模型编号设置为key值

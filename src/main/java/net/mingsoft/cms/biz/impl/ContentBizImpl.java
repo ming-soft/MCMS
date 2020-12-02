@@ -125,7 +125,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		contentBean.setBeginTime(dateTime);
 		Map<String, Object> map = new HashMap<>();
 		if(BasicUtil.getWebsiteApp() != null){
-			map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+			map.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
 		}
 		PageBean page = new PageBean();
 		map.put(ParserUtil.HTML, ParserUtil.HTML);
@@ -177,7 +177,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 				//获取模板中列表标签中的条件
 				Map<String, Object> map = new HashMap<>();
 				if(BasicUtil.getWebsiteApp() != null){
-					map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+					map.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
 				}
 				PageBean page = new PageBean();
 				map.put(ParserUtil.HTML, ParserUtil.HTML);
@@ -227,7 +227,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		map.put(ParserUtil.HTML, ParserUtil.HTML);
 		//设置站点编号
 		if(BasicUtil.getWebsiteApp() !=null){
-			map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+			map.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
 		}
 		String read = ParserUtil.rendering(templatePath, map);
 		FileUtil.writeString(read, ParserUtil.buildHtmlPath(targetPath), net.mingsoft.base.constant.Const.UTF8);

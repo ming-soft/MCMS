@@ -427,7 +427,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         params.put(ParserUtil.URL, url);
         params.put(SEARCH, searchMap);
         if (BasicUtil.getWebsiteApp() != null) {
-            params.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+            params.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
         }
         params.put(ParserUtil.PAGE, page);
         params.put(ParserUtil.HTML, ParserUtil.HTML);
@@ -470,7 +470,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         params.put(ParserUtil.URL, url);
         params.put(SEARCH, searchMap);
         if (BasicUtil.getWebsiteApp() != null) {
-            params.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+            params.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
         }
         params.put(ParserUtil.PAGE, page);
         params.put(ParserUtil.HTML, ParserUtil.HTML);
