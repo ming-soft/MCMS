@@ -335,7 +335,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
         //获取栏目信息
         int typeId = 0;
-        String categoryIds = BasicUtil.getString("categoryId");
+        String categoryIds = BasicUtil.getString("categoryIds");
         //当传递了栏目编号，但不是栏目集合
         if (StringUtils.isNotBlank(categoryIds) && !categoryIds.contains(",")) {
             typeId = Integer.parseInt(categoryIds);
