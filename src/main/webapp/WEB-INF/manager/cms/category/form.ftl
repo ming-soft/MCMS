@@ -509,6 +509,14 @@
                         if (!res.data.categoryId) {
                             res.data.categoryId = '0';
                         }
+                        var mdiyModelId = res.data.mdiyModelId;
+                        if (mdiyModelId) {
+                            mdiyModelId += "";
+                            if (mdiyModelId == "0") {
+                                mdiyModelId = null;
+                            }
+                            res.data.mdiyModelId = mdiyModelId;
+                        }
 
                         that.form = res.data; //判断该分类是否存在文章，存在则不能修改栏目属性
 
