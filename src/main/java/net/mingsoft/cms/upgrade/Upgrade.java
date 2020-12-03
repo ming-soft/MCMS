@@ -30,7 +30,7 @@ public class Upgrade {
 
             //将parentId第一行设为顶级节点
             String topId = "0";
-            String parentId = x.getParentid();
+            String parentId = x.getParentids();
             if (parentId != null) {
                 topId = parentId.split(",")[0];
             }
@@ -40,7 +40,7 @@ public class Upgrade {
             boolean leaf = true;
             //判断是否叶子，循环查找，如果有节点的父节点中包含该节点的id则判断为否跳出循环
             for (int i = 0; i< list.size(); i++) {
-                String pId = list.get(i).getParentid();
+                String pId = list.get(i).getParentids();
                 if (pId == null) {
                     continue;
                 }

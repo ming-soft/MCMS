@@ -36,6 +36,7 @@ import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
+import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.util.CmsParserUtil;
 import net.mingsoft.mdiy.bean.PageBean;
@@ -178,9 +179,9 @@ public class GeneraterAction extends BaseAction {
 
             articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
             // 判断列表类型
-            switch (column.getCategoryType()) {
+            switch (CategoryTypeEnum.get(column.getCategoryType())) {
                 //TODO 暂时先用字符串代替
-                case "1": // 列表
+                case LIST: // 列表
 
                     // 判断模板文件是否存在
                     if (!FileUtil.exist(ParserUtil.buildTempletPath(column.getCategoryListUrl()))) {
@@ -190,7 +191,7 @@ public class GeneraterAction extends BaseAction {
 
                     CmsParserUtil.generateList(column, articleIdList.size(),htmlDir);
                     break;
-                case "2":// 单页
+                case COVER:// 单页
                     if (articleIdList.size() == 0) {
                         CategoryBean columnArticleIdBean = new CategoryBean();
                         CopyOptions copyOptions = CopyOptions.create();
@@ -235,7 +236,7 @@ public class GeneraterAction extends BaseAction {
         // 生成所有栏目的文章
         if ("0".equals(columnId)) {
             categoryList = categoryBiz.list(Wrappers.<CategoryEntity>lambdaQuery()
-                    .isNull(CategoryEntity::getCategoryParentId));
+                    .isNull(CategoryEntity::getCategoryParentIds));
         } else {
             CategoryEntity category = (CategoryEntity) categoryBiz.getById(columnId);
             categoryList.add(category);
@@ -246,13 +247,13 @@ public class GeneraterAction extends BaseAction {
             //将文章列表标签中的中的参数
             articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
             // 分类是列表
-            if (category.getCategoryType().equals("1")) {
+            if (category.getCategoryType().equals(CategoryTypeEnum.LIST.toString())) {
                 // 判断模板文件是否存在
                 if (!FileUtil.exist(ParserUtil.buildTempletPath(category.getCategoryListUrl())) || StringUtils.isEmpty(category.getCategoryListUrl())) {
                     LOG.error("模板不存在：{}", category.getCategoryUrl());
                     continue;
                 }
-            } else if (category.getCategoryType().equals("2")) {
+            } else if (category.getCategoryType().equals(CategoryTypeEnum.COVER.toString())) {
                 CategoryBean columnArticleIdBean = new CategoryBean();
                 CopyOptions copyOptions = CopyOptions.create();
                 copyOptions.setIgnoreError(true);

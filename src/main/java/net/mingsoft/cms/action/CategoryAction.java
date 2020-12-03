@@ -163,7 +163,7 @@ public class CategoryAction extends BaseAction {
 		if(!StringUtil.checkLength(category.getCategoryPath()+"", 1, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.path"), "1", "100"));
 		}
-		if(!StringUtil.checkLength(category.getCategoryParentId()+"", 1, 100)){
+		if(!StringUtil.checkLength(category.getCategoryParentIds()+"", 1, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
 		}
 		//判断拼音是否重复
@@ -241,7 +241,7 @@ public class CategoryAction extends BaseAction {
 		if(!StringUtil.checkLength(category.getCategoryPath()+"", 0, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.path"), "1", "100"));
 		}
-		if(!StringUtil.checkLength(category.getCategoryParentId()+"", 0, 100)){
+		if(!StringUtil.checkLength(category.getCategoryParentIds()+"", 0, 100)){
 			return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
 		}
 		 //判断拼音是否重复并且是否和原拼音相同
@@ -268,7 +268,7 @@ public class CategoryAction extends BaseAction {
 		 }
 		//判断是否选择子级为所属栏目
 		 CategoryEntity _category = new CategoryEntity();
-		 _category.setCategoryParentId(category.getId());
+		 _category.setCategoryParentIds(category.getId());
 		 List<CategoryEntity> categoryList = categoryBiz.queryChilds(_category);
 		 for(CategoryEntity item:categoryList){
 			 if(item.getId().equals(category.getCategoryId())){
@@ -302,7 +302,7 @@ public class CategoryAction extends BaseAction {
 			return ResultData.build().error(getResString("err.error", this.getResString("id")));
 		}
 		category = categoryBiz.getById(category.getId());
-		category.setCategoryParentId(null);
+		category.setCategoryParentIds(null);
 		List<CategoryEntity> childs = categoryBiz.queryChilds(category);
 		//更新与父节点相同类型的子栏目的模板内容
 		for (int i =0; i < childs.size(); i++) {

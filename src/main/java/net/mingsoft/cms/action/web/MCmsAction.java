@@ -21,8 +21,12 @@
 
 package net.mingsoft.cms.action.web;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.lang.Editor;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.PageUtil;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateException;
@@ -36,6 +40,7 @@ import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
+import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.cms.util.CmsParserUtil;
@@ -45,6 +50,7 @@ import net.mingsoft.mdiy.biz.IPageBiz;
 import net.mingsoft.mdiy.entity.ModelEntity;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -126,7 +132,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         String content = "";
         try {
             //根据模板路径，参数生成
-            content = CmsParserUtil.generate(ParserUtil.INDEX + ParserUtil.HTM_SUFFIX, map,htmlDir);
+            content = CmsParserUtil.generate(ParserUtil.INDEX + ParserUtil.HTM_SUFFIX, map, htmlDir);
         } catch (TemplateNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedTemplateNameException e) {
@@ -184,7 +190,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         String content = "";
         try {
             //根据模板路径，参数生成
-            content = CmsParserUtil.generate(columnArticles.get(0).getCategoryListUrl(),map,htmlDir);
+            content = CmsParserUtil.generate(columnArticles.get(0).getCategoryListUrl(), map, htmlDir);
         } catch (TemplateNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedTemplateNameException e) {
@@ -252,8 +258,8 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
             }
             // 文章的栏目路径
             String categoryParentId = articleIdList.get(artId).getId();
-            if (StringUtils.isNotBlank(articleIdList.get(artId).getCategoryParentId())) {
-                categoryParentId += ',' + articleIdList.get(artId).getCategoryParentId();
+            if (StringUtils.isNotBlank(articleIdList.get(artId).getCategoryParentIds())) {
+                categoryParentId += ',' + articleIdList.get(artId).getCategoryParentIds();
             }
             // 文章的栏目模型编号
             Integer columnContentModelId = articleIdList.get(artId).getMdiyModelId();
@@ -286,7 +292,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         }
         try {
             //根据模板路径，参数生成
-            content = CmsParserUtil.generate(column.getCategoryUrl(), map,htmlDir);
+            content = CmsParserUtil.generate(column.getCategoryUrl(), map, htmlDir);
         } catch (TemplateNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedTemplateNameException e) {
@@ -311,7 +317,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
     public String search(HttpServletRequest request, HttpServletResponse response) {
         //设置分页类
         PageBean page = new PageBean();
-        page.setSize(ParserUtil.getPageSize(SEARCH + ParserUtil.HTM_SUFFIX,20));
+        page.setSize(ParserUtil.getPageSize(SEARCH + ParserUtil.HTM_SUFFIX, 20));
 
         //参数集合，提供给解析使用
         Map<String, Object> params = new HashMap<>();
@@ -336,14 +342,32 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         //获取栏目信息
         int typeId = 0;
         String categoryIds = BasicUtil.getString("categoryIds");
+        List categoryIdList = CollectionUtil.newArrayList();
         //当传递了栏目编号，但不是栏目集合
         if (StringUtils.isNotBlank(categoryIds) && !categoryIds.contains(",")) {
             typeId = Integer.parseInt(categoryIds);
+        } else {
+            //取出所有的子栏目
+            String[] ids = categoryIds.split(",");
+            List<CategoryEntity> categoryList = categoryBiz.list(Wrappers.<CategoryEntity>lambdaQuery().ne(CategoryEntity::getCategoryType, CategoryTypeEnum.LINK.toString()));
+
+            categoryIdList = CollectionUtil.newArrayList(ids);
+            for(CategoryEntity c:categoryList) {
+                if(StringUtils.isNotEmpty(c.getParentids())) {
+                    for(String id:ids) {
+                        if(c.getParentids().indexOf(id)>-1) {
+                            categoryIdList.add(c.getId());
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
+        //重新组织 ID
+        categoryIds = StringUtils.join(categoryIdList, ",");
         //当前访问的项目地址
         String url = BasicUtil.getUrl();
-
 
         //根据栏目确定自定义模型
         if (typeId > 0) {
@@ -413,6 +437,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
 
         Map<String, Object> searchMap = field;
+        searchMap.put("categoryIds",categoryIds);
         StringBuilder urlParams = new StringBuilder();
 
         searchMap.forEach((k, v) -> {
@@ -488,7 +513,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         String content = "";
         try {
             //根据模板路径，参数生成
-            content = CmsParserUtil.generate(SEARCH + ParserUtil.HTM_SUFFIX, params,htmlDir);
+            content = CmsParserUtil.generate(SEARCH + ParserUtil.HTM_SUFFIX, params, htmlDir);
         } catch (TemplateNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedTemplateNameException e) {
@@ -549,8 +574,8 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
     public static void main(String[] args) {
 
-        int []  a= PageUtil.rainbow(20,30,5);
-        for(int _a:a) {
+        int[] a = PageUtil.rainbow(20, 30, 5);
+        for (int _a : a) {
             System.out.println(_a);
         }
 

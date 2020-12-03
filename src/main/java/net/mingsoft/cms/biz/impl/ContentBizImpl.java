@@ -30,6 +30,7 @@ import net.mingsoft.basic.holder.DataHolder;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.bean.ContentBean;
+import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.dao.ICategoryDao;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
@@ -141,7 +142,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		for(CategoryEntity category : categoryList){
 			contentBean.setCategoryId(category.getId());
 			// 分类是列表
-			if(category.getCategoryType().equals("1")){
+			if(category.getCategoryType().equals(CategoryTypeEnum.LIST.toString())){
 				// 判断模板文件是否存在
 				if (!FileUtil.exist(ParserUtil.buildTempletPath(category.getCategoryListUrl())) || StringUtils.isEmpty(category.getCategoryListUrl())) {
 					LOG.error("模板不存在：{}",category.getCategoryUrl());
@@ -172,7 +173,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 			ContentBean contentBean = new ContentBean();
 			contentBean.setCategoryId(column.getId());
 			// 分类是列表
-			if(column.getCategoryType().equals("1")) {
+			if(column.getCategoryType().equals(CategoryTypeEnum.LIST.toString())) {
 				// 判断模板文件是否存在
 				if (!FileUtil.exist(ParserUtil.buildTempletPath(column.getCategoryListUrl()))) {
 					LOG.error("模板不存在：{}", column.getCategoryUrl());
@@ -191,12 +192,12 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 			}
 			articleIdList = contentDao.queryIdsByCategoryIdForParser(contentBean);
 			// 判断列表类型
-			switch (column.getCategoryType()) {
+			switch (CategoryTypeEnum.get(column.getCategoryType())) {
 				//TODO 暂时先用字符串代替
-				case "1": // 列表
+				case LIST: // 列表
 					CmsParserUtil.generateList(column, articleIdList.size(),htmlDir);
 					break;
-				case "2":// 单页
+				case COVER:// 单页
 					if(articleIdList.size()==0){
 						CategoryBean columnArticleIdBean=new CategoryBean();
 						CopyOptions copyOptions=CopyOptions.create();

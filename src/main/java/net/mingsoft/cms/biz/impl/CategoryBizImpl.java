@@ -117,13 +117,13 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 		if(StringUtils.isNotEmpty(categoryEntity.getCategoryId())&&Long.parseLong(categoryEntity.getCategoryId())>0) {
 			CategoryEntity category = (CategoryEntity)getById(categoryEntity.getCategoryId());
 			path = category.getCategoryPath();
-			if(StringUtils.isEmpty(category.getCategoryParentId())) {
-				categoryEntity.setCategoryParentId(category.getId());
+			if(StringUtils.isEmpty(category.getCategoryParentIds())) {
+				categoryEntity.setCategoryParentIds(category.getId());
 			} else {
-				categoryEntity.setCategoryParentId(category.getCategoryParentId()+","+category.getId());
+				categoryEntity.setCategoryParentIds(category.getCategoryParentIds()+","+category.getId());
 			}
 		}else {
-			categoryEntity.setCategoryParentId(null);
+			categoryEntity.setCategoryParentIds(null);
 		}
 		//保存时先保存再修改链接地址，修改时直接修改
 		if(StringUtils.isNotBlank(categoryEntity.getId())) {
@@ -136,10 +136,10 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 		category.setCategoryId(categoryEntity.getId());
 		List<CategoryEntity> list = categoryDao.query(category);
 		list.forEach(x->{
-			if(StringUtils.isEmpty(categoryEntity.getCategoryParentId())) {
-				x.setCategoryParentId(categoryEntity.getId());
+			if(StringUtils.isEmpty(categoryEntity.getCategoryParentIds())) {
+				x.setCategoryParentIds(categoryEntity.getId());
 			} else {
-				x.setCategoryParentId(categoryEntity.getCategoryParentId()+","+categoryEntity.getId());
+				x.setCategoryParentIds(categoryEntity.getCategoryParentIds()+","+categoryEntity.getId());
 			}
 			String path=categoryEntity.getCategoryPath();
 			//判断是否有parentIds
@@ -181,7 +181,7 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 		CategoryEntity category = (CategoryEntity) categoryDao.selectById(categoryId);
 		//删除父类
 		if(category != null){
-			category.setCategoryParentId(null);
+			category.setCategoryParentIds(null);
 			List<CategoryEntity> childrenList = categoryDao.queryChildren(category);
 			List<String> ids = new ArrayList<>();
 			for(int i = 0; i < childrenList.size(); i++){
@@ -233,7 +233,7 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 	 * @param entity
 	 */
 	private void setTopId(CategoryEntity entity){
-		String categoryParentId = entity.getCategoryParentId();
+		String categoryParentId = entity.getCategoryParentIds();
 		if(StrUtil.isNotBlank(categoryParentId)){
 			String[] ids = categoryParentId.split(",");
 			//如果有ParentId就取第一个
