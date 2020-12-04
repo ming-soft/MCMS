@@ -70,12 +70,12 @@
 					{{getDictLabel(scope.row.categoryFlag)}}
 				</template>
             </el-table-column>
-					<el-table-column label="操作" width="150" align="center">
+					<el-table-column label="操作" width="180" align="center">
 					<template slot-scope="scope">
 						<@shiro.hasPermission name="cms:category:save">
 							<el-link type="primary" :underline="false" @click="save(scope.row.id, scope.row.id)"><i class="el-icon-plus"></i>子栏目</el-link>
 						</@shiro.hasPermission>
-						<#--						<@shiro.hasPermission name="cms:category:save">
+												<@shiro.hasPermission name="cms:category:save">
                                                     <el-link type="primary" :underline="false" @click="copyCategory(scope.row.id)">克隆</el-link>
                                                 </@shiro.hasPermission>
                         <#--						<@shiro.hasPermission name="cms:category:update">-->
