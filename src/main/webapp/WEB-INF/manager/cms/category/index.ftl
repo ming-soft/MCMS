@@ -201,14 +201,16 @@
 			getDictLabel: function (v) {
 				var that = this;
 				var labels = [];
-				v.split(",").forEach(function (item) {
-					for (var key in that.categoryFlagOptions) {
-						if (item == that.categoryFlagOptions[key].dictValue) {
-							labels.push(that.categoryFlagOptions[key].dictLabel);
-							break;
+				if(v){
+					v.split(",").forEach(function (item) {
+						for (var key in that.categoryFlagOptions) {
+							if (item == that.categoryFlagOptions[key].dictValue) {
+								labels.push(that.categoryFlagOptions[key].dictLabel);
+								break;
+							}
 						}
-					}
-				});
+					});
+				}
 				return labels.toString();
 			},
 			//查询列表
