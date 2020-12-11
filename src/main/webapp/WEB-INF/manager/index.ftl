@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>MCMS-OPEN</title>
+    <title>${app.appName}</title>
     <#include '/include/head-file.ftl'/>
     <script src="${base}/static/plugins/sockjs/1.4.0/sockjs.min.js"></script>
     <script src="${base}/static/plugins/stomp/2.3.3/stomp.min.js"></script>
