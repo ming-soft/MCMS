@@ -135,6 +135,7 @@ public class GeneraterAction extends BaseAction {
         if (!FileUtil.exist(ParserUtil.buildTempletPath())) {
             return ResultData.build().error(getResString("templet.file"));
         } else {
+
             CmsParserUtil.generate(tmpFileName, generateFileName,htmlDir);
             return ResultData.build().success();
         }
@@ -225,14 +226,7 @@ public class GeneraterAction extends BaseAction {
         List<CategoryEntity> categoryList = new ArrayList<CategoryEntity>();
         ContentBean contentBean = new ContentBean();
         contentBean.setBeginTime(dateTime);
-        Map<String, Object> map = new HashMap<>();
-        if (BasicUtil.getWebsiteApp() != null) {
-            map.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
-        }
-        PageBean page = new PageBean();
-        map.put(ParserUtil.HTML, htmlDir);
-        map.put(ParserUtil.URL, BasicUtil.getUrl());
-        map.put(ParserUtil.PAGE, page);
+
         // 生成所有栏目的文章
         if ("0".equals(columnId)) {
             categoryList = categoryBiz.list(Wrappers.<CategoryEntity>lambdaQuery()

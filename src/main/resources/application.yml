@@ -18,7 +18,8 @@ ms:
     http: http://store.i.mingsoft.net/
     host: store.i.mingsoft.net
     login: http://ms.i.mingsoft.net/sso/login.do
-  database: mcms-dev-5.2-4
+
+
 #  scheme: https #解决使用代理服务器代理应用时标签解析域名依旧为http的问题
   swagger:
     enable: true #启用swagger文档，生产的时候务必关掉 访问地址：http://ip|域名/项目发布名/swagger-ui.html
@@ -35,7 +36,7 @@ ms:
     denied: .exe,.jsp
     back-up: /upload_back
     multipart:
-      #最大上传文件大小 单位：KB
+      #最大上传文件大小 单位：KB 默认10M,1024=1M
       max-file-size: 10240
       #文件暂存临时目录
       upload-temp-dir: temp
@@ -87,6 +88,7 @@ spring:
       force: true
       charset: utf-8
       enabled: true
+
 mybatis-plus:
   global-config:
     db-config:
