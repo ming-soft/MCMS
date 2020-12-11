@@ -559,8 +559,8 @@
                                     that.returnIsShow = false;
                                 }
                             }
-                            that.changeModel();
                         }
+                        that.changeModel();
                     } else {
                         that.$notify({
                             title: '失败',
@@ -586,7 +586,9 @@
                         });
                         that.contentCategoryIdOptions = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
                         that.categoryIdOptions = res.data.rows;
-                        that.changeModel();
+
+                        //获取到栏目数据之后再进行初始化
+                        that.init();
                     }
                 }).catch(function (err) {
                     console.log(err);
@@ -666,25 +668,36 @@
                 }).catch(function (err) {
                     console.log(err);
                 });
+            },
+            //只有在渲染完栏目数据之后才会初始化
+            init: function () {
+                this.form.id = ms.util.getParameter("id");
+                this.type = ms.util.getParameter("type");
+
+                //在指定栏目下新增或编辑文章时
+                if (ms.util.getParameter("categoryId")) {
+                    this.form.categoryId = ms.util.getParameter("categoryId");
+                    //如果是封面栏目直接跳转
+                    if (this.type) {
+                        this.getFromFengMian(this.form.categoryId);
+                        this.returnIsShow = false;
+                        //指定非封面栏目编辑文章
+                    }else if (this.form.id) {
+                        this.get(this.form.id);
+                        //指定栏目新增文章渲染自定义模型
+                    }else {
+                        this.changeModel();
+                    }
+                    //不指定栏目编辑文章
+                }else if (this.form.id) {
+                    this.get(this.form.id);
+                }//else 如果即不指定栏目新增文章，又不是编辑文章就不渲染自定义模型
+
             }
         },
         created: function () {
             this.contentCategoryIdOptionsGet();
             this.contentTypeOptionsGet();
-
-            this.form.id = ms.util.getParameter("id");
-            if (ms.util.getParameter("categoryId")) {
-                this.form.categoryId = ms.util.getParameter("categoryId");
-            }
-            this.type = ms.util.getParameter("type");
-
-            if (this.form.id) {
-                this.get(this.form.id);
-            }
-            if (this.type) {
-                this.getFromFengMian(this.form.categoryId);
-                this.returnIsShow = false;
-            }
         }
     });
 </script>
