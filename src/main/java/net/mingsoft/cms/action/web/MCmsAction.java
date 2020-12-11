@@ -128,11 +128,12 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         map.put(ParserUtil.IS_DO, true);
         //设置动态请求的模块路径
         map.put(ParserUtil.MODEL_NAME, "mcms");
+        map.put(ParserUtil.HTML,htmlDir);
         //解析后的内容
         String content = "";
         try {
             //根据模板路径，参数生成
-            content = CmsParserUtil.generate(ParserUtil.INDEX + ParserUtil.HTM_SUFFIX, map, htmlDir);
+            content = ParserUtil.rendering(ParserUtil.INDEX + ParserUtil.HTM_SUFFIX, map);
         } catch (TemplateNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedTemplateNameException e) {
@@ -186,11 +187,12 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         map.put(ParserUtil.IS_DO, true);
         //设置动态请求的模块路径
         map.put(ParserUtil.MODEL_NAME, "mcms");
+        map.put(ParserUtil.HTML, htmlDir);
         //解析后的内容
         String content = "";
         try {
             //根据模板路径，参数生成
-            content = CmsParserUtil.generate(columnArticles.get(0).getCategoryListUrl(), map, htmlDir);
+            content = ParserUtil.rendering(columnArticles.get(0).getCategoryListUrl(), map);
         } catch (TemplateNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedTemplateNameException e) {
@@ -243,6 +245,8 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         map.put(ParserUtil.URL, BasicUtil.getUrl());
         map.put(ParserUtil.PAGE, page);
         map.put(ParserUtil.ID, article.getId());
+        map.put(ParserUtil.HTML,htmlDir);
+
         ContentBean contentBean = new ContentBean();
         contentBean.setCategoryId(String.valueOf(typeId));
         contentBean.setOrderBy(orderby);
@@ -292,7 +296,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         }
         try {
             //根据模板路径，参数生成
-            content = CmsParserUtil.generate(column.getCategoryUrl(), map, htmlDir);
+            content =  ParserUtil.rendering(column.getCategoryUrl(), map);
         } catch (TemplateNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedTemplateNameException e) {
@@ -340,12 +344,12 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
 
         //获取栏目信息
-        int typeId = 0;
+        String typeId = null;
         String categoryIds = BasicUtil.getString("categoryIds");
         List categoryIdList = CollectionUtil.newArrayList();
         //当传递了栏目编号，但不是栏目集合
         if (StringUtils.isNotBlank(categoryIds) && !categoryIds.contains(",")) {
-            typeId = Integer.parseInt(categoryIds);
+            typeId = categoryIds;
         } else {
             //取出所有的子栏目
             String[] ids = categoryIds.split(",");
@@ -366,12 +370,11 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
         //重新组织 ID
         categoryIds = StringUtils.join(categoryIdList, ",");
-        //当前访问的项目地址
-        String url = BasicUtil.getUrl();
+
 
         //根据栏目确定自定义模型
-        if (typeId > 0) {
-            column = (CategoryEntity) categoryBiz.getEntity(typeId);
+        if (typeId != null) {
+            column = (CategoryEntity) categoryBiz.getById(typeId);
             // 获取表单类型的id
             if (column != null && ObjectUtil.isNotNull(column.getMdiyModelId())) {
                 contentModel = (ModelEntity) modelBiz.getEntity(column.getMdiyModelId());
@@ -454,11 +457,18 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         //查询数量
         int count = contentBiz.getSearchCount(contentModel, fieldValueList, searchMap, BasicUtil.getApp().getAppId(), categoryIds);
         page.setRcount(count);
-        params.put(ParserUtil.URL, url);
         params.put(SEARCH, searchMap);
+
+        //站点编号
         if (BasicUtil.getWebsiteApp() != null) {
             params.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
+            params.put(ParserUtil.URL, BasicUtil.getWebsiteApp().getAppHostUrl());
+            params.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+        } else {
+            params.put(ParserUtil.URL, BasicUtil.getUrl());
+            params.put(ParserUtil.APP_DIR, BasicUtil.getApp().getAppDir());
         }
+
         params.put(ParserUtil.PAGE, page);
         params.put(ParserUtil.HTML, htmlDir);
         //动态解析
@@ -481,6 +491,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         page.setPageNo(pageNo);
 
         //设置分页的统一链接
+        String url = params.get(ParserUtil.URL).toString();
         url = url + request.getServletPath() + "?" + urlParams;
         String pageNoStr = "size=" + page.getSize() + "&pageNo=";
         //下一页
@@ -497,7 +508,6 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         page.setPreUrl(preUrl);
         page.setLastUrl(lastUrl);
 
-        params.put(ParserUtil.URL, url);
         params.put(SEARCH, searchMap);
         if (BasicUtil.getWebsiteApp() != null) {
             params.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
@@ -513,7 +523,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         String content = "";
         try {
             //根据模板路径，参数生成
-            content = CmsParserUtil.generate(SEARCH + ParserUtil.HTM_SUFFIX, params, htmlDir);
+            content = ParserUtil.rendering(SEARCH + ParserUtil.HTM_SUFFIX, params);
         } catch (TemplateNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedTemplateNameException e) {
