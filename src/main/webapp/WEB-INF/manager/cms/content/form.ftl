@@ -391,19 +391,21 @@
                                     that.model.form.linkId = data.data.id;
                                     that.model.save();
                                 }
-
                                 that.$notify({
                                     title: '成功',
                                     message: '保存成功',
-                                    type: 'success'
+                                    type: 'success',
+                                    duration: 1000,
+                                    onClose: function () {
+                                        if (that.returnIsShow) {
+                                            javascript: history.go(-1);
+                                        } else {
+                                            //如果是顶级封面或封面，则重新加载,避免文章和自定义模型重复保存
+                                            location.reload();
+                                        }
+                                        that.saveDisabled = false;
+                                    }
                                 });
-
-                                if (that.returnIsShow) {
-                                    javascript: history.go(-1);
-                                } else {
-                                    //如果是顶级封面或封面，则重新拿到当前封面id,避免重复保存
-                                    that.list(that.form.categoryId);
-                                }
 
                             } else {
                                 that.$notify({
@@ -411,9 +413,9 @@
                                     message: data.msg,
                                     type: 'warning'
                                 });
+                                that.saveDisabled = false;
                             }
 
-                            that.saveDisabled = false;
                         });
                     } else {
                         _this.activeName = 'form';
