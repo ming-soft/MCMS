@@ -7,6 +7,7 @@ import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateNotFoundException;
 import net.mingsoft.base.constant.Const;
+import net.mingsoft.basic.holder.DataHolder;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.SpringUtil;
 import net.mingsoft.cms.bean.CategoryBean;
@@ -31,7 +32,7 @@ import java.util.concurrent.ExecutorService;
 /**
  * 文章解析工具类
  */
-public class CmsParserUtil extends ParserUtil {
+public class CmsParserUtil {
 
 
     private final static String FIELD = "field";
@@ -45,12 +46,24 @@ public class CmsParserUtil extends ParserUtil {
      */
     public static void generate(String templatePath, String targetPath, String htmlDir) throws IOException {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put(IS_DO, false);
+        map.put(ParserUtil.IS_DO, false);
         CategoryEntity column = new CategoryEntity();
         //内容管理栏目编码
-        map.put(COLUMN, column);
-        String content = CmsParserUtil.generate(templatePath, map, htmlDir);
-        FileUtil.writeString(content, ParserUtil.buildHtmlPath(targetPath, htmlDir), Const.UTF8);
+        map.put(ParserUtil.COLUMN, column);
+        map.put(ParserUtil.HTML, htmlDir);
+
+        //站点编号
+        if (BasicUtil.getWebsiteApp() != null) {
+            map.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
+            map.put(ParserUtil.URL, BasicUtil.getWebsiteApp().getAppHostUrl());
+            map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+        } else {
+            map.put(ParserUtil.URL, BasicUtil.getUrl());
+            map.put(ParserUtil.APP_DIR, BasicUtil.getApp().getAppDir());
+        }
+
+        String content = ParserUtil.rendering(templatePath, map);
+        FileUtil.writeString(content, ParserUtil.buildHtmlPath(targetPath, htmlDir, map.get(ParserUtil.APP_DIR).toString()), Const.UTF8);
     }
 
     /**
@@ -76,15 +89,26 @@ public class CmsParserUtil extends ParserUtil {
             int totalPageSize = PageUtil.totalPage(articleIdTotal, page.getSize());
             page.setTotal(totalPageSize);
 
-            //获取模板中列表标签中的条件
-            Map<String, Object> map = new HashMap<>();
+            //全局参数设置
+            Map<String, Object> parserParams = new HashMap<String, Object>();
+            parserParams.put(ParserUtil.IS_DO, false);
+            parserParams.put(ParserUtil.HTML, htmlDir);
+            parserParams.put(ParserUtil.PAGE, page);
+
+            //站点编号
             if (BasicUtil.getWebsiteApp() != null) {
-                map.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
+                parserParams.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
+                parserParams.put(ParserUtil.URL, BasicUtil.getWebsiteApp().getAppHostUrl());
+                parserParams.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+            } else {
+                parserParams.put(ParserUtil.URL, BasicUtil.getUrl());
+                parserParams.put(ParserUtil.APP_DIR, BasicUtil.getApp().getAppDir());
             }
 
-            map.put(ParserUtil.HTML, htmlDir);
-            map.put(ParserUtil.URL, BasicUtil.getUrl());
-            map.put(ParserUtil.PAGE, page);
+            parserParams.put(ParserUtil.COLUMN, column);
+            //标签中使用field获取当前栏目
+            parserParams.put(ParserUtil.FIELD, column);
+
 
             String columnListPath;
             ModelEntity contentModel = null;
@@ -94,31 +118,16 @@ public class CmsParserUtil extends ParserUtil {
                 contentModel = (ModelEntity) SpringUtil.getBean(ModelBizImpl.class).getEntity(column.getMdiyModelId());
             }
 
-            //全局参数设置
-            Map<String, Object> parserParams = new HashMap<String, Object>();
-            parserParams.put(ParserUtil.PAGE, page);
-            parserParams.put(COLUMN, column);
-            //标签中使用field获取当前栏目
-            parserParams.put(FIELD, column);
-            parserParams.put(IS_DO, false);
-            parserParams.put(HTML, htmlDir);
-            if (BasicUtil.getWebsiteApp() != null) {
-                parserParams.put(APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
-            }
             if (contentModel != null) {
                 // 将自定义模型编号设置为key值
-                parserParams.put(TABLE_NAME, contentModel.getModelTableName());
-            }
-            //如果单站点，就废弃站点地址
-            if (ParserUtil.IS_SINGLE) {
-                parserParams.put(ParserUtil.URL, BasicUtil.getUrl());
+                parserParams.put(ParserUtil.TABLE_NAME, contentModel.getModelTableName());
             }
 
             int pageNo = 1;
             //文章列表页没有写文章列表标签，总数为0
             if (totalPageSize <= 0) {
                 // 数据库中第一页是从开始0*size
-                columnListPath = ParserUtil.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX, htmlDir);
+                columnListPath = ParserUtil.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX, htmlDir, parserParams.get(ParserUtil.APP_DIR).toString());
                 // 设置分页的起始位置
                 page.setPageNo(pageNo);
                 String read = ParserUtil.rendering(File.separator + column.getCategoryListUrl(), parserParams);
@@ -131,11 +140,11 @@ public class CmsParserUtil extends ParserUtil {
                         // 数据库中第一页是从开始0*size
                         // 首页路径index.html
                         columnListPath = ParserUtil
-                                .buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX, htmlDir);
+                                .buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX, htmlDir, parserParams.get(ParserUtil.APP_DIR).toString());
                     } else {
                         // 其他路径list-2.html
                         columnListPath = ParserUtil
-                                .buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.PAGE_LIST + pageNo, htmlDir);
+                                .buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.PAGE_LIST + pageNo, htmlDir, parserParams.get(ParserUtil.APP_DIR).toString());
                     }
                     // 设置分页的起始位置
                     page.setPageNo(pageNo);
@@ -161,11 +170,24 @@ public class CmsParserUtil extends ParserUtil {
      */
     public static void generateBasic(List<CategoryBean> articleIdList, String htmlDir) {
 
+        Map<String, Object> parserParams = new HashMap<String, Object>();
+        parserParams.put(ParserUtil.IS_DO, false);
+        if (BasicUtil.getWebsiteApp() != null) {
+            parserParams.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
+            parserParams.put(ParserUtil.URL, BasicUtil.getWebsiteApp().getAppHostUrl());
+            parserParams.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+        } else {
+            parserParams.put(ParserUtil.URL, BasicUtil.getUrl());
+            parserParams.put(ParserUtil.APP_DIR, BasicUtil.getApp().getAppDir());
+        }
+
+        parserParams.put(ParserUtil.HTML, htmlDir);
+
+
         Map<Object, Object> contentModelMap = new HashMap<Object, Object>();
         ModelEntity contentModel = null;
         // 记录已经生成了文章编号
         List<String> generateIds = new ArrayList<>();
-        ExecutorService pool = SpringUtil.getBean(ExecutorService.class);
         // 生成文章
         for (int artId = 0; artId < articleIdList.size(); ) {
 
@@ -206,30 +228,32 @@ public class CmsParserUtil extends ParserUtil {
             generateIds.add(articleId);
             //如果是封面就生成index.html
             if (categoryBean.getCategoryType().equals(CategoryTypeEnum.COVER.toString())) {
-                writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + ParserUtil.INDEX, htmlDir);
+                writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + ParserUtil.INDEX, htmlDir, parserParams.get(ParserUtil.APP_DIR).toString());
             } else {
                 // 组合文章路径如:html/站点id/栏目id/文章id.html
-                writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + articleId, htmlDir);
+                writePath = ParserUtil.buildHtmlPath(articleColumnPath + File.separator + articleId, htmlDir, parserParams.get(ParserUtil.APP_DIR).toString());
             }
 
-            Map<String, Object> parserParams = new HashMap<String, Object>();
+
             parserParams.put(ParserUtil.COLUMN, categoryBean);
+
+
             // 判断当前栏目是否有自定义模型
             if (columnContentModelId != null) {
                 // 通过当前栏目的模型编号获取，自定义模型表名
                 if (contentModelMap.containsKey(columnContentModelId)) {
-                    parserParams.put(TABLE_NAME, contentModel.getModelTableName());
+                    parserParams.put(ParserUtil.TABLE_NAME, contentModel.getModelTableName());
                 } else {
                     // 通过栏目模型编号获取自定义模型实体
                     contentModel = (ModelEntity) SpringUtil.getBean(IModelBiz.class)
                             .getEntity(columnContentModelId);
                     // 将自定义模型编号设置为key值
                     contentModelMap.put(columnContentModelId, contentModel.getModelTableName());
-                    parserParams.put(TABLE_NAME, contentModel.getModelTableName());
+                    parserParams.put(ParserUtil.TABLE_NAME, contentModel.getModelTableName());
                 }
             }
 
-            parserParams.put(ID, articleId);
+            parserParams.put(ParserUtil.ID, articleId);
             // 第一篇文章没有上一篇
             if (artId > 0) {
                 CategoryBean preCaBean = articleIdList.get(artId - 1);
@@ -247,22 +271,19 @@ public class CmsParserUtil extends ParserUtil {
 //				}
             }
 
-            parserParams.put(IS_DO, false);
+
             parserParams.put(ParserUtil.PAGE, page);
             String finalWritePath = writePath;
             HashMap<Object, Object> cloneMap = CollUtil.newHashMap();
             cloneMap.putAll(parserParams);
             HttpServletRequest request = SpringUtil.getRequest();
-            pool.execute(() -> {
-                String content = null;
-                try {
-                    SpringUtil.setRequest(request);
-                    content = CmsParserUtil.generate(columnUrl, cloneMap, htmlDir);
-                    FileUtil.writeString(content, finalWritePath, Const.UTF8);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
+            String content = null;
+            try {
+                content = ParserUtil.rendering(columnUrl, cloneMap);
+                FileUtil.writeString(content, finalWritePath, Const.UTF8);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             artId++;
         }
     }
