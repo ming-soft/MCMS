@@ -186,9 +186,9 @@ COMMIT;
 DROP TABLE IF EXISTS `log`;
 CREATE TABLE `log` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `log_error_msg` varchar(4000) DEFAULT NULL COMMENT '错误消息',
-  `log_result` varchar(4000) DEFAULT NULL COMMENT '返回参数',
-  `log_param` varchar(4000) DEFAULT NULL COMMENT '请求参数',
+  `log_error_msg` text DEFAULT NULL COMMENT '错误消息',
+  `log_result` text DEFAULT NULL COMMENT '返回参数',
+  `log_param` text DEFAULT NULL COMMENT '请求参数',
   `log_location` varchar(255) DEFAULT NULL COMMENT '所在地区',
   `log_user` varchar(255) DEFAULT NULL COMMENT '操作人员',
   `log_user_type` varchar(255) DEFAULT NULL COMMENT '用户类型',
