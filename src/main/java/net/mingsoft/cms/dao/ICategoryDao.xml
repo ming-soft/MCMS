@@ -144,7 +144,6 @@
 				<if test="updateDate != null"> and update_date=#{updateDate} </if>
 				<if test="del != null"> and del=#{del} </if>
 			</where>
-			limit 0,1
 		</select>
 
 	<!-- 模糊查询开始 -->

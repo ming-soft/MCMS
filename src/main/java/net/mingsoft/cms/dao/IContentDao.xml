@@ -179,7 +179,6 @@
 				<if test="updateBy &gt; 0"> and update_by=#{updateBy} </if>
 				<if test="updateDate != null"> and update_date=#{updateDate} </if>
 			</where>
-			limit 0,1
 		</select>
 
 
