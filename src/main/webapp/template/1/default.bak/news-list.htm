@@ -42,26 +42,9 @@
 <body>
     <div id="app" v-cloak>
 
-        <#include "nav.htm"/>
+        <#include "header.htm"/>
 
-<div class="news">
-<div class="body">
-<div class="left">
-<span class="title" >
-${field.typename}
-</span>
-{ms:channel type='son'}
-<a href="{ms:global.url/}${field.typelink}"
-target="_blank"
-class="sub-title-sel">
-${field.typetitle}
-</a>
-{/ms:channel}
-<span class="sub-title" >
-分类名称
-</span>
-</div>
-<div class="right">
+<div class="ms-content">
 <div class="ms-channel-path">
 <span class="ms-channel-path-label">
 当前位置：
@@ -76,40 +59,25 @@ ${field.typetitle}
 </a>
 {/ms:channel}
 </div>
-<div class="right-body">
-{ms:arclist ispaging=true}
-<div class="news-item">
-<div class="pic">
-<img
-title=""
-alt=""
-src="{@ms:file field.litpic/}"
-/>
-</div>
-<div class="news-content">
-<a href="{ms:global.url/}${field.link}"
-class="title">
+<div class="detail">
+<div class="body">
+<a href="${global.url}${field.typelink}"
+class="type-title">
+${field.typetitle}
+</a>
+</div> <!--新闻列表(一行)-start-->
+{ms:arclist size=15 ispaging=true}
+<div class="ms-news-one-line">
+<i class="iconfont icon-fangkuai ms-news-one-line-dot" ></i>
+<a href="${global.url}${field.link}"
+class="ms-news-one-line-link">
 ${field.title}
 </a>
-<span class="desc" >
-${field.descrip}
-</span>
-<div class="news-footer">
-<span class="label" >
-发布时间
-</span>
-<span class="v" >
+<span class="ms-news-one-line-date" >
 ${field.date?string("yyyy-MM-dd")}
 </span>
-<span class="label" >
-预览次数
-</span>
-<span class="v" >
-${field.hit}
-</span>
-</div> </div> </div>
-{/ms:arclist} </div>
-<div class="page">
+</div>
+{/ms:arclist} <!--新闻列表(一行)-end-->
 <#assign pagerCount=3 />
 <#assign pageCount=page.total />
 <#assign currentPage=page.cur />
@@ -197,7 +165,18 @@ ${field.hit}
 页
 </span-->
 </div>
-</div> </div> </div> </div>
+</div> </div>        <!--返回顶部-start-->
+
+<div class="ms-right-fixed-top">
+<!--内容区域-start-->
+<div class="content">
+<i class="iconfont icon-shang" ></i>
+<span >
+回到顶部
+</span>
+</div> <!--内容区域-end-->
+</div>        <!--返回顶部-end-->
+
         <#include "footer.htm"/>
     </div>
 </body>
@@ -228,17 +207,17 @@ var app = new Vue({
 
 <style>
     body {
-        background-color:#fff;
+        background-color:#f5f5f5;
         box-sizing:border-box;
         font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Segoe UI", "Helvetica Neue", "PingFang SC", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei", 微软雅黑, sans-serif;
         moz-box-sizing:border-box;
         webkit-box-sizing:border-box;
     }
 
-    .news 
+    .ms-content 
     {
             align-items:center;
-            flex-direction:row;
+            flex-direction:column;
             display:flex;
             padding-right:0px;
             box-sizing:border-box;
@@ -250,91 +229,8 @@ var app = new Vue({
             padding-top:0px;
             padding-left:0px;
             margin-top:0px;
-            height:800px;
     }
-    .news .body 
-    {
-            padding-bottom:20px;
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            width:1200px;
-            box-sizing:border-box;
-            padding-top:20px;
-            padding-left:0px;
-            height:100%;
-    }
-    .news .body .left 
-    {
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            flex-direction:column;
-            display:flex;
-            padding-right:0px;
-            width:200px;
-            box-sizing:border-box;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:0px;
-            height:100%;
-    }
-    .news .body .left .title 
-    {
-            color:#C0C4CC;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            border-bottom-color:#C0C4CC;
-            font-size:16PX;
-            border-bottom-style:dashed;
-            padding-top:10px;
-            border-bottom-width:1px;
-            padding-left:10px;
-            margin-top:0px;
-            height:40px;
-    }
-    .news .body .left .sub-title-sel 
-    {
-            background-color:#F2F6FC;
-            color:#409EFF;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            padding-top:10px;
-            padding-left:10px;
-            margin-top:2px;
-            height:40px;
-    }
-    .news .body .left .sub-title 
-    {
-            color:#5F5F5F;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            padding-top:10px;
-            padding-left:10px;
-            margin-top:0px;
-            height:40px;
-    }
-    .news .body .right 
-    {
-            flex-direction:column;
-            display:flex;
-            padding-right:0px;
-            box-sizing:border-box;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:1000px;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:20px;
-            margin-top:0px;
-            height:100%;
-    }
-    .news .body .right .ms-channel-path 
+    .ms-content .ms-channel-path 
     {
             align-items:center;
             flex-direction:row;
@@ -345,233 +241,213 @@ var app = new Vue({
             margin-right:auto;
             padding-bottom:0px;
             flex-wrap:nowrap;
-            width:100%;
+            width:1170px;
             margin-bottom:10px;
             padding-top:0px;
             padding-left:0px;
             margin-top:10px;
             height:30px;
     }
-    .news .body .right .ms-channel-path span 
+    .ms-content .ms-channel-path .ms-channel-path-label 
     {
-            font-size:16PX;
-            color:#909399;
             flex-direction:row;
             word-wrap:break-word;
             display:inline-block;
+            font-size:14PX;
+            margin-bottom:0px;
+            margin-top:0px;
     }
-    .news .body .right .ms-channel-path .ms-channel-path-index 
+    .ms-content .ms-channel-path .ms-channel-path-index 
     {
             cursor:pointer;
             color:#000;
-            font-size:16PX;
+            font-size:14PX;
             text-decoration:none;
             margin-bottom:0px;
             margin-top:0px;
     }
-    .news .body .right .ms-channel-path >i 
+    .ms-content .ms-channel-path >i 
     {
+            margin-bottom:0px;
+            margin-top:0px;
     }
-    .news .body .right .ms-channel-path .ms-channel-path-link 
+    .ms-content .ms-channel-path .ms-channel-path-link 
     {
             cursor:pointer;
             color:#000;
-            font-size:16PX;
+            font-size:14PX;
             text-decoration:none;
             margin-bottom:0px;
             margin-top:0px;
     }
-    .news .body .right .right-body 
+    .ms-content .detail 
     {
+            background-color:#FFFFFF;
             align-items:flex-start;
             flex-direction:column;
             display:flex;
-            padding-right:10px;
+            padding-right:20px;
             box-sizing:border-box;
             margin-left:0px;
+            min-height:800px;
             margin-right:0px;
-            padding-bottom:10px;
-            width:100%;
-            margin-bottom:0px;
-            padding-top:10px;
-            padding-left:10px;
+            padding-bottom:20px;
+            flex-wrap:nowrap;
+            width:1170px;
+            margin-bottom:10px;
+            padding-top:20px;
+            position:relative;
+            padding-left:20px;
             margin-top:0px;
-            height:100%;
     }
-    .news .body .right .right-body .news-item 
+    .ms-content .detail .body 
     {
+            align-items:center;
             flex-direction:row;
             display:flex;
             padding-right:0px;
             box-sizing:border-box;
-            padding-bottom:0px;
+            justify-content:flex-start;
+            margin-left:0px;
+            margin-right:0px;
+            padding-bottom:10px;
             flex-wrap:nowrap;
             width:100%;
             margin-bottom:10px;
-            padding-top:0px;
-            padding-left:0px;
+            padding-top:10px;
+            padding-left:20px;
             margin-top:0px;
-            height:120px;
     }
-    .news .body .right .right-body .news-item .pic 
+    .ms-content .detail .body .type-title 
     {
+            cursor:pointer;
             padding-bottom:0px;
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            width:200px;
-            box-sizing:border-box;
-            padding-top:0px;
-            height:120px;
-    }
-    .news .body .right .right-body .news-item .pic img 
-    {
-            margin-right:0px;
-            padding-bottom:0px;
-            padding-right:0px;
-            width:100%;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-            height:100%;
-            margin-left:0px;
-    }
-    .news .body .right .right-body .news-item .news-content 
-    {
-            flex-direction:column;
-            display:flex;
-            padding-right:0px;
-            box-sizing:border-box;
-            justify-content:flex-start;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:100%;
-            padding-top:0px;
-            position:relative;
-            padding-left:10px;
-            height:100%;
-    }
-    .news .body .right .right-body .news-item .news-content .title 
-    {
+            color:#000;
             font-size:18PX;
-            padding-left:0px;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-    }
-    .news .body .right .right-body .news-item .news-content .desc 
-    {
-            padding-bottom:8px;
-            color:#909399;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            padding-right:0px;
-            font-size:16PX;
+            text-decoration:none;
             margin-bottom:0px;
-            padding-top:8px;
+            padding-top:0px;
             padding-left:0px;
-            height:100px;
     }
-    .news .body .right .right-body .news-item .news-content .news-footer 
+    .ms-content .detail .ms-news-one-line 
     {
             align-items:center;
             flex-direction:row;
             display:flex;
             padding-right:0px;
             box-sizing:border-box;
+            background-position:20px center;
             justify-content:flex-start;
-            margin-left:0px;
-            margin-right:0px;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:100%;
-            padding-top:0px;
-            padding-left:0px;
-            height:30%;
-    }
-    .news .body .right .right-body .news-item .news-content .news-footer .label 
-    {
-            color:#C0C4CC;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            padding-right:0px;
-            margin-left:0px;
-            margin-right:0px;
-            padding-bottom:0px;
-            font-size:14PX;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-    }
-    .news .body .right .right-body .news-item .news-content .news-footer .v 
-    {
-            color:#C0C4CC;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            padding-right:0px;
-            margin-left:10px;
-            margin-right:10px;
-            padding-bottom:0px;
-            font-size:14PX;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-    }
-    .news .body .right .page 
-    {
-            align-items:flex-start;
-            flex-direction:column;
-            display:flex;
-            padding-right:10px;
-            box-sizing:border-box;
             margin-left:0px;
             margin-right:0px;
             padding-bottom:10px;
+            flex-wrap:nowrap;
             width:100%;
             margin-bottom:0px;
             padding-top:10px;
-            padding-left:10px;
+            padding-left:20px;
+            background-repeat:no-repeat;
+            background-position-x:20px;
             margin-top:0px;
     }
-    .news .body .right .page .ms-page 
+    .ms-content .detail .ms-news-one-line .ms-news-one-line-dot 
+    {
+            padding-bottom:0px;
+            padding-right:0px;
+            font-size:12PX;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+    }
+    .ms-content .detail .ms-news-one-line .ms-news-one-line-link 
+    {
+            cursor:pointer;
+            color:#000;
+            padding-right:0px;
+            text-decoration:none;
+            margin-left:0px;
+            margin-right:0px;
+            padding-bottom:0px;
+            font-size:16PX;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            background-position-x:20px;
+    }
+    .ms-content .detail .ms-news-one-line .ms-news-one-line-date 
+    {
+            margin-right:10px;
+            padding-bottom:0px;
+            color:#9C9C9C;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:14px;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            margin-left:10px;
+    }
+    .ms-content .detail .ms-page 
     {
             align-items:center;
             flex-direction:row;
+            bottom:0px;
             display:flex;
             padding-right:0px;
             box-sizing:border-box;
             justify-content:center;
-            margin-left:0;
+            margin-left:0px;
             padding-bottom:0px;
             flex-wrap:nowrap;
+            left:0px;
             width:100%;
-            margin-bottom:0;
+            margin-bottom:0px;
             padding-top:0px;
+            position:absolute;
             padding-left:0px;
-            margin-top:0;
+            margin-top:0px;
             height:40px;
     }
-    .news .body .right .page .ms-page .ms-page-left 
+    .ms-content .detail .ms-page .ms-page-pre 
     {
+            cursor:pointer;
+            padding-bottom:0px;
+            color:#000000;
+            padding-right:0px;
             margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
             margin-top:0px;
             margin-left:0px;
     }
-    .news .body .right .page .ms-page .ms-page-no 
+    .ms-content .detail .ms-page .ms-page-pre:hover
     {
+                    color:#409EFF;
+    }
+    .ms-content .detail .ms-page .ms-page-no 
+    {
+            cursor:pointer;
+            color:#000000;
             text-align:center;
             flex-direction:row;
             word-wrap:break-word;
             display:inline-block;
+            padding-right:0px;
+            margin-left:0px;
+            padding-bottom:0px;
             width:40px;
             font-size:16PX;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
             margin-top:0px;
-            margin-left:0px;
     }
-    .news .body .right .page .ms-page .ms-page-no-sel 
+    .ms-content .detail .ms-page .ms-page-no:hover
+    {
+                    color:#409EFF;
+    }
+    .ms-content .detail .ms-page .ms-page-no-sel 
     {
             color:#409EFF;
             text-align:center;
@@ -583,7 +459,7 @@ var app = new Vue({
             margin-top:0px;
             margin-left:0px;
     }
-    .news .body .right .page .ms-page .ms-page-dot 
+    .ms-content .detail .ms-page .ms-page-dot 
     {
             text-align:center;
             flex-direction:row;
@@ -594,16 +470,86 @@ var app = new Vue({
             margin-top:0px;
             margin-left:0px;
     }
-    .news .body .right .page .ms-page .ms-page-right 
+    .ms-content .detail .ms-page .ms-page-next 
     {
+            cursor:pointer;
+            padding-bottom:0px;
+            color:#000000;
+            padding-right:0px;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
             margin-top:0px;
             margin-left:0px;
     }
+    .ms-right-fixed-top 
+    {
+            margin:0 auto;
+            align-items:center;
+            flex-direction:row;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            justify-content:center;
+            margin-left:0px;
+            padding-bottom:0px;
+            flex-wrap:nowrap;
+            width:1200px;
+            margin-bottom:0px;
+            position:relative;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:0px;
+            height:0px;
+    }
+    .ms-right-fixed-top >.content 
+    {
+            align-items:center;
+            flex-direction:column;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            margin-left:600px;
+            padding-bottom:0px;
+            top:400px;
+            flex-wrap:nowrap;
+            left:50%;
+            width:40px;
+            position:fixed;
+            padding-top:0px;
+            padding-left:0px;
+            z-index:1;
+    }
+    .ms-right-fixed-top >.content i 
+    {
+            padding-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            padding-right:0px;
+            margin-left:0px;
+    }
+    .ms-right-fixed-top >.content span 
+    {
+            background-color:#909399;
+            color:#FFFFFF;
+            text-align:center;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            padding-right:5px;
+            margin-left:0px;
+            padding-bottom:5px;
+            width:50px;
+            font-size:14px;
+            padding-top:5px;
+            padding-left:5px;
+            height:40%;
+    }
 @media (max-width: 768px){
-        .news 
+        .ms-content 
         {
                 align-items:center;
-                flex-direction:row;
+                flex-direction:column;
                 display:flex;
                 padding-right:0px;
                 box-sizing:border-box;
@@ -615,180 +561,68 @@ var app = new Vue({
                 padding-top:0px;
                 padding-left:0px;
                 margin-top:0px;
+                height:unset;
         }
-        .news .body 
+        .ms-content .ms-channel-path 
         {
-                padding-bottom:20px;
+                margin-right:auto;
+                align-items:center;
                 flex-wrap:nowrap;
-                flex-direction:column;
+                flex-direction:row;
                 display:flex;
-                padding-right:0px;
                 width:100%;
+                margin-bottom:10px;
                 box-sizing:border-box;
-                padding-top:20px;
-                padding-left:0px;
+                margin-top:10px;
+                height:30px;
+                margin-left:auto;
         }
-        .news .body .left 
+        .ms-content .ms-channel-path .ms-channel-path-label 
         {
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                width:100%;
-                box-sizing:border-box;
-                padding-top:0px;
-                padding-left:0px;
-                height:100%;
-        }
-        .news .body .left .title 
-        {
-                border-bottom-color:#C0C4CC;
-                color:#C0C4CC;
+                font-size:14PX;
                 flex-direction:row;
                 word-wrap:break-word;
                 display:inline-block;
-                font-size:16PX;
-                border-bottom-style:dashed;
-                padding-top:10px;
-                border-bottom-width:1px;
-                padding-left:10px;
-                height:40px;
         }
-        .news .body .left .sub-title-sel 
+        .ms-content .ms-channel-path .ms-channel-path-index 
         {
-                background-color:#F2F6FC;
-                color:#409EFF;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                padding-top:10px;
-                padding-left:10px;
-                margin-top:2px;
-                height:40px;
-        }
-        .news .body .left .sub-title 
-        {
-                color:#5F5F5F;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                padding-top:10px;
-                padding-left:10px;
-                margin-top:0px;
-                height:40px;
-        }
-        .news .body .right 
-        {
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                width:100%;
+                cursor:pointer;
+                color:#000;
+                font-size:14PX;
+                text-decoration:none;
                 margin-bottom:0px;
-                box-sizing:border-box;
-                padding-top:0px;
-                padding-left:0px;
                 margin-top:0px;
         }
-        .news .body .right .right-body 
+        .ms-content .ms-channel-path .ms-channel-path-link 
         {
+                cursor:pointer;
+                color:#000;
+                font-size:14PX;
+                text-decoration:none;
+                margin-bottom:0px;
+                margin-top:0px;
+        }
+        .ms-content .detail 
+        {
+                background-color:#FFFFFF;
                 align-items:flex-start;
                 flex-direction:column;
                 display:flex;
-                padding-right:0px;
+                padding-right:8px;
                 box-sizing:border-box;
                 margin-left:0px;
+                min-height:800px;
                 margin-right:0px;
-                padding-bottom:10px;
-                width:100%;
-                margin-bottom:0px;
-                padding-top:10px;
-                padding-left:0px;
-                margin-top:0px;
-                height:100%;
-        }
-        .news .body .right .right-body .news-item 
-        {
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                width:100%;
-                box-sizing:border-box;
-                margin-bottom:10px;
-                padding-top:0px;
-                padding-left:0px;
-        }
-        .news .body .right .right-body .news-item .pic 
-        {
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                flex-direction:row;
-                display:flex;
-                width:100%;
-                box-sizing:border-box;
-                margin-bottom:0px;
-                padding-top:0px;
-                height:120px;
-        }
-        .news .body .right .right-body .news-item .pic img 
-        {
-                padding-bottom:0px;
-                padding-right:0px;
-                width:100%;
-                padding-top:0px;
-                padding-left:0px;
-                height:100%;
-        }
-        .news .body .right .right-body .news-item .news-content 
-        {
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                box-sizing:border-box;
-                justify-content:flex-start;
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                width:100%;
-                padding-top:0px;
-                position:relative;
-                padding-left:0px;
-                height:100%;
-        }
-        .news .body .right .right-body .news-item .news-content .title 
-        {
-                padding-bottom:0px;
-                text-align:left;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                margin-bottom:8px;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:8px;
-        }
-        .news .body .right .right-body .news-item .news-content .desc 
-        {
-                color:#909399;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                padding-right:0px;
                 padding-bottom:8px;
-                font-size:14PX;
-                margin-bottom:0px;
+                flex-wrap:nowrap;
+                width:100%;
+                margin-bottom:10px;
                 padding-top:8px;
-                padding-left:0px;
+                position:relative;
+                padding-left:8px;
                 margin-top:0px;
-                height:100px;
         }
-        .news .body .right .right-body .news-item .news-content .news-footer 
+        .ms-content .detail .body 
         {
                 align-items:center;
                 flex-direction:row;
@@ -796,33 +630,76 @@ var app = new Vue({
                 padding-right:0px;
                 box-sizing:border-box;
                 justify-content:flex-start;
+                padding-bottom:10px;
+                flex-wrap:nowrap;
+                width:100%;
+                margin-bottom:10px;
+                padding-top:10px;
+                padding-left:10px;
+                margin-top:0px;
+        }
+        .ms-content .detail .body .type-title 
+        {
+                cursor:pointer;
+                padding-bottom:0px;
+                color:#000;
+                font-size:18PX;
+                text-decoration:none;
+                margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
+        }
+        .ms-content .detail .ms-news-one-line 
+        {
+                align-items:center;
+                flex-direction:row;
+                display:flex;
+                padding-right:0px;
+                box-sizing:border-box;
+                justify-content:space-between;
                 margin-left:0px;
                 margin-right:0px;
                 padding-bottom:0px;
                 flex-wrap:nowrap;
                 width:100%;
+                margin-bottom:0px;
                 padding-top:0px;
                 padding-left:0px;
-                height:30%;
+                background-repeat:no-repeat;
+                background-position-x:10px;
+                margin-top:0px;
         }
-        .news .body .right .right-body .news-item .news-content .news-footer .label 
+        .ms-content .detail .ms-news-one-line .ms-news-one-line-dot 
         {
-                color:#C0C4CC;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                padding-right:0px;
-                margin-left:0px;
-                margin-right:0px;
                 padding-bottom:0px;
-                font-size:14PX;
+                padding-right:0px;
+                font-size:12PX;
                 margin-bottom:0px;
                 padding-top:0px;
                 padding-left:0px;
         }
-        .news .body .right .right-body .news-item .news-content .news-footer .v 
+        .ms-content .detail .ms-news-one-line .ms-news-one-line-link 
         {
-                color:#C0C4CC;
+                cursor:pointer;
+                white-space:nowrap;
+                color:#000;
+                padding-right:0px;
+                text-decoration:none;
+                margin-left:0px;
+                margin-right:0px;
+                padding-bottom:0px;
+                overflow:hidden;
+                width:70%;
+                font-size:16PX;
+                margin-bottom:0px;
+                padding-top:0px;
+                text-overflow:ellipsis;
+                padding-left:10px;
+                background-position-x:20px;
+        }
+        .ms-content .detail .ms-news-one-line .ms-news-one-line-date 
+        {
+                color:#9C9C9C;
                 flex-direction:row;
                 word-wrap:break-word;
                 display:inline-block;
@@ -830,63 +707,63 @@ var app = new Vue({
                 margin-left:10px;
                 margin-right:10px;
                 padding-bottom:0px;
-                font-size:14PX;
+                font-size:14px;
                 margin-bottom:0px;
                 padding-top:0px;
                 padding-left:0px;
         }
-        .news .body .right .page 
-        {
-                align-items:flex-start;
-                flex-direction:column;
-                display:flex;
-                padding-right:10px;
-                box-sizing:border-box;
-                margin-left:0px;
-                margin-right:0px;
-                padding-bottom:10px;
-                width:100%;
-                margin-bottom:0px;
-                padding-top:10px;
-                padding-left:10px;
-                margin-top:0px;
-        }
-        .news .body .right .page .ms-page 
+        .ms-content .detail .ms-page 
         {
                 align-items:center;
                 flex-direction:row;
+                bottom:0px;
                 display:flex;
                 padding-right:0px;
                 box-sizing:border-box;
                 justify-content:center;
-                margin-left:0;
+                margin-left:0px;
                 padding-bottom:0px;
                 flex-wrap:nowrap;
+                left:0px;
                 width:100%;
-                margin-bottom:0;
+                margin-bottom:0px;
                 padding-top:0px;
+                position:absolute;
                 padding-left:0px;
-                margin-top:0;
+                margin-top:0px;
                 height:40px;
         }
-        .news .body .right .page .ms-page .ms-page-left 
+        .ms-content .detail .ms-page .ms-page-pre 
         {
+                cursor:pointer;
+                padding-bottom:0px;
+                color:#000000;
+                padding-right:0px;
                 margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
                 margin-top:0px;
                 margin-left:0px;
         }
-        .news .body .right .page .ms-page .ms-page-no 
+        .ms-content .detail .ms-page .ms-page-no 
         {
+                cursor:pointer;
+                color:#000000;
                 text-align:center;
                 flex-direction:row;
                 word-wrap:break-word;
                 display:inline-block;
+                padding-right:0px;
+                margin-left:0px;
+                padding-bottom:0px;
                 width:40px;
                 font-size:16PX;
+                margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
                 margin-top:0px;
-                margin-left:0px;
         }
-        .news .body .right .page .ms-page .ms-page-no-sel 
+        .ms-content .detail .ms-page .ms-page-no-sel 
         {
                 color:#409EFF;
                 text-align:center;
@@ -898,7 +775,7 @@ var app = new Vue({
                 margin-top:0px;
                 margin-left:0px;
         }
-        .news .body .right .page .ms-page .ms-page-dot 
+        .ms-content .detail .ms-page .ms-page-dot 
         {
                 text-align:center;
                 flex-direction:row;
@@ -909,10 +786,72 @@ var app = new Vue({
                 margin-top:0px;
                 margin-left:0px;
         }
-        .news .body .right .page .ms-page .ms-page-right 
+        .ms-content .detail .ms-page .ms-page-next 
         {
+                cursor:pointer;
+                padding-bottom:0px;
+                color:#000000;
+                padding-right:0px;
+                margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
                 margin-top:0px;
                 margin-left:0px;
+        }
+        .ms-right-fixed-top 
+        {
+                margin:0 auto;
+                align-items:center;
+                flex-direction:row;
+                display:flex;
+                box-sizing:border-box;
+                justify-content:center;
+                margin-left:0px;
+                flex-wrap:nowrap;
+                width:100%;
+                margin-bottom:0px;
+                position:relative;
+                margin-top:0px;
+                height:0px;
+        }
+        .ms-right-fixed-top >.content 
+        {
+                align-items:center;
+                flex-direction:column;
+                display:flex;
+                padding-right:0px;
+                box-sizing:border-box;
+                margin-left:600px;
+                padding-bottom:0px;
+                top:400px;
+                flex-wrap:nowrap;
+                left:50%;
+                width:40px;
+                position:fixed;
+                padding-top:0px;
+                padding-left:0px;
+                z-index:1;
+        }
+        .ms-right-fixed-top >.content i 
+        {
+                margin-left:0px;
+        }
+        .ms-right-fixed-top >.content span 
+        {
+                background-color:#909399;
+                color:#FFFFFF;
+                text-align:center;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                padding-right:5px;
+                margin-left:0px;
+                padding-bottom:5px;
+                width:50px;
+                font-size:14px;
+                padding-top:5px;
+                padding-left:5px;
+                height:40%;
         }
 
 }</style>

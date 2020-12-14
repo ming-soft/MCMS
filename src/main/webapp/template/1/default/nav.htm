@@ -1,0 +1,49 @@
+<div class="ms-nav">
+    <div class="body">
+        <div class="logo">
+            <img
+                    title=""
+                    alt=""
+                    src="{@ms:file global.logo/}"
+                    class="logo-pic"/>
+            <img
+                    title=""
+                    alt=""
+                    src="https://www.mingsoft.net//template/1/ms/images/1596437934982.png"
+                    class="logo-desc"/>
+        </div>
+        <div @click='switchShow(["1605172743000_96378"]);' class="nav-h5">
+            <i class="iconfont icon-caidan nav-h5-icon"></i>
+            <div id="key_1605172743000_96378"
+                 class="nav-h5-body">
+                <a href="#"
+                   class="nav-h5-item">
+                    首页
+                </a>
+            </div>
+        </div>
+        <div class="nav-item">
+            {ms:channel flag='n'}
+            <a href="{ms:global.url/}${field.typelink}"
+               target="_blank"
+               class="item">
+                ${field.typetitle}
+            </a>
+            {/ms:channel}
+        </div>
+        <div class="nav-search">
+            <!--搜索-start-->
+            <form id="searchDataForm" action="{ms:global.host/}/mcms/search.do" method="post" class="ms-search-input">
+                <div class="ms-search-input-div">
+                    <!--输入框 - start -->
+                    <input class="ms-input" placeholder="输入搜索关键字"/>
+                    <!--输入框 -end -->
+                </div>
+                <div class="ms-search-button" onclick="document.getElementById('searchDataForm').submit();">
+                    <i class="iconfont icon-fangdajing"></i>
+                </div>
+            </form>
+            <!--搜索-end-->
+        </div>
+    </div>
+</div>

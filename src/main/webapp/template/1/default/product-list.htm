@@ -76,42 +76,109 @@ ${field.typetitle}
 </a>
 {/ms:channel}
 </div>
-<span class="big-title" >
+<div class="list">
+<div class="list-body">
+{ms:arclist ispaging=true}
+<div class="product">
+<img
+title=""
+alt=""
+src="{@ms:file field.litpic/}"
+/>
+<a href="{ms:global.url/}${field.link}"
+>
 ${field.title}
-</span>
-<div class="news-date-hit">
-<span >
-发布时间:
-</span>
-<span class="date" >
-${field.date?string("yyyy-MM-dd")}
-</span>
-<span >
-预览次数:
-</span>
-<span >
-${field.hit}
-</span>
-</div>
-<div class="news-body">
-</div>
-<div class="news-pre">
-<span class="label" >
-上一篇:
-</span>
-<a href="{ms:global.url/}${field.prelink}"
->
-${pre.title}
 </a>
 </div>
-<div class="news-next">
-<span class="label" >
-下一篇:
-</span>
-<a href="{ms:global.url/}${field.nextink}"
->
-${pre.title}
+{/ms:arclist} </div> </div>
+<div class="page">
+<#assign pagerCount=3 />
+<#assign pageCount=page.total />
+<#assign currentPage=page.cur />
+<#assign halfPagerCount=(pagerCount-1)/2/>
+<#assign showPrevMore=false />
+<#assign showNextMore=false />
+<#assign arr=[] />
+<#--判断是否有翻页-->
+<#if pageCount gt pagerCount>
+<#if currentPage gt pagerCount - halfPagerCount>
+<#assign showPrevMore=true />
+</#if>
+<#if currentPage lt pageCount - halfPagerCount>
+<#assign showNextMore=true />
+</#if>
+</#if>
+<#--计算页码-->
+<#if showPrevMore&&!showNextMore>
+<#assign startPage=pageCount - (pagerCount - 2) />
+<#list startPage..pageCount-1 as x>
+<#assign arr=arr+[x] />
+</#list>
+<#elseif !showPrevMore && showNextMore>
+<#list 2..pagerCount as x>
+<#assign arr=arr+[x] />
+</#list>
+<#elseif showPrevMore && showNextMore>
+<#assign offset=(pagerCount / 2)?floor - 1 />
+<#list currentPage - offset..currentPage + offset as x>
+<#assign arr=arr+[x] />
+</#list>
+<#else>
+<#list 2..pageCount as x>
+<#if x lt pageCount>
+<#assign arr=arr+[x] />
+</#if>
+</#list>
+</#if>
+<div class="ms-page">
+<a href="{ms:global.url/}{ms:page.pre/}">
+<i class="iconfont icon-zuojiantou ms-page-pre"></i>
 </a>
+<#--第一页-->
+<#if pageCount gt 0>
+<a href="{ms:global.url/}{ms:page.index/}">
+<#if 1==currentPage>
+<span class="ms-page-no-sel">1</span>
+<#else>
+<span class="ms-page-no">1</span>
+</#if>
+</a>
+</#if>
+<#--翻页的省略号-->
+<#if showPrevMore>
+<span class="ms-page-dot">
+...
+</span>
+</#if>
+<#--中间的页码-->
+<#list arr as x>
+<a href="{ms:global.url/}${field.categoryPath}/list-${x}.html">
+<#if x==currentPage>
+<span class="ms-page-no-sel">${x}</span>
+<#else>
+<span class="ms-page-no">${x}</span>
+</#if>
+</a>
+</#list>
+<#-- 最后一页-->
+<#if pageCount gt 1>
+<a href="{ms:global.url/}${field.categoryPath}/list-${pageCount}.html">
+<#if pageCount==currentPage>
+<span class="ms-page-no-sel">${pageCount}</span>
+<#else>
+<span class="ms-page-no">${pageCount}</span>
+</#if>
+</a>
+</#if>
+<a href="{ms:global.url/}{ms:page.next/}">
+<i class="iconfont icon-youjiantou ms-page-next"></i>
+</a>
+<#--span>
+前往
+<input type="number" onchange="location.href='{ms:global.url/}${field.categoryPath}/'+((this.value<=1?'index':('list-'+(this.value>${pageCount}?${pageCount}:this.value)))+'.html')">
+页
+</span-->
+</div>
 </div> </div> </div> </div>
         <#include "footer.htm"/>
     </div>
@@ -239,27 +306,28 @@ var app = new Vue({
             padding-right:0px;
             box-sizing:border-box;
             padding-bottom:0px;
-            flex-wrap:nowrap;
+            flex-wrap:wrap;
             width:1000px;
             margin-bottom:0px;
             padding-top:0px;
+            position:relative;
             padding-left:20px;
             margin-top:0px;
-            height:100%;
     }
     .content .body .right .ms-channel-path 
     {
-            margin-right:auto;
             align-items:center;
-            flex-wrap:nowrap;
             flex-direction:row;
             display:flex;
+            box-sizing:border-box;
+            margin-left:auto;
+            margin-right:auto;
+            flex-wrap:nowrap;
             width:100%;
             margin-bottom:10px;
-            box-sizing:border-box;
+            padding-left:0px;
             margin-top:10px;
             height:30px;
-            margin-left:auto;
     }
     .content .body .right .ms-channel-path span 
     {
@@ -290,128 +358,151 @@ var app = new Vue({
             margin-bottom:0px;
             margin-top:0px;
     }
-    .content .body .right .big-title 
+    .content .body .right .list 
+    {
+            flex-direction:row;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            margin-right:0px;
+            padding-bottom:0px;
+            width:980px;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:0px;
+            height:610px;
+    }
+    .content .body .right .list .list-body 
+    {
+            margin-right:0px;
+            flex-wrap:wrap;
+            flex-direction:row;
+            display:flex;
+            width:988px;
+            margin-bottom:0px;
+            box-sizing:border-box;
+            position:absolute;
+            padding-top:0px;
+            margin-top:0px;
+    }
+    .content .body .right .list .list-body .product 
+    {
+            background-color:#FFFFFF;
+            flex-direction:column;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            margin-right:8px;
+            padding-bottom:0px;
+            width:239px;
+            margin-bottom:8px;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:0px;
+            height:300px;
+    }
+    .content .body .right .list .list-body .product img 
+    {
+            margin-right:0px;
+            width:100%;
+            margin-bottom:0px;
+            padding-top:0px;
+            margin-top:0px;
+            height:100%;
+    }
+    .content .body .right .list .list-body .product a 
+    {
+            padding-bottom:0px;
+            text-align:center;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            padding-right:0px;
+            font-size:16PX;
+            padding-top:10px;
+            padding-left:0px;
+            margin-top:10px;
+            height:48px;
+    }
+    .content .body .right .page 
+    {
+            align-items:flex-start;
+            flex-direction:column;
+            display:flex;
+            padding-right:10px;
+            box-sizing:border-box;
+            margin-left:0px;
+            margin-right:0px;
+            padding-bottom:10px;
+            width:100%;
+            margin-bottom:0px;
+            padding-top:10px;
+            padding-left:10px;
+            margin-top:0px;
+    }
+    .content .body .right .page .ms-page 
+    {
+            align-items:center;
+            flex-direction:row;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            justify-content:center;
+            margin-left:0;
+            padding-bottom:0px;
+            flex-wrap:nowrap;
+            width:100%;
+            margin-bottom:0;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:0;
+            height:40px;
+    }
+    .content .body .right .page .ms-page .ms-page-left 
+    {
+            margin-bottom:0px;
+            margin-top:0px;
+            margin-left:0px;
+    }
+    .content .body .right .page .ms-page .ms-page-no 
     {
             text-align:center;
             flex-direction:row;
             word-wrap:break-word;
             display:inline-block;
-            font-size:22PX;
-            padding-left:0px;
-    }
-    .content .body .right .news-date-hit 
-    {
-            margin-right:0px;
-            align-items:center;
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            width:100%;
-            box-sizing:border-box;
-            padding-left:0px;
-            justify-content:center;
-            height:40px;
-    }
-    .content .body .right .news-date-hit span 
-    {
+            width:40px;
             font-size:16PX;
-            color:#909399;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-    }
-    .content .body .right .news-date-hit .date 
-    {
-            margin-right:20px;
-            color:#909399;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            margin-left:0px;
-    }
-    .content .body .right .news-body 
-    {
-            flex-direction:column;
-            display:flex;
-            box-sizing:border-box;
-            margin-left:0px;
-            margin-right:0px;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:100%;
-            margin-bottom:0px;
-            padding-top:0px;
             margin-top:0px;
-            height:300px;
-    }
-    .content .body .right .news-pre 
-    {
-            align-items:center;
-            flex-direction:row;
-            display:flex;
-            box-sizing:border-box;
-            justify-content:flex-start;
             margin-left:0px;
-            margin-right:0px;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:100%;
-            padding-top:0px;
-            height:40px;
     }
-    .content .body .right .news-pre .label 
+    .content .body .right .page .ms-page .ms-page-no-sel 
     {
-            margin-right:10px;
-            color:#909399;
+            color:#409EFF;
+            text-align:center;
             flex-direction:row;
             word-wrap:break-word;
             display:inline-block;
+            width:40px;
             font-size:16PX;
-            padding-top:0px;
-    }
-    .content .body .right .news-pre a 
-    {
-            margin-right:0px;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            padding-top:0px;
-    }
-    .content .body .right .news-next 
-    {
-            align-items:center;
-            flex-direction:row;
-            display:flex;
-            box-sizing:border-box;
-            justify-content:flex-start;
+            margin-top:0px;
             margin-left:0px;
-            margin-right:0px;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:100%;
-            padding-top:0px;
-            height:40px;
     }
-    .content .body .right .news-next .label 
+    .content .body .right .page .ms-page .ms-page-dot 
     {
-            margin-right:10px;
-            color:#909399;
+            text-align:center;
             flex-direction:row;
             word-wrap:break-word;
             display:inline-block;
+            width:40px;
             font-size:16PX;
-            padding-top:0px;
+            margin-top:0px;
+            margin-left:0px;
     }
-    .content .body .right .news-next a 
+    .content .body .right .page .ms-page .ms-page-right 
     {
-            margin-right:0px;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            padding-top:0px;
+            margin-top:0px;
+            margin-left:0px;
     }
 @media (max-width: 768px){
         .content 
@@ -456,169 +547,69 @@ var app = new Vue({
                 padding-left:0px;
                 margin-top:0px;
         }
-        .content .body .right .ms-channel-path 
-        {
-                margin-right:auto;
-                align-items:center;
-                flex-wrap:nowrap;
-                flex-direction:row;
-                display:flex;
-                width:100%;
-                margin-bottom:10px;
-                box-sizing:border-box;
-                margin-top:10px;
-                height:30px;
-                margin-left:auto;
-        }
-        .content .body .right .ms-channel-path span 
-        {
-                color:#5F5F5F;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                padding-top:0px;
-                padding-left:0px;
-        }
-        .content .body .right .ms-channel-path .ms-channel-path-index 
-        {
-                cursor:pointer;
-                color:#000;
-                font-size:16PX;
-                text-decoration:none;
-                margin-bottom:0px;
-                margin-top:0px;
-        }
-        .content .body .right .ms-channel-path .ms-channel-path-link 
-        {
-                cursor:pointer;
-                color:#000;
-                font-size:16PX;
-                text-decoration:none;
-                margin-bottom:0px;
-                margin-top:0px;
-        }
-        .content .body .right .big-title 
-        {
-                font-size:22PX;
-                padding-left:0px;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-        }
-        .content .body .right .news-date-hit 
-        {
-                margin-right:0px;
-                align-items:center;
-                flex-wrap:nowrap;
-                flex-direction:row;
-                display:flex;
-                width:100%;
-                box-sizing:border-box;
-                padding-left:0px;
-                justify-content:center;
-                height:40px;
-        }
-        .content .body .right .news-date-hit span 
-        {
-                font-size:16PX;
-                color:#909399;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-        }
-        .content .body .right .news-date-hit .date 
-        {
-                margin-right:20px;
-                color:#909399;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                margin-left:0px;
-        }
-        .content .body .right .news-body 
+        .content .body .right .list 
         {
                 flex-direction:row;
                 display:flex;
+                padding-right:0px;
                 box-sizing:border-box;
-                margin-left:0px;
                 margin-right:0px;
                 padding-bottom:0px;
-                flex-wrap:nowrap;
-                width:100%;
+                width:980px;
                 margin-bottom:0px;
                 padding-top:0px;
+                padding-left:0px;
+                margin-top:0px;
+                height:610px;
+        }
+        .content .body .right .list .list-body 
+        {
+                margin-right:0px;
+                flex-wrap:wrap;
+                flex-direction:row;
+                display:flex;
+                width:988px;
+                margin-bottom:0px;
+                box-sizing:border-box;
+                position:absolute;
+                margin-top:0px;
+        }
+        .content .body .right .list .list-body .product 
+        {
+                background-color:#FFFFFF;
+                flex-direction:column;
+                display:flex;
+                padding-right:0px;
+                box-sizing:border-box;
+                margin-right:8px;
+                padding-bottom:0px;
+                width:239px;
+                margin-bottom:8px;
+                padding-top:0px;
+                padding-left:0px;
                 margin-top:0px;
                 height:300px;
         }
-        .content .body .right .news-pre 
+        .content .body .right .list .list-body .product img 
         {
-                align-items:center;
-                flex-direction:row;
-                display:flex;
-                box-sizing:border-box;
-                justify-content:flex-start;
-                margin-left:0px;
-                margin-right:0px;
-                padding-bottom:0px;
-                flex-wrap:nowrap;
                 width:100%;
                 padding-top:0px;
-                height:40px;
+                margin-top:0px;
+                height:100%;
         }
-        .content .body .right .news-pre .label 
+        .content .body .right .list .list-body .product a 
         {
-                margin-right:10px;
-                color:#909399;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                padding-top:0px;
-        }
-        .content .body .right .news-pre a 
-        {
-                margin-right:0px;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                padding-top:0px;
-        }
-        .content .body .right .news-next 
-        {
-                align-items:center;
-                flex-direction:row;
-                display:flex;
-                box-sizing:border-box;
-                justify-content:flex-start;
-                margin-left:0px;
-                margin-right:0px;
                 padding-bottom:0px;
-                flex-wrap:nowrap;
-                width:100%;
-                padding-top:0px;
-                height:40px;
-        }
-        .content .body .right .news-next .label 
-        {
-                margin-right:10px;
-                color:#909399;
+                text-align:center;
                 flex-direction:row;
                 word-wrap:break-word;
                 display:inline-block;
+                padding-right:0px;
                 font-size:16PX;
-                padding-top:0px;
-        }
-        .content .body .right .news-next a 
-        {
-                margin-right:0px;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                padding-top:0px;
+                padding-top:10px;
+                padding-left:0px;
+                margin-top:10px;
+                height:48px;
         }
 
 }</style>

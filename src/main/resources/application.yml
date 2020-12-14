@@ -50,6 +50,9 @@ spring:
         enabled: true #启用druid监控
   profiles:
     active: dev
+  cache:
+    ehcache:
+      config: classpath:ehcache.xml
   mvc:
     pathmatch:
       use-suffix-pattern: true
@@ -89,6 +92,7 @@ spring:
 mybatis-plus:
   global-config:
     db-config:
+      column-format: "\"%s\""
       id-type: assign_id
   configuration:
-    database-id: mysql
+    database-id: oracle

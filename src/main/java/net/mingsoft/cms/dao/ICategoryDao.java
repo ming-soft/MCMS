@@ -20,6 +20,7 @@
  */
 package net.mingsoft.cms.dao;
 
+import com.baomidou.mybatisplus.annotation.SqlParser;
 import net.mingsoft.base.dao.IBaseDao;
 import net.mingsoft.cms.entity.CategoryEntity;
 import org.springframework.stereotype.Component;

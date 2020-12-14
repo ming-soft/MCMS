@@ -48,15 +48,11 @@
 <div class="body">
 <div class="left">
 <span class="title" >
-${field.typename}
+分类名称
 </span>
-{ms:channel type='son'}
-<a href="{ms:global.url/}${field.typelink}"
-target="_blank"
-class="sub-title-sel">
-${field.typetitle}
-</a>
-{/ms:channel}
+<span class="sub-title-sel" >
+分类名称
+</span>
 <span class="sub-title" >
 分类名称
 </span>
@@ -76,43 +72,27 @@ ${field.typetitle}
 </a>
 {/ms:channel}
 </div>
+<div class="product">
+<div class="pic">
+<img
+title=""
+alt=""
+src="{@ms:file field.litpic/}"
+/>
+<div class="text">
 <span class="big-title" >
 ${field.title}
 </span>
-<div class="news-date-hit">
-<span >
-发布时间:
+<span class="desc" >
+${field.descrip}
 </span>
-<span class="date" >
-${field.date?string("yyyy-MM-dd")}
-</span>
-<span >
-预览次数:
-</span>
-<span >
-${field.hit}
-</span>
-</div>
-<div class="news-body">
-</div>
-<div class="news-pre">
+</div> </div>
+<div class="content">
 <span class="label" >
-上一篇:
+详情
 </span>
-<a href="{ms:global.url/}${field.prelink}"
->
-${pre.title}
-</a>
-</div>
-<div class="news-next">
-<span class="label" >
-下一篇:
-</span>
-<a href="{ms:global.url/}${field.nextink}"
->
-${pre.title}
-</a>
-</div> </div> </div> </div>
+<div class="content-body">
+</div> </div> </div> </div> </div> </div>
         <#include "footer.htm"/>
     </div>
 </body>
@@ -185,11 +165,10 @@ var app = new Vue({
             flex-direction:column;
             display:flex;
             padding-right:0px;
-            width:200px;
+            width:100%;
             box-sizing:border-box;
             padding-top:0px;
             padding-left:0px;
-            margin-top:0px;
             height:100%;
     }
     .content .body .left .title 
@@ -199,12 +178,12 @@ var app = new Vue({
             word-wrap:break-word;
             display:inline-block;
             border-bottom-color:#C0C4CC;
+            padding-bottom:0px;
             font-size:16PX;
             border-bottom-style:dashed;
             padding-top:10px;
             border-bottom-width:1px;
             padding-left:10px;
-            margin-top:0px;
             height:40px;
     }
     .content .body .left .sub-title-sel 
@@ -239,27 +218,28 @@ var app = new Vue({
             padding-right:0px;
             box-sizing:border-box;
             padding-bottom:0px;
-            flex-wrap:nowrap;
+            flex-wrap:wrap;
             width:1000px;
             margin-bottom:0px;
             padding-top:0px;
+            position:relative;
             padding-left:20px;
             margin-top:0px;
-            height:100%;
     }
     .content .body .right .ms-channel-path 
     {
-            margin-right:auto;
             align-items:center;
-            flex-wrap:nowrap;
             flex-direction:row;
             display:flex;
+            box-sizing:border-box;
+            margin-left:auto;
+            margin-right:auto;
+            flex-wrap:nowrap;
             width:100%;
             margin-bottom:10px;
-            box-sizing:border-box;
+            padding-left:0px;
             margin-top:10px;
             height:30px;
-            margin-left:auto;
     }
     .content .body .right .ms-channel-path span 
     {
@@ -290,128 +270,97 @@ var app = new Vue({
             margin-bottom:0px;
             margin-top:0px;
     }
-    .content .body .right .big-title 
-    {
-            text-align:center;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:22PX;
-            padding-left:0px;
-    }
-    .content .body .right .news-date-hit 
+    .content .body .right .product 
     {
             margin-right:0px;
-            align-items:center;
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            width:100%;
-            box-sizing:border-box;
-            padding-left:0px;
-            justify-content:center;
-            height:40px;
-    }
-    .content .body .right .news-date-hit span 
-    {
-            font-size:16PX;
-            color:#909399;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-    }
-    .content .body .right .news-date-hit .date 
-    {
-            margin-right:20px;
-            color:#909399;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            margin-left:0px;
-    }
-    .content .body .right .news-body 
-    {
+            padding-bottom:0px;
             flex-direction:column;
             display:flex;
-            box-sizing:border-box;
-            margin-left:0px;
-            margin-right:0px;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:100%;
+            padding-right:0px;
+            width:980px;
             margin-bottom:0px;
+            box-sizing:border-box;
             padding-top:0px;
+            padding-left:0px;
             margin-top:0px;
-            height:300px;
     }
-    .content .body .right .news-pre 
+    .content .body .right .product .pic 
     {
-            align-items:center;
+            flex-wrap:nowrap;
             flex-direction:row;
             display:flex;
-            box-sizing:border-box;
-            justify-content:flex-start;
-            margin-left:0px;
-            margin-right:0px;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
             width:100%;
-            padding-top:0px;
-            height:40px;
+            box-sizing:border-box;
+            padding-left:0px;
+            height:240px;
     }
-    .content .body .right .news-pre .label 
+    .content .body .right .product .pic img 
     {
-            margin-right:10px;
-            color:#909399;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            padding-top:0px;
+            width:240px;
+            padding-left:0px;
+            height:240px;
     }
-    .content .body .right .news-pre a 
+    .content .body .right .product .pic .text 
     {
-            margin-right:0px;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            padding-top:0px;
-    }
-    .content .body .right .news-next 
-    {
-            align-items:center;
-            flex-direction:row;
+            flex-wrap:nowrap;
+            flex-direction:column;
             display:flex;
+            width:740px;
             box-sizing:border-box;
-            justify-content:flex-start;
-            margin-left:0px;
-            margin-right:0px;
+            padding-left:20px;
+            height:100%;
+    }
+    .content .body .right .product .pic .text .big-title 
+    {
+            font-size:22PX;
+            padding-left:0px;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+    }
+    .content .body .right .product .pic .text .desc 
+    {
+            color:#C8C8C8;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:16PX;
+            padding-top:0px;
+            padding-left:0px;
+    }
+    .content .body .right .product .content 
+    {
+            padding-bottom:10px;
+            flex-wrap:nowrap;
+            flex-direction:column;
+            display:flex;
+            width:100%;
+            box-sizing:border-box;
+            padding-top:10px;
+            padding-left:0px;
+            height:240px;
+    }
+    .content .body .right .product .content .label 
+    {
+            padding-bottom:0px;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:18PX;
+            padding-top:0px;
+            padding-left:0px;
+    }
+    .content .body .right .product .content .content-body 
+    {
             padding-bottom:0px;
             flex-wrap:nowrap;
+            flex-direction:column;
+            display:flex;
             width:100%;
+            box-sizing:border-box;
             padding-top:0px;
-            height:40px;
-    }
-    .content .body .right .news-next .label 
-    {
-            margin-right:10px;
-            color:#909399;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            padding-top:0px;
-    }
-    .content .body .right .news-next a 
-    {
-            margin-right:0px;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            padding-top:0px;
+            padding-left:0px;
+            height:100%;
     }
 @media (max-width: 768px){
         .content 
@@ -442,6 +391,59 @@ var app = new Vue({
                 padding-top:20px;
                 padding-left:0px;
         }
+        .content .body .left 
+        {
+                padding-bottom:0px;
+                flex-wrap:nowrap;
+                flex-direction:column;
+                display:flex;
+                padding-right:0px;
+                width:100%;
+                box-sizing:border-box;
+                padding-top:0px;
+                padding-left:0px;
+                height:100%;
+        }
+        .content .body .left .title 
+        {
+                color:#C0C4CC;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                border-bottom-color:#C0C4CC;
+                padding-bottom:0px;
+                font-size:16PX;
+                border-bottom-style:dashed;
+                padding-top:10px;
+                border-bottom-width:1px;
+                padding-left:10px;
+                height:40px;
+        }
+        .content .body .left .sub-title-sel 
+        {
+                background-color:#F2F6FC;
+                color:#409EFF;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                font-size:16PX;
+                padding-top:10px;
+                padding-left:10px;
+                margin-top:2px;
+                height:40px;
+        }
+        .content .body .left .sub-title 
+        {
+                color:#5F5F5F;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                font-size:16PX;
+                padding-top:10px;
+                padding-left:10px;
+                margin-top:0px;
+                height:40px;
+        }
         .content .body .right 
         {
                 padding-bottom:0px;
@@ -458,27 +460,26 @@ var app = new Vue({
         }
         .content .body .right .ms-channel-path 
         {
-                margin-right:auto;
                 align-items:center;
-                flex-wrap:nowrap;
                 flex-direction:row;
                 display:flex;
+                box-sizing:border-box;
+                margin-left:auto;
+                margin-right:auto;
+                flex-wrap:nowrap;
                 width:100%;
                 margin-bottom:10px;
-                box-sizing:border-box;
+                padding-left:0px;
                 margin-top:10px;
                 height:30px;
-                margin-left:auto;
         }
         .content .body .right .ms-channel-path span 
         {
-                color:#5F5F5F;
+                font-size:16PX;
+                color:#909399;
                 flex-direction:row;
                 word-wrap:break-word;
                 display:inline-block;
-                font-size:16PX;
-                padding-top:0px;
-                padding-left:0px;
         }
         .content .body .right .ms-channel-path .ms-channel-path-index 
         {
@@ -498,7 +499,48 @@ var app = new Vue({
                 margin-bottom:0px;
                 margin-top:0px;
         }
-        .content .body .right .big-title 
+        .content .body .right .product 
+        {
+                flex-direction:column;
+                display:flex;
+                padding-right:0px;
+                box-sizing:border-box;
+                margin-right:0px;
+                padding-bottom:0px;
+                width:100%;
+                margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
+                margin-top:0px;
+                height:610px;
+        }
+        .content .body .right .product .pic 
+        {
+                flex-wrap:nowrap;
+                flex-direction:column;
+                display:flex;
+                width:100%;
+                box-sizing:border-box;
+                padding-left:0px;
+                height:240px;
+        }
+        .content .body .right .product .pic img 
+        {
+                width:100%;
+                padding-left:0px;
+                height:400px;
+        }
+        .content .body .right .product .pic .text 
+        {
+                flex-wrap:nowrap;
+                flex-direction:column;
+                display:flex;
+                width:100%;
+                box-sizing:border-box;
+                padding-left:0px;
+                height:100%;
+        }
+        .content .body .right .product .pic .text .big-title 
         {
                 font-size:22PX;
                 padding-left:0px;
@@ -506,119 +548,44 @@ var app = new Vue({
                 word-wrap:break-word;
                 display:inline-block;
         }
-        .content .body .right .news-date-hit 
+        .content .body .right .product .pic .text .desc 
         {
-                margin-right:0px;
-                align-items:center;
-                flex-wrap:nowrap;
+                color:#C8C8C8;
                 flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                font-size:16PX;
+                padding-left:0px;
+        }
+        .content .body .right .product .content 
+        {
+                flex-wrap:nowrap;
+                flex-direction:column;
                 display:flex;
                 width:100%;
                 box-sizing:border-box;
                 padding-left:0px;
-                justify-content:center;
-                height:40px;
+                height:240px;
         }
-        .content .body .right .news-date-hit span 
+        .content .body .right .product .content .label 
         {
-                font-size:16PX;
-                color:#909399;
                 flex-direction:row;
                 word-wrap:break-word;
                 display:inline-block;
+                font-size:18PX;
+                padding-top:0px;
+                padding-left:0px;
         }
-        .content .body .right .news-date-hit .date 
+        .content .body .right .product .content .content-body 
         {
-                margin-right:20px;
-                color:#909399;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                margin-left:0px;
-        }
-        .content .body .right .news-body 
-        {
-                flex-direction:row;
-                display:flex;
-                box-sizing:border-box;
-                margin-left:0px;
-                margin-right:0px;
-                padding-bottom:0px;
                 flex-wrap:nowrap;
-                width:100%;
-                margin-bottom:0px;
-                padding-top:0px;
-                margin-top:0px;
-                height:300px;
-        }
-        .content .body .right .news-pre 
-        {
-                align-items:center;
-                flex-direction:row;
+                flex-direction:column;
                 display:flex;
-                box-sizing:border-box;
-                justify-content:flex-start;
-                margin-left:0px;
-                margin-right:0px;
-                padding-bottom:0px;
-                flex-wrap:nowrap;
                 width:100%;
-                padding-top:0px;
-                height:40px;
-        }
-        .content .body .right .news-pre .label 
-        {
-                margin-right:10px;
-                color:#909399;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                padding-top:0px;
-        }
-        .content .body .right .news-pre a 
-        {
-                margin-right:0px;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                padding-top:0px;
-        }
-        .content .body .right .news-next 
-        {
-                align-items:center;
-                flex-direction:row;
-                display:flex;
                 box-sizing:border-box;
-                justify-content:flex-start;
-                margin-left:0px;
-                margin-right:0px;
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                width:100%;
-                padding-top:0px;
-                height:40px;
-        }
-        .content .body .right .news-next .label 
-        {
-                margin-right:10px;
-                color:#909399;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                padding-top:0px;
-        }
-        .content .body .right .news-next a 
-        {
-                margin-right:0px;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                padding-top:0px;
+                padding-top:20px;
+                padding-left:0px;
+                height:100%;
         }
 
 }</style>
