@@ -20,6 +20,7 @@
  */
 package net.mingsoft.cms.action;
 
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;

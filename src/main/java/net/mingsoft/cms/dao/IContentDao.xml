@@ -218,7 +218,7 @@
 			ct.del=0
 			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT('%',#{contentTitle},'%')</if>
 			<if test="categoryId != null and categoryId != ''"> 	and (ct.category_id=#{categoryId} or ct.category_id in
-				(select id FROM cms_category where find_in_set('${categoryId}',CATEGORY_PARENT_IDS)))</if>
+				(select id FROM cms_category where find_in_set('${categoryId}',CATEGORY_PARENT_IDS)>0))</if>
 			<if test="contentType != null and contentType != ''"> and content_type LIKE CONCAT('%',#{contentType},'%')</if>
 			<if test="contentDisplay != null and contentDisplay != ''"> and content_display=#{contentDisplay}</if>
 			<if test="contentAuthor != null and contentAuthor != ''"> and content_author=#{contentAuthor}</if>
@@ -250,7 +250,7 @@
 			<!-- 查询子栏目数据 -->
 			<if test="categoryId &gt; 0">
 				and (ct.category_id=#{categoryId} or ct.category_id in
-				(select id FROM cms_category where find_in_set('${categoryId}',CATEGORY_PARENT_IDS)))
+				(select id FROM cms_category where find_in_set('${categoryId}',CATEGORY_PARENT_IDS)>0))
 			</if>
 			<if test="beginTime!=null and beginTime!=''">
 				and content_datetime &gt;= #{beginTime}
@@ -293,7 +293,7 @@
 		<where>
 			a.del=0
 			<if test="ids!=null and ids!=''">
-				and FIND_IN_SET(a.category_id,#{ids})
+				and FIND_IN_SET(a.category_id,#{ids})>0
 			</if>
 			<if test="map.content_title!=null">
 			and a.content_title like CONCAT("%",#{map.content_title},"%")
@@ -306,7 +306,7 @@
 			</if>
 			<if test="map.content_type!=null">
 				and <foreach item="item" index="index" collection="map.content_type.split(',')"  open="(" separator="or" close=")">
-					FIND_IN_SET('${item}',a.content_type)
+					FIND_IN_SET('${item}',a.content_type)>0
 				</foreach>
 			</if>
 			<if test="map.content_description!=null">

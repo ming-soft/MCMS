@@ -157,10 +157,10 @@
 			and
 			(
 			<if test="categoryParentIds != null and categoryParentIds!=''">
-				find_in_set(#{categoryParentIds},CATEGORY_PARENT_IDS)
+				find_in_set(#{categoryParentIds},CATEGORY_PARENT_IDS)>0
 			</if>
 			<if test="categoryParentIds == null or  categoryParentIds ==''">
-				find_in_set('${id}',CATEGORY_PARENT_IDS)
+				find_in_set('${id}',CATEGORY_PARENT_IDS)>0
 			</if>
 			<if test="id != null">
 				or id=#{id}
@@ -208,7 +208,7 @@
 			<if test="dictId != null"> and dict_id=#{dictId} </if>
 			<if test="categoryFlag != null and categoryFlag != ''"> and category_flag=#{categoryFlag}</if>
 			<if test="categoryPath != null and categoryPath != ''"> and category_path=#{categoryPath}</if>
-			<if test="categoryParentIds != null and categoryParentIds != ''"> and  find_in_set(#{categoryParentIds},category_parent_ids)</if>
+			<if test="categoryParentIds != null and categoryParentIds != ''"> and  find_in_set(#{categoryParentIds},category_parent_ids)>0</if>
 			<if test="createBy &gt; 0"> and create_by=#{createBy} </if>
 			<if test="createDate != null"> and create_date=#{createDate} </if>
 			<if test="updateBy &gt; 0"> and update_by=#{updateBy} </if>
