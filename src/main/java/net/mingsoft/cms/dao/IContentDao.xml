@@ -160,7 +160,7 @@
 			select * from cms_content
 			<where>
 				del=0
-				<if test="contentTitle != null and contentTitle != ''">and  content_title like CONCAT('%',#{contentTitle},'%')</if>
+				<if test="contentTitle != null and contentTitle != ''">and  content_title like CONCAT(CONCAT('%',#{contentTitle}),'%')</if>
 				<if test="categoryId != null and categoryId != ''">and category_id=#{categoryId}</if>
 				<if test="contentType != null and contentType != ''">and content_type=#{contentType}</if>
 				<if test="contentDisplay != null and contentDisplay != ''">and content_display=#{contentDisplay}</if>
@@ -216,10 +216,10 @@
 		join cms_category cc on ct.category_id=cc.id
 		<where>
 			ct.del=0
-			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT('%',#{contentTitle},'%')</if>
+			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT(CONCAT('%',#{contentTitle}),'%')</if>
 			<if test="categoryId != null and categoryId != ''"> 	and (ct.category_id=#{categoryId} or ct.category_id in
 				(select id FROM cms_category where find_in_set('${categoryId}',CATEGORY_PARENT_IDS)>0))</if>
-			<if test="contentType != null and contentType != ''"> and content_type LIKE CONCAT('%',#{contentType},'%')</if>
+			<if test="contentType != null and contentType != ''"> and content_type LIKE CONCAT(CONCAT('%',#{contentType}),'%')</if>
 			<if test="contentDisplay != null and contentDisplay != ''"> and content_display=#{contentDisplay}</if>
 			<if test="contentAuthor != null and contentAuthor != ''"> and content_author=#{contentAuthor}</if>
 			<if test="contentSource != null and contentSource != ''"> and content_source=#{contentSource}</if>
@@ -296,13 +296,13 @@
 				and FIND_IN_SET(a.category_id,#{ids})>0
 			</if>
 			<if test="map.content_title!=null">
-			and a.content_title like CONCAT("%",#{map.content_title},"%")
+			and a.content_title like CONCAT(CONCAT("%",#{map.content_title}),"%")
 			</if>
 			<if test="map.content_author!=null">
-			and a.content_author like CONCAT("%",#{map.content_author},"%")
+			and a.content_author like CONCAT(CONCAT("%",#{map.content_author}),"%")
 			</if>
 			<if test="map.content_source!=null">
-			and a.content_source like CONCAT("%",#{map.content_source},"%")
+			and a.content_source like CONCAT(CONCAT("%",#{map.content_source}),"%")
 			</if>
 			<if test="map.content_type!=null">
 				and <foreach item="item" index="index" collection="map.content_type.split(',')"  open="(" separator="or" close=")">
@@ -310,13 +310,13 @@
 				</foreach>
 			</if>
 			<if test="map.content_description!=null">
-			and a.content_description like CONCAT("%",#{map.content_description},"%")
+			and a.content_description like CONCAT(CONCAT("%",#{map.content_description}),"%")
 			</if>
 			<if test="map.content_keyword!=null">
-			and a.content_keyword like CONCAT("%",#{map.content_keyword},"%")
+			and a.content_keyword like CONCAT(CONCAT("%",#{map.content_keyword}),"%")
 			</if>
 			<if test="map.content_details!=null">
-			and a.content_details like CONCAT("%",#{map.content_details},"%")
+			and a.content_details like CONCAT(CONCAT("%",#{map.content_details}),"%")
 			</if>
 			<if test="map.content_datetime_start!=null and map.content_datetime_end!=null">
 				and a.content_datetime between #{map.content_datetime_start} and #{map.content_datetime_end}
@@ -324,7 +324,7 @@
 			<if test="tableName!=null and tableName!='' and diyMap!=null">
 				<foreach item="item" index="index" collection="diyList" open=""
 						 separator="" close="">
-					and d.${field.key} like CONCAT("%",#{item.value},"%")
+					and d.${field.key} like CONCAT(CONCAT("%",#{item.value}),"%")
 				</foreach>
 			</if>
 		</where>
