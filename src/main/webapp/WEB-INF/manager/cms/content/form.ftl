@@ -286,7 +286,7 @@
                     // 文章标题
                     contentTitle: '',
                     // 所属栏目
-                    categoryId: '',
+                    categoryId: undefined,
                     // 文章类型
                     contentType: [],
                     // 是否显示
@@ -675,8 +675,9 @@
                 this.type = ms.util.getParameter("type");
 
                 //在指定栏目下新增或编辑文章时
-                if (ms.util.getParameter("categoryId")) {
-                    this.form.categoryId = ms.util.getParameter("categoryId");
+                var categoryId = ms.util.getParameter("categoryId");
+                if (categoryId) {
+                    this.form.categoryId = categoryId;
                     //如果是封面栏目直接跳转
                     if (this.type) {
                         this.getFromFengMian(this.form.categoryId);
