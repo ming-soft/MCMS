@@ -282,7 +282,7 @@
                     // 栏目管理名称
                     categoryTitle: '',
                     // 所属栏目
-                    categoryId: null,
+                    categoryId: undefined,
                     // 栏目管理属性
                     categoryType: '1',
                     // 自定义顺序
