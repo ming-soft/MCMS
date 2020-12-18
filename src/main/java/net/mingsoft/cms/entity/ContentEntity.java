@@ -21,7 +21,9 @@
 package net.mingsoft.cms.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import net.mingsoft.base.entity.BaseEntity;
@@ -40,6 +42,18 @@ public class ContentEntity extends BaseEntity {
 
 private static final long serialVersionUID = 1574925152617L;
 
+	@TableId(type = IdType.ASSIGN_ID)
+	private String id;
+
+	@Override
+	public String getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(String id) {
+		this.id = id;
+	}
 	/**
 	* 文章标题
 	*/

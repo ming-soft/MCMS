@@ -24,9 +24,7 @@ import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.annotation.JSONField;
-import com.baomidou.mybatisplus.annotation.FieldStrategy;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import net.mingsoft.base.entity.BaseEntity;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -44,6 +42,20 @@ import java.util.Date;
 public class CategoryEntity extends BaseEntity {
 
     private static final long serialVersionUID = 1574925152750L;
+
+
+    @TableId(type = IdType.ASSIGN_ID)
+    private String id;
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
 
     /**
      * 栏目管理名称
