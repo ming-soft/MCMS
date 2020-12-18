@@ -26,61 +26,10 @@
 				<result column="update_by" property="updateBy" /><!--修改人 -->
 				<result column="update_date" property="updateDate" /><!--修改时间 -->
 				<result column="del" property="del" /><!--删除标记 -->
+				<result column="top_id" property="topId" /><!--删除标记 -->
+				<result column="leaf" property="leaf" /><!--删除标记 -->
 	</resultMap>
 
-	<!--保存-->
-	<insert id="saveEntity" useGeneratedKeys="true" keyProperty="id"
-			parameterType="net.mingsoft.cms.entity.CategoryEntity" >
-		insert into cms_category
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-				<if test="categoryTitle != null and categoryTitle != ''">category_title,</if>
-				<if test="categoryPinyin != null and categoryPinyin != ''">category_pinyin,</if>
-				<if test="categoryId != null and categoryId != ''">category_id,</if>
-				<if test="categoryType != null and categoryType != ''">category_type,</if>
-				<if test="categorySort != null">category_sort,</if>
-				<if test="categoryListUrl != null and categoryListUrl != ''">category_list_url,</if>
-				<if test="categoryUrl != null and categoryUrl != ''">category_url,</if>
-				<if test="categoryKeyword != null and categoryKeyword != ''">category_keyword,</if>
-				<if test="categoryDescrip != null and categoryDescrip != ''">category_descrip,</if>
-				<if test="categoryImg != null and categoryImg != ''">category_img,</if>
-				<if test="categoryDiyUrl != null and categoryDiyUrl != ''">category_diy_url,</if>
-				<if test="mdiyModelId != null and mdiyModelId != ''">mdiy_model_id,</if>
-				<if test="categoryDatetime != null">category_datetime,</if>
-				<if test="dictId != null">dict_id,</if>
-				<if test="categoryFlag != null">category_flag,</if>
-				<if test="categoryPath != null and categoryPath != ''">category_path,</if>
-				<if test="categoryParentIds != null and categoryParentIds != ''">category_parent_ids,</if>
-				<if test="createBy &gt; 0">create_by,</if>
-				<if test="createDate != null">create_date,</if>
-				<if test="updateBy &gt; 0">update_by,</if>
-				<if test="updateDate != null">update_date,</if>
-				<if test="del != null">del,</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-				<if test="categoryTitle != null and categoryTitle != ''">#{categoryTitle},</if>
-				<if test="categoryPinyin != null and categoryPinyin != ''">#{categoryPinyin},</if>
-				<if test="categoryId != null and categoryId != ''">#{categoryId},</if>
-				<if test="categoryType != null and categoryType != ''">#{categoryType},</if>
-				<if test="categorySort != null">#{categorySort},</if>
-				<if test="categoryListUrl != null and categoryListUrl != ''">#{categoryListUrl},</if>
-				<if test="categoryUrl != null and categoryUrl != ''">#{categoryUrl},</if>
-				<if test="categoryKeyword != null and categoryKeyword != ''">#{categoryKeyword},</if>
-				<if test="categoryDescrip != null and categoryDescrip != ''">#{categoryDescrip},</if>
-				<if test="categoryImg != null and categoryImg != ''">#{categoryImg},</if>
-				<if test="categoryDiyUrl != null and categoryDiyUrl != ''">#{categoryDiyUrl},</if>
-				<if test="mdiyModelId != null and mdiyModelId != ''">#{mdiyModelId},</if>
-				<if test="categoryDatetime != null">#{categoryDatetime},</if>
-				<if test="dictId != null">#{dictId},</if>
-				<if test="categoryFlag != null ">#{categoryFlag},</if>
-				<if test="categoryPath != null and categoryPath != ''">#{categoryPath},</if>
-				<if test="categoryParentId != null and categoryParentId != ''">#{categoryParentId},</if>
-				<if test="createBy &gt; 0">#{createBy},</if>
-				<if test="createDate != null">#{createDate},</if>
-				<if test="updateBy &gt; 0">#{updateBy},</if>
-				<if test="updateDate != null">#{updateDate},</if>
-				<if test="del != null">#{del},</if>
-		</trim>
-	</insert>
 
 		<!--更新-->
 		<update id="updateEntity" parameterType="net.mingsoft.cms.entity.CategoryEntity">
@@ -88,6 +37,8 @@
 			<set>
 				<if test="categoryTitle != null and categoryTitle != ''">category_title=#{categoryTitle},</if>
 				<if test="categoryPinyin != null and categoryPinyin != ''">category_pinyin=#{categoryPinyin},</if>
+				<if test="topId != null and topId != ''">top_id=#{topId},</if>
+				<if test="leaf != null">leaf=#{leaf},</if>
 				category_id=#{categoryId},
 				category_parent_ids=#{categoryParentIds},
 				<if test="categoryType != null and categoryType != ''">category_type=#{categoryType},</if>
@@ -143,6 +94,8 @@
 				<if test="updateBy &gt; 0"> and update_by=#{updateBy} </if>
 				<if test="updateDate != null"> and update_date=#{updateDate} </if>
 				<if test="del != null"> and del=#{del} </if>
+				<if test="topId != null and topId != ''"> and top_id=#{topId}</if>
+				<if test="leaf != null"> and leaf=#{leaf}</if>
 			</where>
 		</select>
 
@@ -214,6 +167,8 @@
 			<if test="updateBy &gt; 0"> and update_by=#{updateBy} </if>
 			<if test="updateDate != null"> and update_date=#{updateDate} </if>
 			<if test="del != null"> and del=#{del} </if>
+			<if test="topId != null and topId != ''"> and top_id=#{topId}</if>
+			<if test="leaf != null"> and leaf=#{leaf}</if>
 			<include refid="net.mingsoft.base.dao.IBaseDao.sqlWhere"></include>
 		</where>
 	</select>

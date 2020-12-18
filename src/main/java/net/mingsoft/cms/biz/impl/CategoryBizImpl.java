@@ -132,7 +132,7 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 		}
 
 	}
-	private void setChildParentId(CategoryEntity categoryEntity) {
+	private void setChildParentId(CategoryEntity categoryEntity, String topId) {
 		CategoryEntity category=new CategoryEntity();
 		category.setCategoryId(categoryEntity.getId());
 		List<CategoryEntity> list = categoryDao.query(category);
@@ -142,12 +142,14 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 			} else {
 				x.setCategoryParentIds(categoryEntity.getCategoryParentIds()+","+categoryEntity.getId());
 			}
+			//更新topid
+			x.setTopId(topId);
 			String path=categoryEntity.getCategoryPath();
 			//判断是否有parentIds
 			x.setCategoryPath(path+"/"+x.getCategoryPinyin());
 			//去除多余的/符号
 			super.updateEntity(x);
-			setChildParentId(x);
+			setChildParentId(x, topId);
 		});
 	}
 
@@ -166,8 +168,21 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 	}
 		setParentLeaf(entity);
 		setTopId(entity);
-		super.updateById(entity);
-		setChildParentId(entity);
+		//如果父级栏目和父级id为空字符串则转化成null
+		if (StringUtils.isEmpty(entity.getCategoryId())) {
+			entity.setCategoryId(null);
+		}
+		if (StringUtils.isEmpty(entity.getCategoryParentIds())) {
+			entity.setCategoryParentIds(null);
+		}
+		categoryDao.updateEntity(entity);
+		//更新子节点所有父节点id和topid
+		//如果本节点的topid为0（顶级栏目）,则把自身的id作为子栏目的topid，非0所有的子栏目和本栏目使用同一个topid
+		String topId = entity.getTopId();
+		if (topId.equals("0")) {
+			topId = entity.getId();
+		}
+		setChildParentId(entity, topId);
 	}
 
 
@@ -200,7 +215,6 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 	 * @param entity
 	 */
 	private void setParentLeaf(CategoryEntity entity){
-		Assert.notNull(entity);
 		CategoryEntity categoryEntity = getById(entity.getId());
 		//如果父级不为空并且修改了父级则需要更新父级
 		if(entity.getCategoryId() != null && !entity.getCategoryId().equals(categoryEntity.getCategoryId())){

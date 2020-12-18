@@ -280,7 +280,7 @@ public class CategoryAction extends BaseAction {
 		 }
 		 CategoryEntity categoryEntity=new CategoryEntity();
 		 categoryEntity.setCategoryPinyin(pingYin);
-		 CategoryEntity categoryBizEntity = (CategoryEntity)categoryBiz.getEntity(categoryEntity);
+		 CategoryEntity categoryBizEntity = categoryBiz.getEntity(categoryEntity);
 		 category.setCategoryPinyin(pingYin);
 		 //如果存在此拼音栏目则拼接上id
 		 if(categoryBizEntity!=null&&!categoryBizEntity.getId().equals(category.getId())){
