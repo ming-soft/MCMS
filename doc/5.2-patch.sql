@@ -204,6 +204,8 @@ MODIFY COLUMN `log_error_msg`  text CHARACTER SET utf8 COLLATE utf8_general_ci N
 MODIFY COLUMN `log_result`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '返回参数' AFTER `log_error_msg`,
 MODIFY COLUMN `log_param`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '请求参数' AFTER `log_result`;
 
+alter table log rename to logger;
+
 
 ALTER TABLE `role`
 ADD COLUMN `create_by` int(10) NULL COMMENT '创建人',
