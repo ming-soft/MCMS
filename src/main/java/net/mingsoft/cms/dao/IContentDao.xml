@@ -307,13 +307,13 @@
 				and FIND_IN_SET(a.category_id,#{ids})>0
 			</if>
 			<if test="map.content_title!=null">
-			and a.content_title like CONCAT(CONCAT("%",#{map.content_title}),"%")
+			and a.content_title like CONCAT(CONCAT('%',#{map.content_title}),'%')
 			</if>
 			<if test="map.content_author!=null">
-			and a.content_author like CONCAT(CONCAT("%",#{map.content_author}),"%")
+			and a.content_author like CONCAT(CONCAT('%',#{map.content_author}),'%')
 			</if>
 			<if test="map.content_source!=null">
-			and a.content_source like CONCAT(CONCAT("%",#{map.content_source}),"%")
+			and a.content_source like CONCAT(CONCAT('%',#{map.content_source}),'%')
 			</if>
 			<if test="map.content_type!=null">
 				and <foreach item="item" index="index" collection="map.content_type.split(',')"  open="(" separator="or" close=")">
@@ -321,13 +321,13 @@
 				</foreach>
 			</if>
 			<if test="map.content_description!=null">
-			and a.content_description like CONCAT(CONCAT("%",#{map.content_description}),"%")
+			and a.content_description like CONCAT(CONCAT('%',#{map.content_description}),'%')
 			</if>
 			<if test="map.content_keyword!=null">
-			and a.content_keyword like CONCAT(CONCAT("%",#{map.content_keyword}),"%")
+			and a.content_keyword like CONCAT(CONCAT('%',#{map.content_keyword}),'%')
 			</if>
 			<if test="map.content_details!=null">
-			and a.content_details like CONCAT(CONCAT("%",#{map.content_details}),"%")
+			and a.content_details like CONCAT(CONCAT('%',#{map.content_details}),'%')
 			</if>
 			<if test="map.content_datetime_start!=null and map.content_datetime_end!=null">
 				<if test="_databaseId == 'mysql'">
@@ -341,7 +341,7 @@
 			<if test="tableName!=null and tableName!='' and diyMap!=null">
 				<foreach item="item" index="index" collection="diyList" open=""
 						 separator="" close="">
-					and d.${field.key} like CONCAT(CONCAT("%",#{item.value}),"%")
+					and d.${field.key} like CONCAT(CONCAT('%',#{item.value}),'%')
 				</foreach>
 			</if>
 		</where>

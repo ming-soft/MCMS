@@ -96,6 +96,6 @@ mybatis-plus:
     db-config:
       id-type: auto
   configuration:
-    database-id: oracle
+    database-id: mysql
     cache-enabled: true
     jdbc-type-for-null: 'null' #注意：单引号

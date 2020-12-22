@@ -203,3 +203,28 @@ ALTER TABLE `log`
 MODIFY COLUMN `log_error_msg`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '错误消息' AFTER `id`,
 MODIFY COLUMN `log_result`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '返回参数' AFTER `log_error_msg`,
 MODIFY COLUMN `log_param`  text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '请求参数' AFTER `log_result`;
+
+alter table log rename to logger;
+
+
+ALTER TABLE `role`
+ADD COLUMN `create_by` int(10) NULL COMMENT '创建人',
+ADD COLUMN `create_date` datetime(0) NULL COMMENT '创建时间',
+ADD COLUMN `update_by` int(10) NULL COMMENT '更新人',
+ADD COLUMN `update_date` datetime(0) NULL COMMENT '更新时间',
+ADD COLUMN `del` int(1) NULL COMMENT '删除标识';
+
+ALTER TABLE `model`
+ADD COLUMN `create_by` int(10) NULL COMMENT '创建人',
+ADD COLUMN `create_date` datetime(0) NULL COMMENT '创建时间',
+ADD COLUMN `update_by` int(10) NULL COMMENT '更新人',
+ADD COLUMN `update_date` datetime(0) NULL COMMENT '更新时间',
+ADD COLUMN `del` int(1) NULL COMMENT '删除标识';
+
+ALTER TABLE `people`
+ADD COLUMN `create_by` int(10) NULL COMMENT '创建人',
+ADD COLUMN `create_date` datetime(0) NULL COMMENT '创建时间',
+ADD COLUMN `update_by` int(10) NULL COMMENT '更新人',
+ADD COLUMN `update_date` datetime(0) NULL COMMENT '更新时间',
+ADD COLUMN `del` int(1) NULL COMMENT '删除标识';
+
