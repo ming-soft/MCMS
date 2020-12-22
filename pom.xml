@@ -34,10 +34,10 @@
 		</repository>
 	</repositories>
 	<dependencies>
-		<dependency>
-			<groupId>net.mingsoft</groupId>
-			<artifactId>ms-mwebsite</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>net.mingsoft</groupId>-->
+<!--			<artifactId>ms-mwebsite</artifactId>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>net.mingsoft</groupId>
 			<artifactId>ms-mpeople</artifactId>

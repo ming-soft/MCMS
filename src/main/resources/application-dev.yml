@@ -1,17 +1,16 @@
-spring:
-  datasource:
-    url: jdbc:mysql://192.168.0.8:3316/mcms-dev-5.2-8?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&allowMultiQueries=true&useSSL=true
-    username: mcms
-    password: mcms
-    filters: wall,mergeStat
-    type: com.alibaba.druid.pool.DruidDataSource
-
 #spring:
 #  datasource:
-#    driver-class-name: oracle.jdbc.driver.OracleDriver
-#    url: jdbc:oracle:thin:@192.168.0.7:1521:helowin
-#    username: mcms
+#    url: jdbc:mysql://192.168.0.8:3316/mcms-dev-5.2-8?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&allowMultiQueries=true&useSSL=true
+#    username: mcms_dev_1
 #    password: mcms
 #    filters: wall,mergeStat
 #    type: com.alibaba.druid.pool.DruidDataSource
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@192.168.0.7:1521:helowin
+    username: mcms_dev_1
+    password: mcms
+    filters: wall,mergeStat
+    type: com.alibaba.druid.pool.DruidDataSource
 
