@@ -11,7 +11,7 @@
     <el-header class="ms-header" height="50px">
         <el-col :span="12">
             <@shiro.hasPermission name="cms:content:save">
-                <el-button type="primary" icon="el-icon-plus" size="mini" @click="save(0)">新增</el-button>
+                <el-button type="primary" icon="el-icon-plus" size="mini" @click="save()">新增</el-button>
             </@shiro.hasPermission>
             <@shiro.hasPermission name="cms:content:del">
                 <el-button type="danger" icon="el-icon-delete" size="mini" @click="del(selectionList)"  :disabled="!selectionList.length">删除</el-button>
@@ -368,13 +368,18 @@
             },
             //新增
             save: function (id) {
+                //id有值时编辑
                 if (id) {
                     location.href = this.manager + "/cms/content/form.do?id=" + id;
-                } else if (id == 0){
-                    //在全部栏目下新增文章
-                    location.href = this.manager + "/cms/content/form.do";
-                } else {
-                    location.href = this.manager + "/cms/content/form.do?categoryId=" + this.form.categoryId;
+                }else {
+                    //根据当前栏目新增时自动选中栏目
+                    var categoryId = this.form.categoryId;
+                    if (categoryId) {
+                        location.href = this.manager + "/cms/content/form.do?categoryId=" + this.form.categoryId;
+                    }else {
+                        //如果栏目id没有值就单纯的新增，不自动选定栏目
+                        location.href = this.manager + "/cms/content/form.do";
+                    }
                 }
             },
             //表格数据转换
