@@ -10,7 +10,7 @@ spring:
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     url: jdbc:oracle:thin:@192.168.0.7:1521:helowin
-    username: mcms
+    username: mcms_dev_1
     password: mcms
     filters: wall,mergeStat
     type: com.alibaba.druid.pool.DruidDataSource
