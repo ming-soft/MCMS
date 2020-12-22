@@ -297,7 +297,10 @@
                     form: form,
                     page: page
                 }, "");
+                //筛选栏目类型，1=列表
+                that.form.categoryType = '1';
                 ms.http.post(ms.manager + "/cms/content/list.do", form.sqlWhere ? Object.assign({}, {
+                    categoryType: '1',
                     sqlWhere: form.sqlWhere
                 }, page) : Object.assign({}, that.form, page)).then(function (res) {
                     if (that.loadState) {

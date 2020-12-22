@@ -31,6 +31,7 @@ import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.constant.e.BusinessTypeEnum;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.StringUtil;
+import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.entity.ContentEntity;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -108,7 +109,7 @@ public class ContentAction extends BaseAction {
     })
 	@RequestMapping("/list")
 	@ResponseBody
-	public ResultData list(@ModelAttribute @ApiIgnore ContentEntity content, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model, BindingResult result) {
+	public ResultData list(@ModelAttribute @ApiIgnore ContentBean content, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model, BindingResult result) {
 		BasicUtil.startPage();
 		List contentList = contentBiz.query(content);
 		return ResultData.build().success(new EUListBean(contentList,(int) BasicUtil.endPage(contentList).getTotal()));
