@@ -63,7 +63,7 @@ CREATE TABLE `cms_category`  (
   `leaf` bigint(0) NULL DEFAULT NULL COMMENT '是否是叶子节点',
   `top_id` bigint(0) NULL DEFAULT NULL COMMENT '顶级id',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '分类' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 150 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '分类' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_category
@@ -142,7 +142,7 @@ CREATE TABLE `cms_content`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `fk_category_id`(`category_id`) USING BTREE,
   CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `cms_category` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文章' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 223 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '文章' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of cms_content
@@ -292,7 +292,14 @@ CREATE TABLE `logger`  (
   `create_date` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `create_by` int(0) NULL DEFAULT NULL COMMENT '创建人',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统日志' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of logger
+-- ----------------------------
+INSERT INTO `logger` VALUES (1, NULL, '{\n	\"result\":true,\n	\"code\":200\n}', '{}', '内网IP', 'msopen', 'manage', 'update', 'success', '/ms/cms/generate/0/genernateColumn.do', 'GET', 'net.mingsoft.cms.action.GeneraterAction.genernateColumn()', '127.0.0.1', '生成栏目', 0, NULL, NULL, '2020-12-24 05:46:15', NULL);
+INSERT INTO `logger` VALUES (2, NULL, '{\n	\"result\":true,\n	\"code\":200\n}', '{\n	\"dateTime\":[\"2018-11-01\"]\n}', '内网IP', 'msopen', 'manage', 'update', 'success', '/ms/cms/generate/0/generateArticle.do', 'POST', 'net.mingsoft.cms.action.GeneraterAction.generateArticle()', '127.0.0.1', '生成文章', 0, NULL, NULL, '2020-12-24 05:46:23', NULL);
+INSERT INTO `logger` VALUES (3, NULL, '{\n	\"result\":true,\n	\"code\":200\n}', '{\n	\"url\":[\"index.htm\"],\n	\"position\":[\"index\"]\n}', '内网IP', 'msopen', 'manage', 'update', 'success', '/ms/cms/generate//generateIndex.do', 'POST', 'net.mingsoft.cms.action.GeneraterAction.generateIndex()', '127.0.0.1', '生成主页', 0, NULL, NULL, '2020-12-24 05:46:30', NULL);
 
 -- ----------------------------
 -- Table structure for manager
@@ -459,7 +466,7 @@ CREATE TABLE `mdiy_tag`  (
 -- ----------------------------
 -- Records of mdiy_tag
 -- ----------------------------
-INSERT INTO `mdiy_tag` VALUES (3, 'arclist', 'page', '文章列表');
+INSERT INTO `mdiy_tag` VALUES (3, 'arclist', 'list', '文章列表');
 INSERT INTO `mdiy_tag` VALUES (4, 'channel', 'list', '通用栏目');
 INSERT INTO `mdiy_tag` VALUES (5, 'global', 'single', '全局');
 INSERT INTO `mdiy_tag` VALUES (7, 'field', 'single', '文章内容');
@@ -619,7 +626,6 @@ CREATE TABLE `people`  (
 -- Records of people
 -- ----------------------------
 INSERT INTO `people` VALUES (1, '18179860960', 'msopen', '9d8622060de5f24937b60585c3f4d66b', '2019-12-30 18:28:28', '1027418825@qq.com', 0, NULL, NULL, 0, 0, '127.0.0.1', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `people` VALUES (2, '', 'as', '7c1cadb6887373dacb595c47166bfbd9', '2020-12-24 03:11:06', '', 0, NULL, NULL, 0, 0, NULL, 57, '2020-12-24 03:11:06', 0, NULL, 0);
 
 -- ----------------------------
 -- Table structure for people_address
@@ -676,7 +682,6 @@ CREATE TABLE `people_user`  (
 -- Records of people_user
 -- ----------------------------
 INSERT INTO `people_user` VALUES (1, NULL, NULL, NULL, NULL, '/upload/1577701863298.jpg', '111', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `people_user` VALUES (2, NULL, NULL, NULL, NULL, NULL, 'dasas', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for role

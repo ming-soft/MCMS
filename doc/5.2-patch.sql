@@ -227,13 +227,6 @@ ADD COLUMN `update_by` int(10) NULL COMMENT '更新人',
 ADD COLUMN `update_date` datetime(0) NULL COMMENT '更新时间',
 ADD COLUMN `del` int(1) NULL COMMENT '删除标识';
 
-ALTER TABLE `app`
-ADD COLUMN `create_by` int(10) NULL COMMENT '创建人',
-ADD COLUMN `create_date` datetime(0) NULL COMMENT '创建时间',
-ADD COLUMN `update_by` int(10) NULL COMMENT '更新人',
-ADD COLUMN `update_date` datetime(0) NULL COMMENT '更新时间',
-ADD COLUMN `del` int(1) NULL COMMENT '删除标识';
-
 UPDATE app set app_dir = id;
 
 update model as tmp1
@@ -242,9 +235,16 @@ update model as tmp1
 set model_url="basic/log/index.do"
 WHERE tmp1.id = tmp2.id;
 
-
 update model as tmp1
     INNER JOIN
     (select id from model WHERE model_url="basic:systemlog:view" limit 1) as tmp2
 set model_url="basic:log:view"
 WHERE tmp1.id = tmp2.id;
+
+UPDATE `mdiy_tag` SET `tag_name` = 'arclist', `tag_type` = 'list', `tag_description` = '文章列表' WHERE `id` = 3;
+UPDATE `mdiy_tag` SET `tag_name` = 'channel', `tag_type` = 'list', `tag_description` = '通用栏目' WHERE `id` = 4;
+UPDATE `mdiy_tag` SET `tag_name` = 'global', `tag_type` = 'single', `tag_description` = '全局' WHERE `id` = 5;
+UPDATE `mdiy_tag` SET `tag_name` = 'field', `tag_type` = 'single', `tag_description` = '文章内容' WHERE `id` = 7;
+UPDATE `mdiy_tag` SET `tag_name` = 'pre', `tag_type` = 'single', `tag_description` = '文章上一篇' WHERE `id` = 8;
+UPDATE `mdiy_tag` SET `tag_name` = 'page', `tag_type` = 'single', `tag_description` = '通用分页' WHERE `id` = 9;
+UPDATE `mdiy_tag` SET `tag_name` = 'next', `tag_type` = 'single', `tag_description` = '文章下一篇' WHERE `id` = 10;
