@@ -228,8 +228,23 @@ ADD COLUMN `update_date` datetime(0) NULL COMMENT '更新时间',
 ADD COLUMN `del` int(1) NULL COMMENT '删除标识';
 
 ALTER TABLE `app`
-    ADD COLUMN `create_by` int(10) NULL COMMENT '创建人',
-    ADD COLUMN `create_date` datetime(0) NULL COMMENT '创建时间',
-    ADD COLUMN `update_by` int(10) NULL COMMENT '更新人',
-    ADD COLUMN `update_date` datetime(0) NULL COMMENT '更新时间',
-    ADD COLUMN `del` int(1) NULL COMMENT '删除标识';
+ADD COLUMN `create_by` int(10) NULL COMMENT '创建人',
+ADD COLUMN `create_date` datetime(0) NULL COMMENT '创建时间',
+ADD COLUMN `update_by` int(10) NULL COMMENT '更新人',
+ADD COLUMN `update_date` datetime(0) NULL COMMENT '更新时间',
+ADD COLUMN `del` int(1) NULL COMMENT '删除标识';
+
+UPDATE app set app_dir = id;
+
+update model as tmp1
+    INNER JOIN
+    (select id from model WHERE model_url="basic/systemLog/index.do" limit 1) as tmp2
+set model_url="basic/log/index.do"
+WHERE tmp1.id = tmp2.id;
+
+
+update model as tmp1
+    INNER JOIN
+    (select id from model WHERE model_url="basic:systemlog:view" limit 1) as tmp2
+set model_url="basic:log:view"
+WHERE tmp1.id = tmp2.id;
