@@ -27,6 +27,11 @@
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mpeople</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.mingsoft</groupId>
+            <artifactId>store-client</artifactId>
+            <version>5.2.0.RELEASE</version>
+        </dependency>
 
     </dependencies>
 
