@@ -30,7 +30,7 @@
                         <img :src="ms.base+'/static/images/logo.png'"/>
                         <div class="class-1" v-show="!collapseMenu">
                             <div class="class-2">v</div>
-                            5.1
+                            5.2.0
                         </div>
                     </div>
                     <el-submenu :popper-class="['ms-admin-menu-aside-submenu',theme]" :index="menu.id+''"
