@@ -22,7 +22,18 @@
     </properties>
 
     <dependencies>
-
+        <dependency>
+            <groupId>net.mingsoft</groupId>
+            <artifactId>ms-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.mingsoft</groupId>
+            <artifactId>ms-basic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.mingsoft</groupId>
+            <artifactId>ms-mdiy</artifactId>
+        </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mpeople</artifactId>
@@ -32,7 +43,6 @@
             <artifactId>store-client</artifactId>
             <version>5.2.0.RELEASE</version>
         </dependency>
-
     </dependencies>
 
     <build>
