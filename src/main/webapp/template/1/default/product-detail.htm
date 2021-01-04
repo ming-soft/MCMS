@@ -1,104 +1,85 @@
-
-
-
-
-
 <html>
-<head>
-    <meta charset="utf-8" />
-    <title>{ms:global.name/}</title>
-    <meta http-equiv="content-type" content="text/html" />
-    <META HTTP-EQUIV="Pragma" CONTENT="no-cache" />
-    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width"/>
-    <meta name="format-detection" content="telephone=no"/>
-    <meta name="app-mobile-web-app-capable" content="yes"/>
-    <meta name="app-mobile-web-app-status-bar-style" content="black-translucent"/>
-    <meta name="keywords" content="{ms:global.keyword/}" />
-    <meta name="description" content="{ms:global.descrip/}" />
-    <script type="text/javascript" src="{ms:global.host/}/static/plugins/vue/2.6.9/vue.min.js"></script>
-    <link rel="stylesheet" href="{ms:global.host/}/static/plugins/minireset/0.0.2/minireset.min.css" />
-    <link rel="stylesheet" href="https://cdn.mingsoft.net/iconfont/iconfont.css" />
-    <link rel="stylesheet" href="{ms:global.host/}/static/plugins/animate/4.1.0/animate.min.css">
-    <script src="{ms:global.host/}/static/plugins/element-ui/2.12.0/index.js"></script>
-    <link rel="stylesheet" href="{ms:global.host/}/static/plugins/element-ui/2.12.0/index.css" />
-
-    <link rel="stylesheet" href="{ms:global.host/}/{ms:global.style/}/css/app.css" />
-
-    <!--网络请求框架-->
-    <script src="{ms:global.host/}/static/plugins/axios/0.18.0/axios.min.js"></script>
-    <script src="{ms:global.host/}/static/plugins/qs/6.6.0/qs.min.js"></script>
-    <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.js"></script>
-    <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.http.js"></script>
-    <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.util.js"></script>
-    <script>
+ <head> 
+  <meta charset="utf-8"> 
+  <title>{ms:global.name/}</title> 
+  <meta http-equiv="content-type" content="text/html"> 
+  <meta HTTP-EQUIV="Pragma" CONTENT="no-cache"> 
+  <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width"> 
+  <meta name="format-detection" content="telephone=no"> 
+  <meta name="app-mobile-web-app-capable" content="yes"> 
+  <meta name="app-mobile-web-app-status-bar-style" content="black-translucent"> 
+  <meta name="keywords" content="{ms:global.keyword/}"> 
+  <meta name="description" content="{ms:global.descrip/}"> 
+  <script type="text/javascript" src="{ms:global.host/}/static/plugins/vue/2.6.9/vue.min.js"></script> 
+  <link rel="stylesheet" href="{ms:global.host/}/static/plugins/minireset/0.0.2/minireset.min.css"> 
+  <link rel="stylesheet" href="https://cdn.mingsoft.net/iconfont/iconfont.css"> 
+  <link rel="stylesheet" href="{ms:global.host/}/static/plugins/animate/4.1.0/animate.min.css"> 
+  <script src="{ms:global.host/}/static/plugins/element-ui/2.12.0/index.js"></script> 
+  <link rel="stylesheet" href="{ms:global.host/}/static/plugins/element-ui/2.12.0/index.css"> 
+  <link rel="stylesheet" href="{ms:global.host/}/{ms:global.style/}/css/app.css"> 
+  <!--网络请求框架--> 
+  <script src="{ms:global.host/}/static/plugins/axios/0.18.0/axios.min.js"></script> 
+  <script src="{ms:global.host/}/static/plugins/qs/6.6.0/qs.min.js"></script> 
+  <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.js"></script> 
+  <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.http.js"></script> 
+  <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.util.js"></script> 
+  <script>
         ms.base = "";
-    </script>
-    <style>
+    </script> 
+  <style>
         [v-cloak]{
             display: none;
         }
-    </style>
-</head>
-<body>
-    <div id="app" v-cloak>
-
-        <#include "nav.htm"/>
-
-<div class="content">
-<div class="body">
-<div class="left">
-<span class="title" >
-分类名称
-</span>
-<span class="sub-title-sel" >
-分类名称
-</span>
-<span class="sub-title" >
-分类名称
-</span>
-</div>
-<div class="right">
-<div class="ms-channel-path">
-<span class="ms-channel-path-label">
-当前位置：
-</span>
-<a href="/" class="ms-channel-path-index">
-首页
-</a>
-{ms:channel type="path"}
-<i class="iconfont icon-youjiantou"></i>
-<a href="{ms:global.url/}${field.typelink}" class="ms-channel-path-link">
-${field.typetitle}
-</a>
-{/ms:channel}
-</div>
-<div class="product">
-<div class="pic">
-<img
-title=""
-alt=""
-src="{@ms:file field.litpic/}"
-/>
-<div class="text">
-<span class="big-title" >
-${field.title}
-</span>
-<span class="desc" >
-${field.descrip}
-</span>
-</div> </div>
-<div class="content">
-<span class="label" >
-详情
-</span>
-<div class="content-body">
-</div> </div> </div> </div> </div> </div>
-        <#include "footer.htm"/>
+    </style> 
+ </head> 
+ <body> 
+  <div id="app" v-cloak> 
+   <#include "nav.htm" /> 
+   <div class="content"> 
+    <div class="body">
+     <div class="left">
+      {ms:channel type='parent'}
+      <span class="title"> ${field.typetitle} </span>
+      {/ms:channel}
+      <#assign typetitle=field.typetitle>
+      <#if field.leaf>
+      {ms:channel type='level'}
+      <a href="{ms:global.url/}${field.typelink}" class="<#if typetitle==field.typetitle>sub-title-sel<#else>sub-title</#if>"> ${field.typetitle} </a>
+      {/ms:channel}
+      <#else>
+      {ms:channel type='son'}
+      <a href="{ms:global.url/}${field.typelink}" class="<#if typetitle==field.typetitle>sub-title-sel<#else>sub-title</#if>"> ${field.typetitle} </a>
+      {/ms:channel}
+     </#if>
     </div>
-</body>
-</html>
-
-<script>
+     <div class="right"> 
+      <div class="ms-channel-path"> 
+       <span class="ms-channel-path-label"> 当前位置： </span> 
+       <a href="/" class="ms-channel-path-index"> 首页 </a> {ms:channel type="path"} 
+       <i class="iconfont icon-youjiantou"></i> 
+       <a href="{ms:global.url/}${field.typelink}" class="ms-channel-path-link"> ${field.typetitle} </a> {/ms:channel} 
+      </div> 
+      <div class="product"> 
+       <div class="pic"> 
+        <img title="" alt="" src="{@ms:file field.litpic/}"> 
+        <div class="text"> 
+         <span class="big-title"> ${field.title} </span> 
+         <span class="desc"> ${field.descrip} </span> 
+        </div> 
+       </div> 
+       <div class="content"> 
+        <span class="label"> 详情 </span> 
+        <div class="content-body"> 
+         <span> ${field.content} </span> 
+        </div> 
+       </div> 
+      </div> 
+     </div> 
+    </div> 
+   </div> 
+   <#include "footer.htm" /> 
+  </div>   
+  <script>
 var app = new Vue({
     el: '#app',
     watch:{
@@ -119,9 +100,8 @@ var app = new Vue({
     created(){
     }
 })
-</script>
-
-<style>
+</script> 
+  <style>
     body {
         background-color:#fff;
         box-sizing:border-box;
@@ -169,58 +149,58 @@ var app = new Vue({
             box-sizing:border-box;
             padding-top:0px;
             padding-left:0px;
+            margin-top:0px;
             height:100%;
     }
     .content .body .left .title 
     {
+            border-bottom-color:#C0C4CC;
             color:#C0C4CC;
             flex-direction:row;
             word-wrap:break-word;
             display:inline-block;
-            border-bottom-color:#C0C4CC;
-            padding-bottom:0px;
             font-size:16PX;
             border-bottom-style:dashed;
             padding-top:10px;
             border-bottom-width:1px;
             padding-left:10px;
-            height:40px;
-    }
-    .content .body .left .sub-title-sel 
-    {
-            background-color:#F2F6FC;
-            color:#409EFF;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            padding-top:10px;
-            padding-left:10px;
-            margin-top:2px;
-            height:40px;
-    }
-    .content .body .left .sub-title 
-    {
-            color:#5F5F5F;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            padding-top:10px;
-            padding-left:10px;
             margin-top:0px;
             height:40px;
     }
+    .content .body .left .sub-title-sel {
+     background-color: #F2F6FC;
+     color: #409EFF;
+     flex-direction: row;
+     word-wrap: break-word;
+     display: inline-block;
+     font-size: 16PX;
+     padding-top: 10px;
+     padding-left: 10px;
+     margin-top: 2px;
+     height: 40px;
+    }
+
+    .content .body .left .sub-title {
+     color: #5F5F5F;
+     flex-direction: row;
+     word-wrap: break-word;
+     display: inline-block;
+     font-size: 16PX;
+     padding-top: 10px;
+     padding-left: 10px;
+     margin-top: 0px;
+     height: 40px;
+    }
     .content .body .right 
     {
+            padding-bottom:0px;
+            flex-wrap:wrap;
             flex-direction:column;
             display:flex;
             padding-right:0px;
-            box-sizing:border-box;
-            padding-bottom:0px;
-            flex-wrap:wrap;
             width:1000px;
             margin-bottom:0px;
+            box-sizing:border-box;
             padding-top:0px;
             position:relative;
             padding-left:20px;
@@ -228,26 +208,26 @@ var app = new Vue({
     }
     .content .body .right .ms-channel-path 
     {
+            margin-right:auto;
             align-items:center;
+            flex-wrap:nowrap;
             flex-direction:row;
             display:flex;
-            box-sizing:border-box;
-            margin-left:auto;
-            margin-right:auto;
-            flex-wrap:nowrap;
             width:100%;
             margin-bottom:10px;
+            box-sizing:border-box;
             padding-left:0px;
             margin-top:10px;
             height:30px;
+            margin-left:auto;
     }
     .content .body .right .ms-channel-path span 
     {
-            font-size:16PX;
             color:#909399;
             flex-direction:row;
             word-wrap:break-word;
             display:inline-block;
+            font-size:16PX;
     }
     .content .body .right .ms-channel-path .ms-channel-path-index 
     {
@@ -312,11 +292,11 @@ var app = new Vue({
     }
     .content .body .right .product .pic .text .big-title 
     {
-            font-size:22PX;
-            padding-left:0px;
             flex-direction:row;
             word-wrap:break-word;
             display:inline-block;
+            font-size:22PX;
+            padding-left:0px;
     }
     .content .body .right .product .pic .text .desc 
     {
@@ -362,6 +342,13 @@ var app = new Vue({
             padding-left:0px;
             height:100%;
     }
+    .content .body .right .product .content .content-body span 
+    {
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:14px;
+    }
 @media (max-width: 768px){
         .content 
         {
@@ -386,7 +373,7 @@ var app = new Vue({
                 flex-direction:column;
                 display:flex;
                 padding-right:0px;
-                width:100%;
+                width:90%;
                 box-sizing:border-box;
                 padding-top:20px;
                 padding-left:0px;
@@ -406,17 +393,17 @@ var app = new Vue({
         }
         .content .body .left .title 
         {
+                border-bottom-color:#C0C4CC;
                 color:#C0C4CC;
                 flex-direction:row;
                 word-wrap:break-word;
                 display:inline-block;
-                border-bottom-color:#C0C4CC;
-                padding-bottom:0px;
                 font-size:16PX;
                 border-bottom-style:dashed;
                 padding-top:10px;
                 border-bottom-width:1px;
                 padding-left:10px;
+                margin-top:0px;
                 height:40px;
         }
         .content .body .left .sub-title-sel 
@@ -430,18 +417,6 @@ var app = new Vue({
                 padding-top:10px;
                 padding-left:10px;
                 margin-top:2px;
-                height:40px;
-        }
-        .content .body .left .sub-title 
-        {
-                color:#5F5F5F;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                padding-top:10px;
-                padding-left:10px;
-                margin-top:0px;
                 height:40px;
         }
         .content .body .right 
@@ -460,26 +435,26 @@ var app = new Vue({
         }
         .content .body .right .ms-channel-path 
         {
+                margin-right:auto;
                 align-items:center;
+                flex-wrap:nowrap;
                 flex-direction:row;
                 display:flex;
-                box-sizing:border-box;
-                margin-left:auto;
-                margin-right:auto;
-                flex-wrap:nowrap;
                 width:100%;
                 margin-bottom:10px;
+                box-sizing:border-box;
                 padding-left:0px;
                 margin-top:10px;
                 height:30px;
+                margin-left:auto;
         }
         .content .body .right .ms-channel-path span 
         {
-                font-size:16PX;
                 color:#909399;
                 flex-direction:row;
                 word-wrap:break-word;
                 display:inline-block;
+                font-size:16PX;
         }
         .content .body .right .ms-channel-path .ms-channel-path-index 
         {
@@ -501,14 +476,14 @@ var app = new Vue({
         }
         .content .body .right .product 
         {
+                margin-right:0px;
+                padding-bottom:0px;
                 flex-direction:column;
                 display:flex;
                 padding-right:0px;
-                box-sizing:border-box;
-                margin-right:0px;
-                padding-bottom:0px;
                 width:100%;
                 margin-bottom:0px;
+                box-sizing:border-box;
                 padding-top:0px;
                 padding-left:0px;
                 margin-top:0px;
@@ -526,7 +501,9 @@ var app = new Vue({
         }
         .content .body .right .product .pic img 
         {
+                padding-bottom:0px;
                 width:100%;
+                padding-top:0px;
                 padding-left:0px;
                 height:400px;
         }
@@ -542,11 +519,11 @@ var app = new Vue({
         }
         .content .body .right .product .pic .text .big-title 
         {
-                font-size:22PX;
-                padding-left:0px;
                 flex-direction:row;
                 word-wrap:break-word;
                 display:inline-block;
+                font-size:22PX;
+                padding-left:0px;
         }
         .content .body .right .product .pic .text .desc 
         {
@@ -587,5 +564,14 @@ var app = new Vue({
                 padding-left:0px;
                 height:100%;
         }
+        .content .body .right .product .content .content-body span 
+        {
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                font-size:14px;
+        }
 
 }</style>
+ </body>
+</html>

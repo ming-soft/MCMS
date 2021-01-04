@@ -133,22 +133,7 @@
                         </el-form-item>
                     </el-col>
                     <el-col span="12">
-                        <el-form-item  label="栏目属性" prop="categoryFlag">
-                            <template slot='label'>栏目属性
-                                <el-popover placement="top-start" title="提示" trigger="hover" content="类型不满足可以在自定义字典菜单中新增,字段类型为“栏目属性”">
-                                    <i class="el-icon-question" slot="reference"></i>
-                                </el-popover>
-                            </template>
-                            <el-select v-model="form.categoryFlag"
-                                       :style="{width: '100%'}"
-                                       :filterable="false"
-                                       :disabled="false"
-                                       :multiple="true" :clearable="true"
-                                       placeholder="请选择栏目属性">
-                                <el-option v-for='item in categoryFlagOptions' :key="item.dictValue" :value="item.dictValue"
-                                           :label="item.dictLabel"></el-option>
-                            </el-select>
-                        </el-form-item>
+
                     </el-col>
 
                     <el-col span="12" v-if="form.categoryType == 3">
@@ -172,6 +157,24 @@
                 <el-row
                         :gutter="0"
                         justify="start" align="top">
+                    <el-col :span="12">
+                        <el-form-item  label="栏目属性" prop="categoryFlag">
+                            <template slot='label'>栏目属性
+                                <el-popover placement="top-start" title="提示" trigger="hover" content="类型不满足可以在自定义字典菜单中新增,字段类型为“栏目属性”">
+                                    <i class="el-icon-question" slot="reference"></i>
+                                </el-popover>
+                            </template>
+                            <el-select v-model="form.categoryFlag"
+                                       :style="{width: '100%'}"
+                                       :filterable="false"
+                                       :disabled="false"
+                                       :multiple="true" :clearable="true"
+                                       placeholder="请选择栏目属性">
+                                <el-option v-for='item in categoryFlagOptions' :key="item.dictValue" :value="item.dictValue"
+                                           :label="item.dictLabel"></el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
                     <el-col :span="12">
                         <el-form-item  label="栏目拼音" prop="categoryPinyin">
                             <el-input
