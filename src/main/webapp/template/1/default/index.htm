@@ -51,10 +51,10 @@ Vue.use(VueAwesomeSwiper)
         }
     </style> 
  </head> 
- <body> 
-  <div id="app" v-cloak> 
-   <#include "nav.htm" /> 
-   <div class="ms-banner"> 
+ <body>
+  <div id="app" v-cloak>
+   <#include "nav.htm" />
+   <div class="ms-banner">
     <swiper class="ms-vue-awesome-swiper" :options="{
 slidesPerView : 1,
 spaceBetween: 0,
@@ -68,10 +68,15 @@ navigation: {nextEl: '.swiper-button-next',prevEl: '.swiper-button-prev'}
      <div class="swiper-button-next " slot="button-next"> 
      </div> 
      <!--静态图片--> 
-     <!--动态图片--> {ms:arclist typeid=1329357285870346241 size=3 } 
-     <swiper-slide> 
-      <a href="[field.link/]" target="_blank"> <img src="{@ms:file field.litpic/}" width="100%" height="100%"> </a> 
-     </swiper-slide> {/ms:arclist} 
+     <!--动态图片-->
+     {ms:arclist typeid=1329357285870346241 size=3 }
+     <swiper-slide>
+      <a href="[field.source/]" target="_blank" style="width:100%;height: 100%">
+       <div style="background-image: url('{@ms:file field.litpic/}');background-size: cover; background-position: center; width:100%;height: 100%">
+       </div>
+      </a>
+     </swiper-slide>
+     {/ms:arclist}
     </swiper> 
    </div> 
    <div class="about">
@@ -85,7 +90,7 @@ navigation: {nextEl: '.swiper-button-next',prevEl: '.swiper-button-prev'}
        <span> ${field.title} </span> 
       </div> 
       <div class="desc"> 
-       <span> ${field.keyword} </span>
+       <span> ${field.descrip} </span>
       </div> 
      </div> 
     </div> {/ms:arclist} 
@@ -95,7 +100,7 @@ navigation: {nextEl: '.swiper-button-next',prevEl: '.swiper-button-prev'}
      <span> 核心产品 </span> 
     </div> 
     <div class="body">
-      {ms:arclist typeid='1329257213283344385'} 
+      {ms:arclist flag='c' typeid='1329257213283344385'}
      <div class="prod"> 
       <div class="pic"> 
        <img title="" alt="" src="{@ms:file field.litpic/}"> 
@@ -113,7 +118,7 @@ navigation: {nextEl: '.swiper-button-next',prevEl: '.swiper-button-prev'}
       {ms:arclist flag='c' typeid='1329257282518720513'} 
      <div class="left"> 
       <img title="" alt="" src="{@ms:file field.litpic/}"> 
-      <a href="{ms:global.url/}${field.link}" target="_blank" class="title"> 显示内容 </a> 
+      <a href="{ms:global.url/}${field.link}" target="_blank" class="title"> ${field.title} </a>
       <span class="desc"> ${field.descrip} </span> 
      </div> {/ms:arclist} 
      <div class="right">
@@ -132,7 +137,7 @@ navigation: {nextEl: '.swiper-button-next',prevEl: '.swiper-button-prev'}
     </div> 
     <div class="more"> 
     </div> 
-    <a href="{ms:global.url/}/news/index.html" class="more"> 更多产品 </a> 
+    <a href="{ms:global.url/}/news/index.html" class="more"> 更多新闻 </a>
    </div> 
    <#include "footer.htm" /> 
   </div>   
@@ -166,7 +171,9 @@ var app = new Vue({
         moz-box-sizing:border-box;
         webkit-box-sizing:border-box;
     }
-
+    .swiper-button-prev, .swiper-button-next{
+     color: #fff;
+    }
     .ms-banner 
     {
             flex-wrap:nowrap;
@@ -175,7 +182,7 @@ var app = new Vue({
             width:100%;
             box-sizing:border-box;
             margin-top:0px;
-            height:400px;
+            height:630px;
     }
     .ms-banner .ms-vue-awesome-swiper 
     {
@@ -319,6 +326,8 @@ var app = new Vue({
             font-size:16PX;
             padding-top:0px;
             margin-top:20px;
+     line-height: 32px;
+
     }
     .product 
     {
@@ -1064,7 +1073,7 @@ var app = new Vue({
                 margin-bottom:0px;
                 padding-top:0px;
                 margin-top:0px;
-                height:280px;
+                height:100%;
         }
         .news .body .left .title 
         {
@@ -1197,12 +1206,12 @@ var app = new Vue({
         }
         .news .body .right .news-item .news-body .desc 
         {
+         display: none;
                 padding-bottom:0px;
                 color:#B5B5B5;
                 text-align:left;
                 flex-direction:row;
                 word-wrap:break-word;
-                display:inline-block;
                 padding-right:0px;
                 font-size:14PX;
                 padding-top:0px;

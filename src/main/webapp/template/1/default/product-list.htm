@@ -70,7 +70,7 @@
       </div>
       <div class="list">
        <div class="list-body">
-        {ms:arclist size=8 ispaging=true}
+        {ms:arclist size=6 ispaging=true}
         <div class="product">
          <img title="" alt="" src="{@ms:file field.litpic/}" />
          <a href="{ms:global.url/}${field.link}">
@@ -110,6 +110,15 @@ var app = new Vue({
      contentCount: ${(page.rcount)!0}
     },
     methods: {
+     switchShow:function(arr){
+      var that = this
+      arr.forEach(function(x){
+       let e = that.$el.querySelector("#key_"+x)
+       if(e){
+        e.style.display=e.style.display=='none'?'flex':'none'
+       }
+      })
+     },
      handleCurrentChange:function(val) {
       if(val==1) {
        location.href = "{ms:global.url/}/${field.categoryPath}/index.html";
@@ -282,7 +291,7 @@ var app = new Vue({
      padding-right: 0px;
      margin-right: 0px;
      padding-bottom: 0px;
-     height: 90%;
+     height: 800px;
      margin-bottom: 0px;
      position: absolute;
      padding-left: 0px;
@@ -315,7 +324,6 @@ var app = new Vue({
      padding-right: 0px;
      margin-right: 8px;
      padding-bottom: 0px;
-     height: 300px;
      margin-bottom: 8px;
      padding-left: 0px;
      box-sizing: border-box;
@@ -323,7 +331,7 @@ var app = new Vue({
      background-color: #FFFFFF;
      flex-direction: column;
      display: flex;
-     width: 239px;
+     width: 320px;
      margin-top: 0px;
     }
 
@@ -446,6 +454,7 @@ var app = new Vue({
   display: flex;
   padding-right: 0px;
   width: 90%;
+  height: unset;
   margin-bottom: 0px;
   box-sizing: border-box;
   padding-top: 0px;
@@ -499,7 +508,7 @@ var app = new Vue({
  .content .body .right .list {
   margin-right: 0px;
   padding-bottom: 0px;
-  flex-direction: row;
+  flex-direction: column;
   display: flex;
   padding-right: 0px;
   width: 100%;
@@ -509,6 +518,7 @@ var app = new Vue({
   padding-left: 0px;
   margin-top: 0px;
   height: unset;
+  position: unset;
  }
 
  .content .body .right .list .list-body {
@@ -521,8 +531,11 @@ var app = new Vue({
   box-sizing: border-box;
   margin-top: 0px;
   justify-content: center;
+  position: unset;
  }
-
+ .content .body .right .list .page {
+  position:unset;
+ }
  .content .body .right .list .list-body .product {
   background-color: #FFFFFF;
   flex-direction: column;
@@ -536,7 +549,6 @@ var app = new Vue({
   padding-top: 0px;
   padding-left: 0px;
   margin-top: 0px;
-  height: 300px;
  }
 
  .content .body .right .list .list-body .product img {

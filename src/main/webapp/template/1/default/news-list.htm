@@ -113,6 +113,15 @@ var app = new Vue({
      contentCount: ${(page.rcount)!0}
     },
     methods: {
+     switchShow:function(arr){
+      var that = this
+      arr.forEach(function(x){
+       let e = that.$el.querySelector("#key_"+x)
+       if(e){
+        e.style.display=e.style.display=='none'?'flex':'none'
+       }
+      })
+     },
      handleCurrentChange:function(val) {
       if(val==1) {
        location.href = "{ms:global.url/}/${field.categoryPath}/index.html";
@@ -468,6 +477,9 @@ var app = new Vue({
                 padding-left:0px;
                 justify-content:flex-start;
         }
+ .news .body .left {
+  width: 90%;
+ }
         .news .body .right
         {
                 padding-bottom:0px;
@@ -556,6 +568,7 @@ var app = new Vue({
                 margin-bottom:10px;
                 padding-top:0px;
                 padding-left:0px;
+         height: unset;
         }
         .news .body .right .right-body .news-item .pic
         {
@@ -567,7 +580,7 @@ var app = new Vue({
                 box-sizing:border-box;
                 margin-bottom:0px;
                 padding-top:0px;
-                height:120px;
+                height:unset;
         }
         .news .body .right .right-body .news-item .pic img
         {
@@ -620,6 +633,7 @@ var app = new Vue({
                 padding-left:0px;
                 margin-top:0px;
                 height:100px;
+         display: none;
         }
         .news .body .right .right-body .news-item .news-content .news-footer
         {

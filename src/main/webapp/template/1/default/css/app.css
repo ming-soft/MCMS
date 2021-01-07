@@ -63,9 +63,7 @@
     height: 100%;
 }
 
-.ms-nav .body .nav-h5:hover {
-    background-color: #EEEEEE;
-}
+
 
 .ms-nav .body .nav-h5 .nav-h5-icon {
     font-size: 28PX;
@@ -153,6 +151,7 @@
     justify-content: center;
     height: 32px;
     margin-left: 0px;
+    margin-bottom: 0px;
 }
 
 .ms-nav .body .nav-search .ms-search-input .ms-search-input-div {
@@ -489,6 +488,7 @@
         position: absolute;
         padding-left: 10px;
         height: 100vh;
+        z-index: 2;
     }
 
     .ms-nav .body .nav-h5 .nav-h5-body .nav-h5-item {
@@ -692,6 +692,8 @@
         padding-top: 0px;
         padding-left: 0px;
         justify-content: flex-start;
+        height: unset;
+
     }
 
     .ms-footer .body .top .top-left .foot-nav {
