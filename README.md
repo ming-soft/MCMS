@@ -1,4 +1,3 @@
-
 <p align="center">
 	<a href="https://www.mingsoft.net/"><img src="http://cdn.mingsoft.net/global/images/logo-blue.png"  width="50" height=""50></a>
 </p>
