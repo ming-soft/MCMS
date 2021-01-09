@@ -62,6 +62,13 @@
             <groupId>net.mingsoft</groupId>
             <artifactId>store-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>dm</groupId>
+            <artifactId>dm</artifactId>
+            <version>8</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/DmJdbcDriver18.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>
