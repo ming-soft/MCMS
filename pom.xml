@@ -24,7 +24,7 @@
 		<repository>
 			<id>deploy</id>
 			<name>ms</name>
-			<url>http://192.168.0.8:5000/repository/maven-public/</url>
+			<url>http://192.168.0.8:5000/repository/maven-releases/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
@@ -46,8 +46,6 @@
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc6</artifactId>
 			<version>11.2.0.1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/ojdbc6.jar</systemPath>
 		</dependency>
 
 
