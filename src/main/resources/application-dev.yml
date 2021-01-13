@@ -1,11 +1,7 @@
 spring:
   datasource:
-    driver-class-name: dm.jdbc.driver.DmDriver
-#    url: jdbc:mysql://192.168.0.8:3316/mcms-5.2?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&allowMultiQueries=true&useSSL=true
-#    username: mcms
-#    password: mcms
-    url: jdbc:dm://122.9.104.207:5236/SYSDBA
-    username: SYSDBA
-    password: SYSDBA
+    url: jdbc:mysql://192.168.0.8:3316/mcms-5.2?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&allowMultiQueries=true&useSSL=true
+    username: mcms
+    password: mcms
     filters: wall,mergeStat
     type: com.alibaba.druid.pool.DruidDataSource
