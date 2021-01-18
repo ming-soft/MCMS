@@ -42,7 +42,7 @@
      <span class="title"> ${field.typetitle}</span>
      {/ms:channel}
      <#assign typetitle=field.typetitle>
-     <#if field.leaf>
+     <#if field.typeleaf>
      {ms:channel type='level'}
      <a href="{ms:global.url/}${field.typelink}" class="<#if typetitle==field.typetitle>sub-title-sel<#else>sub-title</#if>"> ${field.typetitle} </a>
      {/ms:channel}

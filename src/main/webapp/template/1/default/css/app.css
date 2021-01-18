@@ -605,7 +605,6 @@
 
     .ms-nav .body .nav-search .ms-search-input .ms-search-button {
         flex-direction: row;
-        background-image: url({ms:global.host/}/{ms:global.style/}/images/1601265263422.png);
         display: flex;
         width: 40px;
         box-sizing: border-box;

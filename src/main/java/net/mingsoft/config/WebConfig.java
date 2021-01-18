@@ -86,8 +86,8 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler(uploadMapping).addResourceLocations(File.separator+uploadFloderPath+File.separator,"file:"+uploadFloderPath+File.separator);
-		registry.addResourceHandler("/template/**").addResourceLocations(File.separator+template+File.separator,"file:"+template+File.separator);
+		registry.addResourceHandler(uploadMapping).addResourceLocations(File.separator+uploadFloderPath+File.separator,"file:"+uploadFloderPath+File.separator,"classpath:/template/");
+		registry.addResourceHandler("/template/**").addResourceLocations(File.separator+template+File.separator,"file:"+template+File.separator,"classpath:/html/");
 		registry.addResourceHandler("/html/**").addResourceLocations("/html/","file:html/");
 		//三种映射方式 webapp下、当前目录下、jar内
 		registry.addResourceHandler("/app/**").addResourceLocations("/app/","file:app/", "classpath:/app/");
@@ -137,7 +137,7 @@ public class WebConfig implements WebMvcConfigurer {
 	 */
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/").setViewName("forward:/index");
+		registry.addViewController("/").setViewName("forward:/index.do");
 		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		WebMvcConfigurer.super.addViewControllers(registry);
 	}

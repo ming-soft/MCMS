@@ -20,7 +20,7 @@ ms:
   manager:
     path: /ms #后台访问的路径，如:http://项目/ms/login.do，生产的时候建议修改
     view-path: /WEB-INF/manager #后台视图层路径配置
-    check-code: false #默认开启验证码验证，false验证码不验证
+    check-code: true #默认开启验证码验证，false验证码不验证
 
   upload:
     enable-web: true  #启用web层的上传
