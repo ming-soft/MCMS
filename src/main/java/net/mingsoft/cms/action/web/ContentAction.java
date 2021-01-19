@@ -114,7 +114,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
     @ApiImplicitParam(name = "id", value = "编号", required =true,paramType="query")
 	@GetMapping("/get")
 	@ResponseBody
-	public ResultData get(@ModelAttribute @ApiIgnore ContentBean content,HttpServletResponse response, HttpServletRequest request,@ApiIgnore ModelMap model){
+	public ResultData get(@ModelAttribute @ApiIgnore ContentEntity content,HttpServletResponse response, HttpServletRequest request,@ApiIgnore ModelMap model){
 		if(content.getId()==null) {
 			return ResultData.build().error();
 		}
