@@ -1,4 +1,3 @@
-
 <p align="center">
 	<a href="https://www.mingsoft.net/"><img src="http://cdn.mingsoft.net/global/images/logo-blue.png"  width="50" height=""50></a>
 </p>
@@ -88,7 +87,7 @@ git clone https://gitee.com/mingSoft/MCMS.git<br/>
 * IDEA导入，点击 Import Project，选择 pom.xml 文件，点击 Next 按钮，选择 Import Maven projects automatically 复选框，然后一直点击 Next 按钮，直到点击 Finish 按钮，即可成功导入<br/>
 
 4、Eclipse（IDEA）会自动加载 Maven 依赖包，初次加载会比较慢（根据自身网络情况而定），若工程上有小叉号，请打开 Problems 窗口，查看具体错误内容，直到无错误为止<br/>
-5、创建数据库db-mcms-open（数据库使用utf-8编码），导入doc/db-mcms-open-版本号.sql，如果升级现有系统请使用＊-up-*.sql升级，如果导入了系统对应的完整版SQL，sql升级补丁不需要重复导入；<br/>
+5、创建数据库db-mcms-open（数据库使用utf-8编码），导入doc/mcms-版本号.sql，如果升级现有系统请使用＊-up-*.sql升级，如果导入了系统对应的完整版SQL，sql升级补丁不需要重复导入；<br/>
 6、修改src\main\resources\application-dev.yml文件中的数据库设置参数；<br/>
 7、运行MSApplication.java main方法<br/>
 8、首先先访问后台地址：http://ip|域名/项目发布名/ms/login.do，管理员账号，用户名：msopen 密码：msopen，进入后台点击内容管理->静态化菜单，进行"生成主页"，"生成栏目","生成文章"操作一遍 （注意！！！是后台登录界面，不是会员中心登录界面）

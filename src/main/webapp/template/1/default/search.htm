@@ -1,0 +1,420 @@
+<html>
+ <head> 
+  <meta charset="utf-8"> 
+  <title>{ms:global.name/}</title> 
+  <meta http-equiv="content-type" content="text/html"> 
+  <meta HTTP-EQUIV="Pragma" CONTENT="no-cache"> 
+  <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width"> 
+  <meta name="format-detection" content="telephone=no"> 
+  <meta name="app-mobile-web-app-capable" content="yes"> 
+  <meta name="app-mobile-web-app-status-bar-style" content="black-translucent"> 
+  <meta name="keywords" content="{ms:global.keyword/}"> 
+  <meta name="description" content="{ms:global.descrip/}"> 
+  <script type="text/javascript" src="{ms:global.host/}/static/plugins/vue/2.6.9/vue.min.js"></script> 
+  <link rel="stylesheet" href="{ms:global.host/}/static/plugins/minireset/0.0.2/minireset.min.css"> 
+  <link rel="stylesheet" href="https://cdn.mingsoft.net/iconfont/iconfont.css"> 
+  <link rel="stylesheet" href="{ms:global.host/}/static/plugins/animate/4.1.0/animate.min.css"> 
+  <script src="{ms:global.host/}/static/plugins/element-ui/2.12.0/index.js"></script> 
+  <link rel="stylesheet" href="{ms:global.host/}/static/plugins/element-ui/2.12.0/index.css"> 
+  <link rel="stylesheet" href="{ms:global.host/}/{ms:global.style/}/css/app.css"> 
+  <!--网络请求框架--> 
+  <script src="{ms:global.host/}/static/plugins/axios/0.18.0/axios.min.js"></script> 
+  <script src="{ms:global.host/}/static/plugins/qs/6.6.0/qs.min.js"></script> 
+  <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.js"></script> 
+  <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.http.js"></script> 
+  <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.util.js"></script> 
+  <script>
+        ms.base = "";
+    </script> 
+  <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style> 
+ </head> 
+ <body> 
+  <div id="app" v-cloak> 
+   <#include "nav.htm" /> 
+   <div class="search"> 
+    <div class="body"> 
+     <span> 关键字 <span style="color: red">{ms:search.content_title/}</span> </span>
+     <div class="right-body">
+       <#assign isEmpty=true>
+       {ms:arclist size=10 ispaging=true}
+       <#assign isEmpty=false>
+      <div class="news-item"> 
+       <div class="pic"> 
+        <img title="" alt="" src="{ms:global.host/}/{@ms:file field.litpic/}">
+       </div> 
+       <div class="news-content"> 
+        <a href="{ms:global.url/}${field.link}" class="title"> ${field.title} </a> 
+        <span class="desc"> ${field.descrip} </span> 
+       </div> 
+      </div>
+      {/ms:arclist}
+      <#if isEmpty>
+      <span style="width: 100%; text-align:center;min-height: 300px;display: flex;justify-content: center;align-items: center;">
+      没有找到 "<span style="color: red">${search.content_title}</span>" 相关记录
+      </span>
+      </#if>
+     </div>
+     <div class="page">
+      <el-pagination
+              background
+              @current-change="handleCurrentChange"
+              :page-size="pageSize"
+              :current-page.sync="pageCur"
+              layout="prev, pager, next, jumper"
+              :total="contentCount"> </el-pagination>
+
+     </div>
+    </div> 
+   </div> 
+   <#include "footer.htm" /> 
+  </div>   
+  <script>
+var app = new Vue({
+    el: '#app',
+    watch:{
+    },
+    data: {
+     //当前页数
+     pageCur: ${(page.cur)!1},
+     //每页文章条数
+     pageSize: ${(page.size)!20},
+     //页数总数
+     pageTotal: ${(page.total)!0},
+     //内容总数
+     contentCount: ${(page.rcount)!0},
+     keyword: "{ms:search.content_title/}",
+     categoryIds: "1329257282518720513,1329257213283344385"
+    },
+    methods: {
+     handleCurrentChange:function(val) {
+      var form = document.createElement("form");
+      form.setAttribute("method", "post");
+      var input = document.createElement('input');
+      input.setAttribute('type', 'hidden');
+      input.setAttribute('name', 'size');
+      input.setAttribute('value', this.pageSize);
+      form.append(input);
+      input = document.createElement('input');
+      input.setAttribute('type', 'hidden');
+      input.setAttribute('name', 'pageNo');
+      input.setAttribute('value', val);
+      form.append(input);
+      input = document.createElement('input');
+      input.setAttribute('type', 'hidden');
+      input.setAttribute('name', 'content_title');
+      input.setAttribute('value', this.keyword);
+      form.append(input);
+      input = document.createElement('input');
+      input.setAttribute('type', 'hidden');
+      input.setAttribute('name', 'categoryIds');
+      input.setAttribute('value', this.categoryIds);
+      form.append(input);
+
+      form.setAttribute("action",location.pathname);
+      document.body.appendChild(form);
+      form.submit();
+      form.remove();
+
+
+      // location.href = location.pathname + "?size=" + this.pageSize + "&pageNo=" + val + "&content_title=" + this.keyword + "&categoryIds=" + this.categoryIds;
+     },
+    },
+    created(){
+    }
+})
+</script> 
+  <style>
+    body {
+        background-color:#fff;
+        box-sizing:border-box;
+        font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Segoe UI", "Helvetica Neue", "PingFang SC", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei", 微软雅黑, sans-serif;
+        moz-box-sizing:border-box;
+        webkit-box-sizing:border-box;
+    }
+
+    .search 
+    {
+            align-items:center;
+            flex-direction:row;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            justify-content:center;
+            padding-bottom:0px;
+            flex-wrap:nowrap;
+            width:100%;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:0px;
+    }
+    .search .body 
+    {
+            flex-direction:column;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            justify-content:center;
+            padding-bottom:20px;
+            flex-wrap:nowrap;
+            width:1200px;
+            margin-bottom:0px;
+            padding-top:20px;
+            padding-left:0px;
+            margin-top:0px;
+            height:100%;
+    }
+    .search .body span 
+    {
+            padding-bottom:0px;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:14px;
+            margin-bottom:0px;
+            padding-top:0px;
+            margin-top:0px;
+    }
+    .search .body .page {
+     padding-right: 0px;
+     padding-bottom: 0px;
+     flex-wrap: nowrap;
+     height: 60px;
+     align-items: center;
+     justify-content: center;
+     padding-left: 0px;
+     box-sizing: border-box;
+     padding-top: 0px;
+     flex-direction: row;
+     display: flex;
+     width: 100%;
+    }
+
+    .search .body .right-body 
+    {
+            align-items:flex-start;
+            flex-direction:column;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            margin-left:0px;
+            margin-right:0px;
+            padding-bottom:10px;
+            width:100%;
+            margin-bottom:0px;
+            padding-top:10px;
+            padding-left:0px;
+            margin-top:0px;
+            height:100%;
+    }
+    .search .body .right-body .news-item 
+    {
+            padding-bottom:0px;
+            flex-wrap:nowrap;
+            flex-direction:row;
+            display:flex;
+            padding-right:0px;
+            width:100%;
+            box-sizing:border-box;
+            margin-bottom:10px;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:0px;
+            height:120px;
+    }
+    .search .body .right-body .news-item .pic 
+    {
+            padding-bottom:0px;
+            flex-wrap:nowrap;
+            flex-direction:row;
+            display:flex;
+            width:200px;
+            box-sizing:border-box;
+            padding-top:0px;
+            height:120px;
+    }
+    .search .body .right-body .news-item .pic img 
+    {
+            margin-right:0px;
+            padding-bottom:0px;
+            padding-right:0px;
+            width:100%;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            height:100%;
+            margin-left:0px;
+    }
+    .search .body .right-body .news-item .news-content 
+    {
+            padding-bottom:0px;
+            flex-wrap:nowrap;
+            flex-direction:column;
+            display:flex;
+            padding-right:0px;
+            width:100%;
+            box-sizing:border-box;
+            padding-top:0px;
+            position:relative;
+            padding-left:10px;
+            justify-content:flex-start;
+            height:100%;
+    }
+    .search .body .right-body .news-item .news-content .title 
+    {
+            padding-bottom:0px;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:18PX;
+            padding-top:0px;
+            padding-left:0px;
+    }
+    .search .body .right-body .news-item .news-content .desc 
+    {
+            padding-bottom:8px;
+            color:#909399;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            padding-right:0px;
+            font-size:16PX;
+            margin-bottom:0px;
+            padding-top:8px;
+            padding-left:0px;
+            height:100px;
+    }
+@media (max-width: 768px){
+        .search 
+        {
+                align-items:center;
+                flex-direction:row;
+                display:flex;
+                padding-right:0px;
+                box-sizing:border-box;
+                justify-content:center;
+                padding-bottom:0px;
+                flex-wrap:nowrap;
+                width:100%;
+                margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
+                margin-top:0px;
+        }
+        .search .body 
+        {
+                padding-bottom:20px;
+                align-items:center;
+                flex-wrap:nowrap;
+                flex-direction:column;
+                display:flex;
+                padding-right:0px;
+                width:100%;
+                box-sizing:border-box;
+                padding-top:20px;
+                padding-left:0px;
+                justify-content:flex-start;
+        }
+        .search .body .right-body 
+        {
+                align-items:center;
+                flex-direction:column;
+                display:flex;
+                padding-right:0px;
+                box-sizing:border-box;
+                justify-content:center;
+                margin-left:0px;
+                margin-right:0px;
+                padding-bottom:10px;
+                width:100%;
+                margin-bottom:0px;
+                padding-top:10px;
+                padding-left:0px;
+                margin-top:0px;
+                height:100%;
+        }
+        .search .body .right-body .news-item 
+        {
+                padding-bottom:0px;
+                flex-wrap:nowrap;
+                flex-direction:column;
+                display:flex;
+                padding-right:0px;
+                width:90%;
+                box-sizing:border-box;
+                margin-bottom:10px;
+                padding-top:0px;
+                padding-left:0px;
+        }
+        .search .body .right-body .news-item .pic 
+        {
+                padding-bottom:0px;
+                flex-wrap:nowrap;
+                flex-direction:row;
+                display:flex;
+                width:100%;
+                box-sizing:border-box;
+                margin-bottom:0px;
+                padding-top:0px;
+                height:120px;
+        }
+        .search .body .right-body .news-item .pic img 
+        {
+                padding-bottom:0px;
+                padding-right:0px;
+                width:100%;
+                padding-top:0px;
+                padding-left:0px;
+                height:100%;
+        }
+        .search .body .right-body .news-item .news-content 
+        {
+                padding-bottom:0px;
+                flex-wrap:nowrap;
+                flex-direction:column;
+                display:flex;
+                padding-right:0px;
+                width:100%;
+                box-sizing:border-box;
+                padding-top:0px;
+                position:relative;
+                padding-left:0px;
+                justify-content:flex-start;
+                height:100%;
+        }
+        .search .body .right-body .news-item .news-content .title 
+        {
+                padding-bottom:0px;
+                text-align:left;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                font-size:16PX;
+                margin-bottom:8px;
+                padding-top:0px;
+                padding-left:0px;
+                margin-top:8px;
+        }
+        .search .body .right-body .news-item .news-content .desc 
+        {
+                padding-bottom:8px;
+                color:#909399;
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                padding-right:0px;
+                font-size:14PX;
+                margin-bottom:0px;
+                padding-top:8px;
+                padding-left:0px;
+                margin-top:0px;
+                height:100px;
+        }
+
+}</style>
+ </body>
+</html>
