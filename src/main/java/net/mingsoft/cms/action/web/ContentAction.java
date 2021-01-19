@@ -28,6 +28,7 @@ import io.swagger.annotations.ApiOperation;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.biz.IHistoryLogBiz;
 import net.mingsoft.cms.entity.ContentEntity;
@@ -98,7 +99,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
     })
 	@RequestMapping("/list")
 	@ResponseBody
-	public ResultData list(@ModelAttribute @ApiIgnore ContentEntity content,HttpServletResponse response, HttpServletRequest request,@ApiIgnore ModelMap model,BindingResult result) {
+	public ResultData list(@ModelAttribute @ApiIgnore ContentBean content, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model, BindingResult result) {
 		BasicUtil.startPage();
 		List contentList = contentBiz.query(content);
 		return ResultData.build().success(new EUListBean(contentList,(int)BasicUtil.endPage(contentList).getTotal()));

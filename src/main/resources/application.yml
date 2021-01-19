@@ -86,7 +86,6 @@ spring:
       charset: utf-8
       enabled: true
 
-
 mybatis-plus:
   global-config:
     db-config:
