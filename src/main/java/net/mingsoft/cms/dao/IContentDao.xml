@@ -156,7 +156,7 @@
 		</select>
 
 		<!--根据实体获取-->
-		<select id="getByEntity" resultMap="resultMap" parameterType="net.mingsoft.cms.bean.ContentBean">
+		<select id="getByEntity" resultMap="resultMap" parameterType="net.mingsoft.cms.entity.ContentEntity">
 			select * from cms_content
 			<where>
 				del=0
