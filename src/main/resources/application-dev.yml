@@ -8,9 +8,9 @@
 spring:
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle:thin:@192.168.0.7:1521:helowin
+    url: jdbc:oracle:thin:@47.103.206.252:1521:ORCLCDB
     username: mcms
-    password: mcms
+    password: 123456789
     filters: wall,mergeStat
     type: com.alibaba.druid.pool.DruidDataSource
 

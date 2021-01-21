@@ -44,8 +44,8 @@
 		</dependency>
 		<dependency>
 			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc6</artifactId>
-			<version>11.2.0.1.0</version>
+			<artifactId>ojdbc8</artifactId>
+			<version>8</version>
 		</dependency>
 
 
@@ -76,69 +76,7 @@
 	<build>
 		<finalName>ms-mcms</finalName>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.1.2</version>
-				<configuration>
-					<excludes>
-						<exclude>**/static/plugins/</exclude>
-						<exclude>**/static/skin/</exclude>
-						<exclude>**/*.yml</exclude>
-						<exclude>**/Dockerfile</exclude>
-						<exclude>**/ehcache.xml</exclude>
-						<exclude>**/upgrade/</exclude>
-						<exclude>**/MSApplication.*</exclude>
-						<exclude>**/MSServletInitializer.*</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
-				<configuration>
-					<excludes>
-						<exclude>**/static/plugins/</exclude>
-						<exclude>**/static/skin/</exclude>
-						<exclude>**/*.yml</exclude>
-						<exclude>**/Dockerfile</exclude>
-						<exclude>**/ehcache.xml</exclude>
-						<exclude>**/upgrade/</exclude>
-						<exclude>**/config/</exclude>
-						<exclude>**/MSApplication.java</exclude>
-						<exclude>**/MSServletInitializer.java</exclude>
-					</excludes>
-				</configuration>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
-				<configuration>
-					<charset>UTF-8</charset>
-					<encoding>UTF-8</encoding>
-					<docencoding>UTF-8</docencoding>
-					<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
-					<additionalparam>-Xdoclint:none</additionalparam>
-				</configuration>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -164,24 +102,6 @@
 				</dependencies>
 			</plugin>
 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<configuration>
-					<arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
-                </configuration>
-            </plugin>
-
-
-            <!-- 打包war包使用 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <configuration>
-                    <warSourceExcludes>src/main/resources/**</warSourceExcludes>
-                    <warName>mcms</warName>
-                </configuration>
-            </plugin>
 
         </plugins>
         <resources>
