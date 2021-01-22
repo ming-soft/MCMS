@@ -302,7 +302,7 @@
                 ms.http.post(ms.manager + "/cms/content/list.do", form.sqlWhere ? Object.assign({}, {
                     categoryType: '1',
                     sqlWhere: form.sqlWhere
-                }, page) : Object.assign({}, that.form, page)).then(function (res) {
+                }, page) : Object.assign({}, form, page)).then(function (res) {
                     if (that.loadState) {
                         that.loading = false;
                     } else {
