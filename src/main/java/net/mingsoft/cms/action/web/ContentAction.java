@@ -117,7 +117,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		if(content.getId()==null) {
 			return ResultData.build().error();
 		}
-		ContentEntity _content = (ContentEntity)contentBiz.getEntity(Integer.parseInt(content.getId()));
+		ContentEntity _content = (ContentEntity)contentBiz.getById(content.getId());;
 		return ResultData.build().success(_content);
 	}
 

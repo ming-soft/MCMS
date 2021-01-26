@@ -272,7 +272,7 @@
                     scaleEnabled: true,
                     compressSide: 0,
                     maxImageSideLength: 1000,
-                    maximumWords: 2000,
+                    maximumWords: 100000,
                     initialFrameWidth: '100%',
                     initialFrameHeight: 400,
                     serverUrl: ms.base + "/static/plugins/ueditor/1.4.3.1/jsp/editor.do?jsonConfig=%7BvideoUrlPrefix:\'" + ms.base + "\',fileUrlPrefix:\'" + ms.base + "\',imageUrlPrefix:\'" + ms.base + "\',imagePathFormat:\'/upload/${appId}/cms/content/editor/%7Btime%7D\',filePathFormat:\'/upload/${appId}/cms/content/editor/%7Btime%7D\',videoPathFormat:\'/upload/${appId}/cms/content/editor/%7Btime%7D\'%7D",

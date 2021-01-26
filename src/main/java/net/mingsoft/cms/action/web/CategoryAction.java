@@ -129,7 +129,7 @@ public class CategoryAction extends net.mingsoft.cms.action.BaseAction{
 		if(category.getId()==null) {
 			return ResultData.build().error();
 		}
-		CategoryEntity _category = (CategoryEntity)categoryBiz.getEntity(Integer.parseInt(category.getId()));
+		CategoryEntity _category = (CategoryEntity)categoryBiz.getById(category.getId());
 		return ResultData.build().success(_category);
 	}
 
