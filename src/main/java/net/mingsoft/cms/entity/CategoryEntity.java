@@ -440,6 +440,13 @@ public class CategoryEntity extends BaseEntity {
     }
 
     /**
+     * 获取栏目Id（标签使用）
+     */
+    public Boolean getTypeleaf() {
+        return this.leaf; }
+
+
+    /**
      * 获取栏目图片 (标签使用）
      */
     public String getTypelitpic() {
