@@ -347,30 +347,33 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         //获取栏目信息
         String typeId = null;
         String categoryIds = BasicUtil.getString("categoryIds");
-        List categoryIdList = CollectionUtil.newArrayList();
+
+        //List categoryIdList = CollectionUtil.newArrayList();
+
         //当传递了栏目编号，但不是栏目集合
         if (StringUtils.isNotBlank(categoryIds) && !categoryIds.contains(",")) {
             typeId = categoryIds;
-        } else {
-            //取出所有的子栏目
-            String[] ids = categoryIds.split(",");
-            List<CategoryEntity> categoryList = categoryBiz.list(Wrappers.<CategoryEntity>lambdaQuery().ne(CategoryEntity::getCategoryType, CategoryTypeEnum.LINK.toString()));
-
-            categoryIdList = CollectionUtil.newArrayList(ids);
-            for(CategoryEntity c:categoryList) {
-                if(StringUtils.isNotEmpty(c.getParentids())) {
-                    for(String id:ids) {
-                        if(c.getParentids().indexOf(id)>-1) {
-                            categoryIdList.add(c.getId());
-                            break;
-                        }
-                    }
-                }
-            }
         }
+//        else {
+//            //取出所有的子栏目
+//            String[] ids = categoryIds.split(",");
+//            List<CategoryEntity> categoryList = categoryBiz.list(Wrappers.<CategoryEntity>lambdaQuery().ne(CategoryEntity::getCategoryType, CategoryTypeEnum.LINK.toString()));
+//
+//            categoryIdList = CollectionUtil.newArrayList(ids);
+//            for(CategoryEntity c:categoryList) {
+//                if(StringUtils.isNotEmpty(c.getParentids())) {
+//                    for(String id:ids) {
+//                        if(c.getParentids().indexOf(id)>-1) {
+//                            categoryIdList.add(c.getId());
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
         //重新组织 ID
-        categoryIds = StringUtils.join(categoryIdList, ",");
+        //categoryIds = StringUtils.join(categoryIdList, ",");
 
 
         //根据栏目确定自定义模型
