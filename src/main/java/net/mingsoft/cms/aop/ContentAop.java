@@ -71,7 +71,7 @@ public class ContentAop extends BaseAop {
         if(content.getId()==null) {
             return pjp.proceed();
         }
-        content = (ContentEntity)contentBiz.getEntity(Integer.parseInt(content.getId()));
+        content = contentBiz.getById(content.getId());
         //如果文章不存在则直接发行
         if(content == null){
             return pjp.proceed();
