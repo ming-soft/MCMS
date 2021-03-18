@@ -295,7 +295,7 @@ public class CategoryAction extends BaseAction {
 				 return ResultData.build().error(getResString("cannot.select.child"));
 			 }
 		 }
-		categoryBiz.updateEntity(category);
+		categoryBiz.updateById(category);
 		return ResultData.build().success(category);
 	}
 
