@@ -36,7 +36,6 @@ import java.util.Locale;
 @ComponentScan(basePackages = {"net.mingsoft"})
 @MapperScan(basePackages={"**.dao","com.baomidou.**.mapper"})
 @ServletComponentScan(basePackages = {"net.mingsoft"})
-@EnableCaching
 public class MSApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MSApplication.class, args);
