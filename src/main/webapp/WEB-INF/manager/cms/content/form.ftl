@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>文章</title>
+    <title>文章1</title>
     <#include "../../include/head-file.ftl">
+    <script src="${base}/static/mdiy/index.js"></script>
 </head>
 <body>
 <div id="form" v-cloak>
@@ -440,50 +441,24 @@
             changeModel: function () {
                 var that = this;
                 that.editableTabs = [that.editableTabs[0]];
-                this.removeModel();
 
                 if (this.currCategory) {
                     if (this.currCategory.mdiyModelId) {
-                        ms.http.get(ms.manager + "/mdiy/model/get.do", {
-                            id: this.currCategory.mdiyModelId
-                        }).then(function (data) {
-                            if (data.data && data.data.id) {
-                                that.rederModel(data.data, JSON.parse(data.data.modelJson));
-                            }
-                        });
+                        that.rederModel(this.currCategory.mdiyModelId)
                     }
                 }
             },
-            rederModel: function (modelEntity, data) {
+            rederModel: function (modelId) {
                 var that = this;
                 that.editableTabs.push({
-                    title: modelEntity.modelName,
+                    title: '',
                     name: 'custom-name'
                 });
-                this.removeModel();
-                that.$nextTick(function () {
-                    var div = document.createElement('div');
-                    div.id = 'c_model';
-                    var model = document.getElementById('model1');
-                    model.appendChild(div);
-                    var s = document.createElement('script');
-                    s.innerHTML = data.script;
-                    var con = document.createElement('div');
-                    con.id = 'custom-model';
-                    con.innerHTML = data.html;
-                    div.appendChild(s);
-                    div.appendChild(con); //初始化自定义模型并传入关联参数
-
-                    that.model = new custom_model({
-                        data: {
-                            title: modelEntity.modelName,
-                            modelId: modelEntity.id,
-                            form: {
-                                linkId: that.form.id
-                            }
-                        }
-                    });
+                ms.mdiy.model.model("model1", {id:modelId},{ linkId: that.form.id }).then(function(obj) {
+                    that.model = obj;
+                    that.editableTabs[1].title = obj.modelName
                 });
+
             },
             getValue: function (data) {
                 this.form.categoryId = data.id;
