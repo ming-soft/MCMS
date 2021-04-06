@@ -166,7 +166,8 @@
                 var that = this;
                 if (!that.position || that.position == '') {
                     this.$notify({
-                        title: '请输入主页位置！',
+                        title: '失败',
+                        message: '请输入主页位置！',
                         type: 'warning'
                     });
                     return;
@@ -178,13 +179,14 @@
                 }).then(function (data) {
                     if (data.result) {
                         that.$notify({
-                            title: '更新成功！',
+                            title: '成功',
+                            message: '更新成功！',
                             type: 'success'
                         });
                     } else {
                         that.$notify({
-                            title: '更新失败！',
-                            message: "错误",
+                            title: '失败',
+                            message: "更新失败！",
                             type: 'error'
                         });
                     }
@@ -203,7 +205,8 @@
             viewIndex: function () {
                 if (!this.position || this.position == '') {
                     this.$notify({
-                        title: '请输入主页位置！',
+                        title: '失败',
+                        message: '请输入主页位置！',
                         type: 'warning'
                     });
                     return;
@@ -217,7 +220,8 @@
                 ms.http.get(ms.manager + '/cms/generate/' + (that.section ? that.section : 0) + '/genernateColumn.do').then(function (data) {
                     if (data.result) {
                         that.$notify({
-                            title: '更新成功！',
+                            title: '成功',
+                            message: '更新成功！',
                             type: 'success'
                         });
                     }else {
@@ -247,7 +251,8 @@
                 }).then(function (data) {
                     if (data.result) {
                         that.$notify({
-                            title: '更新成功！',
+                            title: '成功',
+                            message:'更新成功！',
                             type: 'success'
                         });
                     }else {
