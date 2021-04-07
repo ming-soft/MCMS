@@ -65,6 +65,11 @@ public class WebConfig implements WebMvcConfigurer {
 	 */
 	@Value("${ms.upload.mapping}")
 	private String uploadMapping;
+	/**
+	 * 上传路径映射
+	 */
+	@Value("${ms.diy.html-dir}")
+	private String htmlDir;
 	@Bean
 	public ActionInterceptor actionInterceptor() {
 		return new ActionInterceptor();
@@ -88,7 +93,7 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler(uploadMapping).addResourceLocations(File.separator+uploadFloderPath+File.separator,"file:"+uploadFloderPath+File.separator,"classpath:/template/");
 		registry.addResourceHandler("/template/**").addResourceLocations(File.separator+template+File.separator,"file:"+template+File.separator,"classpath:/html/");
-		registry.addResourceHandler("/html/**").addResourceLocations("/html/","file:html/");
+		registry.addResourceHandler(File.separator+htmlDir+File.separator+"**").addResourceLocations(File.separator+htmlDir+File.separator,"file:"+htmlDir+File.separator);
 		//三种映射方式 webapp下、当前目录下、jar内
 		registry.addResourceHandler("/app/**").addResourceLocations("/app/","file:app/", "classpath:/app/");
 		registry.addResourceHandler("/static/**").addResourceLocations("/static/","file:static/","classpath:/static/","classpath:/META-INF/resources/");
