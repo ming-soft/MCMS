@@ -93,7 +93,8 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler(uploadMapping).addResourceLocations(File.separator+uploadFloderPath+File.separator,"file:"+uploadFloderPath+File.separator,"classpath:/template/");
 		registry.addResourceHandler("/template/**").addResourceLocations(File.separator+template+File.separator,"file:"+template+File.separator,"classpath:/html/");
-		registry.addResourceHandler(File.separator.concat(htmlDir).concat(File.separator).concat("**")).addResourceLocations(File.separator.concat(htmlDir).concat(File.separator),"file:".concat(htmlDir).concat(File.separator));
+		//注意这里的htmlDir资源不能使用File.separator替代"/",会导致Windows一键版访问失效
+		registry.addResourceHandler(htmlDir.concat("/**")).addResourceLocations(htmlDir.concat("/"),"file:".concat(htmlDir).concat("/"));
 		//三种映射方式 webapp下、当前目录下、jar内
 		registry.addResourceHandler("/app/**").addResourceLocations("/app/","file:app/", "classpath:/app/");
 		registry.addResourceHandler("/static/**").addResourceLocations("/static/","file:static/","classpath:/static/","classpath:/META-INF/resources/");
