@@ -48,10 +48,14 @@
                     msg = "账号被锁定！";
                 } else if (error.response.status == 500) {
                     msg = "服务器异常";
+
                 } else if (error.response.status == 501) {
                     msg = "您的操作被取消或不允许提交";
                 } else if (error.response.status == 423) {
                     msg = "服务器正在开小差....";
+                }
+                if(error.response.data && error.response.data.msg) {
+                    msg = error.response.data.msg;
                 }
                 if (msg) {
                     var tempVue = document.createElement('div');
