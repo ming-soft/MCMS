@@ -5,7 +5,7 @@
     <parent>
         <groupId>net.mingsoft</groupId>
         <artifactId>ms-pom</artifactId>
-        <version>2.0.0-SNAPSHOT</version>
+        <version>2.1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.mingsoft</groupId>
@@ -43,26 +43,19 @@
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-base</artifactId>
-
+            <version>${ms.version}</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-basic</artifactId>
+            <version>${ms.version}</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mdiy</artifactId>
+            <version>${ms.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>net.mingsoft</groupId>
-            <artifactId>ms-mpeople</artifactId>
-
-        </dependency>
-        <dependency>
-            <groupId>net.mingsoft</groupId>
-            <artifactId>store-client</artifactId>
-        </dependency>
 
     </dependencies>
 
