@@ -239,7 +239,7 @@ public class CmsParserUtil {
             }
 
             // 判断文件是否存在，若不存在弹出返回信息
-            if (!FileUtil.exist(ParserUtil.buildTempletPath(columnUrl)) || categoryBean.getId() == null || categoryBean.getCategoryType() == null) {
+            if (!FileUtil.exist(ParserUtil.buildTemplatePath(columnUrl)) || categoryBean.getId() == null || categoryBean.getCategoryType() == null) {
                 artId++;
                 continue;
             }

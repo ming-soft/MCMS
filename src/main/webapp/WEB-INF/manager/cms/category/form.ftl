@@ -589,7 +589,8 @@
                     });
                 }else {
                     this.$notify({
-                        title: response.msg,
+                        title: '失败',
+                        message: response.msg,
                         type: 'warning'
                     });
                 }
@@ -598,7 +599,8 @@
             //上传超过限制
             categoryImghandleExceed: function (files, fileList) {
                 this.$notify({
-                    title: '当前最多上传1个文件',
+                    title: '失败',
+                    message: '当前最多上传1个文件',
                     type: 'warning'
                 });
             },

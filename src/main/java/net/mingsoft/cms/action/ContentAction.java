@@ -285,7 +285,7 @@ public class ContentAction extends BaseAction {
 		if(!StringUtil.checkLength(content.getContentUrl()+"", 0, 200)){
 			return ResultData.build().error(getResString("err.length", this.getResString("content.url"), "0", "200"));
 		}
-		contentBiz.updateEntity(content);
+		contentBiz.saveOrUpdate(content);
 		return ResultData.build().success(content);
 	}
 

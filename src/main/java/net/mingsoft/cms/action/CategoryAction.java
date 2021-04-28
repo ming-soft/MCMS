@@ -295,7 +295,8 @@ public class CategoryAction extends BaseAction {
 				 return ResultData.build().error(getResString("cannot.select.child"));
 			 }
 		 }
-		categoryBiz.updateEntity(category);
+		 // 这里不能使用mybitsplus 存在业务
+		 categoryBiz.updateEntity(category);
 		return ResultData.build().success(category);
 	}
 

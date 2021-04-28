@@ -1,15 +1,14 @@
 /**
  * 封装http请求
  */
-(function() {
+(function () {
 
     axios.defaults.timeout = 1000 * 60;
     axios.defaults.baseURL = '';
 
     //http request 拦截器
     axios.interceptors.request.use(
-
-        function(config) {
+        function (config) {
             config.headers = {
                 'Content-Type': 'application/x-www-form-urlencoded',
                 'Cache-Control': 'no-cache',
@@ -23,23 +22,58 @@
             }
             return config;
         },
-        function(error) {
-            return Promise.reject(err);
+        function (error) {
+            return Promise.reject(error);
         }
     );
 
 
     //http response 拦截器
     axios.interceptors.response.use(
-        function(response) {
-            //登录失效
-            if (response.data.bizCode == "401" && ms.isLoginRedirect) {
-                window.parent.location.href = ms.base + "/" + ms.login + "?backurl=" + encodeURIComponent(window.parent.location.href);
-                return;
-            }
+        function (response) {
             return response;
         },
-        function(error) {
+        function (error) {
+            if (error.response) {
+                let msg;
+                if (error.response.status == 401) {
+                    msg = "登录失败";
+                } else if (error.response.status == 400) {
+                    msg = "客户端错误";
+                } else if (error.response.status == 403) {
+                    msg = "您的权限不足";
+                } else if (error.response.status == 404) {
+                    msg = "请求不存在";
+                } else if (error.response.status == 423) {
+                    msg = "账号被锁定！";
+                } else if (error.response.status == 500) {
+                    msg = "服务器异常";
+
+                } else if (error.response.status == 501) {
+                    msg = "您的操作被取消或不允许提交";
+                } else if (error.response.status == 423) {
+                    msg = "服务器正在开小差....";
+                }
+                if(error.response.data && error.response.data.msg) {
+                    msg = error.response.data.msg;
+                }
+                if (msg) {
+                    var tempVue = document.createElement('div');
+                    tempVue.id = "tempVue";
+                    document.body.appendChild(tempVue)
+                    new Vue({el: '#tempVue',}).$notify.error({
+                        title: '错误',
+                        message: msg,
+                        type: 'warning'
+                    });
+                    if (error.response.status == 401) {
+                        window.location.reload();
+                    }
+                    document.body.removeChild(tempVue);
+                }
+
+            }
+
             return Promise.reject(error)
         }
     )
@@ -52,7 +86,7 @@
                 headers: conf.headers == undefined ? null : conf.headers,
             });
             _axios.interceptors.request.use(
-                function(config) {
+                function (config) {
                     if (config.method === 'post' && config.headers["Content-Type"] === "application/x-www-form-urlencoded") {
                         config.data = Qs.stringify(config.data, {
                             allowDots: true
@@ -60,15 +94,14 @@
                     }
                     return config;
                 },
-                function(error) {
-                    return Promise.reject(err);
+                function (error) {
+                    return Promise.reject(error);
                 }
             );
             return _axios;
         }
         return axios;
     }
-
 
 
     /**
@@ -82,14 +115,14 @@
         if (params == undefined) {
             params = {}
         }
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             ajax().get(url, {
                 params: params
             })
-                .then(function(response) {
+                .then(function (response) {
                     resolve(response.data);
                 })
-                .catch(function(err) {
+                .catch(function (err) {
                     reject(err)
                 })
         })
@@ -109,11 +142,11 @@
             data = {}
         }
 
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             ajax(conf).post(url, data, conf)
-                .then(function(response) {
+                .then(function (response) {
                     resolve(response.data);
-                }, function(err) {
+                }, function (err) {
                     reject(err)
                 })
         })
@@ -131,11 +164,11 @@
         if (data == undefined) {
             data = {}
         }
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             ajax(conf).patch(url, data, conf)
-                .then(function(response) {
+                .then(function (response) {
                     resolve(response);
-                }, function(err) {
+                }, function (err) {
                     reject(err)
                 })
         })
@@ -152,13 +185,59 @@
         if (data == undefined) {
             data = {}
         }
-        return new Promise(function(resolve, reject) {
+        return new Promise(function (resolve, reject) {
             ajax(conf).put(url, data, conf)
-                .then(function(response) {
+                .then(function (response) {
                     resolve(response.data);
-                }, function(err) {
+                }, function (err) {
                     reject(err)
                 })
+        })
+    }
+
+    /**
+     * 下载资源
+     * @param url
+     * @param data
+     * @returns {Promise}
+     */
+    function download(url, data) {
+
+        if (data == undefined) {
+            data = {}
+        }
+
+        return new Promise(function (resolve, reject) {
+            axios({
+                method: 'post',
+                // 请求地址
+                url: url,
+                // 参数
+                data: data,
+                // 表明返回服务器返回的数据类型
+                responseType: 'blob',
+                headers: {Accept: 'application/vnd.openxmlformats-officedocument'}
+            }).then((res) => { // 处理返回的文件流
+                const content = res.data
+                const blob = new Blob([content])
+                const fileName = res.headers["filename"];
+                if ('download' in document.createElement('a')) { // 非IE下载
+                    const elink = document.createElement('a')
+                    elink.download = fileName
+                    elink.style.display = 'none'
+                    elink.href = URL.createObjectURL(blob)
+                    document.body.appendChild(elink)
+                    elink.click()
+                    URL.revokeObjectURL(elink.href) // 释放URL 对象
+                    document.body.removeChild(elink)
+                } else { // IE10+下载
+                    navigator.msSaveBlob(blob, fileName)
+                }
+                resolve(res);
+            }, function (err) {
+                reject(err)
+            })
+
         })
     }
 
@@ -167,7 +246,8 @@
         get: get,
         post: post,
         put: put,
-        patch: patch
+        patch: patch,
+        download: download
 
     }
 

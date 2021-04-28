@@ -133,7 +133,7 @@ public class GeneraterAction extends BaseAction {
         String generateFileName = request.getParameter("position");
 
         // 获取文件所在路径 首先判断用户输入的模版文件是否存在
-        if (!FileUtil.exist(ParserUtil.buildTempletPath())) {
+        if (!FileUtil.exist(ParserUtil.buildTemplatePath())) {
             return ResultData.build().error(getResString("templet.file"));
         } else {
 
@@ -186,7 +186,7 @@ public class GeneraterAction extends BaseAction {
                 case LIST: // 列表
 
                     // 判断模板文件是否存在
-                    if (!FileUtil.exist(ParserUtil.buildTempletPath(column.getCategoryListUrl()))) {
+                    if (!FileUtil.exist(ParserUtil.buildTemplatePath(column.getCategoryListUrl()))) {
                         LOG.error("模板不存在：{}", column.getCategoryUrl());
                         continue;
                     }
@@ -244,7 +244,7 @@ public class GeneraterAction extends BaseAction {
             // 分类是列表
             if (category.getCategoryType().equals(CategoryTypeEnum.LIST.toString())) {
                 // 判断模板文件是否存在
-                if (!FileUtil.exist(ParserUtil.buildTempletPath(category.getCategoryListUrl())) || StringUtils.isEmpty(category.getCategoryListUrl())) {
+                if (!FileUtil.exist(ParserUtil.buildTemplatePath(category.getCategoryListUrl())) || StringUtils.isEmpty(category.getCategoryListUrl())) {
                     LOG.error("模板不存在：{}", category.getCategoryUrl());
                     continue;
                 }

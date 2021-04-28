@@ -32,11 +32,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.Locale;
 
 
-@SpringBootApplication
-@ComponentScan(basePackages = {"net.mingsoft"})
+@SpringBootApplication(scanBasePackages = {"net.mingsoft"})
 @MapperScan(basePackages={"**.dao","com.baomidou.**.mapper"})
 @ServletComponentScan(basePackages = {"net.mingsoft"})
-@EnableCaching
 public class MSApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MSApplication.class, args);
