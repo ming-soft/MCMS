@@ -1,0 +1,390 @@
+<html>
+ <head>
+  <meta charset="utf-8">
+  <title>{ms:global.name/}</title>
+  <meta http-equiv="content-type" content="text/html">
+  <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+  <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="app-mobile-web-app-capable" content="yes">
+  <meta name="app-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="keywords" content="{ms:global.keyword/}">
+  <meta name="description" content="{ms:global.descrip/}">
+  <script type="text/javascript" src="{ms:global.host/}/static/plugins/vue/2.6.9/vue.min.js"></script>
+  <link rel="stylesheet" href="{ms:global.host/}/static/plugins/minireset/0.0.2/minireset.min.css">
+  <link rel="stylesheet" href="https://cdn.mingsoft.net/iconfont/iconfont.css">
+  <link rel="stylesheet" href="{ms:global.host/}/static/plugins/animate/4.1.0/animate.min.css">
+  <script src="{ms:global.host/}/static/plugins/element-ui/2.12.0/index.js"></script>
+  <link rel="stylesheet" href="{ms:global.host/}/static/plugins/element-ui/2.12.0/index.css">
+  <link rel="stylesheet" href="{ms:global.host/}/{ms:global.style/}/css/app.css">
+  <!--网络请求框架-->
+  <script src="{ms:global.host/}/static/plugins/axios/0.18.0/axios.min.js"></script>
+  <script src="{ms:global.host/}/static/plugins/qs/6.6.0/qs.min.js"></script>
+  <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.js"></script>
+  <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.http.js"></script>
+  <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.util.js"></script>
+  <script>
+        ms.base = "";
+    </script>
+  <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+ </head>
+ <body>
+  <div id="app" v-cloak>
+   <#include "nav.htm" />
+   <div class="news">
+    <div class="body">
+     <div class="left">
+      {ms:channel type='parent'}
+      <span class="title"> ${field.typetitle} </span>
+      {/ms:channel}
+      <#assign typetitle=field.typetitle>
+      <#if field.typeleaf>
+      {ms:channel type='level'}
+      <a href="{ms:global.url/}${field.typelink}" class="<#if typetitle==field.typetitle>sub-title-sel<#else>sub-title</#if>"> ${field.typetitle} </a>
+      {/ms:channel}
+      <#else>
+      {ms:channel type='son'}
+      <a href="{ms:global.url/}${field.typelink}" class="<#if typetitle==field.typetitle>sub-title-sel<#else>sub-title</#if>"> ${field.typetitle} </a>
+      {/ms:channel}
+      </#if>
+     </div>
+     <div class="right">
+      <div class="ms-channel-path">
+       <span class="ms-channel-path-label"> 当前位置： </span>
+       <a href="/" class="ms-channel-path-index"> 首页 </a> {ms:channel type="path"}
+       <i class="iconfont icon-youjiantou"></i>
+       <a href="{ms:global.url/}${field.typelink}" class="ms-channel-path-link"> ${field.typetitle} </a> {/ms:channel}
+      </div>
+      <span class="big-title"> </span>
+      <div class="news-body">
+       <span> ${field.content} </span>
+      </div>
+     </div>
+    </div>
+   </div>
+   <#include "footer.htm" />
+  </div>
+  <script>
+var app = new Vue({
+    el: '#app',
+    watch:{
+    },
+    data: {
+    },
+    methods: {
+       switchShow:function(arr){
+       var that = this
+           arr.forEach(function(x){
+              let e = that.$el.querySelector("#key_"+x)
+               if(e){
+                   e.style.display=e.style.display=='none'?'flex':'none'
+               }
+           })
+       },
+    },
+    created(){
+    }
+})
+</script>
+  <style>
+    body {
+        background-color:#fff;
+        box-sizing:border-box;
+        font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Segoe UI", "Helvetica Neue", "PingFang SC", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei", 微软雅黑, sans-serif;
+        moz-box-sizing:border-box;
+        webkit-box-sizing:border-box;
+    }
+
+    .news
+    {
+            align-items:flex-start;
+            flex-direction:row;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            justify-content:center;
+            padding-bottom:0px;
+            flex-wrap:nowrap;
+            width:100%;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:0px;
+    }
+    .news .body
+    {
+            padding-bottom:20px;
+            flex-wrap:nowrap;
+            flex-direction:row;
+            display:flex;
+            padding-right:0px;
+            width:1200px;
+            box-sizing:border-box;
+            padding-top:20px;
+            padding-left:0px;
+    }
+    .news .body .left
+    {
+            padding-bottom:0px;
+            flex-wrap:nowrap;
+            flex-direction:column;
+            display:flex;
+            padding-right:0px;
+            width:200px;
+            box-sizing:border-box;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:0px;
+            height:100%;
+    }
+    .news .body .left .title
+    {
+            border-bottom-color:#C0C4CC;
+            color:#C0C4CC;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:16PX;
+            border-bottom-style:dashed;
+            padding-top:10px;
+            border-bottom-width:1px;
+            padding-left:10px;
+            margin-top:0px;
+            height:40px;
+    }
+    .news .body .left .sub-title-sel
+    {
+            background-color:#F2F6FC;
+            color:#409EFF;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:16PX;
+            padding-top:10px;
+            padding-left:10px;
+            margin-top:2px;
+            height:40px;
+    }
+    .news .body .left .sub-title
+    {
+            color:#5F5F5F;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:16PX;
+            padding-top:10px;
+            padding-left:10px;
+            margin-top:0px;
+            height:40px;
+    }
+    .news .body .right
+    {
+            padding-bottom:0px;
+            flex-wrap:nowrap;
+            flex-direction:column;
+            display:flex;
+            padding-right:0px;
+            width:1000px;
+            margin-bottom:0px;
+            box-sizing:border-box;
+            padding-top:0px;
+            padding-left:20px;
+            margin-top:0px;
+            height:100%;
+    }
+    .news .body .right .ms-channel-path
+    {
+            margin-right:auto;
+            align-items:center;
+            flex-wrap:nowrap;
+            flex-direction:row;
+            display:flex;
+            width:100%;
+            margin-bottom:10px;
+            box-sizing:border-box;
+            padding-left:0px;
+            margin-top:10px;
+            height:30px;
+            margin-left:auto;
+    }
+    .news .body .right .ms-channel-path span
+    {
+            color:#909399;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:16PX;
+    }
+    .news .body .right .ms-channel-path .ms-channel-path-index
+    {
+            cursor:pointer;
+            color:#000;
+            font-size:16PX;
+            text-decoration:none;
+            margin-bottom:0px;
+            margin-top:0px;
+    }
+    .news .body .right .ms-channel-path >i
+    {
+    }
+    .news .body .right .ms-channel-path .ms-channel-path-link
+    {
+            cursor:pointer;
+            color:#000;
+            font-size:16PX;
+            text-decoration:none;
+            margin-bottom:0px;
+            margin-top:0px;
+    }
+    .news .body .right .big-title
+    {
+            text-align:center;
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:22PX;
+            margin-bottom:20px;
+            padding-left:0px;
+            margin-top:10px;
+    }
+    .news .body .right .news-body
+    {
+            flex-direction:column;
+            display:flex;
+            box-sizing:border-box;
+            margin-left:0px;
+            margin-right:0px;
+            min-height:500px;
+            padding-bottom:0px;
+            flex-wrap:nowrap;
+            width:100%;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:0px;
+    }
+    .news .body .right .news-body span
+    {
+            flex-direction:row;
+            word-wrap:break-word;
+            display:inline-block;
+            font-size:14px;
+    }
+@media (max-width: 768px){
+        .news
+        {
+                align-items:center;
+                flex-direction:row;
+                display:flex;
+                padding-right:0px;
+                box-sizing:border-box;
+                justify-content:center;
+                padding-bottom:0px;
+                flex-wrap:nowrap;
+                width:100%;
+                margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
+                margin-top:0px;
+        }
+        .news .body
+        {
+                padding-bottom:20px;
+                flex-wrap:nowrap;
+                flex-direction:column;
+                display:flex;
+                padding-right:0px;
+                width:90%;
+                box-sizing:border-box;
+                padding-top:20px;
+                padding-left:0px;
+        }
+
+ .news .body .left {
+  width: 100%;
+ }
+        .news .body .right
+        {
+                padding-bottom:0px;
+                flex-wrap:nowrap;
+                flex-direction:column;
+                display:flex;
+                padding-right:0px;
+                width:100%;
+                margin-bottom:0px;
+                box-sizing:border-box;
+                padding-top:0px;
+                padding-left:0px;
+                margin-top:0px;
+        }
+        .news .body .right .ms-channel-path
+        {
+                align-items:center;
+                flex-direction:row;
+                display:flex;
+                box-sizing:border-box;
+                margin-left:auto;
+                margin-right:auto;
+                flex-wrap:nowrap;
+                width:100%;
+                margin-bottom:10px;
+                padding-top:0px;
+                padding-left:0px;
+                margin-top:10px;
+                height:30px;
+        }
+        .news .body .right .ms-channel-path span
+        {
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                font-size:14PX;
+        }
+        .news .body .right .ms-channel-path .ms-channel-path-index
+        {
+                cursor:pointer;
+                color:#000;
+                font-size:14PX;
+                text-decoration:none;
+                margin-bottom:0px;
+                margin-top:0px;
+        }
+        .news .body .right .ms-channel-path .ms-channel-path-link
+        {
+                cursor:pointer;
+                color:#000;
+                font-size:14PX;
+                text-decoration:none;
+                margin-bottom:0px;
+                margin-top:0px;
+        }
+        .news .body .right .big-title
+        {
+                flex-direction:row;
+                word-wrap:break-word;
+                display:inline-block;
+                font-size:22PX;
+                padding-left:0px;
+        }
+        .news .body .right .news-body
+        {
+                margin-right:0px;
+                padding-bottom:0px;
+                flex-wrap:nowrap;
+                flex-direction:column;
+                display:flex;
+                width:100%;
+                box-sizing:border-box;
+                margin-bottom:0px;
+                padding-top:0px;
+                margin-top:0px;
+                margin-left:0px;
+        }
+
+}</style>
+ </body>
+</html>
