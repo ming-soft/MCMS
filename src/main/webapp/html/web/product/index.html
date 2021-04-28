@@ -1,0 +1,690 @@
+<html>
+ <head> 
+  <meta charset="utf-8"> 
+  <title>铭飞MCms</title> 
+  <meta http-equiv="content-type" content="text/html"> 
+  <meta HTTP-EQUIV="Pragma" CONTENT="no-cache"> 
+  <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width"> 
+  <meta name="format-detection" content="telephone=no"> 
+  <meta name="app-mobile-web-app-capable" content="yes"> 
+  <meta name="app-mobile-web-app-status-bar-style" content="black-translucent"> 
+  <meta name="keywords" content="铭飞MCMS"> 
+  <meta name="description" content="铭飞MCMS"> 
+  <script type="text/javascript" src="http://localhost:8080/static/plugins/vue/2.6.9/vue.min.js"></script> 
+  <link rel="stylesheet" href="http://localhost:8080/static/plugins/minireset/0.0.2/minireset.min.css"> 
+  <link rel="stylesheet" href="https://cdn.mingsoft.net/iconfont/iconfont.css"> 
+  <link rel="stylesheet" href="http://localhost:8080/static/plugins/animate/4.1.0/animate.min.css"> 
+  <script src="http://localhost:8080/static/plugins/element-ui/2.12.0/index.js"></script> 
+  <link rel="stylesheet" href="http://localhost:8080/static/plugins/element-ui/2.12.0/index.css"> 
+  <link rel="stylesheet" href="http://localhost:8080/template/1/default/css/app.css"> 
+  <!--网络请求框架--> 
+  <script src="http://localhost:8080/static/plugins/axios/0.18.0/axios.min.js"></script> 
+  <script src="http://localhost:8080/static/plugins/qs/6.6.0/qs.min.js"></script> 
+  <script src="http://localhost:8080/static/plugins/ms/1.0.0/ms.js"></script> 
+  <script src="http://localhost:8080/static/plugins/ms/1.0.0/ms.http.js"></script> 
+  <script src="http://localhost:8080/static/plugins/ms/1.0.0/ms.util.js"></script> 
+  <script>
+        ms.base = "";
+    </script> 
+  <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style> 
+ </head> 
+ <body> 
+  <div id="app" v-cloak> 
+<div class="ms-nav">
+ <div class="body"> 
+  <div class="logo">
+   <img title="" alt="" src="http://localhost:8080//upload/1/appLogo/1609397756549.png" class="logo-pic">
+   <img title="" alt="" src="https://www.mingsoft.net//template/1/ms/images/1596437934982.png" class="logo-desc"> 
+  </div> 
+  <div @click="switchShow([&quot;1605172743000_96378&quot;]);" class="nav-h5">
+   <i class="iconfont icon-caidan nav-h5-icon"></i> 
+   <div id="key_1605172743000_96378" class="nav-h5-body" style="display: none">
+    <a href="http://localhost:8080" class="nav-h5-item"> 首页 </a>
+    <a href="http://localhost:8080/html/web/product/index.html" class="nav-h5-item  sel">
+     公司产品
+    </a>
+    <a href="http://localhost:8080/html/web/news/index.html" class="nav-h5-item ">
+     新闻动态
+    </a>
+    <a href="http://localhost:8080/html/web/gywm/lianxiwomen/index.html" class="nav-h5-item ">
+     关于我们
+    </a>
+   </div> 
+  </div> 
+  <div class="nav-item"> 
+   <a href="http://localhost:8080" class="item"> 首页 </a>
+
+   <a href="http://localhost:8080/html/web/product/index.html" class="item sel">
+    公司产品
+   </a>
+   <a href="http://localhost:8080/html/web/news/index.html" class="item">
+    新闻动态
+   </a>
+   <a href="http://localhost:8080/html/web/gywm/lianxiwomen/index.html" class="item">
+    关于我们
+   </a>
+  </div> 
+  <div class="nav-search"> 
+   <!--搜索-start--> 
+   <form id="searchDataForm" action="http://localhost:8080/mcms/search.do" method="post" class="ms-search-input"> 
+    <div class="ms-search-input-div"> 
+     <!--输入框 - start --> 
+     <input class="ms-input" name="content_title" placeholder="输入搜索关键字">
+     <!--输入框 -end --> 
+    </div> 
+    <div class="ms-search-button" onclick="document.getElementById('searchDataForm').submit();"> 
+     <i class="iconfont icon-fangdajing"></i> 
+    </div> 
+   </form> 
+   <!--搜索-end--> 
+  </div> 
+ </div> 
+</div>   <div class="content">
+
+    <div class="body">
+     <div class="left">
+      <span class="title"> 公司产品 </span>
+      <a href="http://localhost:8080/html/web/product/kycp/index.html" class="sub-title"> 开源产品 </a>
+      <a href="http://localhost:8080/html/web/product/hycp/index.html" class="sub-title"> 行业产品 </a>
+      <a href="http://localhost:8080/html/web/product/pingtaichanpin/index.html" class="sub-title"> 平台产品 </a>
+    </div>
+     <div class="right">
+      <div class="ms-channel-path">
+            <span class="ms-channel-path-label">
+                当前位置：
+            </span>
+       <a href="/" class="ms-channel-path-index">
+        首页
+       </a>
+       <i class="iconfont icon-youjiantou"></i>
+       <a href="http://localhost:8080/html/web/product/index.html" class="ms-channel-path-link">
+        公司产品
+       </a>
+      </div>
+      <div class="list">
+       <div class="list-body">
+        <div class="product">
+         <img title="" alt="" src="http://localhost:8080//upload/1/cms/content/1609740022739.png" />
+         <a href="http://localhost:8080/html/web/product/kycp/1345973329424592897.html">
+          城市数据
+         </a>
+        </div>
+                <div class="product">
+         <img title="" alt="" src="http://localhost:8080//upload/1/cms/content/1609837531913.png" />
+         <a href="http://localhost:8080/html/web/product/kycp/1345973172616343553.html">
+          内容插件
+         </a>
+        </div>
+                <div class="product">
+         <img title="" alt="" src="http://localhost:8080//upload/1/cms/content/1609739953632.png" />
+         <a href="http://localhost:8080/html/web/product/kycp/1345973065812586497.html">
+          支付交易
+         </a>
+        </div>
+                <div class="product">
+         <img title="" alt="" src="http://localhost:8080//upload/1/cms/content/1609742916205.png" />
+         <a href="http://localhost:8080/html/web/product/kycp/1345972904663232513.html">
+          发送插件
+         </a>
+        </div>
+                <div class="product">
+         <img title="" alt="" src="http://localhost:8080//upload/1/cms/content/1609739871146.png" />
+         <a href="http://localhost:8080/html/web/product/kycp/1345972716284456962.html">
+          自定义插件
+         </a>
+        </div>
+                <div class="product">
+         <img title="" alt="" src="http://localhost:8080//upload/1/cms/content/1609739824520.png" />
+         <a href="http://localhost:8080/html/web/product/kycp/1345972513561161729.html">
+          关注插件
+         </a>
+        </div>
+         </div>
+       <div class="page">
+        <el-pagination
+                background
+                @current-change="handleCurrentChange"
+                :page-size="pageSize"
+                :current-page.sync="pageCur"
+                layout="prev, pager, next, jumper"
+                :total="contentCount"> </el-pagination>
+       </div>
+      </div>
+     </div>
+    </div>
+
+   </div> 
+<div class="ms-footer"> 
+ <div class="body"> 
+  <div class="top"> 
+   <div class="top-left">
+         <div class="foot-nav"> 
+     <a href="http://localhost:8080/html/web/product/index.html" class="nav-item"> 公司产品 </a>  
+     <div> 
+      <a href="http://localhost:8080/html/web/product/kycp/index.html" class="item"> 开源产品 </a> 
+     </div>  
+     <div> 
+      <a href="http://localhost:8080/html/web/product/hycp/index.html" class="item"> 行业产品 </a> 
+     </div>  
+     <div> 
+      <a href="http://localhost:8080/html/web/product/pingtaichanpin/index.html" class="item"> 平台产品 </a> 
+     </div>  
+    </div>     <div class="foot-nav"> 
+     <a href="http://localhost:8080/html/web/news/index.html" class="nav-item"> 新闻动态 </a>  
+     <div> 
+      <a href="http://localhost:8080/html/web/news/gsdt/index.html" class="item"> 公司动态 </a> 
+     </div>  
+     <div> 
+      <a href="http://localhost:8080/html/web/news/xingyedongtai/index.html" class="item"> 行业动态 </a> 
+     </div>  
+    </div>     <div class="foot-nav"> 
+     <a href="http://localhost:8080/html/web/gywm/index.html" class="nav-item"> 关于我们 </a>  
+     <div> 
+      <a href="http://localhost:8080/html/web/gywm/lianxiwomen/index.html" class="item"> 联系我们 </a> 
+     </div>  
+     <div> 
+      <a href="http://localhost:8080/html/web/gywm/gongsijieshao/index.html" class="item"> 公司介绍 </a> 
+     </div>  
+    </div>  
+   </div> 
+   <div class="top-right"> 
+    <div class="qr"> 
+     <img title="" alt="" src="http://localhost:8080/template/1/default/images/sw.png" class="pic">
+     <span class="text"> 商务微信 </span>
+    </div> 
+    <div class="qr"> 
+     <img title="" alt="" src="http://localhost:8080/template/1/default/images/gzh.png" class="pic">
+     <span class="text"> 公众号 </span> 
+    </div> 
+   </div> 
+  </div> 
+  <span class="copyright"> <el-link href="https://www.mingsoft.net/" type="primary">© 江西铭软科技有限公司</el-link> 2012-至今 All Rights Reserved. Powered by MCms </span>
+  <span class="power"> @该网页由 <el-link href="https://designer.mingsoft.net/" type="primary">MDesigner</el-link> 制作完成 </span>
+ </div> 
+</div>  </div>   
+  <script>
+var app = new Vue({
+    el: '#app',
+    watch:{
+    },
+    data: {
+     //当前页数
+     pageCur: 1,
+     //每页文章条数
+     pageSize: 6,
+     //页数总数
+     pageTotal: 3,
+     //内容总数
+     contentCount: 16
+    },
+    methods: {
+     switchShow:function(arr){
+      var that = this
+      arr.forEach(function(x){
+       let e = that.$el.querySelector("#key_"+x)
+       if(e){
+        e.style.display=e.style.display=='none'?'flex':'none'
+       }
+      })
+     },
+     handleCurrentChange:function(val) {
+      if(val==1) {
+       location.href = "http://localhost:8080/html/web//product/index.html";
+      } else {
+       location.href = "http://localhost:8080/html/web//product/list-" + val + ".html";
+      }
+     }
+    },
+    created(){
+    }
+})
+</script> 
+  <style>
+    body {
+        background-color:#fff;
+        box-sizing:border-box;
+        font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Segoe UI", "Helvetica Neue", "PingFang SC", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei", 微软雅黑, sans-serif;
+        moz-box-sizing:border-box;
+        webkit-box-sizing:border-box;
+    }
+
+    .content 
+    {
+            align-items:center;
+            flex-direction:column;
+            display:flex;
+            padding-right:0px;
+            box-sizing:border-box;
+            justify-content:flex-start;
+            margin-right:0px;
+            padding-bottom:0px;
+            flex-wrap:nowrap;
+            width:100%;
+            margin-bottom:0px;
+            padding-top:0px;
+            padding-left:0px;
+            margin-top:0px;
+    }
+    .content .body {
+     padding-right: 0px;
+     margin-right: 0px;
+     padding-bottom: 20px;
+     flex-wrap: nowrap;
+     height: 100%;
+     padding-left: 0px;
+     box-sizing: border-box;
+     padding-top: 20px;
+     flex-direction: row;
+     display: flex;
+     width: 1200px;
+    }
+
+    .content .body .left {
+     padding-right: 0px;
+     padding-bottom: 0px;
+     flex-wrap: nowrap;
+     height: 100%;
+     padding-left: 0px;
+     box-sizing: border-box;
+     padding-top: 0px;
+     flex-direction: column;
+     display: flex;
+     width: 200px;
+     margin-top: 0px;
+    }
+
+    .content .body .left .title {
+     border-bottom-style: dashed;
+     border-bottom-width: 1px;
+     height: 40px;
+     font-size: 16PX;
+     padding-left: 10px;
+     color: #C0C4CC;
+     word-wrap: break-word;
+     border-bottom-color: #C0C4CC;
+     padding-top: 10px;
+     flex-direction: row;
+     display: inline-block;
+     margin-top: 0px;
+    }
+
+    .content .body .left .sub-title-sel {
+     background-color: #F2F6FC;
+     color: #409EFF;
+     flex-direction: row;
+     word-wrap: break-word;
+     display: inline-block;
+     font-size: 16PX;
+     padding-top: 10px;
+     padding-left: 10px;
+     margin-top: 2px;
+     height: 40px;
+    }
+
+    .content .body .left .sub-title {
+     height: 40px;
+     font-size: 16PX;
+     padding-left: 10px;
+     color: #5F5F5F;
+     word-wrap: break-word;
+     padding-top: 10px;
+     flex-direction: row;
+     display: inline-block;
+     margin-top: 0px;
+    }
+
+    .content .body .right {
+     padding-right: 0px;
+     margin-right: 0px;
+     padding-bottom: 0px;
+     flex-wrap: wrap;
+     height: 800px;
+     align-items: flex-start;
+     margin-bottom: 0px;
+     padding-left: 20px;
+     box-sizing: border-box;
+     padding-top: 0px;
+     flex-direction: row;
+     display: flex;
+     width: 1000px;
+     margin-top: 0px;
+    }
+
+    .content .body .right .ms-channel-path {
+     margin-right: auto;
+     padding-bottom: 0px;
+     flex-wrap: nowrap;
+     height: 30px;
+     align-items: center;
+     margin-left: auto;
+     margin-bottom: 10px;
+     padding-left: 0px;
+     box-sizing: border-box;
+     padding-top: 0px;
+     flex-direction: row;
+     display: flex;
+     width: 100%;
+     margin-top: 10px;
+    }
+
+    .content .body .right .ms-channel-path span {
+     font-size: 16PX;
+     color: #909399;
+     word-wrap: break-word;
+     flex-direction: row;
+     display: inline-block;
+    }
+
+    .content .body .right .ms-channel-path .ms-channel-path-index {
+     cursor: pointer;
+     color: #000;
+     text-decoration: none;
+     font-size: 16PX;
+     margin-bottom: 0px;
+     margin-top: 0px;
+    }
+
+    .content .body .right .ms-channel-path>i {}
+
+    .content .body .right .ms-channel-path .ms-channel-path-link {
+     cursor: pointer;
+     color: #000;
+     text-decoration: none;
+     font-size: 16PX;
+     margin-bottom: 0px;
+     margin-top: 0px;
+    }
+
+    .content .body .right .list {
+     padding-right: 0px;
+     margin-right: 0px;
+     padding-bottom: 0px;
+     height: 800px;
+     margin-bottom: 0px;
+     position: absolute;
+     padding-left: 0px;
+     box-sizing: border-box;
+     top: 40px;
+     padding-top: 0px;
+     flex-direction: row;
+     display: flex;
+     width: 980px;
+     margin-top: 0px;
+    }
+
+    .content .body .right .list .list-body {
+     margin-right: 0px;
+     padding-bottom: 0px;
+     flex-wrap: wrap;
+     margin-bottom: 0px;
+     position: absolute;
+     padding-left: 0px;
+     box-sizing: border-box;
+     top: 120px;
+     padding-top: 0px;
+     flex-direction: row;
+     display: flex;
+     width: 988px;
+     margin-top: 0px;
+    }
+
+    .content .body .right .list .list-body .product {
+     padding-right: 0px;
+     margin-right: 8px;
+     padding-bottom: 0px;
+     margin-bottom: 8px;
+     padding-left: 0px;
+     box-sizing: border-box;
+     padding-top: 0px;
+     background-color: #FFFFFF;
+     flex-direction: column;
+     display: flex;
+     width: 320px;
+     margin-top: 0px;
+    }
+
+    .content .body .right .list .list-body .product img {
+     margin-right: 0px;
+     padding-top: 0px;
+     height: 100%;
+     width: 100%;
+     margin-bottom: 0px;
+     margin-top: 0px;
+    }
+
+    .content .body .right .list .list-body .product a {
+     text-align: center;
+     flex-direction: row;
+     word-wrap: break-word;
+     display: inline-block;
+     padding-right: 0px;
+     padding-bottom: 0px;
+     font-size: 16PX;
+     padding-top: 10px;
+     padding-left: 0px;
+     margin-top: 10px;
+     height: 48px;
+    }
+
+    .content .body .right .list .page {
+     flex-wrap: nowrap;
+     height: 60px;
+     align-items: center;
+     bottom: 0px;
+     justify-content: center;
+     position: absolute;
+     box-sizing: border-box;
+     flex-direction: row;
+     display: flex;
+     width: 100%;
+    }
+
+    .content .body .right .list .page span {
+     justify-content: center;
+     font-size: 14px;
+     word-wrap: break-word;
+     flex-direction: row;
+     display: inline-block;
+    }
+@media (max-width: 768px){
+        .content 
+        {
+                align-items:center;
+                flex-direction:row;
+                display:flex;
+                padding-right:0px;
+                box-sizing:border-box;
+                justify-content:center;
+                padding-bottom:0px;
+                flex-wrap:nowrap;
+                width:100%;
+                margin-bottom:0px;
+                padding-top:0px;
+                padding-left:0px;
+                margin-top:0px;
+        }
+ .content .body {
+  padding-bottom: 20px;
+  align-items: center;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  display: flex;
+  padding-right: 0px;
+  width: 100%;
+  box-sizing: border-box;
+  padding-top: 20px;
+  padding-left: 0px;
+ }
+
+ .content .body .left {
+  padding-bottom: 0px;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  display: flex;
+  padding-right: 0px;
+  width: 90%;
+  box-sizing: border-box;
+  padding-top: 0px;
+  padding-left: 0px;
+  margin-top: 0px;
+  height: 100%;
+ }
+
+ .content .body .left .sub-title-sel {
+  background-color: #F2F6FC;
+  color: #409EFF;
+  flex-direction: row;
+  word-wrap: break-word;
+  display: inline-block;
+  font-size: 16PX;
+  padding-top: 10px;
+  padding-left: 10px;
+  margin-top: 2px;
+  height: 40px;
+ }
+
+ .content .body .left .sub-title {
+  color: #5F5F5F;
+  flex-direction: row;
+  word-wrap: break-word;
+  display: inline-block;
+  font-size: 16PX;
+  padding-top: 10px;
+  padding-left: 10px;
+  margin-top: 0px;
+  height: 40px;
+ }
+
+ .content .body .right {
+  padding-bottom: 0px;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  display: flex;
+  padding-right: 0px;
+  width: 90%;
+  height: unset;
+  margin-bottom: 0px;
+  box-sizing: border-box;
+  padding-top: 0px;
+  padding-left: 0px;
+  margin-top: 0px;
+ }
+
+ .content .body .right .ms-channel-path {
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 0px;
+  flex-wrap: nowrap;
+  width: 100%;
+  margin-bottom: 10px;
+  padding-top: 0px;
+  padding-left: 0px;
+  margin-top: 10px;
+  height: 30px;
+ }
+
+ .content .body .right .ms-channel-path span {
+  color: #909399;
+  flex-direction: row;
+  word-wrap: break-word;
+  display: inline-block;
+  font-size: 16PX;
+ }
+
+ .content .body .right .ms-channel-path .ms-channel-path-index {
+  cursor: pointer;
+  color: #000;
+  font-size: 16PX;
+  text-decoration: none;
+  margin-bottom: 0px;
+  margin-top: 0px;
+ }
+
+ .content .body .right .ms-channel-path .ms-channel-path-link {
+  cursor: pointer;
+  color: #000;
+  font-size: 16PX;
+  text-decoration: none;
+  margin-bottom: 0px;
+  margin-top: 0px;
+ }
+
+ .content .body .right .list {
+  margin-right: 0px;
+  padding-bottom: 0px;
+  flex-direction: column;
+  display: flex;
+  padding-right: 0px;
+  width: 100%;
+  margin-bottom: 0px;
+  box-sizing: border-box;
+  padding-top: 0px;
+  padding-left: 0px;
+  margin-top: 0px;
+  height: unset;
+  position: unset;
+ }
+
+ .content .body .right .list .list-body {
+  margin-right: 0px;
+  flex-wrap: wrap;
+  flex-direction: row;
+  display: flex;
+  width: 100%;
+  margin-bottom: 0px;
+  box-sizing: border-box;
+  margin-top: 0px;
+  justify-content: center;
+  position: unset;
+ }
+ .content .body .right .list .page {
+  position:unset;
+ }
+ .content .body .right .list .list-body .product {
+  background-color: #FFFFFF;
+  flex-direction: column;
+  display: flex;
+  padding-right: 0px;
+  box-sizing: border-box;
+  margin-right: 8px;
+  padding-bottom: 0px;
+  width: 90%;
+  margin-bottom: 8px;
+  padding-top: 0px;
+  padding-left: 0px;
+  margin-top: 0px;
+ }
+
+ .content .body .right .list .list-body .product img {
+  padding-bottom: 0px;
+  width: 100%;
+  padding-top: 0px;
+  margin-top: 0px;
+  height: 100%;
+ }
+
+ .content .body .right .list .list-body .product a {
+  padding-bottom: 0px;
+  text-align: center;
+  flex-direction: row;
+  word-wrap: break-word;
+  display: inline-block;
+  padding-right: 0px;
+  font-size: 16PX;
+  padding-top: 10px;
+  padding-left: 0px;
+  margin-top: 10px;
+  height: 48px;
+ }
+
+}</style>
+ </body>
+</html>
