@@ -26,6 +26,7 @@ import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
 import net.mingsoft.basic.util.PinYinUtil;
@@ -207,6 +208,24 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 			categoryDao.deleteBatchIds(ids);
 			// 删除文章
 			contentDao.deleteEntityByCategoryIds(ids.toArray(new String[ids.size()]));
+
+			//获取被删节点的父节点
+			CategoryEntity parentNode  =	 categoryDao.selectById(category.getCategoryId());
+			//获取被删节点的所属栏目的其他节点
+			List<CategoryEntity> childNode =  categoryDao.queryChildren(parentNode);
+			//判断删除的是否为主节点
+			if (parentNode != null) {
+				UpdateWrapper<CategoryEntity> updateWrapper = new UpdateWrapper<>();
+
+				//是否还有子节点
+				if (childNode.size() > 1)
+					updateWrapper.eq("id", parentNode.getId()).set("leaf", 0);
+				else
+					updateWrapper.eq("id", parentNode.getId()).set("leaf", 1);
+
+				categoryDao.update(null, updateWrapper);
+			}
+
 		}
 	}
 
