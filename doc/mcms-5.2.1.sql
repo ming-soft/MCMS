@@ -101,7 +101,7 @@ CREATE TABLE `cms_content` (
   `content_img` varchar(1000) DEFAULT NULL COMMENT '文章缩略图',
   `content_source` varchar(255) DEFAULT NULL COMMENT '文章来源',
   `content_author` varchar(255) DEFAULT NULL COMMENT '文章作者',
-  `content_display` varchar(10) DEFAULT NULL COMMENT '是否显示',
+  `content_display` varchar(10) DEFAULT '0' COMMENT '是否显示0显示 1不显示',
   `content_type` varchar(100) DEFAULT NULL COMMENT '文章类型',
   `content_datetime` datetime DEFAULT NULL COMMENT '发布时间',
   `content_sort` int(11) DEFAULT NULL COMMENT '自定义顺序',
