@@ -152,7 +152,7 @@ git clone https://gitee.com/mingSoft/MCMS.git<br/>
 
 
 # 文档
-* 使用手册 http://doc.mingsoft.net/plugs-cms/
+* 使用手册 http://doc.mingsoft.net/mcms/
 
 # 软件截图
 
