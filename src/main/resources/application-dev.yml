@@ -1,7 +1,7 @@
 spring:
   datasource:
-    url: jdbc:mysql://192.168.0.8:3316/mcms-dev-5.2.1-210428-1?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&allowMultiQueries=true&useSSL=true
+    url: jdbc:mysql://localhost:3306/mcms?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&allowMultiQueries=true&useSSL=true
     username: root
-    password: root@78
+    password: root
     filters: wall,mergeStat
     type: com.alibaba.druid.pool.DruidDataSource
