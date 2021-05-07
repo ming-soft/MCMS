@@ -213,12 +213,12 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 
             //获取被删节点的父节点
             CategoryEntity parentNode = categoryDao.selectById(category.getCategoryId());
-            //清空CategoryParentIds,避免查找不必要的数据，只需要当前的父级栏目
-            parentNode.setCategoryParentIds(null);
             //获取被删节点的所属栏目的其他节点
             List<CategoryEntity> childNode = categoryDao.queryChildren(parentNode);
             //判断删除的是否为主节点
             if (parentNode != null) {
+                //清空CategoryParentIds,避免查找不必要的数据，只需要当前的父级栏目
+                parentNode.setCategoryParentIds(null);
                 UpdateWrapper<CategoryEntity> updateWrapper = new UpdateWrapper<>();
                 //如果没有子节点进行更新代码
                 if (childNode.size() == 1) {
