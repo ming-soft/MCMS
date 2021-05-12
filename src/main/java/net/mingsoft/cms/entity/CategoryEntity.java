@@ -98,6 +98,11 @@ public class CategoryEntity extends BaseEntity {
      * 缩略图
      */
     private String categoryImg;
+
+    /**
+     * 禁用生成列表
+     */
+    private boolean categoryDisableList = false;
     /**
      * 自定义链接
      */
@@ -451,5 +456,13 @@ public class CategoryEntity extends BaseEntity {
      */
     public String getTypelitpic() {
         return categoryImg;
+    }
+
+    public boolean isCategoryDisableList() {
+        return categoryDisableList;
+    }
+
+    public void setCategoryDisableList(boolean categoryDisableList) {
+        this.categoryDisableList = categoryDisableList;
     }
 }
