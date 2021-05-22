@@ -352,6 +352,17 @@
                 var _this = this;
 
                 if (n == this.form.id) {
+                    //获取当前节点的父栏目
+                    let  parentids  = _this.form.parentids;
+                    if (parentids) {
+                        let parentNode = parentids.split(',');
+                        //获取最近的父节点
+                        _this.form.categoryId = parentNode[parentNode.length - 1];
+                    }
+                    else{
+                        //无父栏目就恢复顶级
+                        _this.form.categoryId = '0';
+                    }
                     this.$notify({
                         title: '提示',
                         message: '所属栏目不能为自身',
