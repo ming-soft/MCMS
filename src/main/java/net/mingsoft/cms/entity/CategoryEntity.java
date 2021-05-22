@@ -98,6 +98,8 @@ public class CategoryEntity extends BaseEntity {
      * 缩略图
      */
     private String categoryImg;
+
+
     /**
      * 自定义链接
      */
@@ -452,4 +454,5 @@ public class CategoryEntity extends BaseEntity {
     public String getTypelitpic() {
         return categoryImg;
     }
+
 }
