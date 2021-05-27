@@ -74,7 +74,12 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
 .el-button+.el-button {
     margin-left: 0
 }
-
+.ms-form-tip {
+    color: #909399;
+    font-size: 12px;
+    line-height: 18px;
+    padding: 4px 0;
+}
 .ms-select{
     display: block;
 }
