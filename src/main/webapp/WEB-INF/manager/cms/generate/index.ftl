@@ -14,13 +14,7 @@
         <div class="class-2" >
             <div class="class-3" >
                 <div class="class-4" >
-                    <el-form-item >
-                        <template slot='label'>主页模板
-                            <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="更新主页，如果系统存在引导页面可以手动修改主页位置文件名,default.html引导页面index.html主页。">
-                                <i class="el-icon-question" slot="reference"></i>
-                            </el-popover>
-                        </template>
-
+                    <el-form-item label="主页模板" >
                         <el-select v-model="template"
                                    :filterable="true"
                                    :clearable="false"
@@ -28,21 +22,22 @@
                             <el-option v-for='item in templateOptions' :key="item" :value="item"
                                        :label="item"></el-option>
                         </el-select>
+                        <div class="ms-form-tip">
+                            更新主页，如果系统存在引导页面可以手动修改主页位置文件名,default.html引导页面index.html主页。
+                        </div>
                     </el-form-item>
                 </div>
                 <div class="class-7" >
-                    <el-form-item>
-                        <template slot='label'>主页位置
-                            <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="主页位置htm文件名一般为index.html或default.html">
-                                <i class="el-icon-question" slot="reference"></i>
-                            </el-popover>
-                        </template>
+                    <el-form-item label="主页位置">
                         <el-input v-model="position"
                                   :disabled="false"
                                   :style="{width:  '100%'}"
                                   :clearable="true"
                                   placeholder="请输入主页位置">
                         </el-input>
+                        <div class="ms-form-tip">
+                            主页位置htm文件名一般为index.html或default.html
+                        </div>
                     </el-form-item>
                 </div>
                 <div class="class-10" >
@@ -56,27 +51,19 @@
             </div>
             <div class="class-13" >
                 <div class="class-14" >
-                    <el-form-item>
-                        <template slot='label'>文章栏目
-                            <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="生成对应栏目属性为列表的内容数据，例如：新闻详情、产品详情">
-                                <i class="el-icon-question" slot="reference"></i>
-                            </el-popover>
-                        </template>
-
+                    <el-form-item label="文章栏目">
                         <tree-select v-model="contentSection"
                                      :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
                                      :options="treeList" :style="{width:'100%'}"
                                      placeholder="请选择文章栏目">
                         </tree-select>
+                        <div class="ms-form-tip">
+                            生成对应栏目属性为列表的内容数据，例如：新闻详情、产品详情
+                        </div>
                     </el-form-item>
                 </div>
                 <div class="class-17" >
-                    <el-form-item>
-                        <template slot='label'>指定时间
-                            <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="根据内容的发布时间来生成，例如：2020-10-10，则生成10月10号以后发布的内容">
-                                <i class="el-icon-question" slot="reference"></i>
-                            </el-popover>
-                        </template>
+                    <el-form-item label="指定时间">
                         <el-date-picker
                                 v-model="time"
                                 placeholder="请选择指定时间"
@@ -91,6 +78,9 @@
                                 :style="{width:'100%'}"
                                 type="date">
                         </el-date-picker>
+                        <div class="ms-form-tip">
+                            根据内容的发布时间来生成，例如：2020-10-10，则生成10月10号以后发布的内容
+                        </div>
                     </el-form-item>
                 </div>
                 <div class="class-20" >
@@ -104,19 +94,15 @@
             </div>
             <div class="class-23" >
                 <div class="class-24" >
-                    <el-form-item>
-
-                        <template slot='label'>生成栏目
-                            <el-popover slot="label" placement="top-start" title="提示" width="200" trigger="hover" content="生成栏目属性为列表、封面的内容数据，例如：关于我们、公司介绍、新闻列表、产品列表">
-                                <i class="el-icon-question" slot="reference"></i>
-                            </el-popover>
-                        </template>
-
+                    <el-form-item label="生成栏目">
                         <tree-select v-model="section"
                                      :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
                                      :options="treeList" :style="{width:'100%'}"
                                      placeholder="请选择文章栏目">
                         </tree-select>
+                        <div class="ms-form-tip">
+                            生成栏目属性为列表、封面的内容数据，例如：关于我们、公司介绍、新闻列表、产品列表
+                        </div>
                     </el-form-item>
                 </div>
 
@@ -347,7 +333,7 @@
         padding:20px;
         outline:none;
         outline-offset:-1px;
-        height:200px;
+        height:260px;
         max-width:100%;
         background-color:#FFFFFF;
         flex-direction:column;
@@ -495,7 +481,7 @@
         padding:20px;
         outline:none;
         outline-offset:-1px;
-        height:200px;
+        height:260px;
         max-width:100%;
         background-color:#FFFFFF;
         flex-direction:column;
@@ -640,7 +626,7 @@
         padding:20px;
         outline:none;
         outline-offset:-1px;
-        height:200px;
+        height:260px;
         max-width:100%;
         background-color:#FFFFFF;
         flex-direction:column;
