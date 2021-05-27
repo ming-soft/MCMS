@@ -23,7 +23,6 @@
                         <el-row gutter="0" justify="start" align="top">
                             <el-col :span="returnIsShow?'12':'24'">
                                 <el-form-item label="文章标题" prop="contentTitle">
-                                    <template slot='label'>文章标题</template>
                                     <el-input v-model="form.contentTitle"
                                               :disabled="false"
                                               :style="{width:  '100%'}"
@@ -37,7 +36,6 @@
                             </el-col>
                             <el-col span="12" v-if="returnIsShow">
                                 <el-form-item label="所属栏目" prop="categoryId">
-                                    <template slot='label'>所属栏目</template>
                                     <tree-select :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
                                                  :options="contentCategoryIdOptions" :style="{width:'100%'}"
                                                  @change="categoryChange"
@@ -54,7 +52,6 @@
                                 justify="start" align="top">
                             <el-col span="12">
                                 <el-form-item label="文章类型" prop="contentType">
-                                    <template slot='label'>文章类型</template>
                                     <el-select v-model="form.contentType"
                                                :style="{width: '100%'}"
                                                :filterable="false"
@@ -72,7 +69,6 @@
                             </el-col>
                             <el-col span="12">
                                 <el-form-item label="发布时间" prop="contentDatetime">
-                                    <template slot='label'>发布时间</template>
                                     <el-date-picker
                                             v-model="form.contentDatetime"
                                             placeholder="请选择发布时间"
@@ -98,7 +94,6 @@
                                 justify="start" align="top">
                             <el-col span="12">
                                 <el-form-item label="文章作者" prop="contentAuthor">
-                                    <template slot='label'>文章作者</template>
                                     <el-input v-model="form.contentAuthor"
                                               :disabled="false"
                                               :style="{width:  '100%'}"
@@ -112,7 +107,6 @@
                             </el-col>
                             <el-col span="12">
                                 <el-form-item label="文章来源" prop="contentSource">
-                                    <template slot='label'>文章来源</template>
                                     <el-input v-model="form.contentSource"
                                               :disabled="false"
                                               :style="{width:  '100%'}"
@@ -129,8 +123,7 @@
                                 gutter="0"
                                 justify="start" align="top">
                             <el-col span="12">
-                                <el-form-item label="" prop="contentDisplay">
-                                    <template slot='label'>是否显示</template>
+                                <el-form-item label="是否显示" prop="contentDisplay">
                                     <el-radio-group v-model="form.contentDisplay"
                                                     :style="{width: ''}"
                                                     :disabled="false">
@@ -156,8 +149,7 @@
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                        <el-form-item label="" prop="contentImg">
-                            <template slot='label'>文章缩略图</template>
+                        <el-form-item label="文章缩略图" prop="contentImg">
                             <el-upload
                                     :file-list="form.contentImg"
                                     :action="ms.base+'/file/upload.do'"
@@ -178,7 +170,6 @@
                             </el-upload>
                         </el-form-item>
                         <el-form-item label="关键字" prop="contentKeyword">
-                            <template slot='label'>关键字</template>
                             <el-input
                                     type="textarea" :rows="5"
                                     :disabled="false"
@@ -191,7 +182,6 @@
                             </div>
                         </el-form-item>
                         <el-form-item label="描述" prop="contentDescription">
-                            <template slot='label'>描述</template>
                             <el-input
                                     type="textarea" :rows="5"
                                     :disabled="false"
@@ -204,7 +194,6 @@
                             </div>
                         </el-form-item>
                         <el-form-item label="文章内容" prop="contentDetails">
-                            <template slot='label'>文章内容</template>
                             <vue-ueditor-wrap style="line-height: 0px" v-model="form.contentDetails"
                                               :config="editorConfig"></vue-ueditor-wrap>
                             <div class="ms-form-tip">
