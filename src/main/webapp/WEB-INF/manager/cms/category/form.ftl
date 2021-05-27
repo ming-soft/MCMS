@@ -19,19 +19,16 @@
                         justify="start" align="top">
                     <el-col span="12">
                         <el-form-item label="栏目名称" prop="categoryTitle">
-                            <template slot='label'>栏目名称
-                                <el-popover slot="label" placement="top-start" title="提示" trigger="hover">
-                                    <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html"
-                                       target="_blank">${'$'}{field.typetitle}</a>
-                                    <i class="el-icon-question" slot="reference"></i>
-                                </el-popover>
-                            </template>
+                            <template slot='label'>栏目名称</template>
                             <el-input v-model="form.categoryTitle"
                                       :disabled="false"
                                       :style="{width:  '100%'}"
                                       :clearable="true"
                                       placeholder="请输入栏目管理名称">
                             </el-input>
+                            <div class="ms-form-tip">
+                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">${'$'}{field.typetitle}</a>
+                            </div>
                         </el-form-item>
                     </el-col>
                     <el-col span="12">
@@ -47,15 +44,7 @@
                         justify="start" align="top">
                     <el-col span="12">
                         <el-form-item prop="categoryType">
-                            <template slot='label'>栏目类型
-                                <el-popover slot="label" placement="top-start" title="提示" trigger="hover">
-                                    列表：常用于带列表、详情的业务，例如：新闻列表、图片列表<br>
-                                    封面：常用单篇文章显示，例如：关于我们、公司介绍<br>
-                                    跳转：栏目外链接，需要配合逻辑判断&lt;#if&gt;和自定义链接使用<br>
-                                    修改栏目时如果该栏目存在文章则不能修改栏目类型
-                                    <i class="el-icon-question" slot="reference"></i>
-                                </el-popover>
-                            </template>
+                            <template slot='label'>栏目类型</template>
                             <el-radio-group v-model="form.categoryType"
                                             :style="{width: ''}"
                                             :disabled="categoryTypeDisabled">
@@ -64,6 +53,12 @@
                                     {{true? item.label : item.value}}
                                 </el-radio>
                             </el-radio-group>
+                            <div class="ms-form-tip">
+                                列表：常用于带列表、详情的业务，例如：新闻列表、图片列表<br>
+                                    封面：常用单篇文章显示，例如：关于我们、公司介绍<br>
+                                    跳转：栏目外链接，需要配合逻辑判断&lt;#if&gt;和自定义链接使用<br>
+                                    修改栏目时如果该栏目存在文章则不能修改栏目类型
+                            </div>
                         </el-form-item>
                     </el-col>
                     <el-col span="12">
@@ -94,12 +89,7 @@
                     </el-col>
                     <el-col span="12">
                         <el-form-item prop="mdiyModelId">
-                            <template slot='label'>自定义模型
-                                <el-popover slot="label" placement="top-start" title="提示" width="400" trigger="hover"
-                                            content="如果发布时候文章字段信息不够，可以采用铭飞代码生成器生成自定义模型，再通过“自定义管理->自定义模型->导入”功能导入模型，注意类型是cms">
-                                    <i class="el-icon-question" slot="reference"></i>
-                                </el-popover>
-                            </template>
+                            <template slot='label'>自定义模型</template>
                             <el-select v-model="form.mdiyModelId"
                                        :style="{width: '100%'}"
                                        :filterable="false"
@@ -109,18 +99,17 @@
                                 <el-option v-for='item in mdiyModelIdOptions' :key="item.id" :value="item.id"
                                            :label="item.modelName"></el-option>
                             </el-select>
+                            <div class="ms-form-tip">
+                                如果发布时候文章字段信息不够，可以采用铭飞代码生成器生成自定义模型，<br/>
+                                再通过“自定义管理->自定义模型->导入”功能导入模型，注意类型是cms
+                            </div>
                         </el-form-item>
                     </el-col>
                 </el-row>
                 <el-row gutter="0" justify="start" align="top" >
                     <el-col span="12">
                         <el-form-item prop="categoryListUrl" v-if="form.categoryType == '1'">
-                            <template slot='label'>列表模板
-                                <el-popover slot="label" placement="top-start" title="提示" trigger="hover"
-                                            content="当栏目类型为列表时有效">
-                                    <i class="el-icon-question" slot="reference"></i>
-                                </el-popover>
-                            </template>
+                            <template slot='label'>列表模板</template>
                             <el-select v-model="form.categoryListUrl"
                                        :style="{width: '100%'}"
                                        :filterable="true"
@@ -130,6 +119,9 @@
                                 <el-option v-for='item in categoryListUrlOptions' :key="item" :value="item"
                                            :label="item"></el-option>
                             </el-select>
+                            <div class="ms-form-tip">
+                                当栏目类型为列表时有效
+                            </div>
                         </el-form-item>
                     </el-col>
                     <el-col span="12">
@@ -138,19 +130,16 @@
 
                     <el-col span="12" v-if="form.categoryType == 3">
                         <el-form-item prop="categoryDiyUrl">
-                            <template slot='label'>自定义链接
-                                <el-popover slot="label" placement="top-start" title="提示" trigger="hover">
-                                    <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html"
-                                       target="_blank">${'$'}{field.typeurl}</a>
-                                    <i class="el-icon-question" slot="reference"></i>
-                                </el-popover>
-                            </template>
+                            <template slot='label'>自定义链接</template>
                             <el-input
                                     :disabled="false"
                                     v-model="form.categoryDiyUrl"
                                     :style="{width: '100%'}"
                                     placeholder="请输入自定义链接">
                             </el-input>
+                            <div class="ms-form-tip">
+                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">${'$'}{field.typeurl}</a>
+                            </div>
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -159,11 +148,7 @@
                         justify="start" align="top">
                     <el-col :span="12">
                         <el-form-item  label="栏目属性" prop="categoryFlag">
-                            <template slot='label'>栏目属性
-                                <el-popover placement="top-start" title="提示" trigger="hover" content="类型不满足可以在自定义字典菜单中新增,字段类型为“栏目属性”">
-                                    <i class="el-icon-question" slot="reference"></i>
-                                </el-popover>
-                            </template>
+                            <template slot='label'>栏目属性</template>
                             <el-select v-model="form.categoryFlag"
                                        :style="{width: '100%'}"
                                        :filterable="false"
@@ -173,6 +158,9 @@
                                 <el-option v-for='item in categoryFlagOptions' :key="item.dictValue" :value="item.dictValue"
                                            :label="item.dictLabel"></el-option>
                             </el-select>
+                            <div class="ms-form-tip">
+                                类型不满足可以在自定义字典菜单中新增,字段类型为“栏目属性”
+                            </div>
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
@@ -191,13 +179,7 @@
                     </el-col>
                 </el-row>
                 <el-form-item label="栏目管理关键字" prop="categoryKeyword" >
-                    <template slot='label'>栏目关键字
-                        <el-popover slot="label" placement="top-start" title="提示" trigger="hover">
-                            <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html"
-                               target="_blank">${'$'}{field.typekeyword}</a>
-                            <i class="el-icon-question" slot="reference"></i>
-                        </el-popover>
-                    </template>
+                    <template slot='label'>栏目关键字</template>
                     <el-input
                             type="textarea" :rows="5"
                             :disabled="false"
@@ -205,15 +187,12 @@
                             :style="{width: '100%'}"
                             placeholder="栏目管理关键字，有助于搜索">
                     </el-input>
+                    <div class="ms-form-tip">
+                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">${'$'}{field.typekeyword}</a>
+                    </div>
                 </el-form-item>
                 <el-form-item label="栏目管理描述" prop="categoryDescrip">
-                    <template slot='label'>栏目描述
-                        <el-popover slot="label" placement="top-start" title="提示" trigger="hover">
-                            <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html"
-                               target="_blank">${'$'}{field.typedescrip}</a>
-                            <i class="el-icon-question" slot="reference"></i>
-                        </el-popover>
-                    </template>
+                    <template slot='label'>栏目描述</template>
                     <el-input
                             type="textarea" :rows="5"
                             :disabled="false"
@@ -221,15 +200,12 @@
                             :style="{width: '100%'}"
                             placeholder="栏目管理描述，对栏目管理关键字的扩展">
                     </el-input>
+                    <div class="ms-form-tip">
+                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">${'$'}{field.typedescrip}</a>
+                    </div>
                 </el-form-item>
                 <el-form-item label="" prop="categoryImg" >
-                    <template slot='label'>缩略图
-                        <el-popover slot="label" placement="top-start" title="提示"  trigger="hover">
-                            <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/lan-mu-lie-biao-ms-channel.html"
-                               target="_blank">${'$'}{field.typelitpic}</a>
-                            <i class="el-icon-question" slot="reference"></i>
-                        </el-popover>
-                    </template>
+                    <template slot='label'>缩略图</template>
                     <el-upload
                             :file-list="form.categoryImg"
                             :action="ms.base+'/file/upload.do'"
@@ -243,7 +219,10 @@
                             accept="image/*"
                             list-type="picture-card">
                         <i class="el-icon-plus"></i>
-                        <div slot="tip" class="el-upload__tip">最多上传1张图片</div>
+                        <div slot="tip" class="ms-form-tip">
+                            标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">${'$'}{field.typedescrip}</a><br/>
+                            最多上传1张图片
+                        </div>
                     </el-upload>
                 </el-form-item>
             </el-form>
