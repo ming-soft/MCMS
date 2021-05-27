@@ -23,35 +23,29 @@
                         <el-row gutter="0" justify="start" align="top">
                             <el-col :span="returnIsShow?'12':'24'">
                                 <el-form-item label="文章标题" prop="contentTitle">
-                                    <template slot='label'>文章标题
-                                        <el-popover placement="top-start" title="提示" trigger="hover">
-                                            <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
-                                               target="_blank">${'$'}{field.title}</a>
-                                            <i class="el-icon-question" slot="reference"></i>
-                                        </el-popover>
-                                    </template>
+                                    <template slot='label'>文章标题</template>
                                     <el-input v-model="form.contentTitle"
                                               :disabled="false"
                                               :style="{width:  '100%'}"
                                               :clearable="true"
                                               placeholder="请输入文章标题">
                                     </el-input>
+                                    <div class="ms-form-tip">
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.title}</a>
+                                    </div>
                                 </el-form-item>
                             </el-col>
                             <el-col span="12" v-if="returnIsShow">
                                 <el-form-item label="所属栏目" prop="categoryId">
-                                    <template slot='label'>所属栏目
-                                        <el-popover placement="top-start" title="提示" trigger="hover">
-                                            <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
-                                               target="_blank">${'$'}{field.typetitle}</a><br/>
-                                            不能为链接和封面类型新建文章
-                                            <i class="el-icon-question" slot="reference"></i>
-                                        </el-popover>
-                                    </template>
+                                    <template slot='label'>所属栏目</template>
                                     <tree-select :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
                                                  :options="contentCategoryIdOptions" :style="{width:'100%'}"
                                                  @change="categoryChange"
                                                  v-model="form.categoryId"></tree-select>
+                                    <div class="ms-form-tip">
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.typetitle}</a><br/>
+                                        提示：不能为链接和封面类型新建文章
+                                    </div>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -60,12 +54,7 @@
                                 justify="start" align="top">
                             <el-col span="12">
                                 <el-form-item label="文章类型" prop="contentType">
-                                    <template slot='label'>文章类型
-                                        <el-popover placement="top-start" title="提示" trigger="hover">
-                                            用于筛选文章，在自定义字典添加
-                                            <i class="el-icon-question" slot="reference"></i>
-                                        </el-popover>
-                                    </template>
+                                    <template slot='label'>文章类型</template>
                                     <el-select v-model="form.contentType"
                                                :style="{width: '100%'}"
                                                :filterable="false"
@@ -76,17 +65,14 @@
                                                    :value="item.dictValue"
                                                    :label="item.dictLabel"></el-option>
                                     </el-select>
+                                    <div class="ms-form-tip">
+                                        提示：用于筛选文章，在自定义字典添加
+                                    </div>
                                 </el-form-item>
                             </el-col>
                             <el-col span="12">
                                 <el-form-item label="发布时间" prop="contentDatetime">
-                                    <template slot='label'>发布时间
-                                        <el-popover placement="top-start" title="提示" trigger="hover">
-                                            <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
-                                               target="_blank">${'$'}{field.date?string("yyyy-MM-dd")}</a>
-                                            <i class="el-icon-question" slot="reference"></i>
-                                        </el-popover>
-                                    </template>
+                                    <template slot='label'>发布时间</template>
                                     <el-date-picker
                                             v-model="form.contentDatetime"
                                             placeholder="请选择发布时间"
@@ -101,6 +87,9 @@
                                             :style="{width:'100%'}"
                                             type="datetime">
                                     </el-date-picker>
+                                    <div class="ms-form-tip">
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.date?string("yyyy-MM-dd")}</a>
+                                    </div>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -109,36 +98,30 @@
                                 justify="start" align="top">
                             <el-col span="12">
                                 <el-form-item label="文章作者" prop="contentAuthor">
-                                    <template slot='label'>文章作者
-                                        <el-popover placement="top-start" title="提示" trigger="hover">
-                                            <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
-                                               target="_blank">${'$'}{field.author}</a>
-                                            <i class="el-icon-question" slot="reference"></i>
-                                        </el-popover>
-                                    </template>
+                                    <template slot='label'>文章作者</template>
                                     <el-input v-model="form.contentAuthor"
                                               :disabled="false"
                                               :style="{width:  '100%'}"
                                               :clearable="true"
                                               placeholder="请输入文章作者">
                                     </el-input>
+                                    <div class="ms-form-tip">
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.author}</a>
+                                    </div>
                                 </el-form-item>
                             </el-col>
                             <el-col span="12">
                                 <el-form-item label="文章来源" prop="contentSource">
-                                    <template slot='label'>文章来源
-                                        <el-popover placement="top-start" title="提示" trigger="hover">
-                                            <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
-                                               target="_blank">${'$'}{field.source}</a>
-                                            <i class="el-icon-question" slot="reference"></i>
-                                        </el-popover>
-                                    </template>
+                                    <template slot='label'>文章来源</template>
                                     <el-input v-model="form.contentSource"
                                               :disabled="false"
                                               :style="{width:  '100%'}"
                                               :clearable="true"
                                               placeholder="请输入文章来源">
                                     </el-input>
+                                    <div class="ms-form-tip">
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.source}</a>
+                                    </div>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -147,13 +130,7 @@
                                 justify="start" align="top">
                             <el-col span="12">
                                 <el-form-item label="" prop="contentDisplay">
-                                    <template slot='label'>是否显示
-                                        <el-popover slot="label" placement="top-start" title="提示" width="200"
-                                                    trigger="hover"
-                                                    content="选择否后前端将不显示，需要重新生成才有效果">
-                                            <i class="el-icon-question" slot="reference"></i>
-                                        </el-popover>
-                                    </template>
+                                    <template slot='label'>是否显示</template>
                                     <el-radio-group v-model="form.contentDisplay"
                                                     :style="{width: ''}"
                                                     :disabled="false">
@@ -164,6 +141,9 @@
                                             {{true? item.label : item.value}}
                                         </el-radio>
                                     </el-radio-group>
+                                    <div class="ms-form-tip">
+                                        提示：选择否后前端将不显示，需要重新生成才有效果
+                                    </div>
                                 </el-form-item>
                             </el-col>
                             <el-col span="12">
@@ -177,14 +157,7 @@
                             </el-col>
                         </el-row>
                         <el-form-item label="" prop="contentImg">
-                            <template slot='label'>文章缩略图
-                                <el-popover placement="top-start" title="提示" trigger="hover">
-                                    文章缩略图,支持jpg格式
-                                    <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
-                                       target="_blank">${'$'}{field.litpic}</a>
-                                    <i class="el-icon-question" slot="reference"></i>
-                                </el-popover>
-                            </template>
+                            <template slot='label'>文章缩略图</template>
                             <el-upload
                                     :file-list="form.contentImg"
                                     :action="ms.base+'/file/upload.do'"
@@ -198,17 +171,14 @@
                                     accept="image/*"
                                     list-type="picture-card">
                                 <i class="el-icon-plus"></i>
-                                <div slot="tip" class="el-upload__tip">最多上传1张图片</div>
+                                <div slot="tip" class="ms-form-tip">
+                                    标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.litpic}</a><br/>
+                                    提示：最多上传1张图片，文章缩略图,支持jpg格式
+                                </div>
                             </el-upload>
                         </el-form-item>
                         <el-form-item label="关键字" prop="contentKeyword">
-                            <template slot='label'>关键字
-                                <el-popover placement="top-start" title="提示" trigger="hover">
-                                    <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
-                                       target="_blank">${'$'}{field.keyword}</a>
-                                    <i class="el-icon-question" slot="reference"></i>
-                                </el-popover>
-                            </template>
+                            <template slot='label'>关键字</template>
                             <el-input
                                     type="textarea" :rows="5"
                                     :disabled="false"
@@ -216,15 +186,12 @@
                                     :style="{width: '100%'}"
                                     placeholder="请输入文章关键字">
                             </el-input>
+                            <div class="ms-form-tip">
+                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.keyword}</a>
+                            </div>
                         </el-form-item>
                         <el-form-item label="描述" prop="contentDescription">
-                            <template slot='label'>描述
-                                <el-popover placement="top-start" title="提示" trigger="hover">
-                                    <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
-                                       target="_blank">${'$'}{field.descrip}</a>
-                                    <i class="el-icon-question" slot="reference"></i>
-                                </el-popover>
-                            </template>
+                            <template slot='label'>描述</template>
                             <el-input
                                     type="textarea" :rows="5"
                                     :disabled="false"
@@ -232,17 +199,17 @@
                                     :style="{width: '100%'}"
                                     placeholder="请输入对该文章的简短描述，以便用户查看文章简略">
                             </el-input>
+                            <div class="ms-form-tip">
+                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.descrip}</a>
+                            </div>
                         </el-form-item>
                         <el-form-item label="文章内容" prop="contentDetails">
-                            <template slot='label'>文章内容
-                                <el-popover placement="top-start" title="提示" trigger="hover">
-                                    <a href="http://doc.mingsoft.net/plugs-cms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
-                                       target="_blank">${'$'}{field.content}</a>
-                                    <i class="el-icon-question" slot="reference"></i>
-                                </el-popover>
-                            </template>
+                            <template slot='label'>文章内容</template>
                             <vue-ueditor-wrap style="line-height: 0px" v-model="form.contentDetails"
                                               :config="editorConfig"></vue-ueditor-wrap>
+                            <div class="ms-form-tip">
+                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.content}</a>
+                            </div>
                         </el-form-item>
                     </el-form>
                     <div :id="'model'+index" v-else></div>
