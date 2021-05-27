@@ -42,7 +42,7 @@
                                                  v-model="form.categoryId"></tree-select>
                                     <div class="ms-form-tip">
                                         标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.typetitle}</a><br/>
-                                        提示：不能为链接和封面类型新建文章
+                                        不能为链接和封面类型新建文章
                                     </div>
                                 </el-form-item>
                             </el-col>
@@ -63,7 +63,7 @@
                                                    :label="item.dictLabel"></el-option>
                                     </el-select>
                                     <div class="ms-form-tip">
-                                        提示：用于筛选文章，在自定义字典添加
+                                        用于筛选文章，在自定义字典添加
                                     </div>
                                 </el-form-item>
                             </el-col>
@@ -135,7 +135,7 @@
                                         </el-radio>
                                     </el-radio-group>
                                     <div class="ms-form-tip">
-                                        提示：选择否后前端将不显示，需要重新生成才有效果
+                                        选择否后前端将不显示，需要重新生成才有效果
                                     </div>
                                 </el-form-item>
                             </el-col>
@@ -165,7 +165,7 @@
                                 <i class="el-icon-plus"></i>
                                 <div slot="tip" class="ms-form-tip">
                                     标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.litpic}</a><br/>
-                                    提示：最多上传1张图片，文章缩略图,支持jpg格式
+                                    最多上传1张图片，文章缩略图,支持jpg格式
                                 </div>
                             </el-upload>
                         </el-form-item>
