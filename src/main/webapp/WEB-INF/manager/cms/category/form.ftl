@@ -19,7 +19,6 @@
                         justify="start" align="top">
                     <el-col span="12">
                         <el-form-item label="栏目名称" prop="categoryTitle">
-                            <template slot='label'>栏目名称</template>
                             <el-input v-model="form.categoryTitle"
                                       :disabled="false"
                                       :style="{width:  '100%'}"
@@ -43,8 +42,7 @@
                         gutter="0"
                         justify="start" align="top">
                     <el-col span="12">
-                        <el-form-item prop="categoryType">
-                            <template slot='label'>栏目类型</template>
+                        <el-form-item prop="categoryType" label="栏目类型">
                             <el-radio-group v-model="form.categoryType"
                                             :style="{width: ''}"
                                             :disabled="categoryTypeDisabled">
@@ -88,8 +86,7 @@
                         </el-form-item>
                     </el-col>
                     <el-col span="12">
-                        <el-form-item prop="mdiyModelId">
-                            <template slot='label'>自定义模型</template>
+                        <el-form-item prop="mdiyModelId" label="自定义模型">
                             <el-select v-model="form.mdiyModelId"
                                        :style="{width: '100%'}"
                                        :filterable="false"
@@ -108,8 +105,7 @@
                 </el-row>
                 <el-row gutter="0" justify="start" align="top" >
                     <el-col span="12">
-                        <el-form-item prop="categoryListUrl" v-if="form.categoryType == '1'">
-                            <template slot='label'>列表模板</template>
+                        <el-form-item prop="categoryListUrl" label="列表模板" v-if="form.categoryType == '1'">
                             <el-select v-model="form.categoryListUrl"
                                        :style="{width: '100%'}"
                                        :filterable="true"
@@ -129,8 +125,7 @@
                     </el-col>
 
                     <el-col span="12" v-if="form.categoryType == 3">
-                        <el-form-item prop="categoryDiyUrl">
-                            <template slot='label'>自定义链接</template>
+                        <el-form-item prop="categoryDiyUrl" label="自定义链接">
                             <el-input
                                     :disabled="false"
                                     v-model="form.categoryDiyUrl"
@@ -148,7 +143,6 @@
                         justify="start" align="top">
                     <el-col :span="12">
                         <el-form-item  label="栏目属性" prop="categoryFlag">
-                            <template slot='label'>栏目属性</template>
                             <el-select v-model="form.categoryFlag"
                                        :style="{width: '100%'}"
                                        :filterable="false"
@@ -179,7 +173,6 @@
                     </el-col>
                 </el-row>
                 <el-form-item label="栏目管理关键字" prop="categoryKeyword" >
-                    <template slot='label'>栏目关键字</template>
                     <el-input
                             type="textarea" :rows="5"
                             :disabled="false"
@@ -192,7 +185,6 @@
                     </div>
                 </el-form-item>
                 <el-form-item label="栏目管理描述" prop="categoryDescrip">
-                    <template slot='label'>栏目描述</template>
                     <el-input
                             type="textarea" :rows="5"
                             :disabled="false"
@@ -204,8 +196,7 @@
                         标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">${'$'}{field.typedescrip}</a>
                     </div>
                 </el-form-item>
-                <el-form-item label="" prop="categoryImg" >
-                    <template slot='label'>缩略图</template>
+                <el-form-item label="缩略图" prop="categoryImg" >
                     <el-upload
                             :file-list="form.categoryImg"
                             :action="ms.base+'/file/upload.do'"
