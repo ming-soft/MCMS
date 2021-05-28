@@ -362,12 +362,7 @@
                             });
                         }
                     });
-                }).catch(function () {
-                    that.$notify({
-                        type: 'info',
-                        message: '已取消删除'
-                    });
-                });
+                })
             },
             //新增
             save: function (id) {

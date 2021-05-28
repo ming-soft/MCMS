@@ -293,12 +293,7 @@
 							});
 						}
 					});
-				}).catch(function () {
-					that.$notify({
-						type: 'info',
-						message: '已取消删除'
-					});
-				});
+				})
 			},
 			//获取categoryFlag数据源
 			categoryFlagOptionsGet: function () {
