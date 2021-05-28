@@ -23,7 +23,7 @@
                                        :label="item"></el-option>
                         </el-select>
                         <div class="ms-form-tip">
-                            更新主页，如果系统存在引导页面可以手动修改主页位置文件名,default.html引导页面index.html主页。
+                            一般选择<i>index.htm</i>模版
                         </div>
                     </el-form-item>
                 </div>
@@ -36,7 +36,9 @@
                                   placeholder="请输入主页位置">
                         </el-input>
                         <div class="ms-form-tip">
-                            主页位置htm文件名一般为index.html或default.html
+                            一般为index.html或default.html,
+                            如果是<i>引导页面->首页</i>，可以手动调整主页模版与主页设置，先生成引导页，再生成首页。一般default.html为引导页面index.html为主页。
+
                         </div>
                     </el-form-item>
                 </div>
@@ -58,7 +60,7 @@
                                      placeholder="请选择文章栏目">
                         </tree-select>
                         <div class="ms-form-tip">
-                            生成对应栏目属性为列表的内容数据，例如：新闻详情、产品详情
+                            生成指定栏目下的文章内容
                         </div>
                     </el-form-item>
                 </div>
@@ -79,7 +81,7 @@
                                 type="date">
                         </el-date-picker>
                         <div class="ms-form-tip">
-                            根据内容的发布时间来生成，例如：2020-10-10，则生成10月10号以后发布的内容
+                            根据内容的发布时间来生成，例如：2021-01-01，则生成21年01月01号以后发布的文章，如果遇到内容没有生成可以调整时间
                         </div>
                     </el-form-item>
                 </div>
@@ -101,7 +103,7 @@
                                      placeholder="请选择文章栏目">
                         </tree-select>
                         <div class="ms-form-tip">
-                            生成栏目属性为列表、封面的内容数据，例如：关于我们、公司介绍、新闻列表、产品列表
+                            生成<b>栏目类型</b>为列表的数据，例如：新闻列表、产品列表
                         </div>
                     </el-form-item>
                 </div>
@@ -308,7 +310,7 @@
         padding:20px;
         outline:none;
         outline-offset:-1px;
-        height:260px;
+        height:300px;
         max-width:100%;
         background-color:#FFFFFF;
         flex-direction:column;
@@ -456,7 +458,7 @@
         padding:20px;
         outline:none;
         outline-offset:-1px;
-        height:260px;
+        height:300px;
         max-width:100%;
         background-color:#FFFFFF;
         flex-direction:column;
@@ -601,7 +603,7 @@
         padding:20px;
         outline:none;
         outline-offset:-1px;
-        height:260px;
+        height:300px;
         max-width:100%;
         background-color:#FFFFFF;
         flex-direction:column;

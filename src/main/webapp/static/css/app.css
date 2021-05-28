@@ -80,6 +80,16 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
     line-height: 18px;
     padding: 4px 0;
 }
+.ms-form-tip b{
+    color: #e6a23c;
+}
+.ms-form-tip a:hover{
+    text-decoration: underline !important;
+}
+.ms-form-tip  i{
+    background-color: #f0f9eb;
+    color: #67c23a;
+}
 .ms-select{
     display: block;
 }

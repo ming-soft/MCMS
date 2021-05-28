@@ -36,13 +36,19 @@
                             </el-col>
                             <el-col span="12" v-if="returnIsShow">
                                 <el-form-item label="所属栏目" prop="categoryId">
-                                    <tree-select :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
-                                                 :options="contentCategoryIdOptions" :style="{width:'100%'}"
-                                                 @change="categoryChange"
-                                                 v-model="form.categoryId"></tree-select>
+                                    <treeselect v-model="form.categoryId"
+                                                :disable-branch-nodes="true"
+                                                :normalizer="node=>{
+                                                return {
+                                                    id: node.id,
+                                                    label: node.categoryTitle,
+                                                    children: node.children
+                                                }}"
+                                                @change="categoryChange"
+                                                :options="contentCategoryIdOptions" placeholder="请选择"/>
                                     <div class="ms-form-tip">
-                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.typetitle}</a><br/>
-                                        不能为链接和封面类型新建文章
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.typetitle}</a>
+                                        不能选择封面、链接栏目类型，不能选择父栏目
                                     </div>
                                 </el-form-item>
                             </el-col>
