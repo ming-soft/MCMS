@@ -393,8 +393,6 @@
                         that.categoryList = res.data.rows;
                         that.treeList[0].children = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
                     }
-                }).catch(function (err) {
-                    console.log(err);
                 });
             },
             save: function () {
@@ -465,8 +463,6 @@
                     if(data.result){
                         that.mdiyModelIdOptions = data.data.rows;
                     }
-                }).catch(function (err) {
-                    console.log(err);
                 });
             },
             //获取当前分类
@@ -505,8 +501,6 @@
 
                         that.contentList(that.form.id);
                     }
-                }).catch(function (err) {
-                    console.log(err);
                 });
             },
             contentList: function (id) {
@@ -521,8 +515,6 @@
                             that.categoryTypeDisabled = false;
                         }
                     }
-                }).catch(function (err) {
-                    console.log(err);
                 });
             },
             //获取categoryListUrl数据源
@@ -530,8 +522,6 @@
                 var that = this;
                 ms.http.get(ms.manager + "/template/queryTemplateFileForColumn.do", {}).then(function (data) {
                     that.categoryListUrlOptions = data.data;
-                }).catch(function (err) {
-                    console.log(err);
                 });
             },
             //获取categoryUrl数据源
@@ -539,8 +529,6 @@
                 var that = this;
                 ms.http.get(ms.manager + "/template/queryTemplateFileForColumn.do", {}).then(function (data) {
                     that.categoryUrlOptions = data.data;
-                }).catch(function (err) {
-                    console.log(err);
                 });
             },
             //获取categoryFlag数据源
@@ -554,8 +542,6 @@
                         res = res.data;
                         that.categoryFlagOptions = res.rows;
                     }
-                }).catch(function (err) {
-                    console.log(err);
                 });
             },
             //categoryImg文件上传完成回调

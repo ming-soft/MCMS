@@ -318,9 +318,8 @@
                         that.total = res.data.total;
                         that.dataList = res.data.rows;
                     }
-                }).catch(function (err) {
+                }).finally(function () {
                     that.loading = false;
-                    console.log(err);
                 });
                 setTimeout(function () {
                     if (that.loadState) {
@@ -451,8 +450,6 @@
                     }
 
                     that.list();
-                }).catch(function (err) {
-                    console.log(err);
                 });
             },
             //获取contentType数据源
@@ -466,8 +463,6 @@
                         data = data.data;
                         that.contentTypeOptions = data.rows;
                     }
-                }).catch(function (err) {
-                    console.log(err);
                 });
             }
         },

@@ -86,8 +86,6 @@
 							children: that.treeData
 						}];
 					}
-				}).catch(function (err) {
-					console.log(err);
 				});
 				setTimeout(function () {
 					if (that.loadState) {

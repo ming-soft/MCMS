@@ -169,8 +169,6 @@
 							type: 'warning'
 						});
 					}
-				}).catch(function (err) {
-					console.log(err);
 				});
 			},
 			//应用子栏目模板
@@ -193,8 +191,6 @@
 							type: 'warning'
 						});
 					}
-				}).catch(function (err) {
-					console.log(err);
 				});
 			},
 			//根据字典数据值获取字典标签名
@@ -234,8 +230,6 @@
 						that.emptyText = '';
 						that.dataList = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
 					}
-				}).catch(function (err) {
-					console.log(err);
 				});
 				setTimeout(function () {
 					if (that.loadState) {
@@ -306,8 +300,6 @@
 						res = res.data;
 						that.categoryFlagOptions = res.rows;
 					}
-				}).catch(function (err) {
-					console.log(err);
 				});
 			},
 			//表格数据转换

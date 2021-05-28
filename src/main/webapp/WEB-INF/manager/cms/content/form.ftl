@@ -453,8 +453,6 @@
                         }
                         that.changeModel();
                     }
-                }).catch(function (err) {
-                    console.log(err);
                 });
             },
             //根据封面获取当前文章
@@ -499,8 +497,6 @@
                             type: 'warning'
                         });
                     }
-                }).catch(function (err) {
-                    console.log(err);
                 });
             },
             //获取contentCategoryId数据源
@@ -521,8 +517,6 @@
                         //获取到栏目数据之后再进行初始化
                         that.init();
                     }
-                }).catch(function (err) {
-                    console.log(err);
                 });
             },
             //获取contentType数据源
@@ -536,8 +530,6 @@
                         data = data.data;
                         that.contentTypeOptions = data.rows;
                     }
-                }).catch(function (err) {
-                    console.log(err);
                 });
             },
             //contentImg文件上传完成回调
@@ -598,8 +590,6 @@
 
                         that.form = res.data.rows[0];
                     }
-                }).catch(function (err) {
-                    console.log(err);
                 });
             },
             //只有在渲染完栏目数据之后才会初始化

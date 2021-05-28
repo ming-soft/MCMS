@@ -176,13 +176,6 @@
                             type: 'error'
                         });
                     }
-                }).catch(function (err) {
-                    that.$notify({
-                        title: '更新失败！',
-                        message: err,
-                        type: 'error'
-                    });
-                    console.log(err);
                 }).finally(function () {
                     that.homeLoading = false;
                 });
@@ -217,13 +210,6 @@
                             type: 'error'
                         });
                     }
-                }).catch(function (err) {
-                    that.$notify({
-                        title: '更新失败！',
-                        message: err,
-                        type: 'error'
-                    });
-                    console.log(err);
                 }).finally(function () {
                     that.columnLoading = false;
                 });
@@ -248,13 +234,6 @@
                             type: 'error'
                         });
                     }
-                }).catch(function (err) {
-                    that.$notify({
-                        title: '更新失败！',
-                        message: err,
-                        type: 'error'
-                    });
-                    console.log(err);
                 }).finally(function () {
                     that.articleLoading = false;
                 });
@@ -272,8 +251,6 @@
                     }); //没有就找其他的
 
                     that.template = template || (that.templateOptions.length > 0 ? that.templateOptions[0] : "");
-                }).catch(function (err) {
-                    console.log(err);
                 });
             },
             getTree: function () {
@@ -285,8 +262,6 @@
                         //res.data.rows.push({id:0,categoryId: null,categoryTitle:'顶级栏目管理'});
                         that.treeList[0].children = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
                     }
-                }).catch(function (err) {
-                    console.log(err);
                 });
             }
         },
