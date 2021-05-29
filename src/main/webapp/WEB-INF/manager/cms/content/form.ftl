@@ -45,7 +45,7 @@
                                                     children: node.children
                                                 }}"
                                                 @change="categoryChange"
-                                                :options="contentCategoryIdOptions" placeholder="请选择"/>
+                                                :options="contentCategoryIdOptions" placeholder="请选择"></treeselect>
                                     <div class="ms-form-tip">
                                         标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.typetitle}</a>
                                         不能选择封面、链接栏目类型，不能选择父栏目
@@ -69,7 +69,8 @@
                                                    :label="item.dictLabel"></el-option>
                                     </el-select>
                                     <div class="ms-form-tip">
-                                        用于筛选文章，在自定义字典添加
+                                       标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{flag}</a>
+                                        通过自定义字典可扩展，通常用在 arclist标签的flag属性上进行过滤文章
                                     </div>
                                 </el-form-item>
                             </el-col>
@@ -170,7 +171,7 @@
                                     list-type="picture-card">
                                 <i class="el-icon-plus"></i>
                                 <div slot="tip" class="ms-form-tip">
-                                    标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.litpic}</a><br/>
+                                    标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'{@ms:file field.litpic/}'}</a><br/>
                                     最多上传1张图片，文章缩略图,支持jpg格式
                                 </div>
                             </el-upload>
@@ -184,7 +185,7 @@
                                     placeholder="请输入文章关键字">
                             </el-input>
                             <div class="ms-form-tip">
-                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.keyword}</a>
+                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.keyword}</a>，用于SEO优化
                             </div>
                         </el-form-item>
                         <el-form-item label="描述" prop="contentDescription">
@@ -196,7 +197,7 @@
                                     placeholder="请输入对该文章的简短描述，以便用户查看文章简略">
                             </el-input>
                             <div class="ms-form-tip">
-                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.descrip}</a>
+                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.descrip}</a>，用于SEO优化
                             </div>
                         </el-form-item>
                         <el-form-item label="文章内容" prop="contentDetails">
