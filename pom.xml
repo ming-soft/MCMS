@@ -13,7 +13,7 @@
     <version>5.2.2</version>
     <name>ms-mcms</name>
     <!-- 打包war包 -->
-    <!--    <packaging>war</packaging>-->
+    <!--<packaging>war</packaging>-->
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -74,7 +74,7 @@
                     <exclude>html/</exclude>
                     <exclude>upload/</exclude>
                     <exclude>template/</exclude>
-                    <!-- 如果生产需要实时修改WEB-INF/下的页面可，启用这行并手动将项目中的WEB-INF目录复制到运行环境 -->
+                    <!-- 打包war包，必须删除下面一行代码。打包jar包，推荐启用下面一行代码，方便修改页面代码，否则会WEB-INF里面到文件都会打包到jar里面，不方便修改页面代码-->
                     <!-- <exclude>WEB-INF/</exclude>-->
                 </excludes>
             </resource>
@@ -89,9 +89,21 @@
             </resource>
         </resources>
         <plugins>
+            <!-- 打包war包，启用下面的代码 -->
+           <!--
+           <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-war-plugin</artifactId>
+               <version>3.3.1</version>
+               <configuration>
+                   <packagingExcludes>/WEB-INF/manager/</packagingExcludes>
+               </configuration>
+           </plugin>
+           -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.5.0</version>
                 <configuration>
                     <executable>true</executable>
                 </configuration>
