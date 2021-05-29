@@ -1,19 +1,7 @@
 spring:
   datasource:
-    url: jdbc:mysql://192.168.0.8:3316/wb-mcms-5.2?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&allowMultiQueries=true&useSSL=true
-    username: mcms
-    password: mcms
+    url: jdbc:mysql://localhost:3306/mcms?useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&autoReconnect=true&allowMultiQueries=true&useSSL=true
+    username: root
+    password: root
     filters: wall,mergeStat
     type: com.alibaba.druid.pool.DruidDataSource
-
-server:
-  port: 5115
-
-mybatis-plus:
-  global-config:
-    db-config:
-      id-type: auto
-  configuration:
-    database-id: mysql
-    cache-enabled: true
-    jdbc-type-for-null: 'null' #注意：单引号
