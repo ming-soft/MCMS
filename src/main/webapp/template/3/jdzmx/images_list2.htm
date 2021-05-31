@@ -1,0 +1,146 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <style>
+    body {
+      background-color: #ECE9E4
+    }
+  </style>
+  <style>
+    .pageStyle {
+      list-style: none;
+      margin-left: 250px;
+
+    }
+
+    .pageStyle li {
+      float: left;
+      margin: 2px;
+
+    }
+  </style>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>{ms:global.name/}</title>
+  <link rel="shortcut icon" href="{ms:global.host/}/{ms:global.style/}/favicon.ico" type="x-icon" />
+  <meta name="Keywords" content="{ms:global.keyword/}" />
+  <meta name="Description" content="{ms:global.descrip/}" />
+  <link href="{ms:global.host/}/{ms:global.style/}/css/style.css" type=text/css rel=stylesheet>
+  <script src="{ms:global.host/}/{ms:global.style/}/js/comm.js" type="text/javascript"></script>
+  <link href="{ms:global.host/}/{ms:global.style/}/css/style.css" type=text/css rel=stylesheet>
+  <script src="{ms:global.host/}/{ms:global.style/}/js/comm.js" type="text/javascript"></script>
+</head>
+
+<body oncopy="nocopy()">
+  <#include "header.htm">
+    <center>
+      <div style="width:1007px; height:2px; border-bottom:2px solid #C18D54;"></div>
+    </center>
+    <table width="1007" border="0" align="center" cellpadding="00" cellspacing="0" bgcolor="#ECE9E4">
+      <tr>
+        <td style="padding-top:15px">
+          <table width="966" border="0" align="center" cellpadding="00" cellspacing="0">
+            <tr>
+              <td width="230" style="padding-top:3px;">
+                <table width="210" height="44" border="0" align="center" cellpadding="00" cellspacing="0"
+                  background="{ms:global.host/}/{ms:global.style/}/images/news_left_title.jpg">
+                  <tr>
+                    <td align="center" style="color:#664617; font-size:16px; font-weight:bold;font-family:'微软黑体'">
+                      {ms:field.typetitle/}</td>
+                  </tr>
+                </table>
+                <table style="margin-top:3px;" width="210" height="500" border="0" align="center" cellpadding="00"
+                  cellspacing="0" bgcolor="#897455">
+                  <tr>
+                    <td valign="top">
+
+                      {ms:channel type=level}
+                      <a href="{ms:global.url/}[field.typelink/]" class="main_">
+
+                        <div class="newsSort_A" onmouseover="this.className='newsSort_B'"
+                          onmouseout="this.className='newsSort_A'">
+                          [field.typetitle/]
+                        </div>
+                      </a>
+                      {/ms:channel}
+
+                    </td>
+                  </tr>
+                </table>
+              </td>
+              <td width="736" valign="top">
+                <table width="100%" height="45" border="0" cellpadding="00" cellspacing="0">
+                  <tr>
+                    <td align="left" background="{ms:global.host/}/{ms:global.style/}/images/news_right_bg.jpg"
+                      style="padding-left:26px;"><span style="color:#575350; font-weight:100"> &gt;&gt; <a
+                          href="{ms:field.typelink/}">{ms:field.typetitle/}</a>&nbsp; </span> </td>
+                  </tr>
+                </table>
+                <div style="height:1px;"></div>
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                  <tbody>
+                    <tr>
+                      <td height="42" colspan="3">
+
+                        {ms:arclist size=6 ispaging=true}
+                        <div style="float:left; width:220px; height:200px; margin:2px;">
+                          <table align="center" width="170" border="0" cellspacing="2" cellpadding="0">
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <table align="center" border="0" cellpadding="0" cellspacing="0">
+                                    <tbody>
+                                      <tr>
+                                        <td width="180" height="160" valign="middle" align="center">
+                                          <div style="width:180px;" align="center">
+                                            <a href='{ms:global.url/}[field.link/]'><img
+                                                src={ms:global.host/}[field.litpic/] width="180" height="135" border="0"
+                                                onload="javascript:DrawImage(this);" alt="600×451"></a><br></div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td height="25" align="center"><a
+                                    href='{ms:global.url/}[field.link/]'>[field.title/]</a></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        {/ms:arclist}
+
+
+
+                    <tr valign="bottom">
+                      <td height="50" colspan="2" align="center">
+                        <UL class="pageStyle">
+                          <li><a href="ms:global.url/}/{ms:page.index/}">首页</a></li>
+                          <li><a href="{ms:global.url/}/{ms:page.pre/}">上一页</a></li>
+                          <li><a href="{ms:global.url/}/{ms:page.next/}">下一页</a></li>
+                          <li><a href="{ms:global.url/}/{ms:page.last/}">末页</a></li>
+                        </UL>
+                      </td>
+                    </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    </td>
+    </tr>
+    </table>
+    </DIV>
+
+    <#include "foot.htm">
+
+
+
+</BODY>
+
+</HTML>
