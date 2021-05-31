@@ -6,10 +6,10 @@
                     	<img src="{ms:global.host/}/{ms:global.style/}/images/toubu.png">
                 </div>
 	 	<div class="soso">
-	 	<form id="searchDataForm" action="/html/1551/12/search.do" method="post">
-		      <input type="hidden" name="categoryId" value="4939"/> <!--必须存在-->
+	 	<form id="searchDataForm" action="{ms:global.host/}/mcms/search.do" method="post">
+		      <input type="hidden" name="categoryIds" value="4939,1398224556804325378,1398232504783912961,1398232504783912961,1398484257177669633,1399176403983597569"/> <!--必须存在-->
 		        <!--表单的name值不能改变-->
-	 	      <input type="text" name="basic_title" placeholder="搜索您需要的商品"  class="search" />
+	 	      <input type="text" name="content_title" placeholder="搜索您需要的商品"  class="search" />
 		       <input type="submit" value="" class="but-sublimt">
 	        </form>
                 </div>
@@ -33,4 +33,16 @@
    				</ul>
             	</div>
          </div>
-             <!--导航条结束-->
+			 <!--导航条结束-->
+
+			 <script>
+				 $(".but-sublimt").click(function(){
+					 let search = $('.search').val()
+					 if(!search) {
+						return false
+					 }
+				 })
+				
+				
+			 </script>
+			 
