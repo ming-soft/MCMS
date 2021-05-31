@@ -1,0 +1,347 @@
+<!DOCTYPE HTML
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--      ┏┓　　　┏┓
+        ┏┛┻━━━┛┻┓
+        ┃　　　　　　　┃
+        ┃　　　━　　　┃
+        ┃　┳┛　┗┳　┃
+        ┃　　　　　　　┃
+        ┃　　　┻　　　┃
+        ┃　　　　　　　┃
+        ┗━┓　　　┏━┛
+               ┃　　　┃   
+               ┃　　　┃   
+               ┃　　　┗━━━┓
+               ┃　　　　　　　┣┓
+               ┃　　　　　　　┏┛
+               ┗┓┓┏━┳┓┏┛
+                   ┃┫┫　┃┫┫
+                   ┗┻┛　┗┻┛
+        黑你麻痹！？有种再来黑老子，屌丝东西~
+ -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>{ms:global.name/}</title>
+  <link rel="shortcut icon" href="{ms:global.host/}/{ms:global.style/}/favicon.ico" type="x-icon" />
+  <meta name="Keywords" content="{ms:global.keyword/}" />
+  <meta name="Description" content="{ms:global.descrip/}" />
+
+  <link href="{ms:global.host/}/{ms:global.style/}/css/style.css" type=text/css rel=stylesheet>
+  <script src="{ms:global.host/}/{ms:global.style/}/js/comm.js" type="text/javascript"></script>
+
+</head>
+
+<body oncopy="nocopy()">
+
+  <#include "header.htm">
+    <table width="1007" height="333" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ECE9E4"
+      style="padding-top:10px">
+      <tr>
+        <td width="745" valign="top">
+          <table width="745" border="0" cellpadding="0" cellspacing="0">
+            <tr bgcolor="#DFCFC0">
+              <td width="229" bgcolor="#DFCFC0"
+                style="background:url({ms:global.host/}/{ms:global.style/}/images/news_title.jpg); color:#FFFFFF; line-height:28px; font-weight:bold; font-size:14px">
+                <span style=" padding-top:5px; margin-left:80px;">新闻动态</span></td>
+              <td width="516" align="right"><a href="{ms:global.url/}/3008/index.html">更多&gt;&gt;</a>&nbsp;&nbsp;</td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td width="349" align="center">
+                      <script language='javascript'>
+                        linkarr = new Array();
+                        picarr = new Array();
+                        textarr = new Array();
+                        var swf_width = 344;
+                        var swf_height = 290;
+                        //文字颜色|文字位置|文字背景颜色|文字背景透明度|按键文字颜色|按键默认颜色|按键当前颜色|自动播放时间|图片过渡效果|是否显示按钮|打开方式
+                        var configtg = '0x2C77BA|1|0xEEEEEE|5|0xffffff|0xC5DDBC|0x000033|2|3|1|_blank';
+                        var files = "";s
+                        var links = "";
+                        var texts = "";
+                   
+                        {ms:arclist flag = f size = 5 typeid = 3010 }
+                        linkarr[[field.index ]] = "{ms:global.url/}${field.link}";
+                        picarr[[field.index ]] = "{ms:global.host/}${field.litpic}";
+                        textarr[[field.index ]] = "${field.title}";
+                        {/ms:arclist}
+                          for (i = 1; i < picarr.length; i++) {
+                            if (files == "") files = picarr[i];
+                            else files += "|" + picarr[i];
+                          }
+                          for (i = 1; i < linkarr.length; i++) {
+                            if (links == "") links = linkarr[i];
+                            else links += "|" + linkarr[i];
+                          }
+                          for (i = 1; i < textarr.length; i++) {
+                            if (texts == "") texts = textarr[i];
+                            else texts += "|" + textarr[i];
+                          }
+                          document.write('<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,0,0" width="' + swf_width + '" height="' + swf_height + '">');
+                          document.write('<param name="movie" value="{ms:global.host/}/{ms:global.style/}/flash/slideflash.swf"><param name="quality" value="high">');
+                          document.write('<param name="menu" value="false"><param name=wmode value="opaque">');
+                          document.write('<param name="FlashVars" value="bcastr_file=' + files + '&bcastr_link=' + links + '&bcastr_title=' + texts + '&bcastr_config=' + configtg + '">');
+                          document.write('<embed src="{ms:global.host/}/{ms:global.style/}/flash/slideflash.swf" wmode="opaque" FlashVars="bcastr_file=' + files + '&bcastr_link=' + links + '&bcastr_title=' + texts + '&bcastr_config=' + configtg + '&menu="false" quality="high" width="' + swf_width + '" height="' + swf_height + '" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />'); document.write('</object>');
+                      </script>
+
+                    </td>
+                    <td width="5" align="center" valign="top"><img
+                        src="{ms:global.host/}/{ms:global.style/}/images/ad_line.jpg" /></td>
+                    <td width="386" valign="top">
+                      <div style="border:1px solid #C0BFBD; width:389px; height:293px; margin-top:3px;">
+                        <div style="font-size:14px; font-weight:bold; padding:15px; line-height:30px">
+                          {ms:arclist typeid=3010 size=1 flag=c titlelen=30}
+                          <a href='{ms:global.url/}[field.link/]'>
+                            <font color="#FF0000" style="font-size:16px size=0">{ms:field.title/}</font>
+                          </a>
+                          <div style="font-size:14px; font-weight:normal; line-height:25px;">
+                            <font size=0>[field.content?substring(0,63)/]</font>
+                          </div>
+                          {/ms:arclist}
+                        </div>
+                        <div style=" padding:8px">
+                          {ms:arclist typeid=3007 size=5 noflag=c titlelen=80}
+                          <ul class="newsList">
+                            <li><a href='{ms:global.url/}[field.link/]'>${field.title}</a></li>
+                          </ul>
+                          {/ms:arclist}
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td align="left" valign="top">
+          <div style="width:3px; float:left; margin-right:1px;"><img
+              src="{ms:global.host/}/{ms:global.style/}/images/news_line.jpg" width="3" height="326"
+              style="margin-left:1px; float:left; margin-right:1px;" /></div>
+          <div style="float:left; width:256px;">
+            <table width="100%" border="0" cellspacing="0" cellpadding="00">
+              <tr>
+                <td width="128" height="28" bgcolor="#DFCFC0">
+                  <div
+                    style=" width:128px; color:#FFFFFF; font-weight:bold; font-size:14px; height:28px; line-height:28px; background:url({ms:global.host/}/{ms:global.style/}/images/news_gg.jpg)">
+                    <span style=" margin-left:45px;">协会公告</span>
+                  </div>
+                </td>
+                <td align="right" bgcolor="#DFCFC0"><a
+                    href="{ms:global.url/}/xinwenzhongxin/xiehuizhongxin/index.html">更多&gt;&gt;</a>&nbsp;&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <div
+                    style="border:1px solid #C0BFBD; width:auto; height:285px; margin-top:3px; padding:8px 3px 0 3px;">
+                    {ms:arclist typeid=1398488316502233090 size=8 titlelen=12}
+                    <ul class="newsList">
+                      <li style="width:160x;float:left;"><a href='{ms:global.url/}[field.link/]'>${field.title}</a></li>
+                      <li class="date">${field.date?string("yyyy-MM-dd")}</li>
+                    </ul>
+                    {/ms:arclist}
+                  </div>
+                </td>
+              </tr>
+            </table>
+
+
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <div style="background-color:#FFFFFF; width:auto; ">
+      <table width="1007" height="366" border="0" align="center" cellpadding="00" cellspacing="0"
+        style="margin-top:3px;">
+        <tr>
+          <td>
+            <div style="width:1px; border-left:1px solid #BFBFBF; height:366px; float:left; margin-right:1px;">
+            </div>
+            <table width="554" height="366" border="0" cellpadding="00" cellspacing="0"
+              style="float:left; background-color:#ECE9E4;">
+              <tr>
+                <td width="129" height="28" align="left" bgcolor="#DFCFC0">
+                  <div
+                    style=" width:129px;background:url({ms:global.host/}/{ms:global.style/}/images/title_bg.jpg); color:#FFFFFF; line-height:28px; font-weight:bold; font-size:14px">
+                    <span style=" margin-left:45px;">会员风采</span>
+                  </div>
+                </td>
+                <td width="429" height="28" align="right" bgcolor="#DFCFC0"><a
+                    href="{ms:global.url/}/3013/3014/index.html">更多&gt;&gt;</a>&nbsp;&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="2" valign="top">
+                  <div
+                    style="border:1px solid #C0BFBD; width:auto; height:331px; margin-top:3px; padding:2px 10px 0 10px;">
+                    {ms:arclist typeid=3014 size=18 titlelen=80}
+                    <dl
+                      style="width:70px; height:100px;  margin:0; padding:0; overflow:hidden; float:left; margin:2px 8px 0 10px">
+                      <dt style="width:70px; height:82px; text-align:center; overflow:hidden;"><a
+                          href='{ms:global.url/}[field.link/]'><img src={ms:global.host/}[field.litpic/] width="69"
+                            height="85" style="margin-top:7px;" border="0"></a>
+
+                      </dt>
+                      <dd
+                        style="color:#3C3B39; width:70px; height:25px; line-height:25px; margin:0; padding:0; text-align:center">
+                        <a href='{ms:global.url/}[field.link/]'>${field.title}</a>
+                        [field.typetitle/]</a></dd>
+                    </dl>
+                    {/ms:arclist}
+                  </div>
+
+                </td>
+              </tr>
+            </table>
+            <div
+              style="width:1px; border-left:1px solid #BFBFBF; height:366px; float:left; margin-left:2px; margin-right:1px;">
+            </div>
+            <table width="444" height="366" border="0" cellpadding="00" cellspacing="0"
+              style="float:left;background-color:#ECE9E4;">
+              <tr>
+                <td width="128" height="28" align="center" bgcolor="#DFCFC0"
+                  style="background:url({ms:global.host/}/{ms:global.style/}/images/title_bg.jpg); color:#FFFFFF; line-height:28px; font-weight:bold; font-size:14px">
+                  <span style=" margin-left:40px;">创作展览</span></td>
+                <td width="370" height="28" align="right" bgcolor="#DFCFC0"><a
+                    href="{ms:global.url/}/3007/index.html">更多&gt;&gt;</a>&nbsp;&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <div
+                    style="border:1px solid #C0BFBD; width:auto; height:325px; margin-top:3px; padding:8px 3px 0 3px;">
+                    {ms:arclist typeid=3007 size=8 titlelen=80}
+                    <ul class="newsList">
+                      <li style="float:left;"><a href='{ms:global.url/}[field.link/]'>${field.title}</a></li>
+                      <li class="date">[field.date?string("yyyy-mm-dd")/]</li>
+                    </ul>
+                    {/ms:arclist}
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+
+
+      <table width="1007" height="245" border="0" align="center" cellpadding="00" cellspacing="0"
+        style="margin-top:3px;">
+        <tr>
+          <td>
+            <div style="width:1px; border-left:1px solid #BFBFBF; height:245px; float:left; margin-right:1px;"> </div>
+            <table width="554" height="245" border="0" cellpadding="00" cellspacing="0"
+              style="float:left;background-color:#ECE9E4;">
+              <tr>
+                <td width="129" height="28" align="center" bgcolor="#DFCFC0"
+                  style="background:url({ms:global.host/}/{ms:global.style/}/images/title_bg.jpg); color:#FFFFFF; line-height:28px; font-weight:bold; font-size:14px">
+                  <span style=" margin-left:40px;">展览信息</span></td>
+                <td width="425" height="28" align="right" bgcolor="#DFCFC0"><a
+                    href="{ms:global.url/}/3012/index.html">更多&gt;&gt;</a>&nbsp;&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <div
+                    style="border:1px solid #C0BFBD; width:auto; height:239px; margin-top:3px; padding:8px 3px 0 3px;">
+                    {ms:arclist typeid=3012 size=8 titlelen=80}
+                    <ul class="newsList">
+
+                      <li style="float:left;"><a href='{ms:global.url/}[field.link/]'>${field.title}</a></li>
+                      <li class="date">[field.date?string("yyyy-mm-dd")/]</li>
+
+                    </ul>
+                    {/ms:arclist}
+
+
+                  </div>
+                </td>
+              </tr>
+            </table>
+            <div
+              style="width:1px; border-left:1px solid #BFBFBF; height:245px; float:left; margin-left:2px; margin-right:1px;">
+            </div>
+            <table width="444" height="245" border="0" cellpadding="00" cellspacing="0"
+              style="float:left;background-color:#ECE9E4;">
+              <tr>
+                <td width="128" height="28" align="center" bgcolor="#DFCFC0"
+                  style="background:url({ms:global.host/}/{ms:global.style/}/images/title_bg.jpg); color:#FFFFFF; line-height:28px; font-weight:bold; font-size:14px">
+                  <span style=" margin-left:40px;">学术交流</span></td>
+                <td width="370" height="28" align="right" bgcolor="#DFCFC0"><a
+                    href="{ms:global.url/}/3011/index.html">更多&gt;&gt;</a>&nbsp;&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <div
+                    style="border:1px solid #C0BFBD; width:auto; height:239px; margin-top:3px; padding:8px 3px 0 3px;">
+                    {ms:arclist typeid=3011 size=8 titlelen=80}
+
+                    <ul class="newsList">
+
+                      <li style="float:left;"><a href='{ms:global.url/}[field.link/]'>${field.title}</a></li>
+                      <li class="date">[field.date?string("yyyy-mm-dd")/]</li>
+
+                    </ul>
+                    {/ms:arclist}
+
+
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <table width="1007" height="183" border="0" align="center" cellpadding="00" cellspacing="0"
+        style="margin-top:3px;">
+        <tr>
+          <td>
+            <div style="width:1px; border-left:1px solid #BFBFBF; height:184px; float:left; margin-right:1px;"> </div>
+            <table width="1003" border="0" cellpadding="00" cellspacing="0" style="float:left">
+              <tr>
+                <td width="236" align="left" bgcolor="#DFCFC0"
+                  style="background:url({ms:global.host/}/{ms:global.style/}/images/news_title.jpg); color:#FFFFFF; line-height:28px; font-weight:bold; font-size:14px">
+                  <span style=" margin-left:65px;">画家作品</span></td>
+                <td width="767" align="right" bgcolor="#DFCFC0"><a
+                    href="{ms:global.url/}/3016/index.html">更多&gt;&gt;</a>&nbsp;&nbsp;</td>
+              </tr>
+              <tr>
+                <td colspan="2">
+
+                  <div
+                    style="border:1px solid #C0BFBD; width:auto; height:151px; margin-top:3px; overflow:hidden; padding:0px 3px 0 3px; background-color:#DDD9CD">
+                    {ms:arclist typeid=3016 size=6 titlelen=12}
+                    <dl
+                      style="width:131px; height:130px;  margin:0; padding:0; overflow:hidden;float:left; margin-left:30px; margin-top:15px;">
+                      <dt
+                        style="width:131px; height:106px; background:url({ms:global.host/}/{ms:global.style/}/images/zp_bg.jpg); text-align:center; overflow:hidden; ">
+                        <a href='{ms:global.url/}[field.link/]'><img src={ms:global.host/}[field.litpic/] width="119"
+                            height="90" style="margin-top:7px;" border="0"></a>
+                      </dt>
+                      <dd
+                        style="color:#3C3B39; width:130px; margin:0; padding:0; text-align:center; height:28px; line-height:28px;">
+                        <a href='{ms:global.url/}[field.link/]'>${field.title}</a>
+                      </dd>
+                    </dl>
+                    {/ms:arclist}
+
+                  </div>
+
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <#include "foot.htm">
+    </div>
+
+
+
+</BODY>
+
+</HTML>
+
+<script src="{ms:global.host/}/{ms:global.style/}/js/date.js" type="text/javascript"></script>
