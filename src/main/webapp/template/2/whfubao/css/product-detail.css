@@ -1,0 +1,149 @@
+/* CSS Document */
+/*内容*/
+.main {
+	width: 100%;
+	overflow: hidden;
+	background: #f2f2f2;
+}
+/*当前位置*/
+.sector {
+    width: 1197px;
+    height: 36px;
+    font-size: 12px;
+    font-family: "Microsoft YaHei", "微软雅黑", "SimSun", "宋体";
+    margin: 0 auto;
+    margin-top: 15px;
+}
+.sector span {
+	float: left;
+	margin-right: 5px;
+       color:#888;
+}
+.sector span  a{
+	color:#888;
+	}
+
+/*产品信息*/
+.production {
+	width: 1232px;
+	height: 483px;
+	background: #fff;
+	margin: 0 auto;
+}
+.production_icon {
+	width: 430px;
+	height: 430px;
+	float: left;
+	margin-top: 28px;
+	margin-left: 53px;
+}
+.state {
+	width: 570px;
+	height: 333px;
+	float: right;
+	margin-right: 48px;
+	margin-top: 28px;
+	border-bottom: 1px solid #dcdbd9;
+}
+.detector {
+	font-family: 微软雅黑;
+	font-size: 24px;
+	margin-bottom: 13px;
+}
+
+.state_cost {
+	font-family: 微软雅黑;
+	font-size: 28px;
+	margin-bottom: 13px;
+	margin-left: 4px;
+        color: #ef3567;
+}
+.cost {
+	color: #888;
+    font-size: 12px;
+    float: left;
+    width: 68px;
+    height: 34px;
+}
+.cost_blank {
+    width: 568px;
+    height: 34px;
+    border-top: 1px solid #dcdbd9;
+}
+.data{
+    width: 490px;
+    height: 36px;
+    float: left;
+    margin-bottom: 15px;
+	color: #888;
+	font-size: 12px;
+	}
+/*产品描述*/
+.intro {
+	width: 1232px;
+	min-height: 600px;
+	_height: 610px;
+	background-color: #fff;
+	margin: 0 auto;
+	margin-top: 20px;
+}
+.intro div{
+	width:1190px;
+	margin:auto;
+	overflow:hidden;
+        margin-top: 20px;
+        line-height: 25px;
+        color: #373333;
+}
+.product {
+	width: 100%;
+	height: 27px;
+}
+.intro_product {
+	font-family: 微软雅黑;
+	margin-top: 3px;
+	margin-bottom: 7px;
+	margin-left: 5px;
+}
+.intro_product a{
+	color:#000;
+	}
+.intro ul {
+	overflow: hidden;
+}
+.intro_red_box {
+    width: 75px;
+    height: 5px;
+    background: #ff4146;
+    float: left;
+    margin-top: 2px;
+	font-size:0;
+}
+.intro_line {
+  width: 1183px;
+  height: 6px;
+  border-bottom: 1px #ccc solid;
+}
+.intro_line_box{
+       width:1200px;
+       overflow:hidden;
+       font-size: 13px;
+       font-family: fantasy;
+       font-family: "Microsoft YaHei", "微软雅黑", "SimSun", "宋体";
+}
+.intro_blank_box {
+	width: 100%;
+    height: 130px;
+}
+.qq{
+  width: 52px;
+  position: fixed;
+  right:0;
+  top: 218px;
+}
+.qq img{
+  width: 52px;
+  height: 52px;
+  margin-top: 5px;
+}
+

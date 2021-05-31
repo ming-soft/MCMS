@@ -1,0 +1,150 @@
+/* CSS Document */
+/*全局样式*/
+body {
+	margin: 0 ;
+	padding: 0;
+
+}
+div, span, p, a, b, h1, h2, h3, h4, h5, h6, ul, ul li, dl, dl dt, dl dd, input, ol, ol li, hr {
+	margin: 0  ;
+	padding: 0;
+	list-style: none;
+}
+a{
+	text-decoration: blink;
+}
+img {
+	border:none;
+	}
+/*头部*/
+.header {
+	width: 100%;
+	overflow: hidden;
+	padding-top: 26px;
+}
+.warp{
+    width: 1248px;
+    height: 70px;
+    margin: 0 auto;	
+}
+
+.logo {
+	background:#fff;
+	float: left;
+	margin-left: 1px;
+
+}
+/*输入框*/
+.header form{
+  margin-right: 36px;
+  width: 472px;
+  height: 50px;
+}
+.but-sublimt{
+	height: 38px;
+	width: 41px;
+	border: 1px #ccc solid;
+	float: left;
+	margin-top: 2px;
+	border-left: 0px;
+	background:url(../images/icon.png) no-repeat;
+	background-position:7px 6px;
+}
+.search {
+	width: 413px;
+	height: 36px; 
+	margin-top: 2px;
+	padding-left:5px;
+	border: 1px #ccc solid;
+	float: left;
+}
+/*导航条*/
+.nav{
+	width:100%;
+	height:46px;
+	background: #000;
+    clear: both;
+	}
+.nav ul{
+  width: 1246px;
+  margin: auto;
+  height: 45px;
+	}
+.nav ul li{
+	float: left;
+	}
+.nav ul li a {
+	color:#fff;
+	width: 100px;
+	float: left;
+	line-height: 46px;
+	font-size: 14px;
+	color: #fff;
+	text-align: center;
+	font-family: 微软雅黑;
+	white-space: nowrap;
+	}	
+.nav ul li a:hover{
+      background:#414141;
+}
+
+.home-page{
+	background:#414141;
+}
+.soso{
+  height: 40px;
+  width: 466px;
+  float: right;
+}
+/*页脚*/
+.footer {
+	width: 100%;
+	height: 150px;
+	background: #e1e1e1;
+        clear: both;
+}
+.programa {
+	text-align: center;
+	margin-top: 13px;
+	font-size: 12px;
+	font-family: "Microsoft YaHei", "微软雅黑", "SimSun", "宋体";
+	margin-right: 28px;
+}
+.programa span a{
+	color:#000;
+	}
+.footer_font {
+	color: #888888;
+	margin-left: -7px;
+	height: 14px;
+}
+.column_box {
+	padding-top: 15px;
+	overflow: hidden;
+}
+.column {
+	color: #ccc;
+}
+.programa span {
+	margin-right: 5px;
+}
+.we{
+   height: 30px;
+  line-height: 50px;
+  font-size: 25px;
+font-family: 微软雅黑;
+color:#000;
+}
+.qq{
+  width: 52px;
+  position: fixed;
+  right:0;
+  top: 218px;
+  z-index: 10;
+}
+.qq img{
+  width: 52px;
+  height: 52px;
+  margin-top: 5px;
+}
+
