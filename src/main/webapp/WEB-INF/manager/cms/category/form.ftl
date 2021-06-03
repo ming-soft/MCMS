@@ -105,7 +105,7 @@
                                     placeholder="请输入自定义链接">
                             </el-input>
                             <div class="ms-form-tip">
-                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">${'$'}{field.typeurl}</a>
+                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">${'$'}{field.typeurl}</a>，自定义链接不能包含标签
                             </div>
                         </el-form-item>
                     </el-col>
