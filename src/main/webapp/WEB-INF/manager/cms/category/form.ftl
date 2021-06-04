@@ -26,7 +26,7 @@
                                       placeholder="请输入栏目名称">
                             </el-input>
                             <div class="ms-form-tip">
-                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">${'$'}{field.typetitle}</a>，自定义链接不能包含标签
+                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">${'$'}{field.typetitle}</a>
                             </div>
                         </el-form-item>
                     </el-col>
