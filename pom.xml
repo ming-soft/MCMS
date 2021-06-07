@@ -13,7 +13,7 @@
     <version>5.2.2-SNAPSHOT</version>
     <name>ms-mcms</name>
     <!-- 打包war包 -->
-    <!--<packaging>war</packaging>-->
+    <packaging>war</packaging>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -78,7 +78,7 @@
         </resources>
         <plugins>
             <!-- 打包war包，启用下面的代码 -->
-           <!--
+
            <plugin>
                <groupId>org.apache.maven.plugins</groupId>
                <artifactId>maven-war-plugin</artifactId>
@@ -87,7 +87,7 @@
                    <packagingExcludes>/WEB-INF/manager/</packagingExcludes>
                </configuration>
            </plugin>
-           -->
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
