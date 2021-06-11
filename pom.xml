@@ -34,18 +34,22 @@
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-base</artifactId>
+            <version>${ms.version}</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-basic</artifactId>
+            <version>${ms.version}</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mdiy</artifactId>
+            <version>${ms.version}</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>store-client</artifactId>
+            <version>${ms.version}</version>
         </dependency>
 
     </dependencies>
