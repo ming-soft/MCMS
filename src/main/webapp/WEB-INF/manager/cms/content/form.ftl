@@ -14,7 +14,7 @@
         </el-button>
     </el-header>
     <el-main class="ms-container" style="position:relative;">
-        <el-scrollbar style="height: 100%;">
+        <el-scrollbar class="ms-scrollbar" style="height: 100%;">
             <el-tabs v-model="activeName" style="height: calc(100% - 10px);">
                 <el-tab-pane style="position:relative;" v-for="(item, index) in editableTabs" :key="index"
                              :label="item.title" :name="item.name">
