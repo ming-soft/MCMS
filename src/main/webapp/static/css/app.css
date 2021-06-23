@@ -42,7 +42,6 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
 }
 
 .ms-container {
-    margin: 10px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -53,7 +52,7 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
 .ms-header {
     padding: 10px;
     margin: 0;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ebeef5;
     background: #fff;
     height: 50px
 }
@@ -74,21 +73,17 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
 .el-button+.el-button {
     margin-left: 0
 }
-.ms-form-tip {
+.ms-form-tip,.ms-form-tip-err {
     color: #909399;
     font-size: 12px;
     line-height: 18px;
     padding: 4px 0;
 }
-.ms-form-tip b{
-    color: #e6a23c;
+.ms-form-tip-err{
+color:#f56c6c
 }
-.ms-form-tip a:hover{
-    text-decoration: underline !important;
-}
-.ms-form-tip  i{
-    background-color: #f0f9eb;
-    color: #67c23a;
+.ms-alert-tip{
+    margin-bottom: 10px;
 }
 .ms-select{
     display: block;
@@ -98,8 +93,9 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
     width: 100% !important;
 }
 .ms-search{
-    padding: 20px 0 0;
     background: #fff;
+    padding: 10px 14px 0 14px;
+    border-bottom: 1px dashed #ebeef5;
 }
 .ms-search .ms-search-footer{
     line-height: 60px;
@@ -120,7 +116,7 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
     line-height: 1px!important;
 }
 #form .ms-container{
-    height:calc(100vh - 74px);
+    height:calc(100vh - 38px);
 }
 
 [v-cloak]{
@@ -136,13 +132,13 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
     background-color: rgba(144,147,153,.5);
 }
 /*饿了么滚动样式*/
-.ms-scrollbar .el-scrollbar__wrap{
-    overflow-x: hidden;
+ .el-scrollbar__wrap{
+    overflow-x: hidden!important;
 }
-.ms-scrollbar .el-scrollbar__bar.is-vertical{
+.ms-scrollbar  .el-scrollbar__bar.is-vertical{
     width: 6px !important;
 }
-.ms-scrollbar .el-scrollbar__view{
+.ms-scrollbar  .el-scrollbar__view{
     padding-right: 17px;
 }
 /**后台管理界面的el-menu通用样式**/
