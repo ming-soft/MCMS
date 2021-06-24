@@ -417,7 +417,7 @@
                     title: '',
                     name: 'custom-name'
                 });
-                ms.mdiy.model.extend("model1", {id:modelId},{ linkId: that.form.id }).then(function(obj) {
+                ms.mdiy.model.extend("model1", {id:modelId},{ linkId: that.form.id },true).then(function(obj) {
                     that.model = obj;
                     that.editableTabs[1].title = obj.modelName
                 });
