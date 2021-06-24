@@ -1,0 +1,52 @@
+<!-- 分享作者: 邱小兵 ｜ QQ:897294770 关于模版版权: 铭飞MStore（MS商城）中的网站模版由用户自主发布、编辑整理上传，对此类作品本站仅提供交流学习平台。 如果您发现MStore上有侵犯您的知识产权的作品，请与我们取得联系（邮箱：service@ming-soft.com），我们会及时修改或删除。 铭飞平台（MING-SOFT） http://ms.ming-soft.com ——————价值源自分享——————— -->
+<header data-headroom id="header" class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+			<h1 class="logo">
+				<a class="navbar-brand" href="/">
+					<img src="http://cdn.mingsoft.net/global/images/MStore300.png" alt="{ms:global.name/}" title="{ms:global.name/}" class="ylw-img-responsive logo-hidden"/>
+					<img src="{ms:global.host/}/{ms:global.style/}/images/blogo.png" alt="{ms:global.name/}" title="{ms:global.name/}" class="ylw-img-responsive logo-visible"/>
+				</a>
+			</h1>
+			<ul class="list-unstyled head-lx">
+				<li>营造环境，创造价值<br/>
+					<small>Building Enuironment Creation Value</small></li>
+				<li>建筑工程及装饰工程领航者<br/>
+					<small>Construction and Decoration Engineering</small></li>
+				<li class="tel">全国服务：123456789</li>
+				<li class="oc">在线咨询：
+					<a href="http://wpa.qq.com/msgrd?v=3&uin=1379814598&site=qq&menu=yes" target="_blank">
+						<img src="{ms:global.host/}/{ms:global.style/}/images/head-sq.png" alt="在线咨询">
+					</a>
+					<a href="http://wpa.qq.com/msgrd?v=3&uin=1379814598&site=qq&menu=yes" target="_blank">
+						<img src="{ms:global.host/}/{ms:global.style/}/images/head-qq.png" alt="QQ咨询">
+					</a>
+				</li>
+			</ul>
+		</div>
+		<nav class="collapse navbar-right navbar-collapse" role="navigation">
+			<style>
+				.detailMainLeftMenu_cur {
+					color: #fff
+				}
+			</style>
+			<ul class="nav navbar-nav" id="nav" class="detailMainLeftMenu_cur" class="thisclass">
+				<li class="dropdown ">
+					<a class="dropdown-toggle" href="{ms:global.host/}">网站首页<small>Home</small></a>
+				</li>
+				{ms:channel type="nav" }
+				<li class="dropdown ">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="{ms:global.url/}${field.link}">${field.typetitle}<small>${field.typedescrip}</small></a>
+					<ul class="dropdown-menu dropdown-menu-left">
+						<li>
+							<a href="{ms:global.url/}${field.typelink}">${field.typetitle}</a>
+						</li>
+					</ul>
+				</li>
+				{/ms:channel}
+
+			</ul>
+		</nav>
+	</div>
+</header>

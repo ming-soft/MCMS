@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge，chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>联系我们 > ${field.typetitle}_{ms:global.name/}</title>
+<#include "headerFile.htm">
+</head>
+<body>
+<#include "head.htm">
+<div class="banner text-center">
+	<div class="box hba" style="background-image:url({ms:global.host/}/{ms:global.style/}/images/20.jpg)"> </div>
+</div>
+<div class="crumbs">
+	<div class="container">
+		<div class="btn-group pull-right hidden-xs">
+			<button type="button" class="btn btn-menu btn-default dropdown-toggle" data-toggle="dropdown">更多菜单 Menu <span class="caret"></span></button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href='{ms:global.url/}/19/141/index.html'>联系我们</a></li>
+			</ul>
+		</div>
+		<ol class="breadcrumb">
+			<li><a href='{ms:global.host/}'>主页</a> > <a href='{ms:global.url/}/19/141/index.html'>联系我们</a> > <a href='${field.typelink}'>${field.typetitle}</a></li>
+		</ol>
+	</div>
+</div>
+<div class="neirong">
+	<article class="container">
+		<div class="text-center">
+			<h3 class="h3"> 联系我们</h3>
+		</div>
+		<hr class="m-sx-50"/>
+		<p>${field.content}</p>
+		<iframe src="http://cdn.mingsoft.net/global/map.htm?wmode=transparent&amp;wmode=transparent" id="ifrm" name="ifrm" width="100%" height="320" frameborder="0" scrolling="no" onload="document.all('ifrm').style.height=ifrm.document.body.scrollHeight+30;"></iframe>
+		<hr class="m-sx-50"/>
+	</article>
+</div>
+<script src="{ms:global.host/}/{ms:global.style/}/js/jquery.min.js"></script>
+<#include "footer.htm">
+<script src="{ms:global.host/}/{ms:global.style/}/js/bootstrap.min.js"></script>
+<script src="{ms:global.host/}/{ms:global.style/}/js/headroom.min.js"></script>
+<script src="{ms:global.host/}/{ms:global.style/}/js/jquery.headroom.js"></script>
+<script>$("#header").headroom();</script>
+<script src="{ms:global.host/}/{ms:global.style/}/js/jquery.glide.min.js"></script>
+<script src="{ms:global.host/}/{ms:global.style/}/js/jquery.glide.admin.js"></script>
+<script src="{ms:global.host/}/{ms:global.style/}/js/jpuery.team.scroll.js"></script>
+<#include "online-service.htm">
+</body>
+</html>

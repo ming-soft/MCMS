@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Api</title>
+    <script type="text/javascript" src="{ms:global.host/}/static/plugins/vue/2.6.9/vue.min.js"></script>
+    <script src="{ms:global.host/}/static/plugins/element-ui/2.12.0/index.js"></script>
+    <!--网络请求框架-->
+    <script src="{ms:global.host/}/static/plugins/axios/0.18.0/axios.min.js"></script>
+    <script src="{ms:global.host/}/static/plugins/qs/6.6.0/qs.min.js"></script>
+    <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.js"></script>
+    <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.http.js"></script>
+    <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.util.js"></script>
+    <script>
+        ms.base = "";
+    </script>
+</head>
+<body>
+<div id="form" v-loading="loading" v-cloak>
+    <el-main class="ms-container">
+        <el-form ref="form" :model="form" :rules="rules" label-width="120px" label-position="right" size="small">
+
+            <el-form-item  label="账号" prop="accountInfo">
+                <el-input
+                        v-model="form.accountInfo"
+                        :disabled="false"
+                        :readonly="false"
+                        :style="{width:  '100%'}"
+                        :clearable="true"
+                        placeholder="请输入账号">
+                </el-input>
+            </el-form-item>
+
+            <el-form-item  label="密码" prop="passwordInfo">
+                <el-input type="password"
+                          :show-password="true"
+                          :clearable="true" autocomplete="off"
+                          v-model="form.passwordInfo"  :style="{width:'100%'}"
+                          :disabled="false" placeholder="请输入密码"></el-input>
+            </el-form-item>
+
+            <input v-model="form.rand_code" class="input__field input__field--hoshi" type="text" id="input-rand-code" />
+            <input type="button" @click="code" value="看不清，换一张">
+
+            <div class="class-20" >
+                <img :src="verifCode" class="code-img"/>
+            </div>
+
+            <div v-loading="loading" v-cloak>
+                <div id="formModel"> </div>
+                <el-button type="primary" icon="iconfont icon-baocun" size="mini" @click="save()" :loading="saveDisabled">保存</el-button>
+            </div>
+
+        </el-form>
+
+
+
+    </el-main>
+</div>
+</body>
+</html>
+<script>
+    var form = new Vue({
+        el: '#form',
+        data:function() {
+            return {
+                loading:false,
+                saveDisabled: false,
+                //表单数据
+                form: {
+                    // 账号
+                    accountInfo:'',
+                    // 密码
+                    passwordInfo:'',
+                    modelName: '账号密码',
+                    modelId: new Date().getTime(),
+                },
+                verifCode : '',
+                rules:{
+                    // 账号
+                    accountInfo: [{"min":0,"max":20,"message":"账号长度必须为0-20"}],
+                },
+
+
+            }
+        },
+        watch:{
+        },
+        computed:{
+        },
+        methods: {
+            save:function() {
+                var that = this;
+                ms.log(ms.base)
+                var url = ms.base + "/mdiy/formData/save.do"
+                if (that.form.id > 0) {
+                    url = ms.base + "/mdiy/formData/update.do";
+                }
+                this.$refs.form.validate(function(valid) {
+                    if (valid) {
+                        that.saveDisabled = true;
+                        var data = JSON.parse(JSON.stringify(that.form));
+                        ms.http.post(url, data).then(function (res) {
+                            if (res.result) {
+                                that.$notify({
+                                    title: "成功",
+                                    message: "保存成功",
+                                    type: 'success'
+                                });
+                                location.href = ms.base + "/mdiy/formData/index.do";
+                            } else {
+                                that.$notify({
+                                    title: "错误",
+                                    message: res.msg,
+                                    type: 'warning'
+                                });
+                            }
+                            that.saveDisabled = false;
+                        });
+                    } else {
+                        return false;
+                    }
+                })
+            },
+
+            //获取当前Api
+            get:function(id) {
+                var that = this;
+                this.loading = true
+                ms.http.get(ms.base + "/mdiy/formData/get.do", {"id":id}).then(function (res) {
+                    that.loading = false
+                    if(res.result&&res.data){
+                        that.form = res.data;
+                    }
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            },
+            //获取验证码
+            code:function(){
+                this.verifCode = ms.base + "/code.do?t=" + new Date().getTime();
+            },
+        },
+        created:function() {
+            var that = this;
+            this.code();
+            this.form.id = ms.util.getParameter("modelId");
+            ms.log(this.form.id+"!!!!");
+            if (this.form.id) {
+                this.get(this.form.id);
+            }
+        }
+    });
+</script>

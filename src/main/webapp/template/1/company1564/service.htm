@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge，chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>服务项目 > ${field.typetitle}_{ms:global.name/}</title>
+<#include "headerFile.htm">
+</head>
+<body>
+<#include "head.htm">
+<div class="banner text-center">
+	<div class="box hba" style="background-image:url({ms:global.host/}/{ms:global.style/}/images/16.jpg)"> </div>
+</div>
+<div class="crumbs">
+	<div class="container">
+		<div class="btn-group pull-right hidden-xs">
+			<button type="button" class="btn btn-menu btn-default dropdown-toggle" data-toggle="dropdown">更多菜单 Menu <span class="caret"></span></button>
+			<ul class="dropdown-menu" role="menu">
+				{ms:channel type=son typeid=70}
+				<li><a href="{ms:global.url/}${field.typelink}">${field.typetitle}</a></li>
+				{/ms:channel}
+			</ul>
+		</div>
+		<ol class="breadcrumb">
+			<li><a href='{ms:global.host/}'>主页</a> > <a href='{ms:global.url/}/70/index.html'>服务项目</a> > <a href='${field.typelink}'>${field.typetitle}</a></li>
+		</ol>
+	</div>
+</div>
+<div class="neirong">
+	<article class="container info">
+		<p>${field.content}</p>
+	</article>
+</div>
+<#include "content-footer.htm">
+<script src="{ms:global.host/}/{ms:global.style/}/js/jquery.min.js"></script>
+<#include "footer.htm">
+<script src="{ms:global.host/}/{ms:global.style/}/js/bootstrap.min.js"></script>
+<script src="{ms:global.host/}/{ms:global.style/}/js/headroom.min.js"></script>
+<script src="{ms:global.host/}/{ms:global.style/}/js/jquery.headroom.js"></script>
+<script>$("#header").headroom();</script>
+<script src="{ms:global.host/}/{ms:global.style/}/js/jquery.glide.min.js"></script>
+<script src="{ms:global.host/}/{ms:global.style/}/js/jquery.glide.admin.js"></script>
+<script src="{ms:global.host/}/{ms:global.style/}/js/jpuery.team.scroll.js"></script>
+<#include "online-service.htm">
+</body>
+</html>
