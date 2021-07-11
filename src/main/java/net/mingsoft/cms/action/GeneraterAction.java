@@ -178,7 +178,7 @@ public class GeneraterAction extends BaseAction {
 
             ContentBean contentBean = new ContentBean();
             contentBean.setCategoryId(column.getId());
-
+            contentBean.setCategoryType(column.getCategoryType());
             articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
             // 判断列表类型
             switch (CategoryTypeEnum.get(column.getCategoryType())) {

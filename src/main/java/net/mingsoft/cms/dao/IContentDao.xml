@@ -250,9 +250,12 @@
 			where ct.del=0
 
 			<!-- 查询子栏目数据 -->
-			<if test="categoryId &gt; 0">
+			<if test="categoryId!=null and  categoryId!='' and categoryType==1">
 				and (ct.category_id=#{categoryId} or ct.category_id in
 				(select id FROM cms_category where find_in_set('${categoryId}',CATEGORY_PARENT_IDS)>0))
+			</if>
+			<if test="categoryId!=null and  categoryId!='' and categoryType==2">
+				ct.category_id=#{categoryId}
 			</if>
 			<if test="beginTime!=null and beginTime!=''">
 				<if test="_databaseId == 'mysql'">

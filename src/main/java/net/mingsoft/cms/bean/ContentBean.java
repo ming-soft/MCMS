@@ -62,12 +62,25 @@ public class ContentBean extends ContentEntity {
      */
     private String categoryType;
 
+    /**
+     * 栏目属性，用于筛选文章列表
+     */
+    private String categoryFlag;
+
     public String getCategoryType() {
         return categoryType;
     }
 
     public void setCategoryType(String categoryType) {
         this.categoryType = categoryType;
+    }
+
+    public String getCategoryFlag() {
+        return categoryFlag;
+    }
+
+    public void setCategoryFlag(String categoryFlag) {
+        this.categoryFlag = categoryFlag;
     }
 
     public String getBeginTime() {

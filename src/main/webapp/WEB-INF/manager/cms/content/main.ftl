@@ -33,8 +33,8 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item  label="文章类型" prop="contentType">
-                            <el-select v-model="form.contentType"
+                        <el-form-item  label="文章类型" prop="categoryFlag">
+                            <el-select v-model="form.categoryFlag"
                                        :style="{width: '100%'}"
                                        :filterable="false"
                                        :disabled="false"
