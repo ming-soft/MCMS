@@ -239,6 +239,7 @@ public class GeneraterAction extends BaseAction {
 
         for (CategoryEntity category : categoryList) {
             contentBean.setCategoryId(category.getId());
+            contentBean.setCategoryType(category.getCategoryType());
             //将文章列表标签中的中的参数
             articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
             // 分类是列表
