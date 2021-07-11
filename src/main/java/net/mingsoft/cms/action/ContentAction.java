@@ -57,11 +57,11 @@ import java.util.List;
 @Controller("cmsContentAction")
 @RequestMapping("/${ms.manager.path}/cms/content")
 public class ContentAction extends BaseAction {
-	
-	
+
+
 	/**
 	 * 注入文章业务层
-	 */	
+	 */
 	@Autowired
 	private IContentBiz contentBiz;
 
@@ -107,14 +107,14 @@ public class ContentAction extends BaseAction {
     	@ApiImplicitParam(name = "del", value = "删除标记", required =false,paramType="query"),
     	@ApiImplicitParam(name = "id", value = "编号", required =false,paramType="query"),
     })
-	@RequestMapping("/list")
+	@PostMapping("/list")
 	@ResponseBody
 	public ResultData list(@ModelAttribute @ApiIgnore ContentBean content, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model, BindingResult result) {
 		BasicUtil.startPage();
 		List contentList = contentBiz.query(content);
 		return ResultData.build().success(new EUListBean(contentList,(int) BasicUtil.endPage(contentList).getTotal()));
 	}
-	
+
 	/**
 	 * 返回编辑界面content_form
 	 */
@@ -157,7 +157,7 @@ public class ContentAction extends BaseAction {
 		}
 		return ResultData.build().success(list.size() > 0 ? list.get(0) : null);
 	}
-	
+
 	@ApiOperation(value = "保存文章列表接口")
 	 @ApiImplicitParams({
     	@ApiImplicitParam(name = "contentTitle", value = "文章标题", required =true,paramType="query"),
@@ -214,7 +214,7 @@ public class ContentAction extends BaseAction {
 		contentBiz.save(content);
 		return ResultData.build().success(content);
 	}
-	
+
 	/**
 	 * @param contents 文章实体
 	 */
@@ -265,7 +265,7 @@ public class ContentAction extends BaseAction {
 	@RequiresPermissions("cms:content:update")
 	public ResultData update(@ModelAttribute @ApiIgnore ContentEntity content, HttpServletResponse response,
                              HttpServletRequest request) {
-		//验证文章标题的值是否合法			
+		//验证文章标题的值是否合法
 		if(StringUtil.isBlank(content.getContentTitle())){
 			return ResultData.build().error(getResString("err.empty", this.getResString("content.title")));
 		}
@@ -278,7 +278,7 @@ public class ContentAction extends BaseAction {
 		if(!StringUtil.checkLength(content.getContentSource()+"", 0, 200)){
 			return ResultData.build().error(getResString("err.length", this.getResString("content.source"), "0", "200"));
 		}
-		//验证发布时间的值是否合法			
+		//验证发布时间的值是否合法
 		if(StringUtil.isBlank(content.getContentDatetime())){
 			return ResultData.build().error(getResString("err.empty", this.getResString("content.datetime")));
 		}
@@ -290,5 +290,5 @@ public class ContentAction extends BaseAction {
 	}
 
 
-		
+
 }

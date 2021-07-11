@@ -104,7 +104,7 @@ public class CategoryAction extends BaseAction {
     	@ApiImplicitParam(name = "del", value = "删除标记", required =false,paramType="query"),
     	@ApiImplicitParam(name = "id", value = "编号", required =false,paramType="query"),
     })
-	@RequestMapping("/list")
+	@RequestMapping(value="/list",method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model, BindingResult result) {
 		BasicUtil.startPage();

@@ -37,13 +37,8 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.ui.ModelMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
@@ -71,11 +66,11 @@ import springfox.documentation.annotations.ApiIgnore;
 @Controller("WebcmsCategoryAction")
 @RequestMapping("/cms/category")
 public class CategoryAction extends net.mingsoft.cms.action.BaseAction{
-	
-	
+
+
 	/**
 	 * 注入分类业务层
-	 */	
+	 */
 	@Autowired
 	private ICategoryBiz categoryBiz;
 
@@ -108,14 +103,14 @@ public class CategoryAction extends net.mingsoft.cms.action.BaseAction{
     	@ApiImplicitParam(name = "del", value = "删除标记", required =false,paramType="query"),
     	@ApiImplicitParam(name = "id", value = "编号", required =false,paramType="query"),
     })
-	@RequestMapping("/list")
+	@RequestMapping(value="/list",method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category,HttpServletResponse response, HttpServletRequest request,@ApiIgnore ModelMap model,BindingResult result) {
 		BasicUtil.startPage();
 		List categoryList = categoryBiz.query(category);
 		return ResultData.build().success(new EUListBean(categoryList,(int)BasicUtil.endPage(categoryList).getTotal()));
 	}
-	
+
 
 	/**
 	 * 获取分类

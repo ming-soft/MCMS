@@ -284,7 +284,7 @@
                 };
                 var form = JSON.parse(JSON.stringify(that.form));
 
-                if (form.contentType.length > 0) {
+                if (form.contentType!=null && form.contentType.length > 0) {
                     form.contentType = form.contentType.join(',');
                 }
 

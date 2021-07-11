@@ -38,11 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
@@ -97,7 +93,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
     	@ApiImplicitParam(name = "del", value = "删除标记", required =false,paramType="query"),
     	@ApiImplicitParam(name = "id", value = "编号", required =false,paramType="query"),
     })
-	@RequestMapping("/list")
+	@PostMapping("/list")
 	@ResponseBody
 	public ResultData list(@ModelAttribute @ApiIgnore ContentBean content, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model, BindingResult result) {
 		BasicUtil.startPage();

@@ -317,7 +317,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
      * @param request  搜索id
      * @param response
      */
-    @RequestMapping(value = "search")
+    @RequestMapping(value = "search",method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public String search(HttpServletRequest request, HttpServletResponse response) {
         //设置分页类

@@ -51,9 +51,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -111,7 +109,7 @@ public class GeneraterAction extends BaseAction {
      *
      * @return
      */
-    @RequestMapping("/index")
+    @GetMapping("/index")
     public String index(HttpServletRequest request, ModelMap model) {
         return "/cms/generate/index";
     }
@@ -122,7 +120,7 @@ public class GeneraterAction extends BaseAction {
      * @param request
      * @param response
      */
-    @RequestMapping("/generateIndex")
+    @RequestMapping(value="/generateIndex",method = {RequestMethod.GET, RequestMethod.POST})
     @RequiresPermissions("cms:generate:index")
     @LogAnn(title = "生成主页", businessType = BusinessTypeEnum.UPDATE)
     @ResponseBody
@@ -150,7 +148,7 @@ public class GeneraterAction extends BaseAction {
      * @param response
      * @param categoryId
      */
-    @RequestMapping("/{categoryId}/genernateColumn")
+    @RequestMapping(value="/{categoryId}/genernateColumn",method = {RequestMethod.GET, RequestMethod.POST})
     @LogAnn(title = "生成栏目", businessType = BusinessTypeEnum.UPDATE)
     @RequiresPermissions("cms:generate:column")
     @ResponseBody
@@ -216,7 +214,7 @@ public class GeneraterAction extends BaseAction {
      * @param response
      * @param columnId
      */
-    @RequestMapping("/{columnId}/generateArticle")
+    @RequestMapping(value="/{columnId}/generateArticle",method = {RequestMethod.GET, RequestMethod.POST})
     @RequiresPermissions("cms:generate:article")
     @LogAnn(title = "生成文章", businessType = BusinessTypeEnum.UPDATE)
     @ResponseBody
@@ -273,7 +271,7 @@ public class GeneraterAction extends BaseAction {
      * @param request
      * @return
      */
-    @RequestMapping("/{position}/viewIndex")
+    @RequestMapping(value="/{position}/viewIndex",method = {RequestMethod.GET, RequestMethod.POST})
     public String viewIndex(HttpServletRequest request, @PathVariable String position, HttpServletResponse response) {
         AppEntity app = BasicUtil.getApp();
         // 组织主页预览地址
