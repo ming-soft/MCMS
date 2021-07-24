@@ -255,7 +255,7 @@
 				(select id FROM cms_category where find_in_set('${categoryId}',CATEGORY_PARENT_IDS)>0))
 			</if>
 			<if test="categoryId!=null and  categoryId!='' and categoryType==2">
-				ct.category_id=#{categoryId}
+				and ct.category_id=#{categoryId}
 			</if>
 			<if test="beginTime!=null and beginTime!=''">
 				<if test="_databaseId == 'mysql'">

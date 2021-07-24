@@ -81,6 +81,25 @@
 
                     </el-col>
                 </el-row>
+                <el-row gutter="0" justify="start" align="top" >
+                    <el-col span="12">
+                        <el-form-item prop="categoryListUrl" label="列表模板" v-if="form.categoryType == '1'">
+                            <el-select v-model="form.categoryListUrl"
+                                       :style="{width: '100%'}"
+                                       :filterable="true"
+                                       :disabled="false"
+                                       :multiple="false" :clearable="true"
+                                       placeholder="请选择列表模板">
+                                <el-option v-for='item in categoryListUrlOptions' :key="item" :value="item"
+                                           :label="item"></el-option>
+                            </el-select>
+                            <div class="ms-form-tip">
+                                当栏目类型为<b>列表</b>时有效
+                            </div>
+                        </el-form-item>
+                    </el-col>
+
+                </el-row>
                 <el-row
                         gutter="0"
                         justify="start" align="top" >
@@ -119,44 +138,10 @@
                         </el-form-item>
                     </el-col>
                 </el-row>
-                <el-row gutter="0" justify="start" align="top" >
-                    <el-col span="12">
-                        <el-form-item prop="categoryListUrl" label="列表模板" v-if="form.categoryType == '1'">
-                            <el-select v-model="form.categoryListUrl"
-                                       :style="{width: '100%'}"
-                                       :filterable="true"
-                                       :disabled="false"
-                                       :multiple="false" :clearable="true"
-                                       placeholder="请选择列表模板">
-                                <el-option v-for='item in categoryListUrlOptions' :key="item" :value="item"
-                                           :label="item"></el-option>
-                            </el-select>
-                            <div class="ms-form-tip">
-                                当栏目类型为<b>列表</b>时有效
-                            </div>
-                        </el-form-item>
-                    </el-col>
 
-                </el-row>
                 <el-row
                         :gutter="0"
                         justify="start" align="top">
-                    <el-col :span="12">
-                        <el-form-item  label="栏目属性" prop="categoryFlag">
-                            <el-select v-model="form.categoryFlag"
-                                       :style="{width: '100%'}"
-                                       :filterable="false"
-                                       :disabled="false"
-                                       :multiple="true" :clearable="true"
-                                       placeholder="请选择栏目属性">
-                                <el-option v-for='item in categoryFlagOptions' :key="item.dictValue" :value="item.dictValue"
-                                           :label="item.dictLabel"></el-option>
-                            </el-select>
-                            <div class="ms-form-tip">
-                                可以在自定义字典中管理
-                            </div>
-                        </el-form-item>
-                    </el-col>
                     <el-col :span="12">
                         <el-form-item  label="生成路径" prop="categoryPinyin">
                             <el-input
@@ -173,7 +158,23 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="12">
+                        <el-form-item  label="栏目属性" prop="categoryFlag">
+                            <el-select v-model="form.categoryFlag"
+                                       :style="{width: '100%'}"
+                                       :filterable="false"
+                                       :disabled="false"
+                                       :multiple="true" :clearable="true"
+                                       placeholder="请选择栏目属性">
+                                <el-option v-for='item in categoryFlagOptions' :key="item.dictValue" :value="item.dictValue"
+                                           :label="item.dictLabel"></el-option>
+                            </el-select>
+                            <div class="ms-form-tip">
+                                可以在自定义字典中管理
+                            </div>
+                        </el-form-item>
                     </el-col>
+
+
                 </el-row>
                 <el-form-item label="关键字" prop="categoryKeyword" >
                     <el-input
