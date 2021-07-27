@@ -239,7 +239,7 @@
                     maximumWords: 100000,
                     initialFrameWidth: '100%',
                     initialFrameHeight: 400,
-                    serverUrl: ms.base + "/static/plugins/ueditor/1.4.3.3/jsp/editor.do?jsonConfig=%7BvideoUrlPrefix:\'upload/${appId}/cms/content/editor\',videoMaxSize:204800000,fileMaxSize:51200000,fileUrlPrefix:\'upload/${appId}/cms/content/editor\',imageUrlPrefix:\'upload/${appId}/cms/content/editor\',imagePathFormat:\'/upload/${appId}/cms/content/editor/%7Btime%7D\',filePathFormat:\'/upload/${appId}/cms/content/editor/%7Btime%7D\',videoPathFormat:\'/upload/${appId}/cms/content/editor/%7Btime%7D\'%7D",
+                    serverUrl: ms.base + "/static/plugins/ueditor/1.4.3.3/jsp/editor.do?jsonConfig=%7BvideoUrlPrefix:\'\',fileManagerListPath:\'\',imageMaxSize:2048000,videoMaxSize:204800000,fileMaxSize:51200000,fileUrlPrefix:\'\',imageUrlPrefix:\'\',imagePathFormat:\'/upload/${appId}/cms/content/editor/%7Btime%7D\',filePathFormat:\'/upload/${appId}/cms/content/editor/%7Btime%7D\',videoPathFormat:\'/upload/${appId}/cms/content/editor/%7Btime%7D\'%7D",
                     UEDITOR_HOME_URL: ms.base + '/static/plugins/ueditor/1.4.3.3/'
                 },
                 contentCategoryIdOptions: [],
