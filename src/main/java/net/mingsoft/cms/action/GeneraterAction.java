@@ -100,7 +100,7 @@ public class GeneraterAction extends BaseAction {
     @Value("${ms.manager.path}")
     private String managerPath;
 
-    @Value("${ms.diy.html-dir:html}")
+    @Value("${ms.html-dir:html}")
     private String htmlDir;
 
     /**

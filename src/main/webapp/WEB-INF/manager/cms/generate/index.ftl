@@ -37,8 +37,9 @@
                         </el-input>
                         <div class="ms-form-tip">
                             一般为index.html或default.html,
-                            如果是<i>引导页面->首页</i>，可以手动调整主页模版与主页设置，先生成引导页，再生成首页。一般default.html为引导页面index.html为主页。
-
+                            如果是<i>引导页面->首页</i>，可以手动调整主页模版与主页设置，先生成引导页，再生成首页。一般default.html为引导页面index.html为主页(需要服务器容器配置好对应默认页)。<br/>
+                            点击“预览主页”可跳转到网站首页进行预览网站首页<br/>
+                            不能选择有分页标签的页面生成，例如news-list.htm、search.htm<br/>
                         </div>
                     </el-form-item>
                 </div>
@@ -70,7 +71,7 @@
                                 v-model="time"
                                 placeholder="请选择指定时间"
                                 start-placeholder=""
-                                end-placeholder=""
+                                en.class-3d-placeholder=""
                                 :readonly="false"
                                 :disabled="false"
                                 :editable="false"
@@ -310,7 +311,7 @@
         padding:20px;
         outline:none;
         outline-offset:-1px;
-        height:300px;
+        height:400px;
         max-width:100%;
         background-color:#FFFFFF;
         flex-direction:column;

@@ -39,5 +39,4 @@ public class MSApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MSApplication.class, args);
 	}
-
 }

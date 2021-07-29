@@ -12,11 +12,9 @@ logging:
     name: mcms.log #会在项目的根目录下生成对应的mcms.log文件，也可以根据实际情况写绝对路径，例如：d:/mcms.log
     path: log #会在项目的根目录下生成log目录，里面会生成对应的日期目录，日期目录下面生成日志压缩包备份文件,默认按每10M分割一个日志文件，例如：log/2020-01/app-2020-01-03-18.1.log.gz（表示2020年1月3号下午六点的第一个备份），也可以根据实际情况写绝对路径，例如：d:/log
 ms:
-  diy:
-    html-dir: html
+  html-dir: html
   #  scheme: https #解决使用代理服务器代理应用时标签解析域名依旧为http的问题
-  swagger:
-    enable: false #启用swagger文档，生产的时候务必关掉 访问地址：http://ip|域名/项目发布名/swagger-ui.html
+  swagger-enable: false #启用swagger文档，生产的时候务必关掉 访问地址：http://ip|域名/项目发布名/swagger-ui.html
   manager:
     path: /ms #后台访问的路径，如:http://项目/ms/login.do，生产的时候建议修改
     view-path: /WEB-INF/manager #后台视图层路径配置

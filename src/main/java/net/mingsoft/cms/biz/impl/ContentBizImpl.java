@@ -62,7 +62,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 	@Autowired
 	private ICategoryDao categoryDao;
 
-	@Value("${ms.diy.html-dir:html}")
+	@Value("${ms.html-dir:html}")
 	private String htmlDir;
 
 

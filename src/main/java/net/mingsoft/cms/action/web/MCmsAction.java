@@ -110,7 +110,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
     private IModelBiz modelBiz;
 
 
-    @Value("${ms.diy.html-dir:html}")
+    @Value("${ms.html-dir:html}")
     private String htmlDir;
 
 

@@ -68,7 +68,7 @@ public class WebConfig implements WebMvcConfigurer {
 	/**
 	 * 上传路径映射
 	 */
-	@Value("${ms.diy.html-dir}")
+	@Value("${ms.html-dir:html}")
 	private String htmlDir;
 	@Bean
 	public ActionInterceptor actionInterceptor() {
@@ -79,7 +79,7 @@ public class WebConfig implements WebMvcConfigurer {
 	public ConfigurationCustomizer configurationCustomizer() {
 		return configuration -> configuration.setUseDeprecatedExecutor(false);
 	}
-	/**
+	/**zF
 	 * 增加对rest api鉴权的spring mvc拦截器
 	 */
 	@Override
