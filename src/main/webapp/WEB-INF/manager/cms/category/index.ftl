@@ -50,7 +50,8 @@
 			</el-table-column>
 			<el-table-column label="链接地址" align="left" prop="categoryPath" min-width="200" show-overflow-tooltip>
 				<template slot-scope="scope">
-					<span style="cursor: pointer" class="copyBtn" :data-clipboard-text="'{ms:global.url/}'+scope.row.categoryPath+'/index.html'" @click="copyContent">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
+					<span v-if="scope.row.categoryType == '1' || scope.row.categoryType == '2'" style="cursor: pointer" class="copyBtn" :data-clipboard-text="'{ms:global.url/}'+scope.row.categoryPath+'/index.html'" @click="copyContent">{{"{ms:global.url/}"+scope.row.categoryPath+"/index.html"}}</span>
+					<span v-if="scope.row.categoryType == '3'" style="cursor: pointer" class="copyBtn" :data-clipboard-text="scope.row.categoryDiyUrl" @click="copyContent">{{scope.row.categoryDiyUrl}}</span>
 				</template>
 			</el-table-column>
             <el-table-column label="列表地址" align="left" prop="categoryListUrl" width="100" show-overflow-tooltip>
@@ -58,10 +59,6 @@
             <el-table-column label="内容地址" align="left" prop="categoryUrl" width="100" show-overflow-tooltip>
 				<template slot-scope="scope">
 					{{scope.row.categoryType == '1'?scope.row.categoryUrl:''}}
-				</template>
-            </el-table-column>
-            <el-table-column label="封面地址" align="left" prop="categoryUrl" width="100" show-overflow-tooltip>
-				<template slot-scope="scope">
 					{{scope.row.categoryType == '2'?scope.row.categoryUrl:''}}
 				</template>
             </el-table-column>

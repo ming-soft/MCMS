@@ -20,11 +20,14 @@
  */
 package net.mingsoft.config;
 
+import cn.hutool.core.codec.Base64;
 import net.mingsoft.basic.realm.ManagerAuthRealm;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
+import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -97,10 +100,34 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put(managerPath + "/checkLogin.do", "anon");
 		// 其余接口一律拦截
 		// 主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
-		filterChainDefinitionMap.put(managerPath + "/**", "authc");
+		filterChainDefinitionMap.put(managerPath + "/**", "user");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
+	}
+
+	/**
+	 * cookie对象
+	 * @return
+	 */
+	public SimpleCookie rememberMeCookie() {
+		// 设置cookie名称，对应login.html页面的<input type="checkbox" name="rememberMe"/>
+		SimpleCookie cookie = new SimpleCookie("rememberMe");
+		// 设置cookie的过期时间，单位为秒，这里为一天
+		cookie.setMaxAge(86400);
+		return cookie;
+	}
+
+	/**
+	 * cookie管理对象
+	 * @return
+	 */
+	public CookieRememberMeManager rememberMeManager() {
+		CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
+		cookieRememberMeManager.setCookie(rememberMeCookie());
+		// rememberMe cookie加密的密钥
+		cookieRememberMeManager.setCipherKey(Base64.decode("4AvVhmFLUs0KTA3Kprsdag=="));
+		return cookieRememberMeManager;
 	}
 
 	/**
@@ -111,6 +138,8 @@ public class ShiroConfig {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 		// 设置realm.
 		securityManager.setRealm(customRealm());
+		//cookie管理配置对象
+		securityManager.setRememberMeManager(rememberMeManager());
 		return securityManager;
 	}
 

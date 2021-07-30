@@ -311,7 +311,7 @@
         padding:20px;
         outline:none;
         outline-offset:-1px;
-        height:400px;
+        min-height:250px;
         max-width:100%;
         background-color:#FFFFFF;
         flex-direction:column;
@@ -459,7 +459,7 @@
         padding:20px;
         outline:none;
         outline-offset:-1px;
-        height:300px;
+        min-height:250px;
         max-width:100%;
         background-color:#FFFFFF;
         flex-direction:column;
@@ -604,7 +604,7 @@
         padding:20px;
         outline:none;
         outline-offset:-1px;
-        height:300px;
+        min-height:250px;
         max-width:100%;
         background-color:#FFFFFF;
         flex-direction:column;

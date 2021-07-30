@@ -259,18 +259,18 @@
 			</if>
 			<if test="beginTime!=null and beginTime!=''">
 				<if test="_databaseId == 'mysql'">
-					and content_datetime &gt;= #{beginTime}
+					AND ct.UPDATE_DATE &gt;=  #{beginTime}
 				</if>
 				<if test="_databaseId == 'oracle'">
-					and content_datetime &gt;= to_date(#{beginTime}, 'yyyy-mm-dd hh24:mi:ss')
+					and ct.UPDATE_DATE &gt;= to_date(#{beginTime}, 'yyyy-mm-dd hh24:mi:ss')
 				</if>
 			</if>
 			<if test="endTime!=null and endTime!=''">
 				<if test="_databaseId == 'mysql'">
-					and content_datetime &gt;= #{endTime}
+					and ct.UPDATE_DATE &gt;= #{endTime}
 				</if>
 				<if test="_databaseId == 'oracle'">
-					and content_datetime &gt;= to_date(#{endTime}, 'yyyy-mm-dd hh24:mi:ss')
+					and ct.UPDATE_DATE &gt;= to_date(#{endTime}, 'yyyy-mm-dd hh24:mi:ss')
 				</if>
 			</if>
 			<if test="flag!=null and flag!=''">
