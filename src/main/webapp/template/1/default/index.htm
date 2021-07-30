@@ -1,37 +1,37 @@
 <html>
- <head> 
-  <meta charset="utf-8"> 
-  <title>{ms:global.name/}</title> 
-  <meta http-equiv="content-type" content="text/html"> 
-  <meta HTTP-EQUIV="Pragma" CONTENT="no-cache"> 
-  <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width"> 
-  <meta name="format-detection" content="telephone=no"> 
-  <meta name="app-mobile-web-app-capable" content="yes"> 
-  <meta name="app-mobile-web-app-status-bar-style" content="black-translucent"> 
-  <meta name="keywords" content="{ms:global.keyword/}"> 
-  <meta name="description" content="{ms:global.descrip/}"> 
-  <script type="text/javascript" src="{ms:global.host/}/static/plugins/vue/2.6.9/vue.min.js"></script> 
-  <link rel="stylesheet" href="{ms:global.host/}/static/plugins/minireset/0.0.2/minireset.min.css"> 
-  <link rel="stylesheet" href="https://cdn.mingsoft.net/iconfont/iconfont.css"> 
-  <link rel="stylesheet" href="{ms:global.host/}/static/plugins/animate/4.1.0/animate.min.css"> 
-  <script src="{ms:global.host/}/static/plugins/element-ui/2.12.0/index.js"></script> 
-  <link rel="stylesheet" href="{ms:global.host/}/static/plugins/element-ui/2.12.0/index.css"> 
-  <link rel="stylesheet" href="{ms:global.host/}/{ms:global.style/}/css/app.css"> 
-  <!--网络请求框架--> 
-  <script src="{ms:global.host/}/static/plugins/axios/0.18.0/axios.min.js"></script> 
-  <script src="{ms:global.host/}/static/plugins/qs/6.6.0/qs.min.js"></script> 
-  <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.js"></script> 
-  <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.http.js"></script> 
-  <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.util.js"></script> 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@4.5.1/dist/js/swiper.min.js"></script> 
+ <head>
+  <meta charset="utf-8">
+  <title>{ms:global.name/}</title>
+  <meta http-equiv="content-type" content="text/html">
+  <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+  <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="app-mobile-web-app-capable" content="yes">
+  <meta name="app-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="keywords" content="{ms:global.keyword/}">
+  <meta name="description" content="{ms:global.descrip/}">
+  <script type="text/javascript" src="{ms:global.host/}/static/plugins/vue/2.6.9/vue.min.js"></script>
+  <link rel="stylesheet" href="{ms:global.host/}/static/plugins/minireset/0.0.2/minireset.min.css">
+  <link rel="stylesheet" href="https://cdn.mingsoft.net/iconfont/iconfont.css">
+  <link rel="stylesheet" href="{ms:global.host/}/static/plugins/animate/4.1.0/animate.min.css">
+  <script src="{ms:global.host/}/static/plugins/element-ui/2.12.0/index.js"></script>
+  <link rel="stylesheet" href="{ms:global.host/}/static/plugins/element-ui/2.12.0/index.css">
+  <link rel="stylesheet" href="{ms:global.host/}/{ms:global.style/}/css/app.css">
+  <!--网络请求框架-->
+  <script src="{ms:global.host/}/static/plugins/axios/0.18.0/axios.min.js"></script>
+  <script src="{ms:global.host/}/static/plugins/qs/6.6.0/qs.min.js"></script>
+  <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.js"></script>
+  <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.http.js"></script>
+  <script src="{ms:global.host/}/static/plugins/ms/1.0.0/ms.util.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@4.5.1/dist/js/swiper.min.js"></script>
   <script>
 SwiperClass = Swiper
-</script> 
-  <script src="https://cdn.jsdelivr.net/npm/vue-awesome-swiper@4.1.1/dist/vue-awesome-swiper.min.js"></script> 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@5.4.5/css/swiper.min.css"> 
+</script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-awesome-swiper@4.1.1/dist/vue-awesome-swiper.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@5.4.5/css/swiper.min.css">
   <script>
 Vue.use(VueAwesomeSwiper)
-</script> 
+</script>
   <style>
 :root {
     --swiper-theme-color:$ {
@@ -41,16 +41,16 @@ Vue.use(VueAwesomeSwiper)
     ;
 }
 
-</style> 
+</style>
   <script>
         ms.base = "";
-    </script> 
+    </script>
   <style>
         [v-cloak]{
             display: none;
         }
-    </style> 
- </head> 
+    </style>
+ </head>
  <body>
   <div id="app" v-cloak>
    <#include "nav.htm" />
@@ -62,12 +62,12 @@ autoplay: {
 delay: 1500,
 },
 navigation: {nextEl: '.swiper-button-next',prevEl: '.swiper-button-prev'}
-}"> 
-     <div class="swiper-button-prev " slot="button-prev"> 
-     </div> 
-     <div class="swiper-button-next " slot="button-next"> 
-     </div> 
-     <!--静态图片--> 
+}">
+     <div class="swiper-button-prev " slot="button-prev">
+     </div>
+     <div class="swiper-button-next " slot="button-next">
+     </div>
+     <!--静态图片-->
      <!--动态图片-->
      {ms:arclist typeid=1329357285870346241 size=3 }
      <swiper-slide>
@@ -77,70 +77,70 @@ navigation: {nextEl: '.swiper-button-next',prevEl: '.swiper-button-prev'}
       </a>
      </swiper-slide>
      {/ms:arclist}
-    </swiper> 
-   </div> 
+    </swiper>
+   </div>
    <div class="about">
-     {ms:arclist typeid='1329259260493766658'} 
-    <div class="body"> 
-     <div class="left"> 
+     {ms:arclist typeid='1329259260493766658'}
+    <div class="body">
+     <div class="left">
       <img title="" alt="" src="{ms:global.host/}/{@ms:file field.litpic/}">
-     </div> 
-     <div class="right"> 
-      <div class="title"> 
-       <span> ${field.title} </span> 
-      </div> 
-      <div class="desc"> 
+     </div>
+     <div class="right">
+      <div class="title">
+       <span> ${field.title} </span>
+      </div>
+      <div class="desc">
        <span> ${field.descrip} </span>
-      </div> 
-     </div> 
-    </div> {/ms:arclist} 
-   </div> 
-   <div class="product"> 
-    <div class="title"> 
-     <span> 核心产品 </span> 
-    </div> 
+      </div>
+     </div>
+    </div> {/ms:arclist}
+   </div>
+   <div class="product">
+    <div class="title">
+     <span> 核心产品 </span>
+    </div>
     <div class="body">
       {ms:arclist flag='c' typeid='1329257213283344385'}
-     <div class="prod"> 
-      <div class="pic"> 
+     <div class="prod">
+      <div class="pic">
        <img title="" alt="" src="{ms:global.host/}/{@ms:file field.litpic/}">
-      </div> 
-      <a href="{ms:global.url/}${field.link}" class="text"> ${field.title} </a> 
-     </div> {/ms:arclist} 
-    </div> 
-    <a href="{ms:global.url/}/product/index.html" class="more"> 更多产品 </a> 
-   </div> 
-   <div class="news"> 
-    <div class="title"> 
-     <span> 新闻动态 </span> 
-    </div> 
+      </div>
+      <a href="{ms:global.url/}${field.link}" class="text"> ${field.title} </a>
+     </div> {/ms:arclist}
+    </div>
+    <a href="{ms:global.url/}/product/index.html" class="more"> 更多产品 </a>
+   </div>
+   <div class="news">
+    <div class="title">
+     <span> 新闻动态 </span>
+    </div>
     <div class="body">
-      {ms:arclist flag='c' typeid='1329257282518720513'} 
-     <div class="left"> 
+      {ms:arclist flag='c' typeid='1329257282518720513'}
+     <div class="left">
       <img title="" alt="" src="{ms:global.host/}/{@ms:file field.litpic/}">
       <a href="{ms:global.url/}${field.link}" target="_blank" class="title"> ${field.title} </a>
-      <span class="desc"> ${field.descrip} </span> 
-     </div> {/ms:arclist} 
+      <span class="desc"> ${field.descrip} </span>
+     </div> {/ms:arclist}
      <div class="right">
-       {ms:arclist size=3 typeid='1329257282518720513'} 
-      <div class="news-item"> 
-       <div class="date"> 
-        <span class="day"> ${field.date?string("dd")} </span> 
-        <span class="date"> ${field.date?string("yyyy-MM")} </span> 
-       </div> 
-       <div class="news-body"> 
-        <a href="{ms:global.url/}${field.link}" class="title"> ${field.title} </a> 
-        <span class="desc"> ${field.descrip} </span> 
-       </div> 
-      </div> {/ms:arclist} 
-     </div> 
-    </div> 
-    <div class="more"> 
-    </div> 
+       {ms:arclist size=3 typeid='1329257282518720513'}
+      <div class="news-item">
+       <div class="date">
+        <span class="day"> ${field.date?string("dd")} </span>
+        <span class="date"> ${field.date?string("yyyy-MM")} </span>
+       </div>
+       <div class="news-body">
+        <a href="{ms:global.url/}${field.link}" class="title"> ${field.title} </a>
+        <span class="desc"> ${field.descrip} </span>
+       </div>
+      </div> {/ms:arclist}
+     </div>
+    </div>
+    <div class="more">
+    </div>
     <a href="{ms:global.url/}/news/index.html" class="more"> 更多新闻 </a>
-   </div> 
-   <#include "footer.htm" /> 
-  </div>   
+   </div>
+   <#include "footer.htm" />
+  </div>
   <script>
 var app = new Vue({
     el: '#app',
@@ -162,7 +162,7 @@ var app = new Vue({
     created(){
     }
 })
-</script> 
+</script>
   <style>
     body {
         background-color:#fff;
@@ -174,7 +174,7 @@ var app = new Vue({
     .swiper-button-prev, .swiper-button-next{
      color: #fff;
     }
-    .ms-banner 
+    .ms-banner
     {
             flex-wrap:nowrap;
             flex-direction:row;
@@ -184,7 +184,7 @@ var app = new Vue({
             margin-top:0px;
             height:630px;
     }
-    .ms-banner .ms-vue-awesome-swiper 
+    .ms-banner .ms-vue-awesome-swiper
     {
             background-color:#E8F4FD;
             align-items:center;
@@ -199,7 +199,7 @@ var app = new Vue({
             margin-top:0px;
             height:100%;
     }
-    .ms-banner .ms-vue-awesome-swiper .ms-vue-awesome-swiper-bottom 
+    .ms-banner .ms-vue-awesome-swiper .ms-vue-awesome-swiper-bottom
     {
             background-color:rgba(0,0,0,0.5);
             align-items:center;
@@ -215,7 +215,7 @@ var app = new Vue({
             margin-top:0px;
             height:40px;
     }
-    .ms-banner .ms-vue-awesome-swiper .ms-vue-awesome-swiper-bottom .ms-vue-awesome-swiper-title 
+    .ms-banner .ms-vue-awesome-swiper .ms-vue-awesome-swiper-bottom .ms-vue-awesome-swiper-title
     {
             color:#FFFFFF;
             flex-direction:row;
@@ -224,7 +224,7 @@ var app = new Vue({
             font-size:14px;
             padding-left:0px;
     }
-    .about 
+    .about
     {
             align-items:center;
             flex-wrap:nowrap;
@@ -238,7 +238,7 @@ var app = new Vue({
             margin-top:18px;
             height:200px;
     }
-    .about .body 
+    .about .body
     {
             padding-bottom:0px;
             flex-wrap:nowrap;
@@ -252,7 +252,7 @@ var app = new Vue({
             margin-top:0px;
             height:100%;
     }
-    .about .body .left 
+    .about .body .left
     {
             flex-wrap:nowrap;
             flex-direction:row;
@@ -263,14 +263,14 @@ var app = new Vue({
             padding-left:0px;
             height:100%;
     }
-    .about .body .left img 
+    .about .body .left img
     {
             width:100%;
             padding-top:0px;
             padding-left:0px;
             height:100%;
     }
-    .about .body .right 
+    .about .body .right
     {
             flex-wrap:nowrap;
             flex-direction:column;
@@ -282,7 +282,7 @@ var app = new Vue({
             margin-top:0px;
             height:100%;
     }
-    .about .body .right .title 
+    .about .body .right .title
     {
             align-items:center;
             flex-wrap:nowrap;
@@ -295,7 +295,7 @@ var app = new Vue({
             margin-top:0px;
             height:40px;
     }
-    .about .body .right .title span 
+    .about .body .right .title span
     {
             padding-bottom:0px;
             flex-direction:row;
@@ -306,7 +306,7 @@ var app = new Vue({
             padding-top:0px;
             padding-left:0px;
     }
-    .about .body .right .desc 
+    .about .body .right .desc
     {
             flex-wrap:nowrap;
             flex-direction:row;
@@ -317,7 +317,7 @@ var app = new Vue({
             padding-left:0px;
             height:100%;
     }
-    .about .body .right .desc span 
+    .about .body .right .desc span
     {
             padding-bottom:0px;
             flex-direction:row;
@@ -329,7 +329,7 @@ var app = new Vue({
      line-height: 32px;
 
     }
-    .product 
+    .product
     {
             background-color:#F2F2F2;
             align-items:center;
@@ -346,7 +346,7 @@ var app = new Vue({
             padding-left:0px;
             margin-top:20px;
     }
-    .product .title 
+    .product .title
     {
             align-items:center;
             flex-direction:row;
@@ -363,7 +363,7 @@ var app = new Vue({
             margin-top:0px;
             height:40px;
     }
-    .product .title span 
+    .product .title span
     {
             padding-bottom:0px;
             flex-direction:row;
@@ -374,7 +374,7 @@ var app = new Vue({
             padding-top:0px;
             padding-left:0px;
     }
-    .product .body 
+    .product .body
     {
             flex-direction:row;
             display:flex;
@@ -390,7 +390,7 @@ var app = new Vue({
             margin-top:40px;
             height:100%;
     }
-    .product .body .prod 
+    .product .body .prod
     {
             background-color:#FFFFFF;
             flex-direction:column;
@@ -406,7 +406,7 @@ var app = new Vue({
             margin-top:0px;
             height:100%;
     }
-    .product .body .prod .pic 
+    .product .body .prod .pic
     {
             padding-bottom:0px;
             flex-wrap:nowrap;
@@ -420,7 +420,7 @@ var app = new Vue({
             margin-top:0px;
             height:200px;
     }
-    .product .body .prod .pic img 
+    .product .body .prod .pic img
     {
             padding-bottom:0px;
             width:100%;
@@ -429,7 +429,7 @@ var app = new Vue({
             margin-top:0px;
             height:100%;
     }
-    .product .body .prod .text 
+    .product .body .prod .text
     {
             padding-bottom:0px;
             text-align:center;
@@ -443,7 +443,7 @@ var app = new Vue({
             margin-top:10px;
             height:40px;
     }
-    .product .more 
+    .product .more
     {
             background-color:#FFFFFF;
             align-items:center;
@@ -461,7 +461,7 @@ var app = new Vue({
             margin-top:0px;
             height:48px;
     }
-    .news 
+    .news
     {
             align-items:center;
             flex-direction:column;
@@ -477,7 +477,7 @@ var app = new Vue({
             padding-left:0px;
             margin-top:20px;
     }
-    .news .title 
+    .news .title
     {
             align-items:center;
             flex-direction:row;
@@ -494,7 +494,7 @@ var app = new Vue({
             margin-top:0px;
             height:40px;
     }
-    .news .title span 
+    .news .title span
     {
             padding-bottom:0px;
             flex-direction:row;
@@ -505,7 +505,7 @@ var app = new Vue({
             padding-top:0px;
             padding-left:0px;
     }
-    .news .body 
+    .news .body
     {
             align-items:flex-start;
             flex-direction:row;
@@ -522,7 +522,7 @@ var app = new Vue({
             margin-top:20px;
             height:100%;
     }
-    .news .body .left 
+    .news .body .left
     {
             padding-bottom:0px;
             flex-wrap:nowrap;
@@ -535,13 +535,13 @@ var app = new Vue({
             padding-left:0px;
             margin-top:0px;
     }
-    .news .body .left img 
+    .news .body .left img
     {
             width:100%;
             padding-top:0px;
             height:280px;
     }
-    .news .body .left .title 
+    .news .body .left .title
     {
             text-align:left;
             flex-direction:row;
@@ -557,7 +557,7 @@ var app = new Vue({
             margin-top:0px;
             height:40px;
     }
-    .news .body .left .desc 
+    .news .body .left .desc
     {
             padding-bottom:0px;
             color:#B5B5B5;
@@ -571,7 +571,7 @@ var app = new Vue({
             padding-left:0px;
             margin-top:0px;
     }
-    .news .body .right 
+    .news .body .right
     {
             padding-bottom:0px;
             flex-wrap:nowrap;
@@ -586,7 +586,7 @@ var app = new Vue({
             margin-top:0px;
             height:100%;
     }
-    .news .body .right .news-item 
+    .news .body .right .news-item
     {
             padding-bottom:0px;
             flex-wrap:nowrap;
@@ -601,7 +601,7 @@ var app = new Vue({
             margin-top:0px;
             height:100px;
     }
-    .news .body .right .news-item .date 
+    .news .body .right .news-item .date
     {
             background-color:#EEEEEE;
             align-items:center;
@@ -618,7 +618,7 @@ var app = new Vue({
             padding-left:8px;
             height:100%;
     }
-    .news .body .right .news-item .date .day 
+    .news .body .right .news-item .date .day
     {
             padding-bottom:0px;
             text-align:center;
@@ -631,7 +631,7 @@ var app = new Vue({
             padding-left:0px;
             height:70%;
     }
-    .news .body .right .news-item .date .date 
+    .news .body .right .news-item .date .date
     {
             text-align:center;
             flex-direction:row;
@@ -640,7 +640,7 @@ var app = new Vue({
             font-size:16PX;
             padding-top:0px;
     }
-    .news .body .right .news-item .news-body 
+    .news .body .right .news-item .news-body
     {
             padding-bottom:0px;
             flex-wrap:nowrap;
@@ -655,7 +655,7 @@ var app = new Vue({
             margin-top:0px;
             height:100%;
     }
-    .news .body .right .news-item .news-body .title 
+    .news .body .right .news-item .news-body .title
     {
             text-align:left;
             flex-direction:row;
@@ -671,7 +671,7 @@ var app = new Vue({
             margin-top:0px;
             height:40px;
     }
-    .news .body .right .news-item .news-body .desc 
+    .news .body .right .news-item .news-body .desc
     {
             padding-bottom:0px;
             color:#B5B5B5;
@@ -685,7 +685,7 @@ var app = new Vue({
             padding-left:0px;
             margin-top:0px;
     }
-    .news .more 
+    .news .more
     {
             background-color:#FFFFFF;
             align-items:center;
@@ -704,7 +704,7 @@ var app = new Vue({
             height:48px;
     }
 @media (max-width: 768px){
-        .ms-banner 
+        .ms-banner
         {
                 flex-wrap:nowrap;
                 flex-direction:row;
@@ -714,7 +714,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:unset;
         }
-        .ms-banner .ms-vue-awesome-swiper 
+        .ms-banner .ms-vue-awesome-swiper
         {
                 background-color:#E8F4FD;
                 align-items:center;
@@ -729,7 +729,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:300px;
         }
-        .ms-banner .ms-vue-awesome-swiper .ms-vue-awesome-swiper-bottom 
+        .ms-banner .ms-vue-awesome-swiper .ms-vue-awesome-swiper-bottom
         {
                 background-color:RGBA(63, 158, 255, .75);
                 align-items:center;
@@ -745,7 +745,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:40px;
         }
-        .ms-banner .ms-vue-awesome-swiper .ms-vue-awesome-swiper-bottom .ms-vue-awesome-swiper-title 
+        .ms-banner .ms-vue-awesome-swiper .ms-vue-awesome-swiper-bottom .ms-vue-awesome-swiper-title
         {
                 color:#FFFFFF;
                 flex-direction:row;
@@ -754,7 +754,7 @@ var app = new Vue({
                 font-size:14px;
                 padding-left:0px;
         }
-        .about 
+        .about
         {
                 align-items:center;
                 flex-wrap:nowrap;
@@ -768,7 +768,7 @@ var app = new Vue({
                 margin-top:18px;
                 height:100%;
         }
-        .about .body 
+        .about .body
         {
                 padding-bottom:0px;
                 align-items:center;
@@ -783,7 +783,7 @@ var app = new Vue({
                 justify-content:flex-start;
                 height:100%;
         }
-        .about .body .left 
+        .about .body .left
         {
                 align-items:center;
                 flex-wrap:nowrap;
@@ -796,14 +796,14 @@ var app = new Vue({
                 padding-left:0px;
                 justify-content:center;
         }
-        .about .body .left img 
+        .about .body .left img
         {
                 width:100%;
                 margin-bottom:0px;
                 padding-top:0px;
                 height:200px;
         }
-        .about .body .right 
+        .about .body .right
         {
                 flex-wrap:nowrap;
                 flex-direction:column;
@@ -816,7 +816,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:100%;
         }
-        .about .body .right .title 
+        .about .body .right .title
         {
                 align-items:center;
                 flex-wrap:nowrap;
@@ -829,7 +829,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:40px;
         }
-        .about .body .right .title span 
+        .about .body .right .title span
         {
                 padding-bottom:0px;
                 flex-direction:row;
@@ -840,7 +840,7 @@ var app = new Vue({
                 padding-top:0px;
                 padding-left:0px;
         }
-        .about .body .right .desc 
+        .about .body .right .desc
         {
                 flex-wrap:nowrap;
                 flex-direction:row;
@@ -851,7 +851,7 @@ var app = new Vue({
                 padding-left:0px;
                 height:100%;
         }
-        .about .body .right .desc span 
+        .about .body .right .desc span
         {
                 padding-bottom:0px;
                 flex-direction:row;
@@ -861,7 +861,7 @@ var app = new Vue({
                 padding-top:0px;
                 margin-top:20px;
         }
-        .product 
+        .product
         {
                 background-color:#F2F2F2;
                 align-items:center;
@@ -879,7 +879,7 @@ var app = new Vue({
                 margin-top:20px;
                 height:unset;
         }
-        .product .title 
+        .product .title
         {
                 align-items:center;
                 flex-direction:row;
@@ -896,7 +896,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:40px;
         }
-        .product .title span 
+        .product .title span
         {
                 padding-bottom:0px;
                 flex-direction:row;
@@ -907,7 +907,7 @@ var app = new Vue({
                 padding-top:0px;
                 padding-left:0px;
         }
-        .product .body 
+        .product .body
         {
                 padding-bottom:0px;
                 align-items:center;
@@ -922,7 +922,7 @@ var app = new Vue({
                 justify-content:center;
                 height:100%;
         }
-        .product .body .prod 
+        .product .body .prod
         {
                 background-color:#FFFFFF;
                 flex-direction:column;
@@ -938,7 +938,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:100%;
         }
-        .product .body .prod .pic 
+        .product .body .prod .pic
         {
                 padding-bottom:0px;
                 flex-wrap:nowrap;
@@ -951,7 +951,7 @@ var app = new Vue({
                 padding-left:0px;
                 height:200px;
         }
-        .product .body .prod .pic img 
+        .product .body .prod .pic img
         {
                 padding-bottom:0px;
                 width:100%;
@@ -959,7 +959,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:100%;
         }
-        .product .body .prod .text 
+        .product .body .prod .text
         {
                 padding-bottom:0px;
                 text-align:center;
@@ -973,7 +973,7 @@ var app = new Vue({
                 margin-top:10px;
                 height:40px;
         }
-        .product .more 
+        .product .more
         {
                 background-color:#FFFFFF;
                 align-items:center;
@@ -991,7 +991,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:48px;
         }
-        .news 
+        .news
         {
                 align-items:center;
                 flex-direction:column;
@@ -1008,7 +1008,7 @@ var app = new Vue({
                 margin-top:20px;
                 height:unset;
         }
-        .news .title 
+        .news .title
         {
                 align-items:center;
                 flex-direction:row;
@@ -1025,7 +1025,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:40px;
         }
-        .news .title span 
+        .news .title span
         {
                 padding-bottom:0px;
                 flex-direction:row;
@@ -1036,7 +1036,7 @@ var app = new Vue({
                 padding-top:0px;
                 padding-left:0px;
         }
-        .news .body 
+        .news .body
         {
                 align-items:flex-start;
                 flex-direction:column;
@@ -1053,7 +1053,7 @@ var app = new Vue({
                 margin-top:20px;
                 height:100%;
         }
-        .news .body .left 
+        .news .body .left
         {
                 padding-bottom:0px;
                 flex-wrap:nowrap;
@@ -1066,7 +1066,7 @@ var app = new Vue({
                 padding-left:0px;
                 margin-top:0px;
         }
-        .news .body .left img 
+        .news .body .left img
         {
                 padding-bottom:0px;
                 width:100%;
@@ -1075,7 +1075,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:100%;
         }
-        .news .body .left .title 
+        .news .body .left .title
         {
                 padding-bottom:0px;
                 text-align:left;
@@ -1090,7 +1090,7 @@ var app = new Vue({
                 justify-content:flex-start;
                 height:40px;
         }
-        .news .body .left .desc 
+        .news .body .left .desc
         {
                 padding-bottom:0px;
                 color:#B5B5B5;
@@ -1104,7 +1104,7 @@ var app = new Vue({
                 padding-left:0px;
                 margin-top:0px;
         }
-        .news .body .right 
+        .news .body .right
         {
                 padding-bottom:0px;
                 flex-wrap:nowrap;
@@ -1119,7 +1119,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:100%;
         }
-        .news .body .right .news-item 
+        .news .body .right .news-item
         {
                 padding-bottom:0px;
                 flex-wrap:nowrap;
@@ -1134,7 +1134,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:100px;
         }
-        .news .body .right .news-item .date 
+        .news .body .right .news-item .date
         {
                 background-color:#EEEEEE;
                 align-items:center;
@@ -1151,7 +1151,7 @@ var app = new Vue({
                 padding-left:8px;
                 height:100%;
         }
-        .news .body .right .news-item .date .day 
+        .news .body .right .news-item .date .day
         {
                 padding-bottom:0px;
                 text-align:center;
@@ -1164,7 +1164,7 @@ var app = new Vue({
                 padding-left:0px;
                 height:70%;
         }
-        .news .body .right .news-item .date .date 
+        .news .body .right .news-item .date .date
         {
                 text-align:center;
                 flex-direction:row;
@@ -1173,7 +1173,7 @@ var app = new Vue({
                 font-size:16PX;
                 padding-top:0px;
         }
-        .news .body .right .news-item .news-body 
+        .news .body .right .news-item .news-body
         {
                 padding-bottom:0px;
                 flex-wrap:nowrap;
@@ -1188,7 +1188,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:100%;
         }
-        .news .body .right .news-item .news-body .title 
+        .news .body .right .news-item .news-body .title
         {
                 text-align:left;
                 flex-direction:row;
@@ -1204,7 +1204,7 @@ var app = new Vue({
                 margin-top:0px;
                 height:40px;
         }
-        .news .body .right .news-item .news-body .desc 
+        .news .body .right .news-item .news-body .desc
         {
          display: none;
                 padding-bottom:0px;
@@ -1218,7 +1218,7 @@ var app = new Vue({
                 padding-left:0px;
                 margin-top:0px;
         }
-        .news .more 
+        .news .more
         {
                 background-color:#FFFFFF;
                 align-items:center;
