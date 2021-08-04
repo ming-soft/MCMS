@@ -94,7 +94,7 @@
                                            :label="item"></el-option>
                             </el-select>
                             <div class="ms-form-tip">
-                                当栏目类型为<b>列表</b>时有效
+                                当栏目类型为<b>列表</b>时有效,没有选择模版不会进行静态化（不会生成列表静态页）
                             </div>
                         </el-form-item>
                     </el-col>
@@ -114,6 +114,9 @@
                                 <el-option v-for='item in categoryUrlOptions' :key="item" :value="item"
                                            :label="item"></el-option>
                             </el-select>
+                            <div class="ms-form-tip">
+                                当栏目类型为<b>列表</b>时有效,没有选择模版不会进行静态化（不会生成内容静态页）
+                            </div>
                         </el-form-item>
 
                         <el-form-item prop="categoryDiyUrl" label="自定义链接"  v-if="form.categoryType == '3'">
@@ -305,10 +308,10 @@
                         "required": true,
                         "message": "请选择栏目管理名称"
                     }],
-                    categoryListUrl: [{
-                        "required": true,
-                        "message": "请选择列表模板"
-                    }],
+                    // categoryListUrl: [{
+                    //     "required": true,
+                    //     "message": "请选择列表模板"
+                    // }],
                     categoryPinyin:[{
                         validator: validatorCategoryPinyin, trigger: 'blur'
                     }, {
@@ -316,10 +319,10 @@
                         "message": "拼音格式不匹配"
                     }],
                     // 内容模板
-                    categoryUrl: [{
-                        "required": true,
-                        "message": "请选择内容模板"
-                    }]
+                    // categoryUrl: [{
+                    //     "required": true,
+                    //     "message": "请选择内容模板"
+                    // }]
                 }
             };
         },
