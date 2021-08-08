@@ -3,25 +3,33 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>net.mingsoft</groupId>
-        <artifactId>ms-pom</artifactId>
-        <version>2.1.3-SNAPSHOT</version>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.13.RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.mingsoft</groupId>
     <artifactId>ms-mcms</artifactId>
-    <version>5.2.2-SNAPSHOT</version>
+    <version>5.2.3</version>
     <name>ms-mcms</name>
     <!-- 打包war包 -->
+    <!--    <packaging>war</packaging>-->
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <repositories>
         <repository>
-            <id>deploy</id>
-            <name>ms</name>
-            <url>http://192.168.0.8:5000/repository/maven-public/</url>
+            <id>central-repos</id>
+            <name>Central Repository 2</name>
+            <url>https://repo.maven.apache.org/maven2/</url>
+        </repository>
+        <!--阿里云仓库-->
+        <!--
+        <repository>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -29,27 +37,28 @@
                 <enabled>true</enabled>
             </snapshots>
         </repository>
+        -->
     </repositories>
     <dependencies>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-base</artifactId>
-            <version>${ms.version}</version>
+            <version>2.1.5</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-basic</artifactId>
-            <version>${ms.version}</version>
+            <version>2.1.5</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mdiy</artifactId>
-            <version>${ms.version}</version>
+            <version>2.1.5</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>store-client</artifactId>
-            <version>${ms.version}</version>
+            <version>2.1.5</version>
         </dependency>
 
     </dependencies>
@@ -65,7 +74,7 @@
                     <exclude>html/</exclude>
                     <exclude>upload/</exclude>
                     <exclude>template/</exclude>
-                    <!-- 打包war包，必须删除下面一行代码。打包jar包，推荐启用下面一行代码，方便修改页面代码，否则会WEB-INF里面到文件都会打包到jar里面，不方便修改页面代码-->
+                    <!-- 如果生产需要实时修改WEB-INF/下的页面可，启用这行并手动将项目中的WEB-INF目录复制到运行环境 -->
                     <!-- <exclude>WEB-INF/</exclude>-->
                 </excludes>
             </resource>
@@ -80,14 +89,9 @@
             </resource>
         </resources>
         <plugins>
-            <!-- 打包war包，启用下面的代码 -->
-
-
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.5.0</version>
                 <configuration>
                     <executable>true</executable>
                 </configuration>
