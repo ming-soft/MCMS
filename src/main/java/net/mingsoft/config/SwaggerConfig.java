@@ -20,6 +20,7 @@
  */
 package net.mingsoft.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,10 +39,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @ConditionalOnProperty(prefix="ms",name = "swagger-enable", havingValue = "true")
 public class SwaggerConfig {
 
+	@Value("${ms.manager.path}")
+	private String mangerPath ;
+
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select()
-				.apis(RequestHandlerSelectors.basePackage("net.mingsoft")).paths(PathSelectors.any())
+				.apis(RequestHandlerSelectors.basePackage("net.mingsoft")).paths(PathSelectors.regex("^((?!("+mangerPath+"|static)).)+$"))
 				.build();
 	}
 
