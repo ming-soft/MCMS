@@ -203,20 +203,12 @@ CREATE TABLE `logger` (
   `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
   `del` int(1) DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统日志';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统日志';
 
 -- ----------------------------
 -- Records of logger
 -- ----------------------------
 BEGIN;
-INSERT INTO `logger` VALUES (1, NULL, '{\n	\"result\":true,\n	\"code\":200\n}', '{\n	\"url\":[\"index.htm\"],\n	\"position\":[\"index\"]\n}', '内网IP', 'msopen', 'manage', 'update', 'success', '/ms/cms/generate//generateIndex.do', 'POST', 'net.mingsoft.cms.action.GeneraterAction.generateIndex()', '127.0.0.1', '生成主页', NULL, NULL, '2021-06-26 02:04:44', NULL, 0);
-INSERT INTO `logger` VALUES (2, NULL, '{\n	\"result\":true,\n	\"code\":200\n}', '{\n	\"dateTime\":[\"2019-06-09\"]\n}', '内网IP', 'msopen', 'manage', 'update', 'success', '/ms/cms/generate/0/generateArticle.do', 'POST', 'net.mingsoft.cms.action.GeneraterAction.generateArticle()', '127.0.0.1', '生成文章', NULL, NULL, '2021-06-26 02:05:02', NULL, 0);
-INSERT INTO `logger` VALUES (3, NULL, '{\n	\"result\":true,\n	\"code\":200\n}', '{}', '内网IP', 'msopen', 'manage', 'update', 'success', '/ms/cms/generate/0/genernateColumn.do', 'GET', 'net.mingsoft.cms.action.GeneraterAction.genernateColumn()', '127.0.0.1', '生成栏目', NULL, NULL, '2021-06-26 02:05:03', NULL, 0);
-INSERT INTO `logger` VALUES (4, NULL, '{\n	\"result\":true,\n	\"code\":200\n}', '{\n	\"url\":[\"index.htm\"],\n	\"position\":[\"index\"]\n}', '内网IP', 'msopen', 'manage', 'update', 'success', '/ms/cms/generate//generateIndex.do', 'POST', 'net.mingsoft.cms.action.GeneraterAction.generateIndex()', '127.0.0.1', '生成主页', NULL, NULL, '2021-07-24 01:14:08', NULL, 0);
-INSERT INTO `logger` VALUES (5, '\n### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'ct.category_id=\'1329257594591715329\'\' at line 10\n### The error may exist in net/mingsoft/cms/dao/IContentDao.xml\n### The error may involve defaultParameterMap\n### The error occurred while setting parameters\n### SQL: select    ct.id article_id,c.*    FROM cms_content ct    LEFT JOIN cms_category c ON ct.category_id = c.id    where ct.del=0                    ct.category_id=?\n### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'ct.category_id=\'1329257594591715329\'\' at line 10\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'ct.category_id=\'1329257594591715329\'\' at line 10', 'null', '{}', '内网IP', 'msopen', 'manage', 'update', 'error', '/ms/cms/generate/1329257498923835394/genernateColumn.do', 'GET', 'net.mingsoft.cms.action.GeneraterAction.genernateColumn()', '127.0.0.1', '生成栏目', NULL, NULL, '2021-07-24 01:21:52', NULL, 0);
-INSERT INTO `logger` VALUES (6, '\n### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'ct.category_id=\'1329257594591715329\'\' at line 10\n### The error may exist in net/mingsoft/cms/dao/IContentDao.xml\n### The error may involve defaultParameterMap\n### The error occurred while setting parameters\n### SQL: select    ct.id article_id,c.*    FROM cms_content ct    LEFT JOIN cms_category c ON ct.category_id = c.id    where ct.del=0                    ct.category_id=?\n### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'ct.category_id=\'1329257594591715329\'\' at line 10\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'ct.category_id=\'1329257594591715329\'\' at line 10', 'null', '{}', '内网IP', 'msopen', 'manage', 'update', 'error', '/ms/cms/generate/1329257498923835394/genernateColumn.do', 'GET', 'net.mingsoft.cms.action.GeneraterAction.genernateColumn()', '127.0.0.1', '生成栏目', NULL, NULL, '2021-07-24 01:22:57', NULL, 0);
-INSERT INTO `logger` VALUES (7, NULL, '{\n	\"result\":true,\n	\"code\":200\n}', '{}', '内网IP', 'msopen', 'manage', 'update', 'success', '/ms/cms/generate/1329257498923835394/genernateColumn.do', 'GET', 'net.mingsoft.cms.action.GeneraterAction.genernateColumn()', '127.0.0.1', '生成栏目', NULL, NULL, '2021-07-24 01:27:21', NULL, 0);
-INSERT INTO `logger` VALUES (8, NULL, '{\n	\"result\":true,\n	\"code\":200\n}', '{}', '内网IP', 'msopen', 'manage', 'update', 'success', '/ms/cms/generate/1329257498923835394/genernateColumn.do', 'GET', 'net.mingsoft.cms.action.GeneraterAction.genernateColumn()', '127.0.0.1', '生成栏目', NULL, NULL, '2021-07-24 01:33:44', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -261,7 +253,8 @@ CREATE TABLE `mdiy_config` (
   `create_date` datetime DEFAULT NULL COMMENT '创建时间',
   `create_by` int(11) DEFAULT NULL COMMENT '创建人',
   `del` int(1) DEFAULT '0' COMMENT '删除标记',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `idx_config_name` (`config_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义配置';
 
 -- ----------------------------
@@ -290,22 +283,23 @@ CREATE TABLE `mdiy_dict` (
   `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
   `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `inx_unique` (`dict_value`,`dict_label`,`dict_type`),
   KEY `inx_dict_value` (`dict_value`) USING BTREE,
   KEY `inx_dict_label` (`dict_label`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=645 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='字典表';
+) ENGINE=InnoDB AUTO_INCREMENT=648 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='字典表';
 
 -- ----------------------------
 -- Records of mdiy_dict
 -- ----------------------------
 BEGIN;
-INSERT INTO `mdiy_dict` VALUES (1, 'f', '幻灯', '文章属性', NULL, NULL, '1', NULL, 3, NULL, NULL, NULL, NULL, 0);
-INSERT INTO `mdiy_dict` VALUES (2, 'p', '图片', '文章属性', NULL, NULL, '1', NULL, 1, NULL, NULL, NULL, NULL, 0);
-INSERT INTO `mdiy_dict` VALUES (3, 'c', '推荐', '文章属性', NULL, NULL, '1', NULL, 4, '57', '2021-03-26 08:39:05', NULL, NULL, 0);
-INSERT INTO `mdiy_dict` VALUES (4, 'h', '头条', '文章属性', NULL, NULL, '1', NULL, 2, NULL, NULL, NULL, NULL, 0);
-INSERT INTO `mdiy_dict` VALUES (621, 'cms', '文章', '自定义模型类型', NULL, '0', '1', NULL, 0, NULL, NULL, NULL, NULL, 0);
-INSERT INTO `mdiy_dict` VALUES (642, 'cms', '文章', '自定义页面类型', NULL, NULL, '1', NULL, 0, NULL, NULL, NULL, NULL, 0);
-INSERT INTO `mdiy_dict` VALUES (643, 'c', '推荐', '栏目属性', NULL, NULL, '1', NULL, 0, NULL, NULL, NULL, NULL, 0);
-INSERT INTO `mdiy_dict` VALUES (644, 'nav', '导航', '栏目属性', NULL, NULL, '1', NULL, 0, NULL, NULL, NULL, NULL, 0);
+INSERT INTO `mdiy_dict` VALUES (1, 'f', '幻灯', '文章属性', NULL, NULL, '1', NULL, 3, NULL, NULL, NULL, NULL, 3);
+INSERT INTO `mdiy_dict` VALUES (2, 'p', '图片', '文章属性', NULL, NULL, '1', NULL, 1, NULL, NULL, NULL, NULL, 3);
+INSERT INTO `mdiy_dict` VALUES (3, 'c', '推荐', '文章属性', NULL, NULL, '1', NULL, 4, '57', '2021-03-26 08:39:05', NULL, NULL, 3);
+INSERT INTO `mdiy_dict` VALUES (4, 'h', '头条', '文章属性', NULL, NULL, '1', NULL, 2, NULL, NULL, NULL, NULL, 3);
+INSERT INTO `mdiy_dict` VALUES (621, 'cms', '文章', '自定义模型类型', NULL, '0', '1', NULL, 0, NULL, NULL, NULL, NULL, 3);
+INSERT INTO `mdiy_dict` VALUES (642, 'cms', '文章', '自定义页面类型', NULL, NULL, '1', NULL, 0, NULL, NULL, NULL, NULL, 3);
+INSERT INTO `mdiy_dict` VALUES (643, 'c', '推荐', '栏目属性', NULL, NULL, '1', NULL, 0, NULL, NULL, NULL, NULL, 3);
+INSERT INTO `mdiy_dict` VALUES (644, 'nav', '导航', '栏目属性', NULL, NULL, '1', NULL, 0, NULL, NULL, NULL, NULL, 3);
 COMMIT;
 
 -- ----------------------------
@@ -349,7 +343,8 @@ CREATE TABLE `mdiy_model` (
   `create_date` datetime DEFAULT NULL COMMENT '创建时间',
   `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
   `del` int(1) DEFAULT '0' COMMENT '删除标记',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `indx_model_name` (`model_name`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='自定义模型';
 
 -- ----------------------------
@@ -364,19 +359,18 @@ COMMIT;
 DROP TABLE IF EXISTS `mdiy_page`;
 CREATE TABLE `mdiy_page` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
-  `page_model_id` int(11) DEFAULT NULL COMMENT '模块id',
-  `page_path` varchar(255) DEFAULT NULL COMMENT '自定义页面绑定模板的路径',
-  `page_title` varchar(255) DEFAULT NULL COMMENT '自定义页面标题',
+  `page_key` varchar(255) NOT NULL COMMENT '自定义页面访问路径',
+  `page_path` varchar(255) NOT NULL COMMENT '自定义页面绑定模板的路径',
+  `page_title` varchar(255) NOT NULL COMMENT '自定义页面标题',
   `page_type` varchar(255) DEFAULT NULL COMMENT '字典分类字段',
-  `page_key` varchar(255) DEFAULT NULL COMMENT '自定义页面访问路径',
   `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
+  `page_model_id` int(11) DEFAULT NULL COMMENT '模块id',
   `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
   `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
   `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
   `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `index_page_key` (`page_key`) USING BTREE,
-  KEY `index_page_model_id` (`page_model_id`) USING BTREE
+  UNIQUE KEY `idx_page_key` (`page_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='自定义页面表';
 
 -- ----------------------------
@@ -441,8 +435,9 @@ CREATE TABLE `model` (
   `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `idx_model_id` (`model_id`) USING BTREE,
+  KEY `idx_model_title` (`model_title`,`model_url`),
   CONSTRAINT `fk_model_id` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1733 DEFAULT CHARSET=utf8 COMMENT='模块表';
+) ENGINE=InnoDB AUTO_INCREMENT=1809 DEFAULT CHARSET=utf8 COMMENT='模块表';
 
 -- ----------------------------
 -- Records of model
