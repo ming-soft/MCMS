@@ -24,6 +24,7 @@
             <name>Central Repository 2</name>
             <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
+
         <!--阿里云仓库-->
         <!--
         <repository>
@@ -43,39 +44,39 @@
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-base</artifactId>
-            <version>2.1.5</version>
+            <version>2.1.7</version>
         </dependency>
         <!--base源码-->
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-base</artifactId>
-            <version>2.1.5</version>
+            <version>2.1.7</version>
             <classifier>sources</classifier>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-basic</artifactId>
-            <version>2.1.5</version>
+            <version>2.1.7</version>
         </dependency>
         <!--basic源码-->
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-basic</artifactId>
-            <version>2.1.5</version>
+            <version>2.1.7</version>
             <classifier>sources</classifier>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mdiy</artifactId>
-            <version>2.1.5</version>
+            <version>2.1.7</version>
         </dependency>
         <!--mdiy源码-->
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mdiy</artifactId>
-            <version>2.1.5</version>
+            <version>2.1.7</version>
             <classifier>sources</classifier>
             <scope>provided</scope>
         </dependency>
@@ -83,7 +84,7 @@
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>store-client</artifactId>
-            <version>2.1.5</version>
+            <version>2.1.7.1</version>
         </dependency>
 
     </dependencies>
