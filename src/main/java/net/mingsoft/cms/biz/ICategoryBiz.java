@@ -35,7 +35,7 @@ import java.util.List;
 public interface ICategoryBiz extends IBaseBiz<CategoryEntity> {
 
     /**
-     * 查询当前分类下的所有子分类
+     * 查询当前分类下的所有子分类,包含自身
      * @param category
      * @return
      */

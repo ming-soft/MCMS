@@ -38,6 +38,8 @@ import net.mingsoft.mdiy.biz.impl.ModelBizImpl;
 import net.mingsoft.mdiy.entity.ModelEntity;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -46,7 +48,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
 
 /**
  * 文章解析工具类
@@ -55,6 +56,7 @@ public class CmsParserUtil {
 
 
     private final static String FIELD = "field";
+    protected final static Logger LOG = LoggerFactory.getLogger(CmsParserUtil.class);
 
     /**
      * 指定模板，指定路径进行生成静态页面，会自定识别pc与移动端
@@ -226,6 +228,7 @@ public class CmsParserUtil {
             }
             // 文章的模板路径
             String columnUrl = categoryBean.getCategoryUrl();
+            LOG.debug("columnUrl {}",columnUrl);
             // 文章的栏目模型编号
             Integer columnContentModelId = null;
             if (articleIdList.get(artId).getMdiyModelId() != null && categoryBean.getMdiyModelId() > 0) {

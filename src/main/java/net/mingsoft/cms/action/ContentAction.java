@@ -32,8 +32,12 @@ import net.mingsoft.basic.constant.e.BusinessTypeEnum;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.bean.ContentBean;
+import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
+import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
+import net.mingsoft.mdiy.biz.IModelBiz;
+import net.mingsoft.mdiy.entity.ModelEntity;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,10 +46,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 文章管理控制层
@@ -64,6 +71,14 @@ public class ContentAction extends BaseAction {
 	 */
 	@Autowired
 	private IContentBiz contentBiz;
+
+
+	@Autowired
+	private ICategoryBiz categoryBiz;
+
+
+	@Resource(name="mdiyModelBizImpl")
+	private IModelBiz modelBiz;
 
 	/**
 	 * 返回主界面index
@@ -227,7 +242,20 @@ public class ContentAction extends BaseAction {
 		List<String> ids = new ArrayList<>();
 		for(int i = 0;i<contents.size();i++){
 			ids.add(contents.get(i).getId());
+			//获取栏目实体
+			CategoryEntity categoryEntity = categoryBiz.getById(contents.get(i).getCategoryId());
+			//如果栏目绑定的模型ID为空
+			if (categoryEntity.getMdiyModelId() == null){
+				break;
+			}
+			//获取到配置模型实体
+			ModelEntity modelEntity = modelBiz.getById(categoryEntity.getMdiyModelId());
+			//删除模型表的数据
+			Map<String, String> map = new HashMap<>();
+			map.put("link_id", contents.get(i).getId());
+			modelBiz.deleteBySQL(modelEntity.getModelTableName(), map);
 		}
+
 		contentBiz.removeByIds(ids);
 		return ResultData.build().success();
 	}

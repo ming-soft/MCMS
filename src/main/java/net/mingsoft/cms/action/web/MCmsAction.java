@@ -74,6 +74,7 @@ import java.util.Map;
  *
  * @author 铭飞开源团队
  * @date 2018年12月17日
+ * @date 2021年8月26日取消默认search.htm
  */
 @Controller("dynamicPageAction")
 @RequestMapping("/mcms")
@@ -97,11 +98,6 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
     @Autowired
     private ICategoryBiz categoryBiz;
 
-
-    /**
-     * 搜索标签;
-     */
-    public static final String SEARCH = "search";
 
     /**
      * 自定义模型
@@ -320,9 +316,10 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
     @RequestMapping(value = "search",method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public String search(HttpServletRequest request, HttpServletResponse response) {
+        String search = BasicUtil.getString("tmpl", "search.htm");
         //设置分页类
         PageBean page = new PageBean();
-        page.setSize(ParserUtil.getPageSize(SEARCH + ParserUtil.HTM_SUFFIX, 20));
+        page.setSize(ParserUtil.getPageSize(search, 20));
 
         //参数集合，提供给解析使用
         Map<String, Object> params = new HashMap<>();
@@ -461,7 +458,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         //查询数量
         int count = contentBiz.getSearchCount(contentModel, fieldValueList, searchMap, BasicUtil.getApp().getAppId(), categoryIds);
         page.setRcount(count);
-        params.put(SEARCH, searchMap);
+        params.put("search", searchMap);
 
         //站点编号
         if (BasicUtil.getWebsiteApp() != null) {
@@ -473,15 +470,8 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
             params.put(ParserUtil.APP_DIR, BasicUtil.getApp().getAppDir());
         }
 
-        params.put(ParserUtil.PAGE, page);
-        params.put(ParserUtil.HTML, htmlDir);
-        //动态解析
-        params.put(ParserUtil.IS_DO, false);
-        //设置动态请求的模块路径
-        params.put(ParserUtil.MODEL_NAME, "mcms");
-
         searchMap.put("pageNo", 0);
-//        ParserUtil.read(SEARCH + ParserUtil.HTM_SUFFIX, map, page);
+//        ParserUtil.read(search, map, page);
         int total = PageUtil.totalPage(count, page.getSize());
 
 
@@ -512,10 +502,6 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         page.setPreUrl(preUrl);
         page.setLastUrl(lastUrl);
 
-        params.put(SEARCH, searchMap);
-        if (BasicUtil.getWebsiteApp() != null) {
-            params.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
-        }
         params.put(ParserUtil.PAGE, page);
         params.put(ParserUtil.HTML, htmlDir);
         //动态解析
@@ -527,7 +513,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         String content = "";
         try {
             //根据模板路径，参数生成
-            content = ParserUtil.rendering(SEARCH + ParserUtil.HTM_SUFFIX, params);
+            content = ParserUtil.rendering(search, params);
         } catch (TemplateNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedTemplateNameException e) {

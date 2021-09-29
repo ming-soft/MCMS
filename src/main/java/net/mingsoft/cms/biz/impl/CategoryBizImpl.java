@@ -200,7 +200,6 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
         CategoryEntity category = (CategoryEntity) categoryDao.selectById(categoryId);
         //删除父类
         if (category != null) {
-            category.setCategoryParentIds(null);
             List<CategoryEntity> childrenList = categoryDao.queryChildren(category);
             List<String> ids = new ArrayList<>();
             for (int i = 0; i < childrenList.size(); i++) {
@@ -217,8 +216,6 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
             List<CategoryEntity> childNode = categoryDao.queryChildren(parentNode);
             //判断删除的是否为主节点
             if (parentNode != null) {
-                //清空CategoryParentIds,避免查找不必要的数据，只需要当前的父级栏目
-                parentNode.setCategoryParentIds(null);
                 UpdateWrapper<CategoryEntity> updateWrapper = new UpdateWrapper<>();
                 //如果没有子节点进行更新代码
                 if (childNode.size() == 1) {

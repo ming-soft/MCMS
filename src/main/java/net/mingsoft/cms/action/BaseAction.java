@@ -26,7 +26,7 @@ import java.util.MissingResourceException;
  * @Author: 铭飞开源团队--huise
  * @Date: 2019/8/9 20:47
  */
-public class BaseAction extends net.mingsoft.mdiy.action.BaseAction{
+public class BaseAction extends net.mingsoft.basic.action.BaseAction{
     @Override
     protected String getResString(String key) {
         // TODO Auto-generated method stub

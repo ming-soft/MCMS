@@ -173,7 +173,10 @@ public class GeneraterAction extends BaseAction {
 
         // 获取栏目列表模版
         for (CategoryEntity column : columns) {
-
+            //如果是链接就跳过生成
+            if(column.getCategoryType().equals(CategoryTypeEnum.LINK.toString())) {
+                continue;
+            }
             ContentBean contentBean = new ContentBean();
             contentBean.setCategoryId(column.getId());
             contentBean.setCategoryType(column.getCategoryType());
@@ -184,7 +187,7 @@ public class GeneraterAction extends BaseAction {
                 case LIST: // 列表
 
                     // 判断模板文件是否存在
-                    if (!FileUtil.exist(ParserUtil.buildTemplatePath(column.getCategoryListUrl()))) {
+                    if (StringUtils.isEmpty(column.getCategoryListUrl()) || !FileUtil.exist(ParserUtil.buildTemplatePath(column.getCategoryListUrl()))) {
                         LOG.error("模板不存在：{}", column.getCategoryUrl());
                         continue;
                     }
@@ -192,6 +195,13 @@ public class GeneraterAction extends BaseAction {
                     CmsParserUtil.generateList(column, articleIdList.size(),htmlDir);
                     break;
                 case COVER:// 单页
+
+                    // 判断模板文件是否存在
+                    if (StringUtils.isEmpty(column.getCategoryUrl()) || !FileUtil.exist(ParserUtil.buildTemplatePath(column.getCategoryUrl()))) {
+                        LOG.error("模板不存在：{}", column.getCategoryUrl());
+                        continue;
+                    }
+
                     if (articleIdList.size() == 0) {
                         CategoryBean columnArticleIdBean = new CategoryBean();
                         CopyOptions copyOptions = CopyOptions.create();
@@ -226,16 +236,19 @@ public class GeneraterAction extends BaseAction {
         ContentBean contentBean = new ContentBean();
         contentBean.setBeginTime(dateTime);
 
-        // 生成所有栏目的文章
         if ("0".equals(columnId)) {
-            categoryList = categoryBiz.list(Wrappers.<CategoryEntity>lambdaQuery()
-                    .isNull(CategoryEntity::getCategoryParentIds));
-        } else {
-            CategoryEntity category = (CategoryEntity) categoryBiz.getById(columnId);
-            categoryList.add(category);
+            categoryList = categoryBiz.list();
+        } else { //选择栏目更新
+            CategoryEntity categoryEntity = new CategoryEntity();
+            categoryEntity.setId(columnId);
+            categoryList = categoryBiz.queryChilds(categoryEntity);
         }
 
         for (CategoryEntity category : categoryList) {
+            //如果是链接就跳过生成
+            if(category.getCategoryType().equals(CategoryTypeEnum.LINK.toString())) {
+                continue;
+            }
             contentBean.setCategoryId(category.getId());
             contentBean.setCategoryType(category.getCategoryType());
             //将文章列表标签中的中的参数
@@ -248,6 +261,11 @@ public class GeneraterAction extends BaseAction {
                     continue;
                 }
             } else if (category.getCategoryType().equals(CategoryTypeEnum.COVER.toString())) {
+                // 判断模板文件是否存在
+                if (!FileUtil.exist(ParserUtil.buildTemplatePath(category.getCategoryListUrl())) || StringUtils.isEmpty(category.getCategoryListUrl())) {
+                    LOG.error("模板不存在：{}", category.getCategoryUrl());
+                    continue;
+                }
                 CategoryBean columnArticleIdBean = new CategoryBean();
                 CopyOptions copyOptions = CopyOptions.create();
                 copyOptions.setIgnoreError(true);
@@ -275,7 +293,7 @@ public class GeneraterAction extends BaseAction {
     public String viewIndex(HttpServletRequest request, @PathVariable String position, HttpServletResponse response) {
         AppEntity app = BasicUtil.getApp();
         // 组织主页预览地址
-        String indexPosition = app.getAppHostUrl() + File.separator + htmlDir+ File.separator + app.getAppDir()
+        String indexPosition = app.getAppHostUrl() + htmlDir+ File.separator + app.getAppDir()
                 + File.separator + position + ParserUtil.HTML_SUFFIX;
         return "redirect:" + indexPosition;
     }

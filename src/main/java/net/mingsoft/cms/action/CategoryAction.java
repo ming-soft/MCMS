@@ -290,11 +290,17 @@ public class CategoryAction extends BaseAction {
 		 CategoryEntity _category = new CategoryEntity();
 		 _category.setCategoryParentIds(category.getId());
 		 List<CategoryEntity> categoryList = categoryBiz.queryChilds(_category);
-		 for(CategoryEntity item:categoryList){
-			 if(item.getId().equals(category.getCategoryId())){
-				 return ResultData.build().error(getResString("cannot.select.child"));
+		 if(categoryList.size()>0) {
+			 for(CategoryEntity item:categoryList){
+				 if(item.getId().equals(category.getCategoryId())){
+					 return ResultData.build().error(getResString("cannot.select.child"));
+				 }
 			 }
+			 category.setLeaf(true);
+		 } else {
+			 category.setLeaf(false);
 		 }
+
 		 // 这里不能使用mybitsplus 存在业务
 		 categoryBiz.updateEntity(category);
 		return ResultData.build().success(category);
