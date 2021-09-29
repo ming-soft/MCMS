@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.mingsoft</groupId>
     <artifactId>ms-mcms</artifactId>
-    <version>5.2.3</version>
+    <version>5.2.4</version>
     <name>ms-mcms</name>
     <!-- 打包war包 -->
     <!--    <packaging>war</packaging>-->
@@ -44,47 +44,41 @@
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-base</artifactId>
-            <version>2.1.7</version>
+            <version>2.1.8</version>
         </dependency>
         <!--base源码-->
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-base</artifactId>
-            <version>2.1.7</version>
+            <version>2.1.8</version>
             <classifier>sources</classifier>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-basic</artifactId>
-            <version>2.1.7</version>
+            <version>2.1.8</version>
         </dependency>
         <!--basic源码-->
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-basic</artifactId>
-            <version>2.1.7</version>
+            <version>2.1.8</version>
             <classifier>sources</classifier>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mdiy</artifactId>
-            <version>2.1.7</version>
+            <version>2.1.8</version>
         </dependency>
         <!--mdiy源码-->
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mdiy</artifactId>
-            <version>2.1.7</version>
+            <version>2.1.8</version>
             <classifier>sources</classifier>
             <scope>provided</scope>
-        </dependency>
-        <!--store入口依赖（源码不开发），如果不需要MStore可以直接去掉依赖-->
-        <dependency>
-            <groupId>net.mingsoft</groupId>
-            <artifactId>store-client</artifactId>
-            <version>2.1.7.1</version>
         </dependency>
 
     </dependencies>
@@ -115,11 +109,13 @@
             </resource>
         </resources>
         <plugins>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <executable>true</executable>
+                     <fork>true</fork>
                 </configuration>
             </plugin>
             <plugin>
@@ -145,6 +141,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
         </plugins>
         <defaultGoal>compile</defaultGoal>
     </build>

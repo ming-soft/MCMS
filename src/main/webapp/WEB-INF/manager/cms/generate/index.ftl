@@ -317,7 +317,6 @@
         background-color:#FFFFFF;
         flex-direction:column;
         display:flex;
-        justify-content:end;
         margin: 12px 6px 12px 12px;
         animation-duration:1s;
         width:100%;
@@ -465,7 +464,6 @@
         background-color:#FFFFFF;
         flex-direction:column;
         display:flex;
-        justify-content:end;
         margin: 12px 6px;
         animation-duration:1s;
         width:100%;
@@ -610,7 +608,6 @@
         background-color:#FFFFFF;
         flex-direction:column;
         display:flex;
-        justify-content:end;
         margin: 12px 12px 12px 6px;
         animation-duration:1s;
         width:100%;
