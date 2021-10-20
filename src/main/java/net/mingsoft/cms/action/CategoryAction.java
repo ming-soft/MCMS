@@ -288,8 +288,8 @@ public class CategoryAction extends BaseAction {
 		 }
 		//判断是否选择子级为所属栏目
 		 CategoryEntity _category = new CategoryEntity();
-		 _category.setCategoryParentIds(category.getId());
-		 List<CategoryEntity> categoryList = categoryBiz.queryChilds(_category);
+		 _category.setId(category.getId());
+		 List<CategoryEntity> categoryList = categoryBiz.queryChildren(_category);
 		 if(categoryList.size()>0) {
 			 for(CategoryEntity item:categoryList){
 				 if(item.getId().equals(category.getCategoryId())){
@@ -330,7 +330,7 @@ public class CategoryAction extends BaseAction {
 		}
 		category = categoryBiz.getById(category.getId());
 		category.setCategoryParentIds(null);
-		List<CategoryEntity> childs = categoryBiz.queryChilds(category);
+		List<CategoryEntity> childs = categoryBiz.queryChildren(category);
 		//更新与父节点相同类型的子栏目的模板内容
 		for (int i =0; i < childs.size(); i++) {
 			if (childs.get(i).getCategoryType().equals(category.getCategoryType())) {

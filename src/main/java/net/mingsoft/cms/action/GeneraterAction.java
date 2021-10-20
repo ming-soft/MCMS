@@ -165,7 +165,7 @@ public class GeneraterAction extends BaseAction {
         } else { //选择栏目更新
             CategoryEntity categoryEntity = new CategoryEntity();
             categoryEntity.setId(categoryId);
-            columns = categoryBiz.queryChilds(categoryEntity);
+            columns = categoryBiz.queryChildren(categoryEntity);
         }
 
         //文章列表
@@ -241,7 +241,7 @@ public class GeneraterAction extends BaseAction {
         } else { //选择栏目更新
             CategoryEntity categoryEntity = new CategoryEntity();
             categoryEntity.setId(columnId);
-            categoryList = categoryBiz.queryChilds(categoryEntity);
+            categoryList = categoryBiz.queryChildren(categoryEntity);
         }
 
         for (CategoryEntity category : categoryList) {

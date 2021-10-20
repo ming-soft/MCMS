@@ -36,10 +36,10 @@ public interface ICategoryBiz extends IBaseBiz<CategoryEntity> {
 
     /**
      * 查询当前分类下的所有子分类,包含自身
-     * @param category
+     * @param category 通过setId指定栏目id
      * @return
      */
-    List<CategoryEntity> queryChilds(CategoryEntity category);
+    List<CategoryEntity> queryChildren(CategoryEntity category);
 
     void saveEntity(CategoryEntity entity);
 

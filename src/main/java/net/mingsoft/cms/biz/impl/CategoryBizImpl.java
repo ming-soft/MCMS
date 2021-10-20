@@ -67,7 +67,7 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
     }
 
     @Override
-    public List<CategoryEntity> queryChilds(CategoryEntity category) {
+    public List<CategoryEntity> queryChildren(CategoryEntity category) {
         // TODO Auto-generated method stub
         return categoryDao.queryChildren(category);
     }
