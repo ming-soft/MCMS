@@ -290,7 +290,7 @@ public class CategoryAction extends BaseAction {
 		 CategoryEntity _category = new CategoryEntity();
 		 _category.setId(category.getId());
 		 List<CategoryEntity> categoryList = categoryBiz.queryChildren(_category);
-		 if(categoryList.size()>0) {
+		 if(categoryList.size()>1) {
 			 for(CategoryEntity item:categoryList){
 				 if(item.getId().equals(category.getCategoryId())){
 					 return ResultData.build().error(getResString("cannot.select.child"));
