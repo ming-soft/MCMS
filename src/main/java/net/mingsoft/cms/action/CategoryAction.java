@@ -296,9 +296,9 @@ public class CategoryAction extends BaseAction {
 					 return ResultData.build().error(getResString("cannot.select.child"));
 				 }
 			 }
-			 category.setLeaf(true);
-		 } else {
 			 category.setLeaf(false);
+		 } else {
+			 category.setLeaf(true);
 		 }
 
 		 // 这里不能使用mybitsplus 存在业务
