@@ -246,7 +246,7 @@ public class ContentAction extends BaseAction {
 			CategoryEntity categoryEntity = categoryBiz.getById(contents.get(i).getCategoryId());
 			//如果栏目绑定的模型ID为空
 			if (categoryEntity.getMdiyModelId() == null){
-				break;
+				continue;
 			}
 			//获取到配置模型实体
 			ModelEntity modelEntity = modelBiz.getById(categoryEntity.getMdiyModelId());
