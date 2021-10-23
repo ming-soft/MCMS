@@ -11,7 +11,7 @@
     <el-header class="ms-header" height="50px">
         <el-col :span="12">
             <@shiro.hasPermission name="cms:content:save">
-                <el-button v-if="leaf=='true'" type="primary" icon="el-icon-plus" size="mini" @click="save()">新增</el-button>
+                <el-button v-if="leaf==true" type="primary" icon="el-icon-plus" size="mini" @click="save()">新增</el-button>
             </@shiro.hasPermission>
             <@shiro.hasPermission name="cms:content:del">
                 <el-button type="danger" icon="el-icon-delete" size="mini" @click="del(selectionList)"  :disabled="!selectionList.length">删除</el-button>
@@ -471,7 +471,7 @@
             this.contentCategoryIdOptionsGet();
             this.contentTypeOptionsGet();
             this.form.categoryId = ms.util.getParameter("categoryId");
-            this.leaf = ms.util.getParameter("leaf");
+            this.leaf = ms.util.getParameter("leaf")==null?true:JSON.parse(ms.util.getParameter("leaf"));
             if (history.hasOwnProperty("state")) {
                 this.form = history.state.form;
                 this.currentPage = history.state.page.pageNo;
