@@ -221,7 +221,7 @@
                         <i class="el-icon-plus"></i>
                         <div slot="tip" class="ms-form-tip">
                             只能上传1张图片
-                            标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank">${'$'}<#noparse >{@ms:file field.typelitpic/}</#noparse></a><br/>
+                            标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html" target="_blank"><#noparse>{@ms:file field.typelitpic/}</#noparse></a><br/>
                         </div>
                     </el-upload>
                 </el-form-item>

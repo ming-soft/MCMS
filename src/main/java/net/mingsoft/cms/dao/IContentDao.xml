@@ -219,8 +219,13 @@
 			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT(CONCAT('%',#{contentTitle}),'%')</if>
 			<if test="categoryId != null and categoryId != ''"> 	and (ct.category_id=#{categoryId} or ct.category_id in
 				(select id FROM cms_category where find_in_set('${categoryId}',CATEGORY_PARENT_IDS)>0))</if>
-			<if test="categoryType != null and categoryType != ''">and cc.category_type=#{categoryType}</if>
-			<if test="contentType != null and contentType != ''"> and content_type LIKE CONCAT(CONCAT('%',#{contentType}),'%')</if>
+			<if test="contentType != null and contentType != ''">
+				and
+				<foreach item="item" index="index" collection="contentType.split(',')" open="(" separator="or"
+						 close=")">
+					FIND_IN_SET('${item}',ct.content_type)>0
+				</foreach>
+			</if>
 			<if test="contentDisplay != null and contentDisplay != ''"> and content_display=#{contentDisplay}</if>
 			<if test="contentAuthor != null and contentAuthor != ''"> and content_author=#{contentAuthor}</if>
 			<if test="contentSource != null and contentSource != ''"> and content_source=#{contentSource}</if>

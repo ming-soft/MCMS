@@ -33,8 +33,8 @@
                         </el-form-item>
                     </el-col>
                     <el-col :span="8">
-                        <el-form-item  label="文章类型" prop="categoryFlag">
-                            <el-select v-model="form.categoryFlag"
+                        <el-form-item  label="文章类型" prop="contentType">
+                            <el-select v-model="form.contentType"
                                        :style="{width: '100%'}"
                                        :filterable="false"
                                        :disabled="false"
@@ -349,6 +349,7 @@
                     }).then(function (res) {
                         if (res.result) {
                             that.$notify({
+                                title:'成功',
                                 type: 'success',
                                 message: '删除成功!'
                             }); //删除成功，刷新列表

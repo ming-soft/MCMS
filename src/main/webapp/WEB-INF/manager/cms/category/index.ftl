@@ -271,6 +271,7 @@
 					}).then(function (res) {
 						if (res.result) {
 							that.$notify({
+								title: '成功 ',
 								type: 'success',
 								message: '删除成功!'
 							}); //删除成功，刷新列表
