@@ -270,7 +270,7 @@
                 contentType: null,
                 categoryId: ''
             },
-            leaf:1
+            leaf:true
         },
         methods: {
             //查询列表
