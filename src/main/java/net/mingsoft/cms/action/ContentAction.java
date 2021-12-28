@@ -34,10 +34,12 @@ import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
+import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.entity.ModelEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -316,7 +318,4 @@ public class ContentAction extends BaseAction {
 		contentBiz.saveOrUpdate(content);
 		return ResultData.build().success(content);
 	}
-
-
-
 }

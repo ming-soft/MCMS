@@ -16,6 +16,7 @@
 .ms-theme-light.ms-admin-menu-aside-submenu .el-menu-item:hover{
     background-color:rgba(255,255,255,0.3) !important;
 }
+
 /*深色系*/
 .ms-theme-dark .ms-admin-logo > div span{
     color: rgba(56,58,63,1);

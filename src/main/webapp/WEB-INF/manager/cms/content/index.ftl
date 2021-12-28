@@ -28,7 +28,7 @@
 				</el-tree>
 			</el-scrollbar>
 		</div>
-		<iframe :src="action" class="ms-iframe-style">
+		<iframe :src="action" class="ms-iframe-style" style="background:url('${base}/static/images/loading.gif') no-repeat center;">
 		</iframe>
 	</el-container>
 </div>
@@ -56,7 +56,7 @@
 					this.action = ms.manager + "/cms/content/form.do?categoryId=" + data.id + "&type=2";
 					//id=0时为最顶级节点全部节点
 				} else if (data.id == 0){
-					this.action = ms.manager + "/cms/content/main.do?leaf=true";
+					this.action = ms.manager + "/cms/content/main.do?leaf=false";
 				}
 			},
 			treeList: function () {
@@ -134,6 +134,11 @@
 	#index .index-menu-menu-item , .el-submenu__title {
 		height: 40px !important;
 		line-height: 46px !important;
+	}
+	#index .el-tree--highlight-current .el-tree-node.is-current>.el-tree-node__content {
+		background-color: rgb(137 140 145);
+		color: #fff;
+		border-radius: 2px;
 	}
 	body{
 		overflow: hidden;

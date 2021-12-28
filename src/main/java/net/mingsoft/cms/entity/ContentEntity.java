@@ -110,10 +110,6 @@ private static final long serialVersionUID = 1574925152617L;
 	*/
 	private String contentUrl;
 	/**
-	* 文章管理的应用id
-	*/
-
-	/**
 	* 点击次数
 	*/
 	private Integer contentHit;
@@ -291,5 +287,4 @@ private static final long serialVersionUID = 1574925152617L;
 	public String getContentUrl() {
 	return this.contentUrl;
 	}
-
 }

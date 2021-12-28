@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
     min-height: 100vh;
     width: 100vw;
     background-color: #eee;
@@ -10,12 +9,15 @@ body {
     color: #333 !important;
     overflow: hidden;
 }
-html *,
-body * {
+html *, body * {
     text-decoration: none !important;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     box-sizing: border-box;
 }
+
+/**
+*框架样式
+*/
 .ms-ellipsis {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -26,14 +28,6 @@ body * {
     display: flex;
     align-items: center;
 }
-input::-webkit-input-placeholder,
-textarea::-webkit-input-placeholder {
-    font-weight: initial;
-    font-size: 12px;
-    color: #999;
-    resize: none;
-}
-a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
 
 .ms-index{
     display: flex;
@@ -48,7 +42,6 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
     padding:  14px ;
     background: #fff;
 }
-
 .ms-header {
     padding: 10px;
     margin: 0;
@@ -69,10 +62,8 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
 .ms-tr {
     text-align: right;
 }
-
-.el-button+.el-button {
-    margin-left: 0
-}
+.ms-loading {background:url('/static/images/loading.gif') no-repeat center;}
+/*表单提示*/
 .ms-form-tip,.ms-form-tip-err {
     color: #909399;
     font-size: 12px;
@@ -80,18 +71,16 @@ a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
     padding: 4px 0;
 }
 .ms-form-tip-err{
-color:#f56c6c
+    color:#f56c6c
 }
 .ms-alert-tip{
     margin-bottom: 10px;
 }
+
 .ms-select{
     display: block;
 }
-
-.ms-datetimerange{
-    width: 100% !important;
-}
+/*搜索*/
 .ms-search{
     background: #fff;
     padding: 10px 14px 0 14px;
@@ -101,22 +90,57 @@ color:#f56c6c
     line-height: 60px;
     text-align: center;
 }
+
+.ms-datetimerange{
+    width: 100% !important;
+}
+
 .ms-table-pagination {
     height: calc(100% - 75px);
 }
-#myPageTop {
-    width: 252px;
+/*滚动条*/
+.ms-scrollbar  .el-scrollbar__bar.is-vertical{
+    width: 6px !important;
 }
-#myPageTop input {
-    width: 242px;
+.ms-scrollbar  .el-scrollbar__view{
+    padding-right: 17px;
 }
+/*后台管理界面的el-menu通用样式*/
+.ms-index .el-menu {
+    border-right: none;
+    background-color: unset;
+}
+.ms-index .el-menu-item {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+#form .ms-container{
+    height:calc(100vh - 38px);
+}
+a:link,a:visited,a:active{text-decoration: none; color:#409EFF;}
+
+
+
+/*样式重写*/
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+    font-weight: initial;
+    font-size: 12px;
+    color: #999;
+    resize: none;
+}
+
+.el-button+.el-button {
+    margin-left: 0
+}
+
 .el-button .iconfont{
     font-size: 12px;
     margin-right: 5px;
     line-height: 1px!important;
-}
-#form .ms-container{
-    height:calc(100vh - 38px);
 }
 
 [v-cloak]{
@@ -135,20 +159,4 @@ color:#f56c6c
  .el-scrollbar__wrap{
     overflow-x: hidden!important;
 }
-.ms-scrollbar  .el-scrollbar__bar.is-vertical{
-    width: 6px !important;
-}
-.ms-scrollbar  .el-scrollbar__view{
-    padding-right: 17px;
-}
-/**后台管理界面的el-menu通用样式**/
-.ms-index .el-menu {
-    border-right: none;
-    background-color: unset;
-}
-.ms-index .el-menu-item {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    word-break: break-all;
-}
+

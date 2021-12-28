@@ -2,35 +2,7 @@
 <head>
   <meta charset="utf-8" />
   <title>后台主界面</title>
-  <meta http-equiv="content-type" content="text/html" />
-  <META HTTP-EQUIV="Pragma" CONTENT="no-cache" />
-  <meta name="viewport"
-        content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width"/>
-  <meta name="format-detection" content="telephone=no"/>
-  <meta name="app-mobile-web-app-capable" content="yes"/>
-  <meta name="app-mobile-web-app-status-bar-style" content="black-translucent"/>
-  <script src="${base}/static/plugins/vue/2.6.9/vue.min.js"></script>
-  <!--通用图标-->
-  <link rel="stylesheet" href="${base}/static/plugins/iconfont/1.0.0/iconfont.css" />
-  <script src="${base}/static/plugins/element-ui/2.12.0/index.js"></script>
-  <link rel="stylesheet" href="${base}/static/plugins/element-ui/2.12.0/index.css" />
-  <!--网络请求框架-->
-  <script src="${base}/static/plugins/axios/0.18.0/axios.min.js"></script>
-  <script src="${base}/static/plugins/qs/6.6.0/qs.min.js"></script>
-  <!--铭飞-->
-  <script src="${base}/static/plugins/ms/1.0.0/ms.js"></script>
-  <script src="${base}/static/plugins/ms/1.0.0/ms.http.js"></script>
-  <script src="${base}/static/plugins/ms/1.0.0/ms.util.js"></script>
-  <link rel="stylesheet" href="${base}/static/plugins/minireset/0.0.2/minireset.min.css" />
-  <script>
-    ms.base = '${base}';
-    ms.manager = '${managerPath}';
-  </script>
-  <style>
-    [v-cloak]{
-      display: none;
-    }
-  </style>
+  <#include "../../include/head-file.ftl">
 </head>
 <body class="custom-body">
 <div id="app" v-cloak>
@@ -43,12 +15,15 @@
         </div>
         <div  class="class-6" >
         </div>
-        <div  class="panel" >
-            <div  v-if="alwaysList.length>0" class="panel-title">
+        <div  class="panel" style="min-height:200px;">
+        <div   class="panel-title" style="display:inline;">
               常用功能
+              <el-tooltip effect="dark" content="鼠标移至上方功能大全，点击菜单右侧五角星即可添加到常用功能。" placement="left">
+            <i class="el-icon-question"></i>
+          </el-tooltip>
             </div>
             <div class="v-space"></div>
-            <div class="panel-content" style="flex-direction: row;flex-wrap: wrap; flex: unset">
+            <div class="panel-content" style="flex-direction: row;flex-wrap: wrap; flex: unset;margin-top:20px;">
               <div class="mitem"
                    @click="window.parent.indexVue.openParentMenuInTitle(item.title)"
                    v-for="item in alwaysList">
@@ -146,7 +121,7 @@
           <div  class="class-66" >
             <!--图片开始-->
             <img
-                    src="${base}/static/images/1577687056305.png"
+                    src="https://cdn.mingsoft.net/images/icon-qq.png"
                     class="class-67" />
             <!--图片结束-->
           </div>
@@ -163,7 +138,7 @@
           <div  class="class-72" >
             <!--图片开始-->
             <img
-                    src="${base}/static/images/1577687056305.png"
+                    src="https://cdn.mingsoft.net/images/icon-qq.png"
                     class="class-73" />
             <!--图片结束-->
           </div>
@@ -180,7 +155,7 @@
           <div  class="class-78" >
             <!--图片开始-->
             <img
-                    src="${base}/static/images/1577687056305.png"
+                    src="https://cdn.mingsoft.net/images/icon-qq.png"
                     class="class-79" />
             <!--图片结束-->
           </div>
@@ -197,7 +172,7 @@
           <div  class="class-84" >
             <!--图片开始-->
             <img
-                    src="${base}/static/images/1577687056305.png"
+                    src="https://cdn.mingsoft.net/images/icon-qq.png"
                     class="class-85" />
             <!--图片结束-->
           </div>
@@ -297,7 +272,7 @@
               <div  class="class-126" >
                 <!--图片开始-->
                 <img
-                        src="${base}/static/images/1577687023678.png"
+                        src="https://cdn.mingsoft.net/images/icon-telephone.png"
                         class="class-127" />
                 <!--图片结束-->
               </div>
@@ -314,7 +289,7 @@
               <div  class="class-132" >
                 <!--图片开始-->
                 <img
-                        src="${base}/static/images/1577687056305.png"
+                        src="https://cdn.mingsoft.net/images/icon-qq.png"
                         class="class-133" />
                 <!--图片结束-->
               </div>
@@ -1089,7 +1064,7 @@
   .class-44
   {
     color:#333333;
-    background-image:url(${base}/static/images/1578104008987.png);
+    background-image:url(https://cdn.mingsoft.net/images/mmall.png);
     outline:none;
     outline-offset:-1px;
     background-size:cover;
@@ -1131,7 +1106,7 @@
   .class-47
   {
     color:#333333;
-    background-image:url(${base}/static/images/1578367666376.png);
+    background-image:url(https://cdn.mingsoft.net/images/weixin.png);
     outline:none;
     outline-offset:-1px;
     background-size:cover;
@@ -1173,7 +1148,7 @@
   .class-50
   {
     color:#333333;
-    background-image:url(${base}/static/images/1578366770290.png);
+    background-image:url(https://cdn.mingsoft.net/images/mapp.png);
     outline:none;
     outline-offset:-1px;
     background-size:cover;
@@ -1215,7 +1190,7 @@
   .class-53
   {
     color:#333333;
-    background-image:url(${base}/static/images/1578368816112.png);
+    background-image:url(https://cdn.mingsoft.net/images/secondaryDevelopment.png);
     outline:none;
     outline-offset:-1px;
     background-size:cover;
@@ -1301,7 +1276,7 @@
   .class-59
   {
     color:#333333;
-    background-image:url(${base}/static/images/1577257489392.png);
+    background-image:url(https://cdn.mingsoft.net/images/icon-voice.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1347,7 +1322,7 @@
   .class-62
   {
     color:#333333;
-    background-image:url(${base}/static/images/1577151868190.png);
+    background-image:url(https://cdn.mingsoft.net/images/icon-file.png);
     outline:none;
     outline-offset:-1px;
     height:40px;
@@ -1763,7 +1738,7 @@
   .class-96
   {
     color:#333333;
-    background-image:url(${base}/static/images/1578031206821.png);
+    background-image:url(https://cdn.mingsoft.net/images/icon-menu.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1807,7 +1782,7 @@
   .class-99
   {
     color:#333333;
-    background-image:url(${base}/static/images/1578031321635.png);
+    background-image:url(https://cdn.mingsoft.net/images/icon-approve.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1851,7 +1826,7 @@
   .class-102
   {
     color:#333333;
-    background-image:url(${base}/static/images/1578031484700.png);
+    background-image:url(https://cdn.mingsoft.net/images/icon-office.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1895,7 +1870,7 @@
   .class-105
   {
     color:#333333;
-    background-image:url(${base}/static/images/1578031264207.png);
+    background-image:url(https://cdn.mingsoft.net/images/icon-remote.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1939,7 +1914,7 @@
   .class-108
   {
     color:#333333;
-    background-image:url(${base}/static/images/1578031682848.png);
+    background-image:url(https://cdn.mingsoft.net/images/icon-voiceAssistance.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -1983,7 +1958,7 @@
   .class-111
   {
     color:#333333;
-    background-image:url(${base}/static/images/1578031639173.png);
+    background-image:url(https://cdn.mingsoft.net/images/icon-vip.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -2027,7 +2002,7 @@
   .class-114
   {
     color:#333333;
-    background-image:url(${base}/static/images/1578031215338.png);
+    background-image:url(https://cdn.mingsoft.net/images/icon-invoice.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -2071,7 +2046,7 @@
   .class-117
   {
     color:#333333;
-    background-image:url(${base}/static/images/1578031228196.png);
+    background-image:url(https://cdn.mingsoft.net/images/icon-authorize.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;
@@ -2115,7 +2090,7 @@
   .class-120
   {
     color:#333333;
-    background-image:url(${base}/static/images/1578031234719.png);
+    background-image:url(https://cdn.mingsoft.net/images/icon-letterOfAuthorization.png);
     outline:none;
     outline-offset:-1px;
     background-size:contain;

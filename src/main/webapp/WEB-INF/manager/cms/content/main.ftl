@@ -154,6 +154,8 @@
                 el: 'eq',
                 model: 'contentDisplay',
                 name: '是否显示',
+                key:'value',
+                title: 'label',
                 type: 'radio',
                 label: true,
                 multiple: false
@@ -173,7 +175,7 @@
                 type: 'input'
             }, {
                 action: 'and',
-                field: 'content_datetime',
+                field: 'ct.content_datetime',
                 model: 'contentDatetime',
                 el: 'gt',
                 name: '发布时间',
@@ -213,23 +215,16 @@
                 model: 'contentUrl',
                 name: '文章跳转链接地址',
                 type: 'input'
-            }, {
+            },{
                 action: 'and',
-                field: 'appid',
-                el: 'eq',
-                model: 'appid',
-                name: '文章管理的应用id',
-                type: 'number'
-            }, {
-                action: 'and',
-                field: 'create_date',
+                field: 'ct.create_date',
                 el: 'eq',
                 model: 'createDate',
                 name: '创建时间',
                 type: 'date'
             }, {
                 action: 'and',
-                field: 'update_date',
+                field: 'ct.update_date',
                 el: 'eq',
                 model: 'updateDate',
                 name: '修改时间',

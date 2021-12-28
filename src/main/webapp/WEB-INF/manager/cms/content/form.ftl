@@ -159,7 +159,7 @@
                         <el-form-item label="文章缩略图" prop="contentImg">
                             <el-upload
                                     :file-list="form.contentImg"
-                                    :action="ms.base+'/file/upload.do'"
+                                    :action="ms.manager+'/file/upload.do'"
                                     :on-remove="contentImghandleRemove"
                                     :style="{width:''}"
                                     :limit="1"

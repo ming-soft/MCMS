@@ -26,7 +26,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import net.mingsoft.base.entity.BaseEntity;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.bean.EUListBean;

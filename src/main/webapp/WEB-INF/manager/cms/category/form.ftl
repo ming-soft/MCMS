@@ -208,7 +208,7 @@
                 <el-form-item label="缩略图" prop="categoryImg" >
                     <el-upload
                             :file-list="form.categoryImg"
-                            :action="ms.base+'/file/upload.do'"
+                            :action="ms.manager+'/file/upload.do'"
                             :on-remove="categoryImghandleRemove"
                             :style="{width:''}"
                             :limit="1"
@@ -418,7 +418,11 @@
                         if (that.form.categoryType == '2') {
                             that.form.categoryListUrl = '';
                         }
-
+                        //栏目属性为链接则不需要列表和详情模板
+                        if(that.form.categoryType == '3'){
+                            that.form.categoryListUrl = '';
+                            that.form.categoryUrl = '';
+                        }
                         that.saveDisabled = true;
                         var data = JSON.parse(JSON.stringify(that.form));
 
@@ -446,9 +450,12 @@
                                 that.$notify({
                                     title: '成功',
                                     message: '保存成功',
-                                    type: 'success'
+                                    type: 'success',
+                                    duration: 1000,
+                                    onClose:function (){
+                                        location.href = ms.manager + "/cms/category/index.do";
+                                    }
                                 });
-                                location.href = ms.manager + "/cms/category/index.do";
                             } else {
                                 that.$notify({
                                     title: '失败',

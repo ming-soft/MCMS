@@ -25,8 +25,6 @@ package net.mingsoft.cms.action;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.biz.IModelBiz;
@@ -40,7 +38,6 @@ import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.util.CmsParserUtil;
-import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -58,9 +55,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @ClassName: GeneraterAction
@@ -188,7 +183,7 @@ public class GeneraterAction extends BaseAction {
 
                     // 判断模板文件是否存在
                     if (StringUtils.isEmpty(column.getCategoryListUrl()) || !FileUtil.exist(ParserUtil.buildTemplatePath(column.getCategoryListUrl()))) {
-                        LOG.error("模板不存在：{}", column.getCategoryUrl());
+                        LOG.error("{} 模板不存在：{}", column.getCategoryTitle(),column.getCategoryUrl());
                         continue;
                     }
 
@@ -198,7 +193,7 @@ public class GeneraterAction extends BaseAction {
 
                     // 判断模板文件是否存在
                     if (StringUtils.isEmpty(column.getCategoryUrl()) || !FileUtil.exist(ParserUtil.buildTemplatePath(column.getCategoryUrl()))) {
-                        LOG.error("模板不存在：{}", column.getCategoryUrl());
+                        LOG.error("{} 模板不存在：{}", column.getCategoryTitle(),column.getCategoryUrl());
                         continue;
                     }
 
@@ -257,13 +252,13 @@ public class GeneraterAction extends BaseAction {
             if (category.getCategoryType().equals(CategoryTypeEnum.LIST.toString())) {
                 // 判断模板文件是否存在
                 if (!FileUtil.exist(ParserUtil.buildTemplatePath(category.getCategoryListUrl())) || StringUtils.isEmpty(category.getCategoryListUrl())) {
-                    LOG.error("模板不存在：{}", category.getCategoryUrl());
+                    LOG.error("{} 模板不存在：{}", category.getCategoryTitle(),category.getCategoryListUrl());
                     continue;
                 }
             } else if (category.getCategoryType().equals(CategoryTypeEnum.COVER.toString())) {
                 // 判断模板文件是否存在
                 if (!FileUtil.exist(ParserUtil.buildTemplatePath(category.getCategoryListUrl())) || StringUtils.isEmpty(category.getCategoryListUrl())) {
-                    LOG.error("模板不存在：{}", category.getCategoryUrl());
+                    LOG.error("{} 模板不存在：{}", category.getCategoryTitle(),category.getCategoryListUrl());
                     continue;
                 }
                 CategoryBean columnArticleIdBean = new CategoryBean();
