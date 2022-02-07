@@ -12,8 +12,11 @@ logging:
   config: classpath:log4j-spring.xml
 
 ms:
-  shiro-key: 4AvVhmFLUs0KTA3Kprsdag==
+  shiro-key: 4AvVhmFLUs0KTA3Kprsdag== #生产必须修改此值否则会存在安全风险，可以通过 https://base64.us/随机生产一个Base64值
   html-dir: html
+  rand-code:
+    length: 4 #验证码长度
+    circle: 10 #干扰线条数，值越大越不容易辨别
   #  scheme: https #解决使用代理服务器代理应用时标签解析域名依旧为http的问题
   swagger:
     enable: false #启用swagger文档，生产的时候务必关掉 访问地址：http://ip|域名/项目发布名/swagger-ui.html
@@ -26,7 +29,7 @@ ms:
     template: template #模板文件夹支持重命名，不支持路径
     path: upload #文件上传路径，可以根据实际写绝对路径
     mapping: /upload/** #修改需要谨慎，系统第一次部署可以随意修改，如果已经有了上传数据，再次修改会导致之前上传的文件404
-    denied: .exe,.jsp
+    denied: .exe,.jsp,.jspx,.sh
     back-up: /upload_back
     multipart:
       #最大上传文件大小 单位：KB
