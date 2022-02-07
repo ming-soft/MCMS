@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.mingsoft</groupId>
     <artifactId>ms-mcms</artifactId>
-    <version>5.2.5</version>
+    <version>5.2.6</version>
     <name>ms-mcms</name>
     <!-- 打包war包 -->
     <!--    <packaging>war</packaging>-->
@@ -45,24 +45,24 @@
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-base</artifactId>
-            <version>2.1.10</version>
+            <version>2.1.11</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-basic</artifactId>
-            <version>2.1.10</version>
+            <version>2.1.11</version>
         </dependency>
 
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mdiy</artifactId>
-            <version>2.1.10</version>
+            <version>2.1.11</version>
         </dependency>
         <!--store入口依赖（源码不开发），如果不需要MStore可以直接去掉依赖-->
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>store-client</artifactId>
-            <version>2.1.10</version>
+            <version>2.1.11</version>
         </dependency>
 
         <dependency>

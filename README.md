@@ -116,23 +116,13 @@ git clone https://gitee.com/mingSoft/MCMS.git<br/>
 
 | 技术 | 名称 | 官网 |
 | :--- | :--- | :--- |
-| vue| 函式库 | [https://cn.vuejs.org//](https://cn.vuejs.org//) |
-| element ui| UI库 | [https://element.eleme.cn/2.0/#/zh-CN](https://element.eleme.cn/2.0/#/zh-CN) |
+| VUE| MVVM框架 | [https://cn.vuejs.org//](https://cn.vuejs.org//) |
+| Element UI| UI库 | [https://element.eleme.cn/2.0/#/zh-CN](https://element.eleme.cn/2.0/#/zh-CN) |
 | jQuery | 函式库 | [http://jquery.com/](http://jquery.com/) |
-| Bootstrap | 前端框架 | [http://getbootstrap.com/](http://getbootstrap.com/) |
-| Bootstrap-table | Bootstrap数据表格 | [http://bootstrap-table.wenzhixin.net.cn/](http://bootstrap-table.wenzhixin.net.cn/) |
-| BootstrapValidator | 表单验证 | [http://bootstrapvalidator.com/](http://bootstrapvalidator.com) |
-| Font-awesome | 字体图标 | [http://fontawesome.io/](http://fontawesome.io/) |
 | Waves | 点击效果插件 | [https://github.com/fians/Waves/](https://github.com/fians/Waves) |
-| zTree | 树插件 | [http://www.treejs.cn/v3/](http://www.treejs.cn/v3/) |
-| Select2 | 选择框插件 | [https://github.com/select2/select2](https://github.com/select2/select2) |
-| Vue | MVVM框架 | [https://cn.vuejs.org/](https://cn.vuejs.org/) |
-| AmazeUI | 移动端UI | [http://amazeui.org/](http://amazeui.org/) |
-| Plupload | 上传控件 | [http://www.plupload.com/](http://www.plupload.com/) |
-| freemarker | 模板引擎 | [http://freemarker.foofun.cn/toc.html](http://freemarker.foofun.cn/toc.html) |
 | validator | 验证库 | [https://github.com/chriso/validator.js](https://github.com/chriso/validator.js) |
 | animate | 动画 | [http://daneden.github.io/animate.css/](http://daneden.github.io/animate.css/) |
-| icon | 矢量小图标\(待更新\) | [http://ms.mingsoft.net/html/86//6048/index.html](http://ms.mingsoft.net/html/86//6048/index.html) |
+| icon | 矢量小图标\(待更新\) | [https://www.iconfont.cn/](https://www.iconfont.cn/) |
 
 
 # 文件说明 
@@ -142,7 +132,7 @@ git clone https://gitee.com/mingSoft/MCMS.git<br/>
 * src/main/webapp
 * src/main/webapp/static 静态资源文件，如：js、css、image、等第三方前端插件库
 * src/main/webapp/html 生成的静态页面，实际项目需要删除，只是提供给开发者快速预览生成后的静态页面
-* src/main/webapp/templets 模版文件夹
+* src/main/webapp/templet 模版文件夹
 * src/main/webapp/upload 上传资源文件夹
 * src/main/webapp/WEB-INF/manager 后端视图页面
 * LICENSE 项目协议说明
