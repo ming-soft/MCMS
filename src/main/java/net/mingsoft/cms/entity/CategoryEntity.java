@@ -20,9 +20,6 @@
  */
 package net.mingsoft.cms.entity;
 
-import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -453,6 +450,15 @@ public class CategoryEntity extends BaseEntity {
      */
     public String getTypelitpic() {
         return categoryImg;
+    }
+
+    @TableField(exist = false)
+    private String typepath;
+    /**
+     * 获取栏目图片 (标签使用）
+     */
+    public String getTypepath() {
+        return categoryPath;
     }
 
 }

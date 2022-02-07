@@ -54,7 +54,7 @@ import java.util.List;
  * 创建日期：2019-11-28 15:12:32<br/>
  * 历史修订：<br/>
  */
-@Api(value = "分类接口")
+@Api(tags={"后端-内容模块接口"})
 @Controller("cmsCategoryAction")
 @RequestMapping("/${ms.manager.path}/cms/category")
 public class CategoryAction extends BaseAction {

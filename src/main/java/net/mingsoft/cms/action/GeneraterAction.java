@@ -49,6 +49,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,6 +65,7 @@ import java.util.List;
  * @date: 2018年1月31日 下午2:52:07
  * @Copyright: 2018 www.mingsoft.net Inc. All rights reserved.
  */
+@ApiIgnore
 @Controller("cmsGenerater")
 @RequestMapping("/${ms.manager.path}/cms/generate")
 @Scope("request")

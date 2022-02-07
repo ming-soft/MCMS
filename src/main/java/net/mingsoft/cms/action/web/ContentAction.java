@@ -51,7 +51,7 @@ import java.util.List;
  * 创建日期：2019-11-28 15:12:32<br/>
  * 历史修订：<br/>
  */
-@Api(value = "文章接口")
+@Api(tags={"前端-内容模块接口"})
 @Controller("WebcmsContentAction")
 @RequestMapping("/cms/content")
 public class ContentAction extends net.mingsoft.cms.action.BaseAction{

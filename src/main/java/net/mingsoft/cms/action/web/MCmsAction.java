@@ -22,36 +22,26 @@
 
 package net.mingsoft.cms.action.web;
 
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.lang.Editor;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.PageUtil;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
-import freemarker.template.TemplateException;
 import freemarker.template.TemplateNotFoundException;
-import net.bytebuddy.implementation.bytecode.Throw;
 import net.mingsoft.base.constant.Const;
 import net.mingsoft.basic.exception.BusinessException;
 import net.mingsoft.basic.util.BasicUtil;
-import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
-import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
-import net.mingsoft.cms.util.CmsParserUtil;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.biz.IPageBiz;
 import net.mingsoft.mdiy.entity.ModelEntity;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.util.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -59,6 +49,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -76,6 +67,7 @@ import java.util.Map;
  * @date 2018年12月17日
  * @date 2021年8月26日取消默认search.htm
  */
+@ApiIgnore
 @Controller("dynamicPageAction")
 @RequestMapping("/mcms")
 public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
@@ -569,16 +561,6 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         public void setValue(Object value) {
             this.value = value;
         }
-    }
-
-
-    public static void main(String[] args) {
-
-        int[] a = PageUtil.rainbow(20, 30, 5);
-        for (int _a : a) {
-            System.out.println(_a);
-        }
-
     }
 
 }
