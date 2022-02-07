@@ -156,7 +156,8 @@ textarea::-webkit-input-placeholder {
     background-color: rgba(144,147,153,.5);
 }
 /*饿了么滚动样式*/
- .el-scrollbar__wrap{
+.el-scrollbar__wrap{
+    margin-bottom: unset !important;
     overflow-x: hidden!important;
 }
 
