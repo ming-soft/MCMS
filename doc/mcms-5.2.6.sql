@@ -103,7 +103,7 @@ CREATE TABLE `cms_content` (
   `content_author` varchar(255) DEFAULT NULL COMMENT '文章作者',
   `content_display` varchar(10) DEFAULT '0' COMMENT '是否显示0显示 1不显示',
   `content_type` varchar(100) DEFAULT NULL COMMENT '文章类型',
-  `content_datetime` timestamp DEFAULT NULL COMMENT '发布时间',
+  `content_datetime` timestamp  COMMENT '发布时间',
   `content_sort` int(11) DEFAULT NULL COMMENT '自定义顺序',
   `content_hit` int(22) DEFAULT '0' COMMENT '点击次数',
   `update_date` datetime DEFAULT NULL COMMENT '修改时间',
