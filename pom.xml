@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -120,10 +120,10 @@
                 <directory>src/main/webapp</directory>
                 <excludes>
                     <!-- 打包生产并手动将static、html、upload、template复制到生产 -->
-                    <exclude>static/</exclude>
-                    <exclude>html/</exclude>
-                    <exclude>upload/</exclude>
-                    <exclude>template/</exclude>
+                    <!-- exclude>static/</exclude>-->
+                    <!-- exclude>html/</exclude>-->
+                    <!-- exclude>upload/</exclude>-->
+                    <!-- exclude>template/</exclude>-->
                     <!-- 如果生产需要实时修改WEB-INF/下的页面可，启用这行并手动将项目中的WEB-INF目录复制到运行环境 -->
                     <!-- <exclude>WEB-INF/</exclude>-->
                 </excludes>
