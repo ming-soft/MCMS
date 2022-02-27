@@ -120,12 +120,12 @@
                 <directory>src/main/webapp</directory>
                 <excludes>
                     <!-- 打包生产并手动将static、html、upload、template复制到生产 -->
-                    <!-- exclude>static/</exclude>-->
-                    <!-- exclude>html/</exclude>-->
-                    <!-- exclude>upload/</exclude>-->
-                    <!-- exclude>template/</exclude>-->
+                    <exclude>static/</exclude>
+                    <exclude>html/</exclude>
+                    <exclude>upload/</exclude>
+                    <exclude>template/</exclude>
                     <!-- 如果生产需要实时修改WEB-INF/下的页面可，启用这行并手动将项目中的WEB-INF目录复制到运行环境 -->
-                    <!-- <exclude>WEB-INF/</exclude>-->
+                     <exclude>WEB-INF/</exclude>
                 </excludes>
             </resource>
             <resource>
@@ -139,7 +139,6 @@
             </resource>
         </resources>
         <plugins>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -148,6 +147,7 @@
                      <fork>true</fork>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -171,6 +171,27 @@
                     </dependency>
                 </dependencies>
             </plugin>
+
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>build-package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>ms-mcms</finalName>
+                            <descriptors>
+                                <descriptor>src/main/scripts/assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
 
         </plugins>
         <defaultGoal>compile</defaultGoal>
