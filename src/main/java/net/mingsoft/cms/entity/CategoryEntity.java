@@ -107,13 +107,6 @@ public class CategoryEntity extends BaseEntity {
      * 栏目管理的内容模型id
      */
     private Integer mdiyModelId;
-    /**
-     * 类别发布时间
-     */
-    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date categoryDatetime;
 
     /**
      * 字典对应编号
@@ -312,20 +305,6 @@ public class CategoryEntity extends BaseEntity {
 
     public void setMdiyModelId(Integer mdiyModelId) {
         this.mdiyModelId = mdiyModelId;
-    }
-
-    /**
-     * 设置类别发布时间
-     */
-    public void setCategoryDatetime(Date categoryDatetime) {
-        this.categoryDatetime = categoryDatetime;
-    }
-
-    /**
-     * 获取类别发布时间
-     */
-    public Date getCategoryDatetime() {
-        return this.categoryDatetime;
     }
 
     /**

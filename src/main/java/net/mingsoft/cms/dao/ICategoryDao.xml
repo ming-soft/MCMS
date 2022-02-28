@@ -16,7 +16,6 @@
 				<result column="category_img" property="categoryImg" /><!--缩略图 -->
 				<result column="category_diy_url" property="categoryDiyUrl" /><!--自定义链接 -->
 				<result column="mdiy_model_id" property="mdiyModelId" /><!--栏目管理的内容模型id -->
-				<result column="category_datetime" property="categoryDatetime" /><!--类别发布时间 -->
 				<result column="dict_id" property="dictId" /><!--字典对应编号 -->
 				<result column="category_flag" property="categoryFlag" /><!--栏目属性 -->
 				<result column="category_path" property="categoryPath" /><!--栏目路径 -->
@@ -50,7 +49,6 @@
 				<if test="categoryImg != null and categoryImg != ''">category_img=#{categoryImg},</if>
 				<if test="categoryDiyUrl != null">category_diy_url=#{categoryDiyUrl},</if>
 				<if test="mdiyModelId != null and mdiyModelId != ''">mdiy_model_id=#{mdiyModelId},</if>
-				<if test="categoryDatetime != null">category_datetime=#{categoryDatetime},</if>
 				<if test="dictId != null">dict_id=#{dictId},</if>
 				<if test="categoryFlag != null ">category_flag=#{categoryFlag},</if>
 				<if test="categoryPath != null and categoryPath != ''">category_path=#{categoryPath},</if>
@@ -84,7 +82,6 @@
 				<if test="categoryImg != null and categoryImg != ''">and category_img=#{categoryImg}</if>
 				<if test="categoryDiyUrl != null and categoryDiyUrl != ''">and category_diy_url=#{categoryDiyUrl}</if>
 				<if test="mdiyModelId != null and mdiyModelId != ''">and mdiy_model_id=#{mdiyModelId}</if>
-				<if test="categoryDatetime != null"> and category_datetime=#{categoryDatetime} </if>
 				<if test="dictId != null"> and dict_id=#{dictId} </if>
 				<if test="categoryFlag != null and categoryFlag != ''">and category_flag=#{categoryFlag}</if>
 				<if test="categoryPath != null and categoryPath != ''">and category_path=#{categoryPath}</if>
@@ -150,7 +147,6 @@
 			<if test="categoryImg != null and categoryImg != ''"> and category_img=#{categoryImg}</if>
 			<if test="categoryDiyUrl != null and categoryDiyUrl != ''"> and category_diy_url=#{categoryDiyUrl}</if>
 			<if test="mdiyModelId != null and mdiyModelId != ''"> and mdiy_model_id=#{mdiyModelId}</if>
-			<if test="categoryDatetime != null"> and category_datetime=#{categoryDatetime} </if>
 			<if test="dictId != null"> and dict_id=#{dictId} </if>
 			<if test="categoryFlag != null and categoryFlag != ''"> and category_flag=#{categoryFlag}</if>
 			<if test="categoryPath != null and categoryPath != ''"> and category_path=#{categoryPath}</if>
