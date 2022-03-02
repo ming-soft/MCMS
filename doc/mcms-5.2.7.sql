@@ -32,7 +32,7 @@ CREATE TABLE `app` (
 -- Records of app
 -- ----------------------------
 BEGIN;
-INSERT INTO `app` VALUES (1, '铭飞MCms(5.2.6)', 'http://localhost:8080/', '[{\"url\":\"/upload/1/appLogo/1609397756549.png\",\"name\":\"1593834123492.png\",\"path\":\"/upload/1/appLogo/1609397756549.png\",\"uid\":1609397756411,\"status\":\"success\"}]', '铭飞MCMS', '版权所有 ©铭飞科技有限公司2012-2019 保留一切权利。', 'default', '铭飞MCMS', '', 0, NULL, '2019-11-17 00:00:00', 'web', '2022-02-28 10:28:55', '57', NULL, '', 0);
+INSERT INTO `app` VALUES (1, '铭飞MCms(5.2.7)', 'http://localhost:8080/', '[{\"url\":\"/upload/1/appLogo/1609397756549.png\",\"name\":\"1593834123492.png\",\"path\":\"/upload/1/appLogo/1609397756549.png\",\"uid\":1609397756411,\"status\":\"success\"}]', '铭飞MCMS', '版权所有 ©铭飞科技有限公司2012-2019 保留一切权利。', 'default', '铭飞MCMS', '', 0, NULL, '2019-11-17 00:00:00', 'web', '2022-02-28 10:28:55', '57', NULL, '', 0);
 COMMIT;
 
 -- ----------------------------

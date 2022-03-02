@@ -11,9 +11,9 @@
     <groupId>net.mingsoft</groupId>
     <artifactId>ms-mcms</artifactId>
     <version>5.2.7</version>
-    <name>ms-mcms</name>
-    <!-- 打包war包 -->
-    <!--    <packaging>war</packaging>-->
+    <name>${project.groupId}:${project.artifactId}</name>
+    <!-- 打包war包，注意不启用(resources》resource》excludes的配置并注释掉maven-assembly-plugin 插件配置 -->
+    <!--<packaging>war</packaging>-->
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -114,19 +114,24 @@
     </dependencies>
 
     <build>
-        <finalName>ms-mcms</finalName>
+        <finalName>${project.artifactId}</finalName>
         <resources>
             <resource>
                 <directory>src/main/webapp</directory>
+
+                <!--打包生产jar包推荐启用下面配置-->
+                <!--打包生产war包不启用下面配置-->
                 <excludes>
-                    <!-- 打包生产并手动将static、html、upload、template复制到生产 -->
+                    <!-- 可以避免将静态资源打入jar包中，方便生产实时修改静态资源文件-->
+                    <!-- 打包生产建议并手动将static、html、upload、template复制到生产 -->
                     <!--<exclude>static/</exclude>
                     <exclude>html/</exclude>
                     <exclude>upload/</exclude>
                     <exclude>template/</exclude>-->
+
                     <!-- 如果生产需要实时修改WEB-INF/下的页面可，启用这行并手动将项目中的WEB-INF目录复制到运行环境 -->
                     <!--<exclude>WEB-INF/</exclude>-->
-             </excludes>
+                </excludes>
          </resource>
          <resource>
              <directory>src/main/resources</directory>
@@ -172,6 +177,9 @@
              </dependencies>
          </plugin>
 
+         <!-- 结合(resources》resource》excludes的配置使用 -->
+         <!-- 打包出的结构 http://doc.mingsoft.net/server/huan-jing-pei-zhi/jarbu-shu.html#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84-->
+         <!-- 打包war包时，注释掉此插件-->
          <plugin>
              <artifactId>maven-assembly-plugin</artifactId>
              <version>3.1.1</version>
@@ -183,9 +191,9 @@
                          <goal>single</goal>
                      </goals>
                      <configuration>
-                         <finalName>ms-mcms</finalName>
+                         <finalName>${project.artifactId}</finalName>
                          <descriptors>
-                             <descriptor>src/main/scripts/assembly.xml</descriptor>
+                             <descriptor>assembly.xml</descriptor>
                          </descriptors>
                      </configuration>
                  </execution>

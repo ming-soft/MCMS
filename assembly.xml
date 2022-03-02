@@ -2,6 +2,7 @@
           xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/assembly-1.0.0.xsd">
     <id>assembly</id>
 
+    <!--打包zip格式，需要解压并上传-->
     <formats>
         <format>zip</format>
     </formats>
