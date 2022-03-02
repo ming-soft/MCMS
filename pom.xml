@@ -25,7 +25,6 @@
             <name>Central Repository 2</name>
             <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
-
         <!--阿里云仓库-->
         <!--
         <repository>
