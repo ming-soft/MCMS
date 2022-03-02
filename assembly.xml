@@ -2,7 +2,7 @@
           xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/assembly-1.0.0.xsd">
     <id>assembly</id>
 
-    <!--打包zip格式，需要解压并上传-->
+    <!--打包zip格式，需要解压并上传，打包后的文件夹结构 http://doc.mingsoft.net/server/huan-jing-pei-zhi/jarbu-shu.html#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84-->
     <formats>
         <format>zip</format>
     </formats>
