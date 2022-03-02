@@ -144,7 +144,7 @@ git clone https://gitee.com/mingSoft/MCMS.git<br/>
 # 文档
 * 使用手册 http://doc.mingsoft.net/mcms/
 
-# 关于版本说明 [更多版本查看](http://doc.mingsoft.net/mcms/geng-duo-ban-ben/zhong-yao-sheng-ming.html)
+# 关于版本说明 [更多版本查看](https://www.mingsoft.net/html/default/cms/banben/index.html)
 1. 开源版本永久免费发布源代码，开发者、企业可以终身免费使用，每个月团队会收集开源系统的问题并在每月的28号进行更新；
 2. 企业版本以上更新频率上更快，功能也比开源版本的要多，同时会根据不同版本提供额外插件，不同版本也会提供不同的人工在线服务（服务时间工作日 9:30-17:30）
 
