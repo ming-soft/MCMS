@@ -15,17 +15,13 @@
         </div>
         <div  class="class-6" >
         </div>
-        <div  class="panel" style="min-height:200px;">
+        <div  class="panel" style="min-height:300px;overflow:hidden;">
         <div   class="panel-title" style="display:inline;">
               常用功能
-              <el-tooltip effect="dark" content="鼠标移至上方功能大全，点击菜单右侧五角星即可添加到常用功能。" placement="left">
-            <i class="el-icon-question"></i>
-          </el-tooltip>
             </div>
-            <div class="v-space"></div>
             <div class="panel-content" style="flex-direction: row;flex-wrap: wrap; flex: unset;margin-top:20px;">
               <div class="mitem"
-                   @click="window.parent.indexVue.openParentMenuInTitle(item.title)"
+                   @click="window.parent.indexVue.openParentMenuInId(item.id)"
                    v-for="item in alwaysList">
                 <!--图标开始-->
                 <i :class="['iconfont',item.icon]"></i>
@@ -34,6 +30,8 @@
                 </div>
                 <!--文本结束-->
               </div>
+              <!-- 空状态提示 -->
+              <el-empty v-if="alwaysList.length===0" description="暂无常用功能，鼠标移至上方功能大全，点击菜单右侧五角星即可添加到常用功能。" style="width:100%;padding:0;"></el-empty>
             </div>
         </div>
         <!--大容器开始-->
@@ -322,79 +320,14 @@
       alwaysList: [], //常用功能列表
     },
     methods: {
-      jumpArtcleManager: function () {
-        window.parent.indexVue.openMenu({
-          modelId: 706,
-          modelTitle: '文章管理',
-          modelIcon: "icon-neirongguanli"
-        });
-      },
-      //栏目管理
-      jumpCategorymanager: function () {
-        window.parent.indexVue.open({
-          "modelId": 708,
-          "modelTitle": "栏目管理",
-          "modelId": 706,
-          "modelUrl": "cms/category/index.do"
-        });
-      },
-      //静态化
-    jumpStaticManager: function () {
-        window.parent.indexVue.open({"modelId":709,"modelTitle":"静态化","modelId":706,"modelUrl":"cms/generate/index.do"});
-      },
-      //管理员管理
-      jumpAdmininstatorManager: function () {
-        window.parent.indexVue.open({
-          "modelId": 411,
-          "modelTitle": "管理员管理",
-          "modelId": 23,
-          "modelUrl": "basic/manager/index.do"
-        });
-      },
-      //角色管理
-      jumpUserManager: function () {
-        window.parent.indexVue.open({
-          "modelId": 406,
-          "modelTitle": "角色管理",
-          "modelId": 23,
-          "modelUrl": "basic/role/index.do"
-        });
-      },
-      //菜单管理
-      jumpMenuManager: function () {
-        window.parent.indexVue.open({
-          "modelId": 183,
-          "modelTitle": "菜单管理",
-          "modelId": 23,
-          "modelUrl": "model/index.do"
-        });
-      },
       getAlwaysList: function () {
         var markList = localStorage.getItem("markList");
         if (markList) {
           this.alwaysList = JSON.parse(markList)
         }
       },
-      //模板管理
-      jumpTemplateManager: function () {
-        window.parent.indexVue.open({
-          "modelId": 87,
-          "modelTitle": "模板管理",
-          "modelId": 84,
-          "modelUrl": "template/index.do"
-        });
-      },
       setCallBackFun: function () {
         window.parent.indexVue.addCallBackFun(this.getAlwaysList);
-      },
-      //应用管理
-      jumpApplicationManager: function () {
-        window.parent.indexVue.open({
-          "modelId": 86,
-          "modelTitle": "应用管理",
-          "modelId": 84,
-          "modelUrl": "app/-1/edit.do"
-        });
       },
       //铭飞开发文档
       jumpMCMSDocument: function () {
@@ -1102,6 +1035,7 @@
     animation-duration:1s;
     font-size:24px;
     line-height:1.4;
+    max-width: 100%;
   }
   .class-47
   {
@@ -1144,6 +1078,7 @@
     animation-duration:1s;
     font-size:24px;
     line-height:1.4;
+    max-width: 100%;
   }
   .class-50
   {
@@ -1186,6 +1121,7 @@
     animation-duration:1s;
     font-size:24px;
     line-height:1.4;
+    max-width: 100%;
   }
   .class-53
   {
@@ -1228,6 +1164,7 @@
     animation-duration:1s;
     font-size:24px;
     line-height:1.4;
+    max-width: 100%;
   }
   .class-56
   {
@@ -2201,7 +2138,7 @@
     max-width:100%;
     flex-direction:column;
     display:flex;
-    margin-left:20px;
+    margin-left:10px;
     animation-duration:1s;
     background-repeat:no-repeat;
   }
@@ -2271,7 +2208,7 @@
     max-width:100%;
     flex-direction:column;
     display:flex;
-    margin-left:20px;
+    margin-left:10px;
     animation-duration:1s;
     background-repeat:no-repeat;
   }
@@ -2335,129 +2272,6 @@
       width:80px;
       padding-left:8px;
     }
-    .class-4
-    {
-    }
-    .class-5
-    {
-    }
-    .class-6
-    {
-    }
-    .class-7
-    {
-    }
-    .class-8
-    {
-    }
-    .class-9
-    {
-    }
-    .class-10
-    {
-    }
-    .class-11
-    {
-    }
-    .class-12
-    {
-    }
-    .class-13
-    {
-    }
-    .class-14
-    {
-    }
-    .class-15
-    {
-    }
-    .class-16
-    {
-    }
-    .class-17
-    {
-    }
-    .class-18
-    {
-    }
-    .class-19
-    {
-    }
-    .class-20
-    {
-    }
-    .class-21
-    {
-    }
-    .class-22
-    {
-    }
-    .class-23
-    {
-    }
-    .class-24
-    {
-    }
-    .class-25
-    {
-    }
-    .class-26
-    {
-    }
-    .class-27
-    {
-    }
-    .class-28
-    {
-    }
-    .class-29
-    {
-    }
-    .class-30
-    {
-    }
-    .class-31
-    {
-    }
-    .class-32
-    {
-    }
-    .class-33
-    {
-    }
-    .class-34
-    {
-    }
-    .class-35
-    {
-    }
-    .class-36
-    {
-    }
-    .class-37
-    {
-    }
-    .class-38
-    {
-    }
-    .class-39
-    {
-    }
-    .class-40
-    {
-    }
-    .class-41
-    {
-    }
-    .class-42
-    {
-    }
-    .class-43
-    {
-    }
-    .class-44
-    {
-    }
     .class-45
     {
       text-shadow:#000 3px 4px 5px;
@@ -2466,9 +2280,6 @@
     {
       text-shadow:#000 3px 4px 5px;
       font-size:32px;
-    }
-    .class-47
-    {
     }
     .class-48
     {
@@ -2479,9 +2290,6 @@
       text-shadow:#000 3px 4px 5px;
       font-size:32px;
     }
-    .class-50
-    {
-    }
     .class-51
     {
       text-shadow:#000 3px 4px 5px;
@@ -2490,9 +2298,6 @@
     {
       text-shadow:#000 3px 4px 5px;
       font-size:32px;
-    }
-    .class-53
-    {
     }
     .class-54
     {
@@ -2557,101 +2362,33 @@
       font-size:16px;
       line-height:1.5;
     }
-    .class-61
-    {
-    }
-    .class-62
-    {
-    }
-    .class-63
-    {
-    }
-    .class-64
-    {
-    }
     .class-65
     {
       padding-right:20px;
       padding-left:20px;
     }
-    .class-66
-    {
-    }
-    .class-67
-    {
-    }
-    .class-68
-    {
-    }
     .class-69
     {
       font-size:14px;
-    }
-    .class-70
-    {
     }
     .class-71
     {
       padding-right:20px;
       padding-left:20px;
     }
-    .class-72
-    {
-    }
-    .class-73
-    {
-    }
-    .class-74
-    {
-    }
     .class-75
     {
       font-size:14px;
-    }
-    .class-76
-    {
     }
     .class-77
     {
       padding-right:20px;
       padding-left:20px;
     }
-    .class-78
-    {
-    }
-    .class-79
-    {
-    }
-    .class-80
-    {
-    }
-    .class-81
-    {
-      font-size:14px;
-    }
-    .class-82
-    {
-    }
     .class-83
     {
       padding-right:20px;
       padding-left:20px;
-    }
-    .class-84
-    {
-    }
-    .class-85
-    {
-    }
-    .class-86
-    {
-    }
-    .class-87
-    {
-      font-size:14px;
-    }
-    .class-88
-    {
     }
     .class-89
     {
@@ -2693,138 +2430,6 @@
       flex-direction:column;
       width:80px;
       padding-left:8px;
-    }
-    .class-93
-    {
-    }
-    .class-94
-    {
-    }
-    .class-95
-    {
-    }
-    .class-96
-    {
-    }
-    .class-97
-    {
-    }
-    .class-98
-    {
-    }
-    .class-99
-    {
-    }
-    .class-100
-    {
-    }
-    .class-101
-    {
-    }
-    .class-102
-    {
-    }
-    .class-103
-    {
-    }
-    .class-104
-    {
-    }
-    .class-105
-    {
-    }
-    .class-106
-    {
-    }
-    .class-107
-    {
-    }
-    .class-108
-    {
-    }
-    .class-109
-    {
-    }
-    .class-110
-    {
-    }
-    .class-111
-    {
-    }
-    .class-112
-    {
-    }
-    .class-113
-    {
-    }
-    .class-114
-    {
-    }
-    .class-115
-    {
-    }
-    .class-116
-    {
-    }
-    .class-117
-    {
-    }
-    .class-118
-    {
-    }
-    .class-119
-    {
-    }
-    .class-120
-    {
-    }
-    .class-121
-    {
-    }
-    .class-122
-    {
-    }
-    .class-123
-    {
-    }
-    .class-124
-    {
-    }
-    .class-125
-    {
-    }
-    .class-126
-    {
-    }
-    .class-127
-    {
-    }
-    .class-128
-    {
-    }
-    .class-129
-    {
-    }
-    .class-130
-    {
-    }
-    .class-131
-    {
-    }
-    .class-132
-    {
-    }
-    .class-133
-    {
-    }
-    .class-134
-    {
-    }
-    .class-135
-    {
-    }
-    .class-136
-    {
     }
   }
   #app{
