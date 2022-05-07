@@ -26,6 +26,7 @@ package net.mingsoft.cms.action.web;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.PageUtil;
+import com.alibaba.fastjson.JSON;
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateNotFoundException;
@@ -541,12 +542,12 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
     /**
      * 存储自定义模型字段和接口参数
      *
-     * @author 铭飞开源团队
+     * @author 铭软开源团队
      * @date 2019年3月5日
      */
     class DiyModelMap {
-        String key;
-        Object value;
+        private String key;
+        private Object value;
 
         public String getKey() {
             return key;
@@ -562,6 +563,11 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
         public void setValue(Object value) {
             this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return JSON.toJSONString(this);
         }
     }
 

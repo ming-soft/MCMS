@@ -86,6 +86,7 @@ public class CategoryAction extends BaseAction {
     })
 	@RequestMapping(value="/list",method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
+	@RequiresPermissions("cms:category:view")
 	public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category) {
 		BasicUtil.startPage();
 		List categoryList = categoryBiz.query(category);
@@ -110,6 +111,7 @@ public class CategoryAction extends BaseAction {
 	@ApiOperation(value = "获取分类列表接口")
     @ApiImplicitParam(name = "id", value = "编号", required =true,paramType="query")
 	@GetMapping("/get")
+	@RequiresPermissions("cms:category:view")
 	@ResponseBody
 	public ResultData get(@ModelAttribute @ApiIgnore CategoryEntity category){
 		if(category.getId()==null) {

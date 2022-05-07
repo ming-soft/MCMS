@@ -31,6 +31,7 @@ import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.constant.e.BusinessTypeEnum;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.basic.util.SqlInjectionUtil;
 import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
@@ -113,7 +114,10 @@ public class ContentAction extends BaseAction {
     })
 	@PostMapping("/list")
 	@ResponseBody
+	@RequiresPermissions("cms:content:view")
 	public ResultData list(@ModelAttribute @ApiIgnore ContentBean content) {
+		// 检查SQL注入
+		SqlInjectionUtil.filterContent(content.getCategoryId());
 		BasicUtil.startPage();
 		List contentList = contentBiz.query(content);
 		return ResultData.build().success(new EUListBean(contentList,(int) BasicUtil.endPage(contentList).getTotal()));
@@ -136,6 +140,7 @@ public class ContentAction extends BaseAction {
     @ApiImplicitParam(name = "id", value = "编号", required =true,paramType="query")
 	@GetMapping("/get")
 	@ResponseBody
+	@RequiresPermissions("cms:content:view")
 	public ResultData get(@ModelAttribute @ApiIgnore ContentEntity content){
 		if(content.getId()==null) {
 			return ResultData.build().error();

@@ -12,6 +12,7 @@ logging:
   config: classpath:log4j-spring.xml
 
 ms:
+
   shiro-key: 4AvVhmFLUs0KTA3Kprsdag== #生产必须修改此值否则会存在安全风险，可以通过 https://base64.us/随机生产一个Base64值
   html-dir: html
   rand-code:
@@ -23,7 +24,10 @@ ms:
   manager:
     path: /ms #后台访问的路径，如:http://项目/ms/login.do，生产的时候建议修改
     check-code: true #默认开启验证码验证，false验证码不验证
-
+  xss:
+    xssEnable: true #xss过滤器的开关
+    filterUrl: /**   #过滤的url,多个用逗号分开
+    excludeUrl: /ms**,/static**,/template**,/file/upload.do  #排除的url,多个用逗号分开
   upload:
     enable-web: true  #启用web层的上传
     template: template #模板文件夹支持重命名，不支持路径
