@@ -21,12 +21,20 @@
 
 package net.mingsoft.config;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.spring.stat.BeanTypeAutoProxyCreator;
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.mingsoft.basic.filter.XSSEscapeFilter;
 import net.mingsoft.basic.interceptor.ActionInterceptor;
+import net.mingsoft.mdiy.biz.IConfigBiz;
+import net.mingsoft.mdiy.entity.ConfigEntity;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -41,6 +49,7 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +61,8 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    @Autowired(required = false)
+    private IConfigBiz configBiz;
 
     @Bean
     public ActionInterceptor actionInterceptor() {
@@ -84,19 +95,20 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         String uploadMapping = MSProperties.upload.mapping;
-        String uploadFloderPath = MSProperties.upload.path;
+        String uploadFolderPath = MSProperties.upload.path;
         String template = MSProperties.upload.template;
         String htmlDir = MSProperties.htmlDir;
-        registry.addResourceHandler(uploadMapping).addResourceLocations(File.separator + uploadFloderPath + File.separator, "file:" + uploadFloderPath + File.separator);
-        registry.addResourceHandler("/template/**").addResourceLocations(File.separator + template + File.separator, "file:" + template + File.separator);
+        // 上传路径映射 这里的映射不能使用File.separator Windows会存在映射问题
+        registry.addResourceHandler(uploadMapping).addResourceLocations("/" + uploadFolderPath + "/", "file:" + uploadFolderPath + "/");
+        registry.addResourceHandler("/" + template + "/**").addResourceLocations("/" + template + "/", "file:" + template + "/");
         registry.addResourceHandler("/"+htmlDir+"/**").addResourceLocations("/"+htmlDir+"/", "file:"+htmlDir+"/");
         //三种映射方式 webapp下、当前目录下、jar内
         registry.addResourceHandler("/app/**").addResourceLocations("/app/", "file:app/", "classpath:/app/");
         registry.addResourceHandler("/static/**").addResourceLocations("/static/", "file:static/", "classpath:/static/", "classpath:/META-INF/resources/");
         registry.addResourceHandler("/api/**").addResourceLocations("/api/", "file:api/", "classpath:/api/");
-        if (new File(uploadFloderPath).isAbsolute()) {
+        if (new File(uploadFolderPath).isAbsolute()) {
             //如果指定了绝对路径，上传的文件都映射到uploadMapping下
-            registry.addResourceHandler(uploadMapping).addResourceLocations("file:" + uploadFloderPath + File.separator
+            registry.addResourceHandler(uploadMapping).addResourceLocations("file:" + uploadFolderPath + "/"
                     //映射其他路径文件
                     //,file:F://images
             );
@@ -117,19 +129,27 @@ public class WebConfig implements WebMvcConfigurer {
 
     //XSS过滤器
     @Bean
-    public FilterRegistrationBean xssFilterRegistration() {
+    public FilterRegistrationBean xssFilterRegistration(@Value("${ms.xss.xssEnable:false}") boolean xssEnable,
+                                                        @Value("${ms.xss.filterUrl}") String filterUrl,
+                                                        @Value("${ms.xss.excludeUrl}") String excludeUrl) {
         XSSEscapeFilter xssFilter = new XSSEscapeFilter();
+        Map<String, String> initParameters = new HashMap();
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setName("XSSFilter");
-        registration.addUrlPatterns("/*");
-        registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
-        xssFilter.includes.add(".*/search.do");
-        Map<String, String> initParameters = new HashMap();
-        boolean enable = true;
+        registration.addUrlPatterns(new String[]{"/*"});
+        registration.setOrder(-2147483648);
+        xssFilter.includes.add("/**");
+        xssFilter.excludes.add(MSProperties.manager.path + "/**");
+        if (filterUrl != null && StrUtil.isNotBlank(filterUrl.toString())) {
+            xssFilter.includes.addAll(Arrays.asList(filterUrl.toString().split(",")));
+        }
+        if (excludeUrl != null && StrUtil.isNotBlank(excludeUrl.toString())) {
+            xssFilter.excludes.addAll(Arrays.asList(excludeUrl.toString().split(",")));
+        }
         initParameters.put("isIncludeRichText", "false");
         registration.setInitParameters(initParameters);
         registration.setFilter(xssFilter);
-        registration.setEnabled(enable);
+        registration.setEnabled(xssEnable);
         return registration;
     }
 
@@ -184,5 +204,15 @@ public class WebConfig implements WebMvcConfigurer {
         return pool;
     }
 
+    public Map getMap(String configName) {
+        if (!StringUtils.isEmpty(configName) && !StringUtils.isEmpty(configName)) {
+            ConfigEntity configEntity = new ConfigEntity();
+            configEntity.setConfigName(configName);
+            configEntity = (ConfigEntity)this.configBiz.getOne(new QueryWrapper(configEntity));
+            return configEntity != null && !StringUtils.isEmpty(configEntity.getConfigData()) ? (Map) JSON.parseObject(configEntity.getConfigData(), HashMap.class) : null;
+        } else {
+            return null;
+        }
+    }
 
 }

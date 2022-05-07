@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>文章1</title>
+    <title>文章</title>
     <#include "../../include/head-file.ftl">
     <script src="${base}/static/mdiy/index.js"></script>
 </head>

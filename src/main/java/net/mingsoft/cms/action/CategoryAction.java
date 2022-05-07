@@ -42,12 +42,9 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -70,44 +67,26 @@ public class CategoryAction extends BaseAction {
 
 	/**
 	 * 返回主界面index
+	 * @return
 	 */
 	@GetMapping("/index")
-	public String index(HttpServletResponse response,HttpServletRequest request){
+	public String index(){
 		return "/cms/category/index";
 	}
 
 	/**
-	 * 查询分类列表
-	 * @param category 分类实体
+	 * 查询分类列表接口
+	 * @param category 栏目实体
+	 * @return
 	 */
 	@ApiOperation(value = "查询分类列表接口")
 	@ApiImplicitParams({
     	@ApiImplicitParam(name = "categoryTitle", value = "栏目管理名称", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "categoryId", value = "所属栏目", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "categoryType", value = "栏目管理属性", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "categorySort", value = "自定义顺序", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "categoryListUrl", value = "列表模板", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "categoryUrl", value = "内容模板", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "categoryKeyword", value = "栏目管理关键字", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "categoryDescrip", value = "栏目管理描述", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "categoryImg", value = "缩略图", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "categoryDiyUrl", value = "自定义链接", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "mdiyModelId", value = "栏目管理的内容模型id", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "categoryDatetime", value = "类别发布时间", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "dictId", value = "字典对应编号", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "categoryFlag", value = "栏目属性", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "categoryPath", value = "栏目路径", required =false,paramType="query"),
     	@ApiImplicitParam(name = "categoryParentId", value = "父类型编号", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "createBy", value = "创建人", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "createDate", value = "创建时间", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "updateBy", value = "修改人", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "updateDate", value = "修改时间", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "del", value = "删除标记", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "id", value = "编号", required =false,paramType="query"),
     })
 	@RequestMapping(value="/list",method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model, BindingResult result) {
+	public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category) {
 		BasicUtil.startPage();
 		List categoryList = categoryBiz.query(category);
 		return ResultData.build().success(new EUListBean(categoryList,(int) BasicUtil.endPage(categoryList).getTotal()));
@@ -115,9 +94,11 @@ public class CategoryAction extends BaseAction {
 
 	/**
 	 * 返回编辑界面category_form
+	 * @param category 栏目
+	 * @return
 	 */
 	@GetMapping("/form")
-	public String form(@ModelAttribute CategoryEntity category, HttpServletResponse response, HttpServletRequest request, ModelMap model){
+	public String form(@ModelAttribute CategoryEntity category, ModelMap model){
 		model.addAttribute("appId", BasicUtil.getApp().getAppId());
 		return "/cms/category/form";
 	}
@@ -130,7 +111,7 @@ public class CategoryAction extends BaseAction {
     @ApiImplicitParam(name = "id", value = "编号", required =true,paramType="query")
 	@GetMapping("/get")
 	@ResponseBody
-	public ResultData get(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model){
+	public ResultData get(@ModelAttribute @ApiIgnore CategoryEntity category){
 		if(category.getId()==null) {
 			return ResultData.build().error();
 		}
@@ -138,41 +119,36 @@ public class CategoryAction extends BaseAction {
 		return ResultData.build().success(_category);
 	}
 
-	@ApiOperation(value = "保存分类列表接口")
-	 @ApiImplicitParams({
-    	@ApiImplicitParam(name = "categoryTitle", value = "栏目管理名称", required =true,paramType="query"),
-		@ApiImplicitParam(name = "categoryId", value = "所属栏目", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryType", value = "栏目管理属性", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categorySort", value = "自定义顺序", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryListUrl", value = "列表模板", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryUrl", value = "内容模板", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryKeyword", value = "栏目管理关键字", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryDescrip", value = "栏目管理描述", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryImg", value = "缩略图", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryDiyUrl", value = "自定义链接", required =false,paramType="query"),
-		@ApiImplicitParam(name = "mdiyModelId", value = "栏目管理的内容模型id", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryDatetime", value = "类别发布时间", required =false,paramType="query"),
-		@ApiImplicitParam(name = "dictId", value = "字典对应编号", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryFlag", value = "栏目属性", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryPath", value = "栏目路径", required =false,paramType="query"),
-		@ApiImplicitParam(name = "categoryParentId", value = "父类型编号", required =false,paramType="query"),
-		@ApiImplicitParam(name = "createBy", value = "创建人", required =false,paramType="query"),
-		@ApiImplicitParam(name = "createDate", value = "创建时间", required =false,paramType="query"),
-		@ApiImplicitParam(name = "updateBy", value = "修改人", required =false,paramType="query"),
-		@ApiImplicitParam(name = "updateDate", value = "修改时间", required =false,paramType="query"),
-		@ApiImplicitParam(name = "del", value = "删除标记", required =false,paramType="query"),
-		@ApiImplicitParam(name = "id", value = "编号", required =false,paramType="query"),
-	})
+
 
 	/**
 	* 保存分类
 	* @param category 分类实体
 	*/
+	@ApiOperation(value = "保存分类列表接口")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "categoryTitle", value = "栏目管理名称", required =true,paramType="query"),
+			@ApiImplicitParam(name = "categoryId", value = "所属栏目", required =false,paramType="query"),
+			@ApiImplicitParam(name = "categoryType", value = "栏目管理属性", required =false,paramType="query"),
+			@ApiImplicitParam(name = "categorySort", value = "自定义顺序", required =false,paramType="query"),
+			@ApiImplicitParam(name = "categoryListUrl", value = "列表模板", required =false,paramType="query"),
+			@ApiImplicitParam(name = "categoryUrl", value = "内容模板", required =false,paramType="query"),
+			@ApiImplicitParam(name = "categoryKeyword", value = "栏目管理关键字", required =false,paramType="query"),
+			@ApiImplicitParam(name = "categoryDescrip", value = "栏目管理描述", required =false,paramType="query"),
+			@ApiImplicitParam(name = "categoryImg", value = "缩略图", required =false,paramType="query"),
+			@ApiImplicitParam(name = "categoryDiyUrl", value = "自定义链接", required =false,paramType="query"),
+			@ApiImplicitParam(name = "mdiyModelId", value = "栏目管理的内容模型id", required =false,paramType="query"),
+			@ApiImplicitParam(name = "categoryDatetime", value = "类别发布时间", required =false,paramType="query"),
+			@ApiImplicitParam(name = "dictId", value = "字典对应编号", required =false,paramType="query"),
+			@ApiImplicitParam(name = "categoryFlag", value = "栏目属性", required =false,paramType="query"),
+			@ApiImplicitParam(name = "categoryPath", value = "栏目路径", required =false,paramType="query"),
+			@ApiImplicitParam(name = "categoryParentId", value = "父类型编号", required =false,paramType="query"),
+	})
 	@PostMapping("/save")
 	@ResponseBody
 	@LogAnn(title = "保存分类", businessType = BusinessTypeEnum.INSERT)
 	@RequiresPermissions("cms:category:save")
-	public ResultData save(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response, HttpServletRequest request) {
+	public ResultData save(@ModelAttribute @ApiIgnore CategoryEntity category) {
 		//验证栏目管理名称的值是否合法
 		if(StringUtil.isBlank(category.getCategoryTitle())){
 			return ResultData.build().error(getResString("err.empty", this.getResString("category.title")));
@@ -202,19 +178,26 @@ public class CategoryAction extends BaseAction {
 	}
 
 	/**
-	 * @param categorys 分类实体
+	 * 批量删除分类列表接口
+	 * @param categorys
+	 * @return
 	 */
 	@ApiOperation(value = "批量删除分类列表接口")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "categorys", value = "删除的栏目集合", allowMultiple = true, dataType = "CategoryEntity", required = true)
+
+	})
 	@PostMapping("/delete")
 	@ResponseBody
 	@LogAnn(title = "删除分类", businessType = BusinessTypeEnum.DELETE)
 	@RequiresPermissions("cms:category:del")
-	public ResultData delete(@RequestBody List<CategoryEntity> categorys, HttpServletResponse response, HttpServletRequest request) {
+	public ResultData delete(@RequestBody List<CategoryEntity> categorys) {
 		for(int i = 0;i<categorys.size();i++){
 			categoryBiz.delete(categorys.get(i).getId());
 		}
 		return ResultData.build().success();
 	}
+
 	/**
 	*	更新分类列表
 	* @param category 分类实体
@@ -238,19 +221,12 @@ public class CategoryAction extends BaseAction {
 		@ApiImplicitParam(name = "categoryFlag", value = "栏目属性", required =false,paramType="query"),
 		@ApiImplicitParam(name = "categoryPath", value = "栏目路径", required =false,paramType="query"),
 		@ApiImplicitParam(name = "categoryParentId", value = "父类型编号", required =false,paramType="query"),
-		@ApiImplicitParam(name = "createBy", value = "创建人", required =false,paramType="query"),
-		@ApiImplicitParam(name = "createDate", value = "创建时间", required =false,paramType="query"),
-		@ApiImplicitParam(name = "updateBy", value = "修改人", required =false,paramType="query"),
-		@ApiImplicitParam(name = "updateDate", value = "修改时间", required =false,paramType="query"),
-		@ApiImplicitParam(name = "del", value = "删除标记", required =false,paramType="query"),
-		@ApiImplicitParam(name = "id", value = "编号", required =false,paramType="query"),
 	})
 	@PostMapping("/update")
 	@ResponseBody
 	@LogAnn(title = "更新分类", businessType = BusinessTypeEnum.UPDATE)
 	@RequiresPermissions("cms:category:update")
-	public ResultData update(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response,
-                             HttpServletRequest request) {
+	public ResultData update(@ModelAttribute @ApiIgnore CategoryEntity category) {
 		//验证栏目管理名称的值是否合法
 		if(StringUtil.isBlank(category.getCategoryTitle())){
 			return ResultData.build().error(getResString("err.empty", this.getResString("category.title")));
@@ -307,10 +283,19 @@ public class CategoryAction extends BaseAction {
 		return ResultData.build().success(category);
 	}
 
+	/**
+	 * 验证拼音
+	 * @param category 栏目
+	 * @return
+	 */
 	@ApiOperation(value = "验证拼音")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "id", value = "编号", required =true,paramType="query"),
+			@ApiImplicitParam(name = "categoryPinyin", value = "栏目管拼音", required =true,paramType="query"),
+	})
 	@GetMapping("/verifyPingYin")
 	@ResponseBody
-	public ResultData verifyPingYin(@ModelAttribute @ApiIgnore CategoryEntity category, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model){
+	public ResultData verifyPingYin(@ModelAttribute @ApiIgnore CategoryEntity category){
 	 	int count = categoryBiz.count(Wrappers.<CategoryEntity>lambdaQuery()
 				.ne(StrUtil.isNotBlank(category.getId()), CategoryEntity::getId, category.getId())
 				.eq(CategoryEntity::getCategoryPinyin, category.getCategoryPinyin()));
@@ -321,7 +306,16 @@ public class CategoryAction extends BaseAction {
 		return ResultData.build().success();
 	}
 
+	/**
+	 * 批量更新模版
+	 * @param category 栏目实体
+	 * @return
+	 */
 	@ApiOperation(value = "批量更新模版")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "id", value = "编号", required =true,paramType="query"),
+			@ApiImplicitParam(name = "dictId", value = "字典", required =true,paramType="query")
+	})
 	@GetMapping("/updateTemplate")
 	@ResponseBody
 	@RequiresPermissions("cms:category:update")
@@ -343,7 +337,15 @@ public class CategoryAction extends BaseAction {
 		return ResultData.build().success();
 	}
 
+	/**
+	 * 复制栏目
+	 * @param category 栏目实体
+	 * @return
+	 */
 	@ApiOperation(value = "复制栏目")
+	@ApiImplicitParams({
+			@ApiImplicitParam(name = "id", value = "编号", required =true,paramType="query")
+	})
 	@GetMapping("/copyCategory")
 	@ResponseBody
 	@RequiresPermissions("cms:category:save")

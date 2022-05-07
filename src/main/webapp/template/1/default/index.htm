@@ -2,11 +2,12 @@
  <head>
   <meta charset="utf-8">
   <title>{ms:global.name/}</title>
+  <script src="/static/mdiy/index.js"></script>
   <#include "head-file.htm" />
  </head>
  <body>
   <div id="app" v-cloak>
-   <#include "nav.htm" />
+   <#include "header.htm" />
    <div class="ms-banner">
     <swiper class="ms-vue-awesome-swiper" :options="{
 slidesPerView : 1,
@@ -99,7 +100,33 @@ var app = new Vue({
     el: '#app',
     watch:{
     },
-    data: {
+    data:function() {
+     return {
+      loading:false,
+      saveDisabled: false,
+      verifCode: ms.base + "/code",
+      //表单数据
+      form: {
+       // 姓名
+       leaveName:'',
+       // 电话
+       leavePhone:'',
+       // 留言内容
+       textareaMsg:''
+      },
+      rules:{
+       rand_code: [{
+          required: true,
+          message: '验证码不能为空',
+          trigger: 'blur'
+       }, {
+         min: 4,
+         max: 4,
+         message: '请输入4位验证码',
+         trigger: 'blur'
+        }]
+      },
+     }
     },
     methods: {
        switchShow:function(arr){
@@ -111,8 +138,37 @@ var app = new Vue({
                }
            })
        },
+       save: function() {
+         var that = this;
+         that.saveDisabled = true;
+         that.formModel.save(function(res) {
+          if (res.result) {
+           that.$notify({
+            title: '成功',
+            type: 'success',
+            message: '保存成功!'
+           });
+
+          } else {
+           that.$notify({
+            title: '失败',
+            message: res.msg,
+            type: 'warning'
+           });
+          }
+          that.saveDisabled = false;
+         });
+       },
+       code: function () {
+        this.verifCode = ms.base + "/code?t=" + (new Date).getTime();
+       }
     },
     created(){
+      var that = this;
+      URLS["post"].formURL["save"] = "/mdiy/formData/save.do";
+      ms.mdiy.model.post("formModel", { "modelName": "留言版" }).then(function(obj) {
+       that.formModel = obj;
+      });
     }
 })
 </script>

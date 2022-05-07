@@ -63,7 +63,6 @@
 		<result column="category_img" property="categoryImg" /><!--缩略图 -->
 		<result column="category_diy_url" property="categoryDiyUrl" /><!--自定义链接 -->
 		<result column="mdiy_model_id" property="mdiyModelId" /><!--栏目管理的内容模型id -->
-		<result column="category_datetime" property="categoryDatetime" /><!--类别发布时间 -->
 		<result column="dict_id" property="dictId" /><!--字典对应编号 -->
 		<result column="category_flag" property="categoryFlag" /><!--栏目属性 -->
 		<result column="category_path" property="categoryPath" /><!--栏目路径 -->
@@ -182,25 +181,25 @@
 		</select>
 
 
-		<!--删除-->
+		<!--删除 防止脏数据-->
 		<delete id="deleteEntity" parameterType="int">
-			update  cms_content set del=1  where id=#{id}
+			delete from cms_content where id=#{id}
 		</delete>
 
-		<!--删除-->
+		<!--删除 防止脏数据-->
 		<delete id="deleteEntityByCategoryIds" >
-			update  cms_content set del=1
+			delete from cms_content
 			<where>
-				category_id  in <foreach collection="ids" item="item" index="index"
+				category_id in <foreach collection="ids" item="item" index="index"
 							open="(" separator="," close=")">#{item}</foreach>
 			</where>
 		</delete>
 
 		<!--批量删除-->
 		<delete id="delete" >
-			update  cms_content set del=1
+			delete from cms_content
 			<where>
-				id  in <foreach collection="ids" item="item" index="index"
+				id in <foreach collection="ids" item="item" index="index"
 										 open="(" separator="," close=")">#{item}</foreach>
 			</where>
 		</delete>
@@ -218,12 +217,12 @@
 			ct.del=0
 			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT(CONCAT('%',#{contentTitle}),'%')</if>
 			<if test="categoryId != null and categoryId != ''"> 	and (ct.category_id=#{categoryId} or ct.category_id in
-				(select id FROM cms_category where find_in_set('${categoryId}',CATEGORY_PARENT_IDS)>0))</if>
+				(select id FROM cms_category where find_in_set(#{categoryId},CATEGORY_PARENT_IDS)>0))</if>
 			<if test="contentType != null and contentType != ''">
 				and
 				<foreach item="item" index="index" collection="contentType.split(',')" open="(" separator="or"
 						 close=")">
-					FIND_IN_SET('${item}',ct.content_type)>0
+					FIND_IN_SET(#{item},ct.content_type)>0
 				</foreach>
 			</if>
 			<if test="contentDisplay != null and contentDisplay != ''"> and content_display=#{contentDisplay}</if>
@@ -257,7 +256,7 @@
 			<!-- 查询子栏目数据 -->
 			<if test="categoryId!=null and  categoryId!='' and categoryType==1">
 				and (ct.category_id=#{categoryId} or ct.category_id in
-				(select id FROM cms_category where find_in_set('${categoryId}',CATEGORY_PARENT_IDS)>0))
+				(select id FROM cms_category where find_in_set(#{categoryId},CATEGORY_PARENT_IDS)>0))
 			</if>
 			<if test="categoryId!=null and  categoryId!='' and categoryType==2">
 				and ct.category_id=#{categoryId}
@@ -308,7 +307,7 @@
 		left join cms_category c
 		ON a.category_id
 		= c.id
-		<if test="tableName!=null and tableName!='' and diyMap!=null">left join ${tableName} d on d.link_id=a.id
+		<if test="tableName!=null and tableName!='' and diyList!=null">left join ${tableName} d on d.link_id=a.id
 		</if>
 		<where>
 			a.del=0
@@ -326,7 +325,7 @@
 			</if>
 			<if test="map.content_type!=null">
 				and <foreach item="item" index="index" collection="map.content_type.split(',')"  open="(" separator="or" close=")">
-					FIND_IN_SET('${item}',a.content_type)>0
+					FIND_IN_SET(#{item},a.content_type)>0
 				</foreach>
 			</if>
 			<if test="map.content_description!=null">
@@ -347,10 +346,10 @@
 					and a.content_datetime &lt; to_date(#{map.content_datetime_end}, 'yyyy-mm-dd hh24:mi:ss')
 				</if>
 			</if>
-			<if test="tableName!=null and tableName!='' and diyMap!=null">
+			<if test="tableName!=null and tableName!='' and diyList!=null">
 				<foreach item="item" index="index" collection="diyList" open=""
 						 separator="" close="">
-					and d.${field.key} like CONCAT(CONCAT('%',#{item.value}),'%')
+					and d.${item.key} like CONCAT(CONCAT('%',#{item.value}),'%')
 				</foreach>
 			</if>
 		</where>

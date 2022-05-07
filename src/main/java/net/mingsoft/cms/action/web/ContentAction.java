@@ -69,8 +69,9 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	private IHistoryLogBiz historyLogBiz;
 
 	/**
-	 * 查询文章列表
-	 * @param content 文章实体
+	 * 查询文章列表接口
+	 * @param content 文章
+	 * @return
 	 */
 	@ApiOperation(value = "查询文章列表接口")
 	@ApiImplicitParams({
@@ -81,23 +82,10 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
     	@ApiImplicitParam(name = "contentAuthor", value = "文章作者", required =false,paramType="query"),
     	@ApiImplicitParam(name = "contentSource", value = "文章来源", required =false,paramType="query"),
     	@ApiImplicitParam(name = "contentDatetime", value = "发布时间", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "contentSort", value = "自定义顺序", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "contentImg", value = "文章缩略图", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "contentDescription", value = "描述", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "contentKeyword", value = "关键字", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "contentDetails", value = "文章内容", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "contentUrl", value = "文章跳转链接地址", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "appid", value = "文章管理的应用id", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "createBy", value = "创建人", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "createDate", value = "创建时间", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "updateBy", value = "修改人", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "updateDate", value = "修改时间", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "del", value = "删除标记", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "id", value = "编号", required =false,paramType="query"),
     })
 	@PostMapping("/list")
 	@ResponseBody
-	public ResultData list(@ModelAttribute @ApiIgnore ContentBean content, HttpServletResponse response, HttpServletRequest request, @ApiIgnore ModelMap model, BindingResult result) {
+	public ResultData list(@ModelAttribute @ApiIgnore ContentBean content) {
 		BasicUtil.startPage();
 		List contentList = contentBiz.query(content);
 		return ResultData.build().success(new EUListBean(contentList,(int)BasicUtil.endPage(contentList).getTotal()));
@@ -105,14 +93,15 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 
 
 	/**
-	 * 获取文章
-	 * @param content 文章实体
+	 * 获取文章列表接口
+	 * @param content 文章
+	 * @return
 	 */
 	@ApiOperation(value = "获取文章列表接口")
     @ApiImplicitParam(name = "id", value = "编号", required =true,paramType="query")
 	@GetMapping("/get")
 	@ResponseBody
-	public ResultData get(@ModelAttribute @ApiIgnore ContentEntity content,HttpServletResponse response, HttpServletRequest request,@ApiIgnore ModelMap model){
+	public ResultData get(@ModelAttribute @ApiIgnore ContentEntity content){
 		if(content.getId()==null) {
 			return ResultData.build().error();
 		}
@@ -120,11 +109,16 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		return ResultData.build().success(_content);
 	}
 
+	/**
+	 * 查看文章点击数
+	 * @param contentId 文章编号
+	 * @return
+	 */
 	@ApiOperation(value = "查看文章点击数")
 	@ApiImplicitParam(name = "contentId", value = "文章编号", required = true,paramType="path")
 	@GetMapping(value = "/{contentId}/hit")
 	@ResponseBody
-	public String hit(@PathVariable @ApiIgnore String contentId, HttpServletRequest request, HttpServletResponse response){
+	public String hit(@PathVariable @ApiIgnore String contentId) {
 		if(StringUtils.isEmpty(contentId)){
 			return "document.write(0)";
 		}

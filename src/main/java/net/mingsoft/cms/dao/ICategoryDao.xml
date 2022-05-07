@@ -106,7 +106,7 @@
 			</if>
 			and
 			(
-				find_in_set('${id}',CATEGORY_PARENT_IDS)>0
+				find_in_set(#{id},CATEGORY_PARENT_IDS)>0
 				or id=#{id}
 			)
 			and del=0
