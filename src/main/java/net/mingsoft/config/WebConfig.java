@@ -64,6 +64,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired(required = false)
     private IConfigBiz configBiz;
 
+    @Autowired(required = false)
+    private MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter;
+
     @Bean
     public ActionInterceptor actionInterceptor() {
         return new ActionInterceptor();
@@ -178,21 +181,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         // TODO Auto-generated method stub
-        converters.add(mappingJackson2HttpMessageConverter());
+        converters.add(mappingJackson2HttpMessageConverter);
         WebMvcConfigurer.super.configureMessageConverters(converters);
 
     }
 
-    @Bean
-    public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-        MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-        ObjectMapper objectMapper = new ObjectMapper();
-
-        //添加此配置
-        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        converter.setObjectMapper(objectMapper);
-        return converter;
-    }
 
     @Bean
     public ExecutorService crawlExecutorPool() {

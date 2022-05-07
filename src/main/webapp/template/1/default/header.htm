@@ -1,0 +1,44 @@
+<#assign ids=field.parentids>
+<#assign typeid=field.typeid>
+<div class="ms-nav">
+ <div class="body">
+  <div class="logo">
+   <img title="" alt="" src="{ms:global.host/}/{@ms:file global.logo/}" class="logo-pic">
+   <img title="" alt="" src="https://www.mingsoft.net//template/1/ms/images/1596437934982.png" class="logo-desc">
+  </div>
+  <div @click="switchShow([&quot;1605172743000_96378&quot;]);" class="nav-h5">
+   <i class="iconfont icon-caidan nav-h5-icon"></i>
+   <div id="key_1605172743000_96378" class="nav-h5-body" style="display: none">
+    <a href="{ms:global.host/}" class="nav-h5-item"> 首页 </a>
+    {ms:channel flag='nav' type='top'}
+    <a href="<#if field.type==3>{ms:global.url/}${field.typeurl}<#else>{ms:global.url/}${field.typelink}</#if>" class="nav-h5-item <#if typeid==field.typeid || (ids?has_content && ids?index_of('${field.typeid}') gt -1)> sel</#if>">
+     ${field.typetitle}
+    </a>
+    {/ms:channel}
+   </div>
+  </div>
+  <div class="nav-item">
+   <a href="{ms:global.host/}" class="item"> 首页 </a>
+
+   {ms:channel flag='nav' type='top'}
+   <a href="<#if field.type==3>{ms:global.url/}${field.typeurl}<#else>{ms:global.url/}${field.typelink}</#if>" class="item<#if typeid==field.typeid || (ids?has_content && ids?index_of('${field.typeid}') gt -1)> sel</#if>">
+    ${field.typetitle}
+   </a>
+   {/ms:channel}
+  </div>
+  <div class="nav-search">
+   <!--搜索-start-->
+   <form id="searchDataForm" action="{ms:global.host/}/mcms/search.do" method="post" class="ms-search-input">
+    <div class="ms-search-input-div">
+     <!--输入框 - start -->
+     <input class="ms-input" name="content_title" placeholder="输入搜索关键字">
+     <!--输入框 -end -->
+    </div>
+    <div class="ms-search-button" onclick="document.getElementById('searchDataForm').submit();">
+     <i class="iconfont icon-fangdajing"></i>
+    </div>
+   </form>
+   <!--搜索-end-->
+  </div>
+ </div>
+</div>
