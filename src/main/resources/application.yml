@@ -13,7 +13,7 @@ logging:
 
 ms:
 
-  shiro-key: 4AvVhmFLUs0KTA3Kprsdag== #生产必须修改此值否则会存在安全风险，可以通过 https://base64.us/随机生产一个Base64值
+  shiro-key: d3d3bWluZ3NvZnRuZXRtcw== #生产必须修改此值否则会存在安全风险，可以通过 https://base64.us/随机生产一个Base64值
   html-dir: html
   rand-code:
     length: 4 #验证码长度
