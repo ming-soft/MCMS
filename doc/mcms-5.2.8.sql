@@ -653,37 +653,6 @@ INSERT INTO `model` VALUES (1767, 87, '84,87', '12010004', '查看', 'template:v
 COMMIT;
 
 -- ----------------------------
--- Table structure for people
--- ----------------------------
-DROP TABLE IF EXISTS `people`;
-CREATE TABLE `people` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
-  `people_name` varchar(30) DEFAULT NULL COMMENT '账号',
-  `people_password` varchar(50) DEFAULT NULL COMMENT '密码',
-  `people_ip` varchar(100) DEFAULT NULL COMMENT '用户登录ip',
-  `people_phone` varchar(30) DEFAULT NULL COMMENT '手机号码',
-  `people_phonecheck` int(1) DEFAULT '0' COMMENT '1手机验证通过',
-  `people_mail` varchar(120) DEFAULT NULL COMMENT '用户邮箱',
-  `people_maillcheck` int(1) DEFAULT '0' COMMENT '1邮箱验证通过',
-  `people_state` int(2) DEFAULT '0' COMMENT '用户状态',
-  `people_code` varchar(15) DEFAULT NULL COMMENT '随机验证码',
-  `people_codesenddate` datetime DEFAULT NULL COMMENT '发送验证码时间',
-  `people_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '注册时间',
-  `UPDATE_BY` int(11) DEFAULT NULL COMMENT '更新人',
-  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-  `CREATE_BY` int(11) DEFAULT NULL COMMENT '创建人',
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='户用基础表';
-
--- ----------------------------
--- Records of people
--- ----------------------------
-BEGIN;
-COMMIT;
-
--- ----------------------------
 -- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
