@@ -71,7 +71,7 @@ CREATE TABLE `cms_category` (
 -- Records of cms_category
 -- ----------------------------
 BEGIN;
-INSERT INTO `cms_category` VALUES (1329257213283344385, NULL, 1, 0, NULL, NULL, NULL, '公司产品', '[]', 'nav', '', '', '/product', '', 'product-detail.htm', 'product-list.htm', '1', 'product', 0, '2021-10-21 08:39:21', '57', '2020-11-19 10:56:31', '57', 0);
+INSERT INTO `cms_category` VALUES (1329257213283344385, NULL, 0, 0, NULL, NULL, NULL, '公司产品', '[]', 'nav', '', '', '/product', '', 'product-detail.htm', 'product-list.htm', '1', 'product', 0, '2021-10-21 08:39:21', '57', '2020-11-19 10:56:31', '57', 0);
 INSERT INTO `cms_category` VALUES (1329257282518720513, NULL, 0, 0, NULL, NULL, NULL, '新闻动态', '[]', 'nav', '', '', '/news', '', 'news-detail.htm', 'news-list.htm', '1', 'news', 0, '2020-12-30 05:06:46', '57', '2020-11-19 10:56:47', '57', 0);
 INSERT INTO `cms_category` VALUES (1329257498923835394, NULL, 0, 0, NULL, NULL, NULL, '关于我们', '[]', 'nav', '', '', '/gywm', '/gywm/lianxiwomen/index.html', 'about.htm', '', '3', 'gywm', 0, '2020-12-31 03:43:54', '57', '2020-11-19 10:57:39', '57', 0);
 INSERT INTO `cms_category` VALUES (1329257594591715329, 1329257498923835394, 1, 1329257498923835394, NULL, NULL, '1329257498923835394', '联系我们', '[]', 'd', '', '', '/gywm/lianxiwomen', '', 'about.htm', '', '2', 'lianxiwomen', 0, '2020-11-19 18:33:02', '57', '2020-11-19 10:58:02', '57', 0);
