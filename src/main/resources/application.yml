@@ -1,6 +1,11 @@
 server:
   port: 8080
   servlet.session.timeout: P0DT60M0S #D天H小时M分钟S秒，字符T是紧跟在时分秒之前的，每个单位都必须由数字开始,且时分秒顺序不能乱
+  servlet:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
 #  ssl: #https证书配置 配置了之后只能通过https访问应用
 #    key-store: xxx.pfx 证书文件
 #    key-store-password:  1234 证书密码
@@ -14,6 +19,7 @@ logging:
 ms:
 
   shiro-key: d3d3bWluZ3NvZnRuZXRtcw== #生产必须修改此值否则会存在安全风险，可以通过 https://base64.us/随机生产一个Base64值
+  cookie-name: SHIRO_SESSION_ID
   html-dir: html
   rand-code:
     length: 4 #验证码长度
@@ -27,7 +33,7 @@ ms:
   xss:
     xssEnable: true #xss过滤器的开关
     filterUrl: /**   #过滤的url,多个用逗号分开
-    excludeUrl: /ms**,/static**,/template**,/file/upload.do,/static/plugins/ueditor/1.4.3.3/jsp/editor.do  #排除的url,多个用逗号分开
+    excludeUrl: /ms**,/static**,/template**,/file/upload.do,/static/plugins/ueditor/1.4.3.3/jsp/editor.do #排除的url,多个用逗号分开
   upload:
     enable-web: true  #启用web层的上传
     template: template #模板文件夹支持重命名，不支持路径
@@ -96,5 +102,6 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
+      select-strategy: not_empty
   configuration:
     database-id: mysql
