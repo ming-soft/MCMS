@@ -6,7 +6,7 @@ server:
       force: true
       charset: utf-8
       enabled: true
-#  ssl: #https证书配置 配置了之后只能通过https访问应用
+#  ssl: #https证书配置 配置了之后只能通过https访问应用，此配置只争对springboot方式有效，如果使用了nginx需要在nginx配置证书
 #    key-store: xxx.pfx 证书文件
 #    key-store-password:  1234 证书密码
 
