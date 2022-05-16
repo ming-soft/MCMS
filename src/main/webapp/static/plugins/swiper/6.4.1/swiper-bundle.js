@@ -207,7 +207,6 @@
   /**
    * Dom7 3.0.0
    * Minimalistic JavaScript library for DOM manipulation, with a jQuery-compatible API
-   * https://framework7.io/docs/dom7.html
    *
    * Copyright 2020, Vladimir Kharlampidi
    *
