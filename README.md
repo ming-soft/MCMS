@@ -73,7 +73,7 @@ QQ交流群号： [![加入QQ群](https://img.shields.io/badge/五群-231211521-
 建议开发者使用以下环境，这样避免版本带来的问题
 * Windows、Linux
 * Eclipse、Idea
-* Mysql≧5.7
+* Mysql≧5.7 (开启忽略大小写)
 * JDK≧8
 * Tomcat≧8
 
