@@ -10,7 +10,7 @@
    <i class="iconfont icon-caidan nav-h5-icon"></i>
    <div id="key_1605172743000_96378" class="nav-h5-body" style="display: none">
     <a href="{ms:global.host/}" class="nav-h5-item"> 首页 </a>
-    {ms:channel flag='nav' type='top'}
+    {ms:channel flag='n' type='top'}
     <a href="<#if field.type==3>{ms:global.url/}${field.typeurl}<#else>{ms:global.url/}${field.typelink}</#if>" class="nav-h5-item <#if typeid==field.typeid || (ids?has_content && ids?index_of('${field.typeid}') gt -1)> sel</#if>">
      ${field.typetitle}
     </a>
@@ -20,7 +20,7 @@
   <div class="nav-item">
    <a href="{ms:global.host/}" class="item"> 首页 </a>
 
-   {ms:channel flag='nav' type='top'}
+   {ms:channel flag='n' type='top'}
    <a href="<#if field.type==3>{ms:global.url/}${field.typeurl}<#else>{ms:global.url/}${field.typelink}</#if>" class="item<#if typeid==field.typeid || (ids?has_content && ids?index_of('${field.typeid}') gt -1)> sel</#if>">
     ${field.typetitle}
    </a>

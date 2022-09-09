@@ -164,11 +164,7 @@ var app = new Vue({
        }
     },
     created(){
-      var that = this;
-      URLS["post"].formURL["save"] = "/mdiy/formData/save.do";
-      ms.mdiy.model.post("formModel", { "modelName": "留言版" }).then(function(obj) {
-       that.formModel = obj;
-      });
+
     }
 })
 </script>
