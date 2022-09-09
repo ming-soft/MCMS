@@ -31,7 +31,7 @@ import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.constant.e.BusinessTypeEnum;
 import net.mingsoft.basic.util.BasicUtil;
-import net.mingsoft.basic.util.SqlInjectionUtil;
+import net.mingsoft.base.util.SqlInjectionUtil;
 import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
@@ -40,6 +40,7 @@ import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.entity.ModelEntity;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -85,6 +86,7 @@ public class ContentAction extends BaseAction {
 	/**
 	 * 返回主界面index
 	 */
+	@ApiIgnore
 	@GetMapping("/index")
 	public String index(){
 		return "/cms/content/index";
@@ -93,6 +95,7 @@ public class ContentAction extends BaseAction {
 	/**
 	 * 返回主界面main
 	 */
+	@ApiIgnore
 	@GetMapping("/main")
 	public String main(){
 		return "/cms/content/main";
@@ -119,7 +122,7 @@ public class ContentAction extends BaseAction {
 		// 检查SQL注入
 		SqlInjectionUtil.filterContent(content.getCategoryId());
 		BasicUtil.startPage();
-		List contentList = contentBiz.query(content);
+		List contentList = contentBiz.queryContent(content);
 		return ResultData.build().success(new EUListBean(contentList,(int) BasicUtil.endPage(contentList).getTotal()));
 	}
 
@@ -195,6 +198,10 @@ public class ContentAction extends BaseAction {
 	@LogAnn(title = "保存文章", businessType = BusinessTypeEnum.INSERT)
 	@RequiresPermissions("cms:content:save")
 	public ResultData save(@ModelAttribute @ApiIgnore ContentEntity content) {
+		//验证缩略图参数值是否合法
+		if (content.getContentImg()==null || !content.getContentImg().matches("^\\[.{1,}]$")){
+			content.setContentImg("");
+		}
 		//验证文章标题的值是否合法
 		if(StringUtil.isBlank(content.getContentTitle())){
 			return ResultData.build().error(getResString("err.empty", this.getResString("content.title")));
@@ -238,7 +245,7 @@ public class ContentAction extends BaseAction {
 			//获取栏目实体
 			CategoryEntity categoryEntity = categoryBiz.getById(contents.get(i).getCategoryId());
 			//如果栏目绑定的模型ID为空
-			if (categoryEntity.getMdiyModelId() == null){
+			if (StringUtils.isBlank(categoryEntity.getMdiyModelId())){
 				continue;
 			}
 			//获取到配置模型实体
@@ -279,6 +286,10 @@ public class ContentAction extends BaseAction {
 	@LogAnn(title = "更新文章", businessType = BusinessTypeEnum.UPDATE)
 	@RequiresPermissions("cms:content:update")
 	public ResultData update(@ModelAttribute @ApiIgnore ContentEntity content) {
+		 //验证缩略图参数值是否合法
+		 if (content.getContentImg()==null || !content.getContentImg().matches("^\\[.{1,}]$")){
+			 content.setContentImg("");
+		 }
 		//验证文章标题的值是否合法
 		if(StringUtil.isBlank(content.getContentTitle())){
 			return ResultData.build().error(getResString("err.empty", this.getResString("content.title")));

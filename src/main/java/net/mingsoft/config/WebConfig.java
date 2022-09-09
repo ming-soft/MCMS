@@ -26,14 +26,11 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.spring.stat.BeanTypeAutoProxyCreator;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import net.mingsoft.basic.filter.XSSEscapeFilter;
 import net.mingsoft.basic.interceptor.ActionInterceptor;
 import net.mingsoft.mdiy.biz.IConfigBiz;
 import net.mingsoft.mdiy.entity.ConfigEntity;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
@@ -43,11 +40,9 @@ import org.springframework.core.Ordered;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.context.request.RequestContextListener;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -61,10 +56,10 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Autowired(required = false)
+    @Resource
     private IConfigBiz configBiz;
 
-    @Autowired(required = false)
+    @Resource
     private MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter;
 
     @Bean
@@ -100,7 +95,7 @@ public class WebConfig implements WebMvcConfigurer {
         String uploadMapping = MSProperties.upload.mapping;
         String uploadFolderPath = MSProperties.upload.path;
         String template = MSProperties.upload.template;
-        String htmlDir = MSProperties.htmlDir;
+        String htmlDir = MSProperties.DiyProperties.htmlDir;
         // 上传路径映射 这里的映射不能使用File.separator Windows会存在映射问题
         registry.addResourceHandler(uploadMapping).addResourceLocations("/" + uploadFolderPath + "/", "file:" + uploadFolderPath + "/");
         registry.addResourceHandler("/" + template + "/**").addResourceLocations("/" + template + "/", "file:" + template + "/");
@@ -141,13 +136,15 @@ public class WebConfig implements WebMvcConfigurer {
         registration.setName("XSSFilter");
         registration.addUrlPatterns(new String[]{"/*"});
         registration.setOrder(-2147483648);
-        xssFilter.includes.add("/**");
-        xssFilter.excludes.add(MSProperties.manager.path + "/**");
-        if (filterUrl != null && StrUtil.isNotBlank(filterUrl.toString())) {
-            xssFilter.includes.addAll(Arrays.asList(filterUrl.toString().split(",")));
+        if (filterUrl != null && StrUtil.isNotBlank(filterUrl)) {
+            xssFilter.includes.addAll(Arrays.asList(filterUrl.split(",")));
+        }else {
+            xssFilter.includes.add("/**");
         }
-        if (excludeUrl != null && StrUtil.isNotBlank(excludeUrl.toString())) {
-            xssFilter.excludes.addAll(Arrays.asList(excludeUrl.toString().split(",")));
+        if (excludeUrl != null && StrUtil.isNotBlank(excludeUrl)) {
+            xssFilter.excludes.addAll(Arrays.asList(excludeUrl.split(",")));
+        }else {
+            xssFilter.excludes.add(MSProperties.manager.path + "/**");
         }
         initParameters.put("isIncludeRichText", "false");
         registration.setInitParameters(initParameters);

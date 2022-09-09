@@ -22,13 +22,12 @@
 
 package net.mingsoft.cms.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.baomidou.mybatisplus.annotation.*;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import net.mingsoft.base.entity.BaseEntity;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
 
 /**
  * 分类实体
@@ -106,7 +105,7 @@ public class CategoryEntity extends BaseEntity {
     /**
      * 栏目管理的内容模型id
      */
-    private Integer mdiyModelId;
+    private String mdiyModelId;
 
     /**
      * 字典对应编号
@@ -123,6 +122,7 @@ public class CategoryEntity extends BaseEntity {
     /**
      * 父类型编号
      */
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private String categoryParentIds;
 
     /**
@@ -299,11 +299,11 @@ public class CategoryEntity extends BaseEntity {
         return this.categoryDiyUrl;
     }
 
-    public Integer getMdiyModelId() {
+    public String getMdiyModelId() {
         return mdiyModelId;
     }
 
-    public void setMdiyModelId(Integer mdiyModelId) {
+    public void setMdiyModelId(String mdiyModelId) {
         this.mdiyModelId = mdiyModelId;
     }
 
@@ -440,6 +440,30 @@ public class CategoryEntity extends BaseEntity {
      */
     public String getTypepath() {
         return categoryPath;
+    }
+
+    /**
+     * 获取栏目属性 (标签使用）
+     */
+    @TableField(exist = false)
+    private String type;
+
+    public String getType() {
+        return this.categoryType;
+    }
+
+    /**
+     * 获取子分类数量 (标签使用）
+     */
+    @TableField(exist = false)
+    private String childsize;
+
+    public String getChildsize() {
+        return this.childsize;
+    }
+
+    public void setChildsize(String childsize) {
+        this.childsize = childsize;
     }
 
 }

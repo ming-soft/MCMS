@@ -19,9 +19,6 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
-
-
 package net.mingsoft.cms.action.web;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -31,24 +28,19 @@ import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateNotFoundException;
 import net.mingsoft.base.constant.Const;
-import net.mingsoft.basic.exception.BusinessException;
 import net.mingsoft.basic.util.BasicUtil;
-import net.mingsoft.cms.bean.CategoryBean;
-import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
-import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IModelBiz;
-import net.mingsoft.mdiy.biz.IPageBiz;
 import net.mingsoft.mdiy.entity.ModelEntity;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -76,12 +68,6 @@ import java.util.Map;
 public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
     /**
-     * 自定义页面业务层
-     */
-    @Autowired
-    private IPageBiz pageBiz;
-
-    /**
      * 文章管理业务处理层
      */
     @Autowired
@@ -101,11 +87,8 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
     private IModelBiz modelBiz;
 
 
-    @Value("${ms.html-dir:html}")
+    @Value("${ms.diy.html-dir:html}")
     private String htmlDir;
-
-
-   
 
     /**
      * 实现前端页面的文章搜索
@@ -113,7 +96,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
      * @param request  搜索id
      * @param response
      */
-    @RequestMapping(value = "search",method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "search",method = {RequestMethod.GET, RequestMethod.POST},produces= MediaType.TEXT_HTML_VALUE+";charset=utf-8")
     @ResponseBody
     public String search(HttpServletRequest request, HttpServletResponse response) {
         String search = BasicUtil.getString("tmpl", "search.htm");
@@ -178,7 +161,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
             column = (CategoryEntity) categoryBiz.getById(typeId);
             // 获取表单类型的id
             if (column != null && ObjectUtil.isNotNull(column.getMdiyModelId())) {
-                contentModel = (ModelEntity) modelBiz.getEntity(column.getMdiyModelId());
+                contentModel = (ModelEntity) modelBiz.getById(column.getMdiyModelId());
                 if (contentModel != null) {
                     // 保存自定义模型的数据
                     Map<String, String> fieldMap = contentModel.getFieldMap();

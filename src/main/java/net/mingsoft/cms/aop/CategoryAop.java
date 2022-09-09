@@ -7,14 +7,22 @@
 package net.mingsoft.cms.aop;
 
 import cn.hutool.core.io.FileUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import net.mingsoft.base.entity.ResultData;
+import net.mingsoft.basic.exception.BusinessException;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.cms.constant.e.CategoryTypeEnum;
+import net.mingsoft.cms.dao.ICategoryDao;
+import net.mingsoft.cms.dao.IContentDao;
 import net.mingsoft.cms.entity.CategoryEntity;
-import net.mingsoft.mdiy.biz.IDictBiz;
-import net.mingsoft.mdiy.entity.DictEntity;
+import net.mingsoft.cms.entity.ContentEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +31,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 /**
@@ -38,10 +45,72 @@ public class CategoryAop extends net.mingsoft.basic.aop.BaseAop {
     @Value("${ms.diy.html-dir:html}")
     private String htmlDir;
 
+    @Autowired
+    private ICategoryDao categoryDao;
+
+    @Autowired
+    private IContentDao contentDao;
 
     @Pointcut("execution(* net.mingsoft.cms.action.CategoryAction.delete(..)) ")
     public void delete() {
     }
+
+    /**
+     * 栏目保存接口切面
+     */
+    @Pointcut("execution(* net.mingsoft.cms.action.CategoryAction.save(..)) ")
+    public void save() {}
+
+    /**
+     * 栏目更新接口切面
+     */
+    @Pointcut("execution(* net.mingsoft.cms.action.CategoryAction.update(..)) ")
+    public void update() {}
+
+
+
+    @Around("save() || update()")
+    public ResultData move(ProceedingJoinPoint pjp) throws Throwable {
+        CategoryEntity category = getType(pjp, CategoryEntity.class);
+        if (category == null) {
+            throw new BusinessException("栏目不存在!");
+        }
+
+        // 获取返回值
+        Object obj = pjp.proceed(pjp.getArgs());
+        ResultData resultData = JSONObject.parseObject(JSONObject.toJSON(obj).toString(), ResultData.class);
+        CategoryEntity parent = categoryDao.selectById(category.getCategoryId());
+        if (parent == null) {
+            return resultData;
+        }
+        // 用于判断父级栏目之前是否是子栏目
+        // 只有父节点之前为子节点 && 父栏目类型为列表 && 子栏目为列表
+        boolean flag = parent.getLeaf() && StringUtils.equals(parent.getCategoryType(), CategoryTypeEnum.LIST.toString());
+        if (flag) {
+            // 将父栏目的内容模板清空
+            parent.setCategoryUrl("");
+            categoryDao.updateById(parent);
+            CategoryEntity returnCategory = JSONObject.parseObject(resultData.get(ResultData.DATA_KEY).toString(), CategoryEntity.class);
+            // 获取父栏目ID集合
+            String categoryIds = StringUtils.isEmpty(parent.getCategoryParentIds())
+                    ? returnCategory.getId() : parent.getCategoryParentIds() + "," + returnCategory.getId();
+            if (!StringUtils.equals(returnCategory.getCategoryType(), CategoryTypeEnum.LIST.toString())) {
+                // 如果子栏目不为列表,将直接删除父栏目下的文章
+                LambdaUpdateWrapper<ContentEntity> contentDeleteWrapper = new UpdateWrapper<ContentEntity>().lambda();
+                contentDeleteWrapper.eq(ContentEntity::getCategoryId, parent.getId());
+                contentDao.delete(contentDeleteWrapper);
+            }
+            // 将父栏目下的文章移动到子栏目下
+            LambdaUpdateWrapper<ContentEntity> contentWrapper = new UpdateWrapper<ContentEntity>().lambda();
+            contentWrapper.set(ContentEntity::getCategoryId, returnCategory.getId());
+            contentWrapper.eq(ContentEntity::getCategoryId, parent.getId());
+            contentDao.update(new ContentEntity(), contentWrapper);
+
+            return resultData;
+        }
+        return resultData;
+    }
+
 
     /**
      * 删除栏目后并删除文章对应的静态化文件

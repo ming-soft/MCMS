@@ -40,12 +40,32 @@ import java.util.Map;
  */
 public interface IContentBiz extends IBaseBiz<ContentEntity> {
 
+
     /**
      * 根据文章属性查询
      * @param contentBean
      * @return
      */
     List<CategoryBean> queryIdsByCategoryIdForParser(ContentBean contentBean);
+    /**
+     * 查询文章,不包括单篇
+     * @param contentBean
+     * @return
+     */
+    List<CategoryBean> queryContent(ContentBean contentBean);
 
     int getSearchCount(ModelEntity contentModel, List diyList, Map whereMap, int appId, String categoryIds);
+    /**
+     * 根据文章属性查询,不包括单篇
+     * @param contentBean
+     * @return
+     */
+    List<CategoryBean> queryIdsByCategoryIdForParserAndNotCover(ContentBean contentBean);
+
+    /**
+     * 根据解析标签arclist的sql获取list
+     * @return
+     */
+    List list(Map map);
+
 }

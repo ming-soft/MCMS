@@ -151,6 +151,10 @@ public class CategoryAction extends BaseAction {
 	@LogAnn(title = "保存分类", businessType = BusinessTypeEnum.INSERT)
 	@RequiresPermissions("cms:category:save")
 	public ResultData save(@ModelAttribute @ApiIgnore CategoryEntity category) {
+		//验证缩略图参数值是否合法
+		if (!category.getCategoryImg().matches("^\\[.{1,}]$") || category.getCategoryImg()==null){
+			category.setCategoryImg("");
+		}
 		//验证栏目管理名称的值是否合法
 		if(StringUtil.isBlank(category.getCategoryTitle())){
 			return ResultData.build().error(getResString("err.empty", this.getResString("category.title")));
@@ -229,6 +233,10 @@ public class CategoryAction extends BaseAction {
 	@LogAnn(title = "更新分类", businessType = BusinessTypeEnum.UPDATE)
 	@RequiresPermissions("cms:category:update")
 	public ResultData update(@ModelAttribute @ApiIgnore CategoryEntity category) {
+		 //验证缩略图参数值是否合法
+		 if (!category.getCategoryImg().matches("^\\[.{1,}]$") || category.getCategoryImg()==null){
+			 category.setCategoryImg("");
+		 }
 		//验证栏目管理名称的值是否合法
 		if(StringUtil.isBlank(category.getCategoryTitle())){
 			return ResultData.build().error(getResString("err.empty", this.getResString("category.title")));
@@ -298,7 +306,7 @@ public class CategoryAction extends BaseAction {
 	@GetMapping("/verifyPingYin")
 	@ResponseBody
 	public ResultData verifyPingYin(@ModelAttribute @ApiIgnore CategoryEntity category){
-	 	int count = categoryBiz.count(Wrappers.<CategoryEntity>lambdaQuery()
+	 	long count = categoryBiz.count(Wrappers.<CategoryEntity>lambdaQuery()
 				.ne(StrUtil.isNotBlank(category.getId()), CategoryEntity::getId, category.getId())
 				.eq(CategoryEntity::getCategoryPinyin, category.getCategoryPinyin()));
 

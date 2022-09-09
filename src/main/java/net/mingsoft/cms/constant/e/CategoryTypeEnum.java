@@ -43,7 +43,12 @@ public enum CategoryTypeEnum implements BaseEnum {
     /**
      * 链接
      */
-    LINK("3");
+    LINK("3"),
+
+    /**
+     * 未知类型
+     */
+    UN_KNOW("0");
 
 
     CategoryTypeEnum(String type) {
@@ -58,7 +63,7 @@ public enum CategoryTypeEnum implements BaseEnum {
                 return e;
             }
         }
-        return null;
+        return CategoryTypeEnum.UN_KNOW;
     }
 
     @Override

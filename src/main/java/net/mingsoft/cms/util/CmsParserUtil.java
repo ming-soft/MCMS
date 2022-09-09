@@ -24,6 +24,7 @@ package net.mingsoft.cms.util;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.PageUtil;
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
@@ -138,7 +139,7 @@ public class CmsParserUtil {
             // 判断当前栏目是否有自定义模型
             if (column.getMdiyModelId() != null) {
                 // 通过栏目模型编号获取自定义模型实体
-                contentModel = (ModelEntity) SpringUtil.getBean(ModelBizImpl.class).getEntity(column.getMdiyModelId());
+                contentModel = (ModelEntity) SpringUtil.getBean(ModelBizImpl.class).getById(column.getMdiyModelId());
             }
 
             if (contentModel != null) {
@@ -232,8 +233,8 @@ public class CmsParserUtil {
             String columnUrl = categoryBean.getCategoryUrl();
             LOG.debug("columnUrl {}",columnUrl);
             // 文章的栏目模型编号
-            Integer columnContentModelId = null;
-            if (articleIdList.get(artId).getMdiyModelId() != null && categoryBean.getMdiyModelId() > 0) {
+            String columnContentModelId = null;
+            if (StringUtils.isNotBlank(articleIdList.get(artId).getMdiyModelId()) && StringUtils.isNotBlank(categoryBean.getMdiyModelId())) {
                 columnContentModelId = categoryBean.getMdiyModelId();
             }
 
@@ -270,10 +271,12 @@ public class CmsParserUtil {
                 } else {
                     // 通过栏目模型编号获取自定义模型实体
                     contentModel = (ModelEntity) SpringUtil.getBean(IModelBiz.class)
-                            .getEntity(columnContentModelId);
-                    // 将自定义模型编号设置为key值
-                    contentModelMap.put(columnContentModelId, contentModel.getModelTableName());
-                    parserParams.put(ParserUtil.TABLE_NAME, contentModel.getModelTableName());
+                            .getById(columnContentModelId);
+                    if (null!=contentModel){
+                        // 将自定义模型编号设置为key值
+                        contentModelMap.put(columnContentModelId, contentModel.getModelTableName());
+                        parserParams.put(ParserUtil.TABLE_NAME, contentModel.getModelTableName());
+                    }
                 }
             }
 
@@ -298,7 +301,7 @@ public class CmsParserUtil {
 
             parserParams.put(ParserUtil.PAGE, page);
             String finalWritePath = writePath;
-            HashMap<Object, Object> cloneMap = CollUtil.newHashMap();
+            HashMap<Object, Object> cloneMap = MapUtil.newHashMap();
             cloneMap.putAll(parserParams);
             HttpServletRequest request = SpringUtil.getRequest();
             String content = null;

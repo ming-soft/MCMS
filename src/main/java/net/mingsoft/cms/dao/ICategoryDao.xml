@@ -40,6 +40,7 @@
 				<if test="leaf != null">leaf=#{leaf},</if>
 				category_id=#{categoryId},
 				category_parent_ids=#{categoryParentIds},
+				mdiy_model_id=#{mdiyModelId},
 				<if test="categoryType != null and categoryType != ''">category_type=#{categoryType},</if>
 				<if test="categorySort != null">category_sort=#{categorySort},</if>
 				category_list_url=#{categoryListUrl},
@@ -48,7 +49,6 @@
 				<if test="categoryDescrip != null ">category_descrip=#{categoryDescrip},</if>
 				<if test="categoryImg != null and categoryImg != ''">category_img=#{categoryImg},</if>
 				<if test="categoryDiyUrl != null">category_diy_url=#{categoryDiyUrl},</if>
-				<if test="mdiyModelId != null and mdiyModelId != ''">mdiy_model_id=#{mdiyModelId},</if>
 				<if test="dictId != null">dict_id=#{dictId},</if>
 				<if test="categoryFlag != null ">category_flag=#{categoryFlag},</if>
 				<if test="categoryPath != null and categoryPath != ''">category_path=#{categoryPath},</if>
@@ -98,18 +98,20 @@
 
 	<!-- 模糊查询开始 -->
 	<select id="queryChildren" resultMap="resultMap">
-		select * from cms_category
+		select *,
+		( SELECT count(*) FROM cms_category cc WHERE cc.category_id = cms_category.id AND cc.del = 0 ) AS childsize from cms_category
 		<where>
-
+			del=0
 			<if test="dictId &gt; 0">
 				and dict_id=#{dictId}
 			</if>
-			and
-			(
+			<if test="id != null and id != ''">
+				and
+				(
 				find_in_set(#{id},CATEGORY_PARENT_IDS)>0
 				or id=#{id}
-			)
-			and del=0
+				)
+			</if>
 		</where>
 	</select>
 

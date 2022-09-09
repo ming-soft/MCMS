@@ -1,12 +1,15 @@
 server:
   port: 8080
   servlet.session.timeout: P0DT60M0S #D天H小时M分钟S秒，字符T是紧跟在时分秒之前的，每个单位都必须由数字开始,且时分秒顺序不能乱
+  error:
+    include-exception: true
+    include-message: always
   servlet:
     encoding:
       force: true
       charset: utf-8
       enabled: true
-#  ssl: #https证书配置 配置了之后只能通过https访问应用，此配置只争对springboot方式有效，如果使用了nginx需要在nginx配置证书
+#  ssl: #https证书配置 配置了之后只能通过https访问应用
 #    key-store: xxx.pfx 证书文件
 #    key-store-password:  1234 证书密码
 
@@ -17,8 +20,13 @@ logging:
   config: classpath:log4j-spring.xml
 
 ms:
-
-  shiro-key: d3d3bWluZ3NvZnRuZXRtcw== #生产必须修改此值否则会存在安全风险，可以通过 https://base64.us/随机生产一个Base64值
+  xss:
+    xssEnable: true #xss过滤器的开关
+    filterUrl: /**   #过滤的url,多个用逗号分开
+    excludeUrl: /ms/**,/static/**,/template/**,/file/upload.do,/static/plugins/ueditor/1.4.3.3/jsp/editor.do,/activity/saveUser.do  #排除的url,多个用逗号分开
+  #  mstore-url: http://store.i.mingsoft.net
+  #  mstore-host: store.i.mingsoft.net
+  # shiro-key:  #16位长度，不填写默认随机生成
   cookie-name: SHIRO_SESSION_ID
   html-dir: html
   rand-code:
@@ -30,20 +38,17 @@ ms:
   manager:
     path: /ms #后台访问的路径，如:http://项目/ms/login.do，生产的时候建议修改
     check-code: true #默认开启验证码验证，false验证码不验证
-  xss:
-    xssEnable: true #xss过滤器的开关
-    filterUrl: /**   #过滤的url,多个用逗号分开
-    excludeUrl: /ms**,/static**,/template**,/file/upload.do,/static/plugins/ueditor/1.4.3.3/jsp/editor.do #排除的url,多个用逗号分开
+
   upload:
     enable-web: true  #启用web层的上传
     template: template #模板文件夹支持重命名，不支持路径
     path: upload #文件上传路径，可以根据实际写绝对路径
     mapping: /upload/** #修改需要谨慎，系统第一次部署可以随意修改，如果已经有了上传数据，再次修改会导致之前上传的文件404
-    denied: .exe,.jsp,.jspx,.sh
+    denied: exe,jsp,xml,sh,bat,py
     back-up: /upload_back
     multipart:
       #最大上传文件大小 单位：KB
-      max-file-size: 10240
+      max-file-size: 1024
       #文件暂存临时目录
       upload-temp-dir: temp
       #临时文件大小
@@ -52,8 +57,20 @@ ms:
       max-request-size: -1
 
 spring:
+  main:
+    allow-circular-references: true
   datasource:
     druid:
+      initialSize: 5 #初始连接数，默认0
+      minIdle: 5  #最小连接数，默认8
+      maxActive: 20 #最大连接数，默认8
+      maxWait: 2000 #获取连接的最大等待时间，单位毫秒
+      validationQuery: SELECT 1
+      testOnBorrow: true #设置从连接池获取连接时是否检查连接有效性，true检查，false不检查
+      testOnReturn: true #设置从连接池归还连接时是否检查连接有效性，true检查，false不检查
+      poolPreparedStatements: true #可以支持PSCache（提升写入、查询效率）
+      filters: stat,wall #配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      keepAlive: true #保持长连接
       stat-view-servlet:
         enabled: false #启用druid监控
   profiles:
@@ -63,6 +80,7 @@ spring:
       config: classpath:ehcache.xml
   mvc:
     pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
       use-suffix-pattern: true
   devtools:
     restart:
@@ -92,11 +110,6 @@ spring:
       time_format: HH:mm:ss
       datetime_format: yyyy-MM-dd HH:mm:ss
       number_format: 0.##
-  http:
-    encoding:
-      force: true
-      charset: utf-8
-      enabled: true
 
 mybatis-plus:
   global-config:

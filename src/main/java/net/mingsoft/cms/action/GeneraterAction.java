@@ -99,7 +99,7 @@ public class GeneraterAction extends BaseAction {
     @Value("${ms.manager.path}")
     private String managerPath;
 
-    @Value("${ms.html-dir:html}")
+    @Value("${ms.diy.html-dir:html}")
     private String htmlDir;
 
     /**
@@ -251,7 +251,7 @@ public class GeneraterAction extends BaseAction {
             contentBean.setCategoryId(category.getId());
             contentBean.setCategoryType(category.getCategoryType());
             //将文章列表标签中的中的参数
-            articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
+            articleIdList = contentBiz.queryIdsByCategoryIdForParserAndNotCover(contentBean);
             // 分类是列表
             if (category.getCategoryType().equals(CategoryTypeEnum.LIST.toString())) {
                 // 判断模板文件是否存在

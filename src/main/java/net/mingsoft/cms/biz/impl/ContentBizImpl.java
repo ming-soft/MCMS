@@ -24,6 +24,8 @@
 
 package net.mingsoft.cms.biz.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import freemarker.template.TemplateException;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
 import net.mingsoft.cms.bean.CategoryBean;
@@ -32,13 +34,16 @@ import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.dao.ICategoryDao;
 import net.mingsoft.cms.dao.IContentDao;
 import net.mingsoft.cms.entity.ContentEntity;
+import net.mingsoft.mdiy.biz.ITagBiz;
 import net.mingsoft.mdiy.entity.ModelEntity;
+import net.mingsoft.mdiy.entity.TagEntity;
+import net.mingsoft.mdiy.util.ParserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -64,9 +69,9 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 	@Autowired
 	private ICategoryDao categoryDao;
 
-	@Value("${ms.html-dir:html}")
-	private String htmlDir;
 
+	@Autowired
+	private ITagBiz tagBiz;
 
 	@Override
 	protected IBaseDao getDao() {
@@ -74,9 +79,16 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		return contentDao;
 	}
 
+
 	@Override
 	public List<CategoryBean> queryIdsByCategoryIdForParser(ContentBean contentBean) {
 		return this.contentDao.queryIdsByCategoryIdForParser(contentBean);
+	}
+
+	@Override
+	public List<CategoryBean> queryContent(ContentBean contentBean) {
+		return this.contentDao.queryContent(contentBean);
+
 	}
 
 	@Override
@@ -87,5 +99,30 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		return contentDao.getSearchCount(null,null,whereMap, appId,categoryIds);
 	}
 
+	@Override
+	public List<CategoryBean> queryIdsByCategoryIdForParserAndNotCover(ContentBean contentBean) {
+		return this.contentDao.queryIdsByCategoryIdForParser(contentBean);
+	}
+
+	@Override
+	public List list(Map map ) {
+		//通过tagSqlBiz获取arclist对应的sql
+		QueryWrapper<TagEntity> tagWrapper = new QueryWrapper<>();
+		tagWrapper.eq("tag_name", "arclist");
+		TagEntity tagEntity = tagBiz.getOne(tagWrapper);
+		String sqlFtl = tagEntity.getTagSql();
+		List<ContentEntity> contentEntities = null;
+		//通过ParserUtil
+		try {
+			String sql = ParserUtil.rendering(map,sqlFtl);
+			//执行原生的sql
+			contentEntities = (List<ContentEntity>) tagBiz.excuteSql(sql);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (TemplateException e) {
+			e.printStackTrace();
+		}
+		return contentEntities;
+	}
 
 }

@@ -39,12 +39,28 @@ import java.util.Map;
  */
 public interface IContentDao extends IBaseDao<ContentEntity> {
 
+
+
     /**
      * 查询文章编号集合
      * @contentBean
      * @return
      */
     public List<CategoryBean> queryIdsByCategoryIdForParser(ContentBean contentBean);
+
+    /**
+     * 查询文章编号集合,不包括单篇
+     * @contentBean
+     * @return
+     */
+    public List<CategoryBean> queryIdsByCategoryIdForParserAndNotCover(ContentBean contentBean);
+
+    /**
+     * 查询文章,不包括单篇
+     * @contentBean
+     * @return
+     */
+    public List<CategoryBean> queryContent(ContentBean contentBean);
 
     /**
      * 根据查询文章实体总数

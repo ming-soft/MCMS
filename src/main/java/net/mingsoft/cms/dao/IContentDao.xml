@@ -207,6 +207,45 @@
 		<select id="queryAll" resultMap="resultMap">
 			select * from cms_content where del=0 order by id desc
 		</select>
+
+
+	<!--  查询文章,不包括单篇	-->
+	<select id="queryContent" resultMap="resultContentMap">
+		<!--,CONCAT('/html/',ct.app_id,category_path,'/',ct.id,'.html') AS static_url-->
+		select ct.* from (
+		select ct.*,cc.category_path from cms_content ct
+		join cms_category cc on ct.category_id=cc.id
+		<where>
+			ct.del=0
+			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT(CONCAT('%',#{contentTitle}),'%')</if>
+			<if test="categoryId != null and categoryId != ''"> 	and (ct.category_id=#{categoryId} or ct.category_id in
+				(select id FROM cms_category where find_in_set(#{categoryId},CATEGORY_PARENT_IDS)>0 and cms_category.category_type != 2))</if>
+			<if test="contentType != null and contentType != ''">
+				and
+				<foreach item="item" index="index" collection="contentType.split(',')" open="(" separator="or"
+						 close=")">
+					FIND_IN_SET(#{item},ct.content_type)>0
+				</foreach>
+			</if>
+			<if test="contentDisplay != null and contentDisplay != ''"> and content_display=#{contentDisplay}</if>
+			<if test="contentAuthor != null and contentAuthor != ''"> and content_author=#{contentAuthor}</if>
+			<if test="contentSource != null and contentSource != ''"> and content_source=#{contentSource}</if>
+			<if test="contentDatetime != null"> and content_datetime=#{contentDatetime} </if>
+			<if test="contentSort != null"> and content_sort=#{contentSort} </if>
+			<if test="contentImg != null and contentImg != ''"> and content_img=#{contentImg}</if>
+			<if test="contentDescription != null and contentDescription != ''"> and content_description=#{contentDescription}</if>
+			<if test="contentKeyword != null and contentKeyword != ''"> and content_keyword=#{contentKeyword}</if>
+			<if test="contentDetails != null and contentDetails != ''"> and content_details=#{contentDetails}</if>
+			<if test="contentUrl != null and contentUrl != ''"> and content_url=#{contentUrl}</if>
+			<if test="contentHit != null"> and content_hit=#{contentHit}</if>
+			<if test="createBy &gt; 0"> and ct.create_by=#{createBy} </if>
+			<if test="createDate != null"> and ct.create_date=#{createDate} </if>
+			<if test="updateBy &gt; 0"> and ct.update_by=#{updateBy} </if>
+			<if test="updateDate != null"> and update_date=#{updateDate} </if>
+			<include refid="net.mingsoft.base.dao.IBaseDao.sqlWhere"></include>
+		</where>
+		)ct ORDER BY ct.content_datetime desc,content_sort desc
+	</select>
 	<!--条件查询-->
 	<select id="query" resultMap="resultContentMap">
 		<!--,CONCAT('/html/',ct.app_id,category_path,'/',ct.id,'.html') AS static_url-->
@@ -288,7 +327,7 @@
 				<if test="orderBy=='hit'">ORDER BY content_hit</if>
 				<if test="orderBy=='sort'">ORDER BY content_sort</if>
 				<if  test="orderBy!='date' and orderBy!='hit' and orderBy!='sort'">
-					ORDER BY ct.id
+					ORDER BY ct.content_datetime
 				</if>
 				<choose>
 					<when test="order!=null and order!=''">
@@ -301,6 +340,65 @@
 			</if>
 
 	</select>
+
+
+	<!-- 根据站点编号、开始、结束时间和栏目编号查询文章编号集合,不包括单篇 -->
+	<select id="queryIdsByCategoryIdForParserAndNotCover" resultMap="resultBean" >
+		select
+		ct.id article_id,c.*
+		FROM cms_content ct
+		LEFT JOIN cms_category c ON ct.category_id = c.id
+		where ct.del=0
+
+		<!-- 查询子栏目数据 -->
+		<if test="categoryId!=null and  categoryId!='' and categoryType==1">
+			and (ct.category_id=#{categoryId} or ct.category_id in
+			(select id FROM cms_category where find_in_set(#{categoryId},CATEGORY_PARENT_IDS)>0 and category_type!=2))
+		</if>
+		<if test="categoryId!=null and  categoryId!='' and categoryType==2">
+			and ct.category_id=#{categoryId}
+		</if>
+		<if test="beginTime!=null and beginTime!=''">
+			<if test="_databaseId == 'mysql'">
+				AND ct.UPDATE_DATE &gt;=  #{beginTime}
+			</if>
+			<if test="_databaseId == 'oracle'">
+				and ct.UPDATE_DATE &gt;= to_date(#{beginTime}, 'yyyy-mm-dd hh24:mi:ss')
+			</if>
+		</if>
+		<if test="endTime!=null and endTime!=''">
+			<if test="_databaseId == 'mysql'">
+				and ct.UPDATE_DATE &gt;= #{endTime}
+			</if>
+			<if test="_databaseId == 'oracle'">
+				and ct.UPDATE_DATE &gt;= to_date(#{endTime}, 'yyyy-mm-dd hh24:mi:ss')
+			</if>
+		</if>
+		<if test="flag!=null and flag!=''">
+			and ct.content_type in ( #{flag})
+		</if>
+		<if  test="noflag!=null and noflag!=''">
+			and (ct.content_type not in ( #{noflag}  ) or ct.content_type is null)
+		</if>
+		<if test="orderBy!=null  and orderBy!='' ">
+			<if test="orderBy=='date'">ORDER BY content_datetime</if>
+			<if test="orderBy=='hit'">ORDER BY content_hit</if>
+			<if test="orderBy=='sort'">ORDER BY content_sort</if>
+			<if  test="orderBy!='date' and orderBy!='hit' and orderBy!='sort'">
+				ORDER BY ct.content_datetime
+			</if>
+			<choose>
+				<when test="order!=null and order!=''">
+					${order}
+				</when>
+				<otherwise>
+					desc
+				</otherwise>
+			</choose>
+		</if>
+
+	</select>
+
 	<select id="getSearchCount" resultType="int">
 		select count(*) from
 		cms_content a
