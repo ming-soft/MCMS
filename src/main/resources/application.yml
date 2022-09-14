@@ -23,12 +23,13 @@ ms:
   xss:
     xssEnable: true #xss过滤器的开关
     filterUrl: /**   #过滤的url,多个用逗号分开
-    excludeUrl: /ms/**,/static/**,/template/**,/file/upload.do,/static/plugins/ueditor/1.4.3.3/jsp/editor.do,/activity/saveUser.do  #排除的url,多个用逗号分开
+    excludeUrl: /ms/**,/static/**,/template/**,/file/upload.do,/static/plugins/ueditor/1.4.3.3/jsp/editor.do  #排除的url,多个用逗号分开
   #  mstore-url: http://store.i.mingsoft.net
   #  mstore-host: store.i.mingsoft.net
   # shiro-key:  #16位长度，不填写默认随机生成
   cookie-name: SHIRO_SESSION_ID
-  html-dir: html
+  diy:
+    html-dir: html
   rand-code:
     length: 4 #验证码长度
     circle: 10 #干扰线条数，值越大越不容易辨别
