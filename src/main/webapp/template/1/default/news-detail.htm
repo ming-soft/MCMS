@@ -52,20 +52,17 @@
                 <#else>
                 已经没有了
             </#if>
-            </div>
-            <div class="news-next">
-                <span class="label"> 下一篇: </span>
-                <#if next.title?has_content>
-                <a href="{ms:global.url/}${next.link}"> ${next.title} </a>
-                <#else>
-                已经没有了
-                </#if>
-            </div>
-            <el-badge :value="Total" class="item">
-                <el-button @click="save">点赞</el-button>
-            </el-badge>
-
+        </div>
+        <div class="news-next">
+            <span class="label"> 下一篇: </span>
+            <#if next.title?has_content>
+            <a href="{ms:global.url/}${next.link}"> ${next.title} </a>
+            <#else>
+            已经没有了
+        </#if>
     </div>
+
+</div>
 </div>
 <!--新闻详情-end-->
 </div>
@@ -93,25 +90,6 @@
                     }
                 })
             },
-            // 点赞关注(一个账号只允许关注一次)
-            save: function() {
-                var that = this;
-                //用户-关注接口
-                ms.http.post("/people/attention/collectionLog/save.do", that.collectionFrorm).then(function (data) {
-                    if (data.result) {
-                        that.$message.success("点赞成功!");
-                    }
-                })
-                that.likeTotal()
-            },
-            // 点赞数
-            likeTotal: function (){
-                var that = this;
-                //用户-关注接口
-                ms.http.post("/attention/collection/list", that.collectionFrorm).then(function (data) {
-                    that.Total = data.data.rows[0].dataCount
-                })
-            }
         },
         created() {
             this.likeTotal()
