@@ -45,7 +45,7 @@ ms:
     template: template #模板文件夹支持重命名，不支持路径
     path: upload #文件上传路径，可以根据实际写绝对路径
     mapping: /upload/** #修改需要谨慎，系统第一次部署可以随意修改，如果已经有了上传数据，再次修改会导致之前上传的文件404
-    denied: exe,jsp,xml,sh,bat,py,ftl
+    denied: exe,jsp,xml,sh,bat,py,ftl,jspx
     back-up: /upload_back
     multipart:
       #最大上传文件大小 单位：KB
