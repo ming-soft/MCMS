@@ -127,9 +127,9 @@ public class WebConfig implements WebMvcConfigurer {
 
     //XSS过滤器
     @Bean
-    public FilterRegistrationBean xssFilterRegistration(@Value("${ms.xss.xssEnable:false}") boolean xssEnable,
-                                                        @Value("${ms.xss.filterUrl}") String filterUrl,
-                                                        @Value("${ms.xss.excludeUrl}") String excludeUrl) {
+    public FilterRegistrationBean xssFilterRegistration(@Value("${ms.xss.enable:false}") boolean xssEnable,
+                                                        @Value("${ms.xss.filter-url}:''") String filterUrl,
+                                                        @Value("${ms.xss.exclude-url}:''") String excludeUrl) {
         XSSEscapeFilter xssFilter = new XSSEscapeFilter();
         Map<String, String> initParameters = new HashMap();
         FilterRegistrationBean registration = new FilterRegistrationBean();

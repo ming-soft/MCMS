@@ -1,10 +1,11 @@
 server:
   port: 8080
-  servlet.session.timeout: P0DT60M0S #D天H小时M分钟S秒，字符T是紧跟在时分秒之前的，每个单位都必须由数字开始,且时分秒顺序不能乱
   error:
     include-exception: true
     include-message: always
   servlet:
+    context-path: / #项目名称
+    session.timeout: P0DT60M0S #D天H小时M分钟S秒，字符T是紧跟在时分秒之前的，每个单位都必须由数字开始,且时分秒顺序不能乱
     encoding:
       force: true
       charset: utf-8
@@ -21,9 +22,9 @@ logging:
 
 ms:
   xss:
-    xssEnable: true #xss过滤器的开关
-    filterUrl: /**   #过滤的url,多个用逗号分开
-    excludeUrl: /static/**,/template/**,/file/upload.do,/static/plugins/ueditor/1.4.3.3/jsp/editor.do  #排除的url,多个用逗号分开
+    enable: true #xss过滤器的开关
+    filter-url: /**   #过滤的url,多个用逗号分开
+    exclude-url: /static/**,/template/**,/file/upload.do,/static/plugins/ueditor/1.4.3.3/jsp/editor.do  #排除的url,多个用逗号分开
   #  mstore-url: http://store.i.mingsoft.net
   #  mstore-host: store.i.mingsoft.net
   # shiro-key:  #16位长度，不填写默认随机生成
