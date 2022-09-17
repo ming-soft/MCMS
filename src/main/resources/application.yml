@@ -1,8 +1,5 @@
 server:
   port: 8080
-  error:
-    include-exception: true
-    include-message: always
   servlet:
     context-path: / #项目名称
     session.timeout: P0DT60M0S #D天H小时M分钟S秒，字符T是紧跟在时分秒之前的，每个单位都必须由数字开始,且时分秒顺序不能乱
@@ -10,6 +7,9 @@ server:
       force: true
       charset: utf-8
       enabled: true
+  error:
+    include-exception: true
+    include-message: always
 #  ssl: #https证书配置 配置了之后只能通过https访问应用
 #    key-store: xxx.pfx 证书文件
 #    key-store-password:  1234 证书密码
@@ -21,22 +21,18 @@ logging:
   config: classpath:log4j-spring.xml
 
 ms:
+  #scheme: https #解决使用代理服务器代理应用时标签解析域名依旧为http的问题
   xss:
     enable: true #xss过滤器的开关
     filter-url: /**   #过滤的url,多个用逗号分开
     exclude-url: /static/**,/template/**,/file/upload.do,/static/plugins/ueditor/1.4.3.3/jsp/editor.do  #排除的url,多个用逗号分开
-  #  mstore-url: http://store.i.mingsoft.net
-  #  mstore-host: store.i.mingsoft.net
-  # shiro-key:  #16位长度，不填写默认随机生成
-  cookie-name: SHIRO_SESSION_ID
+
   diy:
     html-dir: html
-  rand-code:
-    length: 4 #验证码长度
-    circle: 10 #干扰线条数，值越大越不容易辨别
-  #  scheme: https #解决使用代理服务器代理应用时标签解析域名依旧为http的问题
+
   swagger:
     enable: false #启用swagger文档，生产的时候务必关掉 访问地址：http://ip|域名/项目发布名/swagger-ui.html
+
   manager:
     path: /ms #后台访问的路径，如:http://项目/ms/login.do，生产的时候建议修改
     check-code: true #默认开启验证码验证，false验证码不验证
@@ -57,6 +53,13 @@ ms:
       max-in-memory-size: 10240
       #总上传最大大小 单位：KB -1禁用
       max-request-size: -1
+
+  #shiro-key:  #16位长度，不填写默认随机生成
+  cookie-name: SHIRO_SESSION_ID
+
+  rand-code:
+    length: 4 #验证码长度
+    circle: 10 #干扰线条数，值越大越不容易辨别
 
 spring:
   main:
