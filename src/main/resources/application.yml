@@ -25,7 +25,7 @@ ms:
   xss:
     enable: true #xss过滤器的开关
     filter-url: /**   #过滤的url,多个用逗号分开
-    exclude-url: /static/**,/template/**,/file/upload.do,/static/plugins/ueditor/1.4.3.3/jsp/editor.do  #排除的url,多个用逗号分开
+    exclude-url: /ms/mdiy/formData/update.do,/ms/mdiy/model/data/update.do,/ms/cms/content/update.do,/ms/mdiy/formData/save.do,/ms/mdiy/model/data/save.do,/ms/cms/content/save.do,/ms/mdiy/model/updateJson.do,/ms/mdiy/form/updateJson.do,/static/**,/template/**,/file/upload.do,/static/plugins/ueditor/1.4.3.3/jsp/editor.do,/activity/saveUser.do  #排除的url,多个用逗号分开
 
   diy:
     html-dir: html
