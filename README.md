@@ -105,6 +105,7 @@ git clone https://gitee.com/mingSoft/MCMS.git<br/>
 | Apache Shiro | 安全框架 | [http://shiro.apache.org](http://shiro.apache.org/) |
 | Spring session | 分布式Session管理 | [http://projects.spring.io/spring-session](http://projects.spring.io/spring-session) |
 | MyBatis | ORM框架 | [http://www.mybatis.org](http://www.mybatis.org/mybatis-3/zh/index.html) |
+| MyBatis-Plus | ORM框架 | [https://baomidou.com/](https://baomidou.com/) |
 | Freemarker | 视图框架 | [http://freemarker.foofun.cn](http://freemarker.foofun.cn/) |
 | PageHelper | MyBatis分页插件 | [http://git.oschina.net/free/Mybatis\_PageHelper](http://git.oschina.net/free/Mybatis_PageHelper) |
 | Log4J | 日志组件 | [http://logging.apache.org](http://logging.apache.org) |
