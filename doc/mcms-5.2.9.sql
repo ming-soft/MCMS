@@ -6,25 +6,25 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `app`;
 CREATE TABLE `app` (
-                       `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '站点id',
-                       `app_name` varchar(60) NOT NULL COMMENT '站点名称',
-                       `app_url` varchar(200) NOT NULL COMMENT '站点域名，多个回车换行显示',
-                       `app_logo` varchar(4000) DEFAULT NULL COMMENT '网站logo',
-                       `app_keyword` varchar(500) DEFAULT NULL COMMENT '站点关键字',
-                       `app_copyright` varchar(500) DEFAULT NULL COMMENT '站点版权信息',
-                       `app_style` varchar(50) DEFAULT NULL COMMENT '站点风格',
-                       `app_description` varchar(500) DEFAULT NULL COMMENT '描述',
-                       `app_pay` varchar(300) DEFAULT NULL COMMENT '费用清单',
-                       `app_state` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '0运行中 1已停止  ',
-                       `app_datetime` datetime DEFAULT NULL COMMENT '创建时间',
-                       `app_pay_date` datetime DEFAULT NULL COMMENT '应用续费时间',
-                       `app_dir` varchar(10) DEFAULT NULL COMMENT '网站生成的目录',
-                       `update_date` datetime DEFAULT NULL COMMENT '修改时间',
-                       `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
-                       `create_date` datetime DEFAULT NULL COMMENT '创建时间',
-                       `create_by` varchar(11) DEFAULT NULL,
-                       `del` int(1) DEFAULT '0',
-                       PRIMARY KEY (`id`) USING BTREE
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '站点id',
+  `app_name` varchar(60) NOT NULL COMMENT '站点名称',
+  `app_url` varchar(200) NOT NULL COMMENT '站点域名，多个回车换行显示',
+  `app_logo` varchar(4000) DEFAULT NULL COMMENT '网站logo',
+  `app_keyword` varchar(500) DEFAULT NULL COMMENT '站点关键字',
+  `app_copyright` varchar(500) DEFAULT NULL COMMENT '站点版权信息',
+  `app_style` varchar(50) DEFAULT NULL COMMENT '站点风格',
+  `app_description` varchar(500) DEFAULT NULL COMMENT '描述',
+  `app_pay` varchar(300) DEFAULT NULL COMMENT '费用清单',
+  `app_state` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '0运行中 1已停止  ',
+  `app_datetime` datetime DEFAULT NULL COMMENT '创建时间',
+  `app_pay_date` datetime DEFAULT NULL COMMENT '应用续费时间',
+  `app_dir` varchar(10) DEFAULT NULL COMMENT '网站生成的目录',
+  `update_date` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(11) DEFAULT NULL,
+  `del` int(1) DEFAULT '0',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='应用表';
 
 -- ----------------------------
@@ -39,32 +39,32 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cms_category`;
 CREATE TABLE `cms_category` (
-                                `id` bigint(20) unsigned NOT NULL,
-                                `category_id` bigint(20) unsigned DEFAULT NULL COMMENT '所属栏目',
-                                `leaf` int(1) DEFAULT NULL COMMENT '是否是叶子节点',
-                                `top_id` bigint(20) DEFAULT NULL COMMENT '顶级id',
-                                `dict_id` int(11) DEFAULT NULL COMMENT '字典对应编号',
-                                `MDIY_MODEL_ID` varchar(50) DEFAULT NULL COMMENT '栏目管理的内容模型ID',
-                                `category_parent_ids` varchar(255) DEFAULT NULL COMMENT '父类型编号，多个id逗号',
-                                `category_title` varchar(255) DEFAULT NULL COMMENT '栏目管理名称',
-                                `category_img` varchar(2000) DEFAULT NULL COMMENT '缩略图',
-                                `category_flag` varchar(255) DEFAULT NULL COMMENT '栏目属性',
-                                `category_descrip` varchar(500) DEFAULT NULL COMMENT '栏目管理描述',
-                                `category_keyword` varchar(300) DEFAULT NULL COMMENT '栏目管理关键字',
-                                `category_path` varchar(255) DEFAULT NULL COMMENT '栏目路径',
-                                `category_diy_url` varchar(255) DEFAULT NULL COMMENT '自定义链接',
-                                `category_url` varchar(50) DEFAULT NULL COMMENT '内容模板',
-                                `category_list_url` varchar(50) DEFAULT NULL COMMENT '列表模板',
-                                `category_type` varchar(10) DEFAULT NULL COMMENT '栏目管理属性',
-                                `category_pinyin` varchar(255) DEFAULT NULL COMMENT '栏目拼音',
-                                `category_sort` int(11) DEFAULT NULL COMMENT '自定义顺序',
-                                `update_date` datetime DEFAULT NULL COMMENT '修改时间',
-                                `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
-                                `create_date` datetime DEFAULT NULL COMMENT '创建时间',
-                                `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
-                                `del` int(1) DEFAULT '0' COMMENT '删除标记',
-                                PRIMARY KEY (`id`) USING BTREE,
-                                KEY `idx_category_id` (`category_id`) USING BTREE
+  `id` bigint(20) unsigned NOT NULL,
+  `category_id` bigint(20) unsigned DEFAULT NULL COMMENT '所属栏目',
+  `leaf` int(1) DEFAULT NULL COMMENT '是否是叶子节点',
+  `top_id` bigint(20) DEFAULT NULL COMMENT '顶级id',
+  `dict_id` int(11) DEFAULT NULL COMMENT '字典对应编号',
+  `MDIY_MODEL_ID` varchar(50) DEFAULT NULL COMMENT '栏目管理的内容模型ID',
+  `category_parent_ids` varchar(255) DEFAULT NULL COMMENT '父类型编号，多个id逗号',
+  `category_title` varchar(255) DEFAULT NULL COMMENT '栏目管理名称',
+  `category_img` varchar(2000) DEFAULT NULL COMMENT '缩略图',
+  `category_flag` varchar(255) DEFAULT NULL COMMENT '栏目属性',
+  `category_descrip` varchar(500) DEFAULT NULL COMMENT '栏目管理描述',
+  `category_keyword` varchar(300) DEFAULT NULL COMMENT '栏目管理关键字',
+  `category_path` varchar(255) DEFAULT NULL COMMENT '栏目路径',
+  `category_diy_url` varchar(255) DEFAULT NULL COMMENT '自定义链接',
+  `category_url` varchar(50) DEFAULT NULL COMMENT '内容模板',
+  `category_list_url` varchar(50) DEFAULT NULL COMMENT '列表模板',
+  `category_type` varchar(10) DEFAULT NULL COMMENT '栏目管理属性',
+  `category_pinyin` varchar(255) DEFAULT NULL COMMENT '栏目拼音',
+  `category_sort` int(11) DEFAULT NULL COMMENT '自定义顺序',
+  `update_date` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `del` int(1) DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `idx_category_id` (`category_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='分类';
 
 -- ----------------------------
@@ -89,31 +89,31 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cms_content`;
 CREATE TABLE `cms_content` (
-                               `id` bigint(20) unsigned NOT NULL,
-                               `category_id` bigint(20) unsigned DEFAULT NULL COMMENT '所属栏目',
-                               `content_details` longtext COMMENT '文章内容',
-                               `content_title` varchar(255) DEFAULT NULL COMMENT '文章标题',
-                               `content_url` varchar(255) DEFAULT NULL COMMENT '文章跳转链接地址',
-                               `content_keyword` varchar(255) DEFAULT NULL COMMENT '关键字',
-                               `content_description` varchar(400) DEFAULT NULL COMMENT '描述',
-                               `content_img` varchar(1000) DEFAULT NULL COMMENT '文章缩略图',
-                               `content_source` varchar(255) DEFAULT NULL COMMENT '文章来源',
-                               `content_author` varchar(255) DEFAULT NULL COMMENT '文章作者',
-                               `content_display` varchar(10) DEFAULT '0' COMMENT '是否显示0显示 1不显示',
-                               `content_type` varchar(100) DEFAULT NULL COMMENT '文章类型',
-                               `content_datetime` timestamp NULL DEFAULT NULL COMMENT '发布时间',
-                               `content_sort` int(11) DEFAULT NULL COMMENT '自定义顺序',
-                               `content_hit` int(22) DEFAULT '0' COMMENT '点击次数',
-                               `HAS_DETAIL_HTML` int(1) DEFAULT '0' COMMENT '文章静态化标识 0表示未被自动静态化,1反之',
-                               `HAS_LIST_HTML` int(1) DEFAULT '0' COMMENT '栏目静态化标识 0表示未被自动静态化,1反之',
-                               `update_date` datetime DEFAULT NULL COMMENT '修改时间',
-                               `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
-                               `create_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-                               `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
-                               `del` int(1) DEFAULT '0' COMMENT '删除标记',
-                               PRIMARY KEY (`id`) USING BTREE,
-                               KEY `fk_category_id` (`category_id`) USING BTREE,
-                               CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `cms_category` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  `id` bigint(20) unsigned NOT NULL,
+  `category_id` bigint(20) unsigned DEFAULT NULL COMMENT '所属栏目',
+  `content_details` longtext COMMENT '文章内容',
+  `content_title` varchar(255) DEFAULT NULL COMMENT '文章标题',
+  `content_url` varchar(255) DEFAULT NULL COMMENT '文章跳转链接地址',
+  `content_keyword` varchar(255) DEFAULT NULL COMMENT '关键字',
+  `content_description` varchar(400) DEFAULT NULL COMMENT '描述',
+  `content_img` varchar(1000) DEFAULT NULL COMMENT '文章缩略图',
+  `content_source` varchar(255) DEFAULT NULL COMMENT '文章来源',
+  `content_author` varchar(255) DEFAULT NULL COMMENT '文章作者',
+  `content_display` varchar(10) DEFAULT '0' COMMENT '是否显示0显示 1不显示',
+  `content_type` varchar(100) DEFAULT NULL COMMENT '文章类型',
+  `content_datetime` timestamp NULL DEFAULT NULL COMMENT '发布时间',
+  `content_sort` int(11) DEFAULT NULL COMMENT '自定义顺序',
+  `content_hit` int(22) DEFAULT '0' COMMENT '点击次数',
+  `HAS_DETAIL_HTML` int(1) DEFAULT '0' COMMENT '文章静态化标识 0表示未被自动静态化,1反之',
+  `HAS_LIST_HTML` int(1) DEFAULT '0' COMMENT '栏目静态化标识 0表示未被自动静态化,1反之',
+  `update_date` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
+  `create_date` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `del` int(1) DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `fk_category_id` (`category_id`) USING BTREE,
+  CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `cms_category` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='文章';
 
 -- ----------------------------
@@ -151,17 +151,17 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cms_history_log`;
 CREATE TABLE `cms_history_log` (
-                                   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-                                   `content_id` bigint(20) unsigned NOT NULL COMMENT '文章编号',
-                                   `people_id` int(20) DEFAULT NULL COMMENT '用户id',
-                                   `hl_ip` varchar(255) DEFAULT NULL COMMENT '浏览ip',
-                                   `hl_is_mobile` varchar(255) DEFAULT NULL COMMENT '是否为移动端',
-                                   `update_date` datetime DEFAULT NULL COMMENT '修改时间',
-                                   `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
-                                   `create_date` datetime DEFAULT NULL COMMENT '创建时间',
-                                   `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
-                                   `del` int(1) DEFAULT '0' COMMENT '删除标记',
-                                   PRIMARY KEY (`id`) USING BTREE
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `content_id` bigint(20) unsigned NOT NULL COMMENT '文章编号',
+  `people_id` int(20) DEFAULT NULL COMMENT '用户id',
+  `hl_ip` varchar(255) DEFAULT NULL COMMENT '浏览ip',
+  `hl_is_mobile` varchar(255) DEFAULT NULL COMMENT '是否为移动端',
+  `update_date` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `del` int(1) DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='文章浏览记录';
 
 -- ----------------------------
@@ -175,27 +175,27 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `logger`;
 CREATE TABLE `logger` (
-                          `id` bigint(20) unsigned NOT NULL,
-                          `log_error_msg` text COMMENT '错误消息',
-                          `log_result` text COMMENT '返回参数',
-                          `log_param` text COMMENT '请求参数',
-                          `log_location` varchar(255) DEFAULT NULL COMMENT '所在地区',
-                          `log_user` varchar(255) DEFAULT NULL COMMENT '操作人员',
-                          `log_user_type` varchar(255) DEFAULT NULL COMMENT '用户类型',
-                          `log_business_type` varchar(255) DEFAULT NULL COMMENT '业务类型',
-                          `log_status` varchar(255) DEFAULT NULL COMMENT '请求状态',
-                          `log_url` varchar(255) DEFAULT NULL COMMENT '请求地址',
-                          `log_request_method` varchar(255) DEFAULT NULL COMMENT '请求方式',
-                          `log_method` varchar(255) DEFAULT NULL COMMENT '请求方法',
-                          `log_ip` varchar(255) DEFAULT NULL COMMENT 'IP',
-                          `log_title` varchar(255) DEFAULT NULL COMMENT '标题',
-                          `BUSINESS_ID` varchar(255) DEFAULT NULL COMMENT '业务id',
-                          `update_date` datetime DEFAULT NULL COMMENT '修改时间',
-                          `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
-                          `create_date` datetime DEFAULT NULL COMMENT '创建时间',
-                          `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
-                          `del` int(1) DEFAULT '0' COMMENT '删除标记',
-                          PRIMARY KEY (`id`) USING BTREE
+  `id` bigint(20) unsigned NOT NULL,
+  `log_error_msg` text COMMENT '错误消息',
+  `log_result` text COMMENT '返回参数',
+  `log_param` text COMMENT '请求参数',
+  `log_location` varchar(255) DEFAULT NULL COMMENT '所在地区',
+  `log_user` varchar(255) DEFAULT NULL COMMENT '操作人员',
+  `log_user_type` varchar(255) DEFAULT NULL COMMENT '用户类型',
+  `log_business_type` varchar(255) DEFAULT NULL COMMENT '业务类型',
+  `log_status` varchar(255) DEFAULT NULL COMMENT '请求状态',
+  `log_url` varchar(255) DEFAULT NULL COMMENT '请求地址',
+  `log_request_method` varchar(255) DEFAULT NULL COMMENT '请求方式',
+  `log_method` varchar(255) DEFAULT NULL COMMENT '请求方法',
+  `log_ip` varchar(255) DEFAULT NULL COMMENT 'IP',
+  `log_title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `BUSINESS_ID` varchar(255) DEFAULT NULL COMMENT '业务id',
+  `update_date` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `del` int(1) DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统日志';
 
 -- ----------------------------
@@ -209,21 +209,21 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `manager`;
 CREATE TABLE `manager` (
-                           `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
-                           `ROLE_IDS` varchar(11) DEFAULT NULL COMMENT '角色编号',
-                           `people_id` int(11) DEFAULT '0' COMMENT '用户编号即商家编号',
-                           `manager_admin` varchar(255) DEFAULT NULL COMMENT '管理员标识，超级管理员：super，子管理员：open',
-                           `manager_name` varchar(15) DEFAULT NULL COMMENT '管理员用户名',
-                           `manager_nickname` varchar(15) DEFAULT NULL COMMENT '管理员昵称',
-                           `manager_password` varchar(45) DEFAULT NULL COMMENT '管理员密码',
-                           `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
-                           `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-                           `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
-                           `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-                           `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-                           `MANAGER_LOCK` varchar(10) DEFAULT '0' COMMENT '锁定状态',
-                           PRIMARY KEY (`id`) USING BTREE,
-                           KEY `fk_manager_role_id` (`ROLE_IDS`) USING BTREE
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
+  `ROLE_IDS` varchar(11) DEFAULT NULL COMMENT '角色编号',
+  `people_id` int(11) DEFAULT '0' COMMENT '用户编号即商家编号',
+  `manager_admin` varchar(255) DEFAULT NULL COMMENT '管理员标识，超级管理员：super，子管理员：open',
+  `manager_name` varchar(15) DEFAULT NULL COMMENT '管理员用户名',
+  `manager_nickname` varchar(15) DEFAULT NULL COMMENT '管理员昵称',
+  `manager_password` varchar(45) DEFAULT NULL COMMENT '管理员密码',
+  `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
+  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
+  `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
+  `MANAGER_LOCK` varchar(10) DEFAULT '0' COMMENT '锁定状态',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `fk_manager_role_id` (`ROLE_IDS`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='管理员表';
 
 -- ----------------------------
@@ -238,17 +238,17 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `mdiy_config`;
 CREATE TABLE `mdiy_config` (
-                               `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-                               `config_name` varchar(255) DEFAULT NULL COMMENT '模型名称',
-                               `config_data` varchar(4000) DEFAULT NULL COMMENT '模型数据',
-                               `update_date` datetime DEFAULT NULL COMMENT '修改时间',
-                               `update_by` int(11) DEFAULT NULL COMMENT '修改人',
-                               `create_date` datetime DEFAULT NULL COMMENT '创建时间',
-                               `create_by` int(11) DEFAULT NULL COMMENT '创建人',
-                               `del` int(1) DEFAULT '0' COMMENT '删除标记',
-                               `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
-                               PRIMARY KEY (`id`) USING BTREE,
-                               UNIQUE KEY `idx_config_name` (`config_name`) USING BTREE
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `config_name` varchar(255) DEFAULT NULL COMMENT '模型名称',
+  `config_data` varchar(4000) DEFAULT NULL COMMENT '模型数据',
+  `update_date` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_by` int(11) DEFAULT NULL COMMENT '修改人',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_by` int(11) DEFAULT NULL COMMENT '创建人',
+  `del` int(1) DEFAULT '0' COMMENT '删除标记',
+  `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `idx_config_name` (`config_name`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义配置';
 
 -- ----------------------------
@@ -263,25 +263,25 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `mdiy_dict`;
 CREATE TABLE `mdiy_dict` (
-                             `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
-                             `dict_value` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '数据值',
-                             `dict_label` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '标签名',
-                             `dict_type` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '类型',
-                             `dict_description` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '描述',
-                             `is_child` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '扩展业务标记',
-                             `dict_enable` varchar(11) COLLATE utf8_bin DEFAULT '1' COMMENT '启用状态',
-                             `dict_remarks` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '备注信息',
-                             `dict_sort` int(10) NOT NULL DEFAULT '0' COMMENT '排序（升序）',
-                             `UPDATE_BY` varchar(11) COLLATE utf8_bin DEFAULT NULL COMMENT '更新人',
-                             `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-                             `CREATE_BY` varchar(11) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
-                             `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-                             `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-                             `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
-                             PRIMARY KEY (`id`) USING BTREE,
-                             UNIQUE KEY `inx_unique` (`dict_value`,`dict_label`,`dict_type`) USING BTREE,
-                             KEY `inx_dict_value` (`dict_value`) USING BTREE,
-                             KEY `inx_dict_label` (`dict_label`) USING BTREE
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
+  `dict_value` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '数据值',
+  `dict_label` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '标签名',
+  `dict_type` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '类型',
+  `dict_description` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '描述',
+  `is_child` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '扩展业务标记',
+  `dict_enable` varchar(11) COLLATE utf8_bin DEFAULT '1' COMMENT '启用状态',
+  `dict_remarks` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '备注信息',
+  `dict_sort` int(10) NOT NULL DEFAULT '0' COMMENT '排序（升序）',
+  `UPDATE_BY` varchar(11) COLLATE utf8_bin DEFAULT NULL COMMENT '更新人',
+  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
+  `CREATE_BY` varchar(11) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
+  `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `inx_unique` (`dict_value`,`dict_label`,`dict_type`) USING BTREE,
+  KEY `inx_dict_value` (`dict_value`) USING BTREE,
+  KEY `inx_dict_label` (`dict_label`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=653 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='字典表';
 
 -- ----------------------------
@@ -308,20 +308,20 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `mdiy_model`;
 CREATE TABLE `mdiy_model` (
-                              `ID` bigint(19) unsigned NOT NULL,
-                              `model_json` text COMMENT 'json',
-                              `model_table_name` varchar(255) DEFAULT NULL COMMENT '模型表名',
-                              `model_name` varchar(30) DEFAULT NULL COMMENT '模型名称',
-                              `model_type` varchar(255) DEFAULT NULL COMMENT '自定义模型类型，自定义表单不用该字段',
-                              `model_field` text COMMENT '模型字段',
-                              `model_custom_type` varchar(255) DEFAULT NULL COMMENT '类型，自定义表单：post，自定义模型：model',
-                              `update_date` datetime DEFAULT NULL COMMENT '修改时间',
-                              `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
-                              `create_date` datetime DEFAULT NULL COMMENT '创建时间',
-                              `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
-                              `del` int(1) DEFAULT '0' COMMENT '删除标记',
-                              `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
-                              PRIMARY KEY (`ID`) USING BTREE
+  `ID` bigint(19) unsigned NOT NULL,
+  `model_json` text COMMENT 'json',
+  `model_table_name` varchar(255) DEFAULT NULL COMMENT '模型表名',
+  `model_name` varchar(30) DEFAULT NULL COMMENT '模型名称',
+  `model_type` varchar(255) DEFAULT NULL COMMENT '自定义模型类型，自定义表单不用该字段',
+  `model_field` text COMMENT '模型字段',
+  `model_custom_type` varchar(255) DEFAULT NULL COMMENT '类型，自定义表单：post，自定义模型：model',
+  `update_date` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `del` int(1) DEFAULT '0' COMMENT '删除标记',
+  `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
+  PRIMARY KEY (`ID`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义模型';
 
 -- ----------------------------
@@ -337,15 +337,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `mdiy_model_people_info`;
 CREATE TABLE `mdiy_model_people_info` (
-                                          `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
-                                          `FAV` varchar(255) DEFAULT NULL COMMENT '爱好',
-                                          `LINK_ID` bigint(20) DEFAULT NULL,
-                                          `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-                                          `CREATE_BY` varchar(50) DEFAULT NULL COMMENT '创建人',
-                                          `UPDATE_DATE` datetime DEFAULT NULL COMMENT '修改时间',
-                                          `UPDATE_BY` varchar(50) DEFAULT NULL COMMENT '修改人',
-                                          `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-                                          PRIMARY KEY (`id`) USING BTREE
+  `id` bigint(11) unsigned NOT NULL AUTO_INCREMENT,
+  `FAV` varchar(255) DEFAULT NULL COMMENT '爱好',
+  `LINK_ID` bigint(20) DEFAULT NULL,
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `CREATE_BY` varchar(50) DEFAULT NULL COMMENT '创建人',
+  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '修改时间',
+  `UPDATE_BY` varchar(50) DEFAULT NULL COMMENT '修改人',
+  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='扩展会员信息';
 
 -- ----------------------------
@@ -359,22 +359,22 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `mdiy_page`;
 CREATE TABLE `mdiy_page` (
-                             `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
-                             `page_key` varchar(255) NOT NULL COMMENT '自定义页面访问路径',
-                             `PAGE_ENABLE` int(1) DEFAULT '1' COMMENT '启用状态 0-关闭 1-启用',
-                             `page_path` varchar(255) NOT NULL COMMENT '自定义页面绑定模板的路径',
-                             `page_title` varchar(255) NOT NULL COMMENT '自定义页面标题',
-                             `page_type` varchar(255) DEFAULT NULL COMMENT '字典分类字段',
-                             `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
-                             `page_model_id` int(11) DEFAULT NULL COMMENT '模块id',
-                             `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-                             `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
-                             `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-                             `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-                             `NOT_DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-                             PRIMARY KEY (`id`) USING BTREE,
-                             UNIQUE KEY `idx_page_key` (`page_key`) USING BTREE,
-                             KEY `idx_page_model_id` (`page_model_id`) USING BTREE
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
+  `page_key` varchar(255) NOT NULL COMMENT '自定义页面访问路径',
+  `PAGE_ENABLE` int(1) DEFAULT '1' COMMENT '启用状态 0-关闭 1-启用',
+  `page_path` varchar(255) NOT NULL COMMENT '自定义页面绑定模板的路径',
+  `page_title` varchar(255) NOT NULL COMMENT '自定义页面标题',
+  `page_type` varchar(255) DEFAULT NULL COMMENT '字典分类字段',
+  `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
+  `page_model_id` int(11) DEFAULT NULL COMMENT '模块id',
+  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
+  `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
+  `NOT_DEL` int(1) DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `idx_page_key` (`page_key`) USING BTREE,
+  KEY `idx_page_model_id` (`page_model_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义页面表';
 
 -- ----------------------------
@@ -388,19 +388,19 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `mdiy_tag`;
 CREATE TABLE `mdiy_tag` (
-                            `id` int(11) NOT NULL AUTO_INCREMENT,
-                            `tag_name` varchar(255) DEFAULT NULL COMMENT '标签名称',
-                            `tag_type` varchar(255) DEFAULT NULL COMMENT '标签类型',
-                            `tag_sql` text COMMENT '标签sql',
-                            `tag_class` varchar(255) DEFAULT NULL COMMENT '标签类',
-                            `tag_description` varchar(255) DEFAULT NULL COMMENT '描述',
-                            `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
-                            `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-                            `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
-                            `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-                            `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-                            `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
-                            PRIMARY KEY (`id`) USING BTREE
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tag_name` varchar(255) DEFAULT NULL COMMENT '标签名称',
+  `tag_type` varchar(255) DEFAULT NULL COMMENT '标签类型',
+  `tag_sql` text COMMENT '标签sql',
+  `tag_class` varchar(255) DEFAULT NULL COMMENT '标签类',
+  `tag_description` varchar(255) DEFAULT NULL COMMENT '描述',
+  `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
+  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
+  `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
+  `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='标签';
 
 -- ----------------------------
@@ -408,10 +408,10 @@ CREATE TABLE `mdiy_tag` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `mdiy_tag` VALUES (3, 'arclist', 'list', ' <#assign _typeid=\'\'/>\r\n<#assign _typetitle=\'\'/>\r\n<#assign _size=\'20\'/>\r\n\r\n<#if column?? && column.id?? && column.id?number gt 0>\r\n  <#assign  _typeid=\'${column.id}\'>\r\n</#if>\r\n\r\n<#if typeid??>\r\n  <#assign  _typeid=\'${typeid}\'>\r\n</#if>\r\n\r\n<#if typetitle??>\r\n  <#assign  _typetitle=\'${typetitle}\'>\r\n</#if>\r\n\r\n<#if size??>\r\n  <#assign  _size=\'${size}\'>\r\n</#if>\r\n\r\n<#if orderby?? >\r\n    <#if orderby==\'date\'>\r\n      <#assign  _orderby=\'content_datetime\'>\r\n  <#elseif orderby==\'updatedate\'>\r\n    <#assign  _orderby=\'cms_content.update_date\'>\r\n    <#elseif orderby==\'hit\'>\r\n      <#assign  _orderby=\'content_hit\'>\r\n    <#elseif orderby==\'sort\'>\r\n      <#assign  _orderby=\'content_sort\'>\r\n    <#else>\r\n        <#assign  _orderby=\'cms_content.content_datetime\'>\r\n     </#if>\r\n<#else>\r\n    <#assign  _orderby=\'cms_content.content_datetime\'>\r\n</#if>\r\n\r\nSELECT\r\n  cms_content.id AS id,\r\n  content_title AS title,\r\n  content_title AS fulltitle,\r\n  content_author AS author,\r\n  content_source AS source,\r\n  content_details AS content,\r\n  category.category_title AS typetitle,\r\n  category.id AS typeid,\r\ncategory.category_path AS typepath,\r\n  category.category_img AS typelitpic,\r\n  category.category_keyword as typekeyword,\r\n  category.top_id as topId,\r\n  category.category_parent_ids as parentids,\r\n  category.category_type AS \"type\",\r\n\r\n  <#--列表页动态链接-->\r\n  <#if isDo?? && isDo>\r\n    CONCAT(\'/${modelName}/list.do?typeid=\', category.category_id) as typelink,\r\n  <#else>\r\n    (SELECT \'index.html\') AS typelink,\r\n  </#if>\r\n    content_description AS descrip,\r\n    content_hit AS hit,\r\n    content_type AS flag,\r\n    cms_content.content_keyword AS keyword,\r\n    content_img AS litpic,\r\n\r\n  <#--内容页动态链接-->\r\n  <#if isDo?? && isDo>\r\n    CONCAT(\'/${modelName}/view.do?id=\', cms_content.id,\'&orderby=${_orderby}\',\'&order=${order!\'ASC\'}\',\'&typeid=${typeid}\') as \"link\",\r\n  <#else>\r\n    CONCAT(category.category_path,\'/\',if(category_type=2,\"index\",cms_content.id),\'.html\') AS \"link\",\r\n  </#if>\r\n\r\n  <#if tableName??>${tableName}.*,</#if>\r\n  content_datetime AS \"date\"\r\nFROM\r\n  cms_content LEFT JOIN cms_category as category\r\n  ON cms_content.category_id = category.id\r\n\r\n  <#--判断是否有自定义模型表-->\r\n  <#if tableName??>\r\n    LEFT JOIN ${tableName} ON ${tableName}.link_id=cms_content.id\r\n  </#if>\r\n  WHERE\r\n    content_display=0\r\n    and cms_content.del=0\r\n    <#--根据站点编号查询-->\r\n    <#if appId?? >\r\n      and cms_content.app_id=${appId}\r\n    </#if>\r\n    <#--判断是否有搜索分类集合-->\r\n    <#if search?? && _typeid==\"\">\r\n      <#if search.categoryIds?has_content>and FIND_IN_SET(category.id,\'${search.categoryIds}\')</#if>\r\n        <#--标题-->\r\n        <#if search.content_title??> and content_title like CONCAT(\'%\',\'${search.content_title}\',\'%\')</#if>\r\n        <#--作者-->\r\n        <#if search.content_author??> and content_author like CONCAT(\'%\',\'${search.content_author}\',\'%\')</#if>\r\n        <#--来源-->\r\n        <#if search.content_source??> and content_source like CONCAT(\'%\',\'${search.content_source}\',\'%\')</#if>\r\n        <#--属性-->\r\n        <#if search.content_type??> and  (\r\n          <#list search.content_type?split(\',\') as item>\r\n            <#if item?index gt 0> or</#if>\r\n            FIND_IN_SET(\'${item}\',cms_content.content_type)\r\n          </#list>)\r\n        </#if>\r\n\r\n        <#--描述-->\r\n        <#if search.content_description??>\r\n        and content_description like CONCAT(\'%\',\'${search.content_description}\',\'%\')\r\n        </#if>\r\n\r\n        <#--关键字-->\r\n        <#if search.content_keyword??> and content_keyword like CONCAT(\'%\',\'${search.content_keyword}\',\'%\')</#if>\r\n\r\n        <#--内容-->\r\n        <#if search.content_details??> and content_details like CONCAT(\'%\',\'${search.content_details}\',\'%\')</#if>\r\n\r\n    <#--自定义顺序-->\r\n        <#if search.content_sort??> and content_sort=${search.content_sort}</#if>\r\n    <#--时间范围-->\r\n        <#if search.content_datetime_start??&&search.content_datetime_end??>\r\n          and content_datetime between \'${search.content_datetime_start}\' and \'${search.content_datetime_end}\'\r\n        </#if>\r\n    <#else>\r\n      <#--查询栏目-->\r\n      <#if _typeid?has_content>\r\n        and (cms_content.category_id=${_typeid} or cms_content.category_id in (select id FROM cms_category where cms_category.del=0\r\n        <#if _typetitle?has_content>\r\n        and cms_category.category_title=\'${_typetitle}\'</#if> and FIND_IN_SET(${_typeid},CATEGORY_PARENT_IDS)))\r\n        </#if>\r\n    </#if>\r\n      <#--标题-->\r\n      <#if content_title??> and content_title like CONCAT(\'%\',\'${content_title}\',\'%\')</#if>\r\n      <#--作者-->\r\n      <#if content_author??> and content_author like CONCAT(\'%\',\'${content_author}\',\'%\')</#if>\r\n      <#--来源-->\r\n      <#if content_source??> and content_source like CONCAT(\'%\',\'${content_source}\',\'%\')</#if>\r\n      <#--属性-->\r\n      <#if content_type??> and content_type like CONCAT(\'%\',\'${content_type}\',\'%\')</#if>\r\n      <#--描述-->\r\n      <#if content_description??> and content_description like CONCAT(\'%\',\'${content_description}\',\'%\')</#if>\r\n      <#--关键字-->\r\n      <#if content_keyword??> and content_keyword like CONCAT(\'%\',\'${content_keyword}\',\'%\')</#if>\r\n      <#--内容-->\r\n      <#if content_details??> and content_details like CONCAT(\'%\',\'${content_details}\',\'%\')</#if>\r\n      <#--自定义顺序-->\r\n      <#if content_sort??> and content_sort=${content_sort}</#if>\r\n      <#--自定义模型-->\r\n      <#if diyModel??>\r\n        <#list diyModel as dm>\r\n          <#assign json=\"${dm}\"?eval />\r\n          and ${tableName}.${json.key} like CONCAT(\'%\',\'${json.value}\',\'%\')\r\n        </#list>\r\n      </#if>\r\n      <#--文章属性-->\r\n      <#if flag?? >\r\n        and(\r\n          <#list flag?split(\',\') as item>\r\n          <#if item?index gt 0> or</#if>\r\n          FIND_IN_SET(\'${item}\',cms_content.content_type)\r\n          </#list>)\r\n      </#if>\r\n      <#if noflag??>\r\n          and(\r\n          <#list noflag?split(\',\') as item>\r\n          <#if item?index gt 0> and</#if>\r\n          FIND_IN_SET(\'${item}\',cms_content.content_type)=0\r\n          </#list> or cms_content.content_type is null)\r\n      </#if>\r\n\r\n      <#--字段排序-->\r\n      <#if orderby?? >\r\n      ORDER BY\r\n          <#if orderby==\'date\'> content_datetime\r\n          <#elseif orderby==\'updatedate\'> cms_content.update_date\r\n          <#elseif orderby==\'hit\'> content_hit\r\n          <#elseif orderby==\'sort\'> content_sort\r\n        <#else>\r\n          cms_content.content_datetime\r\n        </#if>\r\n  <#else>\r\n      ORDER BY   cms_content.content_datetime\r\n  </#if>\r\n\r\n  <#if order?? >\r\n    <#if order==\'desc\'> desc</#if>\r\n    <#if order==\'asc\'> asc</#if>\r\n  <#else>\r\n    desc\r\n  </#if>\r\n    LIMIT\r\n  <#--判断是否分页-->\r\n  <#if ispaging?? && (pageTag.pageNo)??>\r\n      ${((pageTag.pageNo-1)*_size?eval)?c},${_size?default(20)}\r\n    <#else>\r\n      ${_size?default(20)}\r\n    </#if>\r\n', NULL, '文章列表', NULL, NULL, NULL, NULL, 0, 1);
-INSERT INTO `mdiy_tag` VALUES (4, 'channel', 'list', '<#assign _typeid=\'0\'/>\n<#if column?? && column.id?? && column.id?number gt 0>\n  <#assign  _typeid=\'${column.id}\'>\n  <#assign  selfid=\'${column.id}\'>\n</#if>\n\n<#if typeid??>\n  <#assign  _typeid=\'${typeid}\'>\n</#if>\n\nselect\n  id,\n  id as typeid,\n  category_title as typetitle,\n  <#--动态链接-->\n  <#if isDo?? && isDo>\n  CONCAT(\'/${modelName}/list.do?typeid=\', id) as typelink,\n  <#else>\n    <#--栏目类型为链接-->\n    CONCAT(category_path,\'/index.html\') as typelink,\n  </#if>\n  category_keyword as typekeyword,\n  category_diy_url as typeurl,\n  category_flag as flag,\n  category_parent_ids as parentids,\n  category_descrip as typedescrip,\n  category_type as type,\n  category_path as typepath,\n  leaf as typeleaf,\n  category_img as typelitpic ,\n  ( SELECT count(*) FROM cms_category cc WHERE cc.category_id = cms_category.id AND cc.del = 0 ) AS childsize \n  from cms_category\n  where\n  cms_category.del=0\n  <#--根据站点编号查询-->\n  <#if appId?? >\n    and cms_category.app_id=${appId}\n  </#if>\n\n  <#--栏目属性-->\n  <#if flag?? >\n  and\n    (<#list flag?split(\',\') as item>\n      <#if item?index gt 0> or</#if>\n    FIND_IN_SET(\'${item}\',category_flag)\n    </#list>)\n  </#if>\n\n  <#if noflag?? >\n    and\n    (<#list noflag?split(\',\') as item>\n      <#if item?index gt 0> and</#if>\n      FIND_IN_SET(\'${item}\',category_flag)=0\n    </#list> or category_flag is null)\n  </#if>\n\n  <#--type默认son-->\n  <#if !type??||!type?has_content>\n    <#assign type=\'son\'/>\n  </#if>\n\n  <#if type?has_content>\n  <#--顶级栏目（单个）-->\n    <#if type==\'top\'>\n      <#if _typeid != \'0\'>\n        and (id = top_id or top_id = 0)\n      </#if>\n\n    <#elseif type==\'nav\'>\n      and(category_id=0 or category_id is null)\n\n    <#--同级栏目（多个）-->\n    <#elseif type==\'level\'>\n      and\n      <#if _typeid != \'0\'>\n        category_id=(select category_id from cms_category where id=${_typeid})\n      <#else>\n        1=1\n      </#if>\n\n    <#--当前栏目（单个）-->\n  <#elseif type==\'self\'>\n     and\n     <#if _typeid != \'0\'>\n      id=${_typeid}\n     <#else>\n     1=1\n     </#if>\n\n    <#--当前栏目的所属栏目（多个）-->\n  <#elseif type==\'path\'>\n      and\n     <#if _typeid != \'0\'>\n       id in (<#if column?? && column.categoryParentIds??>${column.categoryParentIds},</#if>${_typeid})\n     <#else>\n      1=1\n     </#if>\n    <#--子栏目（多个）-->\n\n  <#elseif type==\'son\'>\n      and\n     <#if _typeid != \'0\'>\n      category_id=${_typeid}\n     <#else>\n      1=1\n     </#if>\n\n  <#--上一级栏目没有则取当前栏目（单个）-->\n  <#elseif type==\'parent\'>\n      and\n     <#if _typeid != \'0\'>\n       <#if column?? && column.categoryId??>\n        id=${column.categoryId}\n       <#else>\n        id=${_typeid}\n       </#if>\n     <#else>\n        1=1\n      </#if>\n  </#if>\n\n<#else> <#--默认顶级栏目-->\n   and\n  <#if _typeid != \'0\'>\n   id=${_typeid}\n  <#else>\n   (category_id=0 or category_id is null)\n  </#if>\n\n</#if>\n\n<#--字段排序-->\n<#if orderby?? >\n  ORDER BY\n  <#if orderby==\'date\'> category_datetime\n  <#elseif orderby==\'sort\'> category_sort\n  <#else>id</#if>\n</#if>\n\n<#if order?? >\n  <#if order==\'desc\'> desc</#if>\n  <#if order==\'asc\'> asc</#if>\n</#if>', NULL, '通用栏目', NULL, NULL, NULL, NULL, 0, 1);
+INSERT INTO `mdiy_tag` VALUES (4, 'channel', 'list', '<#assign _typeid=\'0\'/>\n<#if column?? && column.id?? && column.id?number gt 0>\n  <#assign  _typeid=\'${column.id}\'>\n  <#assign  selfid=\'${column.id}\'>\n</#if>\n\n<#if typeid??>\n  <#assign  _typeid=\'${typeid}\'>\n</#if>\n\nselect\n  id,\n  id as typeid,\n  category_title as typetitle,\n  <#--动态链接-->\n  <#if isDo?? && isDo>\n  CONCAT(\'/${modelName}/list.do?typeid=\', id) as typelink,\n  <#else>\n    <#--栏目类型为链接-->\n    CONCAT(category_path,\'/index.html\') as typelink,\n  </#if>\n  category_keyword as typekeyword,\n  category_diy_url as typeurl,\n  category_flag as flag,\n  category_parent_ids as parentids,\n  category_descrip as typedescrip,\n  category_type as type,\n  category_path as typepath,\n  leaf as typeleaf,\n  category_img as typelitpic ,\n  ( SELECT count(*) FROM cms_category cc WHERE cc.category_id = cms_category.id AND cc.del = 0 ) AS childsize \n  from cms_category\n  where\n  cms_category.del=0\n  <#--根据站点编号查询-->\n  <#if appId?? >\n    and cms_category.app_id=${appId}\n  </#if>\n\n  <#--栏目属性-->\n  <#if flag?? >\n  and\n    (<#list flag?split(\',\') as item>\n      <#if item?index gt 0> or</#if>\n    FIND_IN_SET(\'${item}\',category_flag)\n    </#list>)\n  </#if>\n\n  <#if noflag?? >\n    and\n    (<#list noflag?split(\',\') as item>\n      <#if item?index gt 0> and</#if>\n      FIND_IN_SET(\'${item}\',category_flag)=0\n    </#list> or category_flag is null)\n  </#if>\n\n  <#--type默认son-->\n  <#if !type??||!type?has_content>\n    <#assign type=\'son\'/>\n  </#if>\n\n  <#if type?has_content>\n  <#--顶级栏目（单个）-->\n    <#if type==\'top\'>\n      <#if _typeid != \'0\'>\n        and (id = top_id or top_id = 0)\n      </#if>\n\n    <#elseif type==\'nav\'>\n      and(category_id=0 or category_id is null)\n\n    <#--同级栏目（多个）-->\n    <#elseif type==\'level\'>\n      \n      <#if _typeid != \'0\'>\n        and category_id=(select category_id from cms_category where id=${_typeid})\n      \n      </#if>\n\n    <#--当前栏目（单个）-->\n  <#elseif type==\'self\'>\n     \n     <#if _typeid != \'0\'>\n      and id=${_typeid}\n     </#if>\n\n    <#--当前栏目的所属栏目（多个）-->\n  <#elseif type==\'path\'>\n      \n     <#if _typeid != \'0\'>\n       and id in (<#if column?? && column.categoryParentIds??>${column.categoryParentIds},</#if>${_typeid})\n     </#if>\n    <#--子栏目（多个）-->\n\n  <#elseif type==\'son\'>\n      \n     <#if _typeid != \'0\'>\n      and category_id=${_typeid}\n     </#if>\n\n  <#--上一级栏目没有则取当前栏目（单个）-->\n  <#elseif type==\'parent\'>\n      and\n     <#if _typeid != \'0\'>\n       <#if column?? && column.categoryId??>\n        id=${column.categoryId}\n       <#else>\n        id=${_typeid}\n       </#if>\n      </#if>\n  </#if>\n\n<#else> <#--默认顶级栏目-->\n   and\n  <#if _typeid != \'0\'>\n   id=${_typeid}\n  <#else>\n   (category_id=0 or category_id is null)\n  </#if>\n\n</#if>\n\n<#--字段排序-->\n<#if orderby?? >\n  ORDER BY\n  <#if orderby==\'date\'> category_datetime\n  <#elseif orderby==\'sort\'> category_sort\n  <#else>id</#if>\n</#if>\n\n<#if order?? >\n  <#if order==\'desc\'> desc</#if>\n  <#if order==\'asc\'> asc</#if>\n</#if>', NULL, '通用栏目', NULL, NULL, NULL, NULL, 0, 1);
 INSERT INTO `mdiy_tag` VALUES (5, 'global', 'single', 'select\nAPP_NAME as name,\napp_logo as logo,\napp_keyword as keyword,\napp_description as descrip,\napp_copyright as copyright,\n<#--动态解析 -->\n<#if isDo?? && isDo>\nCONCAT(\'${url}\',\'${html}/\',app_dir) as url,\n\'${url}\' as host,\n<#--使用地址栏的域名 -->\n<#elseif url??>\nCONCAT(\'${url}\',\'${html}/\',app_dir) as url,\n\'${url}\' as host,\n<#else>\nCONCAT(REPLACE(REPLACE(TRIM(substring_index(app_url,\'\\n\',1)), CHAR(10),\'\'), CHAR(13),\'\'),\'/html/\',app_dir) as url,\nREPLACE(REPLACE(TRIM(substring_index(app_url,\'\\n\',1)), CHAR(10),\'\'), CHAR(13),\'\') as host,\n</#if>\nCONCAT(\'template/\',id,\'/\',app_style) as \"style\" <#-- 判断是否为手机端 -->\nfrom app\n<#--根据站点编号查询-->\n<#if appId?? >\n  where id = ${appId}\n</#if>', NULL, '全局', NULL, NULL, NULL, NULL, 0, 1);
 INSERT INTO `mdiy_tag` VALUES (7, 'field', 'single', 'SELECT\ncms_content.id as id,\ncontent_title as title,\ncontent_author as author, \ncontent_source as source, \ncontent_details as content,\ncms_category.id as typeid,\ncms_category.leaf as typeleaf,\ncms_category.category_title as typetitle,\ncms_category.category_img AS typelitpic,\ncms_category.top_id as topId,\ncms_category.category_flag as typeflag,\ncms_category.category_parent_ids as parentids,\ncms_category.category_keyword as typekeyword,\ncms_category.category_descrip as typedescrip,\ncms_category.category_diy_url as typeurl,\n<#--动态链接-->\n<#if isDo?? && isDo>\nCONCAT(\'/${modelName}/list.do?typeid=\', cms_category.id) as typelink,\n<#else>\n	<#--栏目类型为链接-->\n	CONCAT(cms_category.category_path,\'/index.html\') as typelink,\n</#if>\ncms_content.content_img AS litpic,\n<#--内容页动态链接-->\n<#if isDo?? && isDo>\nCONCAT(\'/mcms/view.do?id=\', cms_content.id) as \"link\",\n<#else>\nCONCAT(cms_category.category_path,\'/\',cms_content.id,\'.html\') AS \"link\",\n</#if>\ncontent_datetime as \"date\",\ncontent_description as descrip,\nCONCAT(\'<script type=\"text/javascript\" src=\"${url}/cms/content/\',cms_content.id,\'/hit.do\"></script>\') as hit,\ncontent_type as flag,\ncategory_title as typetitle,\n<#if tableName??>${tableName}.*,</#if>\ncontent_keyword as keyword\nFROM cms_content\nLEFT JOIN cms_category  ON\ncms_category.id = cms_content.category_id\n<#--判断是否有自定义模型表-->\n<#if tableName??>left join ${tableName} on ${tableName}.link_id=cms_content.id</#if>\nWHERE\n<#--如果是栏目列表页没有文章id所以只取栏目id-->\n<#if column??&&column.id??&&!id??>\ncms_category.id=${column.id} and\n</#if>\n cms_content.del=0\n<#if id??> and cms_content.id=${id}</#if>', NULL, '文章内容', NULL, NULL, NULL, NULL, 0, 1);
-                               INSERT INTO `mdiy_tag` VALUES (8, 'pre', 'single', 'SELECT\r\n    cms_content.id AS id,\r\n    content_title AS title,\r\n    content_title AS fulltitle,\r\n    content_author AS author,\r\n    content_source AS source,\r\n    content_details AS content,\r\n    category.category_title AS typetitle,\r\n    category.id AS typeid,\r\n    category.category_path AS typepath,\r\n    category.category_img AS typelitpic,\r\n    category.category_keyword as typekeyword,\r\n    category.top_id as topId,\r\n    category.category_parent_ids as parentids,\r\n    category.category_type AS \"type\",\r\n\r\n        <#--列表页动态链接-->\r\n        <#if isDo?? && isDo>\r\n    CONCAT(\'/${modelName}/list.do?typeid=\', category.category_id) as typelink,\r\n        <#else>\r\n    (SELECT \'index.html\') AS typelink,\r\n        </#if>\r\n    content_description AS descrip,\r\n    content_hit AS hit,\r\n    content_type AS flag,\r\n    cms_content.content_keyword AS \"keyword\",\r\n    content_img AS litpic,\r\n\r\n        <#--内容页动态链接-->\r\n        <#if isDo?? && isDo>\r\n    CONCAT(\'/${modelName}/view.do?id=\', cms_content.id,\'&orderby=${_orderby}\',\'&order=${order!\'ASC\'}\',\'&typeid=${typeid}\') as \"link\",\r\n        <#else>\r\n    CONCAT(category.category_path,\'/\',cms_content.id,\'.html\') AS \"link\",\r\n        </#if>\r\n\r\n        <#if tableName??>${tableName}.*,</#if>\r\n    content_datetime AS \"date\"\r\nFROM\r\n    cms_content LEFT JOIN cms_category as category\r\nON cms_content.category_id = category.id\r\n\r\n    <#--判断是否有自定义模型表-->\r\n    <#if tableName??>\r\n    LEFT JOIN ${tableName} ON ${tableName}.link_id=cms_content.id\r\n    </#if>\r\nWHERE\r\n  content_display=0\r\n  and cms_content.del=0\r\n    <#--根据站点编号查询-->\r\n    <#if appId?? >\r\n  and cms_content.app_id=${appId}\r\n    </#if>\r\n    <#if dataid?? >\r\n  and cms_content.id=${dataid}\r\n    </#if>\r\n\r\n\r\n    LIMIT 1\r\n', NULL, '文章上一篇', NULL, NULL, NULL, NULL, 0, 1);
+INSERT INTO `mdiy_tag` VALUES (8, 'pre', 'single', 'SELECT\r\n    cms_content.id AS id,\r\n    content_title AS title,\r\n    content_title AS fulltitle,\r\n    content_author AS author,\r\n    content_source AS source,\r\n    content_details AS content,\r\n    category.category_title AS typetitle,\r\n    category.id AS typeid,\r\n    category.category_path AS typepath,\r\n    category.category_img AS typelitpic,\r\n    category.category_keyword as typekeyword,\r\n    category.top_id as topId,\r\n    category.category_parent_ids as parentids,\r\n    category.category_type AS \"type\",\r\n\r\n        <#--列表页动态链接-->\r\n        <#if isDo?? && isDo>\r\n    CONCAT(\'/${modelName}/list.do?typeid=\', category.category_id) as typelink,\r\n        <#else>\r\n    (SELECT \'index.html\') AS typelink,\r\n        </#if>\r\n    content_description AS descrip,\r\n    content_hit AS hit,\r\n    content_type AS flag,\r\n    cms_content.content_keyword AS \"keyword\",\r\n    content_img AS litpic,\r\n\r\n        <#--内容页动态链接-->\r\n        <#if isDo?? && isDo>\r\n    CONCAT(\'/${modelName}/view.do?id=\', cms_content.id,\'&orderby=${_orderby}\',\'&order=${order!\'ASC\'}\',\'&typeid=${typeid}\') as \"link\",\r\n        <#else>\r\n    CONCAT(category.category_path,\'/\',cms_content.id,\'.html\') AS \"link\",\r\n        </#if>\r\n\r\n        <#if tableName??>${tableName}.*,</#if>\r\n    content_datetime AS \"date\"\r\nFROM\r\n    cms_content LEFT JOIN cms_category as category\r\nON cms_content.category_id = category.id\r\n\r\n    <#--判断是否有自定义模型表-->\r\n    <#if tableName??>\r\n    LEFT JOIN ${tableName} ON ${tableName}.link_id=cms_content.id\r\n    </#if>\r\nWHERE\r\n  content_display=0\r\n  and cms_content.del=0\r\n    <#--根据站点编号查询-->\r\n    <#if appId?? >\r\n  and cms_content.app_id=${appId}\r\n    </#if>\r\n    <#if dataid?? >\r\n  and cms_content.id=${dataid}\r\n    </#if>\r\n\r\n\r\n    LIMIT 1\r\n', NULL, '文章上一篇', NULL, NULL, NULL, NULL, 0, 1);
 INSERT INTO `mdiy_tag` VALUES (9, 'page', 'single', 'select\n<#if !(pageTag.indexUrl??)>\n  <#--判断是否有栏目对象，用于搜索不传栏目-->\n  <#if column??>\n    <#assign path=column.categoryPath/>\n  <#else>\n    <#assign path=\"\"/>\n  </#if>\n  <#--总记录数、总页数-->\n  (SELECT ${pageTag.total}) as \"total\",\n  (SELECT ${pageTag.size}) as \"size\",\n\n  <#--记录总数-->\n  (SELECT ${pageTag.rcount}) as \"rcount\",\n  <#--当前页码-->\n  (SELECT ${pageTag.pageNo}) as \"cur\",\n  <#--首页-->\n  CONCAT(\'${path}\', \'/index.html\') as \"index\",\n  <#--上一页-->\n  <#if (pageTag.pageNo?eval-1) gt 1>\n    CONCAT(\'${path}\',\'/list-${pageTag.pageNo?eval-1}.html\') as \"pre\",\n  <#else>\n    CONCAT(\'${path}\',\'/index.html\') as \"pre\",\n  </#if>\n\n  <#--下一页-->\n  <#if pageTag.total==1>\n  CONCAT(\'${path}\', \'/index.html\') as \"next\",\n  CONCAT(\'${path}\', \'/index.html\') as \"last\"\n  <#else>\n    <#if pageTag.pageNo?eval gte pageTag.total>\n    CONCAT(\'${path}\',\'/list-${pageTag.total}.html\') as \"next\",\n    <#else>\n    CONCAT(\'${path}\',\'/list-${pageTag.pageNo?eval+1}.html\') as \"next\",\n    </#if>\n  <#--最后一页-->\n  CONCAT(\'${path}\',\'/list-${pageTag.total}.html\') as \"last\"\n  </#if>\n\n<#else>\n  <#--判断是否是搜索页面-->\n  \'${pageTag.indexUrl}\' as \"index\",\n  \'${pageTag.lastUrl}\' as \"last\",\n  \'${pageTag.preUrl}\' as \"pre\",\n  \'${pageTag.nextUrl}\' as \"next\",\n  (select ${pageTag.total}) as \"total\",\n  (select ${pageTag.size}) as \"size\",\n  (select ${pageTag.rcount}) as \"rcount\",\n  (select ${pageTag.pageNo}) as \"cur\"\n</#if>', NULL, '通用分页', NULL, NULL, NULL, NULL, 0, 1);
 INSERT INTO `mdiy_tag` VALUES (10, 'next', 'single', '<#assign select=\"(SELECT \'\')\"/>\n<#if orderby?? >\n      <#if orderby==\"date\">\n	   <#assign  _orderby=\"content_datetime\">\n      <#elseif orderby==\"updatedate\">\n <#assign  _orderby=\"content_updatetime\">\n      <#elseif orderby==\"hit\">\n	  <#assign  _orderby=\"content_hit\">\n      <#elseif orderby==\"sort\">\n	   <#assign  _orderby=\"content_sort\">\n      <#else><#assign  _orderby=\"cms_content.id\"></#if>\n   <#else>\n   <#assign  _orderby=\"cms_content.id\">\n  </#if>\n<#if pageTag.nextId??>\nSELECT\ncms_content.id as id,\ncontent_title as title,\ncontent_author as author, \ncontent_source as source, \ncontent_details as content,\ncategory.category_title as typename,\ncategory.category_id as typeid,\n(SELECT \'index.html\') as typelink,\ncontent_img as litpic,\n<#--内容页动态链接-->\n  <#if isDo?? && isDo>\n   CONCAT(\'/${modelName}/view.do?id=\', cms_content.id,\'&orderby=${_orderby}\',\'&order=${order!\'ASC\'}\',\'&typeid=${typeid}\') as \"link\",\n  <#else>\n  CONCAT(category_path,\'/\',cms_content.id,\'.html\') AS \"link\",\n  </#if>\ncontent_datetime as \"date\",\ncontent_description as descrip,\ncontent_hit as hit,\ncontent_type as flag,\ncontent_keyword as keyword \nFROM cms_content\nLEFT JOIN cms_category as category ON cms_content.category_id=category.id\nWHERE cms_content.id=${pageTag.nextId}\n<#else>\nSELECT\n${select} as id,\n${select} as title,\n${select} as fulltitle,\n${select} as author, \n${select} as source, \n${select} as content,\n${select} as typename,\n${select} as typeid,\n${select} as typelink,\n${select} as litpic,\n${select} as \"link\",\n${select} as \"date\",\n${select} as descrip,\n${select} as hit,\n${select} as flag,\n${select} as keyword \n</#if>', NULL, '文章下一篇', NULL, NULL, NULL, NULL, 0, 1);
 INSERT INTO `mdiy_tag` VALUES (11, 'diyform', 'macro', '<#macro ms_diyform formName>\n<div id=\"form\" v-cloak style=\"width: 30%; margin: 5% auto\">\n  <div id=\"formModel\">\n    <!--会自动渲染代码生成器的表单-->\n  </div>\n  <!--必须包含验证码-->\n  <el-form ref=\"form\" :model=\"form\" :rules=\"rules\" label-position=\"right\" size=\"large\" label-width=\"120px\">\n    <el-row :gutter=\"0\" justify=\"start\" align=\"top\">\n      <el-col :span=\"12\">\n        <el-form-item label=\"验证码\" prop=\"rand_code\">\n          <el-input\n                  v-model=\"form.rand_code\"\n                  :disabled=\"false\"\n                  :readonly=\"false\"\n                  :clearable=\"true\"\n                  placeholder=\"请输入验证码\">\n          </el-input>\n        </el-form-item>\n      </el-col>\n      <el-col :span=\"12\">\n        <div style=\"display: flex; height: 38px;margin-left: 1em; align-items: center; cursor: pointer\">\n          <img :src=\"verifCode\" class=\"code-img\" @click=\"code\"/>\n          <div @click=\"code\" style=\"margin-left: 10px\">\n            看不清？换一张\n          </div>\n        </div>\n      </el-col>\n    </el-row>\n    <el-form-item label=\"  \">\n      <el-button @click=\"save\" type=\"primary\" :loading=\"isLoading\" style=\"width: 200px\">\n        {{isLoading ? \'保存中\' : \'保存\'}}\n      </el-button>\n    </el-form-item>\n  </el-form>\n</div>\n<script>\n  //vue的实例名称必须为 from\n  var form = new Vue({\n    el: \'#form\',\n    data: {\n      formModel: undefined, //自定义业务的vue对象\n      verifCode:  \"/code?t=\" + new Date().getTime(),\n      isLoading: false,\n      form: {\n        rand_code: \'\'\n      },\n      rules: {\n        rand_code: [\n          {required: true, message: \'请输入验证码\', trigger: \'blur\'},\n          {min: 1, max: 4, message: \'长度不能超过4个字符\', trigger: \'change\'}\n        ],\n      },\n    },\n    methods: {\n      save: function () {\n        var that = this;\n        that.isLoading = true;\n        //将验证码值复制到自定义模型\n        form.formModel.form.rand_code = this.form.rand_code;\n        //调用自定义模型的保存\n        that.formModel.save(function (res) {\n          if (res.result) {\n            that.$notify({\n              title: \'成功\',\n              type: \'success\',\n              message: \'保存成功!\'\n            });\n\n          } else {\n            that.$notify({\n              title: \'失败\',\n              message: res.msg,\n              type: \'warning\'\n            });\n          }\n          that.isLoading = false;\n        });\n      },\n      code: function () {\n        this.verifCode = \"/code?t=\" + (new Date).getTime();\n      }\n    },\n    created: function () {\n      var that = this;\n      ms.mdiy.model.form(\"formModel\", { \"modelName\": \"${formName}\" }).then(function(obj) {\n        that.formModel = obj;\n      });\n    }\n  });\n</script>\n</#macro>', NULL, '智能表单', '79', '2022-08-11 09:43:34', NULL, NULL, 0, 1);
@@ -422,26 +422,26 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `model`;
 CREATE TABLE `model` (
-                         `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
-                         `model_id` int(22) DEFAULT NULL COMMENT '模块的父模块id',
-                         `model_parent_ids` varchar(300) DEFAULT NULL COMMENT '父级编号集合，从小到大排序',
-                         `model_code` varchar(255) DEFAULT NULL COMMENT '模块编码',
-                         `model_title` varchar(150) DEFAULT NULL COMMENT '模块标题',
-                         `model_url` varchar(255) DEFAULT NULL COMMENT '模块连接地址',
-                         `model_icon` varchar(120) DEFAULT NULL COMMENT '模块图标',
-                         `model_sort` int(11) DEFAULT NULL COMMENT '模块的排序',
-                         `model_ismenu` int(1) DEFAULT '0' COMMENT '模块是否是菜单',
-                         `IS_CHILD` varchar(300) DEFAULT NULL COMMENT '扩展字段',
-                         `model_datetime` datetime DEFAULT NULL,
-                         `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
-                         `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-                         `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
-                         `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-                         `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-                         PRIMARY KEY (`id`) USING BTREE,
-                         KEY `idx_model_id` (`model_id`) USING BTREE,
-                         KEY `idx_model_title` (`model_title`,`model_url`) USING BTREE,
-                         CONSTRAINT `fk_model_id` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
+  `model_id` int(22) DEFAULT NULL COMMENT '模块的父模块id',
+  `model_parent_ids` varchar(300) DEFAULT NULL COMMENT '父级编号集合，从小到大排序',
+  `model_code` varchar(255) DEFAULT NULL COMMENT '模块编码',
+  `model_title` varchar(150) DEFAULT NULL COMMENT '模块标题',
+  `model_url` varchar(255) DEFAULT NULL COMMENT '模块连接地址',
+  `model_icon` varchar(120) DEFAULT NULL COMMENT '模块图标',
+  `model_sort` int(11) DEFAULT NULL COMMENT '模块的排序',
+  `model_ismenu` int(1) DEFAULT '0' COMMENT '模块是否是菜单',
+  `IS_CHILD` varchar(300) DEFAULT NULL COMMENT '扩展字段',
+  `model_datetime` datetime DEFAULT NULL,
+  `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
+  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
+  `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `idx_model_id` (`model_id`) USING BTREE,
+  KEY `idx_model_title` (`model_title`,`model_url`) USING BTREE,
+  CONSTRAINT `fk_model_id` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=1804 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='模块表';
 
 -- ----------------------------
@@ -537,15 +537,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
-                        `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
-                        `role_name` varchar(30) DEFAULT NULL COMMENT '角色名',
-                        `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
-                        `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-                        `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
-                        `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-                        `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-                        `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
-                        PRIMARY KEY (`id`) USING BTREE
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
+  `role_name` varchar(30) DEFAULT NULL COMMENT '角色名',
+  `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
+  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
+  `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
+  `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色表';
 
 -- ----------------------------
@@ -560,12 +560,12 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `role_model`;
 CREATE TABLE `role_model` (
-                              `model_id` int(22) DEFAULT NULL COMMENT '模块编号',
-                              `role_id` int(22) DEFAULT NULL COMMENT '角色编号',
-                              KEY `fk_model_id` (`model_id`) USING BTREE,
-                              KEY `fk_role_id` (`role_id`) USING BTREE,
-                              CONSTRAINT `fk_rm_model_id` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-                              CONSTRAINT `fk_rm_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  `model_id` int(22) DEFAULT NULL COMMENT '模块编号',
+  `role_id` int(22) DEFAULT NULL COMMENT '角色编号',
+  KEY `fk_model_id` (`model_id`) USING BTREE,
+  KEY `fk_role_id` (`role_id`) USING BTREE,
+  CONSTRAINT `fk_rm_model_id` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rm_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色模块关联表';
 
 -- ----------------------------
