@@ -7,8 +7,10 @@
 <body>
 <div id="form" v-cloak>
     <el-header class="ms-header ms-tr" height="50px">
-        <el-button type="primary" icon="iconfont icon-baocun" size="mini" @click="save()" :loading="saveDisabled">保存
-        </el-button>
+        <@shiro.hasPermission name="cms:category:save">
+            <el-button type="primary" icon="iconfont icon-baocun" size="mini" @click="save()" :loading="saveDisabled">保存
+            </el-button>
+        </@shiro.hasPermission>
         <el-button size="mini" icon="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回</el-button>
     </el-header>
     <el-main class="ms-container">
@@ -411,6 +413,10 @@
 
                 if (that.form.id > 0) {
                     url = ms.manager + "/cms/category/update.do";
+                }
+                //若缩略图为空则赋值为空串
+                if (that.form.categoryImg.length == 0){
+                    that.form.categoryImg = "";
                 }
                 this.$refs.form.validate(function (valid) {
                     if (valid) {

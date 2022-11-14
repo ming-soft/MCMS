@@ -7,11 +7,23 @@
 </head>
 <body>
 <div id="form" v-cloak>
-    <el-header class="ms-header ms-tr" height="50px">
-        <el-button type="primary" icon="iconfont icon-baocun" size="mini" @click="save()" :loading="saveDisabled">保存
-        </el-button>
-        <el-button size="mini" icon="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回
-        </el-button>
+    <el-header class="ms-header ms-tr" height="50px" >
+        <el-row type="flex" justify="space-between" align="middle">
+            <el-col :xs="12" :sm="14" :md="16" :lg="18" :xl="18" style="display:flex;align-items:center;">
+                <el-tooltip class="item" effect="dark" :content="form.id" placement="top-start">
+                    <span v-if="form.id && categoryType=='2'" style="float: left; max-width:calc(30% - 40px);" class="header-info">编号：{{form.id}}</span>
+                </el-tooltip>
+                <el-button v-if="form.id && categoryType=='2'" type="text" style="float: left" icon="el-icon-document-copy" circle :data-clipboard-text="form.id" @click="copyString()" class="copyBtn"></el-button>
+            </el-col>
+            <el-col :xs="12" :sm="10" :md="8" :lg="6" :xl="6" class="ms-tr">
+                <@shiro.hasPermission name="cms:content:save">
+                    <el-button type="primary" icon="iconfont icon-baocun" size="mini" @click="save()" :loading="saveDisabled">保存
+                    </el-button>
+                </@shiro.hasPermission>
+                <el-button size="mini" icon="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回
+                </el-button>
+            </el-col>
+        </el-row>
     </el-header>
     <el-main class="ms-container" style="position:relative;">
         <el-scrollbar class="ms-scrollbar" style="height: 100%;">
@@ -130,6 +142,24 @@
                                 gutter="0"
                                 justify="start" align="top">
                             <el-col span="12">
+                                <el-form-item label="文章外链接" prop="contentOutLink">
+                                    <el-input v-model="form.contentOutLink"
+                                              :disabled="false"
+                                              :style="{width:  '100%'}"
+                                              :clearable="true"
+                                              placeholder="请输入文章外链接">
+                                    </el-input>
+                                    <div class="ms-form-tip">
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
+                                              target="_blank">${'$'}{field.outlink}</a> 文章外链接必须以http或者https等开头
+                                    </div>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row
+                                gutter="0"
+                                justify="start" align="top">
+                            <el-col span="12">
                                 <el-form-item label="是否显示" prop="contentDisplay">
                                     <el-radio-group v-model="form.contentDisplay"
                                                     :style="{width: ''}"
@@ -153,6 +183,9 @@
                                             :disabled="false"
                                             controls-position="">
                                     </el-input-number>
+                                  	<div class="ms-form-tip">
+                                        提示：前台模板标签需要设置orderby属性为sort才能生效
+                                    </div>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -217,7 +250,7 @@
 </body>
 </html>
 <script>
-    var form = new Vue({
+    var formVue = new Vue({
         el: '#form',
         data: function () {
             return {
@@ -257,9 +290,11 @@
                     contentKeyword: '',
                     // 文章内容
                     contentDetails: '',
-
+                    //文章外链接
+                    contentOutLink: '',
                     contentDatetime: ms.util.date.fmt(Date.now(),"yyyy-MM-dd hh:mm:ss"),
                 },
+                categoryType: '1',
                 contentTypeOptions: [],
                 categoryIdOptions: [],
                 contentDisplayOptions: [{
@@ -299,43 +334,36 @@
         methods: {
             save: function () {
                 var _this = this;
-
                 var that = this; //自定义模型需要验证
 
                 if (this.model && !this.model.validate()) {
                     this.activeName = 'custom-name';
                     return;
                 }
-
                 var url = ms.manager + "/cms/content/save.do";
 
                 if (that.form.id > 0) {
                     url = ms.manager + "/cms/content/update.do";
+                }
+                //若缩略图为空则赋值为空串
+                if (that.form.contentImg.length == 0){
+                    that.form.contentImg = "";
                 }
 
                 this.$refs.form[0].validate(function (valid) {
                     if (valid) {
                         that.saveDisabled = true; //判断
 
-                        // if (that.categoryIdOptions.filter(function (f) {
-                        //     return f['id'] == that.form.categoryId;
-                        // })[0].categoryType == '2' && that.returnIsShow) {
-                        //     that.$notify({
-                        //         title: '提示',
-                        //         message: '所属栏目不能为封面',
-                        //         type: 'error'
-                        //     });
-                        //     that.saveDisabled = false;
-                        //     return;
-                        // }
-
                         var data = JSON.parse(JSON.stringify(that.form));
 
                         if (data.contentType) {
                             data.contentType = data.contentType.join(',');
                         }
-
-                        data.contentImg = JSON.stringify(data.contentImg);
+                        if (data.contentImg == []) {
+                            data.contentImg = ""
+                        }else {
+                            data.contentImg = JSON.stringify(data.contentImg);
+                        }
                         ms.http.post(url, data).then(function (data) {
                             if (data.result) {
                                 //保存时需要赋值关联ID
@@ -427,7 +455,7 @@
                             res.data.contentType = [];
                         }
 
-                        if (res.data.contentImg) {
+                        if (res.data.contentImg && res.data.contentImg != '') {
                             res.data.contentImg = JSON.parse(res.data.contentImg);
                             res.data.contentImg.forEach(function (value) {
                                 value.url = ms.base + value.path;
@@ -441,7 +469,8 @@
                             return f['id'] == that.form.categoryId;
                         });
 
-                        if (category.length == 1) {
+                        if (category.length > 0) {
+                            that.categoryType = category[0].categoryType
                             if (category[0].categoryType == '2') {
                                 that.returnIsShow = false;
                             }
@@ -464,7 +493,7 @@
                                 res.data.contentType = [];
                             }
 
-                            if (res.data.contentImg) {
+                            if (res.data.contentImg && res.data.contentImg != '') {
                                 res.data.contentImg = JSON.parse(res.data.contentImg);
                                 res.data.contentImg.forEach(function (value) {
                                     value.url = ms.base + value.path;
@@ -478,7 +507,8 @@
                                 return f['id'] == that.form.categoryId;
                             });
 
-                            if (category.length == 1) {
+                            if (category.length > 0) {
+                                that.categoryType = category[0].categoryType
                                 if (category[0].categoryType == '2') {
                                     that.returnIsShow = false;
                                 }
@@ -574,7 +604,7 @@
                             res.data.rows[0].contentType = res.data.rows[0].contentType.split(',');
                         }
 
-                        if (res.data.rows[0].contentImg) {
+                        if (res.data.rows[0].contentImg && res.data.rows[0].contentImg != '') {
                             res.data.rows[0].contentImg = JSON.parse(res.data.rows[0].contentImg);
                             res.data.rows[0].contentImg.forEach(function (value) {
                                 value.url = ms.base + value.path;
@@ -612,7 +642,20 @@
                     this.get(this.form.id);
                 }//else 如果即不指定栏目新增文章，又不是编辑文章就不渲染自定义模型
 
-            }
+            },
+            //复制文章id
+            copyString: function () {
+                var clipboard = new ClipboardJS('.copyBtn');
+                var self = this;
+                clipboard.on('success', function (e) {
+                    self.$notify({
+                        title: '提示',
+                        message: '已成功复制到剪切板',
+                        type: 'success'
+                    });
+                    clipboard.destroy();
+                });
+            },
         },
         created: function () {
             this.contentCategoryIdOptionsGet();
@@ -634,5 +677,11 @@
     }
     .el-scrollbar__bar.is-vertical{
         width: 6px!important;
+    }
+    .header-info {
+        white-space: nowrap;
+        display:inline-block;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 </style>

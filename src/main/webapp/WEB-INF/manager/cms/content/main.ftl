@@ -444,6 +444,12 @@
                 }).then(function (res) {
                     if (res.result) {
                         that.contentCategoryIdOptions = res.data.rows;
+                    }else {
+                        that.$notify({
+                            title: '失败',
+                            message: res.msg,
+                            type: 'warning'
+                        });
                     }
 
                     that.list();
