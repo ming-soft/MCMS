@@ -70,6 +70,7 @@ public class CategoryAction extends BaseAction {
 	 * @return
 	 */
 	@GetMapping("/index")
+	@RequiresPermissions("cms:category:view")
 	public String index(){
 		return "/cms/category/index";
 	}
@@ -86,7 +87,6 @@ public class CategoryAction extends BaseAction {
     })
 	@RequestMapping(value="/list",method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	@RequiresPermissions("cms:category:view")
 	public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category) {
 		BasicUtil.startPage();
 		List categoryList = categoryBiz.query(category);

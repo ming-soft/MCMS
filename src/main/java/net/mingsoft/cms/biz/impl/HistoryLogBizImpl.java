@@ -24,12 +24,12 @@
 
 package net.mingsoft.cms.biz.impl;
 
-import net.mingsoft.cms.biz.IHistoryLogBiz;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
+import net.mingsoft.cms.biz.IHistoryLogBiz;
 import net.mingsoft.cms.dao.ICmsHistoryLogDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 文章浏览记录管理持久化层

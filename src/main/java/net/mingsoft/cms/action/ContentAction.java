@@ -27,11 +27,11 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import net.mingsoft.base.entity.ResultData;
+import net.mingsoft.base.util.SqlInjectionUtil;
 import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.constant.e.BusinessTypeEnum;
 import net.mingsoft.basic.util.BasicUtil;
-import net.mingsoft.base.util.SqlInjectionUtil;
 import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
@@ -45,13 +45,10 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -219,9 +216,6 @@ public class ContentAction extends BaseAction {
 		if(StringUtil.isBlank(content.getContentDatetime())){
 			return ResultData.build().error(getResString("err.empty", this.getResString("content.datetime")));
 		}
-		if(!StringUtil.checkLength(content.getContentUrl()+"", 0, 200)){
-			return ResultData.build().error(getResString("err.length", this.getResString("content.url"), "0", "200"));
-		}
 		contentBiz.save(content);
 		return ResultData.build().success(content);
 	}
@@ -306,9 +300,6 @@ public class ContentAction extends BaseAction {
 		//验证发布时间的值是否合法
 		if(StringUtil.isBlank(content.getContentDatetime())){
 			return ResultData.build().error(getResString("err.empty", this.getResString("content.datetime")));
-		}
-		if(!StringUtil.checkLength(content.getContentUrl()+"", 0, 200)){
-			return ResultData.build().error(getResString("err.length", this.getResString("content.url"), "0", "200"));
 		}
 		contentBiz.saveOrUpdate(content);
 		return ResultData.build().success(content);

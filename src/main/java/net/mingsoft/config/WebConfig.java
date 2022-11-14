@@ -40,7 +40,10 @@ import org.springframework.core.Ordered;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.context.request.RequestContextListener;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
 import java.io.File;
@@ -95,7 +98,7 @@ public class WebConfig implements WebMvcConfigurer {
         String uploadMapping = MSProperties.upload.mapping;
         String uploadFolderPath = MSProperties.upload.path;
         String template = MSProperties.upload.template;
-        String htmlDir = MSProperties.DiyProperties.htmlDir;
+        String htmlDir = MSProperties.diy.htmlDir;
         // 上传路径映射 这里的映射不能使用File.separator Windows会存在映射问题
         registry.addResourceHandler(uploadMapping).addResourceLocations("/" + uploadFolderPath + "/", "file:" + uploadFolderPath + "/");
         registry.addResourceHandler("/" + template + "/**").addResourceLocations("/" + template + "/", "file:" + template + "/");
@@ -127,9 +130,9 @@ public class WebConfig implements WebMvcConfigurer {
 
     //XSS过滤器
     @Bean
-    public FilterRegistrationBean xssFilterRegistration(@Value("${ms.xss.enable:false}") boolean xssEnable,
-                                                        @Value("${ms.xss.filter-url}:''") String filterUrl,
-                                                        @Value("${ms.xss.exclude-url}:''") String excludeUrl) {
+    public FilterRegistrationBean xssFilterRegistration(@Value("${ms.xss.enable:true}") boolean xssEnable,
+                                                        @Value("${ms.xss.filter-url}") String filterUrl,
+                                                        @Value("${ms.xss.exclude-url}") String excludeUrl) {
         XSSEscapeFilter xssFilter = new XSSEscapeFilter();
         Map<String, String> initParameters = new HashMap();
         FilterRegistrationBean registration = new FilterRegistrationBean();

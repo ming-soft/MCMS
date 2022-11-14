@@ -22,11 +22,7 @@
 
 package net.mingsoft.cms.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import org.springframework.format.annotation.DateTimeFormat;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import net.mingsoft.base.entity.BaseEntity;
-import java.util.Date;
 /**
 * 文章浏览记录实体
 * @author 铭飞开发团队

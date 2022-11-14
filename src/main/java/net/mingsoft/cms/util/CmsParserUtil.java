@@ -22,7 +22,6 @@
 
 package net.mingsoft.cms.util;
 
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.PageUtil;

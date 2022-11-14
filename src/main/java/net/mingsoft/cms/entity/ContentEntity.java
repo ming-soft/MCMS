@@ -24,7 +24,6 @@ package net.mingsoft.cms.entity;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -108,9 +107,9 @@ private static final long serialVersionUID = 1574925152617L;
 	*/
 	private String contentDetails;
 	/**
-	* 文章跳转链接地址
-	*/
-	private String contentUrl;
+	 * 文章跳转链接地址
+	 */
+	private String contentOutLink;
 	/**
 	* 点击次数
 	*/
@@ -277,16 +276,16 @@ private static final long serialVersionUID = 1574925152617L;
 	return this.contentDetails;
 	}
 	/**
-	* 设置文章跳转链接地址
-	*/
-	public void setContentUrl(String contentUrl) {
-	this.contentUrl = contentUrl;
+	 * 设置文章跳转链接地址
+	 */
+	public void setContentOutLink(String contentOutLink) {
+		this.contentOutLink = contentOutLink;
 	}
 
 	/**
-	* 获取文章跳转链接地址
-	*/
-	public String getContentUrl() {
-	return this.contentUrl;
+	 * 获取文章跳转链接地址
+	 */
+	public String getContentOutLink() {
+		return this.contentOutLink;
 	}
 }

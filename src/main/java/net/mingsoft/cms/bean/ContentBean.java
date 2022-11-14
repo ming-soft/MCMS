@@ -22,12 +22,7 @@
 
 package net.mingsoft.cms.bean;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import net.mingsoft.cms.entity.ContentEntity;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.util.Date;
 
 /**
  * 文章实体bean

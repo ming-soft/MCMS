@@ -16,7 +16,7 @@
 				<result column="content_description" property="contentDescription" /><!--描述 -->
 				<result column="content_keyword" property="contentKeyword" /><!--关键字 -->
 				<result column="content_details" property="contentDetails" /><!--文章内容 -->
-				<result column="content_url" property="contentUrl" /><!--文章跳转链接地址 -->
+				<result column="content_out_link" property="contentOutLink" /><!--文章跳转链接地址 -->
 				<result column="content_hit" property="contentHit" /><!--点击次数 -->
 				<result column="create_by" property="createBy" /><!--创建人 -->
 				<result column="create_date" property="createDate" /><!--创建时间 -->
@@ -39,7 +39,7 @@
 		<result column="content_description" property="contentDescription" /><!--描述 -->
 		<result column="content_keyword" property="contentKeyword" /><!--关键字 -->
 		<result column="content_details" property="contentDetails" /><!--文章内容 -->
-		<result column="content_url" property="contentUrl" /><!--文章跳转链接地址 -->
+		<result column="content_out_link" property="contentOutLink" /><!--文章跳转链接地址 -->
 <!--		<result column="static_url" property="staticUrl" />&lt;!&ndash;静态地址 &ndash;&gt;-->
 		<result column="content_hit" property="contentHit" /><!--点击次数 -->
 		<result column="create_by" property="createBy" /><!--创建人 -->
@@ -91,7 +91,7 @@
 				<if test="contentDescription != null and contentDescription != ''">content_description,</if>
 				<if test="contentKeyword != null and contentKeyword != ''">content_keyword,</if>
 				<if test="contentDetails != null and contentDetails != ''">content_details,</if>
-				<if test="contentUrl != null and contentUrl != ''">content_url,</if>
+				<if test="contentOutLink != null and contentOutLink != ''">content_out_link,</if>
 				<if test="contentHit != null">content_hit,</if>
 				<if test="createBy &gt; 0">create_by,</if>
 				<if test="createDate != null">create_date,</if>
@@ -138,7 +138,7 @@
 				<if test="contentDescription != null ">content_description=#{contentDescription},</if>
 				<if test="contentKeyword != null ">content_keyword=#{contentKeyword},</if>
 				<if test="contentDetails != null ">content_details=#{contentDetails},</if>
-				<if test="contentUrl != null and contentUrl != ''">content_url=#{contentUrl},</if>
+				<if test="contentOutLink != null and contentOutLink != ''">content_out_link=#{contentOutLink},</if>
 				<if test="contentHit != null">content_hit=#{contentHit},</if>
 				<if test="createBy &gt; 0">create_by=#{createBy},</if>
 				<if test="createDate != null">create_date=#{createDate},</if>
@@ -171,7 +171,7 @@
 				<if test="contentDescription != null and contentDescription != ''">and content_description=#{contentDescription}</if>
 				<if test="contentKeyword != null and contentKeyword != ''">and content_keyword=#{contentKeyword}</if>
 				<if test="contentDetails != null and contentDetails != ''">and content_details=#{contentDetails}</if>
-				<if test="contentUrl != null and contentUrl != ''">and content_url=#{contentUrl}</if>
+				<if test="contentOutLink != null and contentOutLink != ''">and content_out_link=#{contentOutLink}</if>
 				<if test="contentHit != null">and content_hit=#{contentHit}</if>
 				<if test="createBy &gt; 0"> and create_by=#{createBy} </if>
 				<if test="createDate != null"> and create_date=#{createDate} </if>
@@ -236,7 +236,7 @@
 			<if test="contentDescription != null and contentDescription != ''"> and content_description=#{contentDescription}</if>
 			<if test="contentKeyword != null and contentKeyword != ''"> and content_keyword=#{contentKeyword}</if>
 			<if test="contentDetails != null and contentDetails != ''"> and content_details=#{contentDetails}</if>
-			<if test="contentUrl != null and contentUrl != ''"> and content_url=#{contentUrl}</if>
+			<if test="contentOutLink != null and contentOutLink != ''">and content_out_link=#{contentOutLink}</if>
 			<if test="contentHit != null"> and content_hit=#{contentHit}</if>
 			<if test="createBy &gt; 0"> and ct.create_by=#{createBy} </if>
 			<if test="createDate != null"> and ct.create_date=#{createDate} </if>
@@ -273,7 +273,7 @@
 			<if test="contentDescription != null and contentDescription != ''"> and content_description=#{contentDescription}</if>
 			<if test="contentKeyword != null and contentKeyword != ''"> and content_keyword=#{contentKeyword}</if>
 			<if test="contentDetails != null and contentDetails != ''"> and content_details=#{contentDetails}</if>
-			<if test="contentUrl != null and contentUrl != ''"> and content_url=#{contentUrl}</if>
+			<if test="contentOutLink != null and contentOutLink != ''">and content_out_link=#{contentOutLink}</if>
 			<if test="contentHit != null"> and content_hit=#{contentHit}</if>
 			<if test="createBy &gt; 0"> and ct.create_by=#{createBy} </if>
 			<if test="createDate != null"> and ct.create_date=#{createDate} </if>
@@ -287,10 +287,10 @@
 	<!-- 根据站点编号、开始、结束时间和栏目编号查询文章编号集合 -->
 	<select id="queryIdsByCategoryIdForParser" resultMap="resultBean" >
 			select
-			ct.id article_id,c.*
+			ct.id article_id,ct.content_img  litpic,c.*
 			FROM cms_content ct
 			LEFT JOIN cms_category c ON ct.category_id = c.id
-			where ct.del=0
+			where ct.del=0 and ct.content_display=0
 
 			<!-- 查询子栏目数据 -->
 			<if test="categoryId!=null and  categoryId!='' and categoryType==1">
@@ -345,7 +345,7 @@
 	<!-- 根据站点编号、开始、结束时间和栏目编号查询文章编号集合,不包括单篇 -->
 	<select id="queryIdsByCategoryIdForParserAndNotCover" resultMap="resultBean" >
 		select
-		ct.id article_id,c.*
+		ct.id article_id,ct.content_img  litpic,c.*
 		FROM cms_content ct
 		LEFT JOIN cms_category c ON ct.category_id = c.id
 		where ct.del=0

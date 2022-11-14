@@ -38,13 +38,9 @@ import net.mingsoft.cms.entity.HistoryLogEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 /**
@@ -137,7 +133,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		}else {
 			content.setContentHit(1);
 		}
-		contentBiz.updateEntity(content);
+		contentBiz.updateById(content);
 
 		// cms_history 增加相应记录
 		HistoryLogEntity entity = new HistoryLogEntity();

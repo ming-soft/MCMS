@@ -250,6 +250,7 @@ public class GeneraterAction extends BaseAction {
             }
             contentBean.setCategoryId(category.getId());
             contentBean.setCategoryType(category.getCategoryType());
+            contentBean.setOrderBy("date");
             //将文章列表标签中的中的参数
             articleIdList = contentBiz.queryIdsByCategoryIdForParserAndNotCover(contentBean);
             // 分类是列表
