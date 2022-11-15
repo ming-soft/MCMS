@@ -113,21 +113,21 @@ docker run -p 3306:3306 -p 8080:8080 --name mcms --privileged=true -e TZ=Asia/Sh
 
 ## 后端框架
 
-| 技术 | 名称 | 官网 |
-| :--- | :--- | :--- |
-| Spring Framework | 容器 | [http://projects.spring.io/spring-framework](http://projects.spring.io/spring-framework/) |
-| Spring Boot | MVC框架 | [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot) |
-| Apache Shiro | 安全框架 | [http://shiro.apache.org](http://shiro.apache.org/) |
+| 技术 | 名称           | 官网 |
+| :--- |:-------------| :--- |
+| Spring Framework | 容器           | [http://projects.spring.io/spring-framework](http://projects.spring.io/spring-framework/) |
+| Spring Boot | MVC          | [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot) |
+| Apache Shiro | 安全           | [http://shiro.apache.org](http://shiro.apache.org/) |
 | Spring session | 分布式Session管理 | [http://projects.spring.io/spring-session](http://projects.spring.io/spring-session) |
-| MyBatis | ORM框架 | [http://www.mybatis.org](http://www.mybatis.org/mybatis-3/zh/index.html) |
-| MyBatis-Plus | ORM框架 | [https://baomidou.com/](https://baomidou.com/) |
-| Freemarker | 视图框架 | [http://freemarker.foofun.cn](http://freemarker.foofun.cn/) |
-| PageHelper | MyBatis分页插件 | [http://git.oschina.net/free/Mybatis\_PageHelper](http://git.oschina.net/free/Mybatis_PageHelper) |
-| Log4J | 日志组件 | [http://logging.apache.org](http://logging.apache.org) |
-| Maven | 项目构建 | [http://maven.apache.org](http://maven.apache.org/) |
-| Elasticsearch | 分布式搜索引擎 | [https://www.elastic.co](https://www.elastic.co/) |
-| Redis | 分布式缓存数据库 | [https://redis.io](https://redis.io) |
-| hutool | 工具类 | [http://hutool.mydoc.io](http://hutool.mydoc.io) |
+| MyBatis | DAO          | [http://www.mybatis.org](http://www.mybatis.org/mybatis-3/zh/index.html) |
+| MyBatis-Plus | ORM          | [https://baomidou.com/](https://baomidou.com/) |
+| Freemarker | 视图           | [http://freemarker.foofun.cn](http://freemarker.foofun.cn/) |
+| PageHelper | MyBatis分页插件  | [http://git.oschina.net/free/Mybatis\_PageHelper](http://git.oschina.net/free/Mybatis_PageHelper) |
+| Log4J | 日志组件         | [http://logging.apache.org](http://logging.apache.org) |
+| Maven | 项目构建         | [http://maven.apache.org](http://maven.apache.org/) |
+| Elasticsearch | 分布式搜索引擎      | [https://www.elastic.co](https://www.elastic.co/) |
+| Redis | 分布式缓存数据库     | [https://redis.io](https://redis.io) |
+| hutool | 工具类          | [http://hutool.mydoc.io](http://hutool.mydoc.io) |
 
 ## 前端框架
 
