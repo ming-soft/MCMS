@@ -93,7 +93,6 @@ CREATE TABLE `cms_content` (
   `category_id` bigint(20) unsigned DEFAULT NULL COMMENT '所属栏目',
   `content_details` longtext COMMENT '文章内容',
   `content_title` varchar(255) DEFAULT NULL COMMENT '文章标题',
-  `content_url` varchar(255) DEFAULT NULL COMMENT '文章跳转链接地址',
   `content_keyword` varchar(255) DEFAULT NULL COMMENT '关键字',
   `content_description` varchar(400) DEFAULT NULL COMMENT '描述',
   `content_img` varchar(1000) DEFAULT NULL COMMENT '文章缩略图',
