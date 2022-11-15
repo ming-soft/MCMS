@@ -93,6 +93,20 @@ git clone https://gitee.com/mingSoft/MCMS.git<br/>
 7、运行MSApplication.java main方法<br/>
 8、首先先访问后台地址：http://localhost:8080/ms/login.do，管理员账号，用户名：msopen 密码：msopen，进入后台点击内容管理->静态化菜单，进行"生成主页"，"生成栏目","生成文章"操作一遍 （注意！！！是后台登录界面，不是会员中心登录界面）
 
+# 快速体验（docker）
+
+```
+docker run -p 3306:3306 -p 8080:8080 --name mcms1 --privileged=true -e TZ=Asia/Shanghai  \
+--restart=always -e MYSQL_ROOT_PASSWORD=123456 -d mingsoft/mcms \
+--sql-mode="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" \
+--lower-case-table-names=1 \
+--query-cache-type=1 \
+--query-cache-size=600000 \
+--max-connections=1000
+
+```
+`MYSQL_ROOT_PASSWORD` 数据库密码，如果修改需要修改容器 `/home/mcms/config/` 下配置文件的链接，实际部署可以将 `/home/mcms` 挂载到外部文件夹，方便更新 `mcms` 系统文件
+
 
 # 技术选型
 
