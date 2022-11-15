@@ -96,7 +96,7 @@ git clone https://gitee.com/mingSoft/MCMS.git<br/>
 # 快速体验（docker）
 
 ```
-docker run -p 3306:3306 -p 8080:8080 --name mcms1 --privileged=true -e TZ=Asia/Shanghai  \
+docker run -p 3306:3306 -p 8080:8080 --name mcms --privileged=true -e TZ=Asia/Shanghai  \
 --restart=always -e MYSQL_ROOT_PASSWORD=123456 -d mingsoft/mcms \
 --sql-mode="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" \
 --lower-case-table-names=1 \
