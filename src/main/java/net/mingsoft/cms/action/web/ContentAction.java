@@ -83,6 +83,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	@ResponseBody
 	public ResultData list(@ModelAttribute @ApiIgnore ContentBean content) {
 		BasicUtil.startPage();
+		content.setSqlWhere("");
 		List contentList = contentBiz.query(content);
 		return ResultData.build().success(new EUListBean(contentList,(int)BasicUtil.endPage(contentList).getTotal()));
 	}
@@ -101,6 +102,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		if(content.getId()==null) {
 			return ResultData.build().error();
 		}
+		content.setSqlWhere("");
 		ContentEntity _content = (ContentEntity)contentBiz.getById(content.getId());;
 		return ResultData.build().success(_content);
 	}

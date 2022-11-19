@@ -67,6 +67,7 @@ public class CategoryAction extends net.mingsoft.cms.action.BaseAction{
 	@ResponseBody
 	public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category) {
 		BasicUtil.startPage();
+		category.setSqlWhere("");
 		List categoryList = categoryBiz.query(category);
 		return ResultData.build().success(new EUListBean(categoryList,(int)BasicUtil.endPage(categoryList).getTotal()));
 	}
@@ -84,6 +85,7 @@ public class CategoryAction extends net.mingsoft.cms.action.BaseAction{
 		if(category.getId()==null) {
 			return ResultData.build().error();
 		}
+		category.setSqlWhere("");
 		CategoryEntity _category = (CategoryEntity)categoryBiz.getById(category.getId());
 		return ResultData.build().success(_category);
 	}
