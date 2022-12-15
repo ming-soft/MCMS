@@ -7,10 +7,10 @@
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
-
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
-
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -24,6 +24,11 @@ package net.mingsoft.cms.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import net.mingsoft.base.entity.BaseEntity;
+import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.config.MSProperties;
+import net.mingsoft.mdiy.util.ConfigUtil;
+
+import java.io.File;
 
 /**
  * 分类实体
@@ -130,6 +135,21 @@ public class CategoryEntity extends BaseEntity {
      * 顶级id
      */
     private String topId;
+
+    /**
+     * 路径url
+     */
+    @TableField(exist = false)
+    private String url;
+
+    /**
+     * 设置url路径
+     *
+     * @param url 路径的字符串
+     */
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public Boolean getLeaf() {
         return leaf;
@@ -419,7 +439,8 @@ public class CategoryEntity extends BaseEntity {
      * 获取栏目Id（标签使用）
      */
     public Boolean getTypeleaf() {
-        return this.leaf; }
+        return this.leaf;
+    }
 
 
     /**
@@ -431,6 +452,7 @@ public class CategoryEntity extends BaseEntity {
 
     @TableField(exist = false)
     private String typepath;
+
     /**
      * 获取栏目图片 (标签使用）
      */
@@ -462,4 +484,22 @@ public class CategoryEntity extends BaseEntity {
         this.childsize = childsize;
     }
 
+    /**
+     * 获取url路径
+     *
+     * @return url路径的字符串
+     */
+    public String getUrl() {
+        String appDir = "";
+        String htmlDir = MSProperties.diy.htmlDir;
+        String categoryPath = this.getCategoryPath();
+        String categoryPinyin = this.getCategoryPinyin();
+        if (!(ConfigUtil.getBoolean("短链配置", "shortLinkSwitch", false))) {
+            //未开启短链
+            appDir = "/" + BasicUtil.getApp().getAppDir();
+            return url = "/" + htmlDir + appDir + categoryPath + "/index.html";
+        }
+        //开启短链后的url拼接
+        return url = "/" + htmlDir + appDir + "/" + categoryPinyin + ".html";
+    }
 }
