@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012-2022 铭软科技(mingsoft.net)
+ * Copyright (c) 2012-present 铭软科技(mingsoft.net)
  * 本软件及相关文档文件（以下简称“软件”）的版权归 铭软科技 所有
  * 遵循铭软科技《保密协议》
  */
