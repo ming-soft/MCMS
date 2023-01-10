@@ -32,7 +32,7 @@ CREATE TABLE `app` (
 -- Records of app
 -- ----------------------------
 BEGIN;
-INSERT INTO `app` (`id`, `app_name`, `app_url`, `app_logo`, `app_keyword`, `app_copyright`, `app_style`, `app_description`, `app_pay`, `app_state`, `app_datetime`, `app_pay_date`, `app_dir`, `update_date`, `update_by`, `create_date`, `create_by`, `del`) VALUES (1, '铭飞MCms(5.2.11)', 'http://localhost:8080/', '[{\"url\":\"/upload/1/appLogo/1609397756549.png\",\"name\":\"1593834123492.png\",\"path\":\"/upload/1/appLogo/1609397756549.png\",\"uid\":1609397756411,\"status\":\"success\"}]', '铭飞MCMS', '版权所有 ©铭飞科技有限公司2012-2019 保留一切权利。', 'default', '铭飞MCMS', '', 0, NULL, '2019-11-17 00:00:00', 'web', '2022-09-09 15:32:05', '57', NULL, '', 0);
+INSERT INTO `app` (`id`, `app_name`, `app_url`, `app_logo`, `app_keyword`, `app_copyright`, `app_style`, `app_description`, `app_pay`, `app_state`, `app_datetime`, `app_pay_date`, `app_dir`, `update_date`, `update_by`, `create_date`, `create_by`, `del`) VALUES (1, '铭飞MCms(5.3.0)', 'http://localhost:8080/', '[{\"url\":\"/upload/1/appLogo/1609397756549.png\",\"name\":\"1593834123492.png\",\"path\":\"/upload/1/appLogo/1609397756549.png\",\"uid\":1609397756411,\"status\":\"success\"}]', '铭飞MCMS', '版权所有 ©铭飞科技有限公司2012-2019 保留一切权利。', 'default', '铭飞MCMS', '', 0, NULL, '2019-11-17 00:00:00', 'web', '2022-09-09 15:32:05', '57', NULL, '', 0);
 COMMIT;
 
 -- ----------------------------
