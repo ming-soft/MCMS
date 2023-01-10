@@ -22,7 +22,11 @@
 
 package net.mingsoft.cms.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import net.mingsoft.cms.entity.CategoryEntity;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
 * 文章实体
@@ -37,8 +41,20 @@ public class CategoryBean extends CategoryEntity {
 	 */
 	private String articleId;
 
+	/**
+	 * 文章更新时间
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date contentUpdateDate;
 
+	public Date getContentUpdateDate() {
+		return contentUpdateDate;
+	}
 
+	public void setContentUpdateDate(Date contentUpdateDate) {
+		this.contentUpdateDate = contentUpdateDate;
+	}
 
 	public String getArticleId() {
 		return articleId;

@@ -7,7 +7,7 @@
 package net.mingsoft.cms.aop;
 
 import cn.hutool.core.io.FileUtil;
-import com.alibaba.fastjson.JSONObject;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import net.mingsoft.base.entity.ResultData;
@@ -78,7 +78,7 @@ public class CategoryAop extends net.mingsoft.basic.aop.BaseAop {
 
         // 获取返回值
         Object obj = pjp.proceed(pjp.getArgs());
-        ResultData resultData = JSONObject.parseObject(JSONObject.toJSON(obj).toString(), ResultData.class);
+        ResultData resultData = JSONUtil.toBean(JSONUtil.toJsonStr(obj), ResultData.class);
         CategoryEntity parent = categoryDao.selectById(category.getCategoryId());
         if (parent == null) {
             return resultData;
@@ -90,7 +90,7 @@ public class CategoryAop extends net.mingsoft.basic.aop.BaseAop {
             // 将父栏目的内容模板清空
             parent.setCategoryUrl("");
             categoryDao.updateById(parent);
-            CategoryEntity returnCategory = JSONObject.parseObject(resultData.get(ResultData.DATA_KEY).toString(), CategoryEntity.class);
+            CategoryEntity returnCategory = JSONUtil.toBean(resultData.get(ResultData.DATA_KEY).toString(), CategoryEntity.class);
             // 获取父栏目ID集合
             String categoryIds = StringUtils.isEmpty(parent.getCategoryParentIds())
                     ? returnCategory.getId() : parent.getCategoryParentIds() + "," + returnCategory.getId();

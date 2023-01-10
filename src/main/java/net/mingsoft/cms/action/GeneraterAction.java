@@ -26,6 +26,8 @@ package net.mingsoft.cms.action;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.date.DateException;
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.annotation.LogAnn;
@@ -58,6 +60,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -131,7 +134,7 @@ public class GeneraterAction extends BaseAction {
 
         // 获取文件所在路径 首先判断用户输入的模版文件是否存在
         if (!FileUtil.exist(ParserUtil.buildTemplatePath())) {
-            return ResultData.build().error(getResString("templet.file"));
+            return ResultData.build().error(getResString("template.file"));
         } else {
 
             CmsParserUtil.generate(tmpFileName, generateFileName, htmlDir);
@@ -208,7 +211,7 @@ public class GeneraterAction extends BaseAction {
                         BeanUtil.copyProperties(column, columnArticleIdBean, copyOptions);
                         articleIdList.add(columnArticleIdBean);
                     }
-                    CmsParserUtil.generateBasic(articleIdList, htmlDir);
+                    CmsParserUtil.generateBasic(articleIdList, htmlDir,null);
                     break;
             }
         }
@@ -235,6 +238,14 @@ public class GeneraterAction extends BaseAction {
         ContentBean contentBean = new ContentBean();
         contentBean.setBeginTime(dateTime);
 
+        // 时间格式化
+        Date contentUpdateTime = null;
+        try {
+            contentUpdateTime = DateUtil.parse(dateTime);
+        } catch (DateException e) {
+            e.printStackTrace();
+            return ResultData.build().error(getResString("err.error",this.getResString("datetime.format")));
+        }
         if ("0".equals(columnId)) {
             categoryList = categoryBiz.list();
         } else { //选择栏目更新
@@ -252,7 +263,7 @@ public class GeneraterAction extends BaseAction {
             contentBean.setCategoryType(category.getCategoryType());
             contentBean.setOrderBy("date");
             //将文章列表标签中的中的参数
-            articleIdList = contentBiz.queryIdsByCategoryIdForParserAndNotCover(contentBean);
+            articleIdList = contentBiz.queryIdsByCategoryIdForParser(contentBean);
             // 分类是列表
             if (category.getCategoryType().equals(CategoryTypeEnum.LIST.toString())) {
                 // 判断模板文件是否存在
@@ -265,7 +276,7 @@ public class GeneraterAction extends BaseAction {
             }
             // 有符合条件的就更新
             if (articleIdList.size() > 0) {
-                CmsParserUtil.generateBasic(articleIdList, htmlDir);
+                CmsParserUtil.generateBasic(articleIdList, htmlDir,contentUpdateTime);
             }
         }
 

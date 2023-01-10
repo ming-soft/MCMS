@@ -52,6 +52,7 @@
 	<resultMap id="resultBean" type="net.mingsoft.cms.bean.CategoryBean">
 		<id column="id" property="id" /><!--编号 -->
 		<id column="article_Id" property="articleId" /><!--编号 -->
+		<result column="content_update_date" property="contentUpdateDate" /><!--文章更新时间-->
 		<result column="category_title" property="categoryTitle" /><!--栏目管理名称 -->
 		<result column="category_id" property="categoryId" /><!--所属栏目 -->
 		<result column="category_type" property="categoryType" /><!--栏目管理属性 -->
@@ -287,7 +288,7 @@
 	<!-- 根据站点编号、开始、结束时间和栏目编号查询文章编号集合 -->
 	<select id="queryIdsByCategoryIdForParser" resultMap="resultBean" >
 			select
-			ct.id article_id,ct.content_img  litpic,c.*
+			ct.id article_id,ct.content_img litpic,c.*,ct.update_date as content_update_date
 			FROM cms_content ct
 			LEFT JOIN cms_category c ON ct.category_id = c.id
 			where ct.del=0 and ct.content_display=0
@@ -300,14 +301,7 @@
 			<if test="categoryId!=null and  categoryId!='' and categoryType==2">
 				and ct.category_id=#{categoryId}
 			</if>
-			<if test="beginTime!=null and beginTime!=''">
-				<if test="_databaseId == 'mysql'">
-					AND ct.UPDATE_DATE &gt;=  #{beginTime}
-				</if>
-				<if test="_databaseId == 'oracle'">
-					and ct.UPDATE_DATE &gt;= to_date(#{beginTime}, 'yyyy-mm-dd hh24:mi:ss')
-				</if>
-			</if>
+
 			<if test="endTime!=null and endTime!=''">
 				<if test="_databaseId == 'mysql'">
 					and ct.UPDATE_DATE &gt;= #{endTime}

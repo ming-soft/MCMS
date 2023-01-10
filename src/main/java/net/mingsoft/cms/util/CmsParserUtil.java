@@ -46,10 +46,7 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 文章解析工具类
@@ -191,7 +188,8 @@ public class CmsParserUtil {
      * @throws MalformedTemplateNameException
      * @throws TemplateNotFoundException
      */
-    public static void generateBasic(List<CategoryBean> articleIdList, String htmlDir) {
+    public static void generateBasic(List<CategoryBean> articleIdList, String htmlDir,Date datetime) {
+
 
         Map<String, Object> parserParams = new HashMap<String, Object>();
         parserParams.put(ParserUtil.IS_DO, false);
@@ -280,6 +278,7 @@ public class CmsParserUtil {
             }
 
             parserParams.put(ParserUtil.ID, articleId);
+
             // 第一篇文章没有上一篇
             if (artId > 0) {
                 CategoryBean preCaBean = articleIdList.get(artId - 1);
@@ -288,6 +287,7 @@ public class CmsParserUtil {
                 page.setPreId(preCaBean.getArticleId());
 //				}
             }
+
             // 最后一篇文章没有下一篇
             if (artId + 1 < articleIdList.size()) {
                 CategoryBean nextCaBean = articleIdList.get(artId + 1);
@@ -296,6 +296,14 @@ public class CmsParserUtil {
                 page.setNextId(nextCaBean.getArticleId());
 //				}
             }
+
+            // 文章更新时间在指定时间之前 跳过
+            if (datetime != null && categoryBean.getContentUpdateDate().before(datetime)){
+                artId++;
+                continue;
+            }
+
+
 
 
             parserParams.put(ParserUtil.PAGE, page);

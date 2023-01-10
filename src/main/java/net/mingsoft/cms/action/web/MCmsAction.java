@@ -23,7 +23,7 @@ package net.mingsoft.cms.action.web;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.PageUtil;
-import com.alibaba.fastjson.JSON;
+import cn.hutool.json.JSONUtil;
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateNotFoundException;
@@ -355,7 +355,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
         @Override
         public String toString() {
-            return JSON.toJSONString(this);
+            return JSONUtil.toJsonStr(this);
         }
     }
 

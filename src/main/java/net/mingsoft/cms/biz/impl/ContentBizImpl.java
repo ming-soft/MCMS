@@ -101,7 +101,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 
 	@Override
 	public List<CategoryBean> queryIdsByCategoryIdForParserAndNotCover(ContentBean contentBean) {
-		return this.contentDao.queryIdsByCategoryIdForParser(contentBean);
+		return this.contentDao.queryIdsByCategoryIdForParserAndNotCover(contentBean);
 	}
 
 	@Override

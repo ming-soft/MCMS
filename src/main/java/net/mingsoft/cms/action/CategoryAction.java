@@ -152,7 +152,7 @@ public class CategoryAction extends BaseAction {
     @RequiresPermissions("cms:category:save")
     public ResultData save(@ModelAttribute @ApiIgnore CategoryEntity category) {
         //验证缩略图参数值是否合法
-        if (!category.getCategoryImg().matches("^\\[.{1,}]$") || category.getCategoryImg() == null) {
+        if (category.getCategoryImg() == null || !category.getCategoryImg().matches("^\\[.{1,}]$")) {
             category.setCategoryImg("");
         }
         //验证栏目管理名称的值是否合法
@@ -172,7 +172,7 @@ public class CategoryAction extends BaseAction {
         //判断拼音是否重复
         if (StrUtil.isNotBlank(category.getCategoryPinyin())) {
             if (!category.getCategoryPinyin().matches("^[a-zA-Z0-9]*$")){
-                return ResultData.build().error(this.getResString("err.format"));
+                return ResultData.build().error(this.getResString("err.error",this.getResString("category.pinyin")));
             }
             CategoryEntity _category = new CategoryEntity();
             _category.setCategoryPinyin(category.getCategoryPinyin());
@@ -237,7 +237,7 @@ public class CategoryAction extends BaseAction {
     @RequiresPermissions("cms:category:update")
     public ResultData update(@ModelAttribute @ApiIgnore CategoryEntity category) {
         //验证缩略图参数值是否合法
-        if (!category.getCategoryImg().matches("^\\[.{1,}]$") || category.getCategoryImg() == null) {
+        if (category.getCategoryImg() == null || !category.getCategoryImg().matches("^\\[.{1,}]$")) {
             category.setCategoryImg("");
         }
         //验证栏目管理名称的值是否合法
@@ -257,7 +257,7 @@ public class CategoryAction extends BaseAction {
         //判断拼音是否重复并且是否和原拼音相同
         if (StrUtil.isNotBlank(category.getCategoryPinyin()) && !categoryBiz.getById(category.getId()).getCategoryPinyin().equals(category.getCategoryPinyin())) {
             if (!category.getCategoryPinyin().matches("^[a-zA-Z0-9]*$")){
-                return ResultData.build().error(this.getResString("err.format"));
+                return ResultData.build().error(this.getResString("err.error",this.getResString("category.pinyin")));
             }
             CategoryEntity _category = new CategoryEntity();
             _category.setCategoryPinyin(category.getCategoryPinyin());

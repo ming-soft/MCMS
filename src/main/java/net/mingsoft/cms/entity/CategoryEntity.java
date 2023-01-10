@@ -28,8 +28,6 @@ import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.config.MSProperties;
 import net.mingsoft.mdiy.util.ConfigUtil;
 
-import java.io.File;
-
 /**
  * 分类实体
  *
@@ -42,6 +40,7 @@ public class CategoryEntity extends BaseEntity {
 
     private static final long serialVersionUID = 1574925152750L;
 
+    private static Boolean shortLinkSwitch = null;
 
     @TableId(type = IdType.ASSIGN_ID)
     private String id;
@@ -490,11 +489,14 @@ public class CategoryEntity extends BaseEntity {
      * @return url路径的字符串
      */
     public String getUrl() {
+        if (shortLinkSwitch == null) {
+            shortLinkSwitch = ConfigUtil.getBoolean("短链配置", "shortLinkSwitch", false);
+        }
         String appDir = "";
         String htmlDir = MSProperties.diy.htmlDir;
         String categoryPath = this.getCategoryPath();
         String categoryPinyin = this.getCategoryPinyin();
-        if (!(ConfigUtil.getBoolean("短链配置", "shortLinkSwitch", false))) {
+        if (!shortLinkSwitch) {
             //未开启短链
             appDir = "/" + BasicUtil.getApp().getAppDir();
             return url = "/" + htmlDir + appDir + categoryPath + "/index.html";

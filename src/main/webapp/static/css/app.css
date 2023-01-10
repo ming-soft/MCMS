@@ -75,6 +75,7 @@ html *, body * {
 }
 .ms-alert-tip{
     margin-bottom: 10px;
+    flex-shrink: 0;
 }
 
 .ms-select{

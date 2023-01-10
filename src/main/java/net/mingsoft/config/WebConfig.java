@@ -22,9 +22,9 @@
 package net.mingsoft.config;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.spring.stat.BeanTypeAutoProxyCreator;
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.mingsoft.basic.filter.XSSEscapeFilter;
 import net.mingsoft.basic.interceptor.ActionInterceptor;
@@ -206,7 +206,7 @@ public class WebConfig implements WebMvcConfigurer {
             ConfigEntity configEntity = new ConfigEntity();
             configEntity.setConfigName(configName);
             configEntity = (ConfigEntity)this.configBiz.getOne(new QueryWrapper(configEntity));
-            return configEntity != null && !StringUtils.isEmpty(configEntity.getConfigData()) ? (Map) JSON.parseObject(configEntity.getConfigData(), HashMap.class) : null;
+            return configEntity != null && !StringUtils.isEmpty(configEntity.getConfigData()) ? (Map) JSONUtil.toBean(configEntity.getConfigData(), HashMap.class) : null;
         } else {
             return null;
         }

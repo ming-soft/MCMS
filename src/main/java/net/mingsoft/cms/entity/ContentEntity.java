@@ -22,7 +22,6 @@
 
 package net.mingsoft.cms.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -82,7 +81,6 @@ private static final long serialVersionUID = 1574925152617L;
 	/**
 	* 发布时间
 	*/
-	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date contentDatetime;
