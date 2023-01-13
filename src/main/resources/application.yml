@@ -11,7 +11,7 @@ server:
     include-exception: true
     include-message: always
 #  ssl: #https证书配置 配置了之后只能通过https访问应用
-#    key-store: xxx.pfx 证书文件
+#    key-store: xxx.pfx 证书文件，证书文件格式具体参考证书分发平台
 #    key-store-password:  1234 证书密码
 
 #配置日志
@@ -27,8 +27,9 @@ ms:
     filter-url: /**   #过滤的url,多个用逗号分开
     # #排除的url,多个用逗号分开,如果怕设置后台过滤麻烦，直接排除 /ms/**
     exclude-url: /static/**,/template/**,/file/upload.do,/static/plugins/ueditor/1.4.3.3/jsp/editor.do
-    #过滤的参数名,多个用逗号分开
-    exclude-filed: modelJson
+    #过滤的参数名,多个用逗号分开 默认排除菜单、自定模型JSON、模版内容、文章内容，具体根据需要配置其他字段
+    exclude-filed: menuStr,modelField,modelUrl，modelJson,fileContent,contentDetails
+
   diy:
     html-dir: html
 
