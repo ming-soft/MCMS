@@ -14,6 +14,7 @@
         <el-button size="mini" icon="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回</el-button>
     </el-header>
     <el-main class="ms-container">
+
         <el-scrollbar class="ms-scrollbar" style="height: 100%;">
             <el-form ref="form" :model="form" :rules="rules" label-width="130px" size="mini">
                 <el-row
@@ -310,10 +311,10 @@
                         "required": true,
                         "message": "请选择栏目管理名称"
                     }],
-                    // categoryListUrl: [{
-                    //     "required": true,
-                    //     "message": "请选择列表模板"
-                    // }],
+                    categoryListUrl: [{
+                        "required": true,
+                        "message": "请选择列表模板"
+                    }],
                     categoryPinyin:[{
                         validator: validatorCategoryPinyin, trigger: 'blur'
                     }, {
@@ -321,10 +322,10 @@
                         "message": "拼音格式不匹配"
                     }],
                     // 内容模板
-                    // categoryUrl: [{
-                    //     "required": true,
-                    //     "message": "请选择内容模板"
-                    // }]
+                    categoryUrl: [{
+                        "required": true,
+                       "message": "请选择内容模板"
+                     }]
                 }
             };
         },
@@ -543,14 +544,14 @@
             //获取categoryListUrl数据源
             categoryListUrlOptionsGet: function () {
                 var that = this;
-                ms.http.get(ms.manager + "/template/queryTemplateFileForColumn.do", {}).then(function (data) {
+                ms.http.get(ms.manager + "/basic/template/queryTemplateFileForColumn.do", {}).then(function (data) {
                     that.categoryListUrlOptions = data.data;
                 });
             },
             //获取categoryUrl数据源
             categoryUrlOptionsGet: function () {
                 var that = this;
-                ms.http.get(ms.manager + "/template/queryTemplateFileForColumn.do", {}).then(function (data) {
+                ms.http.get(ms.manager + "/basic/template/queryTemplateFileForColumn.do", {}).then(function (data) {
                     that.categoryUrlOptions = data.data;
                 });
             },

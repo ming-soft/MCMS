@@ -245,7 +245,7 @@
             //获取主题模板数据源
             templateOptionsGet: function () {
                 var that = this;
-                ms.http.get(ms.manager + '/template/queryTemplateFileForColumn.do', {
+                ms.http.get(ms.manager + '/basic/template/queryTemplateFileForColumn.do', {
                     pageSize: 99999
                 }).then(function (data) {
                     that.templateOptions = data.data; //寻找主页
