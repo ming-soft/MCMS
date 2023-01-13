@@ -1,4 +1,3 @@
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -32,7 +31,7 @@ CREATE TABLE `app` (
 -- Records of app
 -- ----------------------------
 BEGIN;
-INSERT INTO `app` (`id`, `app_name`, `app_url`, `app_logo`, `app_keyword`, `app_copyright`, `app_style`, `app_description`, `app_pay`, `app_state`, `app_datetime`, `app_pay_date`, `app_dir`, `update_date`, `update_by`, `create_date`, `create_by`, `del`) VALUES (1, '铭飞MCms(5.3.0)', 'http://localhost:8080/', '[{\"url\":\"/upload/1/appLogo/1609397756549.png\",\"name\":\"1593834123492.png\",\"path\":\"/upload/1/appLogo/1609397756549.png\",\"uid\":1609397756411,\"status\":\"success\"}]', '铭飞MCMS', '版权所有 ©铭飞科技有限公司2012-2019 保留一切权利。', 'default', '铭飞MCMS', '', 0, NULL, '2019-11-17 00:00:00', 'web', '2022-09-09 15:32:05', '57', NULL, '', 0);
+INSERT INTO `app` (`id`, `app_name`, `app_url`, `app_logo`, `app_keyword`, `app_copyright`, `app_style`, `app_description`, `app_pay`, `app_state`, `app_datetime`, `app_pay_date`, `app_dir`, `update_date`, `update_by`, `create_date`, `create_by`, `del`) VALUES (1, '铭飞MCms(5.3.0)', 'http://localhost:8080/', '[{\"url\":\"/upload/1/appLogo/1609397756549.png\",\"name\":\"1593834123492.png\",\"path\":\"/upload/1/appLogo/1609397756549.png\",\"uid\":1609397756411,\"status\":\"success\"}]', '铭飞MCMS', '版权所有 ©铭飞科技有限公司2012-2019 保留一切权利。', 'default', '铭飞MCMS', '', 0, NULL, '2019-11-17 00:00:00', 'web', '2023-01-11 14:40:41', '57', NULL, '', 0);
 COMMIT;
 
 -- ----------------------------
@@ -357,6 +356,7 @@ INSERT INTO `logger` (`id`, `log_error_msg`, `log_result`, `log_param`, `log_loc
 INSERT INTO `logger` (`id`, `log_error_msg`, `log_result`, `log_param`, `log_location`, `log_user`, `log_user_type`, `log_business_type`, `log_status`, `log_url`, `log_request_method`, `log_method`, `log_ip`, `log_title`, `BUSINESS_ID`, `update_date`, `update_by`, `create_date`, `create_by`, `del`) VALUES (1603592096378572801, NULL, '{\n	\n}', '{\n	\"url\":[\n		\"index.htm\"\n	],\n	\"position\":[\n		\"index\"\n	]\n}', '内网IP', 'msopen', 'manage', 'update', 'success', '/ms/cms/generate//generateIndex.do', 'POST', 'net.mingsoft.cms.action.GeneraterAction.generateIndex()', '192.168.0.61', '生成主页', NULL, NULL, NULL, '2022-12-16 11:25:24', NULL, 0);
 INSERT INTO `logger` (`id`, `log_error_msg`, `log_result`, `log_param`, `log_location`, `log_user`, `log_user_type`, `log_business_type`, `log_status`, `log_url`, `log_request_method`, `log_method`, `log_ip`, `log_title`, `BUSINESS_ID`, `update_date`, `update_by`, `create_date`, `create_by`, `del`) VALUES (1603592136002162690, NULL, '{\n	\n}', '{\n	\n}', '内网IP', 'msopen', 'manage', 'update', 'success', '/ms/cms/generate/0/genernateColumn.do', 'GET', 'net.mingsoft.cms.action.GeneraterAction.genernateColumn()', '192.168.0.61', '生成栏目', NULL, NULL, NULL, '2022-12-16 11:25:33', NULL, 0);
 INSERT INTO `logger` (`id`, `log_error_msg`, `log_result`, `log_param`, `log_location`, `log_user`, `log_user_type`, `log_business_type`, `log_status`, `log_url`, `log_request_method`, `log_method`, `log_ip`, `log_title`, `BUSINESS_ID`, `update_date`, `update_by`, `create_date`, `create_by`, `del`) VALUES (1603592176938569730, NULL, '{\n	\n}', '{\n	\"dateTime\":[\n		\"2019-12-01\"\n	]\n}', '内网IP', 'msopen', 'manage', 'update', 'success', '/ms/cms/generate/0/generateArticle.do', 'POST', 'net.mingsoft.cms.action.GeneraterAction.generateArticle()', '192.168.0.61', '生成文章', NULL, NULL, NULL, '2022-12-16 11:25:43', NULL, 0);
+INSERT INTO `logger` (`id`, `log_error_msg`, `log_result`, `log_param`, `log_location`, `log_user`, `log_user_type`, `log_business_type`, `log_status`, `log_url`, `log_request_method`, `log_method`, `log_ip`, `log_title`, `BUSINESS_ID`, `update_date`, `update_by`, `create_date`, `create_by`, `del`) VALUES (1613063327304847362, NULL, '{\"result\":true,\"code\":200}', '{\n    \"updateDate\": \"2022-09-09 15:32:05\",\n    \"appState\": \"0\",\n    \"appStyle\": \"default\",\n    \"appPay\": \"\",\n    \"appLogo\": \"[{\\\"url\\\":\\\"/upload/1/appLogo/1609397756549.png\\\",\\\"name\\\":\\\"1593834123492.png\\\",\\\"path\\\":\\\"/upload/1/appLogo/1609397756549.png\\\",\\\"uid\\\":1609397756411,\\\"status\\\":\\\"success\\\"}]\",\n    \"appName\": \"铭飞MCms(5.3.0)\",\n    \"appDescription\": \"铭飞MCMS\",\n    \"appDir\": \"web\",\n    \"del\": \"0\",\n    \"appUrl\": \"http://localhost:8080/\",\n    \"appCopyright\": \"版权所有 ©铭飞科技有限公司2012-2019 保留一切权利。\",\n    \"createBy\": \"\",\n    \"updateBy\": \"57\",\n    \"appId\": \"1\",\n    \"id\": \"1\",\n    \"appHostUrl\": \"http://localhost:8080/\",\n    \"appKeyword\": \"铭飞MCMS\",\n    \"appPayDate\": \"2019-11-17\"\n}', '内网IP', 'msopen', 'manage', 'update', 'success', '/ms/basic/app/update.do', 'POST', 'net.mingsoft.basic.action.AppAction.update()', '127.0.0.1', '更新站点信息', NULL, NULL, NULL, '2023-01-11 14:40:41', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -715,100 +715,102 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `role_model`;
 CREATE TABLE `role_model` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `model_id` int(22) DEFAULT NULL COMMENT '模块编号',
   `role_id` int(22) DEFAULT NULL COMMENT '角色编号',
+  PRIMARY KEY (`id`),
   KEY `fk_model_id` (`model_id`) USING BTREE,
   KEY `fk_role_id` (`role_id`) USING BTREE,
   CONSTRAINT `fk_rm_model_id` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_rm_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色模块关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色模块关联表';
 
 -- ----------------------------
 -- Records of role_model
 -- ----------------------------
 BEGIN;
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (182, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (204, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (672, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (673, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (184, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (201, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (202, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (668, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (407, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (408, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (409, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (412, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (663, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (664, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (665, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (686, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (718, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (719, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (720, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (721, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (715, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (716, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (717, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1653, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (710, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (711, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (713, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (714, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1702, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1703, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1704, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1705, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1706, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1708, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1709, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1710, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1711, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1712, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1714, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1715, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1716, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1717, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1718, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1733, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1720, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1721, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1722, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1723, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1725, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1726, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1727, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1728, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1729, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1730, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1731, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1732, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (84, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (86, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (87, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (23, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (183, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (406, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (411, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (685, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (706, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (707, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (708, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (709, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1700, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1701, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1707, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1713, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1719, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1724, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1764, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1765, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1767, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1780, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1781, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1782, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1783, 48);
-INSERT INTO `role_model` (`model_id`, `role_id`) VALUES (1801, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (1, 182, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (2, 204, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (3, 672, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (4, 673, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (5, 184, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (6, 201, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (7, 202, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (8, 668, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (9, 407, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (10, 408, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (11, 409, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (12, 412, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (13, 663, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (14, 664, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (15, 665, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (16, 686, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (17, 718, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (18, 719, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (19, 720, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (20, 721, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (21, 715, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (22, 716, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (23, 717, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (24, 1653, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (25, 710, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (26, 711, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (27, 713, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (28, 714, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (29, 1702, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (30, 1703, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (31, 1704, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (32, 1705, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (33, 1706, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (34, 1708, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (35, 1709, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (36, 1710, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (37, 1711, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (38, 1712, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (39, 1714, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (40, 1715, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (41, 1716, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (42, 1717, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (43, 1718, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (44, 1733, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (45, 1720, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (46, 1721, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (47, 1722, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (48, 1723, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (49, 1725, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (50, 1726, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (51, 1727, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (52, 1728, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (53, 1729, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (54, 1730, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (55, 1731, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (56, 1732, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (57, 84, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (58, 86, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (59, 87, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (60, 23, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (61, 183, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (62, 406, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (63, 411, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (64, 685, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (65, 706, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (66, 707, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (67, 708, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (68, 709, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (69, 1700, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (70, 1701, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (71, 1707, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (72, 1713, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (73, 1719, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (74, 1724, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (75, 1764, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (76, 1765, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (77, 1767, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (78, 1780, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (79, 1781, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (80, 1782, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (81, 1783, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (82, 1801, 48);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
