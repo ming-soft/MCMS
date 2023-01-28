@@ -65,6 +65,11 @@ ms:
     circle: 10 #干扰线条数，值越大越不容易辨别
 
 spring:
+  data:
+    elasticsearch:
+      repositories:
+        enabled: false
+
   main:
     allow-circular-references: true
   datasource:
