@@ -160,7 +160,7 @@ docker run -p 3306:3306 -p 8080:8080 --name mcms --privileged=true -e TZ=Asia/Sh
 
 # 文档
 * 使用手册 http://doc.mingsoft.net/mcms/
-* 插件手册 http://doc.mingsoft.net/plugs-cms/
+* 插件手册 http://doc.mingsoft.net/plugs/
 
 # 关于版本说明 [更多版本查看](https://www.mingsoft.net/html/default/cms/banben/index.html)
 1. 开源版本永久免费发布源代码，开发者、企业可以终身免费使用，每个月团队会收集开源系统的问题并在每月的28号进行更新；
