@@ -44,12 +44,12 @@
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-base</artifactId>
-            <version>2.1.18.2</version>
+            <version>2.1.18.3</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-basic</artifactId>
-            <version>2.1.18.2</version>
+            <version>2.1.18.3</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
