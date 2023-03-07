@@ -1,5 +1,4 @@
 
-
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -291,6 +290,12 @@ CREATE TABLE `logger` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统日志';
 
 -- ----------------------------
+-- Records of logger
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
 -- Table structure for manager
 -- ----------------------------
 DROP TABLE IF EXISTS `manager`;
@@ -511,7 +516,7 @@ CREATE TABLE `model` (
 BEGIN;
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (23, NULL, NULL, '01000000', '权限管理', '', 'icon-quanxianguanli', 5, 1, NULL, '2014-09-09 10:12:22', NULL, NULL, NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (84, NULL, NULL, '12000000', '系统设置', '', 'icon-xitongguanli', 3, 1, NULL, '2014-12-19 22:30:24', NULL, NULL, NULL, NULL, 0);
-INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (86, 84, '84', '12010000', '应用设置', 'basic/app/-1/edit.do', '', 2, 1, NULL, '2014-12-19 22:31:59', '57', '2023-01-03 13:51:29', NULL, NULL, 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (86, 84, '84', '12010000', '应用设置', 'basic/app/app.do', '', 2, 1, NULL, '2014-12-19 22:31:59', '57', '2023-01-03 13:51:29', NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (87, 84, '84', '12020000', '模版管理', 'basic/template/index.do', '', 1, 1, NULL, '2014-12-19 22:32:50', NULL, NULL, NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (182, 86, '84,86', '12010004', '修改', 'basic:app:update', '', 0, 0, NULL, '2017-09-05 16:14:42', NULL, NULL, NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (183, 23, '23', '01030000', '菜单管理', 'basic/model/index.do', '', 0, 1, NULL, '2017-09-05 13:09:26', '57', '2023-01-03 10:46:19', NULL, NULL, 0);

@@ -127,6 +127,6 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
-      select-strategy: not_empty
+      where-strategy: not_empty
   configuration:
     database-id: mysql
