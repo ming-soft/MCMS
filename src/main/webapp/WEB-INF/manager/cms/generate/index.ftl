@@ -56,11 +56,11 @@
             <div class="class-13" >
                 <div class="class-14" >
                     <el-form-item label="文章栏目">
-                        <tree-select v-model="contentSection"
+                        <ms-tree-select v-model="contentSection"
                                      :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
                                      :options="treeList" :style="{width:'100%'}"
                                      placeholder="请选择文章栏目">
-                        </tree-select>
+                        </ms-tree-select>
                         <div class="ms-form-tip">
                             生成指定栏目下的文章内容
                         </div>
@@ -99,11 +99,11 @@
             <div class="class-23" >
                 <div class="class-24" >
                     <el-form-item label="生成栏目">
-                        <tree-select v-model="section"
+                        <ms-tree-select v-model="section"
                                      :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
                                      :options="treeList" :style="{width:'100%'}"
                                      placeholder="请选择文章栏目">
-                        </tree-select>
+                        </ms-tree-select>
                         <div class="ms-form-tip">
                             生成<b>栏目类型</b>为列表的数据，例如：新闻列表、产品列表
                         </div>
