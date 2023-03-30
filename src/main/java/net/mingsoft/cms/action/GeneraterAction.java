@@ -26,9 +26,15 @@ package net.mingsoft.cms.action;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateException;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.ZipUtil;
+import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import io.swagger.annotations.ApiOperation;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.biz.IModelBiz;
@@ -39,8 +45,10 @@ import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
+import net.mingsoft.cms.constant.e.CategoryDisplayEnum;
 import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
+import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.cms.util.CmsParserUtil;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -53,15 +61,16 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName: GeneraterAction
@@ -70,7 +79,7 @@ import java.util.List;
  * @date: 2018年1月31日 下午2:52:07
  * @Copyright: 2018 www.mingsoft.net Inc. All rights reserved.
  */
-@ApiIgnore
+@ApiOperation("静态化")
 @Controller("cmsGenerater")
 @RequestMapping("/${ms.manager.path}/cms/generate")
 @Scope("request")
@@ -127,12 +136,12 @@ public class GeneraterAction extends BaseAction {
     @LogAnn(title = "生成主页", businessType = BusinessTypeEnum.UPDATE)
     @ResponseBody
     public ResultData generateIndex(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        // 模版文件名称
+        // 模板文件名称
         String tmpFileName = request.getParameter("url");
         // 生成后的文件名称
         String generateFileName = request.getParameter("position");
 
-        // 获取文件所在路径 首先判断用户输入的模版文件是否存在
+        // 获取文件所在路径 首先判断用户输入的模板文件是否存在
         if (!FileUtil.exist(ParserUtil.buildTemplatePath())) {
             return ResultData.build().error(getResString("template.file"));
         } else {
@@ -173,8 +182,12 @@ public class GeneraterAction extends BaseAction {
         //文章列表
         List<CategoryBean> articleIdList = null;
 
-        // 获取栏目列表模版
+        // 获取栏目列表模板
         for (CategoryEntity column : columns) {
+            // 如果栏目被禁用则跳过
+            if (CategoryDisplayEnum.DISABLE.toString().equalsIgnoreCase(column.getCategoryDisplay())){
+                continue;
+            }
             //如果是链接就跳过生成
             if (column.getCategoryType().equals(CategoryTypeEnum.LINK.toString())) {
                 continue;
@@ -255,6 +268,10 @@ public class GeneraterAction extends BaseAction {
         }
 
         for (CategoryEntity category : categoryList) {
+            // 如果栏目被禁用则跳过
+            if (CategoryDisplayEnum.DISABLE.toString().equalsIgnoreCase(category.getCategoryDisplay())){
+                continue;
+            }
             //如果是链接就跳过生成
             if (category.getCategoryType().equals(CategoryTypeEnum.LINK.toString())) {
                 continue;
@@ -299,4 +316,6 @@ public class GeneraterAction extends BaseAction {
                 + File.separator + position + ParserUtil.HTML_SUFFIX;
         return "redirect:" + indexPosition;
     }
+
+
 }

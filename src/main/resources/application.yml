@@ -49,11 +49,11 @@ ms:
     back-up: /upload_back
     multipart:
       #最大上传文件大小 单位：KB
-      max-file-size: 1024
+      max-file-size: 10240
       #文件暂存临时目录
       upload-temp-dir: temp
       #临时文件大小
-      max-in-memory-size: 102400
+      max-in-memory-size: 10240
       #总上传最大大小 单位：KB -1禁用
       max-request-size: -1
 
@@ -65,10 +65,6 @@ ms:
     circle: 10 #干扰线条数，值越大越不容易辨别
 
 spring:
-  data:
-    elasticsearch:
-      repositories:
-        enabled: false
   main:
     allow-circular-references: true
   datasource:
@@ -124,9 +120,11 @@ spring:
       number_format: 0.##
 
 mybatis-plus:
+  #因为IBaseDao是一个抽象类，没有实体，所以自动注入的时候不会注入，需要手动映射
+  mapper-locations: classpath*:/net/mingsoft/base/dao/IBaseDao.xml
   global-config:
     db-config:
       id-type: auto
-      where-strategy: not_empty
+      where-strategy: not_empty #防止空串及null拼接条件
   configuration:
     database-id: mysql

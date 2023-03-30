@@ -333,9 +333,11 @@
             //新增
             save: function (id, childId) {
                 if (id) {
-                    location.href = this.manager + "/cms/category/form.do?id=" + id + "&childId=" + childId;
+                    // location.href = this.manager + "/cms/category/form.do?id=" + id + "&childId=" + childId;
+                    ms.util.openSystemUrl("/cms/category/form.do?id=" + id + "&childId=" + childId);
                 } else {
-                    location.href = this.manager + "/cms/category/form.do";
+                    // location.href = this.manager + "/cms/category/form.do";
+                    ms.util.openSystemUrl("/cms/category/form.do");
                 }
             },
             //重置表单

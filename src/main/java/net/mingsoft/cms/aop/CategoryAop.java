@@ -13,6 +13,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.exception.BusinessException;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.cms.constant.e.CategoryDisplayEnum;
 import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.dao.ICategoryDao;
 import net.mingsoft.cms.dao.IContentDao;
@@ -31,6 +32,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -76,6 +78,15 @@ public class CategoryAop extends net.mingsoft.basic.aop.BaseAop {
             throw new BusinessException("栏目不存在!");
         }
 
+        // 如果栏目被设置为不显示，将栏目下所有子栏目也设置为不显示
+        if (CategoryDisplayEnum.DISABLE.toString().equalsIgnoreCase(category.getCategoryDisplay())){
+            List<String> ids = categoryDao.queryChildren(category).stream().map(CategoryEntity::getId).collect(Collectors.toList());
+            LambdaUpdateWrapper<CategoryEntity> wrapper = new UpdateWrapper<CategoryEntity>().lambda();
+            wrapper.set(CategoryEntity::getCategoryDisplay,CategoryDisplayEnum.DISABLE.toString());
+            wrapper.in(CategoryEntity::getId,ids);
+            categoryDao.update(new CategoryEntity(),wrapper);
+
+        }
         // 获取返回值
         Object obj = pjp.proceed(pjp.getArgs());
         ResultData resultData = JSONUtil.toBean(JSONUtil.toJsonStr(obj), ResultData.class);
@@ -83,6 +94,7 @@ public class CategoryAop extends net.mingsoft.basic.aop.BaseAop {
         if (parent == null) {
             return resultData;
         }
+
         // 用于判断父级栏目之前是否是子栏目
         // 只有父节点之前为子节点 && 父栏目类型为列表 && 子栏目为列表
         boolean flag = parent.getLeaf() && StringUtils.equals(parent.getCategoryType(), CategoryTypeEnum.LIST.toString());

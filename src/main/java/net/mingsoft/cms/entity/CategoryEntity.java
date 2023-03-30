@@ -28,6 +28,8 @@ import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.config.MSProperties;
 import net.mingsoft.mdiy.util.ConfigUtil;
 
+import java.io.File;
+
 /**
  * 分类实体
  *
@@ -59,6 +61,10 @@ public class CategoryEntity extends BaseEntity {
      * 栏目管理名称
      */
     private String categoryTitle;
+    /**
+     * 栏目副标题
+     */
+    private String categoryShortTitle;
     /**
      * 栏目别名
      */
@@ -93,19 +99,33 @@ public class CategoryEntity extends BaseEntity {
      */
     private String categoryDescrip;
     /**
-     * 缩略图
+     * banner图
      */
     private String categoryImg;
 
+    /**
+     * 栏目小图
+     */
+    private String categoryIco;
 
+    /**
+     * 是否显示
+     */
+    private String categoryDisplay;
     /**
      * 自定义链接
      */
     private String categoryDiyUrl;
+
+    /**
+     * 文章管理的内容模型id
+     */
+    private String mdiyModelId;
+
     /**
      * 栏目管理的内容模型id
      */
-    private String mdiyModelId;
+    private String mdiyCategoryModelId;
 
     /**
      * 字典对应编号
@@ -287,17 +307,53 @@ public class CategoryEntity extends BaseEntity {
     }
 
     /**
-     * 设置缩略图
+     * 设置banner图
      */
     public void setCategoryImg(String categoryImg) {
         this.categoryImg = categoryImg;
     }
 
     /**
-     * 获取缩略图
+     * 获取banner图
      */
     public String getCategoryImg() {
         return this.categoryImg;
+    }
+
+    /**
+     * 获取副标题
+     */
+    public String getCategoryShortTitle() {
+        return categoryShortTitle;
+    }
+
+    /**
+     * 设置副标题
+     */
+    public void setCategoryShortTitle(String categoryShortTitle) {
+        this.categoryShortTitle = categoryShortTitle;
+    }
+
+    /**
+     * 获取栏目小图
+     */
+    public String getCategoryIco() {
+        return categoryIco;
+    }
+
+    /**
+     * 设置栏目小图
+     */
+    public void setCategoryIco(String categoryIco) {
+        this.categoryIco = categoryIco;
+    }
+
+    public String getCategoryDisplay() {
+        return categoryDisplay;
+    }
+
+    public void setCategoryDisplay(String categoryDisplay) {
+        this.categoryDisplay = categoryDisplay;
     }
 
     /**
@@ -414,6 +470,12 @@ public class CategoryEntity extends BaseEntity {
     }
 
     /**
+     * 获取父栏目id
+     */
+    public String getParentid(){
+        return this.categoryId;
+    }
+    /**
      * 获取栏目父级Id （标签使用）
      */
     public String getParentids() {
@@ -481,6 +543,14 @@ public class CategoryEntity extends BaseEntity {
 
     public void setChildsize(String childsize) {
         this.childsize = childsize;
+    }
+
+    public String getMdiyCategoryModelId() {
+        return mdiyCategoryModelId;
+    }
+
+    public void setMdiyCategoryModelId(String mdiyCategoryModelId) {
+        this.mdiyCategoryModelId = mdiyCategoryModelId;
     }
 
     /**

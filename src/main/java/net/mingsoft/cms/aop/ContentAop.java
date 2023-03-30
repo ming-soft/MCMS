@@ -99,28 +99,20 @@ public class ContentAop extends BaseAop {
             return pjp.proceed();
         }
 
-        //查询判断该ip是否已经有浏览记录了
         HistoryLogEntity historyLog = new HistoryLogEntity();
         historyLog.setContentId(content.getId());
         historyLog.setHlIp(BasicUtil.getIp());
         historyLog.setHlIsMobile(BasicUtil.isMobileDevice());
-        HistoryLogEntity _historyLog = (HistoryLogEntity) historyLogBiz.getEntity(historyLog);
-        //如果该ip该文章没有浏览记录则保存浏览记录
-        //并且更新点击数
-        if (_historyLog == null || StringUtils.isBlank(_historyLog.getId())) {
-            historyLog.setCreateDate(new Date());
-            historyLogBiz.saveEntity(historyLog);
-            //更新点击数
-            ContentEntity updateContent = new ContentEntity();
-            updateContent.setId(content.getId());
-            if (content.getContentHit() == null) {
-                updateContent.setContentHit(1);
-            } else {
-                updateContent.setContentHit(content.getContentHit() + 1);
-            }
-            contentBiz.updateEntity(updateContent);
+        historyLog.setCreateDate(new Date());
+        //保存浏览记录
+        historyLogBiz.saveEntity(historyLog);
+        //更新点击数
+        if (content.getContentHit() == null) {
+            content.setContentHit(1);
+        } else {
+            content.setContentHit(content.getContentHit() + 1);
         }
-
+        contentBiz.updateById(content);
         return pjp.proceed();
     }
 
@@ -131,6 +123,7 @@ public class ContentAop extends BaseAop {
 
     /**
      * 删除文章后并删除文章对应的静态化文件
+     *
      * @param jp
      */
     @After("delete()")
@@ -157,8 +150,8 @@ public class ContentAop extends BaseAop {
 
     /**
      * @param categoryPath 栏目目录
-     * @param contentId 文章ID
-     * 根据文章实体删除静态文件
+     * @param contentId    文章ID
+     *                     根据文章实体删除静态文件
      */
     private void deleteHtml(String categoryPath, String contentId) {
         // html真实路径

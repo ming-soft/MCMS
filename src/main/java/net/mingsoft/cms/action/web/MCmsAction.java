@@ -252,6 +252,12 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
             params.put(ParserUtil.URL, BasicUtil.getUrl());
             params.put(ParserUtil.APP_DIR, BasicUtil.getApp().getAppDir());
         }
+        //对项目名预处理
+        String contextPath = BasicUtil.getContextPath();
+        if (StringUtils.isNotBlank(contextPath) && "/".equalsIgnoreCase(contextPath) ){
+            contextPath = "";
+        }
+        params.putIfAbsent(ParserUtil.CONTEXT_PATH, contextPath);
 
         searchMap.put("pageNo", 0);
 //        ParserUtil.read(search, map, page);
@@ -268,8 +274,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         page.setPageNo(pageNo);
 
         //设置分页的统一链接
-        String url = params.get(ParserUtil.URL).toString();
-        url = url + request.getServletPath() + "?" + urlParams;
+        String url = request.getServletPath() + "?" + urlParams;
         String pageNoStr = "size=" + page.getSize() + "&pageNo=";
         //下一页
         String nextUrl = url + pageNoStr + ((pageNo + 1 > total) ? total : pageNo + 1);

@@ -9,10 +9,10 @@
     </style>
 </head>
 <body class="custom-body">
-<div id="app" v-cloak>
+<div id="app" class="ms-index" v-cloak>
     <el-form ref="form" label-width="100px" size="mini">
         <div class="class-2" >
-            <div class="class-3" >
+            <div class="class-3 panel" >
                 <div class="class-4" >
                     <el-form-item label="主页模板" >
                         <el-select v-model="template"
@@ -23,7 +23,7 @@
                                        :label="item"></el-option>
                         </el-select>
                         <div class="ms-form-tip">
-                            一般选择<i>index.htm</i>模版
+                            一般选择<i>index.htm</i>模板
                         </div>
                     </el-form-item>
                 </div>
@@ -37,10 +37,10 @@
                         </el-input>
                         <div class="ms-form-tip">
                             一般为index.html或default.html,
-                            如果是<i>引导页面->首页</i>，可以手动调整主页模版与主页设置，先生成引导页，再生成首页。一般default.html为引导页面index.html为主页(需要服务器容器配置好对应默认页)。<br/>
+                            如果是<i>引导页面->首页</i>，可以手动调整主页模板与主页设置，先生成引导页，再生成首页。一般default.html为引导页面index.html为主页(需要服务器容器配置好对应默认页)。<br/>
                             点击“预览主页”可跳转到网站首页进行预览网站首页<br/>
                             不能选择有分页标签的页面生成，例如news-list.htm、search.htm<br/>
-                            如果下拉没有出现模版，请检查应用设置是否绑定了模版<br/>
+                            如果下拉没有出现模板，请检查应用设置是否绑定了模板<br/>
                         </div>
                     </el-form-item>
                 </div>
@@ -53,7 +53,7 @@
                     </el-form-item>
                 </div>
             </div>
-            <div class="class-13" >
+            <div class="class-13 panel" >
                 <div class="class-14" >
                     <el-form-item label="文章栏目">
                         <ms-tree-select v-model="contentSection"
@@ -96,7 +96,7 @@
 
                 </div>
             </div>
-            <div class="class-23" >
+            <div class="class-23 panel" >
                 <div class="class-24" >
                     <el-form-item label="生成栏目">
                         <ms-tree-select v-model="section"
@@ -276,6 +276,14 @@
     });
 </script>
 <style>
+    #app {
+        background-color: white;
+    }
+    #app .panel {
+        background-color: white;
+        padding: 20px 40px 20px 40px;
+        border: 1px solid #EBEEF5;
+    }
     input{
         width: 100%!important;
     }

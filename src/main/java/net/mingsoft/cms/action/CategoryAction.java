@@ -323,11 +323,11 @@ public class CategoryAction extends BaseAction {
     }
 
     /**
-     * 批量更新模版
+     * 批量更新模板
      * @param category 栏目实体
      * @return
      */
-    @ApiOperation(value = "批量更新模版")
+    @ApiOperation(value = "批量更新模板")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "编号", required = true, paramType = "query"),
             @ApiImplicitParam(name = "dictId", value = "字典", required = true, paramType = "query")

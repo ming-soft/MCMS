@@ -3,98 +3,110 @@
 <mapper namespace="net.mingsoft.cms.dao.ICategoryDao">
 
 	<resultMap id="resultMap" type="net.mingsoft.cms.entity.CategoryEntity">
-			<id column="id" property="id" /><!--编号 -->
-				<result column="category_title" property="categoryTitle" /><!--栏目管理名称 -->
-				<result column="category_pinyin" property="categoryPinyin" /><!--栏目管理名称 -->
-				<result column="category_id" property="categoryId" /><!--所属栏目 -->
-				<result column="category_type" property="categoryType" /><!--栏目管理属性 -->
-				<result column="category_sort" property="categorySort" /><!--自定义顺序 -->
-				<result column="category_list_url" property="categoryListUrl" /><!--列表模板 -->
-				<result column="category_url" property="categoryUrl" /><!--内容模板 -->
-				<result column="category_keyword" property="categoryKeyword" /><!--栏目管理关键字 -->
-				<result column="category_descrip" property="categoryDescrip" /><!--栏目管理描述 -->
-				<result column="category_img" property="categoryImg" /><!--缩略图 -->
-				<result column="category_diy_url" property="categoryDiyUrl" /><!--自定义链接 -->
-				<result column="mdiy_model_id" property="mdiyModelId" /><!--栏目管理的内容模型id -->
-				<result column="dict_id" property="dictId" /><!--字典对应编号 -->
-				<result column="category_flag" property="categoryFlag" /><!--栏目属性 -->
-				<result column="category_path" property="categoryPath" /><!--栏目路径 -->
-				<result column="category_parent_ids" property="categoryParentIds" /><!--父类型编号 -->
-				<result column="create_by" property="createBy" /><!--创建人 -->
-				<result column="create_date" property="createDate" /><!--创建时间 -->
-				<result column="update_by" property="updateBy" /><!--修改人 -->
-				<result column="update_date" property="updateDate" /><!--修改时间 -->
-				<result column="del" property="del" /><!--删除标记 -->
-				<result column="top_id" property="topId" /><!--删除标记 -->
-				<result column="leaf" property="leaf" /><!--删除标记 -->
+		<id column="id" property="id" /><!--编号 -->
+		<result column="category_title" property="categoryTitle" /><!--栏目管理名称 -->
+		<result column="category_short_title" property="categoryShortTitle" /><!--副标题 -->
+		<result column="category_pinyin" property="categoryPinyin" /><!--栏目管理名称 -->
+		<result column="category_id" property="categoryId" /><!--所属栏目 -->
+		<result column="category_type" property="categoryType" /><!--栏目管理属性 -->
+		<result column="category_sort" property="categorySort" /><!--自定义顺序 -->
+		<result column="category_list_url" property="categoryListUrl" /><!--列表模板 -->
+		<result column="category_url" property="categoryUrl" /><!--内容模板 -->
+		<result column="category_keyword" property="categoryKeyword" /><!--栏目管理关键字 -->
+		<result column="category_descrip" property="categoryDescrip" /><!--栏目管理描述 -->
+		<result column="category_display" property="categoryDisplay" /><!--栏目是否显示 -->
+		<result column="category_img" property="categoryImg" /><!--栏目banner图 -->
+		<result column="category_ico" property="categoryIco" /><!--栏目小图 -->
+		<result column="category_diy_url" property="categoryDiyUrl" /><!--自定义链接 -->
+		<result column="mdiy_model_id" property="mdiyModelId" /><!--文章管理的内容模型id -->
+		<result column="mdiy_category_model_id" property="mdiyCategoryModelId" /><!--栏目管理的内容模型id -->
+		<result column="dict_id" property="dictId" /><!--字典对应编号 -->
+		<result column="category_flag" property="categoryFlag" /><!--栏目属性 -->
+		<result column="category_path" property="categoryPath" /><!--栏目路径 -->
+		<result column="category_parent_ids" property="categoryParentIds" /><!--父类型编号 -->
+		<result column="create_by" property="createBy" /><!--创建人 -->
+		<result column="create_date" property="createDate" /><!--创建时间 -->
+		<result column="update_by" property="updateBy" /><!--修改人 -->
+		<result column="update_date" property="updateDate" /><!--修改时间 -->
+		<result column="del" property="del" /><!--删除标记 -->
+		<result column="top_id" property="topId" /><!--删除标记 -->
+		<result column="leaf" property="leaf" /><!--删除标记 -->
 	</resultMap>
 
 
-		<!--更新-->
-		<update id="updateEntity" parameterType="net.mingsoft.cms.entity.CategoryEntity">
-			update cms_category
-			<set>
-				<if test="categoryTitle != null and categoryTitle != ''">category_title=#{categoryTitle},</if>
-				<if test="categoryPinyin != null and categoryPinyin != ''">category_pinyin=#{categoryPinyin},</if>
-				<if test="topId != null and topId != ''">top_id=#{topId},</if>
-				<if test="leaf != null">leaf=#{leaf},</if>
-				category_id=#{categoryId},
-				category_parent_ids=#{categoryParentIds},
-				mdiy_model_id=#{mdiyModelId},
-				<if test="categoryType != null and categoryType != ''">category_type=#{categoryType},</if>
-				<if test="categorySort != null">category_sort=#{categorySort},</if>
-				category_list_url=#{categoryListUrl},
-				category_url=#{categoryUrl},
-				<if test="categoryKeyword != null ">category_keyword=#{categoryKeyword},</if>
-				<if test="categoryDescrip != null ">category_descrip=#{categoryDescrip},</if>
-				<if test="categoryImg != null and categoryImg != ''">category_img=#{categoryImg},</if>
-				<if test="categoryDiyUrl != null">category_diy_url=#{categoryDiyUrl},</if>
-				<if test="dictId != null">dict_id=#{dictId},</if>
-				<if test="categoryFlag != null ">category_flag=#{categoryFlag},</if>
-				<if test="categoryPath != null and categoryPath != ''">category_path=#{categoryPath},</if>
-				<if test="createBy &gt; 0">create_by=#{createBy},</if>
-				<if test="createDate != null">create_date=#{createDate},</if>
-				<if test="updateBy &gt; 0">update_by=#{updateBy},</if>
-				<if test="updateDate != null">update_date=#{updateDate},</if>
-				<if test="del != null">del=#{del},</if>
-			</set>
-			where id = #{id}
-		</update>
+	<!--更新-->
+	<update id="updateEntity" parameterType="net.mingsoft.cms.entity.CategoryEntity">
+		update cms_category
+		<set>
+			<if test="categoryTitle != null and categoryTitle != ''">category_title=#{categoryTitle},</if>
+			<if test="categoryShortTitle != null and categoryShortTitle != ''">category_short_title=#{categoryShortTitle},</if>
+			<if test="categoryPinyin != null and categoryPinyin != ''">category_pinyin=#{categoryPinyin},</if>
+			<if test="topId != null and topId != ''">top_id=#{topId},</if>
+			<if test="leaf != null">leaf=#{leaf},</if>
+			category_id=#{categoryId},
+			category_parent_ids=#{categoryParentIds},
+			mdiy_model_id=#{mdiyModelId},
+			mdiy_category_model_id=#{mdiyCategoryModelId},
+			<if test="categoryType != null and categoryType != ''">category_type=#{categoryType},</if>
+			<if test="categorySort != null">category_sort=#{categorySort},</if>
+			category_list_url=#{categoryListUrl},
+			category_url=#{categoryUrl},
+			<if test="categoryKeyword != null ">category_keyword=#{categoryKeyword},</if>
+			<if test="categoryDescrip != null ">category_descrip=#{categoryDescrip},</if>
+			<if test="categoryImg != null and categoryImg != ''">category_img=#{categoryImg},</if>
+			<if test="categoryDisplay != null and categoryDisplay != ''">category_display=#{categoryDisplay},</if>
+			<if test="categoryIco != null and categoryIco != ''">category_ico=#{categoryIco},</if>
+			<if test="categoryDiyUrl != null">category_diy_url=#{categoryDiyUrl},</if>
+			<if test="dictId != null">dict_id=#{dictId},</if>
+			<if test="categoryFlag != null ">category_flag=#{categoryFlag},</if>
+			<if test="categoryPath != null and categoryPath != ''">category_path=#{categoryPath},</if>
+			<if test="createBy &gt; 0">create_by=#{createBy},</if>
+			<if test="createDate != null">create_date=#{createDate},</if>
+			<if test="updateBy &gt; 0">update_by=#{updateBy},</if>
+			<if test="updateDate != null">update_date=#{updateDate},</if>
+			<if test="del != null">del=#{del},</if>
+		</set>
+		where id = #{id}
+	</update>
 
 	<!--根据id获取-->
-		<select id="getEntity" resultMap="resultMap" parameterType="int">
-			select * from cms_category where id=#{id}
-		</select>
+	<select id="getEntity" resultMap="resultMap" parameterType="int">
+		select * from cms_category where id=#{id}
+	</select>
 
-		<!--根据实体获取-->
-		<select id="getByEntity" resultMap="resultMap" parameterType="net.mingsoft.cms.entity.CategoryEntity">
-			select * from cms_category
-			<where>
-				<if test="categoryTitle != null and categoryTitle != ''">and category_title=#{categoryTitle}</if>
-				<if test="categoryPinyin != null and categoryPinyin != ''">and category_pinyin=#{categoryPinyin}</if>
-				<if test="categoryId != null and categoryId != ''">and category_id=#{categoryId}</if>
-				<if test="categoryType != null and categoryType != ''">and category_type=#{categoryType}</if>
-				<if test="categorySort != null"> and category_sort=#{categorySort} </if>
-				<if test="categoryListUrl != null and categoryListUrl != ''">and category_list_url=#{categoryListUrl}</if>
-				<if test="categoryUrl != null and categoryUrl != ''">and category_url=#{categoryUrl}</if>
-				<if test="categoryKeyword != null and categoryKeyword != ''">and category_keyword=#{categoryKeyword}</if>
-				<if test="categoryDescrip != null and categoryDescrip != ''">and category_descrip=#{categoryDescrip}</if>
-				<if test="categoryImg != null and categoryImg != ''">and category_img=#{categoryImg}</if>
-				<if test="categoryDiyUrl != null and categoryDiyUrl != ''">and category_diy_url=#{categoryDiyUrl}</if>
-				<if test="mdiyModelId != null and mdiyModelId != ''">and mdiy_model_id=#{mdiyModelId}</if>
-				<if test="dictId != null"> and dict_id=#{dictId} </if>
-				<if test="categoryFlag != null and categoryFlag != ''">and category_flag=#{categoryFlag}</if>
-				<if test="categoryPath != null and categoryPath != ''">and category_path=#{categoryPath}</if>
-				<if test="categoryParentIds != null and categoryParentIds != ''">and category_parent_ids=#{categoryParentIds}</if>
-				<if test="createBy &gt; 0"> and create_by=#{createBy} </if>
-				<if test="createDate != null"> and create_date=#{createDate} </if>
-				<if test="updateBy &gt; 0"> and update_by=#{updateBy} </if>
-				<if test="updateDate != null"> and update_date=#{updateDate} </if>
-				<if test="del != null"> and del=#{del} </if>
-				<if test="topId != null and topId != ''"> and top_id=#{topId}</if>
-				<if test="leaf != null"> and leaf=#{leaf}</if>
-			</where>
-		</select>
+	<!--根据实体获取-->
+	<select id="getByEntity" resultMap="resultMap" parameterType="net.mingsoft.cms.entity.CategoryEntity">
+		select * from cms_category
+		<where>
+			<if test="categoryTitle != null and categoryTitle != ''">and category_title=#{categoryTitle}</if>
+			<if test="categoryShortTitle != null and categoryShortTitle != ''">and category_short_title=#{categoryShortTitle}</if>
+			<if test="categoryPinyin != null and categoryPinyin != ''">and category_pinyin=#{categoryPinyin}</if>
+			<if test="categoryId != null and categoryId != ''">and category_id=#{categoryId}</if>
+			<if test="categoryType != null and categoryType != ''">and category_type=#{categoryType}</if>
+			<if test="categorySort != null"> and category_sort=#{categorySort} </if>
+			<if test="categoryListUrl != null and categoryListUrl != ''">and category_list_url=#{categoryListUrl}</if>
+			<if test="categoryUrl != null and categoryUrl != ''">and category_url=#{categoryUrl}</if>
+			<if test="categoryKeyword != null and categoryKeyword != ''">and category_keyword=#{categoryKeyword}</if>
+			<if test="categoryDescrip != null and categoryDescrip != ''">and category_descrip=#{categoryDescrip}</if>
+			<if test="categoryImg != null and categoryImg != ''">and category_img=#{categoryImg}</if>
+			<if test="categoryDisplay != null and categoryDisplay != ''">and category_display=#{categoryDisplay}</if>
+			<if test="categoryIco != null and categoryIco != ''">and category_ico=#{categoryIco}</if>
+			<if test="categoryDiyUrl != null and categoryDiyUrl != ''">and category_diy_url=#{categoryDiyUrl}</if>
+			<if test="mdiyModelId != null and mdiyModelId != ''">and mdiy_model_id=#{mdiyModelId}</if>
+			<if test="mdiyCategoryModelId != null and mdiyCategoryModelId != ''">and mdiy_category_model_id=#{mdiyCategoryModelId}</if>
+			<if test="dictId != null"> and dict_id=#{dictId} </if>
+			<if test="categoryFlag != null and categoryFlag != ''">and category_flag=#{categoryFlag}</if>
+			<if test="categoryPath != null and categoryPath != ''">and category_path=#{categoryPath}</if>
+			<if test="categoryParentIds != null and categoryParentIds != ''">and category_parent_ids=#{categoryParentIds}</if>
+			<if test="createBy &gt; 0"> and create_by=#{createBy} </if>
+			<if test="createDate != null"> and create_date=#{createDate} </if>
+			<if test="updateBy &gt; 0"> and update_by=#{updateBy} </if>
+			<if test="updateDate != null"> and update_date=#{updateDate} </if>
+			<if test="del != null"> and del=#{del} </if>
+			<if test="topId != null and topId != ''"> and top_id=#{topId}</if>
+			<if test="leaf != null"> and leaf=#{leaf}</if>
+		</where>
+	</select>
 
 	<!-- 模糊查询开始 -->
 	<select id="queryChildren" resultMap="resultMap">
@@ -116,28 +128,29 @@
 	</select>
 
 
-		<!--删除-->
-		<delete id="deleteEntity" parameterType="int">
-			delete from cms_category  where id=#{id}
-		</delete>
+	<!--删除-->
+	<delete id="deleteEntity" parameterType="int">
+		delete from cms_category  where id=#{id}
+	</delete>
 
-		<!--批量删除-->
-		<delete id="delete" >
-			delete from cms_category
-			<where>
-				id  in <foreach collection="ids" item="item" index="index"
-										 open="(" separator="," close=")">#{item}</foreach>
-			</where>
-		</delete>
-		<!--查询全部-->
-		<select id="queryAll" resultMap="resultMap">
-			select * from cms_category order by id desc
-		</select>
+	<!--批量删除-->
+	<delete id="delete" >
+		delete from cms_category
+		<where>
+			id  in <foreach collection="ids" item="item" index="index"
+							open="(" separator="," close=")">#{item}</foreach>
+		</where>
+	</delete>
+	<!--查询全部-->
+	<select id="queryAll" resultMap="resultMap">
+		select * from cms_category order by id desc
+	</select>
 	<!--条件查询-->
 	<select id="query" resultMap="resultMap">
 		select * from cms_category
 		<where>
 			<if test="categoryTitle != null and categoryTitle != ''"> and category_title=#{categoryTitle}</if>
+			<if test="categoryShortTitle != null and categoryShortTitle != ''">and category_short_title=#{categoryShortTitle}</if>
 			<if test="categoryPinyin != null and categoryPinyin != ''">and category_pinyin=#{categoryPinyin}</if>
 			<if test="categoryId != null and categoryId != ''"> and category_id=#{categoryId}</if>
 			<if test="categoryType != null and categoryType != ''"> and category_type=#{categoryType}</if>
@@ -147,8 +160,11 @@
 			<if test="categoryKeyword != null and categoryKeyword != ''"> and category_keyword=#{categoryKeyword}</if>
 			<if test="categoryDescrip != null and categoryDescrip != ''"> and category_descrip=#{categoryDescrip}</if>
 			<if test="categoryImg != null and categoryImg != ''"> and category_img=#{categoryImg}</if>
+			<if test="categoryDisplay != null and categoryDisplay != ''">and category_display=#{categoryDisplay}</if>
+			<if test="categoryIco != null and categoryIco != ''">and category_ico=#{categoryIco}</if>
 			<if test="categoryDiyUrl != null and categoryDiyUrl != ''"> and category_diy_url=#{categoryDiyUrl}</if>
 			<if test="mdiyModelId != null and mdiyModelId != ''"> and mdiy_model_id=#{mdiyModelId}</if>
+			<if test="mdiyCategoryModelId != null and mdiyCategoryModelId != ''"> and mdiy_category_model_id=#{mdiyCategoryModelId}</if>
 			<if test="dictId != null"> and dict_id=#{dictId} </if>
 			<if test="categoryFlag != null and categoryFlag != ''"> and category_flag=#{categoryFlag}</if>
 			<if test="categoryPath != null and categoryPath != ''"> and category_path=#{categoryPath}</if>

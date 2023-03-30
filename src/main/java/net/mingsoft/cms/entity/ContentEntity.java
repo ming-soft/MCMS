@@ -58,6 +58,11 @@ private static final long serialVersionUID = 1574925152617L;
 	* 文章标题
 	*/
 	private String contentTitle;
+
+	/**
+	 * 文章副标题
+	 */
+	private String contentShortTitle;
 	/**
 	* 所属栏目
 	*/
@@ -133,6 +138,14 @@ private static final long serialVersionUID = 1574925152617L;
 	*/
 	public String getContentTitle() {
 	return this.contentTitle;
+	}
+
+	public String getContentShortTitle() {
+		return contentShortTitle;
+	}
+
+	public void setContentShortTitle(String contentShortTitle) {
+		this.contentShortTitle = contentShortTitle;
 	}
 
 	public String getCategoryId() {

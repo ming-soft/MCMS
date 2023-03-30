@@ -32,7 +32,7 @@
                              :label="item.title" :name="item.name">
                     <el-form v-if="item.title=='文章编辑'" ref="form" :model="form" :rules="rules" label-width="120px"
                              size="mini">
-                        <el-row gutter="0" justify="start" align="top">
+                        <el-row :gutter="0" justify="start" align="top">
                             <el-col :span="returnIsShow?'12':'24'">
                                 <el-form-item label="文章标题" prop="contentTitle">
                                     <el-input v-model="form.contentTitle"
@@ -61,6 +61,37 @@
                                     <div class="ms-form-tip">
                                         标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.typetitle}</a>
                                         不能选择封面、链接栏目类型，不能选择父栏目
+                                    </div>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row
+                                gutter="0"
+                                justify="start" align="top">
+                            <el-col :span="returnIsShow?'12':'24'">
+                                <el-form-item label="文章副标题" prop="contentShortTitle">
+                                    <el-input v-model="form.contentShortTitle"
+                                              :disabled="false"
+                                              :style="{width:  '100%'}"
+                                              :clearable="true"
+                                              placeholder="请输入文章副标题">
+                                    </el-input>
+                                    <div class="ms-form-tip">
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.shorttitle}</a>
+                                    </div>
+                                </el-form-item>
+                            </el-col>
+                            <el-col span="12">
+                                <el-form-item label="文章外链接" prop="contentOutLink">
+                                    <el-input v-model="form.contentOutLink"
+                                              :disabled="false"
+                                              :style="{width:  '100%'}"
+                                              :clearable="true"
+                                              placeholder="请输入文章外链接">
+                                    </el-input>
+                                    <div class="ms-form-tip">
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
+                                              target="_blank">${'$'}{field.outlink}</a> 文章外链接必须以http或者https等开头
                                     </div>
                                 </el-form-item>
                             </el-col>
@@ -142,24 +173,6 @@
                                 gutter="0"
                                 justify="start" align="top">
                             <el-col span="12">
-                                <el-form-item label="文章外链接" prop="contentOutLink">
-                                    <el-input v-model="form.contentOutLink"
-                                              :disabled="false"
-                                              :style="{width:  '100%'}"
-                                              :clearable="true"
-                                              placeholder="请输入文章外链接">
-                                    </el-input>
-                                    <div class="ms-form-tip">
-                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
-                                              target="_blank">${'$'}{field.outlink}</a> 文章外链接必须以http或者https等开头
-                                    </div>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                        <el-row
-                                gutter="0"
-                                justify="start" align="top">
-                            <el-col span="12">
                                 <el-form-item label="是否显示" prop="contentDisplay">
                                     <el-radio-group v-model="form.contentDisplay"
                                                     :style="{width: ''}"
@@ -195,7 +208,7 @@
                                     :action="ms.manager+'/file/upload.do'"
                                     :on-remove="contentImghandleRemove"
                                     :style="{width:''}"
-                                    :limit="1"
+                                    :limit="10"
                                     :on-exceed="contentImghandleExceed"
                                     :disabled="false"
                                     :data="{uploadPath:'/cms/content','isRename':true ,'appId':true}"
@@ -205,7 +218,7 @@
                                 <i class="el-icon-plus"></i>
                                 <div slot="tip" class="ms-form-tip">
                                     标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'{@ms:file field.litpic/}'}</a><br/>
-                                    最多上传1张图片，文章缩略图,支持jpg格式
+                                    最多可上传10张图片，文章缩略图,支持jpg格式；多图情况下，{@ms:file field.litpic/}会只取第一张缩略图，其他用法参考文档arclist标签
                                 </div>
                             </el-upload>
                         </el-form-item>
@@ -270,6 +283,8 @@
                 form: {
                     // 文章标题
                     contentTitle: '',
+                    // 文章副标题
+                    contentShortTitle: '',
                     // 所属栏目
                     categoryId: undefined,
                     // 文章类型
@@ -336,7 +351,11 @@
                 var _this = this;
                 var that = this; //自定义模型需要验证
 
-                if (this.model && !this.model.validate()) {
+                var model = null;
+                if (that.currCategory.mdiyModelId && String(that.currCategory.mdiyModelId )!="0"){
+                    model = ms.mdiy.model.modelForm();
+                }
+                if (model && !model.validate()) {
                     this.activeName = 'custom-name';
                     return;
                 }
@@ -347,7 +366,7 @@
                 }
                 //若缩略图为空则赋值为空串
                 if (that.form.contentImg.length == 0){
-                    that.form.contentImg = "";
+                    that.form.contentImg = [];
                 }
 
                 this.$refs.form[0].validate(function (valid) {
@@ -367,9 +386,9 @@
                         ms.http.post(url, data).then(function (data) {
                             if (data.result) {
                                 //保存时需要赋值关联ID
-                                if (that.model) {
-                                    that.model.form.linkId = data.data.id;
-                                    that.model.save();
+                                if (model) {
+                                    model.form.linkId = data.data.id;
+                                    model.save();
                                 }
                                 that.$notify({
                                     title: '成功',
@@ -589,7 +608,7 @@
             contentImghandleExceed: function (files, fileList) {
                 this.$notify({
                     title: '失败',
-                    message: '当前最多上传1个文件',
+                    message: '当前最多上传10个文件',
                     type: 'warning'
                 });
             },

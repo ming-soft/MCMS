@@ -364,15 +364,18 @@
             save: function (id) {
                 //id有值时编辑
                 if (id) {
-                    location.href = this.manager + "/cms/content/form.do?id=" + id;
+                    // location.href = this.manager + "/cms/content/form.do?id=" + id;
+                    ms.util.openSystemUrl("/cms/content/form.do?id=" + id);
                 }else {
                     //根据当前栏目新增时自动选中栏目
                     var categoryId = this.form.categoryId;
                     if (categoryId) {
-                        location.href = this.manager + "/cms/content/form.do?categoryId=" + this.form.categoryId;
+                        // location.href = this.manager + "/cms/content/form.do?categoryId=" + this.form.categoryId;
+                        ms.util.openSystemUrl("/cms/content/form.do?categoryId=" + this.form.categoryId);
                     }else {
                         //如果栏目id没有值就单纯的新增，不自动选定栏目
-                        location.href = this.manager + "/cms/content/form.do";
+                        // location.href = this.manager + "/cms/content/form.do";
+                        ms.util.openSystemUrl("/cms/content/form.do");
                     }
                 }
             },

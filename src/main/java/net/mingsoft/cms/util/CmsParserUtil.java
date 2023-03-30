@@ -38,6 +38,7 @@ import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.biz.impl.ModelBizImpl;
 import net.mingsoft.mdiy.entity.ModelEntity;
+import net.mingsoft.mdiy.util.ConfigUtil;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -81,6 +82,13 @@ public class CmsParserUtil {
             map.put(ParserUtil.URL, BasicUtil.getUrl());
             map.put(ParserUtil.APP_DIR, BasicUtil.getApp().getAppDir());
         }
+
+        //对项目名预处理
+        String contextPath = BasicUtil.getContextPath();
+        if (StringUtils.isNotBlank(contextPath) && "/".equalsIgnoreCase(contextPath) ){
+            contextPath = "";
+        }
+        map.putIfAbsent(ParserUtil.CONTEXT_PATH, contextPath);
 
         String content = ParserUtil.rendering(templatePath, map);
         FileUtil.writeString(content, ParserUtil.buildHtmlPath(targetPath, htmlDir, map.get(ParserUtil.APP_DIR).toString()), Const.UTF8);
@@ -129,6 +137,13 @@ public class CmsParserUtil {
             //标签中使用field获取当前栏目
             parserParams.put(ParserUtil.FIELD, column);
 
+
+            //对项目名预处理
+            String contextPath = BasicUtil.getContextPath();
+            if (StringUtils.isNotBlank(contextPath) && "/".equalsIgnoreCase(contextPath) ){
+                contextPath = "";
+            }
+            parserParams.putIfAbsent(ParserUtil.CONTEXT_PATH, contextPath);
 
             String columnListPath;
             ModelEntity contentModel = null;
@@ -203,6 +218,13 @@ public class CmsParserUtil {
         }
 
         parserParams.put(ParserUtil.HTML, htmlDir);
+
+        //对项目名预处理
+        String contextPath = BasicUtil.getContextPath();
+        if (StringUtils.isNotBlank(contextPath) && "/".equalsIgnoreCase(contextPath) ){
+            contextPath = "";
+        }
+        parserParams.putIfAbsent(ParserUtil.CONTEXT_PATH, contextPath);
 
 
         Map<Object, Object> contentModelMap = new HashMap<Object, Object>();

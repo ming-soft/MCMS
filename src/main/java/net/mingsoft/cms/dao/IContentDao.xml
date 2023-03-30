@@ -5,6 +5,7 @@
 	<resultMap id="resultMap" type="net.mingsoft.cms.entity.ContentEntity">
 			<id column="id" property="id" /><!--编号 -->
 				<result column="content_title" property="contentTitle" /><!--文章标题 -->
+				<result column="content_short_title" property="contentShortTitle" /><!--文章副标题 -->
 				<result column="category_id" property="categoryId" /><!--所属栏目 -->
 				<result column="content_type" property="contentType" /><!--文章类型 -->
 				<result column="content_display" property="contentDisplay" /><!--是否显示 -->
@@ -28,6 +29,7 @@
 	<resultMap id="resultContentMap" type="net.mingsoft.cms.bean.ContentBean">
 		<id column="id" property="id" /><!--编号 -->
 		<result column="content_title" property="contentTitle" /><!--文章标题 -->
+		<result column="content_short_title" property="contentShortTitle" /><!--文章副标题 -->
 		<result column="category_id" property="categoryId" /><!--所属栏目 -->
 		<result column="content_type" property="contentType" /><!--文章类型 -->
 		<result column="content_display" property="contentDisplay" /><!--是否显示 -->
@@ -54,6 +56,7 @@
 		<id column="article_Id" property="articleId" /><!--编号 -->
 		<result column="content_update_date" property="contentUpdateDate" /><!--文章更新时间-->
 		<result column="category_title" property="categoryTitle" /><!--栏目管理名称 -->
+		<result column="content_short_title" property="contentShortTitle" /><!--文章副标题 -->
 		<result column="category_id" property="categoryId" /><!--所属栏目 -->
 		<result column="category_type" property="categoryType" /><!--栏目管理属性 -->
 		<result column="category_sort" property="categorySort" /><!--自定义顺序 -->
@@ -81,6 +84,7 @@
 		insert into cms_content
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 				<if test="contentTitle != null and contentTitle != ''">content_title,</if>
+				<if test="contentShortTitle != null and contentShortTitle != ''">content_short_title,</if>
 				<if test="categoryId != null and categoryId != ''">category_id,</if>
 				<if test="contentType != null ">content_type,</if>
 				<if test="contentDisplay != null and contentDisplay != ''">content_display,</if>
@@ -102,6 +106,7 @@
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 				<if test="contentTitle != null and contentTitle != ''">#{contentTitle},</if>
+				<if test="contentShortTitle != null and contentShortTitle != ''">#{contentShortTitle},</if>
 				<if test="categoryId != null and categoryId != ''">#{categoryId},</if>
 				<if test="contentType != null ">#{contentType},</if>
 				<if test="contentDisplay != null and contentDisplay != ''">#{contentDisplay},</if>
@@ -128,6 +133,7 @@
 			update cms_content
 			<set>
 				<if test="contentTitle != null and contentTitle != ''">content_title=#{contentTitle},</if>
+				<if test="contentShortTitle != null and contentShortTitle != ''">content_short_title=#{contentShortTitle},</if>
 				<if test="categoryId != null and categoryId != ''">category_id=#{categoryId},</if>
 				<if test="contentType != null ">content_type=#{contentType},</if>
 				<if test="contentDisplay != null and contentDisplay != ''">content_display=#{contentDisplay},</if>
@@ -161,6 +167,7 @@
 			<where>
 				del=0
 				<if test="contentTitle != null and contentTitle != ''">and  content_title like CONCAT(CONCAT('%',#{contentTitle}),'%')</if>
+				<if test="contentShortTitle != null and contentShortTitle != ''">and  content_short_title like CONCAT(CONCAT('%',#{contentShortTitle}),'%')</if>
 				<if test="categoryId != null and categoryId != ''">and category_id=#{categoryId}</if>
 				<if test="contentType != null and contentType != ''">and content_type=#{contentType}</if>
 				<if test="contentDisplay != null and contentDisplay != ''">and content_display=#{contentDisplay}</if>
@@ -219,6 +226,7 @@
 		<where>
 			ct.del=0
 			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT(CONCAT('%',#{contentTitle}),'%')</if>
+			<if test="contentShortTitle != null and contentShortTitle != ''"> and  content_short_title like CONCAT(CONCAT('%',#{contentShortTitle}),'%')</if>
 			<if test="categoryId != null and categoryId != ''"> 	and (ct.category_id=#{categoryId} or ct.category_id in
 				(select id FROM cms_category where find_in_set(#{categoryId},CATEGORY_PARENT_IDS)>0 and cms_category.category_type != 2))</if>
 			<if test="contentType != null and contentType != ''">
@@ -256,6 +264,7 @@
 		<where>
 			ct.del=0
 			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT(CONCAT('%',#{contentTitle}),'%')</if>
+			<if test="contentShortTitle != null and contentShortTitle != ''"> and  content_short_title like CONCAT(CONCAT('%',#{contentShortTitle}),'%')</if>
 			<if test="categoryId != null and categoryId != ''"> 	and (ct.category_id=#{categoryId} or ct.category_id in
 				(select id FROM cms_category where find_in_set(#{categoryId},CATEGORY_PARENT_IDS)>0))</if>
 			<if test="contentType != null and contentType != ''">
@@ -291,7 +300,7 @@
 			ct.id article_id,ct.content_img litpic,c.*,ct.update_date as content_update_date
 			FROM cms_content ct
 			LEFT JOIN cms_category c ON ct.category_id = c.id
-			where ct.del=0 and ct.content_display=0
+			where ct.del=0 and ct.content_display=0 and c.category_display='enable'
 
 			<!-- 查询子栏目数据 -->
 			<if test="categoryId!=null and  categoryId!='' and categoryType==1">
@@ -342,7 +351,7 @@
 		ct.id article_id,ct.content_img  litpic,c.*
 		FROM cms_content ct
 		LEFT JOIN cms_category c ON ct.category_id = c.id
-		where ct.del=0
+		where ct.del=0 and ct.content_display=0 and c.category_display='enable'
 
 		<!-- 查询子栏目数据 -->
 		<if test="categoryId!=null and  categoryId!='' and categoryType==1">

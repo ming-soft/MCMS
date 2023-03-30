@@ -161,4 +161,7 @@ textarea::-webkit-input-placeholder {
     margin-bottom: unset !important;
     overflow-x: hidden!important;
 }
-
+/*上传+号位置*/
+.el-upload--picture-card i {
+    line-height: unset !important;
+}
