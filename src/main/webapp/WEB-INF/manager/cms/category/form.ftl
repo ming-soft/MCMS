@@ -145,23 +145,7 @@
                                 </el-form-item>
                             </el-col>
                             <el-col span="12">
-                                <el-form-item prop="mdiyCategoryModelId" label="栏目自定义模型">
-                                    <el-select v-model="form.mdiyCategoryModelId"
-                                               :style="{width: '100%'}"
-                                               :filterable="false"
-                                               :disabled="false"
-                                               @change="setCategoryModel"
-                                               :multiple="false" :clearable="true"
-                                               placeholder="请选择栏目自定义模型">
-                                        <el-option v-for='item in mdiyCategoryModelListOptions' :key="item.id"
-                                                   :value="item.id"
-                                                   :label="item.modelName"></el-option>
-                                    </el-select>
-                                    <div class="ms-form-tip">
-                                        栏目字段不满足，使用<b>代码生成器</b>生成<b>自定义模型</b>来扩展，<br/>
-                                        大概步骤：<i>代码生成器->复制自定义模型->打开系统后台的自定义管理->选择自定义模型->导入->栏目 自定义模型 绑定</i>
-                                    </div>
-                                </el-form-item>
+
                             </el-col>
                         </el-row>
                         <el-row
@@ -524,14 +508,6 @@
             save: function () {
                 var that = this;
 
-                var model = undefined;
-                if (that.form.mdiyCategoryModelId && String(that.form.mdiyCategoryModelId)!="0"){
-                    model = ms.mdiy.model.modelForm();
-                }
-                if (model && !model.validate()) {
-                    this.activeName = 'custom-name';
-                    return;
-                }
 
                 var url = ms.manager + "/cms/category/save.do";
 
@@ -582,11 +558,7 @@
                         data.categoryIco = JSON.stringify(data.categoryIco);
                         ms.http.post(url, data).then(function (data) {
                             if (data.result) {
-                                //保存时需要赋值关联ID
-                                if (model) {
-                                    model.form.linkId = data.data.id;
-                                    model.save();
-                                }
+
                                 that.$notify({
                                     title: '成功',
                                     message: '保存成功',
@@ -633,18 +605,7 @@
                     }
                 });
             },
-            //设置栏目模型
-            setCategoryModel: function (mdiyCategoryModelId) {
-                var that = this;
-                if (mdiyCategoryModelId) {
-                    mdiyCategoryModelId += "";
-                    if (mdiyCategoryModelId == "0") {
-                        mdiyCategoryModelId = null;
-                    }
-                    that.form.mdiyCategoryModelId = mdiyCategoryModelId;
-                }
-                that.changeModel();
-            },
+
             //获取当前分类
             get: function (id) {
                 var that = this;
@@ -676,14 +637,7 @@
                         if (!res.data.categoryId) {
                             res.data.categoryId = '0';
                         }
-                        var mdiyCategoryModelId = res.data.mdiyCategoryModelId;
-                        if (mdiyCategoryModelId) {
-                            mdiyCategoryModelId += "";
-                            if (mdiyCategoryModelId == "0") {
-                                mdiyCategoryModelId = null;
-                            }
-                            res.data.mdiyCategoryModelId = mdiyCategoryModelId;
-                        }
+
 
                         that.form = res.data; //判断该分类是否存在文章，存在则不能修改栏目属性
 
@@ -816,30 +770,8 @@
 
                 that.model = undefined;
             },
-            categoryChange: function () {
-                this.changeModel();
-            },
-            changeModel: function () {
-                var that = this;
-                that.editableTabs = [that.editableTabs[0]];
 
-                if (that.form) {
-                    if (that.form.mdiyCategoryModelId) {
-                        that.rederModel(that.form.mdiyCategoryModelId)
-                    }
-                }
-            },
-            rederModel: function (modelId) {
-                var that = this;
-                that.editableTabs.push({
-                    title: '',
-                    name: 'custom-name'
-                });
-                ms.mdiy.model.extend("model1", {id: modelId}, {linkId: that.form.id}, true).then(function (obj) {
-                    that.model = obj;
-                    that.editableTabs[1].title = obj.modelName
-                });
-            },
+
         },
         created: function () {
             this.queryColumnContentModelList();
