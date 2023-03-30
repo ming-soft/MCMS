@@ -642,7 +642,6 @@
                         that.form = res.data; //判断该分类是否存在文章，存在则不能修改栏目属性
 
                         that.contentList(that.form.id);
-                        that.changeModel();
                     }
                 });
             },
