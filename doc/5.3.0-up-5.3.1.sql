@@ -14,8 +14,6 @@ ALTER TABLE `cms_category`
     ADD COLUMN `category_ico` varchar(2000) NULL COMMENT '栏目小图' AFTER `category_img`,
     ADD COLUMN `category_display` varchar(50) NULL COMMENT '栏目是否显示' AFTER `category_flag`;
 UPDATE cms_category set category_display = 'enable';
--- 自定义字典
-INSERT INTO `mdiy_dict` (`dict_value`, `dict_label`, `dict_type`, `dict_description`, `is_child`, `dict_enable`, `dict_remarks`, `dict_sort`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`, `NOT_DEL`) VALUES ('category', '栏目', '自定义模型类型', NULL, NULL, '1', NULL, 0, '57', '2023-02-06 10:14:57', '57', '2023-02-06 09:39:26', 0, 0);
 -- 文章
 ALTER TABLE `cms_content`
     ADD COLUMN `content_short_title` varchar(255) NULL COMMENT '文章副标题' AFTER `CONTENT_TITLE`,
