@@ -1,3 +1,4 @@
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -6,25 +7,25 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `app`;
 CREATE TABLE `app` (
-                       `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '站点id',
-                       `app_name` varchar(60) NOT NULL COMMENT '站点名称',
-                       `app_url` varchar(200) NOT NULL COMMENT '站点域名，多个回车换行显示',
-                       `app_logo` varchar(4000) DEFAULT NULL COMMENT '网站logo',
-                       `app_keyword` varchar(500) DEFAULT NULL COMMENT '站点关键字',
-                       `app_copyright` varchar(500) DEFAULT NULL COMMENT '站点版权信息',
-                       `app_style` varchar(50) DEFAULT NULL COMMENT '站点风格',
-                       `app_description` varchar(500) DEFAULT NULL COMMENT '描述',
-                       `app_pay` varchar(300) DEFAULT NULL COMMENT '费用清单',
-                       `app_state` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '0运行中 1已停止  ',
-                       `app_datetime` datetime DEFAULT NULL COMMENT '创建时间',
-                       `app_pay_date` datetime DEFAULT NULL COMMENT '应用续费时间',
-                       `app_dir` varchar(10) DEFAULT NULL COMMENT '网站生成的目录',
-                       `update_date` datetime DEFAULT NULL COMMENT '修改时间',
-                       `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
-                       `create_date` datetime DEFAULT NULL COMMENT '创建时间',
-                       `create_by` varchar(11) DEFAULT NULL,
-                       `del` int(1) DEFAULT '0',
-                       PRIMARY KEY (`id`) USING BTREE
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '站点id',
+  `app_name` varchar(60) NOT NULL COMMENT '站点名称',
+  `app_url` varchar(200) NOT NULL COMMENT '站点域名，多个回车换行显示',
+  `app_logo` varchar(4000) DEFAULT NULL COMMENT '网站logo',
+  `app_keyword` varchar(500) DEFAULT NULL COMMENT '站点关键字',
+  `app_copyright` varchar(500) DEFAULT NULL COMMENT '站点版权信息',
+  `app_style` varchar(50) DEFAULT NULL COMMENT '站点风格',
+  `app_description` varchar(500) DEFAULT NULL COMMENT '描述',
+  `app_pay` varchar(300) DEFAULT NULL COMMENT '费用清单',
+  `app_state` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '0运行中 1已停止  ',
+  `app_datetime` datetime DEFAULT NULL COMMENT '创建时间',
+  `app_pay_date` datetime DEFAULT NULL COMMENT '应用续费时间',
+  `app_dir` varchar(10) DEFAULT NULL COMMENT '网站生成的目录',
+  `update_date` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(11) DEFAULT NULL,
+  `del` int(1) DEFAULT '0',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='应用表';
 
 -- ----------------------------
@@ -39,36 +40,36 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cms_category`;
 CREATE TABLE `cms_category` (
-                                `id` bigint(20) unsigned NOT NULL,
-                                `category_id` bigint(20) unsigned DEFAULT NULL COMMENT '所属栏目',
-                                `leaf` int(1) DEFAULT NULL COMMENT '是否是叶子节点',
-                                `top_id` bigint(20) DEFAULT NULL COMMENT '顶级id',
-                                `dict_id` int(11) DEFAULT NULL COMMENT '字典对应编号',
-                                `mdiy_model_id` varchar(50) DEFAULT NULL COMMENT '文章管理的内容模型ID',
-                                `mdiy_category_model_id` varchar(50) DEFAULT NULL COMMENT '栏目管理的内容模型ID',
-                                `category_parent_ids` varchar(255) DEFAULT NULL COMMENT '父类型编号，多个id逗号',
-                                `category_title` varchar(255) DEFAULT NULL COMMENT '栏目管理名称',
-                                `category_img` varchar(2000) DEFAULT NULL COMMENT '栏目banner图',
-                                `category_ico` varchar(2000) DEFAULT NULL COMMENT '栏目小图',
-                                `category_short_title` varchar(255) DEFAULT NULL COMMENT '栏目副标题',
-                                `category_flag` varchar(255) DEFAULT NULL COMMENT '栏目属性',
-                                `category_display` varchar(50) DEFAULT NULL COMMENT '栏目是否显示',
-                                `category_descrip` varchar(500) DEFAULT NULL COMMENT '栏目管理描述',
-                                `category_keyword` varchar(300) DEFAULT NULL COMMENT '栏目管理关键字',
-                                `category_path` varchar(255) DEFAULT NULL COMMENT '栏目路径',
-                                `category_diy_url` varchar(255) DEFAULT NULL COMMENT '自定义链接',
-                                `category_url` varchar(50) DEFAULT NULL COMMENT '内容模板',
-                                `category_list_url` varchar(50) DEFAULT NULL COMMENT '列表模板',
-                                `category_type` varchar(10) DEFAULT NULL COMMENT '栏目管理属性',
-                                `category_pinyin` varchar(255) DEFAULT NULL COMMENT '栏目拼音',
-                                `category_sort` int(11) DEFAULT NULL COMMENT '自定义顺序',
-                                `update_date` datetime DEFAULT NULL COMMENT '修改时间',
-                                `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
-                                `create_date` datetime DEFAULT NULL COMMENT '创建时间',
-                                `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
-                                `del` int(1) DEFAULT '0' COMMENT '删除标记',
-                                PRIMARY KEY (`id`) USING BTREE,
-                                KEY `idx_category_id` (`category_id`) USING BTREE
+  `id` bigint(20) unsigned NOT NULL,
+  `category_id` bigint(20) unsigned DEFAULT NULL COMMENT '所属栏目',
+  `leaf` int(1) DEFAULT NULL COMMENT '是否是叶子节点',
+  `top_id` bigint(20) DEFAULT NULL COMMENT '顶级id',
+  `dict_id` int(11) DEFAULT NULL COMMENT '字典对应编号',
+  `mdiy_model_id` varchar(50) DEFAULT NULL COMMENT '文章管理的内容模型ID',
+  `mdiy_category_model_id` varchar(50) DEFAULT NULL COMMENT '栏目管理的内容模型ID',
+  `category_parent_ids` varchar(255) DEFAULT NULL COMMENT '父类型编号，多个id逗号',
+  `category_title` varchar(255) DEFAULT NULL COMMENT '栏目管理名称',
+  `category_img` varchar(2000) DEFAULT NULL COMMENT '栏目banner图',
+  `category_ico` varchar(2000) DEFAULT NULL COMMENT '栏目小图',
+  `category_short_title` varchar(255) DEFAULT NULL COMMENT '栏目副标题',
+  `category_flag` varchar(255) DEFAULT NULL COMMENT '栏目属性',
+  `category_display` varchar(50) DEFAULT NULL COMMENT '栏目是否显示',
+  `category_descrip` varchar(500) DEFAULT NULL COMMENT '栏目管理描述',
+  `category_keyword` varchar(300) DEFAULT NULL COMMENT '栏目管理关键字',
+  `category_path` varchar(255) DEFAULT NULL COMMENT '栏目路径',
+  `category_diy_url` varchar(255) DEFAULT NULL COMMENT '自定义链接',
+  `category_url` varchar(50) DEFAULT NULL COMMENT '内容模板',
+  `category_list_url` varchar(50) DEFAULT NULL COMMENT '列表模板',
+  `category_type` varchar(10) DEFAULT NULL COMMENT '栏目管理属性',
+  `category_pinyin` varchar(255) DEFAULT NULL COMMENT '栏目拼音',
+  `category_sort` int(11) DEFAULT NULL COMMENT '自定义顺序',
+  `update_date` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `del` int(1) DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `idx_category_id` (`category_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='分类';
 
 -- ----------------------------
@@ -93,32 +94,32 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cms_content`;
 CREATE TABLE `cms_content` (
-                               `id` bigint(20) unsigned NOT NULL,
-                               `category_id` bigint(20) unsigned DEFAULT NULL COMMENT '所属栏目',
-                               `content_details` longtext COMMENT '文章内容',
-                               `content_title` varchar(255) DEFAULT NULL COMMENT '文章标题',
-                               `content_short_title` varchar(255) DEFAULT NULL COMMENT '文章副标题',
-                               `content_keyword` varchar(255) DEFAULT NULL COMMENT '关键字',
-                               `content_description` varchar(400) DEFAULT NULL COMMENT '描述',
-                               `content_img` varchar(2000) DEFAULT NULL COMMENT '文章缩略图',
-                               `content_source` varchar(255) DEFAULT NULL COMMENT '文章来源',
-                               `content_author` varchar(255) DEFAULT NULL COMMENT '文章作者',
-                               `content_display` varchar(10) DEFAULT '0' COMMENT '是否显示0显示 1不显示',
-                               `content_type` varchar(100) DEFAULT NULL COMMENT '文章类型',
-                               `content_datetime` timestamp NULL DEFAULT NULL COMMENT '发布时间',
-                               `content_sort` int(11) DEFAULT NULL COMMENT '自定义顺序',
-                               `content_hit` int(22) DEFAULT '0' COMMENT '点击次数',
-                               `content_out_link` varchar(255) DEFAULT NULL COMMENT '文章为链接',
-                               `has_detail_html` int(1) DEFAULT '0' COMMENT '文章静态化标识 0表示未被自动静态化,1反之',
-                               `update_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
-                               `has_list_html` int(1) DEFAULT '0' COMMENT '栏目静态化标识 0表示未被自动静态化,1反之',
-                               `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
-                               `create_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
-                               `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
-                               `del` int(1) DEFAULT '0' COMMENT '删除标记',
-                               PRIMARY KEY (`id`) USING BTREE,
-                               KEY `fk_category_id` (`category_id`) USING BTREE,
-                               CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `cms_category` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+  `id` bigint(20) unsigned NOT NULL,
+  `category_id` bigint(20) unsigned DEFAULT NULL COMMENT '所属栏目',
+  `content_details` longtext COMMENT '文章内容',
+  `content_title` varchar(255) DEFAULT NULL COMMENT '文章标题',
+  `content_short_title` varchar(255) DEFAULT NULL COMMENT '文章副标题',
+  `content_keyword` varchar(255) DEFAULT NULL COMMENT '关键字',
+  `content_description` varchar(400) DEFAULT NULL COMMENT '描述',
+  `content_img` varchar(2000) DEFAULT NULL COMMENT '文章缩略图',
+  `content_source` varchar(255) DEFAULT NULL COMMENT '文章来源',
+  `content_author` varchar(255) DEFAULT NULL COMMENT '文章作者',
+  `content_display` varchar(10) DEFAULT '0' COMMENT '是否显示0显示 1不显示',
+  `content_type` varchar(100) DEFAULT NULL COMMENT '文章类型',
+  `content_datetime` timestamp NULL DEFAULT NULL COMMENT '发布时间',
+  `content_sort` int(11) DEFAULT NULL COMMENT '自定义顺序',
+  `content_hit` int(22) DEFAULT '0' COMMENT '点击次数',
+  `content_out_link` varchar(255) DEFAULT NULL COMMENT '文章为链接',
+  `has_detail_html` int(1) DEFAULT '0' COMMENT '文章静态化标识 0表示未被自动静态化,1反之',
+  `update_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
+  `has_list_html` int(1) DEFAULT '0' COMMENT '栏目静态化标识 0表示未被自动静态化,1反之',
+  `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
+  `create_date` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `del` int(1) DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `fk_category_id` (`category_id`) USING BTREE,
+  CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `cms_category` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='文章';
 
 -- ----------------------------
@@ -156,17 +157,17 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cms_history_log`;
 CREATE TABLE `cms_history_log` (
-                                   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-                                   `content_id` bigint(20) unsigned NOT NULL COMMENT '文章编号',
-                                   `people_id` int(20) DEFAULT NULL COMMENT '用户id',
-                                   `hl_ip` varchar(255) DEFAULT NULL COMMENT '浏览ip',
-                                   `hl_is_mobile` varchar(255) DEFAULT NULL COMMENT '是否为移动端',
-                                   `update_date` datetime DEFAULT NULL COMMENT '修改时间',
-                                   `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
-                                   `create_date` datetime DEFAULT NULL COMMENT '创建时间',
-                                   `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
-                                   `del` int(1) DEFAULT '0' COMMENT '删除标记',
-                                   PRIMARY KEY (`id`) USING BTREE
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `content_id` bigint(20) unsigned NOT NULL COMMENT '文章编号',
+  `people_id` int(20) DEFAULT NULL COMMENT '用户id',
+  `hl_ip` varchar(255) DEFAULT NULL COMMENT '浏览ip',
+  `hl_is_mobile` varchar(255) DEFAULT NULL COMMENT '是否为移动端',
+  `update_date` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `del` int(1) DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='文章浏览记录';
 
 -- ----------------------------
@@ -270,33 +271,35 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `logger`;
 CREATE TABLE `logger` (
-                          `id` bigint(20) unsigned NOT NULL,
-                          `log_error_msg` text COMMENT '错误消息',
-                          `log_result` text COMMENT '返回参数',
-                          `log_param` text COMMENT '请求参数',
-                          `log_location` varchar(255) DEFAULT NULL COMMENT '所在地区',
-                          `log_user` varchar(255) DEFAULT NULL COMMENT '操作人员',
-                          `log_user_type` varchar(255) DEFAULT NULL COMMENT '用户类型',
-                          `log_business_type` varchar(255) DEFAULT NULL COMMENT '业务类型',
-                          `log_status` varchar(255) DEFAULT NULL COMMENT '请求状态',
-                          `log_url` varchar(255) DEFAULT NULL COMMENT '请求地址',
-                          `log_request_method` varchar(255) DEFAULT NULL COMMENT '请求方式',
-                          `log_method` varchar(255) DEFAULT NULL COMMENT '请求方法',
-                          `log_ip` varchar(255) DEFAULT NULL COMMENT 'IP',
-                          `log_title` varchar(255) DEFAULT NULL COMMENT '标题',
-                          `BUSINESS_ID` varchar(255) DEFAULT NULL COMMENT '业务id',
-                          `update_date` datetime DEFAULT NULL COMMENT '修改时间',
-                          `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
-                          `create_date` datetime DEFAULT NULL COMMENT '创建时间',
-                          `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
-                          `del` int(1) DEFAULT '0' COMMENT '删除标记',
-                          PRIMARY KEY (`id`) USING BTREE
+  `id` bigint(20) unsigned NOT NULL,
+  `log_error_msg` text COMMENT '错误消息',
+  `log_result` text COMMENT '返回参数',
+  `log_param` text COMMENT '请求参数',
+  `log_location` varchar(255) DEFAULT NULL COMMENT '所在地区',
+  `log_user` varchar(255) DEFAULT NULL COMMENT '操作人员',
+  `log_user_type` varchar(255) DEFAULT NULL COMMENT '用户类型',
+  `log_business_type` varchar(255) DEFAULT NULL COMMENT '业务类型',
+  `log_status` varchar(255) DEFAULT NULL COMMENT '请求状态',
+  `log_url` varchar(255) DEFAULT NULL COMMENT '请求地址',
+  `log_request_method` varchar(255) DEFAULT NULL COMMENT '请求方式',
+  `log_method` varchar(255) DEFAULT NULL COMMENT '请求方法',
+  `log_ip` varchar(255) DEFAULT NULL COMMENT 'IP',
+  `log_title` varchar(255) DEFAULT NULL COMMENT '标题',
+  `BUSINESS_ID` varchar(255) DEFAULT NULL COMMENT '业务id',
+  `update_date` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `del` int(1) DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统日志';
 
 -- ----------------------------
 -- Records of logger
 -- ----------------------------
 BEGIN;
+INSERT INTO `logger` (`id`, `log_error_msg`, `log_result`, `log_param`, `log_location`, `log_user`, `log_user_type`, `log_business_type`, `log_status`, `log_url`, `log_request_method`, `log_method`, `log_ip`, `log_title`, `BUSINESS_ID`, `update_date`, `update_by`, `create_date`, `create_by`, `del`) VALUES (1646413858450366466, NULL, '{\"result\":true,\"code\":200}', '{\n    \"ids\": \"1713\"\n}', '内网IP', 'msopen', 'manage', 'delete', 'success', '/ms/basic/model/delete.do', 'POST', 'net.mingsoft.basic.action.ModelAction.delete()', '127.0.0.1', '批量删除模块表', NULL, NULL, NULL, '2023-04-13 15:23:47', NULL, 0);
+INSERT INTO `logger` (`id`, `log_error_msg`, `log_result`, `log_param`, `log_location`, `log_user`, `log_user_type`, `log_business_type`, `log_status`, `log_url`, `log_request_method`, `log_method`, `log_ip`, `log_title`, `BUSINESS_ID`, `update_date`, `update_by`, `create_date`, `create_by`, `del`) VALUES (1646414083327975425, NULL, '{\"result\":true,\"code\":200}', '{\n    \"modelId\": \"1700\",\n    \"menuStr\": \"[{\\\"del\\\":0,\\\"id\\\":\\\"2703\\\",\\\"modelTitle\\\":\\\"自定义配置\\\",\\\"modelDatetime\\\":\\\"2022-08-25 14:09:08\\\",\\\"modelId\\\":1993,\\\"modelUrl\\\":\\\"mdiy/config/index.do\\\",\\\"modelCode\\\":\\\"16197622071884456\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":1,\\\"chick\\\":0,\\\"depth\\\":1,\\\"modelParentIds\\\":\\\"1993\\\",\\\"modelChildList\\\":[{\\\"del\\\":0,\\\"id\\\":\\\"2704\\\",\\\"modelTitle\\\":\\\"新增\\\",\\\"modelDatetime\\\":\\\"2022-08-25 14:09:08\\\",\\\"modelId\\\":2703,\\\"modelUrl\\\":\\\"mdiy:config:save\\\",\\\"modelCode\\\":\\\"16197622071881449\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":0,\\\"chick\\\":0,\\\"depth\\\":2,\\\"modelParentIds\\\":\\\"1993,2703\\\"},{\\\"del\\\":0,\\\"id\\\":\\\"2705\\\",\\\"modelTitle\\\":\\\"删除\\\",\\\"modelDatetime\\\":\\\"2022-08-25 14:09:08\\\",\\\"modelId\\\":2703,\\\"modelUrl\\\":\\\"mdiy:config:del\\\",\\\"modelCode\\\":\\\"16197622071889126\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":0,\\\"chick\\\":0,\\\"depth\\\":2,\\\"modelParentIds\\\":\\\"1993,2703\\\"},{\\\"del\\\":0,\\\"id\\\":\\\"2706\\\",\\\"updateBy\\\":\\\"57\\\",\\\"updateDate\\\":\\\"2022-08-25 11:19:04\\\",\\\"modelTitle\\\":\\\"更新\\\",\\\"modelDatetime\\\":\\\"2022-08-25 14:09:08\\\",\\\"modelId\\\":2703,\\\"modelUrl\\\":\\\"mdiy:config:update\\\",\\\"modelCode\\\":\\\"16197622071888369\\\",\\\"modelIcon\\\":\\\"\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":0,\\\"chick\\\":0,\\\"depth\\\":2,\\\"modelParentIds\\\":\\\"1993,2703\\\"},{\\\"del\\\":0,\\\"id\\\":\\\"2707\\\",\\\"modelTitle\\\":\\\"查看\\\",\\\"modelDatetime\\\":\\\"2022-08-25 14:09:08\\\",\\\"modelId\\\":2703,\\\"modelUrl\\\":\\\"mdiy:config:view\\\",\\\"modelCode\\\":\\\"16197622071882134\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":0,\\\"chick\\\":0,\\\"depth\\\":2,\\\"modelParentIds\\\":\\\"1993,2703\\\"},{\\\"del\\\":0,\\\"id\\\":\\\"2708\\\",\\\"modelTitle\\\":\\\"导入\\\",\\\"modelDatetime\\\":\\\"2022-08-25 14:09:08\\\",\\\"modelId\\\":2703,\\\"modelUrl\\\":\\\"mdiy:config:importJson\\\",\\\"modelCode\\\":\\\"161976231700026503\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":0,\\\"chick\\\":0,\\\"depth\\\":2,\\\"modelParentIds\\\":\\\"1993,2703\\\"},{\\\"createBy\\\":\\\"57\\\",\\\"createDate\\\":\\\"2022-08-25 11:20:48\\\",\\\"del\\\":0,\\\"id\\\":\\\"2709\\\",\\\"updateDate\\\":\\\"2022-08-25 11:20:48\\\",\\\"modelTitle\\\":\\\"更新配置数据\\\",\\\"modelDatetime\\\":\\\"2022-08-25 14:09:08\\\",\\\"modelId\\\":2703,\\\"modelUrl\\\":\\\"mdiy:configData:update\\\",\\\"modelCode\\\":\\\"\\\",\\\"modelIcon\\\":\\\"\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":0,\\\"chick\\\":0,\\\"depth\\\":2,\\\"modelParentIds\\\":\\\"1993,2703\\\"},{\\\"createBy\\\":\\\"57\\\",\\\"createDate\\\":\\\"2022-08-25 11:21:22\\\",\\\"del\\\":0,\\\"id\\\":\\\"2710\\\",\\\"updateDate\\\":\\\"2022-08-25 11:21:22\\\",\\\"modelTitle\\\":\\\"删除配置数据\\\",\\\"modelDatetime\\\":\\\"2022-08-25 14:09:08\\\",\\\"modelId\\\":2703,\\\"modelUrl\\\":\\\"mdiy:configData:del\\\",\\\"modelCode\\\":\\\"\\\",\\\"modelIcon\\\":\\\"\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":0,\\\"chick\\\":0,\\\"depth\\\":2,\\\"modelParentIds\\\":\\\"1993,2703\\\"},{\\\"createBy\\\":\\\"57\\\",\\\"createDate\\\":\\\"2022-08-25 11:21:52\\\",\\\"del\\\":0,\\\"id\\\":\\\"2711\\\",\\\"updateDate\\\":\\\"2022-08-25 11:21:52\\\",\\\"modelTitle\\\":\\\"新增配置数据\\\",\\\"modelDatetime\\\":\\\"2022-08-25 14:09:08\\\",\\\"modelId\\\":2703,\\\"modelUrl\\\":\\\"mdiy:configData:save\\\",\\\"modelCode\\\":\\\"\\\",\\\"modelIcon\\\":\\\"\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":0,\\\"chick\\\":0,\\\"depth\\\":2,\\\"modelParentIds\\\":\\\"1993,2703\\\"},{\\\"createBy\\\":\\\"57\\\",\\\"createDate\\\":\\\"2022-08-25 22:29:48\\\",\\\"del\\\":0,\\\"id\\\":\\\"2723\\\",\\\"updateDate\\\":\\\"2022-08-25 22:29:48\\\",\\\"modelTitle\\\":\\\"查看配置数据\\\",\\\"modelDatetime\\\":\\\"2022-08-25 22:29:48\\\",\\\"modelId\\\":2703,\\\"modelUrl\\\":\\\"mdiy:configData:view\\\",\\\"modelCode\\\":\\\"\\\",\\\"isChild\\\":\\\"\\\",\\\"modelIcon\\\":\\\"\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":0,\\\"chick\\\":0,\\\"depth\\\":2,\\\"modelParentIds\\\":\\\"1993,2703\\\"}]}]\"\n}', '内网IP', 'msopen', 'manage', 'insert', 'success', '/ms/basic/model/import.do', 'POST', 'net.mingsoft.basic.action.ModelAction.importMenu()', '127.0.0.1', '导入菜单', NULL, NULL, NULL, '2023-04-13 15:24:41', NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -304,21 +307,21 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `manager`;
 CREATE TABLE `manager` (
-                           `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
-                           `ROLE_IDS` varchar(11) DEFAULT NULL COMMENT '角色编号',
-                           `people_id` int(11) DEFAULT '0' COMMENT '用户编号即商家编号',
-                           `manager_admin` varchar(255) DEFAULT NULL COMMENT '管理员标识，超级管理员：super，子管理员：open',
-                           `manager_name` varchar(15) DEFAULT NULL COMMENT '管理员用户名',
-                           `manager_nickname` varchar(15) DEFAULT NULL COMMENT '管理员昵称',
-                           `manager_password` varchar(45) DEFAULT NULL COMMENT '管理员密码',
-                           `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
-                           `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-                           `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
-                           `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-                           `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-                           `MANAGER_LOCK` varchar(10) DEFAULT '0' COMMENT '锁定状态',
-                           PRIMARY KEY (`id`) USING BTREE,
-                           KEY `fk_manager_role_id` (`ROLE_IDS`) USING BTREE
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
+  `ROLE_IDS` varchar(11) DEFAULT NULL COMMENT '角色编号',
+  `people_id` int(11) DEFAULT '0' COMMENT '用户编号即商家编号',
+  `manager_admin` varchar(255) DEFAULT NULL COMMENT '管理员标识，超级管理员：super，子管理员：open',
+  `manager_name` varchar(15) DEFAULT NULL COMMENT '管理员用户名',
+  `manager_nickname` varchar(15) DEFAULT NULL COMMENT '管理员昵称',
+  `manager_password` varchar(45) DEFAULT NULL COMMENT '管理员密码',
+  `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
+  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
+  `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
+  `MANAGER_LOCK` varchar(10) DEFAULT '0' COMMENT '锁定状态',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `fk_manager_role_id` (`ROLE_IDS`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='管理员表';
 
 -- ----------------------------
@@ -333,17 +336,17 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `mdiy_config`;
 CREATE TABLE `mdiy_config` (
-                               `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-                               `config_name` varchar(255) DEFAULT NULL COMMENT '模型名称',
-                               `config_data` varchar(4000) DEFAULT NULL COMMENT '模型数据',
-                               `update_date` datetime DEFAULT NULL COMMENT '修改时间',
-                               `update_by` int(11) DEFAULT NULL COMMENT '修改人',
-                               `create_date` datetime DEFAULT NULL COMMENT '创建时间',
-                               `create_by` int(11) DEFAULT NULL COMMENT '创建人',
-                               `del` int(1) DEFAULT '0' COMMENT '删除标记',
-                               `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
-                               PRIMARY KEY (`id`) USING BTREE,
-                               UNIQUE KEY `idx_config_name` (`config_name`) USING BTREE
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `config_name` varchar(255) DEFAULT NULL COMMENT '模型名称',
+  `config_data` varchar(4000) DEFAULT NULL COMMENT '模型数据',
+  `update_date` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_by` int(11) DEFAULT NULL COMMENT '修改人',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_by` int(11) DEFAULT NULL COMMENT '创建人',
+  `del` int(1) DEFAULT '0' COMMENT '删除标记',
+  `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `idx_config_name` (`config_name`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义配置';
 
 -- ----------------------------
@@ -357,25 +360,25 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `mdiy_dict`;
 CREATE TABLE `mdiy_dict` (
-                             `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
-                             `dict_value` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '数据值',
-                             `dict_label` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '标签名',
-                             `dict_type` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '类型',
-                             `dict_description` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '描述',
-                             `is_child` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '扩展业务标记',
-                             `dict_enable` varchar(11) COLLATE utf8_bin DEFAULT '1' COMMENT '启用状态',
-                             `dict_remarks` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '备注信息',
-                             `dict_sort` int(10) NOT NULL DEFAULT '0' COMMENT '排序（升序）',
-                             `UPDATE_BY` varchar(11) COLLATE utf8_bin DEFAULT NULL COMMENT '更新人',
-                             `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-                             `CREATE_BY` varchar(11) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
-                             `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-                             `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-                             `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
-                             PRIMARY KEY (`id`) USING BTREE,
-                             UNIQUE KEY `inx_unique` (`dict_value`,`dict_label`,`dict_type`) USING BTREE,
-                             KEY `inx_dict_value` (`dict_value`) USING BTREE,
-                             KEY `inx_dict_label` (`dict_label`) USING BTREE
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
+  `dict_value` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '数据值',
+  `dict_label` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '标签名',
+  `dict_type` varchar(100) COLLATE utf8_bin NOT NULL COMMENT '类型',
+  `dict_description` varchar(100) COLLATE utf8_bin DEFAULT NULL COMMENT '描述',
+  `is_child` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '扩展业务标记',
+  `dict_enable` varchar(11) COLLATE utf8_bin DEFAULT '1' COMMENT '启用状态',
+  `dict_remarks` varchar(255) COLLATE utf8_bin DEFAULT NULL COMMENT '备注信息',
+  `dict_sort` int(10) NOT NULL DEFAULT '0' COMMENT '排序（升序）',
+  `UPDATE_BY` varchar(11) COLLATE utf8_bin DEFAULT NULL COMMENT '更新人',
+  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
+  `CREATE_BY` varchar(11) COLLATE utf8_bin DEFAULT NULL COMMENT '创建人',
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
+  `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `inx_unique` (`dict_value`,`dict_label`,`dict_type`) USING BTREE,
+  KEY `inx_dict_value` (`dict_value`) USING BTREE,
+  KEY `inx_dict_label` (`dict_label`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=651 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='字典表';
 
 -- ----------------------------
@@ -402,20 +405,20 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `mdiy_model`;
 CREATE TABLE `mdiy_model` (
-                              `ID` bigint(19) unsigned NOT NULL,
-                              `model_json` text COMMENT 'json',
-                              `model_table_name` varchar(255) DEFAULT NULL COMMENT '模型表名',
-                              `model_name` varchar(30) DEFAULT NULL COMMENT '模型名称',
-                              `model_type` varchar(255) DEFAULT NULL COMMENT '自定义模型类型，自定义表单不用该字段',
-                              `model_field` text COMMENT '模型字段',
-                              `model_custom_type` varchar(255) DEFAULT NULL COMMENT '类型，自定义表单：post，自定义模型：model',
-                              `update_date` datetime DEFAULT NULL COMMENT '修改时间',
-                              `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
-                              `create_date` datetime DEFAULT NULL COMMENT '创建时间',
-                              `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
-                              `del` int(1) DEFAULT '0' COMMENT '删除标记',
-                              `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
-                              PRIMARY KEY (`ID`) USING BTREE
+  `ID` bigint(19) unsigned NOT NULL,
+  `model_json` text COMMENT 'json',
+  `model_table_name` varchar(255) DEFAULT NULL COMMENT '模型表名',
+  `model_name` varchar(30) DEFAULT NULL COMMENT '模型名称',
+  `model_type` varchar(255) DEFAULT NULL COMMENT '自定义模型类型，自定义表单不用该字段',
+  `model_field` text COMMENT '模型字段',
+  `model_custom_type` varchar(255) DEFAULT NULL COMMENT '类型，自定义表单：post，自定义模型：model',
+  `update_date` datetime DEFAULT NULL COMMENT '修改时间',
+  `update_by` varchar(11) DEFAULT NULL COMMENT '修改人',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `create_by` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `del` int(1) DEFAULT '0' COMMENT '删除标记',
+  `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
+  PRIMARY KEY (`ID`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义模型';
 
 -- ----------------------------
@@ -429,22 +432,22 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `mdiy_page`;
 CREATE TABLE `mdiy_page` (
-                             `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
-                             `page_key` varchar(255) NOT NULL COMMENT '自定义页面访问路径',
-                             `PAGE_ENABLE` int(1) DEFAULT '1' COMMENT '启用状态 0-关闭 1-启用',
-                             `page_path` varchar(255) NOT NULL COMMENT '自定义页面绑定模板的路径',
-                             `page_title` varchar(255) NOT NULL COMMENT '自定义页面标题',
-                             `page_type` varchar(255) DEFAULT NULL COMMENT '字典分类字段',
-                             `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
-                             `page_model_id` int(11) DEFAULT NULL COMMENT '模块id',
-                             `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-                             `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
-                             `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-                             `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-                             `NOT_DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-                             PRIMARY KEY (`id`) USING BTREE,
-                             UNIQUE KEY `idx_page_key` (`page_key`) USING BTREE,
-                             KEY `idx_page_model_id` (`page_model_id`) USING BTREE
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
+  `page_key` varchar(255) NOT NULL COMMENT '自定义页面访问路径',
+  `PAGE_ENABLE` int(1) DEFAULT '1' COMMENT '启用状态 0-关闭 1-启用',
+  `page_path` varchar(255) NOT NULL COMMENT '自定义页面绑定模板的路径',
+  `page_title` varchar(255) NOT NULL COMMENT '自定义页面标题',
+  `page_type` varchar(255) DEFAULT NULL COMMENT '字典分类字段',
+  `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
+  `page_model_id` int(11) DEFAULT NULL COMMENT '模块id',
+  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
+  `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
+  `NOT_DEL` int(1) DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `idx_page_key` (`page_key`) USING BTREE,
+  KEY `idx_page_model_id` (`page_model_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='自定义页面表';
 
 -- ----------------------------
@@ -458,19 +461,19 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `mdiy_tag`;
 CREATE TABLE `mdiy_tag` (
-                            `id` int(11) NOT NULL AUTO_INCREMENT,
-                            `tag_name` varchar(255) DEFAULT NULL COMMENT '标签名称',
-                            `tag_type` varchar(255) DEFAULT NULL COMMENT '标签类型',
-                            `tag_sql` text COMMENT '标签sql',
-                            `tag_class` varchar(255) DEFAULT NULL COMMENT '标签类',
-                            `tag_description` varchar(255) DEFAULT NULL COMMENT '描述',
-                            `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
-                            `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-                            `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
-                            `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-                            `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-                            `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
-                            PRIMARY KEY (`id`) USING BTREE
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `tag_name` varchar(255) DEFAULT NULL COMMENT '标签名称',
+  `tag_type` varchar(255) DEFAULT NULL COMMENT '标签类型',
+  `tag_sql` text COMMENT '标签sql',
+  `tag_class` varchar(255) DEFAULT NULL COMMENT '标签类',
+  `tag_description` varchar(255) DEFAULT NULL COMMENT '描述',
+  `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
+  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
+  `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
+  `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='标签';
 
 -- ----------------------------
@@ -493,27 +496,27 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `model`;
 CREATE TABLE `model` (
-                         `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
-                         `model_id` int(22) DEFAULT NULL COMMENT '模块的父模块id',
-                         `model_parent_ids` varchar(300) DEFAULT NULL COMMENT '父级编号集合，从小到大排序',
-                         `model_code` varchar(255) DEFAULT NULL COMMENT '模块编码',
-                         `model_title` varchar(150) DEFAULT NULL COMMENT '模块标题',
-                         `model_url` varchar(255) DEFAULT NULL COMMENT '模块连接地址',
-                         `model_icon` varchar(120) DEFAULT NULL COMMENT '模块图标',
-                         `model_sort` int(11) DEFAULT NULL COMMENT '模块的排序',
-                         `model_ismenu` int(1) DEFAULT '0' COMMENT '模块是否是菜单',
-                         `IS_CHILD` varchar(300) DEFAULT NULL COMMENT '扩展字段',
-                         `model_datetime` datetime DEFAULT NULL,
-                         `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
-                         `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-                         `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
-                         `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-                         `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-                         PRIMARY KEY (`id`) USING BTREE,
-                         KEY `idx_model_id` (`model_id`) USING BTREE,
-                         KEY `idx_model_title` (`model_title`,`model_url`) USING BTREE,
-                         CONSTRAINT `fk_model_id` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1802 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='模块表';
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
+  `model_id` int(22) DEFAULT NULL COMMENT '模块的父模块id',
+  `model_parent_ids` varchar(300) DEFAULT NULL COMMENT '父级编号集合，从小到大排序',
+  `model_code` varchar(255) DEFAULT NULL COMMENT '模块编码',
+  `model_title` varchar(150) DEFAULT NULL COMMENT '模块标题',
+  `model_url` varchar(255) DEFAULT NULL COMMENT '模块连接地址',
+  `model_icon` varchar(120) DEFAULT NULL COMMENT '模块图标',
+  `model_sort` int(11) DEFAULT NULL COMMENT '模块的排序',
+  `model_ismenu` int(1) DEFAULT '0' COMMENT '模块是否是菜单',
+  `IS_CHILD` varchar(300) DEFAULT NULL COMMENT '扩展字段',
+  `model_datetime` datetime DEFAULT NULL,
+  `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
+  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
+  `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `idx_model_id` (`model_id`) USING BTREE,
+  KEY `idx_model_title` (`model_title`,`model_url`) USING BTREE,
+  CONSTRAINT `fk_model_id` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=1812 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='模块表';
 
 -- ----------------------------
 -- Records of model
@@ -572,12 +575,6 @@ INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1710, 1707, '1700,1707', '16197622071881215', '更新', 'mdiy:model:update', NULL, 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1711, 1707, '1700,1707', '16197622071884291', '查看', 'mdiy:model:view', NULL, 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1712, 1707, '1700,1707', '161976234500028132', '导入', 'mdiy:model:importJson', '', 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
-INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1713, 1700, '1700', '16197622071884456', '自定义配置', 'mdiy/config/index.do', '', 0, 1, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
-INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1714, 1713, '1700,1713', '16197622071881449', '新增', 'mdiy:config:save', NULL, 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
-INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1715, 1713, '1700,1713', '16197622071889126', '删除', 'mdiy:config:del', NULL, 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
-INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1716, 1713, '1700,1713', '16197622071888369', '更新', 'mdiy:config:update', NULL, 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
-INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1717, 1713, '1700,1713', '16197622071882134', '查看', 'mdiy:config:view', NULL, 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
-INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1718, 1713, '1700,1713', '161976231700026503', '导入', 'mdiy:config:importJson', '', 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1719, 1700, '1700', '15725929177747726', '自定义字典', 'mdiy/dict/index.do', '', 0, 1, NULL, '2021-05-25 22:07:10', '0', NULL, '0', NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1720, 1719, '1700,1719', '15725929177745034', '查看', 'mdiy:dict:view', NULL, 0, 0, NULL, '2021-05-25 22:07:10', '0', NULL, '0', NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1721, 1719, '1700,1719', '15725929177742474', '新增', 'mdiy:dict:save', NULL, 0, 0, NULL, '2021-05-25 22:07:10', '0', NULL, '0', NULL, 0);
@@ -592,7 +589,6 @@ INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1730, 1724, '1700,1724', '162143180100032708', '新增业务数据', 'mdiy:formData:save', '', 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1731, 1724, '1700,1724', '162143181700031623', '删除业务数据', 'mdiy:formData:del', 'icon-caidan', 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1732, 1724, '1700,1724', '162143576500025187', '更新业务数据', 'mdiy:formData:update', 'icon-caidan', 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
-INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1733, 1713, '1700,1713', '', '更新数据', 'mdiy:configData:update', '', 0, 0, '', '2021-12-28 22:05:33', '57', '2021-12-28 22:06:19', '', '2021-12-28 22:05:33', 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1764, 406, '23,406', '409', '查看', 'basic:role:view', '', 0, 0, NULL, '2022-05-07 14:12:58', '57', '2023-01-03 11:42:51', NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1765, 86, '84,86', '12010004', '查看', 'basic:app:view', '', 0, 0, NULL, '2022-05-07 14:13:36', '57', '2023-01-03 13:51:03', NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1767, 87, '84,87', '12010004', '查看', 'basic:template:view', '', 0, 0, '', '2022-05-07 14:17:03', '57', '2022-05-07 14:17:18', '', NULL, 0);
@@ -601,6 +597,16 @@ INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1782, 706, '706', NULL, '栏目属性', '/mdiy/dict/data/index.do?dictType=栏目属性', NULL, 2, 1, NULL, '2022-05-31 10:53:55', '57', '2022-05-31 10:54:50', NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1783, 1782, '706,1782', NULL, '设置', 'mdiy:dictData:栏目属性:settings', NULL, NULL, 0, NULL, '2022-05-31 10:53:55', NULL, NULL, NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1801, 1724, '1700,1724', '', '查看业务数据', 'mdiy:formData:view', '', 0, 0, '', '2022-09-09 09:41:36', NULL, '2022-09-09 09:41:36', '57', '2022-09-09 09:41:36', 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1802, 1700, '1700', '16197622071884456', '自定义配置', 'mdiy/config/index.do', NULL, 0, 1, NULL, '2023-04-13 15:24:41', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1803, 1802, '1700,1802', '16197622071881449', '新增', 'mdiy:config:save', NULL, 0, 0, NULL, '2023-04-13 15:24:41', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1804, 1802, '1700,1802', '16197622071889126', '删除', 'mdiy:config:del', NULL, 0, 0, NULL, '2023-04-13 15:24:41', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1805, 1802, '1700,1802', '16197622071888369', '更新', 'mdiy:config:update', '', 0, 0, NULL, '2023-04-13 15:24:41', '57', '2022-08-25 11:19:04', NULL, NULL, 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1806, 1802, '1700,1802', '16197622071882134', '查看', 'mdiy:config:view', NULL, 0, 0, NULL, '2023-04-13 15:24:41', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1807, 1802, '1700,1802', '161976231700026503', '导入', 'mdiy:config:importJson', NULL, 0, 0, NULL, '2023-04-13 15:24:41', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1808, 1802, '1700,1802', '', '更新配置数据', 'mdiy:configData:update', '', 0, 0, NULL, '2023-04-13 15:24:41', NULL, '2022-08-25 11:20:48', '57', '2022-08-25 11:20:48', 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1809, 1802, '1700,1802', '', '删除配置数据', 'mdiy:configData:del', '', 0, 0, NULL, '2023-04-13 15:24:41', NULL, '2022-08-25 11:21:22', '57', '2022-08-25 11:21:22', 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1810, 1802, '1700,1802', '', '新增配置数据', 'mdiy:configData:save', '', 0, 0, NULL, '2023-04-13 15:24:41', NULL, '2022-08-25 11:21:52', '57', '2022-08-25 11:21:52', 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1811, 1802, '1700,1802', '', '查看配置数据', 'mdiy:configData:view', '', 0, 0, '', '2023-04-13 15:24:41', NULL, '2022-08-25 22:29:48', '57', '2022-08-25 22:29:48', 0);
 COMMIT;
 
 -- ----------------------------
@@ -608,15 +614,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role` (
-                        `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
-                        `role_name` varchar(30) DEFAULT NULL COMMENT '角色名',
-                        `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
-                        `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
-                        `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
-                        `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-                        `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-                        `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
-                        PRIMARY KEY (`id`) USING BTREE
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id主键',
+  `role_name` varchar(30) DEFAULT NULL COMMENT '角色名',
+  `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
+  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '更新时间',
+  `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
+  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
+  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
+  `NOT_DEL` int(1) DEFAULT '0' COMMENT '1为不能删除，主要用于系统默认数据,0为一般数据，主要是前端控制',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色表';
 
 -- ----------------------------
@@ -631,15 +637,15 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `role_model`;
 CREATE TABLE `role_model` (
-                              `id` int(11) NOT NULL AUTO_INCREMENT,
-                              `model_id` int(22) DEFAULT NULL COMMENT '模块编号',
-                              `role_id` int(22) DEFAULT NULL COMMENT '角色编号',
-                              PRIMARY KEY (`id`),
-                              KEY `fk_model_id` (`model_id`) USING BTREE,
-                              KEY `fk_role_id` (`role_id`) USING BTREE,
-                              CONSTRAINT `fk_rm_model_id` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-                              CONSTRAINT `fk_rm_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色模块关联表';
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `model_id` int(22) DEFAULT NULL COMMENT '模块编号',
+  `role_id` int(22) DEFAULT NULL COMMENT '角色编号',
+  PRIMARY KEY (`id`),
+  KEY `fk_model_id` (`model_id`) USING BTREE,
+  KEY `fk_role_id` (`role_id`) USING BTREE,
+  CONSTRAINT `fk_rm_model_id` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `fk_rm_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色模块关联表';
 
 -- ----------------------------
 -- Records of role_model
@@ -683,12 +689,6 @@ INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (35, 1709, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (36, 1710, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (37, 1711, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (38, 1712, 48);
-INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (39, 1714, 48);
-INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (40, 1715, 48);
-INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (41, 1716, 48);
-INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (42, 1717, 48);
-INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (43, 1718, 48);
-INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (44, 1733, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (45, 1720, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (46, 1721, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (47, 1722, 48);
@@ -716,7 +716,6 @@ INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (68, 709, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (69, 1700, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (70, 1701, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (71, 1707, 48);
-INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (72, 1713, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (73, 1719, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (74, 1724, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (75, 1764, 48);
@@ -727,6 +726,16 @@ INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (79, 1781, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (80, 1782, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (81, 1783, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (82, 1801, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (83, 1802, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (84, 1803, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (85, 1804, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (86, 1805, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (87, 1806, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (88, 1807, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (89, 1808, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (90, 1809, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (91, 1810, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (92, 1811, 48);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
