@@ -38,7 +38,13 @@
 -------------------------------------------------------------------------------
 
 一直在改变，从未停止过！<br/>
-QQ交流群号： [![加入QQ群](https://img.shields.io/badge/五群-231211521-blue.svg)](https://jq.qq.com/?_wv=1027&k=5oF19sl) [![加入QQ群](https://img.shields.io/badge/四群-881894877-blue.svg)](https://jq.qq.com/?_wv=1027&k=5oF19sl) [![加入QQ群](https://img.shields.io/badge/一群-231212174-blue.svg)](https://jq.qq.com/?_wv=1027&k=5zykX7V)  [![加入QQ群](https://img.shields.io/badge/二群-221335098-blue.svg)](https://jq.qq.com/?_wv=1027&k=56BqFKu) [![加入QQ群](https://img.shields.io/badge/三群-242805203-blue.svg)](https://jq.qq.com/?_wv=1027&k=5oF19sl)
+QQ交流群号： 
+[![加入QQ群](https://img.shields.io/badge/一群-231212174-blue.svg)](https://jq.qq.com/?_wv=1027&k=5zykX7V)  
+[![加入QQ群](https://img.shields.io/badge/二群-221335098-blue.svg)](https://jq.qq.com/?_wv=1027&k=56BqFKu) 
+[![加入QQ群](https://img.shields.io/badge/三群-242805203-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=1K_RsMwZcf09Y-_74PhA_NfI85RqeDyK&jump_from=webapi&authKey=vCeXrE2f5QCobzDFZ4lHzHyH7sGtmhVfR326MjEmeMy6u0NgHlIglCCxD/6b7tEK)
+[![加入QQ群](https://img.shields.io/badge/四群-881894877-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=TzRiJf4x7tZsjKEzo8EuwuHqTALc0xCA&jump_from=webapi&authKey=04YpueACppV1tLykhOQ+fdzPhPwOkIU685LgCOQqrwEjtVQCOvTAyd6qn3xAiXl2)
+[![加入QQ群](https://img.shields.io/badge/五群-231211521-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=IfVdHXCm13Ui6NrcjvrraFkGsI8L3U1r&jump_from=webapi&authKey=Go37VdoKublA0p47ww9fS+fxt2DAh1URslG0/7ugg8zs1b+heVlGZwkASM/PlJPG)
+
 
 # 开源说明
 * 系统100%开源
