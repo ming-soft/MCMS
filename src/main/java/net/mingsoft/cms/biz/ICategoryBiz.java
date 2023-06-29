@@ -58,4 +58,11 @@ public interface ICategoryBiz extends IBaseBiz<CategoryEntity> {
     void delete(String categoryId);
 
     void copyCategory(CategoryEntity entity);
+
+    /**
+     * 强转栏目类型
+     * @param categoryEntity 栏目实体
+     * @param targetCategoryType 目标栏目类型
+     */
+    void changeCategoryType(CategoryEntity categoryEntity,String targetCategoryType);
 }

@@ -72,6 +72,10 @@
             </el-table-column>
             <el-table-column label="文章标题" align="left" prop="contentTitle" show-overflow-tooltip>
             </el-table-column>
+            <el-table-column label="文章副标题" align="left" prop="contentShortTitle" show-overflow-tooltip>
+            </el-table-column>
+            <el-table-column label="文章链接" align="left" prop="categoryId" :formatter="contentCategoryPathFormat" width="240">
+            </el-table-column>
             <el-table-column label="作者" align="left" prop="contentAuthor" width="100" show-overflow-tooltip>
             </el-table-column>
             <el-table-column label="排序" width="55" align="right" prop="contentSort">
@@ -119,153 +123,162 @@
 <script>
     var indexVue = new Vue({
         el: '#main',
-        data: {
-            conditionList: [{
-                action: 'and',
-                field: 'content_title',
-                el: 'eq',
-                model: 'contentTitle',
-                name: '文章标题',
-                type: 'input'
-            }, {
-                action: 'and',
-                field: 'category_id',
-                el: 'eq',
-                model: 'categoryId',
-                name: '所属栏目',
-                key: 'id',
-                title: 'categoryTitle',
-                type: 'cascader',
-                multiple: false
-            }, {
-                action: 'and',
-                field: 'content_type',
-                el: 'eq',
-                model: 'contentType',
-                name: '文章类型',
-                key: 'dictValue',
-                title: 'dictLabel',
-                type: 'checkbox',
-                label: false,
-                multiple: true
-            }, {
-                action: 'and',
-                field: 'content_display',
-                el: 'eq',
-                model: 'contentDisplay',
-                name: '是否显示',
-                key:'value',
-                title: 'label',
-                type: 'radio',
-                label: true,
-                multiple: false
-            }, {
-                action: 'and',
-                field: 'content_author',
-                el: 'eq',
-                model: 'contentAuthor',
-                name: '文章作者',
-                type: 'input'
-            }, {
-                action: 'and',
-                field: 'content_source',
-                el: 'eq',
-                model: 'contentSource',
-                name: '文章来源',
-                type: 'input'
-            }, {
-                action: 'and',
-                field: 'ct.content_datetime',
-                model: 'contentDatetime',
-                el: 'gt',
-                name: '发布时间',
-                type: 'date'
-            }, {
-                action: 'and',
-                field: 'content_sort',
-                el: 'eq',
-                model: 'contentSort',
-                name: '自定义顺序',
-                type: 'number'
-            }, {
-                action: 'and',
-                field: 'content_description',
-                el: 'eq',
-                model: 'contentDescription',
-                name: '描述',
-                type: 'textarea'
-            }, {
-                action: 'and',
-                field: 'content_keyword',
-                el: 'eq',
-                model: 'contentKeyword',
-                name: '关键字',
-                type: 'textarea'
-            }, {
-                action: 'and',
-                field: 'content_details',
-                el: 'like',
-                model: 'contentDetails',
-                name: '文章内容',
-                type: 'input'
-            }, {
-                action: 'and',
-                field: 'content_url',
-                el: 'eq',
-                model: 'contentUrl',
-                name: '文章跳转链接地址',
-                type: 'input'
-            },{
-                action: 'and',
-                field: 'ct.create_date',
-                el: 'eq',
-                model: 'createDate',
-                name: '创建时间',
-                type: 'date'
-            }, {
-                action: 'and',
-                field: 'ct.update_date',
-                el: 'eq',
-                model: 'updateDate',
-                name: '修改时间',
-                type: 'date'
-            }],
-            conditions: [],
-            contentCategoryIdOptions: [],
-            dataList: [],
-            //文章列表
-            selectionList: [],
-            //文章列表选中
-            total: 0,
-            //总记录数量
-            pageSize: 10,
-            //页面数量
-            currentPage: 1,
-            //初始页
-            manager: ms.manager,
-            loadState: false,
-            loading: true,
-            //加载状态
-            emptyText: '',
-            //提示文字
-            contentTypeOptions: [],
-            contentDisplayOptions: [{
-                "value": "0",
-                "label": "是"
-            }, {
-                "value": "1",
-                "label": "否"
-            }],
-            //搜索表单
-            form: {
-                sqlWhere: null,
-                // 文章标题
-                contentTitle: null,
-                // 文章类型
-                contentType: null,
-                categoryId: ''
-            },
-            leaf:true
+        data: function () {
+            return {
+                conditionList: [{
+                    action: 'and',
+                    field: 'content_title',
+                    el: 'eq',
+                    model: 'contentTitle',
+                    name: '文章标题',
+                    type: 'input'
+                }, {
+                    action: 'and',
+                    field: 'content_short_title',
+                    el: 'eq',
+                    model: 'contentShortTitle',
+                    name: '文章副标题',
+                    type: 'input'
+                }, {
+                    action: 'and',
+                    field: 'category_id',
+                    el: 'eq',
+                    model: 'categoryId',
+                    name: '所属栏目',
+                    key: 'id',
+                    title: 'categoryTitle',
+                    type: 'cascader',
+                    multiple: false
+                }, {
+                    action: 'and',
+                    field: 'content_type',
+                    el: 'eq',
+                    model: 'contentType',
+                    name: '文章类型',
+                    key: 'dictValue',
+                    title: 'dictLabel',
+                    type: 'checkbox',
+                    label: false,
+                    multiple: true
+                }, {
+                    action: 'and',
+                    field: 'content_display',
+                    el: 'eq',
+                    model: 'contentDisplay',
+                    name: '是否显示',
+                    key: 'value',
+                    title: 'label',
+                    type: 'radio',
+                    label: true,
+                    multiple: false
+                }, {
+                    action: 'and',
+                    field: 'content_author',
+                    el: 'eq',
+                    model: 'contentAuthor',
+                    name: '文章作者',
+                    type: 'input'
+                }, {
+                    action: 'and',
+                    field: 'content_source',
+                    el: 'eq',
+                    model: 'contentSource',
+                    name: '文章来源',
+                    type: 'input'
+                }, {
+                    action: 'and',
+                    field: 'ct.content_datetime',
+                    model: 'contentDatetime',
+                    el: 'gt',
+                    name: '发布时间',
+                    type: 'date'
+                }, {
+                    action: 'and',
+                    field: 'content_sort',
+                    el: 'eq',
+                    model: 'contentSort',
+                    name: '自定义顺序',
+                    type: 'number'
+                }, {
+                    action: 'and',
+                    field: 'content_description',
+                    el: 'eq',
+                    model: 'contentDescription',
+                    name: '描述',
+                    type: 'textarea'
+                }, {
+                    action: 'and',
+                    field: 'content_keyword',
+                    el: 'eq',
+                    model: 'contentKeyword',
+                    name: '关键字',
+                    type: 'textarea'
+                }, {
+                    action: 'and',
+                    field: 'content_details',
+                    el: 'like',
+                    model: 'contentDetails',
+                    name: '文章内容',
+                    type: 'input'
+                }, {
+                    action: 'and',
+                    field: 'content_url',
+                    el: 'eq',
+                    model: 'contentUrl',
+                    name: '文章跳转链接地址',
+                    type: 'input'
+                }, {
+                    action: 'and',
+                    field: 'ct.create_date',
+                    el: 'eq',
+                    model: 'createDate',
+                    name: '创建时间',
+                    type: 'date'
+                }, {
+                    action: 'and',
+                    field: 'ct.update_date',
+                    el: 'eq',
+                    model: 'updateDate',
+                    name: '修改时间',
+                    type: 'date'
+                }],
+                conditions: [],
+                contentCategoryIdOptions: [],
+                dataList: [],
+                //文章列表
+                selectionList: [],
+                //文章列表选中
+                total: 0,
+                //总记录数量
+                pageSize: 10,
+                //页面数量
+                currentPage: 1,
+                //初始页
+                manager: ms.manager,
+                loadState: false,
+                loading: true,
+                //加载状态
+                emptyText: '',
+                //提示文字
+                contentTypeOptions: [],
+                contentDisplayOptions: [{
+                    "value": "0",
+                    "label": "是"
+                }, {
+                    "value": "1",
+                    "label": "否"
+                }],
+                //搜索表单
+                form: {
+                    sqlWhere: null,
+                    // 文章标题
+                    contentTitle: null,
+                    // 文章类型
+                    contentType: null,
+                    categoryId: ''
+                },
+                leaf: true
+            }
         },
         methods: {
             //查询列表
@@ -379,7 +392,7 @@
                     }
                 }
             },
-            //表格数据转换
+            // 表格数据转换 id->name
             contentCategoryIdFormat: function (row, column, cellValue, index) {
                 var value = "";
 
@@ -394,6 +407,22 @@
                 }
 
                 return value;
+            },
+            // 表格数据转换 id->path
+            contentCategoryPathFormat: function (row, column, cellValue, index) {
+                var path = "";
+                if (cellValue) {
+                    var data = this.contentCategoryIdOptions.find(function (value) {
+                        return value.id == cellValue;
+                    });
+                    if (data && data.categoryPath) {
+                        // row.url /html/web/categoryPath/文章id.html categoryPath做占位符
+                        path = row.url.replace("categoryPath",data.categoryPath);
+                    }else {
+                        path = row.url;
+                    }
+                }
+                return path;
             },
             dateFormat: function (row, column, cellValue, index) {
                 if (cellValue) {
@@ -442,9 +471,7 @@
             //获取contentCategoryId数据源
             contentCategoryIdOptionsGet: function () {
                 var that = this;
-                ms.http.get(ms.manager + "/cms/category/list.do", {
-                    pageSize: 9999
-                }).then(function (res) {
+                ms.http.get(ms.manager + "/cms/category/list.do").then(function (res) {
                     if (res.result) {
                         that.contentCategoryIdOptions = res.data.rows;
                     }else {

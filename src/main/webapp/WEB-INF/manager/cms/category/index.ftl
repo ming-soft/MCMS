@@ -46,7 +46,9 @@
                           @click="copyContent(true)">{{scope.row.id}}</span>
                 </template>
             </el-table-column>
-            <el-table-column label="标题" align="left" prop="categoryTitle">
+            <el-table-column label="标题" align="left" prop="categoryTitle" :show-overflow-tooltip="true">
+            </el-table-column>
+            <el-table-column label="副标题" align="left" prop="categoryShortTitle" width="120" :show-overflow-tooltip="true">
             </el-table-column>
             <el-table-column label="类型" align="center" prop="categoryType" :formatter="categoryTypeFormat" width="70">
             </el-table-column>
@@ -55,8 +57,8 @@
             <el-table-column label="链接地址" align="left" prop="categoryPath" min-width="200" show-overflow-tooltip>
                 <template slot-scope="scope">
                     <span v-if="scope.row.categoryType == '1' || scope.row.categoryType == '2'" style="cursor: pointer"
-						  class="copyBtn" :data-clipboard-text="'{ms:global.url/}'+scope.row.url"
-						  @click="copyContent">{{"{ms:global.url/}"+scope.row.url}}</span>
+                          class="copyBtn" :data-clipboard-text="scope.row.url"
+                          @click="copyContent">{{scope.row.url}}</span>
                     <span v-if="scope.row.categoryType == '3'" style="cursor: pointer" class="copyBtn"
                           :data-clipboard-text="scope.row.categoryDiyUrl" @click="copyContent">{{scope.row.categoryDiyUrl}}</span>
                 </template>
@@ -133,6 +135,8 @@
             form: {
                 // 栏目管理名称
                 categoryTitle: '',
+                // 栏目管理名称
+                categoryShortTitle: '',
                 // 所属栏目
                 categoryId: '',
                 // 栏目管理属性
@@ -221,9 +225,7 @@
                 var that = this;
                 this.loadState = false;
                 this.loading = true;
-                ms.http.get(ms.manager + "/cms/category/list.do", {
-                    pageSize: 999
-                }).then(function (res) {
+                ms.http.get(ms.manager + "/cms/category/list.do").then(function (res) {
                     if (that.loadState) {
                         that.loading = false;
                     } else {

@@ -20,7 +20,9 @@
                     <el-button type="primary" icon="iconfont icon-baocun" size="mini" @click="save()" :loading="saveDisabled">保存
                     </el-button>
                 </@shiro.hasPermission>
-                <el-button size="mini" icon="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回
+                <el-button v-if="categoryType==1" size="mini" icon="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回
+                </el-button>
+                <el-button v-if="categoryType==2" size="mini" type="danger" icon="el-icon-delete" @click="del()">删除
                 </el-button>
             </el-col>
         </el-row>
@@ -33,7 +35,7 @@
                     <el-form v-if="item.title=='文章编辑'" ref="form" :model="form" :rules="rules" label-width="120px"
                              size="mini">
                         <el-row :gutter="0" justify="start" align="top">
-                            <el-col :span="returnIsShow?'12':'24'">
+                            <el-col :span="12">
                                 <el-form-item label="文章标题" prop="contentTitle">
                                     <el-input v-model="form.contentTitle"
                                               :disabled="false"
@@ -64,11 +66,24 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
+                            <el-col :span="12" v-else>
+                                <el-form-item label="文章副标题" prop="contentShortTitle">
+                                    <el-input v-model="form.contentShortTitle"
+                                              :disabled="false"
+                                              :style="{width:  '100%'}"
+                                              :clearable="true"
+                                              placeholder="请输入文章副标题">
+                                    </el-input>
+                                    <div class="ms-form-tip">
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.shorttitle}</a>
+                                    </div>
+                                </el-form-item>
+                            </el-col>
                         </el-row>
                         <el-row
                                 gutter="0"
-                                justify="start" align="top">
-                            <el-col :span="returnIsShow?'12':'24'">
+                                justify="start" align="top" v-if="returnIsShow">
+                            <el-col :span="12">
                                 <el-form-item label="文章副标题" prop="contentShortTitle">
                                     <el-input v-model="form.contentShortTitle"
                                               :disabled="false"
@@ -135,6 +150,43 @@
                                     </el-date-picker>
                                     <div class="ms-form-tip">
                                         标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.date?string("yyyy-MM-dd")}</a>
+                                    </div>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row
+                                gutter="0"
+                                justify="start" align="top">
+                            <el-col span="12">
+                                <el-form-item label="文章标签" prop="contentTags">
+                                    <el-select v-model="form.contentTags"
+                                               :style="{width: '100%'}"
+                                               :filterable="false"
+                                               :disabled="false"
+                                               filterable
+                                               :multiple="true" :clearable="true"
+                                               placeholder="请选择文章标签">
+                                        <el-option v-for='item in contentTagsOptions' :key="item.dictValue"
+                                                   :value="item.dictValue"
+                                                   :label="item.dictLabel"></el-option>
+                                    </el-select>
+                                    <div class="ms-form-tip">
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.tags}</a>
+                                        通过自定义字典可扩展数据
+                                    </div>
+                                </el-form-item>
+                            </el-col>
+                            <el-col span="12" v-if="!returnIsShow">
+                                <el-form-item label="文章外链接" prop="contentOutLink">
+                                    <el-input v-model="form.contentOutLink"
+                                              :disabled="false"
+                                              :style="{width:  '100%'}"
+                                              :clearable="true"
+                                              placeholder="请输入文章外链接">
+                                    </el-input>
+                                    <div class="ms-form-tip">
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
+                                              target="_blank">${'$'}{field.outlink}</a> 文章外链接必须以http或者https等开头
                                     </div>
                                 </el-form-item>
                             </el-col>
@@ -213,6 +265,7 @@
                                     :disabled="false"
                                     :data="{uploadPath:'/cms/content','isRename':true ,'appId':true}"
                                     :on-success="contentImgSuccess"
+                                    :on-error="contentImgError"
                                     accept="image/*"
                                     list-type="picture-card">
                                 <i class="el-icon-plus"></i>
@@ -266,6 +319,12 @@
     var formVue = new Vue({
         el: '#form',
         data: function () {
+            var checkTags = function (rule, value, callback){
+                if (value.length > 5){
+                    return callback(new Error('文章标签最多选择5个'));
+                }
+                callback();
+            }
             return {
                 saveDisabled: false,
                 activeName: 'form',
@@ -297,6 +356,8 @@
                     contentSource: '',
                     // 自定义顺序
                     contentSort: 0,
+                    // 文章标签
+                    contentTags: [],
                     // 文章缩略图
                     contentImg: [],
                     // 描述
@@ -311,6 +372,7 @@
                 },
                 categoryType: '1',
                 contentTypeOptions: [],
+                contentTagsOptions: [],
                 categoryIdOptions: [],
                 contentDisplayOptions: [{
                     "value": "0",
@@ -333,6 +395,9 @@
                     categoryId: [{
                         "required": true,
                         "message": "所属栏目不能为空"
+                    }],
+                    contentTags: [{
+                        validator: checkTags, trigger: 'blur'
                     }]
                 }
             };
@@ -352,8 +417,12 @@
                 var that = this; //自定义模型需要验证
 
                 var model = null;
-                if (that.currCategory.mdiyModelId && String(that.currCategory.mdiyModelId )!="0"){
-                    model = ms.mdiy.model.modelForm();
+                if (that.currCategory && that.currCategory.mdiyModelId && String(that.currCategory.mdiyModelId )!="0"){
+                    try {
+                        model = ms.mdiy.model.modelForm();
+                    } catch (e) {
+                        console.log(e)
+                    }
                 }
                 if (model && !model.validate()) {
                     this.activeName = 'custom-name';
@@ -374,9 +443,21 @@
                         that.saveDisabled = true; //判断
 
                         var data = JSON.parse(JSON.stringify(that.form));
-
+                        // 固定属性顺序为字典顺序
                         if (data.contentType) {
-                            data.contentType = data.contentType.join(',');
+                            var orderTypes = [];
+                            that.contentTypeOptions.forEach(function (dict) {
+                                var orderType = data.contentType.find(function (type) {
+                                    return type==dict.dictValue
+                                })
+                                if (orderType){
+                                    orderTypes.push(orderType)
+                                }
+                            })
+                            data.contentType = orderTypes.join(',');
+                        }
+                        if (data.contentTags) {
+                            data.contentTags = data.contentTags.join(',');
                         }
                         if (data.contentImg == []) {
                             data.contentImg = ""
@@ -422,16 +503,39 @@
                     }
                 });
             },
-            removeModel: function () {
+            //删除
+            del: function () {
                 var that = this;
-                var model = document.getElementById('model1');
-                var custom = document.getElementById('c_model');
-
-                if (custom) {
-                    model.removeChild(custom);
-                }
-
-                that.model = undefined;
+                that.$confirm('此操作将永久删除所选内容, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    var formData = that.form;
+                    formData.contentType = ""
+                    formData.contentImg = ""
+                    ms.http.post(ms.manager + "/cms/content/delete.do",  [formData], {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    }).then(function (res) {
+                        if (res.result) {
+                            that.$notify({
+                                title:'成功',
+                                type: 'success',
+                                message: '删除成功!'
+                            });
+                            //	刷新列表
+                            window.parent.location.reload();
+                        } else {
+                            that.$notify({
+                                title: '失败',
+                                message: res.msg,
+                                type: 'warning'
+                            });
+                        }
+                    });
+                })
             },
             categoryChange: function () {
                 this.changeModel();
@@ -449,13 +553,16 @@
             rederModel: function (modelId) {
                 var that = this;
                 that.editableTabs.push({
-                    title: '',
+                    title: '加载中...',
                     name: 'custom-name'
                 });
-                ms.mdiy.model.extend("model1", {id:modelId},{ linkId: that.form.id },true).then(function(obj) {
-                    that.model = obj;
-                    that.editableTabs[1].title = obj.modelName
+                this.$nextTick(function () {
+                    ms.mdiy.model.extend("model1", {id:modelId},{ linkId: that.form.id },true).then(function(obj) {
+                        that.model = obj;
+                        that.editableTabs[1].title = obj.modelName
+                    });
                 });
+
 
             },
             getValue: function (data) {
@@ -472,6 +579,12 @@
                             res.data.contentType = res.data.contentType.split(',');
                         } else {
                             res.data.contentType = [];
+                        }
+
+                        if (res.data.contentTags && res.data.contentTags != '') {
+                            res.data.contentTags = res.data.contentTags.split(',');
+                        } else {
+                            res.data.contentTags = [];
                         }
 
                         if (res.data.contentImg && res.data.contentImg != '') {
@@ -521,6 +634,12 @@
                                 res.data.contentImg = [];
                             }
 
+                            if (res.data.contentTags && res.data.contentTags != '') {
+                                res.data.contentTags = res.data.contentTags.split(',');
+                            } else {
+                                res.data.contentTags = [];
+                            }
+
                             that.form = res.data;
                             var category = that.categoryIdOptions.filter(function (f) {
                                 return f['id'] == that.form.categoryId;
@@ -546,9 +665,7 @@
             //获取contentCategoryId数据源
             contentCategoryIdOptionsGet: function () {
                 var that = this;
-                ms.http.get(ms.manager + "/cms/category/list.do", {
-                    pageSize: 9999
-                }).then(function (res) {
+                ms.http.get(ms.manager + "/cms/category/list.do").then(function (res) {
                     if (res.result) {
                         res.data.rows.forEach(function (item) {
                             if (item.categoryType == '2' || item.categoryType == '3') {
@@ -576,6 +693,19 @@
                     }
                 });
             },
+            //获取contentType数据源
+            contentTagsOptionsGet: function () {
+                var that = this;
+                ms.http.get(ms.base + '/mdiy/dict/list.do', {
+                    dictType: '文章标签',
+                    pageSize: 99999
+                }).then(function (data) {
+                    if(data.result){
+                        data = data.data;
+                        that.contentTagsOptions = data.rows;
+                    }
+                });
+            },
             //contentImg文件上传完成回调
             contentImgSuccess: function (response, file, fileList) {
                 if(response.result){
@@ -593,6 +723,16 @@
                     });
                 }
 
+            },
+            //contentImg文件上传失败回调
+            contentImgError: function (response, file, fileList) {
+                response = response.toString().replace("Error: ","")
+                response = JSON.parse(response);
+                this.$notify({
+                    title: '失败',
+                    message: response.msg,
+                    type: 'warning'
+                });
             },
             contentImghandleRemove: function (file, files) {
                 var index = -1;
@@ -679,6 +819,7 @@
         created: function () {
             this.contentCategoryIdOptionsGet();
             this.contentTypeOptionsGet();
+            this.contentTagsOptionsGet();
         }
     });
 </script>

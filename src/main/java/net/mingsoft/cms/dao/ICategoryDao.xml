@@ -15,6 +15,7 @@
 		<result column="category_keyword" property="categoryKeyword" /><!--栏目管理关键字 -->
 		<result column="category_descrip" property="categoryDescrip" /><!--栏目管理描述 -->
 		<result column="category_display" property="categoryDisplay" /><!--栏目是否显示 -->
+		<result column="category_is_search" property="categoryIsSearch" /><!--栏目是否显示 -->
 		<result column="category_img" property="categoryImg" /><!--栏目banner图 -->
 		<result column="category_ico" property="categoryIco" /><!--栏目小图 -->
 		<result column="category_diy_url" property="categoryDiyUrl" /><!--自定义链接 -->
@@ -55,6 +56,7 @@
 			<if test="categoryDescrip != null ">category_descrip=#{categoryDescrip},</if>
 			<if test="categoryImg != null and categoryImg != ''">category_img=#{categoryImg},</if>
 			<if test="categoryDisplay != null and categoryDisplay != ''">category_display=#{categoryDisplay},</if>
+			<if test="categoryIsSearch != null and categoryIsSearch != ''">category_is_search=#{categoryIsSearch},</if>
 			<if test="categoryIco != null and categoryIco != ''">category_ico=#{categoryIco},</if>
 			<if test="categoryDiyUrl != null">category_diy_url=#{categoryDiyUrl},</if>
 			<if test="dictId != null">dict_id=#{dictId},</if>

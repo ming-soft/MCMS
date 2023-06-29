@@ -74,6 +74,8 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
     	@ApiImplicitParam(name = "contentTitle", value = "文章标题", required =false,paramType="query"),
     	@ApiImplicitParam(name = "categoryId", value = "所属栏目", required =false,paramType="query"),
     	@ApiImplicitParam(name = "contentType", value = "文章类型", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "flag", value = "文章类型", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "noflag", value = "排除文章类型", required =false,paramType="query"),
     	@ApiImplicitParam(name = "contentDisplay", value = "是否显示", required =false,paramType="query"),
     	@ApiImplicitParam(name = "contentAuthor", value = "文章作者", required =false,paramType="query"),
     	@ApiImplicitParam(name = "contentSource", value = "文章来源", required =false,paramType="query"),

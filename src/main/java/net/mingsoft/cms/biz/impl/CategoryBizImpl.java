@@ -24,17 +24,21 @@
 
 package net.mingsoft.cms.biz.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
 import net.mingsoft.basic.util.PinYinUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
+import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.dao.ICategoryDao;
 import net.mingsoft.cms.dao.IContentDao;
 import net.mingsoft.cms.entity.CategoryEntity;
+import net.mingsoft.cms.entity.ContentEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +46,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 分类管理持久化层
@@ -111,7 +116,8 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
         }
         //保存链接地址
         String path = ObjectUtil.isNotNull(parentCategory) ? parentCategory.getCategoryPath() : "";
-        categoryEntity.setCategoryPath(path + "/" + categoryEntity.getCategoryPinyin());
+        String newPath = StringUtils.isBlank(path) ? categoryEntity.getCategoryPinyin() : path + "/" + categoryEntity.getCategoryPinyin();
+        categoryEntity.setCategoryPath(newPath);
         setTopId(categoryEntity);
         super.updateById(categoryEntity);
     }
@@ -132,6 +138,9 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
         //保存时先保存再修改链接地址，修改时直接修改
         if (StringUtils.isNotBlank(categoryEntity.getId())) {
             categoryEntity.setCategoryPath(path + "/" + categoryEntity.getCategoryPinyin());
+            if (StringUtils.isBlank(path)){
+                categoryEntity.setCategoryPath(categoryEntity.getCategoryPinyin());
+            }
         }
 
     }
@@ -179,7 +188,8 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
         if (StringUtils.isEmpty(entity.getCategoryParentIds())) {
             entity.setCategoryParentIds(null);
         }
-        categoryDao.updateEntity(entity);
+//        categoryDao.updateEntity(entity);
+        categoryDao.updateById(entity);
         //更新子节点所有父节点id和topid
         //如果本节点的topid为0（顶级栏目）,则把自身的id作为子栏目的topid，非0所有的子栏目和本栏目使用同一个topid
         String topId = entity.getTopId();
@@ -313,6 +323,29 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
             //如果该栏目下还有子栏目则继续复制该栏目里的子栏目
             recursionCopyChilds(childId, child.getId());
         }
+    }
+
+
+    @Override
+    public void changeCategoryType(CategoryEntity categoryEntity,String targetCategoryType) {
+
+        // 转换为单篇
+        if (CategoryTypeEnum.COVER.toString().equalsIgnoreCase(targetCategoryType)){
+            contentDao.deleteEntityByCategoryIds(new String[]{categoryEntity.getId()});
+            categoryEntity.setCategoryUrl(null);
+            categoryEntity.setCategoryListUrl(null);
+        // 转换为链接
+        } else if (CategoryTypeEnum.LINK.toString().equalsIgnoreCase(targetCategoryType)){
+            contentDao.deleteEntityByCategoryIds(new String[]{categoryEntity.getId()});
+            categoryEntity.setCategoryUrl(null);
+            categoryEntity.setCategoryListUrl(null);
+        } else if (CategoryTypeEnum.LIST.toString().equalsIgnoreCase(targetCategoryType)) {
+            categoryEntity.setCategoryUrl(null);
+        }
+
+        categoryEntity.setCategoryType(targetCategoryType);
+        categoryEntity.setCategoryDiyUrl(null);
+        categoryDao.updateById(categoryEntity);
     }
 
 }

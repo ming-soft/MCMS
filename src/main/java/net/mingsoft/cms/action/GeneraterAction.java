@@ -159,11 +159,11 @@ public class GeneraterAction extends BaseAction {
      * @param response
      * @param categoryId
      */
-    @RequestMapping(value = "/{categoryId}/genernateColumn", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/{categoryId}/generateColumn", method = {RequestMethod.GET, RequestMethod.POST})
     @LogAnn(title = "生成栏目", businessType = BusinessTypeEnum.UPDATE)
     @RequiresPermissions("cms:generate:column")
     @ResponseBody
-    public ResultData genernateColumn(HttpServletRequest request, HttpServletResponse response, @PathVariable String categoryId) throws IOException {
+    public ResultData generateColumn(HttpServletRequest request, HttpServletResponse response, @PathVariable String categoryId) throws IOException {
         // 获取站点id
         AppEntity app = BasicUtil.getApp();
 

@@ -37,7 +37,9 @@ import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.basic.util.PinYinUtil;
 import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
+import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
+import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,9 +91,8 @@ public class CategoryAction extends BaseAction {
     @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category) {
-        BasicUtil.startPage();
         List categoryList = categoryBiz.list(new LambdaQueryWrapper<CategoryEntity>(category));
-        return ResultData.build().success(new EUListBean(categoryList, (int) BasicUtil.endPage(categoryList).getTotal()));
+        return ResultData.build().success(new EUListBean(categoryList, categoryList.size()));
     }
 
     /**
@@ -163,9 +164,16 @@ public class CategoryAction extends BaseAction {
             return ResultData.build().error(getResString("err.length", this.getResString("category.title"), "1", "100"));
         }
 
-        if (!StringUtil.checkLength(category.getCategoryPath() + "", 1, 100)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("category.path"), "1", "100"));
+        // 判断前端拼音传值是否正常
+        if (!StringUtil.checkLength(category.getCategoryPinyin() + "", 0, 100)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.pinyin"), "1", "100"));
         }
+
+        // 过滤非法路径
+        if (category.getCategoryPinyin().contains("../") || category.getCategoryPinyin().contains("..\\")) {
+            return ResultData.build().error(this.getResString("err.error",this.getResString("category.pinyin")));
+        }
+
         if (!StringUtil.checkLength(category.getCategoryParentIds() + "", 1, 100)) {
             return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
         }
@@ -240,6 +248,9 @@ public class CategoryAction extends BaseAction {
         if (category.getCategoryImg() == null || !category.getCategoryImg().matches("^\\[.{1,}]$")) {
             category.setCategoryImg("");
         }
+        if (StringUtils.isEmpty(category.getId())){
+            return ResultData.build().error(getResString("err.empty", this.getResString("category.id")));
+        }
         //验证栏目管理名称的值是否合法
         if (StringUtil.isBlank(category.getCategoryTitle())) {
             return ResultData.build().error(getResString("err.empty", this.getResString("category.title")));
@@ -248,11 +259,16 @@ public class CategoryAction extends BaseAction {
             return ResultData.build().error(getResString("err.length", this.getResString("category.title"), "1", "100"));
         }
 
-        if (!StringUtil.checkLength(category.getCategoryPath() + "", 0, 100)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("category.path"), "1", "100"));
+        // 判断前端拼音传值是否正常
+        if (!StringUtil.checkLength(category.getCategoryPinyin() + "", 1, 100)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.pinyin"), "1", "100"));
         }
         if (!StringUtil.checkLength(category.getCategoryParentIds() + "", 0, 100)) {
             return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
+        }
+        // 过滤非法路径
+        if (category.getCategoryPinyin().contains("../") || category.getCategoryPinyin().contains("..\\")) {
+            return ResultData.build().error(this.getResString("err.error",this.getResString("category.pinyin")));
         }
         //判断拼音是否重复并且是否和原拼音相同
         if (StrUtil.isNotBlank(category.getCategoryPinyin()) && !categoryBiz.getById(category.getId()).getCategoryPinyin().equals(category.getCategoryPinyin())) {
@@ -371,6 +387,29 @@ public class CategoryAction extends BaseAction {
         }
         categoryBiz.copyCategory(category);
         return ResultData.build().success();
+    }
+
+
+    @ApiOperation(value = "强制转换类型接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "typeid", value = "编号", required =true,paramType="query"),
+            @ApiImplicitParam(name = "categoryType", value = "栏目类型", required =true,paramType="query")
+    })
+    @GetMapping("/changeType")
+    @ResponseBody
+    @RequiresPermissions("cms:category:update")
+    public ResultData changeType(){
+        String typeId = BasicUtil.getString(ParserUtil.TYPE_ID);
+        String categoryType = BasicUtil.getString("categoryType");
+        CategoryEntity category = categoryBiz.getById(typeId);
+        if (category == null){
+            return ResultData.build().error(getResString("err.error",getResString("id")));
+        }
+        if (CategoryTypeEnum.get(categoryType).equals(CategoryTypeEnum.UN_KNOW)){
+            return ResultData.build().error(getResString("err.error",getResString("category.type")));
+        }
+        categoryBiz.changeCategoryType(category,categoryType);
+        return ResultData.build().success(category);
     }
 
 }

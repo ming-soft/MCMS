@@ -35,6 +35,7 @@ import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.entity.ModelEntity;
+import net.mingsoft.mdiy.util.ConfigUtil;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,9 +93,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
     /**
      * 实现前端页面的文章搜索
-     *
-     * @param request  搜索id
-     * @param response
+     * @return 渲染后的搜索页面
      */
     @RequestMapping(value = "search",method = {RequestMethod.GET, RequestMethod.POST},produces= MediaType.TEXT_HTML_VALUE+";charset=utf-8")
     @ResponseBody
@@ -127,6 +126,9 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         //获取栏目信息
         String typeId = null;
         String categoryIds = BasicUtil.getString("categoryIds");
+        if ("null".equals(categoryIds)){
+            categoryIds = null;
+        }
 
         //List categoryIdList = CollectionUtil.newArrayList();
 
@@ -224,6 +226,10 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
 
         Map<String, Object> searchMap = field;
+        String contentTag = BasicUtil.getString("content_tag");
+        if (StringUtils.isNotBlank(contentTag)){
+            searchMap.put("content_tag", contentTag);
+        }
         searchMap.put("categoryIds",categoryIds);
         StringBuilder urlParams = new StringBuilder();
 
@@ -244,14 +250,20 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         params.put("search", searchMap);
 
         //站点编号
+        Boolean shortSwitch = ConfigUtil.getBoolean("短链配置", "shortLinkSwitch");
         if (BasicUtil.getWebsiteApp() != null) {
             params.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
             params.put(ParserUtil.URL, BasicUtil.getWebsiteApp().getAppHostUrl());
             params.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getAppId());
+        } else if (shortSwitch){
+            params.put(ParserUtil.URL, BasicUtil.getUrl());
+            params.put(ParserUtil.APP_DIR, "");
         } else {
             params.put(ParserUtil.URL, BasicUtil.getUrl());
             params.put(ParserUtil.APP_DIR, BasicUtil.getApp().getAppDir());
         }
+        params.put(ParserUtil.SHORT_SWITCH, shortSwitch);
+
         //对项目名预处理
         String contextPath = BasicUtil.getContextPath();
         if (StringUtils.isNotBlank(contextPath) && "/".equalsIgnoreCase(contextPath) ){

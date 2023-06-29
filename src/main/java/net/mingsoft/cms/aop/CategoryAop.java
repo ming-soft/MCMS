@@ -14,6 +14,7 @@ import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.exception.BusinessException;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.constant.e.CategoryDisplayEnum;
+import net.mingsoft.cms.constant.e.CategoryIsSearchEnum;
 import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.dao.ICategoryDao;
 import net.mingsoft.cms.dao.IContentDao;
@@ -78,18 +79,35 @@ public class CategoryAop extends net.mingsoft.basic.aop.BaseAop {
             throw new BusinessException("栏目不存在!");
         }
 
+        // 获取返回值
+        Object obj = pjp.proceed(pjp.getArgs());
+        ResultData resultData = JSONUtil.toBean(JSONUtil.toJsonStr(obj), ResultData.class);
+        category = resultData.getData(CategoryEntity.class);
+
+        if (category == null) {
+            return resultData;
+        }
+
         // 如果栏目被设置为不显示，将栏目下所有子栏目也设置为不显示
         if (CategoryDisplayEnum.DISABLE.toString().equalsIgnoreCase(category.getCategoryDisplay())){
             List<String> ids = categoryDao.queryChildren(category).stream().map(CategoryEntity::getId).collect(Collectors.toList());
             LambdaUpdateWrapper<CategoryEntity> wrapper = new UpdateWrapper<CategoryEntity>().lambda();
             wrapper.set(CategoryEntity::getCategoryDisplay,CategoryDisplayEnum.DISABLE.toString());
             wrapper.in(CategoryEntity::getId,ids);
-            categoryDao.update(new CategoryEntity(),wrapper);
+            categoryDao.update(null,wrapper);
 
         }
-        // 获取返回值
-        Object obj = pjp.proceed(pjp.getArgs());
-        ResultData resultData = JSONUtil.toBean(JSONUtil.toJsonStr(obj), ResultData.class);
+
+        // 如果栏目被设置为不被搜索，将栏目下所有子栏目也设置为不被搜索
+        if (CategoryIsSearchEnum.DISABLE.toString().equalsIgnoreCase(category.getCategoryIsSearch())){
+            List<String> ids = categoryDao.queryChildren(category).stream().map(CategoryEntity::getId).collect(Collectors.toList());
+            LambdaUpdateWrapper<CategoryEntity> wrapper = new UpdateWrapper<CategoryEntity>().lambda();
+            wrapper.set(CategoryEntity::getCategoryIsSearch,CategoryIsSearchEnum.DISABLE.toString());
+            wrapper.in(CategoryEntity::getId,ids);
+            categoryDao.update(null,wrapper);
+
+        }
+
         CategoryEntity parent = categoryDao.selectById(category.getCategoryId());
         if (parent == null) {
             return resultData;
@@ -97,7 +115,7 @@ public class CategoryAop extends net.mingsoft.basic.aop.BaseAop {
 
         // 用于判断父级栏目之前是否是子栏目
         // 只有父节点之前为子节点 && 父栏目类型为列表 && 子栏目为列表
-        boolean flag = parent.getLeaf() && StringUtils.equals(parent.getCategoryType(), CategoryTypeEnum.LIST.toString());
+        boolean flag = !parent.getLeaf() && StringUtils.equals(parent.getCategoryType(), CategoryTypeEnum.LIST.toString());
         if (flag) {
             // 将父栏目的内容模板清空
             parent.setCategoryUrl("");
@@ -144,6 +162,11 @@ public class CategoryAop extends net.mingsoft.basic.aop.BaseAop {
      *                     删除栏目静态文件
      */
     public void deleteCategoryHtml(String categoryPath) {
+        // 过滤非法路径
+        if (StringUtils.isEmpty(categoryPath) || categoryPath.contains("../") || categoryPath.contains("..\\")) {
+            LOG.error("非法路径：{}", categoryPath);
+            throw new BusinessException("非法路径");
+        }
         // html真实路径
         String htmlPath = BasicUtil.getRealPath(htmlDir);
         // appDir

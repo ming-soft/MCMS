@@ -12,6 +12,7 @@
 				<result column="content_author" property="contentAuthor" /><!--文章作者 -->
 				<result column="content_source" property="contentSource" /><!--文章来源 -->
 				<result column="content_datetime" property="contentDatetime" /><!--发布时间 -->
+				<result column="content_tags" property="contentTags" /><!--文章标签 -->
 				<result column="content_sort" property="contentSort" /><!--自定义顺序 -->
 				<result column="content_img" property="contentImg" /><!--文章缩略图 -->
 				<result column="content_description" property="contentDescription" /><!--描述 -->
@@ -36,6 +37,7 @@
 		<result column="content_author" property="contentAuthor" /><!--文章作者 -->
 		<result column="content_source" property="contentSource" /><!--文章来源 -->
 		<result column="content_datetime" property="contentDatetime" /><!--发布时间 -->
+		<result column="content_tags" property="contentTags" /><!--文章标签 -->
 		<result column="content_sort" property="contentSort" /><!--自定义顺序 -->
 		<result column="content_img" property="contentImg" /><!--文章缩略图 -->
 		<result column="content_description" property="contentDescription" /><!--描述 -->
@@ -56,7 +58,7 @@
 		<id column="article_Id" property="articleId" /><!--编号 -->
 		<result column="content_update_date" property="contentUpdateDate" /><!--文章更新时间-->
 		<result column="category_title" property="categoryTitle" /><!--栏目管理名称 -->
-		<result column="content_short_title" property="contentShortTitle" /><!--文章副标题 -->
+		<result column="category_short_title" property="categoryShortTitle" /><!--栏目副标题 -->
 		<result column="category_id" property="categoryId" /><!--所属栏目 -->
 		<result column="category_type" property="categoryType" /><!--栏目管理属性 -->
 		<result column="category_sort" property="categorySort" /><!--自定义顺序 -->
@@ -92,6 +94,7 @@
 				<if test="contentSource != null and contentSource != ''">content_source,</if>
 				<if test="contentDatetime != null">content_datetime,</if>
 				<if test="contentSort != null">content_sort,</if>
+				<if test="contentTags != null and contentTags != ''">content_tags,</if>
 				<if test="contentImg != null and contentImg != ''">content_img,</if>
 				<if test="contentDescription != null and contentDescription != ''">content_description,</if>
 				<if test="contentKeyword != null and contentKeyword != ''">content_keyword,</if>
@@ -114,6 +117,7 @@
 				<if test="contentSource != null and contentSource != ''">#{contentSource},</if>
 				<if test="contentDatetime != null">#{contentDatetime},</if>
 				<if test="contentSort != null">#{contentSort},</if>
+				<if test="contentTags != null and contentTags != ''">#{contentTags},</if>
 				<if test="contentImg != null and contentImg != ''">#{contentImg},</if>
 				<if test="contentDescription != null and contentDescription != ''">#{contentDescription},</if>
 				<if test="contentKeyword != null and contentKeyword != ''">#{contentKeyword},</if>
@@ -141,6 +145,7 @@
 				<if test="contentSource != null ">content_source=#{contentSource},</if>
 				<if test="contentDatetime != null">content_datetime=#{contentDatetime},</if>
 				<if test="contentSort != null">content_sort=#{contentSort},</if>
+				<if test="contentTags != null and contentTags != ''">content_tags=#{contentTags},</if>
 				<if test="contentImg != null and contentImg != ''">content_img=#{contentImg},</if>
 				<if test="contentDescription != null ">content_description=#{contentDescription},</if>
 				<if test="contentKeyword != null ">content_keyword=#{contentKeyword},</if>
@@ -175,6 +180,7 @@
 				<if test="contentSource != null and contentSource != ''">and content_source=#{contentSource}</if>
 				<if test="contentDatetime != null"> and content_datetime=#{contentDatetime} </if>
 				<if test="contentSort != null"> and content_sort=#{contentSort} </if>
+				<if test="contentTags != null and contentTags != ''">and content_tags=#{contentTags}</if>
 				<if test="contentImg != null and contentImg != ''">and content_img=#{contentImg}</if>
 				<if test="contentDescription != null and contentDescription != ''">and content_description=#{contentDescription}</if>
 				<if test="contentKeyword != null and contentKeyword != ''">and content_keyword=#{contentKeyword}</if>
@@ -241,6 +247,7 @@
 			<if test="contentSource != null and contentSource != ''"> and content_source=#{contentSource}</if>
 			<if test="contentDatetime != null"> and content_datetime=#{contentDatetime} </if>
 			<if test="contentSort != null"> and content_sort=#{contentSort} </if>
+			<if test="contentTags != null and contentTags != ''">and content_tags=#{contentTags}</if>
 			<if test="contentImg != null and contentImg != ''"> and content_img=#{contentImg}</if>
 			<if test="contentDescription != null and contentDescription != ''"> and content_description=#{contentDescription}</if>
 			<if test="contentKeyword != null and contentKeyword != ''"> and content_keyword=#{contentKeyword}</if>
@@ -272,6 +279,20 @@
 				<foreach item="item" index="index" collection="contentType.split(',')" open="(" separator="or"
 						 close=")">
 					FIND_IN_SET(#{item},ct.content_type)>0
+				</foreach>
+			</if>
+			<if test="flag != null and flag != ''">
+				and
+				<foreach item="item" index="index" collection="flag.split(',')" open="(" separator="or"
+						 close=")">
+					FIND_IN_SET(#{item},ct.content_type)>0
+				</foreach>
+			</if>
+			<if test="noflag != null and noflag != ''">
+				and
+				<foreach item="item" index="index" collection="noflag.split(',')" open="(" separator="and"
+						 close=" or ct.content_type is null)">
+					FIND_IN_SET(#{item},ct.content_type)=0
 				</foreach>
 			</if>
 			<if test="contentDisplay != null and contentDisplay != ''"> and content_display=#{contentDisplay}</if>
@@ -412,6 +433,9 @@
 		</if>
 		<where>
 			a.del=0
+			and a.content_display=0
+			and c.category_display='enable'
+			and c.category_is_search='enable'
 			<if test="ids!=null and ids!=''">
 				and FIND_IN_SET(a.category_id,#{ids})>0
 			</if>
@@ -431,6 +455,9 @@
 			</if>
 			<if test="map.content_description!=null">
 			and a.content_description like CONCAT(CONCAT('%',#{map.content_description}),'%')
+			</if>
+			<if test="map.content_tag!=null">
+				and a.content_tags like CONCAT(CONCAT('%',#{map.content_tag}),'%')
 			</if>
 			<if test="map.content_keyword!=null">
 			and a.content_keyword like CONCAT(CONCAT('%',#{map.content_keyword}),'%')

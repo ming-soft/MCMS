@@ -130,25 +130,27 @@
     var app = new Vue({
         el: '#app',
         watch: {},
-        data: {
-            homeLoading: false,
-            articleLoading: false,
-            columnLoading: false,
-            template: '',
-            //主题模板
-            templateOptions: [],
-            position: 'index',
-            //位置
-            contentSection: '0',
-            //文章栏目
-            section: '0',
-            //栏目
-            time: ms.util.date.fmt(new Date(), "yyyy-MM-dd"),
-            treeList: [{
-                id: '0',
-                categoryTitle: '顶级栏目',
-                children: []
-            }]
+        data: function () {
+            return {
+                homeLoading: false,
+                articleLoading: false,
+                columnLoading: false,
+                template: '',
+                //主题模板
+                templateOptions: [],
+                position: 'index',
+                //位置
+                contentSection: '0',
+                //文章栏目
+                section: '0',
+                //栏目
+                time: ms.util.date.fmt(new Date(), "yyyy-MM-dd"),
+                treeList: [{
+                    id: '0',
+                    categoryTitle: '顶级栏目',
+                    children: []
+                }]
+            }
         },
         methods: {
             //更新主页
@@ -176,7 +178,7 @@
                     } else {
                         that.$notify({
                             title: '失败',
-                            message: "更新失败！",
+                            message: data.msg,
                             type: 'error'
                         });
                     }
@@ -200,7 +202,7 @@
             updateColumn: function () {
                 var that = this;
                 that.columnLoading = true;
-                ms.http.get(ms.manager + '/cms/generate/' + (that.section ? that.section : 0) + '/genernateColumn.do').then(function (data) {
+                ms.http.get(ms.manager + '/cms/generate/' + (that.section ? that.section : 0) + '/generateColumn.do').then(function (data) {
                     if (data.result) {
                         that.$notify({
                             title: '成功',

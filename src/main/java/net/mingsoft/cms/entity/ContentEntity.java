@@ -27,6 +27,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import net.mingsoft.base.entity.BaseEntity;
+import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.config.MSProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -94,6 +96,10 @@ private static final long serialVersionUID = 1574925152617L;
 	*/
 	private Integer contentSort;
 	/**
+	 * 文章标签
+	 */
+	private String contentTags;
+	/**
 	* 文章缩略图
 	*/
 	private String contentImg;
@@ -117,6 +123,16 @@ private static final long serialVersionUID = 1574925152617L;
 	* 点击次数
 	*/
 	private Integer contentHit;
+
+	/**
+	 * 文章是否被静态化
+	 */
+	private Integer hasDetailHtml;
+
+	/**
+	 * 栏目是否被静态化
+	 */
+	private Integer hasListHtml;
 
 	public Integer getContentHit() {
 		return contentHit;
@@ -298,5 +314,56 @@ private static final long serialVersionUID = 1574925152617L;
 	 */
 	public String getContentOutLink() {
 		return this.contentOutLink;
+	}
+
+	/**
+	 * 设置文章标签
+	 */
+	public String getContentTags() {
+		return contentTags;
+	}
+
+	/**
+	 * 获取文章标签
+	 */
+	public void setContentTags(String contentTags) {
+		this.contentTags = contentTags;
+	}
+
+	/**
+	 * 获取文章静态化标识
+	 * @return
+	 */
+	public Integer getHasDetailHtml() {
+		return hasDetailHtml;
+	}
+
+	/**
+	 * 设置文章静态化标识
+	 * @param hasDetailHtml
+	 */
+	public void setHasDetailHtml(Integer hasDetailHtml) {
+		this.hasDetailHtml = hasDetailHtml;
+	}
+
+	/**
+	 * 获取栏目静态化标识
+	 * @return
+	 */
+	public Integer getHasListHtml() {
+		return hasListHtml;
+	}
+
+	/**
+	 * 设置栏目静态化标识
+	 * @param hasListHtml
+	 */
+	public void setHasListHtml(Integer hasListHtml) {
+		this.hasListHtml = hasListHtml;
+	}
+
+	public String getUrl(){
+		// categoryPath 做占位符
+		return "/" + MSProperties.diy.htmlDir + "/" + BasicUtil.getApp().getAppDir() + "/categoryPath/" + id+".html";
 	}
 }

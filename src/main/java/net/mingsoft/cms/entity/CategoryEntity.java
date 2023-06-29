@@ -22,13 +22,13 @@
 
 package net.mingsoft.cms.entity;
 
+import cn.hutool.core.util.BooleanUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.annotation.*;
 import net.mingsoft.base.entity.BaseEntity;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.config.MSProperties;
-import net.mingsoft.mdiy.util.ConfigUtil;
-
-import java.io.File;
 
 /**
  * 分类实体
@@ -41,8 +41,6 @@ import java.io.File;
 public class CategoryEntity extends BaseEntity {
 
     private static final long serialVersionUID = 1574925152750L;
-
-    private static Boolean shortLinkSwitch = null;
 
     @TableId(type = IdType.ASSIGN_ID)
     private String id;
@@ -64,6 +62,7 @@ public class CategoryEntity extends BaseEntity {
     /**
      * 栏目副标题
      */
+    @TableField(updateStrategy = FieldStrategy.IGNORED)
     private String categoryShortTitle;
     /**
      * 栏目别名
@@ -112,6 +111,12 @@ public class CategoryEntity extends BaseEntity {
      * 是否显示
      */
     private String categoryDisplay;
+
+    /**
+     * 是否搜索
+     */
+    private String categoryIsSearch;
+
     /**
      * 自定义链接
      */
@@ -154,21 +159,6 @@ public class CategoryEntity extends BaseEntity {
      * 顶级id
      */
     private String topId;
-
-    /**
-     * 路径url
-     */
-    @TableField(exist = false)
-    private String url;
-
-    /**
-     * 设置url路径
-     *
-     * @param url 路径的字符串
-     */
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
     public Boolean getLeaf() {
         return leaf;
@@ -357,6 +347,13 @@ public class CategoryEntity extends BaseEntity {
     }
 
     /**
+     * 设置是否搜索
+     */
+    public String getCategoryIsSearch() { return categoryIsSearch; }
+
+    public void setCategoryIsSearch(String categoryIsSearch) { this.categoryIsSearch = categoryIsSearch; }
+
+    /**
      * 设置自定义链接
      */
     public void setCategoryDiyUrl(String categoryDiyUrl) {
@@ -445,7 +442,7 @@ public class CategoryEntity extends BaseEntity {
      * 获取栏目链接 （标签使用，动态链接不考虑）
      */
     public String getTypelink() {
-        return "3".equals(this.categoryType) ? this.categoryDiyUrl : this.categoryPath + "/index.html";
+        return CategoryTypeEnum.LINK.toString().equals(this.categoryType) ? this.categoryDiyUrl : this.categoryPath + "/index.html";
     }
 
     /**
@@ -497,10 +494,10 @@ public class CategoryEntity extends BaseEntity {
     }
 
     /**
-     * 获取栏目Id（标签使用）
+     * 获取栏目是否是叶子节点（标签使用） 1 是叶子(子栏目) 0 不是叶子(顶级栏目)
      */
-    public Boolean getTypeleaf() {
-        return this.leaf;
+    public Integer getTypeleaf() {
+        return ObjectUtil.isNotNull(this.leaf)? BooleanUtil.toInt(this.leaf):0;
     }
 
 
@@ -554,24 +551,10 @@ public class CategoryEntity extends BaseEntity {
     }
 
     /**
-     * 获取url路径
-     *
-     * @return url路径的字符串
+     * 获取栏目预览路径
+     * @return 栏目预览路径
      */
     public String getUrl() {
-        if (shortLinkSwitch == null) {
-            shortLinkSwitch = ConfigUtil.getBoolean("短链配置", "shortLinkSwitch", false);
-        }
-        String appDir = "";
-        String htmlDir = MSProperties.diy.htmlDir;
-        String categoryPath = this.getCategoryPath();
-        String categoryPinyin = this.getCategoryPinyin();
-        if (!shortLinkSwitch) {
-            //未开启短链
-            appDir = "/" + BasicUtil.getApp().getAppDir();
-            return url = "/" + htmlDir + appDir + categoryPath + "/index.html";
-        }
-        //开启短链后的url拼接
-        return url = "/" + htmlDir + appDir + "/" + categoryPinyin + ".html";
+        return "/" + MSProperties.diy.htmlDir + "/" + BasicUtil.getApp().getAppDir() + "/" +this.getCategoryPath() + "/index.html";
     }
 }

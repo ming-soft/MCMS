@@ -37,16 +37,18 @@
 <script>
 	var indexVue = new Vue({
 		el: "#index",
-		data: {
-			action: "",
-			//跳转页面
-			defaultProps: {
-				children: 'children',
-				label: 'categoryTitle'
-			},
-			treeData: [],
-			loading: true,
-			emptyText: ''
+		data: function () {
+			return {
+				action: "",
+				//跳转页面
+				defaultProps: {
+					children: 'children',
+					label: 'categoryTitle'
+				},
+				treeData: [],
+				loading: true,
+				emptyText: ''
+			}
 		},
 		methods: {
 			handleNodeClick: function (data) {
@@ -63,9 +65,7 @@
 				var that = this;
 				this.loadState = false;
 				this.loading = true;
-				ms.http.get(ms.manager + "/cms/category/list.do", {
-					pageSize: 999
-				}).then(function (res) {
+				ms.http.get(ms.manager + "/cms/category/list.do").then(function (res) {
 					if (that.loadState) {
 						that.loading = false;
 					} else {
