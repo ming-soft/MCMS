@@ -1,1247 +1,210 @@
+<!DOCTYPE html>
 <html>
- <head>
-  <meta charset="utf-8">
-  <title>{ms:global.name/}</title>
-  <script src="/static/mdiy/index.js"></script>
-  <#include "head-file.htm" />
- </head>
- <body>
-  <div id="app" v-cloak>
-   <#include "header.htm" />
-   <div class="ms-banner">
-    <swiper class="ms-vue-awesome-swiper" :options="{
-slidesPerView : 1,
-spaceBetween: 0,
-autoplay: {
-delay: 1500,
-},
-navigation: {nextEl: '.swiper-button-next',prevEl: '.swiper-button-prev'}
-}">
-     <div class="swiper-button-prev " slot="button-prev">
-     </div>
-     <div class="swiper-button-next " slot="button-next">
-     </div>
-     <!--静态图片-->
-     <!--动态图片-->
-     {ms:arclist typeid=1329357285870346241 size=3 }
-     <swiper-slide>
-      <a href="[field.source/]" target="_blank" style="width:100%;height: 100%">
-       <div style="background-image: url('{ms:global.host/}/{@ms:file field.litpic/}');background-size: cover; background-position: center; width:100%;height: 100%">
-       </div>
-      </a>
-     </swiper-slide>
-     {/ms:arclist}
-    </swiper>
-   </div>
-   <div class="about">
-     {ms:arclist typeid='1329259260493766658'}
-    <div class="body">
-     <div class="left">
-      <img title="" alt="" src="{ms:global.host/}/{@ms:file field.litpic/}">
-     </div>
-     <div class="right">
-      <div class="title">
-       <span> ${field.title} </span>
-      </div>
-      <div class="desc">
-       <span> ${field.descrip} </span>
-      </div>
-     </div>
-    </div> {/ms:arclist}
-   </div>
-   <div class="product">
-    <div class="title">
-     <span> 核心产品 </span>
-    </div>
-    <div class="body">
-      {ms:arclist flag='c' typeid='1329257213283344385'}
-     <div class="prod">
-      <div class="pic">
-       <img title="" alt="" src="{ms:global.host/}/{@ms:file field.litpic/}">
-      </div>
-      <a href="{ms:global.url/}${field.link}" class="text"> ${field.title} </a>
-     </div> {/ms:arclist}
-    </div>
-    <a href="{ms:global.url/}/product/index.html" class="more"> 更多产品 </a>
-   </div>
-   <div class="news">
-    <div class="title">
-     <span> 新闻动态 </span>
-    </div>
-    <div class="body">
-      {ms:arclist flag='c' typeid='1329257282518720513'}
-     <div class="left">
-      <img title="" alt="" src="{ms:global.host/}/{@ms:file field.litpic/}">
-      <a href="{ms:global.url/}${field.link}" target="_blank" class="title"> ${field.title} </a>
-      <span class="desc"> ${field.descrip} </span>
-     </div> {/ms:arclist}
-     <div class="right">
-       {ms:arclist size=3 typeid='1329257282518720513'}
-      <div class="news-item">
-       <div class="date">
-        <span class="day"> ${field.date?date?string("dd")} </span>
-        <span class="date"> ${field.date?date?string("yyyy-MM")} </span>
-       </div>
-       <div class="news-body">
-        <a href="{ms:global.url/}${field.link}" class="title"> ${field.title} </a>
-        <span class="desc"> ${field.descrip} </span>
-       </div>
-      </div> {/ms:arclist}
-     </div>
-    </div>
-    <div class="more">
-    </div>
-    <a href="{ms:global.url/}/news/index.html" class="more"> 更多新闻 </a>
-   </div>
-   <#include "footer.htm" />
-  </div>
-  <script>
-var app = new Vue({
-    el: '#app',
-    watch:{
-    },
-    data:function() {
-     return {
-      loading:false,
-      saveDisabled: false,
-      verifCode: ms.base + "/code",
-      //表单数据
-      form: {
-       // 姓名
-       leaveName:'',
-       // 电话
-       leavePhone:'',
-       // 留言内容
-       textareaMsg:''
-      },
-      rules:{
-       rand_code: [{
-          required: true,
-          message: '验证码不能为空',
-          trigger: 'blur'
-       }, {
-         min: 4,
-         max: 4,
-         message: '请输入4位验证码',
-         trigger: 'blur'
-        }]
-      },
-     }
-    },
-    methods: {
-       switchShow:function(arr){
-       var that = this
-           arr.forEach(function(x){
-              let e = that.$el.querySelector("#key_"+x)
-               if(e){
-                   e.style.display=e.style.display=='none'?'flex':'none'
-               }
-           })
-       },
-       save: function() {
-         var that = this;
-         that.saveDisabled = true;
-         that.formModel.save(function(res) {
-          if (res.result) {
-           that.$notify({
-            title: '成功',
-            type: 'success',
-            message: '保存成功!'
-           });
-
-          } else {
-           that.$notify({
-            title: '失败',
-            message: res.msg,
-            type: 'warning'
-           });
-          }
-          that.saveDisabled = false;
-         });
-       },
-       code: function () {
-        this.verifCode = ms.base + "/code?t=" + (new Date).getTime();
-       }
-    },
-    created(){
-
-    }
-})
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="robots" content="index, follow"/>
+    <title>{ms:global.name/}</title>
+    <meta name="keywords" content="{ms:global.keyword/}">
+    <meta name="description" content="{ms:global.descrip/}">
+    <meta http-equiv="Cache-Control" content="no-transform"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="applicable-device" content="pc,mobile"/>
+    <link href="/favicon.ico" rel="shortcut icon"/>
+    <link href="/{ms:global.style/}css/style.css" rel="stylesheet"/>
+    <link href="/{ms:global.style/}css/index.css" rel="stylesheet"/>
+    <script src="/{ms:global.style/}js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/{ms:global.style/}js/jquery.superslide.2.1.1.js">//pc导航</script>
+    <script type="text/javascript" src="/{ms:global.style/}js/jquery.bxslider.min.js">/*轮显*/</script>
+    <script src="/{ms:global.style/}js/anim.js">//动画</script>
+    <script src="/{ms:global.style/}js/owl.carousel.js"></script>
+    <script type="text/javascript" src="/{ms:global.style/}js/basic.js"></script>
+</head>
+<body>
+<#include "header.htm" />
+<!--轮显begin-->
+<div id="slider">
+    <ul class="bxslider">
+        {ms:arclist typeid="1666653706550321162"}
+        <li style="background-color:#1b1b1b;">
+            <div class="carousel-img">
+                <a href="<#if field.source!=''>${field.source}<#else>javascript:;</#if>" target="_blank">
+                    <img src="{@ms:file field.litpic/}" width="100%" alt="" class="oimg"/>
+                </a>
+            </div>
+        </li>
+        {/ms:arclist}
+    </ul>
+</div>
+<script>
+    var slider = $('.bxslider').bxSlider({
+        mode: 'horizontal',/*fade,vertical*/
+        controls: true,
+        speed: 500,
+        hideControlOnEnd: false,
+        pager: true,
+        auto: true,
+    });
+    $(window).resize(function () {
+        slider.reloadSlider();
+    });
 </script>
-  <style>
-    body {
-        background-color:#fff;
-        box-sizing:border-box;
-        font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Segoe UI", "Helvetica Neue", "PingFang SC", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei", 微软雅黑, sans-serif;
-        moz-box-sizing:border-box;
-        webkit-box-sizing:border-box;
-    }
-    .swiper-button-prev, .swiper-button-next{
-     color: #fff;
-    }
-    .ms-banner
-    {
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            width:100%;
-            box-sizing:border-box;
-            margin-top:0px;
-            height:630px;
-    }
-    .ms-banner .ms-vue-awesome-swiper
-    {
-            background-color:#E8F4FD;
-            align-items:center;
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            width:100%;
-            box-sizing:border-box;
-            position:relative;
-            padding-left:0px;
-            justify-content:space-between;
-            margin-top:0px;
-            height:100%;
-    }
-    .ms-banner .ms-vue-awesome-swiper .ms-vue-awesome-swiper-bottom
-    {
-            background-color:rgba(0,0,0,0.5);
-            align-items:center;
-            flex-direction:row;
-            bottom:0px;
-            display:flex;
-            box-sizing:border-box;
-            justify-content:flex-start;
-            flex-wrap:nowrap;
-            width:100%;
-            position:absolute;
-            padding-left:10px;
-            margin-top:0px;
-            height:40px;
-    }
-    .ms-banner .ms-vue-awesome-swiper .ms-vue-awesome-swiper-bottom .ms-vue-awesome-swiper-title
-    {
-            color:#FFFFFF;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:14px;
-            padding-left:0px;
-    }
-    .about
-    {
-            align-items:center;
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            width:100%;
-            box-sizing:border-box;
-            padding-left:0px;
-            justify-content:center;
-            margin-top:18px;
-            height:200px;
-    }
-    .about .body
-    {
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            width:1200px;
-            box-sizing:border-box;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:0px;
-            height:100%;
-    }
-    .about .body .left
-    {
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            width:40%;
-            box-sizing:border-box;
-            padding-left:0px;
-            height:100%;
-    }
-    .about .body .left img
-    {
-            width:100%;
-            padding-top:0px;
-            padding-left:0px;
-            height:100%;
-    }
-    .about .body .right
-    {
-            flex-wrap:nowrap;
-            flex-direction:column;
-            display:flex;
-            padding-right:20px;
-            width:100%;
-            box-sizing:border-box;
-            padding-left:20px;
-            margin-top:0px;
-            height:100%;
-    }
-    .about .body .right .title
-    {
-            align-items:center;
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            width:100%;
-            box-sizing:border-box;
-            padding-left:0px;
-            margin-top:0px;
-            height:40px;
-    }
-    .about .body .right .title span
-    {
-            padding-bottom:0px;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            padding-right:0px;
-            font-size:28PX;
-            padding-top:0px;
-            padding-left:0px;
-    }
-    .about .body .right .desc
-    {
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            width:100%;
-            box-sizing:border-box;
-            padding-left:0px;
-            height:100%;
-    }
-    .about .body .right .desc span
-    {
-            padding-bottom:0px;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            padding-top:0px;
-            margin-top:20px;
-     line-height: 32px;
+<!--轮显end-->
+<!--flash start-->
+<div class="flash_div">
+    <div id="owl-flash" class="owl-carousel">
+        {ms:arclist flag='f' size=5 typeid="1666653706550321162"}
+        <div class="item">
+            <dd>
+                <a href="javascript:;" title=""><img src="{@ms:file field.litpic/}"/></a>
+            </dd>
+        </div>
+        {/ms:arclist}
+    </div>
+</div>
+<!--flash end-->
+<div class="i_product_bg">
+    <div class="wrap2">
+        {ms:channel type='self' typeid="1666653706550321152"}
+        <div class="i_title anim anim-1">
+            <h2 class="f41">${field.typetitle}</h2>
+            <p class="f24">${field.typeshorttitle}</p>
+        </div>
+        {/ms:channel}
+        <div class="nproduct_list2">
+            <ul>
+                {ms:arclist typeid="1666653706550321152" size=6}
+                <li class="anim anim-1">
+                    <a href="{ms:global.html/}${field.link}" title="${field.title}">
+                        <div class="imgs"><img src="{@ms:file field.litpic/}" alt="${field.title}">
+                            <p>&nbsp;</p>
+                        </div>
+                        <h2 class="f24">${field.title}</h2>
+                        <p>{@ms:len field.descrip 60 /}...</p>
+                    </a>
+                </li>
+                {/ms:arclist}
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="wrap2">
+    {ms:channel type='self' typeid="1666653706550321163"}
+    <div class="i_title anim anim-1">
+        <h2 class="f41">${field.typetitle}</h2>
+        <p class="f24">${field.typeshorttitle}</p>
+    </div>
+    {/ms:channel}
+    <div class="i_solution">
+        <ul>
+            {ms:channel  typeid="1666653706550321163" }
+            <li class="anim anim-1">
+                <a href="<#if field.type==3>{ms:global.html/}${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>" title="${field.typetitle}">
+                <div class="imgs">
+                    <img src="{@ms:file field.typeico/}" alt="${field.typetitle}">
+                </div>
+                <div class="txts">
+                    <h2 class="f28">${field.typetitle}</h2>
+                    <p>${field.typeshorttitle}...</p>
+                </div>
+                </a>
+            </li>
+            {/ms:channel}
+        </ul>
+    </div>
+</div>
+<div class="i_case_bg">
+    <div class="wrap2">
+        {ms:channel type='self' typeid="1666653706550321164"}
+        <div class="i_title anim anim-1">
+            <h2 class="f41">${field.typetitle}</h2>
+            <p class="f24">${field.typeshorttitle}</p>
+        </div>
+        {/ms:channel}
+        <div id="owl-demo3" class="owl-carousel">
+            {ms:arclist typeid="1666653706550321164" size=10}
+            <div class="item">
+                <dd class="">
+                    <a href="{ms:global.html/}${field.link}" title="${field.title}">
+                        <div class="imgs"><img src="{@ms:file field.litpic/}" alt="${field.title}"></div>
+                        <div class="txts">
+                            <h2 class="f22">${field.title}</h2>
+                            <p class="p">{@ms:len field.descrip 20 /}</p>
+                        </div>
+                    </a>
+                </dd>
+            </div>
+            {/ms:arclist}
+        </div>
+    </div>
+</div>
+<div class="wrap">
+    {ms:channel type='self' typeid="1666653706550321169"}
+    <div class="i_title anim anim-1">
+        <h2 class="f41">${field.typetitle}</h2>
+        <p class="f24">${field.typeshorttitle}</p>
+    </div>
+    {/ms:channel}
+    <div class="i_link anim anim-2">
+        <ul>
+            {ms:arclist typeid="1666653706550321169" size=12}
+            <li>
+                <a href="{ms:global.html/}${field.link}" title="${field.title}">
+                    <div class="imgs"><img src="{@ms:file field.litpic/}" alt="${field.title}"></div>
+                </a>
+            </li>
+            {/ms:arclist}
+        </ul>
+    </div>
+</div>
+<#include "footer.htm" />
+<script language="javascript" src="/{ms:global.style/}js/foot.js"></script><!--尾部end-->
+<script>
+    $("#owl-flash").owlCarousel({/*手机轮显图*/
+        items: 1,
+        lazyLoad: true,
+        autoPlay: true,
+        itemsDesktop: [1199, 1],
+        itemsDesktopSmall: [979, 1],
+        itemsTablet: [768, 1],
+        itemsTabletSmall: false,
+        itemsMobile: [479, 1],
+        //rewindNav:false,
+        navigation: true
+    });
+    $("#owl-demo3").owlCarousel({/*行业案例*/
+        items: 4,
+        lazyLoad: true,
+        autoPlay: true,
+        itemsDesktop: [1199, 4],
+        itemsDesktopSmall: [979, 3],
+        itemsTablet: [768, 2],
+        itemsTabletSmall: false,
+        itemsMobile: [479, 2],
+        navigation: true
+    });
 
-    }
-    .product
-    {
-            background-color:#F2F2F2;
-            align-items:center;
-            flex-direction:column;
-            display:flex;
-            padding-right:0px;
-            box-sizing:border-box;
-            justify-content:center;
-            padding-bottom:40px;
-            flex-wrap:nowrap;
-            width:100%;
-            margin-bottom:0px;
-            padding-top:40px;
-            padding-left:0px;
-            margin-top:20px;
-    }
-    .product .title
-    {
-            align-items:center;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            box-sizing:border-box;
-            justify-content:center;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:100%;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:0px;
-            height:40px;
-    }
-    .product .title span
-    {
-            padding-bottom:0px;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            padding-right:0px;
-            font-size:28PX;
-            padding-top:0px;
-            padding-left:0px;
-    }
-    .product .body
-    {
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            box-sizing:border-box;
-            justify-content:space-between;
-            padding-bottom:0px;
-            flex-wrap:wrap;
-            width:1200px;
-            margin-bottom:40px;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:40px;
-            height:100%;
-    }
-    .product .body .prod
-    {
-            background-color:#FFFFFF;
-            flex-direction:column;
-            display:flex;
-            padding-right:20px;
-            box-sizing:border-box;
-            padding-bottom:20px;
-            flex-wrap:nowrap;
-            width:32%;
-            margin-bottom:20px;
-            padding-top:20px;
-            padding-left:20px;
-            margin-top:0px;
-            height:100%;
-    }
-    .product .body .prod .pic
-    {
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            width:100%;
-            box-sizing:border-box;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:0px;
-            height:200px;
-    }
-    .product .body .prod .pic img
-    {
-            padding-bottom:0px;
-            width:100%;
-            margin-bottom:0px;
-            padding-top:0px;
-            margin-top:0px;
-            height:100%;
-    }
-    .product .body .prod .text
-    {
-            padding-bottom:0px;
-            text-align:center;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            padding-right:0px;
-            font-size:16PX;
-            padding-top:8px;
-            padding-left:0px;
-            margin-top:10px;
-            height:40px;
-    }
-    .product .more
-    {
-            background-color:#FFFFFF;
-            align-items:center;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            box-sizing:border-box;
-            justify-content:center;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:100px;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:0px;
-            height:48px;
-    }
-    .news
-    {
-            align-items:center;
-            flex-direction:column;
-            display:flex;
-            padding-right:0px;
-            box-sizing:border-box;
-            justify-content:center;
-            padding-bottom:20px;
-            flex-wrap:nowrap;
-            width:100%;
-            margin-bottom:20px;
-            padding-top:20px;
-            padding-left:0px;
-            margin-top:20px;
-    }
-    .news .title
-    {
-            align-items:center;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            box-sizing:border-box;
-            justify-content:center;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:100%;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:0px;
-            height:40px;
-    }
-    .news .title span
-    {
-            padding-bottom:0px;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            padding-right:0px;
-            font-size:28PX;
-            padding-top:0px;
-            padding-left:0px;
-    }
-    .news .body
-    {
-            align-items:flex-start;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            box-sizing:border-box;
-            justify-content:space-between;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:1200px;
-            margin-bottom:20px;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:20px;
-            height:100%;
-    }
-    .news .body .left
-    {
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            flex-direction:column;
-            display:flex;
-            width:400px;
-            box-sizing:border-box;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:0px;
-    }
-    .news .body .left img
-    {
-            width:100%;
-            padding-top:0px;
-            height:280px;
-    }
-    .news .body .left .title
-    {
-            text-align:left;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            padding-right:0px;
-            justify-content:flex-start;
-            padding-bottom:0px;
-            font-size:18PX;
-            margin-bottom:0px;
-            padding-top:10px;
-            padding-left:0px;
-            margin-top:0px;
-            height:40px;
-    }
-    .news .body .left .desc
-    {
-            padding-bottom:0px;
-            color:#B5B5B5;
-            text-align:left;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            padding-right:0px;
-            font-size:14PX;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:0px;
-    }
-    .news .body .right
-    {
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            flex-direction:column;
-            display:flex;
-            padding-right:0px;
-            width:800px;
-            margin-bottom:0px;
-            box-sizing:border-box;
-            padding-top:0px;
-            padding-left:20px;
-            margin-top:0px;
-            height:100%;
-    }
-    .news .body .right .news-item
-    {
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            width:100%;
-            margin-bottom:10px;
-            box-sizing:border-box;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:0px;
-            height:100px;
-    }
-    .news .body .right .news-item .date
-    {
-            background-color:#EEEEEE;
-            align-items:center;
-            flex-direction:column;
-            display:flex;
-            padding-right:8px;
-            box-sizing:border-box;
-            justify-content:center;
-            padding-bottom:8px;
-            flex-wrap:nowrap;
-            width:100px;
-            margin-bottom:0px;
-            padding-top:8px;
-            padding-left:8px;
-            height:100%;
-    }
-    .news .body .right .news-item .date .day
-    {
-            padding-bottom:0px;
-            text-align:center;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            padding-right:0px;
-            font-size:28PX;
-            padding-top:14px;
-            padding-left:0px;
-            height:70%;
-    }
-    .news .body .right .news-item .date .date
-    {
-            text-align:center;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            padding-top:0px;
-    }
-    .news .body .right .news-item .news-body
-    {
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            flex-direction:column;
-            display:flex;
-            padding-right:0px;
-            width:90%;
-            margin-bottom:10px;
-            box-sizing:border-box;
-            padding-top:0px;
-            padding-left:10px;
-            margin-top:0px;
-            height:100%;
-    }
-    .news .body .right .news-item .news-body .title
-    {
-            text-align:left;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            padding-right:0px;
-            justify-content:flex-start;
-            padding-bottom:0px;
-            font-size:18PX;
-            margin-bottom:0px;
-            padding-top:10px;
-            padding-left:0px;
-            margin-top:0px;
-            height:40px;
-    }
-    .news .body .right .news-item .news-body .desc
-    {
-            padding-bottom:0px;
-            color:#B5B5B5;
-            text-align:left;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            padding-right:0px;
-            font-size:14PX;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:0px;
-    }
-    .news .more
-    {
-            background-color:#FFFFFF;
-            align-items:center;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            box-sizing:border-box;
-            justify-content:center;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:100px;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:0px;
-            height:48px;
-    }
-@media (max-width: 768px){
-        .ms-banner
-        {
-                flex-wrap:nowrap;
-                flex-direction:row;
-                display:flex;
-                width:100%;
-                box-sizing:border-box;
-                margin-top:0px;
-                height:unset;
-        }
-        .ms-banner .ms-vue-awesome-swiper
-        {
-                background-color:#E8F4FD;
-                align-items:center;
-                flex-wrap:nowrap;
-                flex-direction:row;
-                display:flex;
-                width:100%;
-                box-sizing:border-box;
-                position:relative;
-                padding-left:0px;
-                justify-content:space-between;
-                margin-top:0px;
-                height:300px;
-        }
-        .ms-banner .ms-vue-awesome-swiper .ms-vue-awesome-swiper-bottom
-        {
-                background-color:RGBA(63, 158, 255, .75);
-                align-items:center;
-                flex-direction:row;
-                bottom:0px;
-                display:flex;
-                box-sizing:border-box;
-                justify-content:flex-start;
-                flex-wrap:nowrap;
-                width:100%;
-                position:absolute;
-                padding-left:10px;
-                margin-top:0px;
-                height:40px;
-        }
-        .ms-banner .ms-vue-awesome-swiper .ms-vue-awesome-swiper-bottom .ms-vue-awesome-swiper-title
-        {
-                color:#FFFFFF;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:14px;
-                padding-left:0px;
-        }
-        .about
-        {
-                align-items:center;
-                flex-wrap:nowrap;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                width:100%;
-                box-sizing:border-box;
-                padding-left:0px;
-                justify-content:center;
-                margin-top:18px;
-                height:100%;
-        }
-        .about .body
-        {
-                padding-bottom:0px;
-                align-items:center;
-                flex-wrap:nowrap;
-                flex-direction:column;
-                display:flex;
-                width:100%;
-                box-sizing:border-box;
-                margin-bottom:0px;
-                padding-top:0px;
-                margin-top:0px;
-                justify-content:flex-start;
-                height:100%;
-        }
-        .about .body .left
-        {
-                align-items:center;
-                flex-wrap:nowrap;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                width:90%;
-                box-sizing:border-box;
-                margin-bottom:10px;
-                padding-left:0px;
-                justify-content:center;
-        }
-        .about .body .left img
-        {
-                width:100%;
-                margin-bottom:0px;
-                padding-top:0px;
-                height:200px;
-        }
-        .about .body .right
-        {
-                flex-wrap:nowrap;
-                flex-direction:column;
-                display:flex;
-                padding-right:20px;
-                width:100%;
-                box-sizing:border-box;
-                margin-bottom:0px;
-                padding-left:20px;
-                margin-top:0px;
-                height:100%;
-        }
-        .about .body .right .title
-        {
-                align-items:center;
-                flex-wrap:nowrap;
-                flex-direction:row;
-                display:flex;
-                padding-right:0px;
-                width:100%;
-                box-sizing:border-box;
-                padding-left:0px;
-                margin-top:0px;
-                height:40px;
-        }
-        .about .body .right .title span
-        {
-                padding-bottom:0px;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                padding-right:0px;
-                font-size:28PX;
-                padding-top:0px;
-                padding-left:0px;
-        }
-        .about .body .right .desc
-        {
-                flex-wrap:nowrap;
-                flex-direction:row;
-                display:flex;
-                padding-right:0px;
-                width:100%;
-                box-sizing:border-box;
-                padding-left:0px;
-                height:100%;
-        }
-        .about .body .right .desc span
-        {
-                padding-bottom:0px;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                padding-top:0px;
-                margin-top:20px;
-        }
-        .product
-        {
-                background-color:#F2F2F2;
-                align-items:center;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                box-sizing:border-box;
-                justify-content:center;
-                padding-bottom:40px;
-                flex-wrap:nowrap;
-                width:100%;
-                margin-bottom:0px;
-                padding-top:40px;
-                padding-left:0px;
-                margin-top:20px;
-                height:unset;
-        }
-        .product .title
-        {
-                align-items:center;
-                flex-direction:row;
-                display:flex;
-                padding-right:0px;
-                box-sizing:border-box;
-                justify-content:center;
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                width:100%;
-                margin-bottom:0px;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:0px;
-                height:40px;
-        }
-        .product .title span
-        {
-                padding-bottom:0px;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                padding-right:0px;
-                font-size:28PX;
-                padding-top:0px;
-                padding-left:0px;
-        }
-        .product .body
-        {
-                padding-bottom:0px;
-                align-items:center;
-                flex-wrap:nowrap;
-                flex-direction:column;
-                display:flex;
-                width:100%;
-                box-sizing:border-box;
-                margin-bottom:0px;
-                padding-top:0px;
-                margin-top:0px;
-                justify-content:center;
-                height:100%;
-        }
-        .product .body .prod
-        {
-                background-color:#FFFFFF;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                box-sizing:border-box;
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                width:90%;
-                margin-bottom:40px;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:0px;
-                height:100%;
-        }
-        .product .body .prod .pic
-        {
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                flex-direction:row;
-                display:flex;
-                padding-right:0px;
-                width:100%;
-                box-sizing:border-box;
-                padding-top:0px;
-                padding-left:0px;
-                height:200px;
-        }
-        .product .body .prod .pic img
-        {
-                padding-bottom:0px;
-                width:100%;
-                padding-top:0px;
-                margin-top:0px;
-                height:100%;
-        }
-        .product .body .prod .text
-        {
-                padding-bottom:0px;
-                text-align:center;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                padding-right:0px;
-                font-size:16PX;
-                padding-top:8px;
-                padding-left:0px;
-                margin-top:10px;
-                height:40px;
-        }
-        .product .more
-        {
-                background-color:#FFFFFF;
-                align-items:center;
-                flex-direction:row;
-                display:flex;
-                padding-right:0px;
-                box-sizing:border-box;
-                justify-content:center;
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                width:100px;
-                margin-bottom:0px;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:0px;
-                height:48px;
-        }
-        .news
-        {
-                align-items:center;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                box-sizing:border-box;
-                justify-content:center;
-                padding-bottom:20px;
-                flex-wrap:nowrap;
-                width:100%;
-                margin-bottom:20px;
-                padding-top:20px;
-                padding-left:0px;
-                margin-top:20px;
-                height:unset;
-        }
-        .news .title
-        {
-                align-items:center;
-                flex-direction:row;
-                display:flex;
-                padding-right:0px;
-                box-sizing:border-box;
-                justify-content:center;
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                width:100%;
-                margin-bottom:0px;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:0px;
-                height:40px;
-        }
-        .news .title span
-        {
-                padding-bottom:0px;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                padding-right:0px;
-                font-size:28PX;
-                padding-top:0px;
-                padding-left:0px;
-        }
-        .news .body
-        {
-                align-items:flex-start;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                box-sizing:border-box;
-                justify-content:space-between;
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                width:90%;
-                margin-bottom:20px;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:20px;
-                height:100%;
-        }
-        .news .body .left
-        {
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                flex-direction:column;
-                display:flex;
-                width:100%;
-                box-sizing:border-box;
-                margin-bottom:10px;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:0px;
-        }
-        .news .body .left img
-        {
-                padding-bottom:0px;
-                width:100%;
-                margin-bottom:0px;
-                padding-top:0px;
-                margin-top:0px;
-                height:100%;
-        }
-        .news .body .left .title
-        {
-                padding-bottom:0px;
-                text-align:left;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                padding-right:0px;
-                font-size:18PX;
-                padding-top:10px;
-                padding-left:0px;
-                margin-top:0px;
-                justify-content:flex-start;
-                height:40px;
-        }
-        .news .body .left .desc
-        {
-                padding-bottom:0px;
-                color:#B5B5B5;
-                text-align:left;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                padding-right:0px;
-                font-size:14PX;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:0px;
-        }
-        .news .body .right
-        {
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                width:100%;
-                margin-bottom:0px;
-                box-sizing:border-box;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:0px;
-                height:100%;
-        }
-        .news .body .right .news-item
-        {
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                flex-direction:row;
-                display:flex;
-                padding-right:0px;
-                width:100%;
-                margin-bottom:10px;
-                box-sizing:border-box;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:0px;
-                height:100px;
-        }
-        .news .body .right .news-item .date
-        {
-                background-color:#EEEEEE;
-                align-items:center;
-                flex-direction:column;
-                display:flex;
-                padding-right:8px;
-                box-sizing:border-box;
-                justify-content:center;
-                padding-bottom:8px;
-                flex-wrap:nowrap;
-                width:100px;
-                margin-bottom:0px;
-                padding-top:8px;
-                padding-left:8px;
-                height:100%;
-        }
-        .news .body .right .news-item .date .day
-        {
-                padding-bottom:0px;
-                text-align:center;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                padding-right:0px;
-                font-size:28PX;
-                padding-top:14px;
-                padding-left:0px;
-                height:70%;
-        }
-        .news .body .right .news-item .date .date
-        {
-                text-align:center;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                padding-top:0px;
-        }
-        .news .body .right .news-item .news-body
-        {
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                width:90%;
-                margin-bottom:10px;
-                box-sizing:border-box;
-                padding-top:0px;
-                padding-left:10px;
-                margin-top:0px;
-                height:100%;
-        }
-        .news .body .right .news-item .news-body .title
-        {
-                text-align:left;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                padding-right:0px;
-                justify-content:flex-start;
-                padding-bottom:0px;
-                font-size:18PX;
-                margin-bottom:0px;
-                padding-top:10px;
-                padding-left:0px;
-                margin-top:0px;
-                height:40px;
-        }
-        .news .body .right .news-item .news-body .desc
-        {
-         display: none;
-                padding-bottom:0px;
-                color:#B5B5B5;
-                text-align:left;
-                flex-direction:row;
-                word-wrap:break-word;
-                padding-right:0px;
-                font-size:14PX;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:0px;
-        }
-        .news .more
-        {
-                background-color:#FFFFFF;
-                align-items:center;
-                flex-direction:row;
-                display:flex;
-                padding-right:0px;
-                box-sizing:border-box;
-                justify-content:center;
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                width:100px;
-                margin-bottom:0px;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:0px;
-                height:48px;
-        }
+    window.onload = function () {/*轮显动画*/
+        $('.bx-pager .bx-pager-item').click(function () {
+            var linum = $(this).index();
+            var CaseList = $(".bxslider li");
 
-}</style>
- </body>
+            $(this).find("a").click(function () {
+                CaseList.removeClass("active");
+                CaseList.eq(linum).addClass("active");
+
+                $('.bx-pager .bx-pager-item').removeClass("active");
+                $('.bx-pager .bx-pager-item').eq(linum).addClass("active");
+                // $(this).addClass('csel').siblings().removeClass('csel');
+                // CaseList.hide().eq(linum).show();
+                //CaseList.find(".anim").removeClass("anim-show");
+//			setTimeout(function(){
+//				CaseList.eq(linum).find(".anim").addClass("anim-show");
+//			},6)
+            })
+        })
+    }
+</script>
+</body>
 </html>

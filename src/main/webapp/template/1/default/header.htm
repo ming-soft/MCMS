@@ -1,44 +1,162 @@
-<#assign ids=field.parentids>
-<#assign typeid=field.typeid>
-<div class="ms-nav">
- <div class="body">
-  <div class="logo">
-   <img title="" alt="" src="{ms:global.host/}/{@ms:file global.logo/}" class="logo-pic">
-   <img title="" alt="" src="https://www.mingsoft.net/static/images/logo_text.png" class="logo-desc">
-  </div>
-  <div @click="switchShow([&quot;1605172743000_96378&quot;]);" class="nav-h5">
-   <i class="iconfont icon-caidan nav-h5-icon"></i>
-   <div id="key_1605172743000_96378" class="nav-h5-body" style="display: none">
-    <a href="{ms:global.host/}" class="nav-h5-item"> 首页 </a>
-    {ms:channel flag='n' type='top'}
-    <a href="<#if field.type==3>{ms:global.url/}${field.typeurl}<#else>{ms:global.url/}${field.typelink}</#if>" class="nav-h5-item <#if typeid==field.typeid || (ids?has_content && ids?index_of('${field.typeid}') gt -1)> sel</#if>">
-     ${field.typetitle}
-    </a>
-    {/ms:channel}
-   </div>
-  </div>
-  <div class="nav-item">
-   <a href="{ms:global.host/}" class="item"> 首页 </a>
-
-   {ms:channel flag='n' type='top'}
-   <a href="<#if field.type==3>{ms:global.url/}${field.typeurl}<#else>{ms:global.url/}${field.typelink}</#if>" class="item<#if typeid==field.typeid || (ids?has_content && ids?index_of('${field.typeid}') gt -1)> sel</#if>">
-    ${field.typetitle}
-   </a>
-   {/ms:channel}
-  </div>
-  <div class="nav-search">
-   <!--搜索-start-->
-   <form id="searchDataForm" action="{ms:global.host/}/mcms/search.do" method="post" class="ms-search-input">
-    <div class="ms-search-input-div">
-     <!--输入框 - start -->
-     <input class="ms-input" name="content_title" placeholder="输入搜索关键字">
-     <!--输入框 -end -->
+<!--头部begin-->
+<div class="header-v1">
+    <!-- S top-main -->
+    <div class="top-main">
+        <div class="logo1">
+            <a href="/"><img src="{@ms:file global.logo/}" alt="某某公司"/></a>
+        </div>
+        <div class="top_search"><em></em>
+            <div class="search_con">
+                <form name="formsearch" action="/mcms/search.do" method="post">
+                    <input class="input1" type="text" name="content_title" id="p" placeholder="搜索" value="">
+                    <input type="submit" class="bnts" value="${search.content_title}">
+                </form>
+            </div>
+        </div>
+        <div class="top-main-content">
+            <!-- S nav -->
+            <div class="navBar">
+                <ul class="nav clearfix">
+                    <li class="m <#assign typeid=field.typeid><#if typeid==''>on</#if>">
+                        <h3><a href="/" title="首页"><span data-title="首页">首页</span></a></h3>
+                    </li>
+                    <!--定义变量typeid、ids，通过这两个变量判断是否选中-->
+                    <#assign typeid=field.typeid>
+                    <#assign ids=field.parentids>
+                    {ms:channel type='nav' flag='n' orderby='sort'}
+                    <#if field.childsize &gt; 0>
+                    <li class="m <#if field.typeid == typeid || (ids?has_content && ids?split(",")?seq_contains(field.typeid.toString()))>on</#if>">
+                        <h3>
+                            <a href="<#if field.type==3>{ms:global.html/}${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>">
+                                <span data-title="${field.typetitle}">${field.typetitle}</span>
+                            </a>
+                        </h3>
+                        <div class="sub">
+                            <ul>
+                                {ms:channel}
+                                <li>
+                                    <a href="<#if field.type==3>${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>" target="_blank">${field.typetitle}</a>
+                                </li>
+                                {/ms:channel}
+                            </ul>
+                        </div>
+                    </li>
+                    <#else>
+                    <li class="m <#if field.typeid == typeid || (ids?has_content && ids?split(",")?seq_contains(field.typeid.toString()))>on</#if>">
+                        <h3>
+                            <a href="<#if field.type==3>{ms:global.html/}${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>">
+                                <span data-title="${field.typetitle}">${field.typetitle}</span>
+                            </a>
+                        </h3>
+                    </li>
+                    </#if>
+                    {/ms:channel}
+                </ul>
+            </div>
+            <script type="text/javascript">
+                jQuery(".nav").slide({
+                    type: "menu",
+                    titCell: ".m",
+                    targetCell: ".sub",
+                    effect: "slideDown",
+                    delayTime: 300,
+                    triggerTime: 100,
+                    returnDefault: true
+            });
+            </script>
+            <!-- E nav-->
+        </div>
     </div>
-    <div class="ms-search-button" onclick="document.getElementById('searchDataForm').submit();">
-     <i class="iconfont icon-fangdajing"></i>
-    </div>
-   </form>
-   <!--搜索-end-->
-  </div>
- </div>
+    <!-- E top-main -->
+    <div class="c_l"></div>
 </div>
+<!-- S touch-top-wrapper -->
+<div class="touch-top">
+    <div class="touch-top-wrapper clearfix">
+        <div class="touch-logo" skinobjectzone="HtmlLogo_1514">
+            <a class="" href="/">
+                <img src="{@ms:file global.logo/}" alt="我的网站"/>
+            </a>
+        </div>
+        <!-- S touch-navigation -->
+        <div class="touch-navigation">
+            <div class="touch-toggle">
+                <ul>
+                    <li class="touch-toggle-item-last">
+                        <a href="javascript:void(0);" class="drawer-menu" data-drawer="search_div">
+                            <i class="touch-icon-search"><span>搜索</span></i>
+                        </a>
+                    </li>
+                    <li class="touch-toggle-item-last">
+                        <a href="javascript:;" class="drawer-menu" data-drawer="drawer-section-menu">
+                            <i class="touch-icon-menu"></i><span>导航</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- E touch-navigation -->
+    </div>
+    <!-- S touch-top -->
+    <div class="touch-toggle-content touch-top-home">
+        <!--手机搜索begin-->
+        <div class="drawer-section search_div">
+            <div class="search_con">
+                <form  name="formsearch" action="/mcms/search.do" method="post" target="_blank" style="height: 42px;">
+                    <input type="text" name="content_title" id="q" class="input1" placeholder="搜索" value=""/>
+                    <input type="submit" value="" class="bnt1"/>
+                </form>
+            </div>
+        </div>
+        <!--手机搜索end-->
+        <!--手机菜单begin-->
+        <div class="drawer-section drawer-section-menu">
+            <div class="touch-menu" skinobjectzone="menu_2005">
+                <ul>
+                    <li>
+                        <a href="/"><span>首页</span></a>
+                    </li>
+                    <#assign typeid=field.typeid>
+                    <#assign ids=field.parentids>
+                    {ms:channel type='nav' flag='n' orderby='sort'}
+                    <#if field.childsize &gt; 0>
+                    <li>
+                        <a href="<#if field.type==3>{ms:global.html/}${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>">
+                            <span>${field.typetitle}</span>
+                            <i class="touch-arrow-down"></i>
+                        </a>
+                        <ul>
+                            {ms:channel}
+                            <li>
+                                <a href="<#if field.type==3>{ms:global.html/}${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>">
+                                    <span>${field.typetitle}</span>
+                                </a>
+                            </li>
+                            {/ms:channel}
+                        </ul>
+                    </li>
+                    <#else>
+                    <li>
+                        <a href="<#if field.type==3>{ms:global.html/}${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>">
+                            <span>${field.typetitle}</span>
+                        </a>
+                        <ul>
+                        </ul>
+                    </li>
+                    </#if>
+                    {/ms:channel}
+                </ul>
+                <div class="closetitle">
+                    <img src="/{ms:global.style/}picture/nav_bg2.png">
+                </div>
+            </div>
+        </div>
+        <!--手机菜单end-->
+    </div>
+    <!-- E touch-top -->
+</div>
+<div class="touch_bg">&nbsp;</div>
+<!-- E touch-top-wrapper -->
+<div class="blank_h">&nbsp;</div>
+<script src="/{ms:global.style/}js/public.js">//导航</script>
+<!--头部end-->

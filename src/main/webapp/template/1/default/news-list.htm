@@ -1,660 +1,75 @@
+<!DOCTYPE html>
 <html>
- <head>
-  <meta charset="utf-8">
-  <title>{ms:global.name/}</title>
-  <#include "head-file.htm" />
- </head>
- <body>
-  <div id="app" v-cloak>
-   <#include "header.htm" />
-   <div class="news">
-    <div class="body">
-     <div class="left">
-     {ms:channel type='parent'}
-     <span class="title"> ${field.typetitle}</span>
-     {/ms:channel}
-     <#assign typetitle=field.typetitle>
-     <#if field.typeleaf>
-     {ms:channel type='level'}
-     <a href="{ms:global.url/}${field.typelink}" class="<#if typetitle==field.typetitle>sub-title-sel<#else>sub-title</#if>"> ${field.typetitle} </a>
-     {/ms:channel}
-     <#else>
-     {ms:channel type='son'}
-     <a href="{ms:global.url/}${field.typelink}" class="<#if typetitle==field.typetitle>sub-title-sel<#else>sub-title</#if>"> ${field.typetitle} </a>
-     {/ms:channel}
-    </#if>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="robots" content="index, follow"/>
+    <title>${field.typetitle}-</title>
+    <meta name="keywords" content="${field.typekeyword}">
+    <meta name="description" content="${field.typedescrip}">
+    <meta http-equiv="Cache-Control" content="no-transform"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="applicable-device" content="pc,mobile"/>
+    <link href="/{ms:global.style/}css/style.css" rel="stylesheet"/>
+    <link href="/{ms:global.style/}css/css.css" rel="stylesheet"/>
+    <script src="/{ms:global.style/}js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/{ms:global.style/}js/jquery.superslide.2.1.1.js">//pc导航</script>
+    <script src="/{ms:global.style/}js/anim.js">//动画</script>
+    <script type="text/javascript" src="/{ms:global.style/}js/basic.js"></script>
+</head>
+<body>
+<#include "header.htm" />
+<div class="o_big" >
+    <img src="{@ms:file field.typelitpic/}" alt=""/>
+    <h1 >${field.typedescrip}</h1>
+</div>
+<!--正文begin-->
+<div class="wrap">
+    <div class="product_a anim anim-1">
+        <#if field.typeleaf !=0>
+        {ms:channel type='level'}
+            <#if field.typeid == typeid || (ids?has_content && ids?split(",")?seq_contains(field.typeid.toString()))>
+            <a href='<#if field.type==3>{ms:global.html/}${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>' class='csel'>${field.typetitle}</a>
+            <#else>
+            <a href="<#if field.type==3>{ms:global.html/}${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>">${field.typetitle}</a>
+            </#if>
+        {/ms:channel}
+        <#else>
+        {ms:channel type='son'}
+            <#if field.typeid == typeid || (ids?has_content && ids?split(",")?seq_contains(field.typeid.toString()))>
+            <a href='<#if field.type==3>{ms:global.html/}${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>' class='csel'>${field.typetitle}</a>
+            <#else>
+            <a href="<#if field.type==3>{ms:global.html/}${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>">${field.typetitle}</a>
+            </#if>
+        {/ms:channel}
+        </#if>
     </div>
-     <div class="right">
-      <div class="ms-channel-path">
-       <span class="ms-channel-path-label"> 当前位置： </span>
-       <a href="/" class="ms-channel-path-index"> 首页 </a> {ms:channel type="path"}
-       <i class="iconfont icon-youjiantou"></i>
-       <a href="{ms:global.url/}${field.typelink}" class="ms-channel-path-link"> ${field.typetitle} </a> {/ms:channel}
-      </div>
-      <div class="right-body">
-       {ms:arclist size=10 ispaging=true}
-       <div class="news-item">
-        <div class="pic">
-         <img title="" alt="" src="{ms:global.host/}/{@ms:file field.litpic/}">
+</div>
+<div class="news_bg">
+    <div class="wrap">
+        <div class="news_con">
+            <ul>
+                {ms:arclist size=10 ispaging=true}
+                <li class="anim anim-1">
+                    <a href="{ms:global.html/}${field.link}">
+                        <div class="imgs"><img src="{@ms:file field.litpic/}"></div>
+                        <div class="i_about_r">
+                            <h3>${field.title}</h3>
+                            <label>${field.date?string("yyyy-MM-dd")}</label>
+                            <div class="p">{@ms:len field.descrip 120 /}...</div>
+                            <span class="news_more">查看更多+</span>
+                        </div>
+                    </a>
+                </li>
+                {/ms:arclist}
+            </ul>
         </div>
-        <div class="news-content">
-         <a href="{ms:global.url/}${field.link}" class="title"> ${field.title} </a>
-         <span class="desc"> ${field.descrip} </span>
-         <div class="news-footer">
-          <span class="label"> 发布时间 </span>
-          <span class="v"> ${field.date?date?string("yyyy-MM-dd")} </span>
-         </div>
-        </div>
-       </div>
-       {/ms:arclist}
-
-      </div>
-
-      <div class="page">
-       <el-pagination
-               background
-               @current-change="handleCurrentChange"
-               :page-size="pageSize"
-               :current-page.sync="pageCur"
-               layout="prev, pager, next, jumper"
-               :total="contentCount"> </el-pagination>
-
-      </div>
-
-     </div>
-
-
-
+        <div class="yema"><#include "page.htm" /></div>
     </div>
-   </div>
-   <#include "footer.htm" />
-  </div>
-  <script>
-var app = new Vue({
-    el: '#app',
-    watch:{
-    },
-    data: {
-     //当前页数
-     pageCur: ${(page.cur)!1},
-     //每页文章条数
-     pageSize: ${(page.size)!20},
-     //页数总数
-     pageTotal: ${(page.total)!0},
-     //内容总数
-     contentCount: ${(page.rcount)!0}
-    },
-    methods: {
-     switchShow:function(arr){
-      var that = this
-      arr.forEach(function(x){
-       let e = that.$el.querySelector("#key_"+x)
-       if(e){
-        e.style.display=e.style.display=='none'?'flex':'none'
-       }
-      })
-     },
-     handleCurrentChange:function(val) {
-      if(val==1) {
-       location.href = "{ms:global.url/}/${field.categoryPath}/index.html";
-      } else {
-       location.href = "{ms:global.url/}/${field.categoryPath}/list-" + val + ".html";
-      }
-     }
-    },
-    created(){
-    }
-})
-</script>
-  <style>
-    body {
-        background-color:#fff;
-        box-sizing:border-box;
-        font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Segoe UI", "Helvetica Neue", "PingFang SC", "Noto Sans", "Noto Sans CJK SC", "Microsoft YaHei", 微软雅黑, sans-serif;
-        moz-box-sizing:border-box;
-        webkit-box-sizing:border-box;
-    }
-
-    .news
-    {
-            align-items:center;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            box-sizing:border-box;
-            justify-content:center;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:100%;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:0px;
-    }
-    .news .body
-    {
-            padding-bottom:20px;
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            width:1200%;
-            box-sizing:border-box;
-            padding-top:20px;
-            padding-left:0px;
-            justify-content:center;
-            height:100%;
-    }
-    .news .body .left
-    {
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            flex-direction:column;
-            display:flex;
-            padding-right:0px;
-            width:200px;
-            box-sizing:border-box;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:0px;
-            height:100%;
-    }
-    .news .body .left .title
-    {
-            border-bottom-color:#C0C4CC;
-            color:#C0C4CC;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            border-bottom-style:dashed;
-            padding-top:10px;
-            border-bottom-width:1px;
-            padding-left:10px;
-            margin-top:0px;
-            height:40px;
-    }
-    .news .body .left .sub-title-sel
-    {
-            background-color:#F2F6FC;
-            color:#409EFF;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-            padding-top:10px;
-            padding-left:10px;
-            margin-top:2px;
-            height:40px;
-    }
-    .news .body .left .sub-title
-    {
-     color:#5F5F5F;
-     flex-direction:row;
-     word-wrap:break-word;
-     display:inline-block;
-     font-size:16PX;
-     padding-top:10px;
-     padding-left:10px;
-     margin-top:0px;
-     height:40px;
-    }
-    .news .body .right
-    {
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            flex-direction:column;
-            display:flex;
-            padding-right:0px;
-            width:1000px;
-            margin-bottom:0px;
-            box-sizing:border-box;
-            padding-top:0px;
-            padding-left:20px;
-            margin-top:0px;
-            height:100%;
-    }
-
-    .news .body .right .page {
-     padding-right: 0px;
-     padding-bottom: 0px;
-     flex-wrap: nowrap;
-     height: 60px;
-     align-items: center;
-     justify-content: center;
-     padding-left: 0px;
-     box-sizing: border-box;
-     padding-top: 0px;
-     flex-direction: row;
-     display: flex;
-     width: 100%;
-    }
-    .news .body .right .ms-channel-path
-    {
-            align-items:center;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            box-sizing:border-box;
-            margin-left:auto;
-            margin-right:auto;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:100%;
-            margin-bottom:10px;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:10px;
-            height:30px;
-    }
-    .news .body .right .ms-channel-path span
-    {
-            color:#909399;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:16PX;
-    }
-    .news .body .right .ms-channel-path .ms-channel-path-index
-    {
-            cursor:pointer;
-            color:#000;
-            font-size:16PX;
-            text-decoration:none;
-            margin-bottom:0px;
-            margin-top:0px;
-    }
-    .news .body .right .ms-channel-path >i
-    {
-    }
-    .news .body .right .ms-channel-path .ms-channel-path-link
-    {
-            cursor:pointer;
-            color:#000;
-            font-size:16PX;
-            text-decoration:none;
-            margin-bottom:0px;
-            margin-top:0px;
-    }
-    .news .body .right .right-body
-    {
-            align-items:flex-start;
-            flex-direction:column;
-            display:flex;
-            padding-right:10px;
-            box-sizing:border-box;
-            margin-left:0px;
-            margin-right:0px;
-            padding-bottom:10px;
-            width:100%;
-            margin-bottom:0px;
-            padding-top:10px;
-            padding-left:10px;
-            margin-top:0px;
-            height:100%;
-    }
-    .news .body .right .right-body .news-item
-    {
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            width:100%;
-            box-sizing:border-box;
-            margin-bottom:10px;
-            padding-top:0px;
-            padding-left:0px;
-            margin-top:0px;
-            height:120px;
-    }
-    .news .body .right .right-body .news-item .pic
-    {
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            flex-direction:row;
-            display:flex;
-            width:200px;
-            box-sizing:border-box;
-            padding-top:0px;
-            height:120px;
-    }
-    .news .body .right .right-body .news-item .pic img
-    {
-            margin-right:0px;
-            padding-bottom:0px;
-            padding-right:0px;
-            width:100%;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-            height:100%;
-            margin-left:0px;
-    }
-    .news .body .right .right-body .news-item .news-content
-    {
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            flex-direction:column;
-            display:flex;
-            padding-right:0px;
-            width:100%;
-            box-sizing:border-box;
-            padding-top:0px;
-            position:relative;
-            padding-left:10px;
-            justify-content:flex-start;
-            height:100%;
-    }
-    .news .body .right .right-body .news-item .news-content .title
-    {
-            padding-bottom:0px;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            font-size:18PX;
-            padding-top:0px;
-            padding-left:0px;
-    }
-    .news .body .right .right-body .news-item .news-content .desc
-    {
-            padding-bottom:8px;
-            color:#909399;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            padding-right:0px;
-            font-size:16PX;
-            margin-bottom:0px;
-            padding-top:8px;
-            padding-left:0px;
-            height:100px;
-    }
-    .news .body .right .right-body .news-item .news-content .news-footer
-    {
-            align-items:center;
-            flex-direction:row;
-            display:flex;
-            padding-right:0px;
-            box-sizing:border-box;
-            justify-content:flex-start;
-            margin-left:0px;
-            margin-right:0px;
-            padding-bottom:0px;
-            flex-wrap:nowrap;
-            width:100%;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-            height:30%;
-    }
-    .news .body .right .right-body .news-item .news-content .news-footer .label
-    {
-            margin-right:0px;
-            padding-bottom:0px;
-            color:#C0C4CC;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            padding-right:0px;
-            font-size:14PX;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-            margin-left:0px;
-    }
-    .news .body .right .right-body .news-item .news-content .news-footer .v
-    {
-            margin-right:10px;
-            padding-bottom:0px;
-            color:#C0C4CC;
-            flex-direction:row;
-            word-wrap:break-word;
-            display:inline-block;
-            padding-right:0px;
-            font-size:14PX;
-            margin-bottom:0px;
-            padding-top:0px;
-            padding-left:0px;
-            margin-left:10px;
-    }
-@media (max-width: 768px){
-        .news
-        {
-                align-items:center;
-                flex-direction:row;
-                display:flex;
-                padding-right:0px;
-                box-sizing:border-box;
-                justify-content:center;
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                width:100%;
-                margin-bottom:0px;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:0px;
-        }
-        .news .body
-        {
-                padding-bottom:20px;
-                align-items:center;
-                flex-wrap:nowrap;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                width:100%;
-                box-sizing:border-box;
-                padding-top:20px;
-                padding-left:0px;
-                justify-content:flex-start;
-        }
- .news .body .left {
-  width: 90%;
- }
-        .news .body .right
-        {
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                width:100%;
-                margin-bottom:0px;
-                box-sizing:border-box;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:0px;
-        }
-        .news .body .right .ms-channel-path
-        {
-                align-items:center;
-                flex-direction:row;
-                display:flex;
-                padding-right:0px;
-                box-sizing:border-box;
-                margin-left:auto;
-                margin-right:auto;
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                width:90%;
-                margin-bottom:10px;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:10px;
-                height:30px;
-        }
-        .news .body .right .ms-channel-path span
-        {
-                color:#909399;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-        }
-        .news .body .right .ms-channel-path .ms-channel-path-index
-        {
-                cursor:pointer;
-                color:#000;
-                font-size:16PX;
-                text-decoration:none;
-                margin-bottom:0px;
-                margin-top:0px;
-        }
-        .news .body .right .ms-channel-path .ms-channel-path-link
-        {
-                cursor:pointer;
-                color:#000;
-                font-size:16PX;
-                text-decoration:none;
-                margin-bottom:0px;
-                margin-top:0px;
-        }
-        .news .body .right .right-body
-        {
-                align-items:center;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                box-sizing:border-box;
-                justify-content:center;
-                margin-left:0px;
-                margin-right:0px;
-                padding-bottom:10px;
-                width:100%;
-                margin-bottom:0px;
-                padding-top:10px;
-                padding-left:0px;
-                margin-top:0px;
-                height:100%;
-        }
-        .news .body .right .right-body .news-item
-        {
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                width:90%;
-                box-sizing:border-box;
-                margin-bottom:10px;
-                padding-top:0px;
-                padding-left:0px;
-         height: unset;
-        }
-        .news .body .right .right-body .news-item .pic
-        {
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                flex-direction:row;
-                display:flex;
-                width:100%;
-                box-sizing:border-box;
-                margin-bottom:0px;
-                padding-top:0px;
-                height:unset;
-        }
-        .news .body .right .right-body .news-item .pic img
-        {
-                padding-bottom:0px;
-                padding-right:0px;
-                width:100%;
-                padding-top:0px;
-                padding-left:0px;
-                height:100%;
-        }
-        .news .body .right .right-body .news-item .news-content
-        {
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                flex-direction:column;
-                display:flex;
-                padding-right:0px;
-                width:100%;
-                box-sizing:border-box;
-                padding-top:0px;
-                position:relative;
-                padding-left:0px;
-                justify-content:flex-start;
-                height:100%;
-        }
-        .news .body .right .right-body .news-item .news-content .title
-        {
-                padding-bottom:0px;
-                text-align:left;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                font-size:16PX;
-                margin-bottom:8px;
-                padding-top:0px;
-                padding-left:0px;
-                margin-top:8px;
-        }
-        .news .body .right .right-body .news-item .news-content .desc
-        {
-                padding-bottom:8px;
-                color:#909399;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                padding-right:0px;
-                font-size:14PX;
-                margin-bottom:0px;
-                padding-top:8px;
-                padding-left:0px;
-                margin-top:0px;
-                height:100px;
-         display: none;
-        }
-        .news .body .right .right-body .news-item .news-content .news-footer
-        {
-                align-items:center;
-                flex-direction:row;
-                display:flex;
-                padding-right:0px;
-                box-sizing:border-box;
-                justify-content:flex-start;
-                margin-left:0px;
-                margin-right:0px;
-                padding-bottom:0px;
-                flex-wrap:nowrap;
-                width:100%;
-                padding-top:0px;
-                padding-left:0px;
-                height:30%;
-        }
-        .news .body .right .right-body .news-item .news-content .news-footer .label
-        {
-                margin-right:0px;
-                padding-bottom:0px;
-                color:#C0C4CC;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                padding-right:0px;
-                font-size:14PX;
-                margin-bottom:0px;
-                padding-top:0px;
-                padding-left:0px;
-                margin-left:0px;
-        }
-        .news .body .right .right-body .news-item .news-content .news-footer .v
-        {
-                margin-right:10px;
-                padding-bottom:0px;
-                color:#C0C4CC;
-                flex-direction:row;
-                word-wrap:break-word;
-                display:inline-block;
-                padding-right:0px;
-                font-size:14PX;
-                margin-bottom:0px;
-                padding-top:0px;
-                padding-left:0px;
-                margin-left:10px;
-        }
-
-}</style>
- </body>
+</div>
+<!--正文end-->
+<#include "footer.htm" />
+<script language="javascript" src="/{ms:global.style/}js/foot.js"></script><!--尾部end-->
+</body>
 </html>

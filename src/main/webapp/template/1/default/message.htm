@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="robots" content="index, follow"/>
+    <title>${field.typetitle}</title>
+    <meta name="keywords" content="${field.typekeyword}">
+    <meta name="description" content="${field.typedescrip}">
+    <meta http-equiv="Cache-Control" content="no-transform"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="applicable-device" content="pc,mobile"/>
+    <link href="/{ms:global.style/}css/style.css" rel="stylesheet"/>
+    <link href="/{ms:global.style/}css/css.css" rel="stylesheet"/>
+    <script src="/{ms:global.style/}js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/{ms:global.style/}js/jquery.superslide.2.1.1.js">//pc导航</script>
+    <script src="/{ms:global.style/}js/anim.js">//动画</script>
+    <script type="text/javascript" src="/{ms:global.style/}js/basic.js"></script>
+    <!--引入vue库-->
+    <script type="text/javascript" src="/static/plugins/vue/2.6.9/vue.min.js"></script>
+    <!--引入element-ui库-->
+    <script src="${base}/static/plugins/element-ui/2.15.8/index.min.js"></script>
+    <link rel="stylesheet" href="/static/plugins/element-ui/2.15.8/theme-chalk/index.min.css">
+    <!--网络请求框架-->
+    <script src="/static/plugins/axios/0.18.0/axios.min.js"></script>
+    <script src="/static/plugins/qs/6.6.0/qs.min.js"></script>
+    <script src="/static/plugins/ms/2.0/ms.umd.js"></script>
+    <script src="/static/plugins/ms/2.0/ms-el-form.umd.js"></script>
+</head>
+<body>
+<#include "header.htm" />
+<div class="o_big">
+    <img src="{@ms:file field.typelitpic/}" alt=""/>
+    <h1>${field.typedescrip}</h1>
+</div>
+<!--正文begin-->
+<!--文章内容开始-->
+<div class="right fr">
+
+    <!-- 留言表单 -->
+    <div id="form" v-loading="loading" v-cloak>
+        <el-form ref="form" :model="form" :rules="rules" label-width="120px" label-position="right" size="small"
+                 class="message">
+            <!--称呼姓名-->
+            <el-form-item label="称呼姓名" prop="leaveName">
+                <el-input
+                        v-model="form.leaveName"
+                        :disabled="false"
+                        :readonly="false"
+                        :style="{width:  '100%'}"
+                        :clearable="true"
+                        placeholder="请输入称呼姓名">
+                </el-input>
+            </el-form-item>
+            <!--联系电话-->
+            <el-form-item label="联系电话" prop="leavePhone">
+                <el-input
+                        v-model="form.leavePhone"
+                        :disabled="false"
+                        :readonly="false"
+                        :style="{width:  '100%'}"
+                        :clearable="true"
+                        placeholder="请输入联系电话">
+                </el-input>
+            </el-form-item>
+            <!--留言-->
+            <el-form-item label="留言" prop="content">
+                <el-input
+                        type="textarea" :rows="5"
+                        :disabled="false"
+                        :readonly="form.id>0?true:false"
+                        v-model="form.content"
+                        :style="{width: '100%'}"
+                        placeholder="请输入留言">
+                </el-input>
+            </el-form-item>
+            <el-form-item label="验证码" prop="rand_code">
+                <el-row>
+                    <el-col :span="10">
+                        <el-input v-model="form.rand_code"
+                                  :disabled="false" :readonly="false" :clearable="true"
+                                  placeholder="请输入验证码">
+                        </el-input>
+                    </el-col>
+                    <el-col :span="6">
+                        <img height="40px" :src="verifCode" @click="code" style="margin-left: 10px"/>
+                    </el-col>
+                </el-row>
+            </el-form-item>
+            <!--验证码-->
+
+            <el-form-item label="  ">
+                <el-button @click="save" type="primary" :loading="loading" style="width: 200px">
+                    {{loading?'提交留言中':'提交留言'}}
+                </el-button>
+            </el-form-item>
+        </el-form>
+        </el-form>
+    </div>
+    <!--正文end-->
+    <#include "footer.htm" />
+    <script language="javascript" src="/{ms:global.style/}js/foot.js"></script>
+</body>
+<script>
+    var form = new Vue({
+        el: '#form',
+        data: function () {
+            return {
+                verifCode: "/code.do" + new Date().getTime(),
+                loading: false,
+                saveDisabled: false,
+                //表单数据
+                form: {
+                    // 称呼姓名
+                    leaveName: '',
+                    // 联系电话
+                    leavePhone: '',
+                    // 留言
+                    content: '',
+                    // 验证码
+                    rand_code: '',
+                },
+                rules: {
+                    // 称呼姓名
+                    leaveName: [{"required": true, "message": "称呼姓名不能为空"}, {
+                        "min": 0,
+                        "max": 255,
+                        "message": "称呼姓名长度必须为0-255"
+                    }],
+                    // 联系电话
+                    leavePhone: [{
+                        "required": true,
+                        "message": "联系电话不能为空"
+                    }, {
+                        "pattern": /^([0-9]{3,4}-)?[0-9]{7,8}$|^\d{3,4}-\d{3,4}-\d{3,4}$|^1[0-9]{10}$/,
+                        "message": "联系电话格式不匹配"
+                    }, {"min": 0, "max": 255, "message": "联系电话长度必须为0-255"}],
+                    // 留言
+                    content: [{"required": true, "message": "留言不能为空"}],
+                    // 验证码
+                    rand_code: [{"required": true, "message": "验证码不能为空"}],
+                },
+            }
+        },
+        watch: {},
+        components: {},
+        computed: {},
+        methods: {
+            code: function () {
+                this.verifCode = "/code.do?t=" + new Date().getTime();
+            },
+            save: function (e) {
+                e.preventDefault();//阻止默认事件跳转
+                var that = this;
+                that.$refs.form.validate(function (valid) {
+                    if (valid) {
+                        that.form.modelName = "留言板"; //modelName需要填写自己的模型昵称
+                        ms.http.post("/mdiy/form/data/save.do", that.form).then(function (res) {
+                            if (res.result) {
+                                that.$notify({
+                                    title: '成功',
+                                    type: 'success',
+                                    message: '感谢您的参与!'
+                                });
+                                that.$refs.form.resetFields(); //清空表单
+                            } else {
+                                if (res.msg == '验证码错误!') {
+                                    that.$notify({
+                                        title: '失败',
+                                        message: res.msg,
+                                        type: 'warning'
+                                    });
+                                } else {
+                                    that.$alert('需要安装留言插件才能使用，请先进入后台MStore安装留言插件使用。<a href="http://store.mingsoft.net/#/detail?id=310&type=plugin" target="_blank">查看留言插件</a>', '留言插件提示', {
+                                        dangerouslyUseHTMLString: true
+                                    });
+                                }
+                            }
+                            that.code();
+                        })
+                    }
+                })
+
+            }
+        }
+    });
+
+</script>
+</html>
+<style>
+    .message {
+        width: 40%;
+        margin: 20px auto;
+    }
+</style>
