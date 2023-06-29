@@ -41,9 +41,9 @@
                             <el-col span="12">
                                 <el-form-item label="所属栏目" prop="categoryId">
                                     <ms-tree-select ref="tree"
-                                                 :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
-                                                 :options="treeList" :style="{width:'100%'}"
-                                                 v-model="form.categoryId"></ms-tree-select>
+                                                    :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
+                                                    :options="treeList" :style="{width:'100%'}"
+                                                    v-model="form.categoryId"></ms-tree-select>
                                     <div class="ms-form-tip">
                                         不能将父级别栏目移动到自身子级栏目
                                     </div>
@@ -68,6 +68,20 @@
                                 </el-form-item>
                             </el-col>
                             <el-col span="12">
+                                <el-form-item label="自定义顺序" prop="categorySort">
+                                    <el-input-number
+                                            v-model="form.categorySort"
+                                            :disabled="false"
+                                            controls-position="">
+                                    </el-input-number>
+                                </el-form-item>
+
+                            </el-col>
+                        </el-row>
+                        <el-row
+                                :gutter="0"
+                                justify="start" align="top">
+                            <el-col span="12">
                                 <el-form-item label="是否显示" prop="categoryDisplay">
                                     <el-radio-group v-model="form.categoryDisplay"
                                                     :style="{width: ''}"
@@ -81,6 +95,23 @@
                                     </el-radio-group>
                                     <div class="ms-form-tip">
                                         选择否后需重新生成，与文章是否显示功能一致；若该栏目禁用，则所有子栏目也会被禁用，请谨慎操作；
+                                    </div>
+                                </el-form-item>
+                            </el-col>
+                            <el-col span="12">
+                                <el-form-item prop="mdiyModelId" label="文章自定义模型">
+                                    <el-select v-model="form.mdiyModelId"
+                                               :style="{width: '100%'}"
+                                               :filterable="false"
+                                               :disabled="false"
+                                               :multiple="false" :clearable="true"
+                                               placeholder="请选择文章自定义模型">
+                                        <el-option v-for='item in mdiyModelListOptions' :key="item.id" :value="item.id"
+                                                   :label="item.modelName"></el-option>
+                                    </el-select>
+                                    <div class="ms-form-tip">
+                                        文章字段不满足，使用<b>代码生成器</b>生成<b>自定义模型</b>来扩展，<br/>
+                                        大概步骤：<i>代码生成器->复制自定义模型->打开系统后台的自定义管理->选择自定义模型->导入->文章 自定义模型 绑定</i>
                                     </div>
                                 </el-form-item>
                             </el-col>
@@ -109,22 +140,22 @@
                                 </el-form-item>
                             </el-col>
                             <el-col span="12">
-                                <el-form-item prop="mdiyModelId" label="文章自定义模型">
-                                    <el-select v-model="form.mdiyModelId"
-                                               :style="{width: '100%'}"
-                                               :filterable="false"
-                                               :disabled="false"
-                                               :multiple="false" :clearable="true"
-                                               placeholder="请选择文章自定义模型">
-                                        <el-option v-for='item in mdiyModelListOptions' :key="item.id" :value="item.id"
-                                                   :label="item.modelName"></el-option>
-                                    </el-select>
+
+                                <el-form-item label="是否可被搜索" prop="categoryIsSearch">
+                                    <el-radio-group v-model="form.categoryIsSearch"
+                                                    :style="{width: ''}"
+                                                    :disabled="false">
+                                        <el-radio :style="{issearch: true ? 'inline-block' : 'block'}"
+                                                  :label="item.value"
+                                                  v-for='(item, index) in categoryIsSearchOptions'
+                                                  :key="item.value + index">
+                                            {{true? item.label : item.value}}
+                                        </el-radio>
+                                    </el-radio-group>
                                     <div class="ms-form-tip">
-                                        文章字段不满足，使用<b>代码生成器</b>生成<b>自定义模型</b>来扩展，<br/>
-                                        大概步骤：<i>代码生成器->复制自定义模型->打开系统后台的自定义管理->选择自定义模型->导入->文章 自定义模型 绑定</i>
+                                        选择否后不需重新生成，该栏目下的文章将不会被搜索页搜索；若该栏目选择不可被搜索，则所有子栏目也会不可被搜索；
                                     </div>
                                 </el-form-item>
-
                             </el-col>
                         </el-row>
                         <el-row gutter="0" justify="start" align="top">
@@ -146,6 +177,21 @@
                             </el-col>
                             <el-col span="12">
 
+                                <el-form-item label="栏目属性" prop="categoryFlag">
+                                    <el-select v-model="form.categoryFlag"
+                                               :style="{width: '100%'}"
+                                               :filterable="false"
+                                               :disabled="false"
+                                               :multiple="true" :clearable="true"
+                                               placeholder="请选择栏目属性">
+                                        <el-option v-for='item in categoryFlagOptions' :key="item.dictValue"
+                                                   :value="item.dictValue"
+                                                   :label="item.dictLabel"></el-option>
+                                    </el-select>
+                                    <div class="ms-form-tip">
+                                        可以在自定义字典中管理
+                                    </div>
+                                </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row
@@ -181,20 +227,6 @@
                                 </el-form-item>
                             </el-col>
                             <el-col span="12">
-                                <el-form-item label="自定义顺序" prop="categorySort">
-                                    <el-input-number
-                                            v-model="form.categorySort"
-                                            :disabled="false"
-                                            controls-position="">
-                                    </el-input-number>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-
-                        <el-row
-                                :gutter="0"
-                                justify="start" align="top">
-                            <el-col :span="12">
                                 <el-form-item label="生成路径" prop="categoryPinyin">
                                     <el-input
                                             v-model="form.categoryPinyin"
@@ -209,26 +241,9 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="12">
-                                <el-form-item label="栏目属性" prop="categoryFlag">
-                                    <el-select v-model="form.categoryFlag"
-                                               :style="{width: '100%'}"
-                                               :filterable="false"
-                                               :disabled="false"
-                                               :multiple="true" :clearable="true"
-                                               placeholder="请选择栏目属性">
-                                        <el-option v-for='item in categoryFlagOptions' :key="item.dictValue"
-                                                   :value="item.dictValue"
-                                                   :label="item.dictLabel"></el-option>
-                                    </el-select>
-                                    <div class="ms-form-tip">
-                                        可以在自定义字典中管理
-                                    </div>
-                                </el-form-item>
-                            </el-col>
-
-
                         </el-row>
+
+
                         <el-form-item label="关键字" prop="categoryKeyword">
                             <el-input
                                     type="textarea" :rows="5"
@@ -268,6 +283,7 @@
                                     :disabled="false"
                                     :data="{uploadPath:'/cms/category','isRename':true,'appId':true}"
                                     :on-success="categoryImgSuccess"
+                                    :on-error="categoryImgError"
                                     accept="image/*"
                                     list-type="picture-card">
                                 <i class="el-icon-plus"></i>
@@ -289,6 +305,7 @@
                                     :disabled="false"
                                     :data="{uploadPath:'/cms/category','isRename':true,'appId':true}"
                                     :on-success="categoryIcoSuccess"
+                                    :on-error="categoryImgError"
                                     accept="image/*"
                                     list-type="picture-card">
                                 <i class="el-icon-plus"></i>
@@ -315,7 +332,7 @@
             var that = this
             //验证拼音是否存在
             var validatorCategoryPinyin = function (rule, value, callback) {
-               //
+                //
                 ms.http.get(ms.manager+'/cms/category/verifyPingYin.do',{
                     id:that.form.id,
                     categoryPinyin:that.form.categoryPinyin,
@@ -351,6 +368,14 @@
                     "value": "disable",
                     "label": "否"
                 }],
+                // 栏目是否被搜索
+                categoryIsSearchOptions: [{
+                    "value": "enable",
+                    "label": "是"
+                }, {
+                    "value": "disable",
+                    "label": "否"
+                }],
                 //表单数据
                 form: {
                     // 栏目管理名称
@@ -373,6 +398,8 @@
                     categoryKeyword: '',
                     // 栏目是否显示
                     categoryDisplay: 'enable',
+                    // 栏目是否被搜索
+                    categoryIsSearch: 'enable',
                     // 栏目管理描述
                     categoryDescrip: '',
                     // banner图
@@ -401,7 +428,6 @@
                 categoryListUrlOptions: [],
                 categoryUrlOptions: [],
                 mdiyModelListOptions: [],
-                mdiyCategoryModelListOptions: [],
                 categoryFlagOptions: [],
                 rules: {
                     // 栏目管理名称
@@ -409,10 +435,14 @@
                         "required": true,
                         "message": "请选择栏目管理名称"
                     }],
-                    categoryListUrl: [{
+                    categoryIsSearch: [{
                         "required": true,
-                        "message": "请选择列表模板"
+                        "message": "请选择栏目是否可被搜索"
                     }],
+                    // categoryListUrl: [{
+                    //     "required": true,
+                    //     "message": "请选择列表模板"
+                    // }],
                     categoryPinyin: [{
                         validator: validatorCategoryPinyin, trigger: 'blur'
                     }, {
@@ -420,10 +450,10 @@
                         "message": "拼音格式不匹配"
                     }],
                     // 内容模板
-                    categoryUrl: [{
-                        "required": true,
-                        "message": "请选择内容模板"
-                    }]
+                    // categoryUrl: [{
+                    //     "required": true,
+                    //     "message": "请选择内容模板"
+                    // }]
                 }
             };
         },
@@ -495,9 +525,7 @@
             },
             getTree: function () {
                 var that = this;
-                ms.http.get(ms.manager + "/cms/category/list.do", {
-                    pageSize: 9999
-                }).then(function (res) {
+                ms.http.get(ms.manager + "/cms/category/list.do").then(function (res) {
                     if (res.result) {
                         //res.data.rows.push({id:0,categoryId: null,categoryTitle:'顶级栏目管理'});
                         that.categoryList = res.data.rows;
@@ -508,6 +536,14 @@
             save: function () {
                 var that = this;
 
+                var model = undefined;
+                if (that.form.mdiyCategoryModelId && String(that.form.mdiyCategoryModelId)!="0"){
+                    model = ms.mdiy.model.modelForm();
+                }
+                if (model && !model.validate()) {
+                    this.activeName = 'custom-name';
+                    return;
+                }
 
                 var url = ms.manager + "/cms/category/save.do";
 
@@ -558,6 +594,11 @@
                         data.categoryIco = JSON.stringify(data.categoryIco);
                         ms.http.post(url, data).then(function (data) {
                             if (data.result) {
+                                //保存时需要赋值关联ID
+                                if (model) {
+                                    model.form.linkId = data.data.id;
+                                    model.save();
+                                }
 
                                 that.$notify({
                                     title: '成功',
@@ -594,16 +635,18 @@
                     }
                 });
             },
-            //获取栏目内容模型
-            queryCategoryModelList: function () {
+
+            //设置栏目模型
+            setCategoryModel: function (mdiyCategoryModelId) {
                 var that = this;
-                ms.http.get(ms.manager + "/mdiy/model/list.do", {
-                    modelType: 'category'
-                }).then(function (res) {
-                    if (res.result) {
-                        that.mdiyCategoryModelListOptions = res.data.rows;
+                if (mdiyCategoryModelId) {
+                    mdiyCategoryModelId += "";
+                    if (mdiyCategoryModelId == "0") {
+                        mdiyCategoryModelId = null;
                     }
-                });
+                    that.form.mdiyCategoryModelId = mdiyCategoryModelId;
+                }
+                that.changeModel();
             },
 
             //获取当前分类
@@ -637,11 +680,20 @@
                         if (!res.data.categoryId) {
                             res.data.categoryId = '0';
                         }
+                        var mdiyCategoryModelId = res.data.mdiyCategoryModelId;
+                        if (mdiyCategoryModelId) {
+                            mdiyCategoryModelId += "";
+                            if (mdiyCategoryModelId == "0") {
+                                mdiyCategoryModelId = null;
+                            }
+                            res.data.mdiyCategoryModelId = mdiyCategoryModelId;
+                        }
 
 
                         that.form = res.data; //判断该分类是否存在文章，存在则不能修改栏目属性
 
                         that.contentList(that.form.id);
+                        that.changeModel();
                     }
                 });
             },
@@ -758,23 +810,46 @@
                     this.form.categoryIco.splice(index, 1);
                 }
             },
-            removeModel: function () {
-                var that = this;
-                var model = document.getElementById('model1');
-                var custom = document.getElementById('c_model');
-
-                if (custom) {
-                    model.removeChild(custom);
-                }
-
-                that.model = undefined;
+            //categoryImg文件上传失败回调
+            categoryImgError: function (response, file, fileList) {
+                response = response.toString().replace("Error: ","")
+                response = JSON.parse(response);
+                this.$notify({
+                    title: '失败',
+                    message: response.msg,
+                    type: 'warning'
+                });
             },
+            categoryChange: function () {
+                this.changeModel();
+            },
+            changeModel: function () {
+                var that = this;
+                that.editableTabs = [that.editableTabs[0]];
 
+                if (that.form) {
+                    if (that.form.mdiyCategoryModelId) {
+                        that.rederModel(that.form.mdiyCategoryModelId)
+                    }
+                }
+            },
+            rederModel: function (modelId) {
+                var that = this;
+                that.editableTabs.push({
+                    title: '加载中...',
+                    name: 'custom-name'
+                });
+                this.$nextTick(function () {
+                    ms.mdiy.model.extend("model1", {id:modelId},{ linkId: that.form.id },true).then(function(obj) {
+                        that.model = obj;
+                        that.editableTabs[1].title = obj.modelName
+                    });
+                });
+            },
 
         },
         created: function () {
             this.queryColumnContentModelList();
-            this.queryCategoryModelList();
             this.getTree();
             this.categoryListUrlOptionsGet();
             this.categoryUrlOptionsGet();
@@ -801,3 +876,6 @@
         width: 100%;
     }
 </style>
+
+
+
