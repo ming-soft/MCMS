@@ -48,9 +48,10 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
-                            <el-col span="12" v-if="returnIsShow">
-                                <el-form-item label="所属栏目" prop="categoryId">
+                            <el-col span="12" >
+                                <el-form-item label="所属栏目" prop="categoryId" >
                                     <treeselect v-model="form.categoryId"
+                                                :disabled="!returnIsShow"
                                                 :disable-branch-nodes="true"
                                                 :normalizer="node=>{
                                                 return {
@@ -60,29 +61,18 @@
                                                 }}"
                                                 @change="categoryChange"
                                                 :options="contentCategoryIdOptions" placeholder="请选择"></treeselect>
+
                                     <div class="ms-form-tip">
                                         标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.typetitle}</a>
                                         不能选择封面、链接栏目类型，不能选择父栏目
                                     </div>
                                 </el-form-item>
-                            </el-col>
-                            <el-col :span="12" v-else>
-                                <el-form-item label="文章副标题" prop="contentShortTitle">
-                                    <el-input v-model="form.contentShortTitle"
-                                              :disabled="false"
-                                              :style="{width:  '100%'}"
-                                              :clearable="true"
-                                              placeholder="请输入文章副标题">
-                                    </el-input>
-                                    <div class="ms-form-tip">
-                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.shorttitle}</a>
-                                    </div>
-                                </el-form-item>
+
                             </el-col>
                         </el-row>
                         <el-row
                                 gutter="0"
-                                justify="start" align="top" v-if="returnIsShow">
+                                justify="start" align="top">
                             <el-col :span="12">
                                 <el-form-item label="文章副标题" prop="contentShortTitle">
                                     <el-input v-model="form.contentShortTitle"
@@ -127,7 +117,7 @@
                                                    :label="item.dictLabel"></el-option>
                                     </el-select>
                                     <div class="ms-form-tip">
-                                       标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{flag}</a>
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{flag}</a>
                                         通过自定义字典可扩展，通常用在 arclist标签的flag属性上进行过滤文章
                                     </div>
                                 </el-form-item>
@@ -150,43 +140,6 @@
                                     </el-date-picker>
                                     <div class="ms-form-tip">
                                         标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.date?string("yyyy-MM-dd")}</a>
-                                    </div>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                        <el-row
-                                gutter="0"
-                                justify="start" align="top">
-                            <el-col span="12">
-                                <el-form-item label="文章标签" prop="contentTags">
-                                    <el-select v-model="form.contentTags"
-                                               :style="{width: '100%'}"
-                                               :filterable="false"
-                                               :disabled="false"
-                                               filterable
-                                               :multiple="true" :clearable="true"
-                                               placeholder="请选择文章标签">
-                                        <el-option v-for='item in contentTagsOptions' :key="item.dictValue"
-                                                   :value="item.dictValue"
-                                                   :label="item.dictLabel"></el-option>
-                                    </el-select>
-                                    <div class="ms-form-tip">
-                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.tags}</a>
-                                        通过自定义字典可扩展数据
-                                    </div>
-                                </el-form-item>
-                            </el-col>
-                            <el-col span="12" v-if="!returnIsShow">
-                                <el-form-item label="文章外链接" prop="contentOutLink">
-                                    <el-input v-model="form.contentOutLink"
-                                              :disabled="false"
-                                              :style="{width:  '100%'}"
-                                              :clearable="true"
-                                              placeholder="请输入文章外链接">
-                                    </el-input>
-                                    <div class="ms-form-tip">
-                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html"
-                                              target="_blank">${'$'}{field.outlink}</a> 文章外链接必须以http或者https等开头
                                     </div>
                                 </el-form-item>
                             </el-col>
@@ -248,33 +201,59 @@
                                             :disabled="false"
                                             controls-position="">
                                     </el-input-number>
-                                  	<div class="ms-form-tip">
+                                    <div class="ms-form-tip">
                                         提示：前台模板标签需要设置orderby属性为sort才能生效
                                     </div>
                                 </el-form-item>
                             </el-col>
                         </el-row>
-                        <el-form-item label="文章缩略图" prop="contentImg">
-                            <el-upload
-                                    :file-list="form.contentImg"
-                                    :action="ms.manager+'/file/upload.do'"
-                                    :on-remove="contentImghandleRemove"
-                                    :style="{width:''}"
-                                    :limit="10"
-                                    :on-exceed="contentImghandleExceed"
-                                    :disabled="false"
-                                    :data="{uploadPath:'/cms/content','isRename':true ,'appId':true}"
-                                    :on-success="contentImgSuccess"
-                                    :on-error="contentImgError"
-                                    accept="image/*"
-                                    list-type="picture-card">
-                                <i class="el-icon-plus"></i>
-                                <div slot="tip" class="ms-form-tip">
-                                    标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'{@ms:file field.litpic/}'}</a><br/>
-                                    最多可上传10张图片，文章缩略图,支持jpg格式；多图情况下，{@ms:file field.litpic/}会只取第一张缩略图，其他用法参考文档arclist标签
-                                </div>
-                            </el-upload>
-                        </el-form-item>
+                        <el-row
+                                gutter="0"
+                                justify="start" align="top">
+                            <el-col span="12">
+                                <el-form-item label="文章缩略图" prop="contentImg">
+                                    <el-upload
+                                            :file-list="form.contentImg"
+                                            :action="ms.manager+'/file/upload.do'"
+                                            :on-remove="contentImghandleRemove"
+                                            :style="{width:''}"
+                                            :limit="10"
+                                            :on-exceed="contentImghandleExceed"
+                                            :disabled="false"
+                                            :data="{uploadPath:'/cms/content','isRename':true ,'appId':true}"
+                                            :on-success="contentImgSuccess"
+                                            :on-error="contentImgError"
+                                            accept="image/*"
+                                            list-type="picture-card">
+                                        <i class="el-icon-plus"></i>
+                                        <div slot="tip" class="ms-form-tip">
+                                            标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'{@ms:file field.litpic/}'}</a><br/>
+                                            最多可上传10张图片，文章缩略图,支持jpg格式；多图情况下，{@ms:file field.litpic/}会只取第一张缩略图，其他用法参考文档arclist标签
+                                        </div>
+                                    </el-upload>
+                                </el-form-item>
+                            </el-col>
+                            <el-col span="12">
+                                <el-form-item label="文章标签" prop="contentTags">
+                                    <el-select v-model="form.contentTags"
+                                               :style="{width: '100%'}"
+                                               :filterable="false"
+                                               :disabled="false"
+                                               filterable
+                                               :multiple="true" :clearable="true"
+                                               placeholder="请选择文章标签">
+                                        <el-option v-for='item in contentTagsOptions' :key="item.dictValue"
+                                                   :value="item.dictValue"
+                                                   :label="item.dictLabel"></el-option>
+                                    </el-select>
+                                    <div class="ms-form-tip">
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.tags}</a>
+                                        通过自定义字典可扩展数据
+                                    </div>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+
                         <el-form-item label="关键字" prop="contentKeyword">
                             <el-input
                                     type="textarea" :rows="5"
@@ -402,7 +381,9 @@
                 }
             };
         },
-        watch: {},
+        watch: {
+
+        },
         computed: {
             currCategory: function () {
                 var that = this;
@@ -603,7 +584,7 @@
 
                         if (category.length > 0) {
                             that.categoryType = category[0].categoryType
-                            if (category[0].categoryType == '2') {
+                            if (category[0].categoryType == '2' || category[0].categoryType == '3') {
                                 that.returnIsShow = false;
                             }
                         }
