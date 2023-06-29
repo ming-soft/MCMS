@@ -26,14 +26,10 @@ package net.mingsoft.cms.action;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateException;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.ZipUtil;
-import cn.hutool.json.JSONUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.annotation.LogAnn;
@@ -48,7 +44,6 @@ import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.constant.e.CategoryDisplayEnum;
 import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
-import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.cms.util.CmsParserUtil;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -64,13 +59,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @ClassName: GeneraterAction
@@ -79,7 +72,7 @@ import java.util.stream.Collectors;
  * @date: 2018年1月31日 下午2:52:07
  * @Copyright: 2018 www.mingsoft.net Inc. All rights reserved.
  */
-@ApiOperation("静态化")
+@Api(tags={"后端-静态化"})
 @Controller("cmsGenerater")
 @RequestMapping("/${ms.manager.path}/cms/generate")
 @Scope("request")
@@ -131,6 +124,7 @@ public class GeneraterAction extends BaseAction {
      * @param request
      * @param response
      */
+    @ApiOperation(value = "生成主页接口")
     @RequestMapping(value = "/generateIndex", method = {RequestMethod.GET, RequestMethod.POST})
     @RequiresPermissions("cms:generate:index")
     @LogAnn(title = "生成主页", businessType = BusinessTypeEnum.UPDATE)
@@ -159,6 +153,7 @@ public class GeneraterAction extends BaseAction {
      * @param response
      * @param categoryId
      */
+    @ApiOperation(value = "生成栏目接口")
     @RequestMapping(value = "/{categoryId}/generateColumn", method = {RequestMethod.GET, RequestMethod.POST})
     @LogAnn(title = "生成栏目", businessType = BusinessTypeEnum.UPDATE)
     @RequiresPermissions("cms:generate:column")
@@ -239,6 +234,7 @@ public class GeneraterAction extends BaseAction {
      * @param response
      * @param columnId
      */
+    @ApiOperation(value = "生成文章接口")
     @RequestMapping(value = "/{columnId}/generateArticle", method = {RequestMethod.GET, RequestMethod.POST})
     @RequiresPermissions("cms:generate:article")
     @LogAnn(title = "生成文章", businessType = BusinessTypeEnum.UPDATE)
@@ -308,6 +304,7 @@ public class GeneraterAction extends BaseAction {
      * @param request
      * @return
      */
+    @ApiOperation(value = "预览主页接口")
     @RequestMapping(value = "/{position}/viewIndex", method = {RequestMethod.GET, RequestMethod.POST})
     public String viewIndex(HttpServletRequest request, @PathVariable String position, HttpServletResponse response) {
         AppEntity app = BasicUtil.getApp();
