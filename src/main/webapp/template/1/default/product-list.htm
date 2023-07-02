@@ -5,7 +5,7 @@
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="robots" content="index, follow"/>
-    <title>${field.typetitle}-</title>
+    <title>${field.typetitle}</title>
     <meta name="keywords" content="${field.typekeyword}">
     <meta name="description" content="${field.typedescrip}">
     <meta http-equiv="Cache-Control" content="no-transform"/>
@@ -38,9 +38,9 @@
         <#else>
         {ms:channel type='son'}
             <#if field.typeid == typeid || (ids?has_content && ids?split(",")?seq_contains(field.typeid.toString()))>
-            <a href='<#if field.type==3>{ms:global.html/}${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>' class='csel'>1${field.typetitle}</a>
+            <a href='<#if field.type==3>{ms:global.html/}${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>' class='csel'>${field.typetitle}</a>
             <#else>
-            <a href="<#if field.type==3>{ms:global.html/}${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>">2${field.typetitle}</a>
+            <a href="<#if field.type==3>{ms:global.html/}${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>">${field.typetitle}</a>
             </#if>
         {/ms:channel}
         </#if>

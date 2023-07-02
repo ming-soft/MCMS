@@ -30,6 +30,10 @@
 	padding-bottom: 20px;
 	padding-top: 8px;
 }
+.nproduct_list2 ul {
+	display: flex;
+	flex-wrap: wrap;
+}
 .nproduct_list2 ul li {
 	float: left;
 	width: 32.1%;
