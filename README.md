@@ -44,7 +44,8 @@ QQ交流群号：
 [![加入QQ群](https://img.shields.io/badge/四群-881894877-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=TzRiJf4x7tZsjKEzo8EuwuHqTALc0xCA&jump_from=webapi&authKey=04YpueACppV1tLykhOQ+fdzPhPwOkIU685LgCOQqrwEjtVQCOvTAyd6qn3xAiXl2)
 [![加入QQ群](https://img.shields.io/badge/五群-231211521-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=IfVdHXCm13Ui6NrcjvrraFkGsI8L3U1r&jump_from=webapi&authKey=Go37VdoKublA0p47ww9fS+fxt2DAh1URslG0/7ugg8zs1b+heVlGZwkASM/PlJPG)
 
-
+# MStore [点击进入](http://store.mingsoft.net)
+提供丰富的模板与插件
 # 开源说明
 * 系统100%开源
 * 模块化开发模式，铭飞所开发的模块都发布到了maven中央库。 可以通过pom.xml文件的方式拉取源代码
@@ -59,7 +60,7 @@ QQ交流群号：
 </dependency>
 ```
 # 商用
-基于[MIT](https://www.oschina.net/question/12_2829)开源协议，可直接商用无需授权，但请尊重开源精神不要去掉代码中铭飞的注释和版权信息
+基于[MIT](https://www.oschina.net/question/12_2829) 开源协议，可直接商用无需授权，但请尊重开源精神不要去掉代码中铭飞的注释和版权信息
 
 
 # 特点 
@@ -97,7 +98,7 @@ git clone https://gitee.com/mingSoft/MCMS.git<br/>
 5、创建数据库mcms（数据库使用utf-8编码），导入doc/mcms-版本号.sql，如果升级现有系统请使用＊-up-*.sql升级，如果导入了系统对应的完整版SQL，sql升级补丁不需要重复导入；<br/>
 6、修改src\main\resources\application-dev.yml文件中的数据库设置参数；<br/>
 7、运行MSApplication.java main方法<br/>
-8、首先先访问后台地址：http://localhost:8080/ms/login.do，管理员账号，用户名：msopen 密码：msopen，进入后台点击内容管理->静态化菜单，进行"生成主页"，"生成栏目","生成文章"操作一遍 （注意！！！是后台登录界面，不是会员中心登录界面）
+8、首先先访问后台地址：http://localhost:8080/ms/login.do ，管理员账号，用户名：msopen 密码：msopen，进入后台点击内容管理->静态化菜单，进行"生成主页"，"生成栏目","生成文章"操作一遍 （注意！！！是后台登录界面，不是会员中心登录界面）
 
 # 快速体验（docker）
 
