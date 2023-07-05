@@ -40,7 +40,7 @@
 		update cms_category
 		<set>
 			<if test="categoryTitle != null and categoryTitle != ''">category_title=#{categoryTitle},</if>
-			<if test="categoryShortTitle != null and categoryShortTitle != ''">category_short_title=#{categoryShortTitle},</if>
+			category_short_title=#{categoryShortTitle},
 			<if test="categoryPinyin != null and categoryPinyin != ''">category_pinyin=#{categoryPinyin},</if>
 			<if test="topId != null and topId != ''">top_id=#{topId},</if>
 			<if test="leaf != null">leaf=#{leaf},</if>

@@ -188,8 +188,8 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
         if (StringUtils.isEmpty(entity.getCategoryParentIds())) {
             entity.setCategoryParentIds(null);
         }
-//        categoryDao.updateEntity(entity);
-        categoryDao.updateById(entity);
+        categoryDao.updateEntity(entity);
+//        categoryDao.updateById(entity);
         //更新子节点所有父节点id和topid
         //如果本节点的topid为0（顶级栏目）,则把自身的id作为子栏目的topid，非0所有的子栏目和本栏目使用同一个topid
         String topId = entity.getTopId();

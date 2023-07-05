@@ -40,6 +40,7 @@ import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
+import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

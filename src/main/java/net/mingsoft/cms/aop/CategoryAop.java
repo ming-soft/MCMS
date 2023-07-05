@@ -6,8 +6,13 @@
 
 package net.mingsoft.cms.aop;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.Query;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import net.mingsoft.base.entity.ResultData;
@@ -32,6 +37,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -126,9 +132,13 @@ public class CategoryAop extends net.mingsoft.basic.aop.BaseAop {
                     ? returnCategory.getId() : parent.getCategoryParentIds() + "," + returnCategory.getId();
             if (!StringUtils.equals(returnCategory.getCategoryType(), CategoryTypeEnum.LIST.toString())) {
                 // 如果子栏目不为列表,将直接删除父栏目下的文章
-                LambdaUpdateWrapper<ContentEntity> contentDeleteWrapper = new UpdateWrapper<ContentEntity>().lambda();
+                LambdaQueryWrapper<ContentEntity> contentDeleteWrapper = new QueryWrapper<ContentEntity>().lambda();
                 contentDeleteWrapper.eq(ContentEntity::getCategoryId, parent.getId());
-                contentDao.delete(contentDeleteWrapper);
+                List<ContentEntity> list = contentDao.selectList(contentDeleteWrapper);
+                if (CollectionUtil.isNotEmpty(list)) {
+                    String[] ids = ArrayUtil.toArray(list.stream().map(ContentEntity::getId).collect(Collectors.toList()), String.class);
+                    contentDao.delete(ids);
+                }
             }
             // 将父栏目下的文章移动到子栏目下
             LambdaUpdateWrapper<ContentEntity> contentWrapper = new UpdateWrapper<ContentEntity>().lambda();
