@@ -71,7 +71,7 @@ public class CategoryEntity extends BaseEntity {
     /**
      * 所属栏目
      */
-    @TableField(insertStrategy = FieldStrategy.IGNORED, updateStrategy = FieldStrategy.IGNORED, whereStrategy = FieldStrategy.NOT_EMPTY)
+    @TableField(insertStrategy = FieldStrategy.NOT_EMPTY, updateStrategy = FieldStrategy.NOT_EMPTY, whereStrategy = FieldStrategy.NOT_EMPTY)
     private String categoryId;
     /**
      * 栏目管理属性
