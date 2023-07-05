@@ -23,6 +23,10 @@
 package net.mingsoft.cms.aop;
 
 import cn.hutool.core.io.FileUtil;
+import net.mingsoft.base.constant.Const;
+import net.mingsoft.base.entity.ResultData;
+import net.mingsoft.base.exception.BusinessException;
+import net.mingsoft.base.util.BundleUtil;
 import net.mingsoft.basic.aop.BaseAop;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
@@ -158,14 +162,19 @@ public class ContentAop extends BaseAop {
         String htmlPath = BasicUtil.getRealPath(htmlDir);
         // appDir
         String appDir = BasicUtil.getApp().getAppDir();
-
-        // 删除静态文件
         // 文件路径组成 html真实路径 + appdir + 栏目路径 + 文章ID + .html
-        boolean flag = FileUtil.del(htmlPath
+        String path = htmlPath
                 + File.separator + appDir
                 + categoryPath
                 + File.separator + contentId
-                + ParserUtil.HTML_SUFFIX);
+                + ParserUtil.HTML_SUFFIX;
+        // 校验路径是否合法
+        if (path.contains("..") || path.contains("../") || path.contains("..\\")) {
+            LOG.error("非法路径："+path);
+            throw new BusinessException(BundleUtil.getString(Const.RESOURCES,"err.error",BundleUtil.getString(net.mingsoft.basic.constant.Const.RESOURCES,"file.path")));
+        }
+        // 删除静态文件
+        boolean flag = FileUtil.del(path);
         if (flag) {
             LOG.info("删除静态文件成功！");
         } else {

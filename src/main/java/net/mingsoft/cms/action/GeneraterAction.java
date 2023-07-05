@@ -135,6 +135,13 @@ public class GeneraterAction extends BaseAction {
         // 生成后的文件名称
         String generateFileName = request.getParameter("position");
 
+        // 防止篡改主页
+        if (tmpFileName.contains("..") || tmpFileName.contains("../") || tmpFileName.contains("\\..")){
+            return ResultData.build().error(getResString("template.file"));
+        }
+        if (generateFileName.contains("..") || generateFileName.contains("../") || generateFileName.contains("\\..")){
+            return ResultData.build().error(getResString("template.file"));
+        }
         // 获取文件所在路径 首先判断用户输入的模板文件是否存在
         if (!FileUtil.exist(ParserUtil.buildTemplatePath())) {
             return ResultData.build().error(getResString("template.file"));

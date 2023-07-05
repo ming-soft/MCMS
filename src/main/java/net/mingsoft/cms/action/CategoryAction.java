@@ -22,6 +22,7 @@
 
 package net.mingsoft.cms.action;
 
+import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -170,7 +171,7 @@ public class CategoryAction extends BaseAction {
         }
 
         // 过滤非法路径
-        if (category.getCategoryPinyin().contains("../") || category.getCategoryPinyin().contains("..\\")) {
+        if (FileNameUtil.containsInvalid(category.getCategoryPinyin())) {
             return ResultData.build().error(this.getResString("err.error",this.getResString("category.pinyin")));
         }
 
@@ -267,7 +268,7 @@ public class CategoryAction extends BaseAction {
             return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
         }
         // 过滤非法路径
-        if (category.getCategoryPinyin().contains("../") || category.getCategoryPinyin().contains("..\\")) {
+        if (FileNameUtil.containsInvalid(category.getCategoryPinyin())) {
             return ResultData.build().error(this.getResString("err.error",this.getResString("category.pinyin")));
         }
         //判断拼音是否重复并且是否和原拼音相同
@@ -393,7 +394,7 @@ public class CategoryAction extends BaseAction {
     @ApiOperation(value = "强制转换类型接口")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "typeid", value = "编号", required =true,paramType="query"),
-            @ApiImplicitParam(name = "categoryType", value = "栏目类型", required =true,paramType="query")
+            @ApiImplicitParam(name = "categoryType", value = "栏目类型,1:列表,2:单篇,3:链接", required =true,paramType="query")
     })
     @GetMapping("/changeType")
     @ResponseBody

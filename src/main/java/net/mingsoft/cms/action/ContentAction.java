@@ -112,7 +112,7 @@ public class ContentAction extends BaseAction {
     	@ApiImplicitParam(name = "contentSource", value = "文章来源", required =false,paramType="query"),
     	@ApiImplicitParam(name = "contentDatetime", value = "发布时间", required =false,paramType="query"),
     })
-	@PostMapping("/list")
+	@RequestMapping(value = "/list",method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	@RequiresPermissions("cms:content:view")
 	public ResultData list(@ModelAttribute @ApiIgnore ContentBean content) {
