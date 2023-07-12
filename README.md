@@ -48,14 +48,12 @@ QQ交流群号：
 [![加入QQ群](https://img.shields.io/badge/五群-231211521-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=IfVdHXCm13Ui6NrcjvrraFkGsI8L3U1r&jump_from=webapi&authKey=Go37VdoKublA0p47ww9fS+fxt2DAh1URslG0/7ugg8zs1b+heVlGZwkASM/PlJPG)
 
 
-<p align="center">
-    <a target="_blank" href="https://gitee.com/mingSoft/MCMS/stargazers">
-		<img src="https://foruda.gitee.com/images/1686668592600137699/9ce47a46_542665.png" alt='低代码平台，开源排名第一的java cms，免费开源的java cms, 免费开源Javacms,MCMS,开源Java CMS,Java网站建设工具,开源CMS,内容管理系统,CMS软件,网站建设工具,网站模板,响应式模板,自适应模板,多功能模板,网站插件,功能插件,扩展插件,定制插件,Java CMS定制'/>
-	</a>
-</p>
+[![低代码平台，开源排名第一的java cms，免费开源的java cms, 免费开源Javacms,MCMS,开源Java CMS,Java网站建设工具,开源CMS,内容管理系统,CMS软件,网站建设工具,网站模板,响应式模板,自适应模板,多功能模板,网站插件,功能插件,扩展插件,定制插件,Java CMS定制](https://foruda.gitee.com/images/1689152074095382619/e477707b_542665.png "a.png")](http://store.mingsoft.net)
 
+[![低代码平台，开源排名第一的java cms，免费开源的java cms, 免费开源Javacms,MCMS,开源Java CMS,Java网站建设工具,开源CMS,内容管理系统,CMS软件,网站建设工具,网站模板,响应式模板,自适应模板,多功能模板,网站插件,功能插件,扩展插件,定制插件,Java CMS定制](https://foruda.gitee.com/images/1686668592600137699/9ce47a46_542665.png "a.png")](http://https://www.mingsoft.net/)
 
 [![低代码平台，开源排名第一的java cms，免费开源的java cms, 免费开源Javacms,MCMS,开源Java CMS,Java网站建设工具,开源CMS,内容管理系统,CMS软件,网站建设工具,网站模板,响应式模板,自适应模板,多功能模板,网站插件,功能插件,扩展插件,定制插件,Java CMS定制](https://foruda.gitee.com/images/1689149903145351822/c3fed309_542665.png "a.png")](http://https://www.mingsoft.net/)
+
 
 
 # MStore [点击进入](http://store.mingsoft.net)
