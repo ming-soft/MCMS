@@ -37,7 +37,7 @@
 
 -------------------------------------------------------------------------------
 
-一直在改变，从未停止过！<br/>
+一直在改变，从未停止过！努力打造一款国内好用的Java CMS内容管理软件<br/>
 QQ交流群号： 
 [![加入QQ群](https://img.shields.io/badge/一群-231212174-blue.svg)](https://jq.qq.com/?_wv=1027&k=5zykX7V) [![加入QQ群](https://img.shields.io/badge/二群-221335098-blue.svg)](https://jq.qq.com/?_wv=1027&k=56BqFKu) 
 [![加入QQ群](https://img.shields.io/badge/三群-242805203-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=1K_RsMwZcf09Y-_74PhA_NfI85RqeDyK&jump_from=webapi&authKey=vCeXrE2f5QCobzDFZ4lHzHyH7sGtmhVfR326MjEmeMy6u0NgHlIglCCxD/6b7tEK)
