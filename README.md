@@ -22,7 +22,7 @@
 	<a target="_blank" href='https://github.com/ming-soft/mcms'>
 		<img src="https://img.shields.io/github/stars/ming-soft/mcms.svg?style=social" alt="github star"/>
 	</a>
-	
+
 </p>
 <p align="center">
 	<a href="https://www.mingsoft.net" target="_blank">铭飞平台</a> 
@@ -37,13 +37,15 @@
 
 -------------------------------------------------------------------------------
 
-<center>一直在改变，从未停止过！努力打造一款国内好用的Java CMS内容管理软件</center>
-QQ交流群号： 
-[![加入QQ群](https://img.shields.io/badge/一群-231212174-blue.svg)](https://jq.qq.com/?_wv=1027&k=5zykX7V) [![加入QQ群](https://img.shields.io/badge/二群-221335098-blue.svg)](https://jq.qq.com/?_wv=1027&k=56BqFKu) 
+<p align="center">
+	<strong>一直在改变，从未停止过！努力打造一款国内好用的Java CMS内容管理软件</strong>
+</p>
+
+QQ交流群号：
+[![加入QQ群](https://img.shields.io/badge/一群-231212174-blue.svg)](https://jq.qq.com/?_wv=1027&k=5zykX7V) [![加入QQ群](https://img.shields.io/badge/二群-221335098-blue.svg)](https://jq.qq.com/?_wv=1027&k=56BqFKu)
 [![加入QQ群](https://img.shields.io/badge/三群-242805203-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=1K_RsMwZcf09Y-_74PhA_NfI85RqeDyK&jump_from=webapi&authKey=vCeXrE2f5QCobzDFZ4lHzHyH7sGtmhVfR326MjEmeMy6u0NgHlIglCCxD/6b7tEK)
 [![加入QQ群](https://img.shields.io/badge/四群-881894877-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=TzRiJf4x7tZsjKEzo8EuwuHqTALc0xCA&jump_from=webapi&authKey=04YpueACppV1tLykhOQ+fdzPhPwOkIU685LgCOQqrwEjtVQCOvTAyd6qn3xAiXl2)
 [![加入QQ群](https://img.shields.io/badge/五群-231211521-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=IfVdHXCm13Ui6NrcjvrraFkGsI8L3U1r&jump_from=webapi&authKey=Go37VdoKublA0p47ww9fS+fxt2DAh1URslG0/7ugg8zs1b+heVlGZwkASM/PlJPG)
-
 
 # MStore [点击进入](http://store.mingsoft.net)
 提供丰富的模板与插件
@@ -64,7 +66,7 @@ QQ交流群号：
 基于[MIT](https://www.oschina.net/question/12_2829) 开源协议，可直接商用无需授权，但请尊重开源精神不要去掉代码中铭飞的注释和版权信息
 
 
-# 特点 
+# 特点
 * 免费完整开源：基于MIT协议，源代码完全开源，无商业限制,MS开发团队承诺将MCMS内容系统永久完整开源；<br/>
 * 标签化建站：不需要专业的后台开发技能，只要使用系统提供的标签，就能轻松建设网站；<br/>
 * html静态化：系统支持全站静态化；<br/>
@@ -149,7 +151,7 @@ docker run -p 3306:3306 -p 8080:8080 --name mcms --privileged=true -e TZ=Asia/Sh
 | icon | 矢量小图标\(待更新\) | [https://www.iconfont.cn/](https://www.iconfont.cn/) |
 
 
-# 文件说明 
+# 文件说明
 * doc 项目文档文件夹，里面有数据库文件
 * src/main/java java源代码
 * src/main/resources 项目的资源配置文件
