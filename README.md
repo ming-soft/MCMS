@@ -8,19 +8,19 @@
 </p>
 <p align="center">
 	<a target="_blank" href="https://search.maven.org/search?q=ms-mcms">
-        <img src="https://img.shields.io/maven-central/v/net.mingsoft/ms-mcms.svg?label=Maven%20Central" />
+        <img src="https://img.shields.io/maven-central/v/net.mingsoft/ms-mcms.svg?label=Maven%20Central" alt="低代码平台，开源排名第一的java cms，免费开源的java cms, 免费开源Javacms,MCMS,开源Java CMS,Java网站建设工具,开源CMS,内容管理系统,CMS软件,网站建设工具,网站模板,响应式模板,自适应模板,多功能模板,网站插件,功能插件,扩展插件,定制插件,Java CMS定制"/>
 	</a>
 	<a target="_blank" href="hhttps://baike.baidu.com/item/MIT%E8%AE%B8%E5%8F%AF%E8%AF%81/6671281?fr=aladdin">
-        <img src="https://img.shields.io/:license-MIT-blue.svg" />
+        <img src="https://img.shields.io/:license-MIT-blue.svg" alt="低代码平台，开源排名第一的java cms，免费开源的java cms, 免费开源Javacms,MCMS,开源Java CMS,Java网站建设工具,开源CMS,内容管理系统,CMS软件,网站建设工具,网站模板,响应式模板,自适应模板,多功能模板,网站插件,功能插件,扩展插件,定制插件,Java CMS定制" />
 	</a>
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
-		<img src="https://img.shields.io/badge/JDK-8+-green.svg" />
+		<img src="https://img.shields.io/badge/JDK-8+-green.svg" alt="低代码平台，开源排名第一的java cms，免费开源的java cms, 免费开源Javacms,MCMS,开源Java CMS,Java网站建设工具,开源CMS,内容管理系统,CMS软件,网站建设工具,网站模板,响应式模板,自适应模板,多功能模板,网站插件,功能插件,扩展插件,定制插件,Java CMS定制"/>
 	</a>
 	<a target="_blank" href="https://gitee.com/mingSoft/MCMS/stargazers">
-		<img src="https://gitee.com/mingSoft/MCMS/badge/star.svg?theme=dark" alt='gitee star'/>
+		<img src="https://gitee.com/mingSoft/MCMS/badge/star.svg?theme=dark" alt='低代码平台，开源排名第一的java cms，免费开源的java cms, 免费开源Javacms,MCMS,开源Java CMS,Java网站建设工具,开源CMS,内容管理系统,CMS软件,网站建设工具,网站模板,响应式模板,自适应模板,多功能模板,网站插件,功能插件,扩展插件,定制插件,Java CMS定制'/>
 	</a>
 	<a target="_blank" href='https://github.com/ming-soft/mcms'>
-		<img src="https://img.shields.io/github/stars/ming-soft/mcms.svg?style=social" alt="github star"/>
+		<img src="https://img.shields.io/github/stars/ming-soft/mcms.svg?style=social" alt="低代码平台，开源排名第一的java cms，免费开源的java cms, 免费开源Javacms,MCMS,开源Java CMS,Java网站建设工具,开源CMS,内容管理系统,CMS软件,网站建设工具,网站模板,响应式模板,自适应模板,多功能模板,网站插件,功能插件,扩展插件,定制插件,Java CMS定制"/>
 	</a>
 
 </p>
@@ -46,6 +46,13 @@ QQ交流群号：
 [![加入QQ群](https://img.shields.io/badge/三群-242805203-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=1K_RsMwZcf09Y-_74PhA_NfI85RqeDyK&jump_from=webapi&authKey=vCeXrE2f5QCobzDFZ4lHzHyH7sGtmhVfR326MjEmeMy6u0NgHlIglCCxD/6b7tEK)
 [![加入QQ群](https://img.shields.io/badge/四群-881894877-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=TzRiJf4x7tZsjKEzo8EuwuHqTALc0xCA&jump_from=webapi&authKey=04YpueACppV1tLykhOQ+fdzPhPwOkIU685LgCOQqrwEjtVQCOvTAyd6qn3xAiXl2)
 [![加入QQ群](https://img.shields.io/badge/五群-231211521-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=IfVdHXCm13Ui6NrcjvrraFkGsI8L3U1r&jump_from=webapi&authKey=Go37VdoKublA0p47ww9fS+fxt2DAh1URslG0/7ugg8zs1b+heVlGZwkASM/PlJPG)
+
+
+<p align="center">
+    <a target="_blank" href="https://gitee.com/mingSoft/MCMS/stargazers">
+		<img src="https://foruda.gitee.com/images/1686668592600137699/9ce47a46_542665.png" alt='低代码平台，开源排名第一的java cms，免费开源的java cms, 免费开源Javacms,MCMS,开源Java CMS,Java网站建设工具,开源CMS,内容管理系统,CMS软件,网站建设工具,网站模板,响应式模板,自适应模板,多功能模板,网站插件,功能插件,扩展插件,定制插件,Java CMS定制'/>
+	</a>
+</p>
 
 # MStore [点击进入](http://store.mingsoft.net)
 提供丰富的模板与插件
