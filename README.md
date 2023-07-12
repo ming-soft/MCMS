@@ -44,7 +44,6 @@ QQ交流群号：
 [![加入QQ群](https://img.shields.io/badge/四群-881894877-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=TzRiJf4x7tZsjKEzo8EuwuHqTALc0xCA&jump_from=webapi&authKey=04YpueACppV1tLykhOQ+fdzPhPwOkIU685LgCOQqrwEjtVQCOvTAyd6qn3xAiXl2)
 [![加入QQ群](https://img.shields.io/badge/五群-231211521-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=IfVdHXCm13Ui6NrcjvrraFkGsI8L3U1r&jump_from=webapi&authKey=Go37VdoKublA0p47ww9fS+fxt2DAh1URslG0/7ugg8zs1b+heVlGZwkASM/PlJPG)
 
-[![](![输入图片说明](https://foruda.gitee.com/images/1686668592600137699/9ce47a46_542665.png))](https://www.mingsoft.net/renwudating.html)
 
 # MStore [点击进入](http://store.mingsoft.net)
 提供丰富的模板与插件
