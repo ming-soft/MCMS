@@ -41,11 +41,14 @@
 	<strong>一直在改变，从未停止过！努力打造一款国内好用的Java CMS内容管理软件</strong>
 </p>
 
-QQ交流群号：
-[![加入QQ群](https://img.shields.io/badge/一群-231212174-blue.svg)](https://jq.qq.com/?_wv=1027&k=5zykX7V) [![加入QQ群](https://img.shields.io/badge/二群-221335098-blue.svg)](https://jq.qq.com/?_wv=1027&k=56BqFKu)
-[![加入QQ群](https://img.shields.io/badge/三群-242805203-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=1K_RsMwZcf09Y-_74PhA_NfI85RqeDyK&jump_from=webapi&authKey=vCeXrE2f5QCobzDFZ4lHzHyH7sGtmhVfR326MjEmeMy6u0NgHlIglCCxD/6b7tEK)
-[![加入QQ群](https://img.shields.io/badge/四群-881894877-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=TzRiJf4x7tZsjKEzo8EuwuHqTALc0xCA&jump_from=webapi&authKey=04YpueACppV1tLykhOQ+fdzPhPwOkIU685LgCOQqrwEjtVQCOvTAyd6qn3xAiXl2)
-[![加入QQ群](https://img.shields.io/badge/五群-231211521-blue.svg)](https://qm.qq.com/cgi-bin/qm/qr?k=IfVdHXCm13Ui6NrcjvrraFkGsI8L3U1r&jump_from=webapi&authKey=Go37VdoKublA0p47ww9fS+fxt2DAh1URslG0/7ugg8zs1b+heVlGZwkASM/PlJPG)
+# 邀请您加入技术交流QQ群
+
+
+[![加入QQ群](https://img.shields.io/badge/QQ一群-231212174-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=FVvyoF1YwtFpCGLf--h42_AwtF6JOD9M&jump_from=webapi&authKey=EyNayGyX0U/6hJKtpBInh9FsCpeM8Vx2KqrmmCZyXe3f1PD5kboChBSIWkB6SOb5) 
+[![加入QQ群](https://img.shields.io/badge/QQ二群-221335098-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=fedNH1fR6niG16cYVPXPZJ3U8m9Hfxaf&jump_from=webapi&authKey=6rMUTyta7sKlSpeF/fYkVHp6mF9sZc6i5vmHzGgdh6WHW34yww5eDBXJwCVmoMyl)
+[![加入QQ群](https://img.shields.io/badge/QQ三群-242805203-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=1K_RsMwZcf09Y-_74PhA_NfI85RqeDyK&jump_from=webapi&authKey=vCeXrE2f5QCobzDFZ4lHzHyH7sGtmhVfR326MjEmeMy6u0NgHlIglCCxD/6b7tEK)
+[![加入QQ群](https://img.shields.io/badge/QQ四群-881894877-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=TzRiJf4x7tZsjKEzo8EuwuHqTALc0xCA&jump_from=webapi&authKey=04YpueACppV1tLykhOQ+fdzPhPwOkIU685LgCOQqrwEjtVQCOvTAyd6qn3xAiXl2)
+[![加入QQ群](https://img.shields.io/badge/QQ五群-231211521-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=IfVdHXCm13Ui6NrcjvrraFkGsI8L3U1r&jump_from=webapi&authKey=Go37VdoKublA0p47ww9fS+fxt2DAh1URslG0/7ugg8zs1b+heVlGZwkASM/PlJPG)
 
 [![低代码平台，开源排名第一的java cms，免费开源的java cms, 免费开源Javacms,MCMS,开源Java CMS,Java网站建设工具,开源CMS,内容管理系统,CMS软件,网站建设工具,网站模板,响应式模板,自适应模板,多功能模板,网站插件,功能插件,扩展插件,定制插件,Java CMS定制](https://foruda.gitee.com/images/1689152074095382619/e477707b_542665.png "a.png")](http://store.mingsoft.net)
 

@@ -40,10 +40,11 @@
                             </el-col>
                             <el-col span="12">
                                 <el-form-item label="所属栏目" prop="categoryId">
-                                    <ms-tree-select ref="tree"
-                                                    :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
-                                                    :options="treeList" :style="{width:'100%'}"
-                                                    v-model="form.categoryId"></ms-tree-select>
+                                    <ms-tree-select  ref="tree"
+                                                     :key="treeList"
+                                                     :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
+                                                     :options="treeList" :style="{width:'100%'}"
+                                                     v-model="form.categoryId"></ms-tree-select>
                                     <div class="ms-form-tip">
                                         不能将父级别栏目移动到自身子级栏目
                                     </div>
@@ -67,13 +68,21 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
-                            <el-col span="12">
-                                <el-form-item label="自定义顺序" prop="categorySort">
-                                    <el-input-number
-                                            v-model="form.categorySort"
-                                            :disabled="false"
-                                            controls-position="">
-                                    </el-input-number>
+                            <el-col span="12" style="display: flex">
+                                <el-form-item label="栏目属性" prop="categoryFlag">
+                                    <el-select v-model="form.categoryFlag"
+                                               :style="{width: '100%'}"
+                                               :filterable="false"
+                                               :disabled="false"
+                                               :multiple="true" :clearable="true"
+                                               placeholder="请选择栏目属性">
+                                        <el-option v-for='item in categoryFlagOptions' :key="item.dictValue"
+                                                   :value="item.dictValue"
+                                                   :label="item.dictLabel"></el-option>
+                                    </el-select>
+                                    <div class="ms-form-tip">
+                                        可以在自定义字典中管理
+                                    </div>
                                 </el-form-item>
 
                             </el-col>
@@ -99,19 +108,19 @@
                                 </el-form-item>
                             </el-col>
                             <el-col span="12">
-                                <el-form-item prop="mdiyModelId" label="文章自定义模型">
-                                    <el-select v-model="form.mdiyModelId"
-                                               :style="{width: '100%'}"
-                                               :filterable="false"
-                                               :disabled="false"
-                                               :multiple="false" :clearable="true"
-                                               placeholder="请选择文章自定义模型">
-                                        <el-option v-for='item in mdiyModelListOptions' :key="item.id" :value="item.id"
-                                                   :label="item.modelName"></el-option>
-                                    </el-select>
+                                <el-form-item label="是否可被搜索" prop="categoryIsSearch">
+                                    <el-radio-group v-model="form.categoryIsSearch"
+                                                    :style="{width: ''}"
+                                                    :disabled="false">
+                                        <el-radio :style="{issearch: true ? 'inline-block' : 'block'}"
+                                                  :label="item.value"
+                                                  v-for='(item, index) in categoryIsSearchOptions'
+                                                  :key="item.value + index">
+                                            {{true? item.label : item.value}}
+                                        </el-radio>
+                                    </el-radio-group>
                                     <div class="ms-form-tip">
-                                        文章字段不满足，使用<b>代码生成器</b>生成<b>自定义模型</b>来扩展，<br/>
-                                        大概步骤：<i>代码生成器->复制自定义模型->打开系统后台的自定义管理->选择自定义模型->导入->文章 自定义模型 绑定</i>
+                                        选择否后该栏目下的文章将不会被搜索页搜索；若该栏目选择不可被搜索，则所有子栏目也会不可被搜索；
                                     </div>
                                 </el-form-item>
                             </el-col>
@@ -140,63 +149,25 @@
                                 </el-form-item>
                             </el-col>
                             <el-col span="12">
-
-                                <el-form-item label="是否可被搜索" prop="categoryIsSearch">
-                                    <el-radio-group v-model="form.categoryIsSearch"
-                                                    :style="{width: ''}"
-                                                    :disabled="false">
-                                        <el-radio :style="{issearch: true ? 'inline-block' : 'block'}"
-                                                  :label="item.value"
-                                                  v-for='(item, index) in categoryIsSearchOptions'
-                                                  :key="item.value + index">
-                                            {{true? item.label : item.value}}
-                                        </el-radio>
-                                    </el-radio-group>
-                                    <div class="ms-form-tip">
-                                        选择否后不需重新生成，该栏目下的文章将不会被搜索页搜索；若该栏目选择不可被搜索，则所有子栏目也会不可被搜索；
-                                    </div>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                        <el-row gutter="0" justify="start" align="top">
-                            <el-col span="12">
-                                <el-form-item prop="categoryListUrl" label="列表模板" v-if="form.categoryType == '1'">
-                                    <el-select v-model="form.categoryListUrl"
-                                               :style="{width: '100%'}"
-                                               :filterable="true"
-                                               :disabled="false"
-                                               :multiple="false" :clearable="true"
-                                               placeholder="请选择列表模板">
-                                        <el-option v-for='item in categoryListUrlOptions' :key="item" :value="item"
-                                                   :label="item"></el-option>
-                                    </el-select>
-                                    <div class="ms-form-tip">
-                                        当栏目类型为<b>列表</b>时有效,没有选择模板不会进行静态化（不会生成列表静态页）
-                                    </div>
-                                </el-form-item>
-                            </el-col>
-                            <el-col span="12">
-
-                                <el-form-item label="栏目属性" prop="categoryFlag">
-                                    <el-select v-model="form.categoryFlag"
+                                <el-form-item prop="mdiyModelId" label="文章自定义模型">
+                                    <el-select v-model="form.mdiyModelId"
                                                :style="{width: '100%'}"
                                                :filterable="false"
                                                :disabled="false"
-                                               :multiple="true" :clearable="true"
-                                               placeholder="请选择栏目属性">
-                                        <el-option v-for='item in categoryFlagOptions' :key="item.dictValue"
-                                                   :value="item.dictValue"
-                                                   :label="item.dictLabel"></el-option>
+                                               :multiple="false" :clearable="true"
+                                               placeholder="请选择文章自定义模型">
+                                        <el-option v-for='item in mdiyModelListOptions' :key="item.id" :value="item.id"
+                                                   :label="item.modelName"></el-option>
                                     </el-select>
                                     <div class="ms-form-tip">
-                                        可以在自定义字典中管理
+                                        文章字段不满足，使用<b>代码生成器</b>生成<b>自定义模型</b>来扩展，<br/>
+                                        大概步骤：<i>代码生成器->复制自定义模型->打开系统后台的自定义管理->选择自定义模型->导入->文章 自定义模型 绑定</i>
                                     </div>
                                 </el-form-item>
+
                             </el-col>
                         </el-row>
-                        <el-row
-                                gutter="0"
-                                justify="start" align="top">
+                        <el-row gutter="0" justify="start" align="top">
                             <el-col span="12">
                                 <el-form-item prop="categoryUrl" label="详情模板" v-if="form.categoryType != '3'">
                                     <el-select v-model="form.categoryUrl"
@@ -227,6 +198,38 @@
                                 </el-form-item>
                             </el-col>
                             <el-col span="12">
+
+                                <el-form-item prop="categoryListUrl" label="列表模板" v-if="form.categoryType == '1'">
+                                    <el-select v-model="form.categoryListUrl"
+                                               :style="{width: '100%'}"
+                                               :filterable="true"
+                                               :disabled="false"
+                                               :multiple="false" :clearable="true"
+                                               placeholder="请选择列表模板">
+                                        <el-option v-for='item in categoryListUrlOptions' :key="item" :value="item"
+                                                   :label="item"></el-option>
+                                    </el-select>
+                                    <div class="ms-form-tip">
+                                        当栏目类型为<b>列表</b>时有效,没有选择模板不会进行静态化（不会生成列表静态页）
+                                    </div>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                        <el-row
+                                gutter="0"
+                                justify="start" align="top">
+                            <el-col span="12">
+
+                            </el-col>
+                            <el-col span="12">
+
+                            </el-col>
+                        </el-row>
+
+                        <el-row
+                                :gutter="0"
+                                justify="start" align="top">
+                            <el-col :span="12">
                                 <el-form-item label="生成路径" prop="categoryPinyin">
                                     <el-input
                                             v-model="form.categoryPinyin"
@@ -241,9 +244,18 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
+                            <el-col :span="12">
+                                <el-form-item label="自定义顺序" prop="categorySort">
+                                    <el-input-number
+                                            v-model="form.categorySort"
+                                            :disabled="false"
+                                            controls-position="">
+                                    </el-input-number>
+                                </el-form-item>
+                            </el-col>
+
+
                         </el-row>
-
-
                         <el-form-item label="关键字" prop="categoryKeyword">
                             <el-input
                                     type="textarea" :rows="5"
@@ -410,8 +422,6 @@
                     categoryDiyUrl: '',
                     // 文章管理的内容模型id
                     mdiyModelId: '',
-                    // 栏目管理的内容模型id
-                    mdiyCategoryModelId: '',
                     //栏目字典
                     categoryFlag: []
                 },
@@ -428,6 +438,7 @@
                 categoryListUrlOptions: [],
                 categoryUrlOptions: [],
                 mdiyModelListOptions: [],
+                mdiyCategoryModelListOptions: [],
                 categoryFlagOptions: [],
                 rules: {
                     // 栏目管理名称
@@ -461,7 +472,7 @@
             'form.categoryId': function (n, o) {
                 var _this = this;
 
-                if (n == this.form.id) {
+                if (n == this.form.id && this.form.id!='') {
                     //获取当前节点的父栏目
                     let parentids = _this.form.parentids;
                     if (parentids) {
@@ -529,7 +540,7 @@
                     if (res.result) {
                         //res.data.rows.push({id:0,categoryId: null,categoryTitle:'顶级栏目管理'});
                         that.categoryList = res.data.rows;
-                        that.treeList[0].children = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
+                        that.treeList = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
                     }
                 });
             },
@@ -537,9 +548,7 @@
                 var that = this;
 
                 var model = undefined;
-                if (that.form.mdiyCategoryModelId && String(that.form.mdiyCategoryModelId)!="0"){
-                    model = ms.mdiy.model.modelForm();
-                }
+
                 if (model && !model.validate()) {
                     this.activeName = 'custom-name';
                     return;
@@ -635,19 +644,18 @@
                     }
                 });
             },
-
-            //设置栏目模型
-            setCategoryModel: function (mdiyCategoryModelId) {
+            //获取栏目内容模型
+            queryCategoryModelList: function () {
                 var that = this;
-                if (mdiyCategoryModelId) {
-                    mdiyCategoryModelId += "";
-                    if (mdiyCategoryModelId == "0") {
-                        mdiyCategoryModelId = null;
+                ms.http.get(ms.manager + "/mdiy/model/list.do", {
+                    modelType: 'category'
+                }).then(function (res) {
+                    if (res.result) {
+                        that.mdiyCategoryModelListOptions = res.data.rows;
                     }
-                    that.form.mdiyCategoryModelId = mdiyCategoryModelId;
-                }
-                that.changeModel();
+                });
             },
+
 
             //获取当前分类
             get: function (id) {
@@ -680,20 +688,12 @@
                         if (!res.data.categoryId) {
                             res.data.categoryId = '0';
                         }
-                        var mdiyCategoryModelId = res.data.mdiyCategoryModelId;
-                        if (mdiyCategoryModelId) {
-                            mdiyCategoryModelId += "";
-                            if (mdiyCategoryModelId == "0") {
-                                mdiyCategoryModelId = null;
-                            }
-                            res.data.mdiyCategoryModelId = mdiyCategoryModelId;
-                        }
+
 
 
                         that.form = res.data; //判断该分类是否存在文章，存在则不能修改栏目属性
 
                         that.contentList(that.form.id);
-                        that.changeModel();
                     }
                 });
             },
@@ -820,19 +820,7 @@
                     type: 'warning'
                 });
             },
-            categoryChange: function () {
-                this.changeModel();
-            },
-            changeModel: function () {
-                var that = this;
-                that.editableTabs = [that.editableTabs[0]];
 
-                if (that.form) {
-                    if (that.form.mdiyCategoryModelId) {
-                        that.rederModel(that.form.mdiyCategoryModelId)
-                    }
-                }
-            },
             rederModel: function (modelId) {
                 var that = this;
                 that.editableTabs.push({
@@ -850,13 +838,13 @@
         },
         created: function () {
             this.queryColumnContentModelList();
+            this.queryCategoryModelList();
             this.getTree();
             this.categoryListUrlOptionsGet();
             this.categoryUrlOptionsGet();
             this.categoryFlagOptionsGet();
             this.form.id = ms.util.getParameter("id");
             this.form.childId = ms.util.getParameter("childId");// 判断是否增加子栏目
-            this.form.categoryId = '0';
             // 判断三种状态，默认为新增状态
             this.categoryTypeDisabled = false;// 控制栏目分类是否可编辑
             if (this.form.id != undefined && (this.form.childId == undefined || this.form.childId == "undefined")) {
