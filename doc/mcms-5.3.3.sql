@@ -237,6 +237,14 @@ CREATE TABLE `logger` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统日志';
 
+-- ----------------------------
+-- Records of logger
+-- ----------------------------
+BEGIN;
+INSERT INTO `logger` (`id`, `log_error_msg`, `log_result`, `log_param`, `log_location`, `log_user`, `log_user_type`, `log_business_type`, `log_status`, `log_url`, `log_request_method`, `log_method`, `log_ip`, `log_title`, `BUSINESS_ID`, `update_date`, `update_by`, `create_date`, `create_by`, `del`) VALUES (1690169027306364929, NULL, '{\"result\":true,\"code\":200}', '{\n    \"ids\": \"1719\"\n}', '内网IP', 'msopen', 'manage', 'delete', 'success', '/ms/basic/model/delete.do', 'POST', 'net.mingsoft.basic.action.ModelAction.delete()', '127.0.0.1', '批量删除模块表', NULL, NULL, NULL, '2023-08-12 09:11:13', NULL, 0);
+INSERT INTO `logger` (`id`, `log_error_msg`, `log_result`, `log_param`, `log_location`, `log_user`, `log_user_type`, `log_business_type`, `log_status`, `log_url`, `log_request_method`, `log_method`, `log_ip`, `log_title`, `BUSINESS_ID`, `update_date`, `update_by`, `create_date`, `create_by`, `del`) VALUES (1690169043987111937, NULL, '{\"result\":true,\"code\":200}', '{\n    \"modelId\": \"1700\",\n    \"menuStr\": \"[{\\\"del\\\":0,\\\"id\\\":\\\"2191\\\",\\\"modelTitle\\\":\\\"自定义字典\\\",\\\"modelDatetime\\\":\\\"2022-01-25 09:56:14\\\",\\\"modelId\\\":1993,\\\"modelUrl\\\":\\\"mdiy/dict/index.do\\\",\\\"modelCode\\\":\\\"15725929177747726\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":1,\\\"chick\\\":0,\\\"depth\\\":1,\\\"modelParentIds\\\":\\\"1993\\\",\\\"modelChildList\\\":[{\\\"del\\\":0,\\\"id\\\":\\\"2192\\\",\\\"modelTitle\\\":\\\"查看\\\",\\\"modelDatetime\\\":\\\"2022-01-25 09:56:14\\\",\\\"modelId\\\":2191,\\\"modelUrl\\\":\\\"mdiy:dict:view\\\",\\\"modelCode\\\":\\\"15725929177745034\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":0,\\\"chick\\\":0,\\\"depth\\\":2,\\\"modelParentIds\\\":\\\"1993,2191\\\"},{\\\"del\\\":0,\\\"id\\\":\\\"2193\\\",\\\"modelTitle\\\":\\\"新增\\\",\\\"modelDatetime\\\":\\\"2022-01-25 09:56:14\\\",\\\"modelId\\\":2191,\\\"modelUrl\\\":\\\"mdiy:dict:save\\\",\\\"modelCode\\\":\\\"15725929177742474\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":0,\\\"chick\\\":0,\\\"depth\\\":2,\\\"modelParentIds\\\":\\\"1993,2191\\\"},{\\\"del\\\":0,\\\"id\\\":\\\"2194\\\",\\\"modelTitle\\\":\\\"修改\\\",\\\"modelDatetime\\\":\\\"2022-01-25 09:56:14\\\",\\\"modelId\\\":2191,\\\"modelUrl\\\":\\\"mdiy:dict:update\\\",\\\"modelCode\\\":\\\"15725929177744138\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":0,\\\"chick\\\":0,\\\"depth\\\":2,\\\"modelParentIds\\\":\\\"1993,2191\\\"},{\\\"del\\\":0,\\\"id\\\":\\\"2195\\\",\\\"modelTitle\\\":\\\"删除\\\",\\\"modelDatetime\\\":\\\"2022-01-25 09:56:14\\\",\\\"modelId\\\":2191,\\\"modelUrl\\\":\\\"mdiy:dict:del\\\",\\\"modelCode\\\":\\\"15725929177748034\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":0,\\\"chick\\\":0,\\\"depth\\\":2,\\\"modelParentIds\\\":\\\"1993,2191\\\"},{\\\"del\\\":0,\\\"id\\\":\\\"2196\\\",\\\"modelTitle\\\":\\\"导入\\\",\\\"modelDatetime\\\":\\\"2022-01-25 09:56:14\\\",\\\"modelId\\\":2191,\\\"modelUrl\\\":\\\"mdiy:dict:importJson\\\",\\\"modelSort\\\":0,\\\"modelIsMenu\\\":0,\\\"chick\\\":0,\\\"depth\\\":2,\\\"modelParentIds\\\":\\\"1993,2191\\\"}]}]\"\n}', '内网IP', 'msopen', 'manage', 'insert', 'success', '/ms/basic/model/import.do', 'POST', 'net.mingsoft.basic.action.ModelAction.importMenu()', '127.0.0.1', '导入菜单', NULL, NULL, NULL, '2023-08-12 09:11:17', NULL, 0);
+INSERT INTO `logger` (`id`, `log_error_msg`, `log_result`, `log_param`, `log_location`, `log_user`, `log_user_type`, `log_business_type`, `log_status`, `log_url`, `log_request_method`, `log_method`, `log_ip`, `log_title`, `BUSINESS_ID`, `update_date`, `update_by`, `create_date`, `create_by`, `del`) VALUES (1690169104095682562, NULL, '{\"result\":true,\"code\":200}', '[\n    {\n        \"notDel\": 0,\n        \"dictValue\": \"politic\",\n        \"dictLabel\": \"时政热点\",\n        \"dictType\": \"文章标签\",\n        \"dictSort\": 0,\n        \"dictEnable\": true,\n        \"createBy\": \"106\",\n        \"createDate\": 1686208393000,\n        \"del\": 0,\n        \"id\": \"650\"\n    }\n]', '内网IP', 'msopen', 'manage', 'insert', 'success', '/ms/mdiy/dict/importJson.do', 'POST', 'net.mingsoft.mdiy.action.DictAction.importJson()', '127.0.0.1', '导入自定义字典', NULL, NULL, NULL, '2023-08-12 09:11:31', NULL, 0);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for manager
@@ -315,7 +323,7 @@ CREATE TABLE `mdiy_dict` (
   UNIQUE KEY `inx_unique` (`dict_value`,`dict_label`,`dict_type`) USING BTREE,
   KEY `inx_dict_value` (`dict_value`) USING BTREE,
   KEY `inx_dict_label` (`dict_label`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=650 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='字典表';
+) ENGINE=InnoDB AUTO_INCREMENT=651 DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC COMMENT='字典表';
 
 -- ----------------------------
 -- Records of mdiy_dict
@@ -334,6 +342,7 @@ INSERT INTO `mdiy_dict` (`id`, `dict_value`, `dict_label`, `dict_type`, `dict_de
 INSERT INTO `mdiy_dict` (`id`, `dict_value`, `dict_label`, `dict_type`, `dict_description`, `is_child`, `dict_enable`, `dict_remarks`, `dict_sort`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`, `NOT_DEL`) VALUES (647, 'gj', '高级', '用户等级类型', NULL, NULL, '1', NULL, 0, NULL, NULL, NULL, NULL, 0, 1);
 INSERT INTO `mdiy_dict` (`id`, `dict_value`, `dict_label`, `dict_type`, `dict_description`, `is_child`, `dict_enable`, `dict_remarks`, `dict_sort`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`, `NOT_DEL`) VALUES (648, 'people', '会员', '自定义模型类型', NULL, NULL, '1', NULL, 0, NULL, NULL, NULL, NULL, 0, 1);
 INSERT INTO `mdiy_dict` (`id`, `dict_value`, `dict_label`, `dict_type`, `dict_description`, `is_child`, `dict_enable`, `dict_remarks`, `dict_sort`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`, `NOT_DEL`) VALUES (649, 'people', '会员', '自定义页面类型', NULL, NULL, '1', NULL, 0, NULL, NULL, NULL, NULL, 0, 1);
+INSERT INTO `mdiy_dict` (`id`, `dict_value`, `dict_label`, `dict_type`, `dict_description`, `is_child`, `dict_enable`, `dict_remarks`, `dict_sort`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`, `NOT_DEL`) VALUES (650, 'politic', '时政热点', '文章标签', NULL, NULL, '1', NULL, 0, NULL, NULL, '106', '2023-06-08 15:13:13', 0, 0);
 COMMIT;
 
 -- ----------------------------
@@ -454,7 +463,7 @@ CREATE TABLE `model` (
   KEY `idx_model_id` (`model_id`) USING BTREE,
   KEY `idx_model_title` (`model_title`,`model_url`) USING BTREE,
   CONSTRAINT `fk_model_id` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=1812 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='模块表';
+) ENGINE=InnoDB AUTO_INCREMENT=1818 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='模块表';
 
 -- ----------------------------
 -- Records of model
@@ -513,11 +522,6 @@ INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1710, 1707, '1700,1707', '16197622071881215', '更新', 'mdiy:model:update', NULL, 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1711, 1707, '1700,1707', '16197622071884291', '查看', 'mdiy:model:view', NULL, 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1712, 1707, '1700,1707', '161976234500028132', '导入', 'mdiy:model:importJson', '', 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
-INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1719, 1700, '1700', '15725929177747726', '自定义字典', 'mdiy/dict/index.do', '', 0, 1, NULL, '2021-05-25 22:07:10', '0', NULL, '0', NULL, 0);
-INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1720, 1719, '1700,1719', '15725929177745034', '查看', 'mdiy:dict:view', NULL, 0, 0, NULL, '2021-05-25 22:07:10', '0', NULL, '0', NULL, 0);
-INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1721, 1719, '1700,1719', '15725929177742474', '新增', 'mdiy:dict:save', NULL, 0, 0, NULL, '2021-05-25 22:07:10', '0', NULL, '0', NULL, 0);
-INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1722, 1719, '1700,1719', '15725929177744138', '修改', 'mdiy:dict:update', NULL, 0, 0, NULL, '2021-05-25 22:07:10', '0', NULL, '0', NULL, 0);
-INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1723, 1719, '1700,1719', '15725929177748034', '删除', 'mdiy:dict:del', NULL, 0, 0, NULL, '2021-05-25 22:07:10', '0', NULL, '0', NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1724, 1700, '1700', '162034834200049578', '自定义业务', 'mdiy/form/index.do', 'icon-caidan', 0, 1, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1725, 1724, '1700,1724', '162034839300098062', '导入', 'mdiy:form:importJson', '', 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1726, 1724, '1700,1724', '162034842600047746', '删除', 'mdiy:form:del', '', 0, 0, NULL, '2021-05-25 22:07:10', NULL, NULL, NULL, NULL, 0);
@@ -545,6 +549,12 @@ INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1809, 1802, '1700,1802', '', '删除配置数据', 'mdiy:configData:del', '', 0, 0, NULL, '2023-04-13 15:24:41', NULL, '2022-08-25 11:21:22', '57', '2022-08-25 11:21:22', 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1810, 1802, '1700,1802', '', '新增配置数据', 'mdiy:configData:save', '', 0, 0, NULL, '2023-04-13 15:24:41', NULL, '2022-08-25 11:21:52', '57', '2022-08-25 11:21:52', 0);
 INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1811, 1802, '1700,1802', '', '查看配置数据', 'mdiy:configData:view', '', 0, 0, '', '2023-04-13 15:24:41', NULL, '2022-08-25 22:29:48', '57', '2022-08-25 22:29:48', 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1812, 1700, '1700', '15725929177747726', '自定义字典', 'mdiy/dict/index.do', NULL, 0, 1, NULL, '2023-08-12 09:11:16', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1813, 1812, '1700,1812', '15725929177745034', '查看', 'mdiy:dict:view', NULL, 0, 0, NULL, '2023-08-12 09:11:16', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1814, 1812, '1700,1812', '15725929177742474', '新增', 'mdiy:dict:save', NULL, 0, 0, NULL, '2023-08-12 09:11:16', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1815, 1812, '1700,1812', '15725929177744138', '修改', 'mdiy:dict:update', NULL, 0, 0, NULL, '2023-08-12 09:11:16', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1816, 1812, '1700,1812', '15725929177748034', '删除', 'mdiy:dict:del', NULL, 0, 0, NULL, '2023-08-12 09:11:16', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_title`, `model_url`, `model_icon`, `model_sort`, `model_ismenu`, `IS_CHILD`, `model_datetime`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`) VALUES (1817, 1812, '1700,1812', NULL, '导入', 'mdiy:dict:importJson', NULL, 0, 0, NULL, '2023-08-12 09:11:17', NULL, NULL, NULL, NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -583,7 +593,7 @@ CREATE TABLE `role_model` (
   KEY `fk_role_id` (`role_id`) USING BTREE,
   CONSTRAINT `fk_rm_model_id` FOREIGN KEY (`model_id`) REFERENCES `model` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   CONSTRAINT `fk_rm_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色模块关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='角色模块关联表';
 
 -- ----------------------------
 -- Records of role_model
@@ -627,10 +637,6 @@ INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (35, 1709, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (36, 1710, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (37, 1711, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (38, 1712, 48);
-INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (45, 1720, 48);
-INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (46, 1721, 48);
-INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (47, 1722, 48);
-INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (48, 1723, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (49, 1725, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (50, 1726, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (51, 1727, 48);
@@ -654,7 +660,6 @@ INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (68, 709, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (69, 1700, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (70, 1701, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (71, 1707, 48);
-INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (73, 1719, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (74, 1724, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (75, 1764, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (76, 1765, 48);
@@ -674,6 +679,12 @@ INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (89, 1808, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (90, 1809, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (91, 1810, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (92, 1811, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (93, 1812, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (94, 1813, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (95, 1814, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (96, 1815, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (97, 1816, 48);
+INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (98, 1817, 48);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

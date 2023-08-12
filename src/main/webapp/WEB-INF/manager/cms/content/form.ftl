@@ -49,7 +49,7 @@
                                 </el-form-item>
                             </el-col>
                             <el-col span="12" >
-                                <el-form-item label="所属栏目" prop="categoryId" >
+                                <el-form-item label="所属栏目" prop="categoryId">
                                     <treeselect v-model="form.categoryId"
                                                 :disabled="!returnIsShow"
                                                 :disable-branch-nodes="true"
@@ -61,13 +61,11 @@
                                                 }}"
                                                 @change="categoryChange"
                                                 :options="contentCategoryIdOptions" placeholder="请选择"></treeselect>
-
                                     <div class="ms-form-tip">
                                         标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.typetitle}</a>
                                         不能选择封面、链接栏目类型，不能选择父栏目
                                     </div>
                                 </el-form-item>
-
                             </el-col>
                         </el-row>
                         <el-row
@@ -248,7 +246,7 @@
                                     </el-select>
                                     <div class="ms-form-tip">
                                         标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.tags}</a>
-                                        通过自定义字典可扩展数据
+                                        通过自定义字典可扩展数据；字典类型：文章标签
                                     </div>
                                 </el-form-item>
                             </el-col>
@@ -649,7 +647,8 @@
                 ms.http.get(ms.manager + "/cms/category/list.do").then(function (res) {
                     if (res.result) {
                         res.data.rows.forEach(function (item) {
-                            if (item.categoryType == '2' || item.categoryType == '3') {
+                            // 栏目为单篇或链接且无子栏目 则不可选
+                            if ( (item.categoryType == '2' || item.categoryType == '3') && item.leaf) {
                                 item.isDisabled = true;
                             }
                         });
