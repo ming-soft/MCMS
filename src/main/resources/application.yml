@@ -41,7 +41,7 @@ ms:
     check-code: true #默认开启验证码验证，false验证码不验证
 
   upload:
-    enable-web: false  #启用web层的上传
+    enable-web: true  #启用web层的上传
     template: template #模板文件夹支持重命名，不支持路径
     path: upload #文件上传路径，可以根据实际写绝对路径
     mapping: /upload/** #修改需要谨慎，系统第一次部署可以随意修改，如果已经有了上传数据，再次修改会导致之前上传的文件404
