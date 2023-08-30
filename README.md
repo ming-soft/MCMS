@@ -25,7 +25,7 @@
 
 </p>
 <p align="center">
-	<a href="https://www.mingsoft.net" target="_blank">铭飞平台</a> 
+	<a href="https://www.mingsoft.net" target="_blank">MS平台</a> 
 	<a href="http://a.cms.demo.mingsoft.net/ms/login.do"  target="_blank">后台演示</a> 
     <a href="http://a.cms.demo.mingsoft.net/"  target="_blank">前台演示</a> 
 	<a href="http://doc.mingsoft.net/mcms/"  target="_blank">在线使用手册</a>
