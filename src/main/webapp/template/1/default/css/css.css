@@ -73,6 +73,10 @@
 	padding-bottom: 20px;
 	padding-top: 8px;
 }
+.product_ul ul {
+	display: flex;
+	flex-wrap: wrap;
+}
 .product_ul ul li {
 	float: left;
 	width: 32.1%;
