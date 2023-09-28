@@ -188,28 +188,24 @@ docker run -p 3306:3306 -p 8080:8080 --name mcms --privileged=true -e TZ=Asia/Sh
 
 <table>
     <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121402_82521059_1795833.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120836_8a943ad5_1795833.png"/></td>
+        <td><img src="src/main/webapp/static/images/ad/6.png"/></td>
+        <td><img src="src/main/webapp/static/images/ad/1.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120927_8a3f93e3_1795833.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120939_7e5281db_1795833.png"/></td>
+        <td><img src="src/main/webapp/static/images/ad/2.png"/></td>
+        <td><img src="src/main/webapp/static/images/ad/3.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/120951_9d3a50b2_1795833.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121003_9c68e090_1795833.png"/></td>
+        <td><img src="src/main/webapp/static/images/ad/4.png"/></td>
+        <td><img src="src/main/webapp/static/images/ad/5.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121020_34c8e0ab_1795833.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121033_b425e406_1795833.png"/></td>
+        <td><img src="src/main/webapp/static/images/ad/7.png"/></td>
+        <td><img src="src/main/webapp/static/images/ad/8.png"/></td>
     </tr>
     <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121044_41cc0d00_1795833.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121059_48b4cd7b_1795833.png"/></td>
-    </tr>
-     <tr>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121112_8581de9a_1795833.png"/></td>
-        <td><img src="https://images.gitee.com/uploads/images/2019/0523/121122_8b513dd1_1795833.png"/></td>
+        <td><img src="src/main/webapp/static/images/ad/9.png"/></td>
+        <td><img src="src/main/webapp/static/images/ad/10.png"/></td>
     </tr>
 </table>
 
