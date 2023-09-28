@@ -20,6 +20,8 @@
  */
 
 
+
+
 package net.mingsoft.cms.bean;
 
 import com.fasterxml.jackson.annotation.JsonFormat;

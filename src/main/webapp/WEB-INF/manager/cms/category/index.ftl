@@ -8,7 +8,7 @@
 <body>
 <div id="index" class="ms-index" v-cloak>
     <el-header class="ms-header" height="50px">
-        <el-col :span="12">
+        <el-col :span=12>
             <@shiro.hasPermission name="cms:category:save">
                 <el-button type="primary" icon="el-icon-plus" size="mini" @click="save()">新增</el-button>
             </@shiro.hasPermission>
@@ -25,7 +25,7 @@
                   border :data="dataList"
                   row-key="id"
                   v-loading="loading"
-                  default-expand-all='true'
+                  :default-expand-all=true
                   :tree-props="{children: 'children'}"
                   tooltip-effect="dark"
                   @selection-change="handleSelectionChange">
@@ -87,9 +87,6 @@
                     <@shiro.hasPermission name="cms:category:save">
                         <el-link type="primary" :underline="false" @click="copyCategory(scope.row.id)">克隆</el-link>
                     </@shiro.hasPermission>
-                    <#--						<@shiro.hasPermission name="cms:category:update">-->
-                    <#--							<el-link type="primary" :underline="false" v-if="scope.row.categoryType == '1' || scope.row.categoryType == '2'" @click="updateTemplate(scope.row.id)">应用子栏目</el-link>-->
-                    <#--						</@shiro.hasPermission>-->
                     <@shiro.hasPermission name="cms:category:update">
                         <el-link type="primary" :underline="false" @click="save(scope.row.id)">编辑</el-link>
                     </@shiro.hasPermission>
@@ -109,54 +106,56 @@
 
     var indexVue = new Vue({
         el: '#index',
-        data: {
-            //分类列表
-            dataList: [],
-            //分类列表选中
-            selectionList: [],
-            //加载状态
-            loading: true,
-            //提示文字
-            emptyText: '',
-            categoryFlagOptions: [],
-            manager: ms.manager,
-            loadState: false,
-            categoryTypeOptions: [{
-                "value": "1",
-                "label": "列表"
-            }, {
-                "value": "2",
-                "label": "封面"
-            }, {
-                "value": "3",
-                "label": "链接"
-            }],
-            //搜索表单
-            form: {
-                // 栏目管理名称
-                categoryTitle: '',
-                // 栏目管理名称
-                categoryShortTitle: '',
-                // 所属栏目
-                categoryId: '',
-                // 栏目管理属性
-                categoryType: '2',
-                // 自定义顺序
-                categorySort: 0,
-                // 列表模板
-                categoryListUrl: '',
-                // 内容模板
-                categoryUrl: '',
-                // 栏目管理关键字
-                categoryKeyword: '',
-                // 栏目管理描述
-                categoryDescrip: '',
-                // 缩略图
-                categoryImg: [],
-                // 自定义链接
-                categoryDiyUrl: '',
-                // 栏目管理的内容模型id
-                mdiyModelId: ''
+        data: function () {
+            return {
+                //分类列表
+                dataList: [],
+                //分类列表选中
+                selectionList: [],
+                //加载状态
+                loading: true,
+                //提示文字
+                emptyText: '',
+                categoryFlagOptions: [],
+                manager: ms.manager,
+                loadState: false,
+                categoryTypeOptions: [{
+                    "value": "1",
+                    "label": "列表"
+                }, {
+                    "value": "2",
+                    "label": "封面"
+                }, {
+                    "value": "3",
+                    "label": "链接"
+                }],
+                //搜索表单
+                form: {
+                    // 栏目管理名称
+                    categoryTitle: '',
+                    // 栏目管理名称
+                    categoryShortTitle: '',
+                    // 所属栏目
+                    categoryId: '',
+                    // 栏目管理属性
+                    categoryType: '2',
+                    // 自定义顺序
+                    categorySort: 0,
+                    // 列表模板
+                    categoryListUrl: '',
+                    // 内容模板
+                    categoryUrl: '',
+                    // 栏目管理关键字
+                    categoryKeyword: '',
+                    // 栏目管理描述
+                    categoryDescrip: '',
+                    // 缩略图
+                    categoryImg: [],
+                    // 自定义链接
+                    categoryDiyUrl: '',
+                    // 栏目管理的内容模型id
+                    mdiyModelId: ''
+                }
             }
         },
         methods: {

@@ -22,6 +22,8 @@
 
 
 
+
+
 package net.mingsoft.cms.biz.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -92,7 +94,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 	}
 
 	@Override
-	public int getSearchCount(ModelEntity contentModel, List diyList, Map whereMap, int appId, String categoryIds) {
+	public int getSearchCount(ModelEntity contentModel, List diyList, Map whereMap, String appId, String categoryIds) {
 		if (contentModel!=null) {
 			return contentDao.getSearchCount(contentModel.getModelTableName(),diyList,whereMap, appId,categoryIds);
 		}

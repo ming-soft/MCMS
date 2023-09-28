@@ -436,9 +436,16 @@
 			and a.content_display=0
 			and c.category_display='enable'
 			and c.category_is_search='enable'
-			<if test="ids!=null and ids!=''">
-				and FIND_IN_SET(a.category_id,#{ids})>0
+			<if test="categoryIds!=null and categoryIds!=''">
+				and
+				<foreach item="item" index="index" collection="categoryIds.split(',')" open="(" separator="or"
+						 close=")">
+					a.category_id=${item}
+					or a.category_id in (select id FROM cms_category where cms_category.del=0
+					and FIND_IN_SET(${item},CATEGORY_PARENT_IDS) > 0)
+				</foreach>
 			</if>
+
 			<if test="map.content_title!=null">
 			and a.content_title like CONCAT(CONCAT('%',#{map.content_title}),'%')
 			</if>

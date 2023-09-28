@@ -28,7 +28,7 @@
 				</el-tree>
 			</el-scrollbar>
 		</div>
-		<iframe :src="action" class="ms-iframe-style" style="background:url('${base}/static/images/loading.gif') no-repeat center;">
+		<iframe :src="action" :key="iframeKey" class="ms-iframe-style" style="background:url('${base}/static/images/loading.gif') no-repeat center;">
 		</iframe>
 	</el-container>
 </div>
@@ -39,6 +39,7 @@
 		el: "#index",
 		data: function () {
 			return {
+				iframeKey:'',
 				action: "",
 				//跳转页面
 				defaultProps: {
@@ -52,6 +53,7 @@
 		},
 		methods: {
 			handleNodeClick: function (data) {
+				this.iframeKey = new Date().getTime();
 				if (data.categoryType == '1') {
 					this.action = ms.manager + "/cms/content/main.do?categoryId=" + data.id+"&leaf="+data.leaf;
 				} else if (data.categoryType == '2') {
@@ -110,8 +112,17 @@
 	}
 	#index .ms-iframe-style {
 		width: 100%;
-		height: 100%;
+		height: 100vh;
 		border: 0;
+	}
+
+	/*脚手架需要此样式*/
+	#index >>> .ms-iframe-style {
+		height: 92vh;
+	}
+
+	#index >>> .ms-index {
+		height: 100vh;
 	}
 
 	#index .index-menu .el-main {

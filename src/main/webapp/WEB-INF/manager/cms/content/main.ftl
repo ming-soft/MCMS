@@ -9,7 +9,7 @@
 <div id="main" class="ms-index" v-cloak>
     <ms-search ref="search" @search="search" :condition-data="conditionList" :conditions="conditions"></ms-search>
     <el-header class="ms-header" height="50px">
-        <el-col :span="12">
+        <el-col :span=12>
             <@shiro.hasPermission name="cms:content:save">
                 <el-button v-if="leaf==true" type="primary" icon="el-icon-plus" size="mini" @click="save()">新增</el-button>
             </@shiro.hasPermission>
@@ -22,7 +22,7 @@
         <el-row>
             <el-form :model="form"  ref="searchForm"  label-width="120px" size="mini">
                 <el-row>
-                    <el-col :span="8">
+                    <el-col :span=8>
                         <el-form-item  label="文章标题" prop="contentTitle">
                             <el-input v-model="form.contentTitle"
                                       :disabled="false"
@@ -32,7 +32,7 @@
                             </el-input>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="8">
+                    <el-col :span=8>
                         <el-form-item  label="文章类型" prop="contentType">
                             <el-select v-model="form.contentType"
                                        :style="{width: '100%'}"
@@ -45,7 +45,7 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
-                    <el-col :span="8" style="text-align: right;padding-right: 10px;">
+                    <el-col :span=8 style="text-align: right;padding-right: 10px;">
                         <el-button type="primary" icon="el-icon-search" size="mini" @click="form.sqlWhere=null;currentPage=1;list()">查询</el-button>
                         <el-button @click="rest"  icon="el-icon-refresh" size="mini">重置</el-button>
                         <el-button type="primary" size="mini" @click="$refs.search.open()"><i class="iconfont icon-shaixuan"></i>筛选</el-button>
@@ -518,6 +518,9 @@
     }
     #main .ms-container {
         height: calc(100vh - 141px);
+    }
+    #main  {
+        height:  100vh
     }
     body{
         overflow: hidden;

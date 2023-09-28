@@ -20,6 +20,8 @@
  */
 
 
+
+
 package net.mingsoft.cms.action;
 
 import io.swagger.annotations.Api;
@@ -126,6 +128,7 @@ public class ContentAction extends BaseAction {
 	/**
 	 * 返回编辑界面content_form
 	 */
+	@ApiIgnore
 	@GetMapping("/form")
 	public String form(@ModelAttribute ContentEntity content, ModelMap model){
 		model.addAttribute("appId", BasicUtil.getApp().getAppId());

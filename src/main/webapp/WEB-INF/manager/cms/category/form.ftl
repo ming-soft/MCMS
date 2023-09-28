@@ -22,9 +22,9 @@
                     <el-form v-if="item.title=='栏目编辑'" ref="form" :model="form" :rules="rules" label-width="130px"
                              size="mini">
                         <el-row
-                                :gutter="0"
+                                :gutter=0
                                 justify="start" align="top">
-                            <el-col span="12">
+                            <el-col :span=12>
                                 <el-form-item label="栏目名称" prop="categoryTitle">
                                     <el-input v-model="form.categoryTitle"
                                               :disabled="false"
@@ -38,13 +38,13 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
-                            <el-col span="12">
+                            <el-col :span=12>
                                 <el-form-item label="所属栏目" prop="categoryId">
                                     <ms-tree-select  ref="tree"
-                                                     :key="treeList"
-                                                     :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
-                                                     :options="treeList" :style="{width:'100%'}"
-                                                     v-model="form.categoryId"></ms-tree-select>
+                                                    :key="treeKey"
+                                                    :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
+                                                    :options="treeList" :style="{width:'100%'}"
+                                                    v-model="form.categoryId"></ms-tree-select>
                                     <div class="ms-form-tip">
                                         不能将父级别栏目移动到自身子级栏目
                                     </div>
@@ -52,9 +52,9 @@
                             </el-col>
                         </el-row>
                         <el-row
-                                :gutter="0"
+                                :gutter=0
                                 justify="start" align="top">
-                            <el-col span="12">
+                            <el-col :span=12>
                                 <el-form-item label="栏目副标题" prop="categoryShortTitle">
                                     <el-input v-model="form.categoryShortTitle"
                                               :disabled="false"
@@ -68,7 +68,7 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
-                            <el-col span="12" style="display: flex">
+                            <el-col :span=12 style="display: flex">
                                 <el-form-item label="栏目属性" prop="categoryFlag">
                                     <el-select v-model="form.categoryFlag"
                                                :style="{width: '100%'}"
@@ -88,9 +88,9 @@
                             </el-col>
                         </el-row>
                         <el-row
-                                :gutter="0"
+                                :gutter=0
                                 justify="start" align="top">
-                            <el-col span="12">
+                            <el-col :span=12>
                                 <el-form-item label="是否显示" prop="categoryDisplay">
                                     <el-radio-group v-model="form.categoryDisplay"
                                                     :style="{width: ''}"
@@ -107,7 +107,7 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
-                            <el-col span="12">
+                            <el-col :span=12>
                                 <el-form-item label="是否可被搜索" prop="categoryIsSearch">
                                     <el-radio-group v-model="form.categoryIsSearch"
                                                     :style="{width: ''}"
@@ -126,9 +126,9 @@
                             </el-col>
                         </el-row>
                         <el-row
-                                gutter="0"
+                                :gutter=0
                                 justify="start" align="top">
-                            <el-col span="12">
+                            <el-col :span=12>
                                 <el-form-item prop="categoryType" label="栏目类型">
                                     <el-radio-group v-model="form.categoryType"
                                                     :style="{width: ''}"
@@ -148,7 +148,7 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
-                            <el-col span="12">
+                            <el-col :span=12>
                                 <el-form-item prop="mdiyModelId" label="文章自定义模型">
                                     <el-select v-model="form.mdiyModelId"
                                                :style="{width: '100%'}"
@@ -167,8 +167,8 @@
 
                             </el-col>
                         </el-row>
-                        <el-row gutter="0" justify="start" align="top">
-                            <el-col span="12">
+                        <el-row :gutter=0 justify="start" align="top">
+                            <el-col :span=12>
                                 <el-form-item prop="categoryUrl" label="详情模板" v-if="form.categoryType != '3'">
                                     <el-select v-model="form.categoryUrl"
                                                :style="{width: '100%'}"
@@ -197,7 +197,7 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
-                            <el-col span="12">
+                            <el-col :span=12>
 
                                 <el-form-item prop="categoryListUrl" label="列表模板" v-if="form.categoryType == '1'">
                                     <el-select v-model="form.categoryListUrl"
@@ -216,20 +216,20 @@
                             </el-col>
                         </el-row>
                         <el-row
-                                gutter="0"
+                                :gutter=0
                                 justify="start" align="top">
-                            <el-col span="12">
+                            <el-col :span=12>
 
                             </el-col>
-                            <el-col span="12">
+                            <el-col :span=12>
 
                             </el-col>
                         </el-row>
 
                         <el-row
-                                :gutter="0"
+                                :gutter=0
                                 justify="start" align="top">
-                            <el-col :span="12">
+                            <el-col :span=12>
                                 <el-form-item label="生成路径" prop="categoryPinyin">
                                     <el-input
                                             v-model="form.categoryPinyin"
@@ -244,7 +244,7 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
-                            <el-col :span="12">
+                            <el-col :span=12>
                                 <el-form-item label="自定义顺序" prop="categorySort">
                                     <el-input-number
                                             v-model="form.categorySort"
@@ -369,6 +369,7 @@
                     categoryTitle: '顶级栏目',
                     children: []
                 }],
+                treeKey: new Date().getTime(), //用于刷新下啦栏目，不能使用treeList，脚手架会报错
                 categoryList: [],
                 saveDisabled: false,
                 categoryTypeDisabled: true,
@@ -541,6 +542,7 @@
                         //res.data.rows.push({id:0,categoryId: null,categoryTitle:'顶级栏目管理'});
                         that.categoryList = res.data.rows;
                         that.treeList = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
+                        that.treeKey = new Date().getTime();
                     }
                 });
             },
@@ -655,7 +657,6 @@
                     }
                 });
             },
-
 
             //获取当前分类
             get: function (id) {
@@ -826,12 +827,6 @@
                 that.editableTabs.push({
                     title: '加载中...',
                     name: 'custom-name'
-                });
-                this.$nextTick(function () {
-                    ms.mdiy.model.extend("model1", {id:modelId},{ linkId: that.form.id },true).then(function(obj) {
-                        that.model = obj;
-                        that.editableTabs[1].title = obj.modelName
-                    });
                 });
             },
 

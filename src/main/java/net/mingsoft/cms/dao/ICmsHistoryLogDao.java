@@ -20,6 +20,8 @@
  */
 
 
+
+
 package net.mingsoft.cms.dao;
 
 import net.mingsoft.base.dao.IBaseDao;

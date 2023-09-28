@@ -54,10 +54,10 @@
 			category_url=#{categoryUrl},
 			<if test="categoryKeyword != null ">category_keyword=#{categoryKeyword},</if>
 			<if test="categoryDescrip != null ">category_descrip=#{categoryDescrip},</if>
-			<if test="categoryImg != null and categoryImg != ''">category_img=#{categoryImg},</if>
+			<if test="categoryImg != null">category_img=#{categoryImg},</if>
 			<if test="categoryDisplay != null and categoryDisplay != ''">category_display=#{categoryDisplay},</if>
 			<if test="categoryIsSearch != null and categoryIsSearch != ''">category_is_search=#{categoryIsSearch},</if>
-			<if test="categoryIco != null and categoryIco != ''">category_ico=#{categoryIco},</if>
+			<if test="categoryIco != null">category_ico=#{categoryIco},</if>
 			<if test="categoryDiyUrl != null">category_diy_url=#{categoryDiyUrl},</if>
 			<if test="dictId != null">dict_id=#{dictId},</if>
 			<if test="categoryFlag != null ">category_flag=#{categoryFlag},</if>

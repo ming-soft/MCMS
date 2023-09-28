@@ -7,10 +7,10 @@
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- * <p>
+
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * <p>
+
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -18,6 +18,8 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
+
 
 
 package net.mingsoft.cms.action;
@@ -74,6 +76,7 @@ public class CategoryAction extends BaseAction {
      * 返回主界面index
      * @return
      */
+    @ApiIgnore
     @GetMapping("/index")
     @RequiresPermissions("cms:category:view")
     public String index() {
@@ -102,6 +105,7 @@ public class CategoryAction extends BaseAction {
      * @param category 栏目
      * @return
      */
+    @ApiIgnore
     @GetMapping("/form")
     public String form(@ModelAttribute CategoryEntity category, ModelMap model) {
         model.addAttribute("appId", BasicUtil.getApp().getAppId());
@@ -261,10 +265,6 @@ public class CategoryAction extends BaseAction {
             return ResultData.build().error(getResString("err.length", this.getResString("category.title"), "1", "100"));
         }
 
-        // 判断前端拼音传值是否正常
-        if (!StringUtil.checkLength(category.getCategoryPinyin() + "", 1, 100)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("category.pinyin"), "1", "100"));
-        }
         if (!StringUtil.checkLength(category.getCategoryParentIds() + "", 0, 100)) {
             return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
         }
@@ -286,7 +286,7 @@ public class CategoryAction extends BaseAction {
         }
         String pingYin = PinYinUtil.getPingYin(category.getCategoryTitle());
         //如果用户填写了拼音则使用用户填写的
-        if (StrUtil.isNotBlank(category.getCategoryPinyin())) {
+        if (StrUtil.isNotBlank(category.getCategoryPinyin()) && StringUtil.checkLength(category.getCategoryPinyin() + "", 1, 100)) {
             pingYin = category.getCategoryPinyin();
         }
         CategoryEntity categoryEntity = new CategoryEntity();

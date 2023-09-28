@@ -9,13 +9,13 @@
 <div id="form" v-cloak>
     <el-header class="ms-header ms-tr" height="50px" >
         <el-row type="flex" justify="space-between" align="middle">
-            <el-col :xs="12" :sm="14" :md="16" :lg="18" :xl="18" style="display:flex;align-items:center;">
+            <el-col :xs=12 :sm=14 :md=16 :lg=18 :xl=18 style="display:flex;align-items:center;">
                 <el-tooltip class="item" effect="dark" :content="form.id" placement="top-start">
                     <span v-if="form.id && categoryType=='2'" style="float: left; max-width:calc(30% - 40px);" class="header-info">编号：{{form.id}}</span>
                 </el-tooltip>
                 <el-button v-if="form.id && categoryType=='2'" type="text" style="float: left" icon="el-icon-document-copy" circle :data-clipboard-text="form.id" @click="copyString()" class="copyBtn"></el-button>
             </el-col>
-            <el-col :xs="12" :sm="10" :md="8" :lg="6" :xl="6" class="ms-tr">
+            <el-col :xs=12 :sm=10 :md=8 :lg=6 :xl=6 class="ms-tr">
                 <@shiro.hasPermission name="cms:content:save">
                     <el-button type="primary" icon="iconfont icon-baocun" size="mini" @click="save()" :loading="saveDisabled">保存
                     </el-button>
@@ -28,14 +28,14 @@
         </el-row>
     </el-header>
     <el-main class="ms-container" style="position:relative;">
-        <el-scrollbar class="ms-scrollbar" style="height: 100%;">
-            <el-tabs v-model="activeName" style="height: calc(100% - 10px);">
+        <el-scrollbar class="ms-scrollbar" style="height: 95vh">
+            <el-tabs v-model="activeName" style="height: calc(100vh - 10px);">
                 <el-tab-pane style="position:relative;" v-for="(item, index) in editableTabs" :key="index"
                              :label="item.title" :name="item.name">
                     <el-form v-if="item.title=='文章编辑'" ref="form" :model="form" :rules="rules" label-width="120px"
                              size="mini">
-                        <el-row :gutter="0" justify="start" align="top">
-                            <el-col :span="12">
+                        <el-row :gutter=0 justify="start" align="top">
+                            <el-col :span=12>
                                 <el-form-item label="文章标题" prop="contentTitle">
                                     <el-input v-model="form.contentTitle"
                                               :disabled="false"
@@ -48,19 +48,20 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
-                            <el-col span="12" >
+                            <el-col :span=12 >
                                 <el-form-item label="所属栏目" prop="categoryId">
                                     <treeselect v-model="form.categoryId"
                                                 :disabled="!returnIsShow"
                                                 :disable-branch-nodes="true"
-                                                :normalizer="node=>{
+                                                :normalizer="function(node){
                                                 return {
                                                     id: node.id,
                                                     label: node.categoryTitle,
                                                     children: node.children
                                                 }}"
-                                                @change="categoryChange"
+                                                @select="categoryChange"
                                                 :options="contentCategoryIdOptions" placeholder="请选择"></treeselect>
+
                                     <div class="ms-form-tip">
                                         标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.typetitle}</a>
                                         不能选择封面、链接栏目类型，不能选择父栏目
@@ -69,9 +70,9 @@
                             </el-col>
                         </el-row>
                         <el-row
-                                gutter="0"
+                                :gutter=0
                                 justify="start" align="top">
-                            <el-col :span="12">
+                            <el-col :span=12>
                                 <el-form-item label="文章副标题" prop="contentShortTitle">
                                     <el-input v-model="form.contentShortTitle"
                                               :disabled="false"
@@ -84,7 +85,7 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
-                            <el-col span="12">
+                            <el-col :span=12>
                                 <el-form-item label="文章外链接" prop="contentOutLink">
                                     <el-input v-model="form.contentOutLink"
                                               :disabled="false"
@@ -100,9 +101,9 @@
                             </el-col>
                         </el-row>
                         <el-row
-                                gutter="0"
+                                :gutter=0
                                 justify="start" align="top">
-                            <el-col span="12">
+                            <el-col :span=12>
                                 <el-form-item label="文章类型" prop="contentType">
                                     <el-select v-model="form.contentType"
                                                :style="{width: '100%'}"
@@ -120,7 +121,7 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
-                            <el-col span="12">
+                            <el-col :span=12>
                                 <el-form-item label="发布时间" prop="contentDatetime">
                                     <el-date-picker
                                             v-model="form.contentDatetime"
@@ -143,9 +144,9 @@
                             </el-col>
                         </el-row>
                         <el-row
-                                gutter="0"
+                                :gutter=0
                                 justify="start" align="top">
-                            <el-col span="12">
+                            <el-col :span=12>
                                 <el-form-item label="文章作者" prop="contentAuthor">
                                     <el-input v-model="form.contentAuthor"
                                               :disabled="false"
@@ -158,7 +159,7 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
-                            <el-col span="12">
+                            <el-col :span=12>
                                 <el-form-item label="文章来源" prop="contentSource">
                                     <el-input v-model="form.contentSource"
                                               :disabled="false"
@@ -173,9 +174,9 @@
                             </el-col>
                         </el-row>
                         <el-row
-                                gutter="0"
+                                :gutter=0
                                 justify="start" align="top">
-                            <el-col span="12">
+                            <el-col :span=12>
                                 <el-form-item label="是否显示" prop="contentDisplay">
                                     <el-radio-group v-model="form.contentDisplay"
                                                     :style="{width: ''}"
@@ -192,7 +193,7 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
-                            <el-col span="12">
+                            <el-col :span=12>
                                 <el-form-item label="自定义顺序" prop="contentSort">
                                     <el-input-number
                                             v-model="form.contentSort"
@@ -206,9 +207,9 @@
                             </el-col>
                         </el-row>
                         <el-row
-                                gutter="0"
+                                :gutter=0
                                 justify="start" align="top">
-                            <el-col span="12">
+                            <el-col :span=12>
                                 <el-form-item label="文章缩略图" prop="contentImg">
                                     <el-upload
                                             :file-list="form.contentImg"
@@ -231,13 +232,12 @@
                                     </el-upload>
                                 </el-form-item>
                             </el-col>
-                            <el-col span="12">
+                            <el-col span=12>
                                 <el-form-item label="文章标签" prop="contentTags">
                                     <el-select v-model="form.contentTags"
                                                :style="{width: '100%'}"
                                                :filterable="false"
                                                :disabled="false"
-                                               filterable
                                                :multiple="true" :clearable="true"
                                                placeholder="请选择文章标签">
                                         <el-option v-for='item in contentTagsOptions' :key="item.dictValue"
@@ -446,9 +446,9 @@
                         ms.http.post(url, data).then(function (data) {
                             if (data.result) {
                                 //保存时需要赋值关联ID
-                                if (model) {
-                                    model.form.linkId = data.data.id;
-                                    model.save();
+                                if (window.model) {
+                                    window.model.form.linkId = data.data.id;
+                                    window.model.save();
                                 }
                                 that.$notify({
                                     title: '成功',
@@ -535,9 +535,10 @@
                     title: '加载中...',
                     name: 'custom-name'
                 });
+                window.formVue = this;
                 this.$nextTick(function () {
                     ms.mdiy.model.extend("model1", {id:modelId},{ linkId: that.form.id },true).then(function(obj) {
-                        that.model = obj;
+                        window.model = obj;
                         that.editableTabs[1].title = obj.modelName
                     });
                 });

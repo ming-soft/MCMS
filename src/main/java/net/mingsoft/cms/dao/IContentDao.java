@@ -20,6 +20,8 @@
  */
 
 
+
+
 package net.mingsoft.cms.dao;
 
 import net.mingsoft.base.dao.IBaseDao;
@@ -73,7 +75,7 @@ public interface IContentDao extends IBaseDao<ContentEntity> {
      * @return 文章实体总数
      */
     int getSearchCount(@Param("tableName") String tableName, @Param("diyList") List diyList, @Param("map") Map<String, Object> map,
-                       @Param("websiteId") int websiteId, @Param("ids") String ids);
+                       @Param("websiteId") String websiteId, @Param("ids") String categoryIds);
 
     /**
      * 分类编号删除文章

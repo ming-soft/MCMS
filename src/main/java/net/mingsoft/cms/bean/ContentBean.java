@@ -20,6 +20,8 @@
  */
 
 
+
+
 package net.mingsoft.cms.bean;
 
 import net.mingsoft.cms.entity.ContentEntity;
