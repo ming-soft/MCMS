@@ -25,7 +25,7 @@
             <name>Central Repository 2</name>
             <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
-        <!--阿里云仓库-->
+        <!--阿里云仓库，注意：如果使用阿里云仓库遇到启动缺少jar包的时候，必须使用国外中央库拉取-->
         <!--
         <repository>
             <id>alimaven</id>
