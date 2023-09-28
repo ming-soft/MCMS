@@ -42,7 +42,7 @@
                     </el-popover>
                 </template>
                 <template slot-scope="scope">
-                    <span style="cursor: pointer" class="copyBtn" :data-clipboard-text="scope.row.id"
+                    <span style="cursor: pointer" class="copyBtn cell-tooltip "  :data-clipboard-text="scope.row.id"
                           @click="copyContent(true)">{{scope.row.id}}</span>
                 </template>
             </el-table-column>
@@ -354,3 +354,8 @@
         }
     });
 </script>
+<style scoped>
+    .el-table .cell.el-tooltip {
+        width: 100px;
+    }
+</style>

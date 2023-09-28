@@ -165,3 +165,7 @@ textarea::-webkit-input-placeholder {
 .el-upload--picture-card i {
     line-height: unset !important;
 }
+
+.el-notification__content p {
+    word-break: break-all !important;
+}
