@@ -20,8 +20,6 @@
  */
 
 
-
-
 package net.mingsoft.cms.dao;
 
 import net.mingsoft.base.dao.IBaseDao;
@@ -72,10 +70,12 @@ public interface IContentDao extends IBaseDao<ContentEntity> {
      * @param map
      *            key:字段名 value:List 字段的各种判断值 list[0]:是否为自定义字段 list[1]:是否为整形
      *            list[2]:是否是等值查询 list[3]:字段的值
+     * @param appId 站点id
+     * @param categoryIds 栏目id集合
      * @return 文章实体总数
      */
     int getSearchCount(@Param("tableName") String tableName, @Param("diyList") List diyList, @Param("map") Map<String, Object> map,
-                       @Param("websiteId") String websiteId, @Param("ids") String categoryIds);
+                       @Param("appId") String appId, @Param("categoryIds") String categoryIds);
 
     /**
      * 分类编号删除文章
