@@ -493,6 +493,7 @@
                     var formData = that.form;
                     formData.contentType = ""
                     formData.contentImg = ""
+                    formData.contentTags = ""
                     ms.http.post(ms.manager + "/cms/content/delete.do",  [formData], {
                         headers: {
                             'Content-Type': 'application/json'
