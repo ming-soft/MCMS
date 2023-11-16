@@ -61,11 +61,10 @@ public interface IContentBiz extends IBaseBiz<ContentEntity> {
      * @param contentModel 文章模型，
      * @param diyList 扩展模型字段 List<Map> key:自定义模型字段:值
      * @param whereMap 条件
-     * @param websiteId 站点编号
      * @param categoryIds 栏目编号集合 格式：1,2,3
      * @return
      */
-    int getSearchCount(ModelEntity contentModel, List diyList, Map whereMap, String websiteId, String categoryIds);
+    int getSearchCount(ModelEntity contentModel, List diyList, Map whereMap, String categoryIds);
     /**
      * 根据文章属性查询,不包括单篇
      * @param contentBean

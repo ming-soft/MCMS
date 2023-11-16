@@ -224,8 +224,8 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
             }
         });
 
-        //查询数量
-        int count = contentBiz.getSearchCount(contentModel, fieldValueList, searchMap, BasicUtil.getApp().getAppId(), categoryIds);
+        //查询数量 站群会自动拼appId区分
+        int count = contentBiz.getSearchCount(contentModel, fieldValueList, searchMap, categoryIds);
         page.setRcount(count);
         params.put("search", searchMap);
 

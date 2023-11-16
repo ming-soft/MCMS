@@ -19,6 +19,8 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+
+
 package net.mingsoft;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;

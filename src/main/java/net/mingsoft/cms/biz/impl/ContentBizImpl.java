@@ -94,11 +94,11 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 	}
 
 	@Override
-	public int getSearchCount(ModelEntity contentModel, List diyList, Map whereMap, String appId, String categoryIds) {
+	public int getSearchCount(ModelEntity contentModel, List diyList, Map whereMap, String categoryIds) {
 		if (contentModel!=null) {
-			return contentDao.getSearchCount(contentModel.getModelTableName(),diyList,whereMap, appId,categoryIds);
+			return contentDao.getSearchCount(contentModel.getModelTableName(),diyList,whereMap, categoryIds);
 		}
-		return contentDao.getSearchCount(null,null,whereMap, appId,categoryIds);
+		return contentDao.getSearchCount(null,null,whereMap, categoryIds);
 	}
 
 	@Override
