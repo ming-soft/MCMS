@@ -29,7 +29,7 @@
 	<a href="http://a.cms.demo.mingsoft.net/ms/login.do"  target="_blank">后台演示</a> 
     <a href="http://a.cms.demo.mingsoft.net/"  target="_blank">前台演示</a> 
 	<a href="http://doc.mingsoft.net/mcms/"  target="_blank">在线使用手册</a>
-	<a href="https://mingsoft.ke.qq.com/?tuin=383187f3#tab=1&category=-1" target="_blank">腾讯课堂在线视频</a><br/>
+	<a href="https://space.bilibili.com/1825880395" target="_blank">B站视频</a><br/>
 	<a href="https://ke.qq.com/course/3026403"  target="_blank">代码生成器视频教程</a><br/>
 	<a href="https://cloud.189.cn/t/I3maM3uURjmm"  target="_blank">Windows一键运行版本\Linux一键运行版本</a>
     <a href="#快速体验docker" >Docker体验</a>
@@ -71,6 +71,11 @@
 	<scope>provided</scope>
 </dependency>
 ```
+
+# 脚手架版本 
+
+目前 开发版本 以上已经支持VUE3脚手架 <a href="https://www.mingsoft.net/banben.html"  target="_blank">查看版本比对</a>
+
 # 商用
 基于[MIT](https://www.oschina.net/question/12_2829) 开源协议，可直接商用无需授权，但请尊重开源精神不要去掉代码中铭飞的注释和版权信息
 
