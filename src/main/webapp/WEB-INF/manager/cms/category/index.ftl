@@ -124,7 +124,7 @@
                     "label": "列表"
                 }, {
                     "value": "2",
-                    "label": "封面"
+                    "label": "单篇"
                 }, {
                     "value": "3",
                     "label": "链接"

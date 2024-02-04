@@ -20,8 +20,6 @@
  */
 
 
-
-
 package net.mingsoft.cms.entity;
 
 import net.mingsoft.base.entity.BaseEntity;

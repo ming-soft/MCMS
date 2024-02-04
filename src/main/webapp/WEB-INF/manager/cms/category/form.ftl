@@ -8,10 +8,10 @@
 <div id="form" v-cloak>
     <el-header class="ms-header ms-tr" height="50px">
         <@shiro.hasPermission name="cms:category:save">
-            <el-button type="primary" icon="iconfont icon-baocun" size="mini" @click="save()" :loading="saveDisabled">保存
+            <el-button type="primary" class="iconfont icon-baocun" size="mini" @click="save()" :loading="saveDisabled">保存
             </el-button>
         </@shiro.hasPermission>
-        <el-button size="mini" icon="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回</el-button>
+        <el-button size="mini" class="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回</el-button>
     </el-header>
     <el-main class="ms-container">
 
@@ -41,10 +41,10 @@
                             <el-col :span=12>
                                 <el-form-item label="所属栏目" prop="categoryId">
                                     <ms-tree-select  ref="tree"
-                                                    :key="treeKey"
-                                                    :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
-                                                    :options="treeList" :style="{width:'100%'}"
-                                                    v-model="form.categoryId"></ms-tree-select>
+                                                     :key="treeKey"
+                                                     :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
+                                                     :options="treeList" :style="{width:'100%'}"
+                                                     v-model:value="form.categoryId"></ms-tree-select>
                                     <div class="ms-form-tip">
                                         不能将父级别栏目移动到自身子级栏目
                                     </div>
@@ -84,7 +84,13 @@
                                         可以在自定义字典中管理
                                     </div>
                                 </el-form-item>
-
+                                <el-form-item label="自定义顺序" prop="categorySort">
+                                    <el-input-number
+                                            v-model="form.categorySort"
+                                            :disabled="false"
+                                            controls-position="">
+                                    </el-input-number>
+                                </el-form-item>
                             </el-col>
                         </el-row>
                         <el-row
@@ -245,13 +251,7 @@
                                 </el-form-item>
                             </el-col>
                             <el-col :span=12>
-                                <el-form-item label="自定义顺序" prop="categorySort">
-                                    <el-input-number
-                                            v-model="form.categorySort"
-                                            :disabled="false"
-                                            controls-position="">
-                                    </el-input-number>
-                                </el-form-item>
+
                             </el-col>
 
 
@@ -299,11 +299,13 @@
                                     accept="image/*"
                                     list-type="picture-card">
                                 <i class="el-icon-plus"></i>
-                                <div slot="tip" class="ms-form-tip">
-                                    只能上传1张图片
-                                    标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html"
-                                          target="_blank"><#noparse>{@ms:file field.typelitpic/}</#noparse></a><br/>
-                                </div>
+                                <template slot="tip">
+                                    <div class="ms-form-tip">
+                                        只能上传1张图片
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html"
+                                              target="_blank"><#noparse>{@ms:file field.typelitpic/}</#noparse></a><br/>
+                                    </div>
+                                </template>
                             </el-upload>
                         </el-form-item>
                         <el-form-item label="栏目小图" prop="categoryIco">
@@ -321,15 +323,17 @@
                                     accept="image/*"
                                     list-type="picture-card">
                                 <i class="el-icon-plus"></i>
-                                <div slot="tip" class="ms-form-tip">
-                                    只能上传1张图片
-                                    标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html"
-                                          target="_blank"><#noparse>{@ms:file field.typeico/}</#noparse></a><br/>
-                                </div>
+                                <template slot="tip">
+                                    <div class="ms-form-tip">
+                                        只能上传1张图片
+                                        标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html"
+                                              target="_blank"><#noparse>{@ms:file field.typeico/}</#noparse></a><br/>
+                                    </div>
+                                </template>
                             </el-upload>
                         </el-form-item>
                     </el-form>
-                    <div :id="'model'+index" v-else></div>
+
                 </el-tab-pane>
             </el-tabs>
         </el-scrollbar>
@@ -658,6 +662,7 @@
                 });
             },
 
+
             //获取当前分类
             get: function (id) {
                 var that = this;
@@ -828,10 +833,12 @@
                     title: '加载中...',
                     name: 'custom-name'
                 });
+
             },
 
         },
         created: function () {
+
             this.queryColumnContentModelList();
             this.queryCategoryModelList();
             this.getTree();
@@ -840,6 +847,7 @@
             this.categoryFlagOptionsGet();
             this.form.id = ms.util.getParameter("id");
             this.form.childId = ms.util.getParameter("childId");// 判断是否增加子栏目
+            this.form.categoryId = '0';
             // 判断三种状态，默认为新增状态
             this.categoryTypeDisabled = false;// 控制栏目分类是否可编辑
             if (this.form.id != undefined && (this.form.childId == undefined || this.form.childId == "undefined")) {
@@ -852,6 +860,7 @@
                 this.form.categoryId = this.form.childId;
             }
         }
+
     });
 </script>
 <style>
@@ -859,6 +868,3 @@
         width: 100%;
     }
 </style>
-
-
-

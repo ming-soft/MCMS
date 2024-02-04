@@ -19,8 +19,6 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
-
 package net.mingsoft.cms.constant.e;
 
 import net.mingsoft.base.constant.e.BaseEnum;

@@ -56,7 +56,7 @@
             <div class="class-13 panel" >
                 <div class="class-14" >
                     <el-form-item label="文章栏目">
-                        <ms-tree-select v-model="contentSection"
+                        <ms-tree-select v-model:value="contentSection"
                                      :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
                                      :options="treeList" :style="{width:'100%'}"
                                      placeholder="请选择文章栏目">
@@ -99,7 +99,7 @@
             <div class="class-23 panel" >
                 <div class="class-24" >
                     <el-form-item label="生成栏目">
-                        <ms-tree-select v-model="section"
+                        <ms-tree-select v-model:value="section"
                                      :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
                                      :options="treeList" :style="{width:'100%'}"
                                      placeholder="请选择文章栏目">

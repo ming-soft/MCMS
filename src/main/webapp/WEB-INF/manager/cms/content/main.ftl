@@ -417,7 +417,11 @@
                     });
                     if (data && data.categoryPath) {
                         // row.url /html/web/categoryPath/文章id.html categoryPath做占位符
-                        path = row.url.replace("categoryPath",data.categoryPath);
+                        if (data.categoryType === "2"){
+                            path = row.url.replace("categoryPath/"+row.id,data.categoryPinyin+"/index");
+                        }else {
+                            path = row.url.replace("categoryPath",data.categoryPath);
+                        }
                     }else {
                         path = row.url;
                     }

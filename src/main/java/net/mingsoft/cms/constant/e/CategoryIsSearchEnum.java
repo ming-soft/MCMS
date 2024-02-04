@@ -20,7 +20,6 @@
  */
 
 
-
 package net.mingsoft.cms.constant.e;
 
 import net.mingsoft.base.constant.e.BaseEnum;

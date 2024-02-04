@@ -20,8 +20,6 @@
  */
 
 
-
-
 package net.mingsoft.cms.biz;
 
 import net.mingsoft.base.biz.IBaseBiz;

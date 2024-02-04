@@ -20,8 +20,6 @@
  */
 
 
-
-
 package net.mingsoft.cms.action.web;
 
 import cn.hutool.core.util.ObjectUtil;
@@ -73,15 +71,26 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	 */
 	@ApiOperation(value = "查询文章列表接口")
 	@ApiImplicitParams({
+    	@ApiImplicitParam(name = "id", value = "文章id", required =false,paramType="query"),
     	@ApiImplicitParam(name = "contentTitle", value = "文章标题", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "contentShortTitle", value = "文章副标题", required =false,paramType="query"),
     	@ApiImplicitParam(name = "categoryId", value = "所属栏目", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "contentType", value = "文章类型", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "flag", value = "文章类型", required =false,paramType="query"),
+		@ApiImplicitParam(name = "contentType", value = "文章类型", required =false,paramType="query"),
+		@ApiImplicitParam(name = "contentAuthor", value = "文章作者", required =false,paramType="query"),
+		@ApiImplicitParam(name = "contentSource", value = "文章来源", required =false,paramType="query"),
+		@ApiImplicitParam(name = "contentDatetime", value = "发布时间", required =false,paramType="query"),
+		@ApiImplicitParam(name = "contentTags", value = "文章标签", required =false,paramType="query"),
+		@ApiImplicitParam(name = "contentDescription", value = "描述", required =false,paramType="query"),
+		@ApiImplicitParam(name = "contentKeyword", value = "关键字", required =false,paramType="query"),
+		@ApiImplicitParam(name = "contentDetails", value = "文章内容", required =false,paramType="query"),
+		@ApiImplicitParam(name = "contentOutLink", value = "文章跳转链接地址", required =false,paramType="query"),
+		@ApiImplicitParam(name = "contentHit", value = "点击次数", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryType", value = "栏目类型", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryFlag", value = "栏目属性", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "flag", value = "属性标记", required =false,paramType="query"),
     	@ApiImplicitParam(name = "noflag", value = "排除文章类型", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "contentDisplay", value = "是否显示", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "contentAuthor", value = "文章作者", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "contentSource", value = "文章来源", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "contentDatetime", value = "发布时间", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "hasDetailHtml", value = "文章是否被静态化", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "hasListHtml", value = "栏目是否被静态化", required =false,paramType="query"),
     })
 	@RequestMapping(value = "/list",method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody

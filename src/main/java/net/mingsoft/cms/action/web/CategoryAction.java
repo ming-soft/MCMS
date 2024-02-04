@@ -20,8 +20,6 @@
  */
 
 
-
-
 package net.mingsoft.cms.action.web;
 
 import io.swagger.annotations.Api;
@@ -63,7 +61,24 @@ public class CategoryAction extends net.mingsoft.cms.action.BaseAction{
 	 */
 	@ApiOperation(value = "查询分类列表接口")
 	@ApiImplicitParams({
+    	@ApiImplicitParam(name = "id", value = "栏目管理ID", required =false,paramType="query"),
     	@ApiImplicitParam(name = "categoryTitle", value = "栏目管理名称", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryShortTitle", value = "栏目管理副标题", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryPinyin", value = "栏目管理别名", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryId", value = "所属栏目id", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryType", value = "栏目管理属性", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryListUrl", value = "列表模板", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryUrl", value = "内容模板", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryKeyword", value = "栏目管理关键字", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryDescrip", value = "栏目管理描述", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryDiyUrl", value = "自定义链接", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "mdiyModelId", value = "文章管理的内容模型id", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "dictId", value = "字典对应编号", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryFlag", value = "栏目属性", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryPath", value = "栏目路径", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "categoryParentIds", value = "父类型编号", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "leaf", value = "叶子节点", required =false,paramType="query"),
+    	@ApiImplicitParam(name = "topId", value = "顶级id", required =false,paramType="query"),
     })
 	@PostMapping(value="/list")
 	@ResponseBody

@@ -13,14 +13,14 @@
                 <el-tooltip class="item" effect="dark" :content="form.id" placement="top-start">
                     <span v-if="form.id && categoryType=='2'" style="float: left; max-width:calc(30% - 40px);" class="header-info">编号：{{form.id}}</span>
                 </el-tooltip>
-                <el-button v-if="form.id && categoryType=='2'" type="text" style="float: left" icon="el-icon-document-copy" circle :data-clipboard-text="form.id" @click="copyString()" class="copyBtn"></el-button>
+                <el-button v-if="form.id && categoryType=='2'" type="text" link style="float: left" icon="el-icon-document-copy" circle :data-clipboard-text="form.id" @click="copyString()" class="copyBtn"></el-button>
             </el-col>
             <el-col :xs=12 :sm=10 :md=8 :lg=6 :xl=6 class="ms-tr">
                 <@shiro.hasPermission name="cms:content:save">
-                    <el-button type="primary" icon="iconfont icon-baocun" size="mini" @click="save()" :loading="saveDisabled">保存
+                    <el-button type="primary" class="iconfont icon-baocun" size="mini" @click="save()" :loading="saveDisabled">保存
                     </el-button>
                 </@shiro.hasPermission>
-                <el-button v-if="categoryType==1" size="mini" icon="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回
+                <el-button v-if="categoryType==1" size="mini" class="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回
                 </el-button>
                 <el-button v-if="categoryType==2" size="mini" type="danger" icon="el-icon-delete" @click="del()">删除
                 </el-button>
@@ -225,14 +225,16 @@
                                             accept="image/*"
                                             list-type="picture-card">
                                         <i class="el-icon-plus"></i>
-                                        <div slot="tip" class="ms-form-tip">
-                                            标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'{@ms:file field.litpic/}'}</a><br/>
-                                            最多可上传10张图片，文章缩略图,支持jpg格式；多图情况下，{@ms:file field.litpic/}会只取第一张缩略图，其他用法参考文档arclist标签
-                                        </div>
+                                        <template slot="tip">
+                                            <div class="ms-form-tip">
+                                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'{@ms:file field.litpic/}'}</a><br/>
+                                                最多可上传10张图片，文章缩略图,支持jpg格式；多图情况下，{@ms:file field.litpic/}会只取第一张缩略图，其他用法参考文档arclist标签
+                                            </div>
+                                        </template>
                                     </el-upload>
                                 </el-form-item>
                             </el-col>
-                            <el-col span=12>
+                            <el-col :span=12>
                                 <el-form-item label="文章标签" prop="contentTags">
                                     <el-select v-model="form.contentTags"
                                                :style="{width: '100%'}"
@@ -311,7 +313,19 @@
                     title: '文章编辑',
                     name: 'form'
                 }],
-                editorConfig: ms.editorConfig,
+                editorConfig: {
+                    imageScaleEnabled :true,
+                    autoHeightEnabled: true,
+                    autoFloatEnabled: false,
+                    scaleEnabled: true,
+                    compressSide:0,
+                    maxImageSideLength:1000,
+                    maximumWords: 2000,
+                    initialFrameWidth: '100%',
+                    initialFrameHeight: 400,
+                    serverUrl: ms.base + "/static/plugins/ueditor/1.4.3.3/jsp/editor.do?jsonConfig=%7BvideoUrlPrefix:\'\',fileManagerListPath:\'\',imageMaxSize:204800000,videoMaxSize:204800000,fileMaxSize:204800000,fileUrlPrefix:\'\',imageUrlPrefix:\'\',imagePathFormat:\'/${app.id}/editor/%7Btime%7D\',filePathFormat:\'/${app.id}/editor/%7Btime%7D\',videoPathFormat:\'/${app.id}/editor/%7Btime%7D\'%7D",
+                    UEDITOR_HOME_URL: ms.base + '/static/plugins/ueditor/1.4.3.3/'
+                },
                 contentCategoryIdOptions: [],
                 returnIsShow: true,
                 type: '',
@@ -675,7 +689,7 @@
                     }
                 });
             },
-            //获取contentType数据源
+            //获取contentTag数据源
             contentTagsOptionsGet: function () {
                 var that = this;
                 ms.http.get(ms.base + '/mdiy/dict/list.do', {
