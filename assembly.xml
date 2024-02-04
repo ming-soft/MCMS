@@ -39,6 +39,13 @@
             </includes>
         </fileSet>
         <fileSet>
+            <directory>src/main/webapp/upload</directory>
+            <outputDirectory>${file.separator}upload</outputDirectory>
+            <includes>
+                <include>*/**</include>
+            </includes>
+        </fileSet>
+        <fileSet>
             <directory>src/main/webapp/WEB-INF</directory>
             <outputDirectory>${file.separator}WEB-INF</outputDirectory>
             <includes>
