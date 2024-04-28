@@ -9,9 +9,10 @@ var base_zh_CN={
             del:'删除',
             rest:'重置',
             search:'查询',
-            filter:'塞选',
+            filter:'筛选',
             action:'操作',
-            confirm:'确定'
+            confirm:'确定',
+            copy:'复制'
         },
         message:{
             success:'成功',

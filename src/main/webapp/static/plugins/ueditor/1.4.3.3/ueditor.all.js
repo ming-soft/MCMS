@@ -27734,7 +27734,10 @@ UE.ui = baidu.editor.ui = {};
             });
         },
         setContent: function(content){
-            this.getDom('content').innerHTML = content;
+            if(this.getDom('content')) {
+                this.getDom('content').innerHTML = content;
+            }
+
         },
         setType: function(type){
             type = type || 'info';
@@ -27749,7 +27752,9 @@ UE.ui = baidu.editor.ui = {};
             return arr ? arr[1]:'';
         },
         show: function (){
-            this.getDom().style.display = 'block';
+            if(this.getDom()) {
+                this.getDom().style.display = 'block';
+            }
         },
         hide: function (){
             var dom = this.getDom();

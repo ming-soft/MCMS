@@ -1,17 +1,18 @@
 var base_en_US={
     base:{
         operate:{
+            add:'add',
             save:'save',
             back:'back',
             edit:'edit',
-            back:'back',
             cancel:'cancel',
             del:'del',
             rest:'rest',
             search:'search',
             filter:'filter',
             action:'action',
-            confirm:'confirm'
+            confirm:'confirm',
+            copy:'copy'
         },
         message:{
             success:'success',

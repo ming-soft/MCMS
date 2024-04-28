@@ -8,6 +8,7 @@ html, body {
     font-size: 14px !important;
     color: #333 !important;
     overflow: hidden;
+    line-height: unset !important;
 }
 html *, body * {
     text-decoration: none !important;
@@ -47,12 +48,15 @@ html *, body * {
     margin: 0;
     border-bottom: 1px solid #ebeef5;
     background: #fff;
-    height: 50px
+    height: 50px;
+    display: flex;
 }
+
 
 .ms-pagination {
     padding: 14px 0 0 0;
     text-align: right;
+    justify-content: flex-end;
 }
 
 .ms-fr {
@@ -61,6 +65,7 @@ html *, body * {
 
 .ms-tr {
     text-align: right;
+    justify-content: flex-end;
 }
 .ms-loading {background:url('/static/images/loading.gif') no-repeat center;}
 /*表单提示*/
@@ -87,6 +92,7 @@ html *, body * {
     padding: 10px 10px 0 10px;
     border-bottom: 1px dashed #ebeef5;
 }
+.ms-search form{ width: 100%;}
 .ms-search .ms-search-footer{
     line-height: 60px;
     text-align: center;
@@ -168,4 +174,21 @@ textarea::-webkit-input-placeholder {
 
 .el-notification__content p {
     word-break: break-all !important;
+}
+
+
+/**
+全局设置链接与按钮的左右间距
+ */
+.el-link,.el-button {
+    margin: 0 3px;
+}
+
+.el-upload--picture-card {
+    flex-direction: column;
+}
+
+/** 表单提示 **/
+.el-form-item__content {
+    display: unset !important;
 }
