@@ -72,7 +72,7 @@
 </dependency>
 ```
 
-# 脚手架版本 
+# Vue 3 脚手架版本 
 
 目前 开发版本 以上已经支持VUE3脚手架 <a href="https://www.mingsoft.net/banben.html"  target="_blank">查看版本比对</a>
 
@@ -156,7 +156,7 @@ docker run -p 3306:3306 -p 8080:8080 --name mcms --privileged=true -e TZ=Asia/Sh
 
 | 技术           | 名称 | 官网 |
 |:-------------| :--- | :--- |
-| vue3         | MVVM框架 | [https://cn.vuejs.org//](https://cn.vuejs.org//) |
+| Vue 3          | MVVM框架 | [https://cn.vuejs.org//](https://cn.vuejs.org//) |
 | Element Plus | UI库 | [https://element.eleme.cn/2.0/#/zh-CN](https://element.eleme.cn/2.0/#/zh-CN) |
 | jQuery       | 函式库 | [http://jquery.com/](http://jquery.com/) |
 | hover.css    | 点击效果插件 | [https://github.com/fians/Waves/](https://github.com/fians/Waves) |
