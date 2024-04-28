@@ -75,7 +75,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 
 	@Override
 	protected IBaseDao getDao() {
-		// TODO Auto-generated method stub
+		
 		return contentDao;
 	}
 

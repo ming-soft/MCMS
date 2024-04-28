@@ -10,7 +10,18 @@
 </head>
 <body class="custom-body">
 <div id="app" class="ms-index" v-cloak>
-    <el-form ref="form" label-width="100px" size="mini">
+    <el-main class="ms-container">
+
+        <el-alert
+                class="ms-alert-tip"
+                title="提示"
+                type="info">
+             如果需要使用自动静态化的功能，即文章发布后会自动进行更新，简单的可以采用MStore 的<a href='http://store.mingsoft.net/#/detail?id=290&type=plugin' target="_blank">自动静态化插件</a>，如果需要更好的静态化性能可以考考虑选购企业级<a href="https://www.mingsoft.net/banben.html" target="_blank">版本</a>
+        </el-alert>
+
+
+    <el-form ref="form" label-width="100px" size="default">
+
         <div class="class-2" >
             <div class="class-3 panel" >
                 <div class="class-4" >
@@ -56,11 +67,16 @@
             <div class="class-13 panel" >
                 <div class="class-14" >
                     <el-form-item label="文章栏目">
-                        <ms-tree-select v-model:value="contentSection"
-                                     :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
-                                     :options="treeList" :style="{width:'100%'}"
-                                     placeholder="请选择文章栏目">
-                        </ms-tree-select>
+                        <el-tree-select
+                                v-model="contentSection"
+                                :data="treeList"
+                                :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
+                                :render-after-expand="false"
+                                :check-strictly="true"
+                                :default-expand-all="true"
+                                placeholder="请选择文章栏目"
+                                filterable
+                        ></el-tree-select>
                         <div class="ms-form-tip">
                             生成指定栏目下的文章内容
                         </div>
@@ -77,8 +93,8 @@
                                 :disabled="false"
                                 :editable="false"
                                 :clearable="false"
-                                format="yyyy-MM-dd"
-                                value-format="yyyy-MM-dd"
+                                format="YYYY-MM-DD"
+                                value-format="YYYY-MM-DD"
                                 :style="{width:'100%'}"
                                 type="date">
                         </el-date-picker>
@@ -99,13 +115,19 @@
             <div class="class-23 panel" >
                 <div class="class-24" >
                     <el-form-item label="生成栏目">
-                        <ms-tree-select v-model:value="section"
-                                     :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
-                                     :options="treeList" :style="{width:'100%'}"
-                                     placeholder="请选择文章栏目">
-                        </ms-tree-select>
+                        <el-tree-select
+                                v-model="section"
+                                :data="treeList"
+                                :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
+                                :render-after-expand="false"
+                                :check-strictly="true"
+                                :default-expand-all="true"
+                                placeholder="请选择文章栏目"
+                                filterable
+                        ></el-tree-select>
                         <div class="ms-form-tip">
-                            生成<b>栏目类型</b>为列表的数据，例如：新闻列表、产品列表
+                            生成<b>栏目类型</b>为列表的数据，例如：新闻列表、产品列表 <br>
+                            单篇栏目绑定模板后没有文章，也会生成对应html
                         </div>
                     </el-form-item>
                 </div>
@@ -121,13 +143,14 @@
             </div>
         </div>
     </el-form>
+    </el-main>
 </div>
 </body>
 </html>
 <script>
     "use strict";
 
-    var app = new Vue({
+    var app = new _Vue({
         el: '#app',
         watch: {},
         data: function () {
@@ -327,7 +350,6 @@
         background-color:#FFFFFF;
         flex-direction:column;
         display:flex;
-        margin: 12px 6px 12px 12px;
         animation-duration:1s;
         width:100%;
         padding-left:20px;
@@ -618,7 +640,6 @@
         background-color:#FFFFFF;
         flex-direction:column;
         display:flex;
-        margin: 12px 12px 12px 6px;
         animation-duration:1s;
         width:100%;
         padding-left:20px;

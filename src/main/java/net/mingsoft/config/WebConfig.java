@@ -133,7 +133,7 @@ public class WebConfig implements WebMvcConfigurer {
     public FilterRegistrationBean xssFilterRegistration(@Value("${ms.xss.enable:true}") boolean xssEnable,
                                                         @Value("${ms.xss.filter-url}") String filterUrl,
                                                         @Value("${ms.xss.exclude-url}") String excludeUrl,
-                                                        @Value("${ms.xss.exclude-filed}") String excludeFiled) {
+                                                        @Value("${ms.xss.exclude-field}") String excludeFiled) {
         XSSEscapeFilter xssFilter = new XSSEscapeFilter();
         Map<String, String> initParameters = new HashMap();
         FilterRegistrationBean registration = new FilterRegistrationBean();
@@ -151,7 +151,7 @@ public class WebConfig implements WebMvcConfigurer {
             xssFilter.excludes.add(MSProperties.manager.path + "/**");
         }
         if (excludeFiled != null && StrUtil.isNotBlank(excludeFiled)) {
-            xssFilter.excludesFiled.addAll(Arrays.asList(excludeFiled.split(",")));
+            XSSEscapeFilter.excludesField.addAll(Arrays.asList(excludeFiled.split(",")));
         }
         initParameters.put("isIncludeRichText", "false");
         registration.setInitParameters(initParameters);
@@ -184,7 +184,7 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        // TODO Auto-generated method stub
+        
         converters.add(mappingJackson2HttpMessageConverter);
         WebMvcConfigurer.super.configureMessageConverters(converters);
 

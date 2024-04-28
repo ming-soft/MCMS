@@ -1,31 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>文章</title>
-    <#include "../../include/head-file.ftl">
-    <script src="${base}/static/mdiy/index.js"></script>
-</head>
-<body>
+
+<template type="text/x-template" id="content-form">
 <div id="form" v-cloak>
     <el-header class="ms-header ms-tr" height="50px" >
-        <el-row type="flex" justify="space-between" align="middle">
-            <el-col :xs=12 :sm=14 :md=16 :lg=18 :xl=18 style="display:flex;align-items:center;">
-                <el-tooltip class="item" effect="dark" :content="form.id" placement="top-start">
-                    <span v-if="form.id && categoryType=='2'" style="float: left; max-width:calc(30% - 40px);" class="header-info">编号：{{form.id}}</span>
+            <el-col :span="12" style="display:flex;align-items:center;">
+                <el-tooltip v-if="form.id && categoryType=='2'" class="item" effect="dark" :content="form.id" placement="top-start">
+                    <span  style="float: left; " class="header-info">编号：{{form.id}}</span>
                 </el-tooltip>
-                <el-button v-if="form.id && categoryType=='2'" type="text" link style="float: left" icon="el-icon-document-copy" circle :data-clipboard-text="form.id" @click="copyString()" class="copyBtn"></el-button>
+                <el-button v-if="form.id && categoryType=='2'" type="primary" link style="float: left" class="el-icon-document-copy" circle :data-clipboard-text="form.id" @click="copyString()" class="copyBtn"></el-button>
             </el-col>
-            <el-col :xs=12 :sm=10 :md=8 :lg=6 :xl=6 class="ms-tr">
+            <el-col :span="12"  class="ms-tr">
                 <@shiro.hasPermission name="cms:content:save">
-                    <el-button type="primary" class="iconfont icon-baocun" size="mini" @click="save()" :loading="saveDisabled">保存
+                    <el-button type="primary" class="iconfont icon-baocun" size="default" @click="save()" :loading="saveDisabled">保存
                     </el-button>
                 </@shiro.hasPermission>
-                <el-button v-if="categoryType==1" size="mini" class="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回
+                <el-button v-if="categoryType==1" size="default" class="iconfont icon-fanhui" plain @click="back()">返回
                 </el-button>
-                <el-button v-if="categoryType==2" size="mini" type="danger" icon="el-icon-delete" @click="del()">删除
+                <el-button v-if="categoryType==2" size="default" type="danger" class="el-icon-delete" @click="del()" :disabled="!form.id" >删除
                 </el-button>
             </el-col>
-        </el-row>
     </el-header>
     <el-main class="ms-container" style="position:relative;">
         <el-scrollbar class="ms-scrollbar" style="height: 95vh">
@@ -33,7 +25,7 @@
                 <el-tab-pane style="position:relative;" v-for="(item, index) in editableTabs" :key="index"
                              :label="item.title" :name="item.name">
                     <el-form v-if="item.title=='文章编辑'" ref="form" :model="form" :rules="rules" label-width="120px"
-                             size="mini">
+                             size="default">
                         <el-row :gutter=0 justify="start" align="top">
                             <el-col :span=12>
                                 <el-form-item label="文章标题" prop="contentTitle">
@@ -50,18 +42,17 @@
                             </el-col>
                             <el-col :span=12 >
                                 <el-form-item label="所属栏目" prop="categoryId">
-                                    <treeselect v-model="form.categoryId"
-                                                :disabled="!returnIsShow"
-                                                :disable-branch-nodes="true"
-                                                :normalizer="function(node){
-                                                return {
-                                                    id: node.id,
-                                                    label: node.categoryTitle,
-                                                    children: node.children
-                                                }}"
-                                                @select="categoryChange"
-                                                :options="contentCategoryIdOptions" placeholder="请选择"></treeselect>
-
+                                    <el-tree-select
+                                            v-model="form.categoryId"
+                                            :disabled="!categoryChangeEnabled"
+                                            :data="contentCategoryIdOptions"
+                                            :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
+                                            :render-after-expand="false"
+                                            :check-strictly="false"
+                                            :default-expand-all="false"
+                                            @change="categoryChange"
+                                            filterable
+                                    ></el-tree-select>
                                     <div class="ms-form-tip">
                                         标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.typetitle}</a>
                                         不能选择封面、链接栏目类型，不能选择父栏目
@@ -132,8 +123,8 @@
                                             :disabled="false"
                                             :editable="true"
                                             :clearable="true"
-                                            format="yyyy-MM-dd HH:mm:ss"
-                                            value-format="yyyy-MM-dd HH:mm:ss"
+                                            format="YYYY-MM-DD HH:mm:ss"
+                                            value-format="YYYY-MM-DD HH:mm:ss"
                                             :style="{width:'100%'}"
                                             type="datetime">
                                     </el-date-picker>
@@ -216,7 +207,7 @@
                                             :action="ms.manager+'/file/upload.do'"
                                             :on-remove="contentImghandleRemove"
                                             :style="{width:''}"
-                                            :limit="10"
+                                            :limit="1"
                                             :on-exceed="contentImghandleExceed"
                                             :disabled="false"
                                             :data="{uploadPath:'/cms/content','isRename':true ,'appId':true}"
@@ -225,7 +216,7 @@
                                             accept="image/*"
                                             list-type="picture-card">
                                         <i class="el-icon-plus"></i>
-                                        <template slot="tip">
+                                        <template #tip>
                                             <div class="ms-form-tip">
                                                 标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'{@ms:file field.litpic/}'}</a><br/>
                                                 最多可上传10张图片，文章缩略图,支持jpg格式；多图情况下，{@ms:file field.litpic/}会只取第一张缩略图，其他用法参考文档arclist标签
@@ -278,25 +269,31 @@
                                 标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.descrip}</a>，用于SEO优化
                             </div>
                         </el-form-item>
-                        <el-form-item label="文章内容" prop="contentDetails">
-                            <vue-ueditor-wrap style="line-height: 0px" v-model="form.contentDetails"
+                        <el-form-item label="文章内容" prop="contentDetails" v-loading="editorHiden">
+                            <vue-ueditor-wrap style="line-height: 0px"
+                                              v-if="!editorHiden"
+                                              v-model="form.contentDetails"
                                               :config="editorConfig"></vue-ueditor-wrap>
                             <div class="ms-form-tip">
-                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.content}</a>
+                                标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.content}</a> <br/>
+                                温馨提示：推荐使用高级版本编辑器，<a href='http://store.mingsoft.net/#/detail?id=299&type=plugin' target="_blank">新版富文本编辑器</a>
                             </div>
                         </el-form-item>
                     </el-form>
-                    <div :id="'model'+index" v-else></div>
+                    <div :id="'model'+index" v-else>
+                        <ms-mdiy-form v-if="modelName!=null" ref="modelForm" type="model" :model-name="modelName" :model-id="modelId" :id="form.id"></ms-mdiy-form>
+                    </div>
                 </el-tab-pane>
             </el-tabs>
         </el-scrollbar>
     </el-main>
 </div>
-</body>
-</html>
+</template>
+
 <script>
-    var formVue = new Vue({
-        el: '#form',
+    var contentForm = Vue.defineComponent({
+        template: '#content-form',
+        props:["categoryId","categoryType","id"],
         data: function () {
             var checkTags = function (rule, value, callback){
                 if (value.length > 5){
@@ -305,10 +302,13 @@
                 callback();
             }
             return {
+                editorHiden:true,
                 saveDisabled: false,
                 activeName: 'form',
                 //自定义模型实例
                 model: undefined,
+                modelName:null,
+                modelId:null,
                 editableTabs: [{
                     title: '文章编辑',
                     name: 'form'
@@ -327,8 +327,8 @@
                     UEDITOR_HOME_URL: ms.base + '/static/plugins/ueditor/1.4.3.3/'
                 },
                 contentCategoryIdOptions: [],
-                returnIsShow: true,
-                type: '',
+                categoryChangeEnabled: true,
+                // type: '',
                 //表单数据
                 form: {
                     // 文章标题
@@ -361,7 +361,6 @@
                     contentOutLink: '',
                     contentDatetime: ms.util.date.fmt(Date.now(),"yyyy-MM-dd hh:mm:ss"),
                 },
-                categoryType: '1',
                 contentTypeOptions: [],
                 contentTagsOptions: [],
                 categoryIdOptions: [],
@@ -390,45 +389,56 @@
                     contentTags: [{
                         validator: checkTags, trigger: 'blur'
                     }]
-                }
+                },
+                historyKey:"cms_content_history"
             };
         },
         watch: {
+            "categoryId":function(n,o) {
+                this.activeName = "form";
+                this.$refs.form[0].resetFields();
+
+                this.contentCategoryIdOptionsGet();
+            },
 
         },
         computed: {
-            currCategory: function () {
-                var that = this;
-                return this.categoryIdOptions.find(function (value) {
-                    return value.id === that.form.categoryId;
-                });
-            }
+
         },
         methods: {
-            save: function () {
-                var _this = this;
+            back:function() {
+                if(this.$attrs.onBack) {
+                    this.$emit('back');
+                } else {
+                    this.$router.go(-1);
+                }
+            },
+
+            async save () {
                 var that = this; //自定义模型需要验证
 
-                var model = null;
-                if (that.currCategory && that.currCategory.mdiyModelId && String(that.currCategory.mdiyModelId )!="0"){
-                    try {
-                        model = ms.mdiy.model.modelForm();
-                    } catch (e) {
-                        console.log(e)
+
+
+                let formValid = false;
+
+                if(that.$refs.modelForm && that.$refs.modelForm.length > 0) {
+                    await that.$refs.modelForm[0].$refs.form.$refs.form.validate((valid,fields) => {
+                        formValid = valid;
+                    })
+
+                    if(!formValid) {
+                        this.activeName = 'custom-name';
+                        return;
                     }
                 }
-                if (model && !model.validate()) {
-                    this.activeName = 'custom-name';
-                    return;
-                }
+
                 var url = ms.manager + "/cms/content/save.do";
 
                 if (that.form.id > 0) {
                     url = ms.manager + "/cms/content/update.do";
-                }
-                //若缩略图为空则赋值为空串
-                if (that.form.contentImg.length == 0){
-                    that.form.contentImg = [];
+                } else {
+                    //新增数据重置到列表第一页
+                    sessionStorage.setItem(that.historyKey,JSON.stringify({form:{},page: {pageNo:1}}));
                 }
 
                 this.$refs.form[0].validate(function (valid) {
@@ -437,46 +447,56 @@
 
                         var data = JSON.parse(JSON.stringify(that.form));
                         // 固定属性顺序为字典顺序
-                        if (data.contentType) {
+                        if (data.contentType && data.contentType.length > 0) {
                             var orderTypes = [];
                             that.contentTypeOptions.forEach(function (dict) {
                                 var orderType = data.contentType.find(function (type) {
                                     return type==dict.dictValue
                                 })
                                 if (orderType){
-                                    orderTypes.push(orderType)
+                                    orderTypes.push(orderType);
                                 }
                             })
-                            data.contentType = orderTypes.join(',');
+                            data.contentType = orderTypes;
+                        }
+                        if (data.contentType) {
+                            data.contentType = data.contentType.join(',');
                         }
                         if (data.contentTags) {
                             data.contentTags = data.contentTags.join(',');
                         }
-                        if (data.contentImg == []) {
-                            data.contentImg = ""
-                        }else {
-                            data.contentImg = JSON.stringify(data.contentImg);
-                        }
-                        ms.http.post(url, data).then(function (data) {
-                            if (data.result) {
-                                //保存时需要赋值关联ID
-                                if (window.model) {
-                                    window.model.form.linkId = data.data.id;
-                                    window.model.save();
+
+                        data.contentImg = JSON.stringify(data.contentImg);
+                        ms.http.post(url, data).then(function (res) {
+                            if (res.result) {
+                                if(that.$refs.modelForm && that.$refs.modelForm.length > 0) {
+                                    that.$refs.modelForm[0].$refs.form.form.linkId = res.data.id;
+                                    that.$refs.modelForm[0].getForm().save(function (resModel) {
+                                        if(resModel.result){
+                                            //模型保存成功
+                                        }else {
+                                            //模型保存失败
+                                        }
+                                    });
                                 }
+
+
                                 that.$notify({
                                     title: '成功',
                                     message: '保存成功',
                                     type: 'success',
                                     duration: 1000,
                                     onClose: function () {
-                                        if (that.returnIsShow) {
-                                            javascript: history.go(-1);
-                                        } else {
-                                            //如果是顶级封面或封面，则重新加载,避免文章和自定义模型重复保存
-                                            location.reload();
+                                        if (that.categoryChangeEnabled) { //如果列表新增就需要返回的列表
+                                            that.$emit("back");
                                         }
                                         that.saveDisabled = false;
+                                        //为了让上传控件不显示类型警告
+                                        if(res.data.contentImg=="") {
+                                            res.data.contentImg =[];
+                                        }
+                                        that.form = res.data;
+
                                     }
                                 });
 
@@ -491,7 +511,7 @@
 
                         });
                     } else {
-                        _this.activeName = 'form';
+                        that.activeName = 'form';
                         return false;
                     }
                 });
@@ -504,7 +524,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    var formData = that.form;
+                    var formData = JSON.parse(JSON.stringify(that.form));
                     formData.contentType = ""
                     formData.contentImg = ""
                     formData.contentTags = ""
@@ -519,8 +539,12 @@
                                 type: 'success',
                                 message: '删除成功!'
                             });
-                            //	刷新列表
-                            window.parent.location.reload();
+                            // 单篇删除 保留所属栏目
+                            var categoryId = that.form.categoryId;
+                            that.$refs.form[0].resetFields();
+                            that.form.id = "";
+                            that.form.categoryId = categoryId;
+                            that.activeName = "form";
                         } else {
                             that.$notify({
                                 title: '失败',
@@ -531,35 +555,32 @@
                     });
                 })
             },
-            categoryChange: function () {
-                this.changeModel();
+            categoryChange: function (node) {
+                // 新组件node就是节点id
+                this.changeModel(node);
             },
-            changeModel: function () {
+            changeModel: function (categoryId) {
                 var that = this;
                 that.editableTabs = [that.editableTabs[0]];
 
-                if (this.currCategory) {
-                    if (this.currCategory.mdiyModelId) {
-                        that.rederModel(this.currCategory.mdiyModelId)
-                    }
+                var _category = this.categoryIdOptions.filter(function (value) {
+                    return value.id === categoryId;
+                })
+
+
+                //如果存在自定义模型
+                if(_category.length == 1 && _category[0].mdiyModelId) {
+                    ms.http.get(ms.manager + "/mdiy/model/get.do", {id: _category[0].mdiyModelId}).then(function (res) {
+                        if (res.result && res.data) {
+                            that.editableTabs.push({title: '加载中...',name: 'custom-name'});
+                            that.modelId = res.data.id;
+                            that.modelName = res.data.modelName;
+                            that.editableTabs[1].title = res.data.modelName
+                        }
+                    });
                 }
             },
-            rederModel: function (modelId) {
-                var that = this;
-                that.editableTabs.push({
-                    title: '加载中...',
-                    name: 'custom-name'
-                });
-                window.formVue = this;
-                this.$nextTick(function () {
-                    ms.mdiy.model.extend("model1", {id:modelId},{ linkId: that.form.id },true).then(function(obj) {
-                        window.model = obj;
-                        that.editableTabs[1].title = obj.modelName
-                    });
-                });
 
-
-            },
             getValue: function (data) {
                 this.form.categoryId = data.id;
             },
@@ -597,18 +618,16 @@
                         });
 
                         if (category.length > 0) {
-                            that.categoryType = category[0].categoryType
-                            if (category[0].categoryType == '2' || category[0].categoryType == '3') {
-                                that.returnIsShow = false;
-                            }
+                            that.changeModel(category[0].id);
                         }
-                        that.changeModel();
+
                     }
                 });
             },
             //根据封面获取当前文章
             getFromFengMian: function (categoryId) {
                 var that = this;
+
                 ms.http.get(ms.manager + "/cms/content/getFromFengMian.do", {
                     "categoryId": categoryId
                 }).then(function (res) {
@@ -620,7 +639,7 @@
                                 res.data.contentType = [];
                             }
 
-                            if (res.data.contentImg && res.data.contentImg != '') {
+                            if (res.data.contentImg) {
                                 res.data.contentImg = JSON.parse(res.data.contentImg);
                                 res.data.contentImg.forEach(function (value) {
                                     value.url = ms.base + value.path;
@@ -636,18 +655,17 @@
                             }
 
                             that.form = res.data;
-                            var category = that.categoryIdOptions.filter(function (f) {
-                                return f['id'] == that.form.categoryId;
-                            });
 
-                            if (category.length > 0) {
-                                that.categoryType = category[0].categoryType
-                                if (category[0].categoryType == '2') {
-                                    that.returnIsShow = false;
-                                }
-                            }
                         }
-                        that.changeModel();
+                        // 左侧树选择单篇
+                        var category = that.categoryIdOptions.filter(function (f) {
+                            return f['id'] == that.form.categoryId;
+                        });
+                        if (category.length > 0) {
+                            that.categoryChangeEnabled = false;
+                            that.changeModel(category[0].id);
+                        }
+
                     } else {
                         that.$notify({
                             title: '失败',
@@ -655,6 +673,8 @@
                             type: 'warning'
                         });
                     }
+            }).catch(function (err) {
+                console.log(err);
                 });
             },
             //获取contentCategoryId数据源
@@ -663,9 +683,9 @@
                 ms.http.get(ms.manager + "/cms/category/list.do").then(function (res) {
                     if (res.result) {
                         res.data.rows.forEach(function (item) {
-                            // 栏目为单篇或链接且无子栏目 则不可选
-                            if ( (item.categoryType == '2' || item.categoryType == '3') && item.leaf) {
-                                item.isDisabled = true;
+                            // 单篇和链接类型的叶子栏目不可被选择
+                            if (item.categoryType == '2' || item.categoryType == '3') {
+                                item.disabled = true;
                             }
                         });
                         that.contentCategoryIdOptions = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
@@ -674,6 +694,8 @@
                         //获取到栏目数据之后再进行初始化
                         that.init();
                     }
+            }).catch(function (err) {
+                console.log(err);
                 });
             },
             //获取contentType数据源
@@ -687,6 +709,8 @@
                         data = data.data;
                         that.contentTypeOptions = data.rows;
                     }
+            }).catch(function (err) {
+                console.log(err);
                 });
             },
             //获取contentTag数据源
@@ -711,6 +735,7 @@
                         path: response.data,
                         uid: file.uid
                     });
+
                 }else {
                     this.$notify({
                         title: '失败',
@@ -733,7 +758,7 @@
             contentImghandleRemove: function (file, files) {
                 var index = -1;
                 index = this.form.contentImg.findIndex(function (text) {
-                    return text == file;
+                    return text.uid == file.uid;
                 });
 
                 if (index != -1) {
@@ -748,55 +773,35 @@
                     type: 'warning'
                 });
             },
-            //查询列表
-            list: function (categoryId) {
-                var that = this;
-                ms.http.post(ms.manager + "/cms/content/list.do", {
-                    categoryId: categoryId
-                }).then(function (res) {
-                    if (res.result && res.data.total > 0) {
-                        if (res.data.rows[0].contentType) {
-                            res.data.rows[0].contentType = res.data.rows[0].contentType.split(',');
-                        }
-
-                        if (res.data.rows[0].contentImg && res.data.rows[0].contentImg != '') {
-                            res.data.rows[0].contentImg = JSON.parse(res.data.rows[0].contentImg);
-                            res.data.rows[0].contentImg.forEach(function (value) {
-                                value.url = ms.base + value.path;
-                            });
-                        } else {
-                            res.data.rows[0].contentImg = [];
-                        }
-
-                        that.form = res.data.rows[0];
-                    }
-                });
-            },
             //只有在渲染完栏目数据之后才会初始化
             init: function () {
-                this.form.id = ms.util.getParameter("id");
-                this.type = ms.util.getParameter("type");
+                var that = this;
+                this.form.id = this.id;
+                that.editorHiden = true;
 
                 //在指定栏目下新增或编辑文章时
-                var categoryId = ms.util.getParameter("categoryId");
-                if (categoryId) {
-                    this.form.categoryId = categoryId;
+                if (this.categoryId) {
+                    this.form.categoryId = this.categoryId;
                     //如果是封面栏目直接跳转
-                    if (this.type) {
+                    if (this.categoryType=="2") { //封面
                         this.getFromFengMian(this.form.categoryId);
-                        this.returnIsShow = false;
+                        this.categoryChangeEnabled = false;
                         //指定非封面栏目编辑文章
                     }else if (this.form.id) {
                         this.get(this.form.id);
                         //指定栏目新增文章渲染自定义模型
                     }else {
-                        this.changeModel();
+                        this.changeModel(this.categoryId);
                     }
                     //不指定栏目编辑文章
                 }else if (this.form.id) {
                     this.get(this.form.id);
                 }//else 如果即不指定栏目新增文章，又不是编辑文章就不渲染自定义模型
 
+                setTimeout(()=>{
+                    //显示编辑器
+                    that.editorHiden = false;
+                },200)
             },
             //复制文章id
             copyString: function () {
@@ -830,6 +835,7 @@
 
     #form {
         overflow: hidden;
+        flex: 1;
     }
     .el-scrollbar__bar.is-vertical{
         width: 6px!important;

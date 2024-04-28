@@ -47,7 +47,7 @@ public class HistoryLogBizImpl extends BaseBizImpl implements IHistoryLogBiz {
 	
 	@Override
 	protected IBaseDao getDao() {
-		// TODO Auto-generated method stub
+		
 		return historyLogDao;
 	} 
 }

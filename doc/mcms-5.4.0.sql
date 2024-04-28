@@ -32,7 +32,7 @@ CREATE TABLE `app` (
 -- Records of app
 -- ----------------------------
 BEGIN;
-INSERT INTO `app` (`id`, `app_name`, `app_url`, `app_logo`, `app_keyword`, `app_copyright`, `app_style`, `app_description`, `app_pay`, `app_state`, `app_datetime`, `app_pay_date`, `app_dir`, `update_date`, `update_by`, `create_date`, `create_by`, `del`) VALUES ('1', '5.3.6 铭飞MCMS', 'http://localhost:8081/', '[{\"url\":\"/upload/1/appLogo/1609397756549.png\",\"name\":\"logo_small.png\",\"path\":\"/upload/1/appLogo/1609397756549.png\",\"uid\":1685699633311,\"status\":\"success\"}]', 'CMS,免费CMS,免费开源Java CMS,CMS系统,Java CMS,CMS内容管理系统,企业CMS,HTML网页模板,CMS模板,CMS源码,网站源码,信创系统软件,安可系统,网站建设,模板网站,建站模板,建站工具,建站平台,建站工具', '站点版权信息，可配置', 'default', '基于java开发的一套java cms，也是轻量级开源内容管理系统，CMS简洁、安全、开源、免费，可运行在Linux、Windows、MacOSX、Solaris等各种平台上，专注为公司企业、个人站长快速建站提供解决方案，铭飞MS平台为您提供各类cms网站模板下载,公司网站、企业网站模板、网站后台系统模板、免费网站模板,10年建站公司老品牌值得信赖的cms!', '', 0, NULL, '2019-11-17 00:00:00', 'web', '2024-02-01 16:29:30', '57', NULL, '', 0);
+INSERT INTO `app` (`id`, `app_name`, `app_url`, `app_logo`, `app_keyword`, `app_copyright`, `app_style`, `app_description`, `app_pay`, `app_state`, `app_datetime`, `app_pay_date`, `app_dir`, `update_date`, `update_by`, `create_date`, `create_by`, `del`) VALUES ('1', '5.4.0 铭飞MCMS', 'http://localhost:8081/', '[{\"url\":\"/upload/1/appLogo/1609397756549.png\",\"name\":\"logo_small.png\",\"path\":\"/upload/1/appLogo/1609397756549.png\",\"uid\":1685699633311,\"status\":\"success\"}]', 'CMS,免费CMS,免费开源Java CMS,CMS系统,Java CMS,CMS内容管理系统,企业CMS,HTML网页模板,CMS模板,CMS源码,网站源码,信创系统软件,安可系统,网站建设,模板网站,建站模板,建站工具,建站平台,建站工具', '站点版权信息，可配置', 'default', '基于java开发的一套java cms，也是轻量级开源内容管理系统，CMS简洁、安全、开源、免费，可运行在Linux、Windows、MacOSX、Solaris等各种平台上，专注为公司企业、个人站长快速建站提供解决方案，铭飞MS平台为您提供各类cms网站模板下载,公司网站、企业网站模板、网站后台系统模板、免费网站模板,10年建站公司老品牌值得信赖的cms!', '', 0, NULL, '2019-11-17 00:00:00', 'web', '2024-02-01 16:29:30', '57', NULL, '', 0);
 COMMIT;
 
 -- ----------------------------
@@ -342,32 +342,6 @@ INSERT INTO `mdiy_dict` (`id`, `dict_value`, `dict_label`, `dict_type`, `dict_de
 INSERT INTO `mdiy_dict` (`id`, `dict_value`, `dict_label`, `dict_type`, `dict_description`, `is_child`, `dict_enable`, `dict_remarks`, `dict_sort`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`, `NOT_DEL`) VALUES (650, '时政热点', '时政热点', '文章标签', NULL, NULL, '1', NULL, 0, '57', '2023-09-28 16:27:43', '106', '2023-06-08 15:13:13', 0, 0);
 COMMIT;
 
--- ----------------------------
--- Table structure for mdiy_form_test
--- ----------------------------
-DROP TABLE IF EXISTS `mdiy_form_test`;
-CREATE TABLE `mdiy_form_test` (
-  `id` varchar(19) NOT NULL,
-  `TEXTAREA_C` varchar(255) DEFAULT NULL COMMENT '多行文本',
-  `input_1700029713000_79971` varchar(255) DEFAULT NULL COMMENT '单行文本',
-  `SELECT_C` varchar(255) DEFAULT NULL COMMENT '下拉选择框',
-  `TEXTAREA_CDD` varchar(255) DEFAULT NULL COMMENT '多行文本',
-  `MONEY_A` decimal(11,3) DEFAULT NULL COMMENT '金钱',
-  `INPUT_C` varchar(255) DEFAULT NULL COMMENT '单行文本',
-  `LINK_ID` bigint(20) DEFAULT NULL,
-  `CREATE_DATE` datetime DEFAULT NULL COMMENT '创建时间',
-  `CREATE_BY` varchar(50) DEFAULT NULL COMMENT '创建人',
-  `UPDATE_DATE` datetime DEFAULT NULL COMMENT '修改时间',
-  `UPDATE_BY` varchar(50) DEFAULT NULL COMMENT '修改人',
-  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='test1';
-
--- ----------------------------
--- Records of mdiy_form_test
--- ----------------------------
-BEGIN;
-COMMIT;
 
 -- ----------------------------
 -- Table structure for mdiy_model

@@ -40,7 +40,6 @@ import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
-import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -114,14 +113,14 @@ public class CategoryAction extends BaseAction {
      * 获取分类
      * @param category 分类实体
      */
-    @ApiOperation(value = "获取分类列表接口")
+    @ApiOperation(value = "获取分类详情接口")
     @ApiImplicitParam(name = "id", value = "编号", required = true, paramType = "query")
     @GetMapping("/get")
     @RequiresPermissions("cms:category:view")
     @ResponseBody
     public ResultData get(@ModelAttribute @ApiIgnore CategoryEntity category) {
-        if (category.getId() == null) {
-            return ResultData.build().error();
+        if (StringUtils.isBlank(category.getId())) {
+            return ResultData.build().error(getResString("err.empty",this.getResString("id")));
         }
         CategoryEntity _category = (CategoryEntity) categoryBiz.getById(category.getId());
         return ResultData.build().success(_category);
@@ -135,21 +134,23 @@ public class CategoryAction extends BaseAction {
     @ApiOperation(value = "保存分类列表接口")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "categoryTitle", value = "栏目管理名称", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "categoryType", value = "栏目类型,1:列表,2:单篇,3:链接", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "categoryDisplay", value = "栏目是否显示,enable:显示 disable:不显示", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "categoryIsSearch", value = "栏目是否可搜索,enable:可搜索 disable:不可搜索", required = true, paramType = "query"),
             @ApiImplicitParam(name = "categoryId", value = "所属栏目", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "categoryType", value = "栏目管理属性", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categorySort", value = "自定义顺序", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categoryListUrl", value = "列表模板", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categoryUrl", value = "内容模板", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categoryKeyword", value = "栏目管理关键字", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categoryDescrip", value = "栏目管理描述", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categoryImg", value = "缩略图", required = false, paramType = "query"),
+            @ApiImplicitParam(name = "categoryIco", value = "栏目小图", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categoryDiyUrl", value = "自定义链接", required = false, paramType = "query"),
             @ApiImplicitParam(name = "mdiyModelId", value = "栏目管理的内容模型id", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "categoryDatetime", value = "类别发布时间", required = false, paramType = "query"),
             @ApiImplicitParam(name = "dictId", value = "字典对应编号", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categoryFlag", value = "栏目属性", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categoryPath", value = "栏目路径", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "categoryParentId", value = "父类型编号", required = false, paramType = "query"),
+            @ApiImplicitParam(name = "categoryParentIds", value = "父类型编号", required = false, paramType = "query"),
     })
     @PostMapping("/save")
     @ResponseBody
@@ -167,6 +168,43 @@ public class CategoryAction extends BaseAction {
         if (!StringUtil.checkLength(category.getCategoryTitle() + "", 1, 100)) {
             return ResultData.build().error(getResString("err.length", this.getResString("category.title"), "1", "100"));
         }
+        //验证栏目描述的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryDescrip() + "", 0, 500)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.descrip"), "0", "500"));
+        }
+        //验证栏目关键字的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryKeyword() + "", 0, 300)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.keyword"), "0", "300"));
+        }
+        //验证栏目路径的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryPath() + "", 0, 500)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.path"), "0", "500"));
+        }
+        //验证栏目列表模板的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryListUrl() + "", 0, 50)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.list.url"), "0", "50"));
+        }
+        //验证栏目内容模板的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryUrl() + "", 0, 50)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.url"), "0", "50"));
+        }
+
+        //验证栏目自定义链接的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryDiyUrl() + "", 0, 255)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.diy.url"), "0", "255"));
+        }
+        //验证栏目属性的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryFlag() + "", 0, 20)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.flag"), "0", "20"));
+        }
+        //验证栏目类型的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryType() + "", 0, 1)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.type"), "0", "1"));
+        }
+        //验证栏目内容模型id的值是否合法
+        if (!StringUtil.checkLength(category.getMdiyModelId() + "", 0, 50)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("mdiy.model.id"), "0", "50"));
+        }
 
         // 判断前端拼音传值是否正常
         if (!StringUtil.checkLength(category.getCategoryPinyin() + "", 0, 100)) {
@@ -178,6 +216,7 @@ public class CategoryAction extends BaseAction {
             return ResultData.build().error(this.getResString("err.error",this.getResString("category.pinyin")));
         }
 
+        //验证栏目父ids是否正常
         if (!StringUtil.checkLength(category.getCategoryParentIds() + "", 1, 100)) {
             return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
         }
@@ -227,21 +266,23 @@ public class CategoryAction extends BaseAction {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "编号", required = true, paramType = "query"),
             @ApiImplicitParam(name = "categoryTitle", value = "栏目管理名称", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "categoryDisplay", value = "栏目是否显示,enable:显示 disable:不显示", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "categoryIsSearch", value = "栏目是否可搜索,enable:可搜索 disable:不可搜索", required = true, paramType = "query"),
+            @ApiImplicitParam(name = "categoryType", value = "栏目类型,1:列表,2:单篇,3:链接", required = true, paramType = "query"),
             @ApiImplicitParam(name = "categoryId", value = "所属栏目", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "categoryType", value = "栏目管理属性", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categorySort", value = "自定义顺序", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categoryListUrl", value = "列表模板", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categoryUrl", value = "内容模板", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categoryKeyword", value = "栏目管理关键字", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categoryDescrip", value = "栏目管理描述", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "categoryImg", value = "缩略图", required = false, paramType = "query"),
+            @ApiImplicitParam(name = "categoryImg", value = "banner图", required = false, paramType = "query"),
+            @ApiImplicitParam(name = "categoryIco", value = "栏目小图", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categoryDiyUrl", value = "自定义链接", required = false, paramType = "query"),
             @ApiImplicitParam(name = "mdiyModelId", value = "栏目管理的内容模型id", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "categoryDatetime", value = "类别发布时间", required = false, paramType = "query"),
             @ApiImplicitParam(name = "dictId", value = "字典对应编号", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categoryFlag", value = "栏目属性", required = false, paramType = "query"),
             @ApiImplicitParam(name = "categoryPath", value = "栏目路径", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "categoryParentId", value = "父类型编号", required = false, paramType = "query"),
+            @ApiImplicitParam(name = "categoryParentIds", value = "父类型编号", required = false, paramType = "query"),
     })
     @PostMapping("/update")
     @ResponseBody
@@ -262,7 +303,43 @@ public class CategoryAction extends BaseAction {
         if (!StringUtil.checkLength(category.getCategoryTitle() + "", 1, 100)) {
             return ResultData.build().error(getResString("err.length", this.getResString("category.title"), "1", "100"));
         }
-
+        //验证栏目描述的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryDescrip() + "", 0, 500)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.descrip"), "0", "500"));
+        }
+        //验证栏目关键字的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryKeyword() + "", 0, 300)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.keyword"), "0", "300"));
+        }
+        //验证栏目自定义链接的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryDiyUrl() + "", 0, 255)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.diy.url"), "0", "255"));
+        }
+        //验证栏目属性的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryFlag() + "", 0, 20)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.flag"), "0", "20"));
+        }
+        //验证栏目列表模板的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryListUrl() + "", 0, 50)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.list.url"), "0", "50"));
+        }
+        //验证栏目路径的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryPath() + "", 0, 500)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.path"), "0", "500"));
+        }
+        //验证栏目类型的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryType() + "", 0, 1)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.type"), "0", "1"));
+        }
+        //验证栏目内容模板的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryUrl() + "", 0, 50)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.url"), "0", "50"));
+        }
+        //验证栏目内容模型id的值是否合法
+        if (!StringUtil.checkLength(category.getMdiyModelId() + "", 0, 50)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("mdiy.model.id"), "0", "50"));
+        }
+        //验证栏目父ids值是否合法
         if (!StringUtil.checkLength(category.getCategoryParentIds() + "", 0, 100)) {
             return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
         }
@@ -328,6 +405,23 @@ public class CategoryAction extends BaseAction {
     @GetMapping("/verifyPingYin")
     @ResponseBody
     public ResultData verifyPingYin(@ModelAttribute @ApiIgnore CategoryEntity category) {
+        //验证id是否合法
+        if (StringUtils.isEmpty(category.getId())){
+            return ResultData.build().error(getResString("err.empty", this.getResString("id")));
+        }
+        if (!StringUtil.checkLength(category.getId() + "", 0, 20)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("id"), "0", "20"));
+        }
+        //验证拼音是否合法
+        if (StringUtils.isEmpty(category.getCategoryPinyin())){
+            return ResultData.build().error(getResString("err.empty", this.getResString("category.pinyin")));
+        }
+        if (FileNameUtil.containsInvalid(category.getCategoryPinyin())) {
+            return ResultData.build().error(this.getResString("err.error",this.getResString("category.pinyin")));
+        }
+        if (!StringUtil.checkLength(category.getCategoryPinyin() + "", 0, 255)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.pinyin"), "0", "255"));
+        }
         long count = categoryBiz.count(Wrappers.<CategoryEntity>lambdaQuery()
                 .ne(StrUtil.isNotBlank(category.getId()), CategoryEntity::getId, category.getId())
                 .eq(CategoryEntity::getCategoryPinyin, category.getCategoryPinyin()));
@@ -346,7 +440,6 @@ public class CategoryAction extends BaseAction {
     @ApiOperation(value = "批量更新模板")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "编号", required = true, paramType = "query"),
-            @ApiImplicitParam(name = "dictId", value = "字典", required = true, paramType = "query")
     })
     @GetMapping("/updateTemplate")
     @ResponseBody

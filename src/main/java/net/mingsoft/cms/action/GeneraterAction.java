@@ -29,6 +29,7 @@ import cn.hutool.core.bean.copier.CopyOptions;
 import cn.hutool.core.date.DateException;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.mingsoft.base.entity.ResultData;
@@ -64,6 +65,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName: GeneraterAction
@@ -263,12 +265,20 @@ public class GeneraterAction extends BaseAction {
             return ResultData.build().error(getResString("err.error",this.getResString("datetime.format")));
         }
         if ("0".equals(columnId)) {
-            categoryList = categoryBiz.list();
+            // 根据leaf进行升序排序，让叶子栏目最后静态化 保证文章上下篇关系正确
+            LambdaQueryWrapper<CategoryEntity> wrapper = new LambdaQueryWrapper<CategoryEntity>().orderByAsc(CategoryEntity::getLeaf);
+            categoryList = categoryBiz.list(wrapper);
         } else { //选择栏目更新
             CategoryEntity categoryEntity = new CategoryEntity();
             categoryEntity.setId(columnId);
             categoryList = categoryBiz.queryChildren(categoryEntity);
         }
+
+        // todo 这里延续之前的详情上下篇思路(不考虑跨栏目)，只对栏目内的文章进行上下篇处理，且单篇没有上下篇；
+        // 获取叶子节点栏目
+        categoryList = categoryList.stream().filter(item->{
+            return item.getLeaf();
+        }).collect(Collectors.toList());
 
         for (CategoryEntity category : categoryList) {
             // 如果栏目被禁用则跳过

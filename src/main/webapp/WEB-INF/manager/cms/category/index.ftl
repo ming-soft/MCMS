@@ -10,10 +10,10 @@
     <el-header class="ms-header" height="50px">
         <el-col :span=12>
             <@shiro.hasPermission name="cms:category:save">
-                <el-button type="primary" icon="el-icon-plus" size="mini" @click="save()">新增</el-button>
+                <el-button type="primary" class="el-icon-plus" size="default" @click="save()">新增</el-button>
             </@shiro.hasPermission>
             <@shiro.hasPermission name="cms:category:del">
-                <el-button type="danger" icon="el-icon-delete" size="mini" @click="del(selectionList)"
+                <el-button type="danger" class="el-icon-delete" size="default" @click="del(selectionList)"
                            :disabled="!selectionList.length">删除
                 </el-button>
             </@shiro.hasPermission>
@@ -21,7 +21,7 @@
     </el-header>
     <el-main class="ms-container">
         <el-table ref="multipleTable" :indent="6"
-                  height="calc(100vh - 20px)"
+                  height="calc(100vh - 100px)"
                   border :data="dataList"
                   row-key="id"
                   v-loading="loading"
@@ -29,19 +29,21 @@
                   :tree-props="{children: 'children'}"
                   tooltip-effect="dark"
                   @selection-change="handleSelectionChange">
-            <template slot="empty">
+            <template #empty>
                 {{emptyText}}
             </template>
             <el-table-column type="selection" width="40"></el-table-column>
             <el-table-column label="编号" width="100" prop="id" show-overflow-tooltip>
-                <template slot='header'>编号
+                <template #title>编号
                     <el-popover placement="top-start" title="提示" trigger="hover">
                         标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html"
                               target="_blank">${'$'}{field.id}</a>
-                        <i class="el-icon-question" slot="reference"></i>
+                        <template #reference>
+                            <i class="el-icon-question" ></i>
+                        </template>
                     </el-popover>
                 </template>
-                <template slot-scope="scope">
+                <template #default="scope">
                     <span style="cursor: pointer" class="copyBtn" :data-clipboard-text="scope.row.id"
                           @click="copyContent(true)">{{scope.row.id}}</span>
                 </template>
@@ -55,7 +57,7 @@
             <el-table-column label="排序" align="center" prop="categorySort" width="70">
             </el-table-column>
             <el-table-column label="链接地址" align="left" prop="categoryPath" min-width="200" show-overflow-tooltip>
-                <template slot-scope="scope">
+                <template #default="scope">
                     <span v-if="scope.row.categoryType == '1' || scope.row.categoryType == '2'" style="cursor: pointer"
                           class="copyBtn" :data-clipboard-text="scope.row.url"
                           @click="copyContent">{{scope.row.url}}</span>
@@ -66,18 +68,18 @@
             <el-table-column label="列表地址" align="left" prop="categoryListUrl" width="100" show-overflow-tooltip>
             </el-table-column>
             <el-table-column label="内容地址" align="left" prop="categoryUrl" width="100" show-overflow-tooltip>
-                <template slot-scope="scope">
+                <template #default="scope">
                     {{scope.row.categoryType == '1'?scope.row.categoryUrl:''}}
                     {{scope.row.categoryType == '2'?scope.row.categoryUrl:''}}
                 </template>
             </el-table-column>
             <el-table-column label="栏目属性" align="left" prop="categoryFlag" width="80" show-overflow-tooltip>
-                <template slot-scope="scope">
+                <template #default="scope">
                     {{getDictLabel(scope.row.categoryFlag)}}
                 </template>
             </el-table-column>
             <el-table-column label="操作" width="240" align="center">
-                <template slot-scope="scope">
+                <template #default="scope">
                     <el-link type="primary" :underline="false" v-if="scope.row.categoryType != '3'" @click="preview(scope.row)">预览</el-link>
                     <@shiro.hasPermission name="cms:category:save">
                         <el-link type="primary" :underline="false" @click="save(scope.row.id, scope.row.id)"><i
@@ -104,7 +106,7 @@
 <script>
     "use strict";
 
-    var indexVue = new Vue({
+    var indexVue = new _Vue({
         el: '#index',
         data: function () {
             return {

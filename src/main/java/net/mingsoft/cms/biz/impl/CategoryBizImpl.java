@@ -68,19 +68,19 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 
     @Override
     protected IBaseDao getDao() {
-        // TODO Auto-generated method stub
+        
         return categoryDao;
     }
 
     @Override
     public List<CategoryEntity> queryChildren(CategoryEntity category) {
-        // TODO Auto-generated method stub
+        
         return categoryDao.queryChildren(category);
     }
 
     @Override
     public void saveEntity(CategoryEntity categoryEntity) {
-        // TODO Auto-generated method stub
+        
         String pingYin = PinYinUtil.getPingYin(categoryEntity.getCategoryTitle());
         //如果用户自己填入了拼音则使用用户的
         if (StrUtil.isNotBlank(categoryEntity.getCategoryPinyin())) {
@@ -207,7 +207,7 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 
     @Override
     public void delete(String categoryId) {
-        // TODO Auto-generated method stub
+        
         CategoryEntity category = (CategoryEntity) categoryDao.selectById(categoryId);
         //删除父类
         if (category != null) {

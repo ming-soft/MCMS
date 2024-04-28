@@ -8,10 +8,10 @@
 <div id="form" v-cloak>
     <el-header class="ms-header ms-tr" height="50px">
         <@shiro.hasPermission name="cms:category:save">
-            <el-button type="primary" class="iconfont icon-baocun" size="mini" @click="save()" :loading="saveDisabled">保存
+            <el-button type="primary" class="iconfont icon-baocun" size="default" @click="save()" :loading="saveDisabled">保存
             </el-button>
         </@shiro.hasPermission>
-        <el-button size="mini" class="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回</el-button>
+        <el-button size="default" class="iconfont icon-fanhui" plain onclick="javascript:history.go(-1)">返回</el-button>
     </el-header>
     <el-main class="ms-container">
 
@@ -20,7 +20,7 @@
                 <el-tab-pane style="position:relative;" v-for="(item, index) in editableTabs" :key="index"
                              :label="item.title" :name="item.name">
                     <el-form v-if="item.title=='栏目编辑'" ref="form" :model="form" :rules="rules" label-width="130px"
-                             size="mini">
+                             size="default">
                         <el-row
                                 :gutter=0
                                 justify="start" align="top">
@@ -40,11 +40,15 @@
                             </el-col>
                             <el-col :span=12>
                                 <el-form-item label="所属栏目" prop="categoryId">
-                                    <ms-tree-select  ref="tree"
-                                                     :key="treeKey"
-                                                     :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
-                                                     :options="treeList" :style="{width:'100%'}"
-                                                     v-model:value="form.categoryId"></ms-tree-select>
+                                    <el-tree-select
+                                            v-model="form.categoryId"
+                                            :data="treeList"
+                                            :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
+                                            :render-after-expand="false"
+                                            :check-strictly="true"
+                                            :default-expand-all="true"
+                                            filterable
+                                    ></el-tree-select>
                                     <div class="ms-form-tip">
                                         不能将父级别栏目移动到自身子级栏目
                                     </div>
@@ -299,7 +303,7 @@
                                     accept="image/*"
                                     list-type="picture-card">
                                 <i class="el-icon-plus"></i>
-                                <template slot="tip">
+                                <template #tip>
                                     <div class="ms-form-tip">
                                         只能上传1张图片
                                         标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html"
@@ -323,7 +327,7 @@
                                     accept="image/*"
                                     list-type="picture-card">
                                 <i class="el-icon-plus"></i>
-                                <template slot="tip">
+                                <template #tip>
                                     <div class="ms-form-tip">
                                         只能上传1张图片
                                         标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html"
@@ -342,7 +346,7 @@
 </body>
 </html>
 <script>
-    var form = new Vue({
+    var form = new _Vue({
         el: '#form',
         data: function () {
             var that = this
@@ -486,7 +490,7 @@
                         _this.form.categoryId = parentNode[parentNode.length - 1];
                     } else {
                         //无父栏目就恢复顶级
-                        _this.form.categoryId = '0';
+                        _this.form.categoryId = '';
                     }
                     this.$notify({
                         title: '提示',
@@ -773,7 +777,7 @@
             categoryImghandleRemove: function (file, files) {
                 var index = -1;
                 index = this.form.categoryImg.findIndex(function (text) {
-                    return text == file;
+                    return text.uid == file.uid;
                 });
 
                 if (index != -1) {
@@ -809,7 +813,7 @@
             categoryIcohandleRemove: function (file, files) {
                 var index = -1;
                 index = this.form.categoryIco.findIndex(function (text) {
-                    return text == file;
+                    return text.uid == file.uid;
                 });
 
                 if (index != -1) {
@@ -847,7 +851,6 @@
             this.categoryFlagOptionsGet();
             this.form.id = ms.util.getParameter("id");
             this.form.childId = ms.util.getParameter("childId");// 判断是否增加子栏目
-            this.form.categoryId = '0';
             // 判断三种状态，默认为新增状态
             this.categoryTypeDisabled = false;// 控制栏目分类是否可编辑
             if (this.form.id != undefined && (this.form.childId == undefined || this.form.childId == "undefined")) {
