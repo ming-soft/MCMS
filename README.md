@@ -154,15 +154,15 @@ docker run -p 3306:3306 -p 8080:8080 --name mcms --privileged=true -e TZ=Asia/Sh
 
 ## 前端框架
 
-| 技术 | 名称 | 官网 |
-| :--- | :--- | :--- |
-| VUE| MVVM框架 | [https://cn.vuejs.org//](https://cn.vuejs.org//) |
-| Element UI| UI库 | [https://element.eleme.cn/2.0/#/zh-CN](https://element.eleme.cn/2.0/#/zh-CN) |
-| jQuery | 函式库 | [http://jquery.com/](http://jquery.com/) |
-| Waves | 点击效果插件 | [https://github.com/fians/Waves/](https://github.com/fians/Waves) |
-| validator | 验证库 | [https://github.com/chriso/validator.js](https://github.com/chriso/validator.js) |
-| animate | 动画 | [http://daneden.github.io/animate.css/](http://daneden.github.io/animate.css/) |
-| icon | 矢量小图标\(待更新\) | [https://www.iconfont.cn/](https://www.iconfont.cn/) |
+| 技术           | 名称 | 官网 |
+|:-------------| :--- | :--- |
+| vue3         | MVVM框架 | [https://cn.vuejs.org//](https://cn.vuejs.org//) |
+| Element Plus | UI库 | [https://element.eleme.cn/2.0/#/zh-CN](https://element.eleme.cn/2.0/#/zh-CN) |
+| jQuery       | 函式库 | [http://jquery.com/](http://jquery.com/) |
+| hover.css    | 点击效果插件 | [https://github.com/fians/Waves/](https://github.com/fians/Waves) |
+| validator    | 验证库 | [https://github.com/chriso/validator.js](https://github.com/chriso/validator.js) |
+| animate      | 动画 | [http://daneden.github.io/animate.css/](http://daneden.github.io/animate.css/) |
+| icon         | 矢量小图标\(待更新\) | [https://www.iconfont.cn/](https://www.iconfont.cn/) |
 
 
 # 文件说明
