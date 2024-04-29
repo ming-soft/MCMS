@@ -213,6 +213,7 @@
                                             :data="{uploadPath:'/cms/content','isRename':true ,'appId':true}"
                                             :on-success="contentImgSuccess"
                                             :on-error="contentImgError"
+                                            :on-preview="contentImgHandLePreview"
                                             accept="image/*"
                                             list-type="picture-card">
                                         <i class="el-icon-plus"></i>
@@ -772,6 +773,9 @@
                     message: '当前最多上传10个文件',
                     type: 'warning'
                 });
+            },
+            contentImgHandLePreview:function (file) {
+                window.open(file.url)
             },
             //只有在渲染完栏目数据之后才会初始化
             init: function () {

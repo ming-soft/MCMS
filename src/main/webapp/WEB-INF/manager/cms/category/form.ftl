@@ -300,6 +300,7 @@
                                     :data="{uploadPath:'/cms/category','isRename':true,'appId':true}"
                                     :on-success="categoryImgSuccess"
                                     :on-error="categoryImgError"
+                                    :on-preview="categoryImgHandLePreview"
                                     accept="image/*"
                                     list-type="picture-card">
                                 <i class="el-icon-plus"></i>
@@ -534,6 +535,7 @@
         },
         computed: {},
         methods: {
+
             //正则校验regu 正则表达式，str被校验的字段，符合返回true否则false
             regularCheck: function(regu, str) {
                 var re = new RegExp(regu);
@@ -783,6 +785,9 @@
                 if (index != -1) {
                     this.form.categoryImg.splice(index, 1);
                 }
+            },
+            categoryImgHandLePreview:function (file) {
+                window.open(file.url)
             },
             //categoryIco文件上传完成回调
             categoryIcoSuccess: function (response, file, fileList) {
