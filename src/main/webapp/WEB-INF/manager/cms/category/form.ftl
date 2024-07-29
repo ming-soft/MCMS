@@ -551,20 +551,14 @@
                     if (res.result) {
                         //res.data.rows.push({id:0,categoryId: null,categoryTitle:'顶级栏目管理'});
                         that.categoryList = res.data.rows;
-                        that.treeList = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
+						// 在顶级栏目下增加栏目集数据合，让子栏目能够成为顶级栏目
+                        that.treeList[0].children = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
                         that.treeKey = new Date().getTime();
                     }
                 });
             },
             save: function () {
                 var that = this;
-
-                var model = undefined;
-
-                if (model && !model.validate()) {
-                    this.activeName = 'custom-name';
-                    return;
-                }
 
                 var url = ms.manager + "/cms/category/save.do";
 
@@ -615,11 +609,6 @@
                         data.categoryIco = JSON.stringify(data.categoryIco);
                         ms.http.post(url, data).then(function (data) {
                             if (data.result) {
-                                //保存时需要赋值关联ID
-                                if (model) {
-                                    model.form.linkId = data.data.id;
-                                    model.save();
-                                }
 
                                 that.$notify({
                                     title: '成功',
@@ -834,17 +823,7 @@
                     message: response.msg,
                     type: 'warning'
                 });
-            },
-
-            rederModel: function (modelId) {
-                var that = this;
-                that.editableTabs.push({
-                    title: '加载中...',
-                    name: 'custom-name'
-                });
-
-            },
-
+            }
         },
         created: function () {
 

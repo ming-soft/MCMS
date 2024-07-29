@@ -14,7 +14,9 @@
 		<div class="left-tree" style="position:relative;">
 			<el-scrollbar style="height: 100%;">
 				<el-tree
+						ref="treeRef"
 						:indent="5"
+						node-key="id"
 						v-loading="loading"
 						highlight-current
 						:expand-on-click-node="false"
@@ -74,6 +76,9 @@
 					this.action = 'list';
 					this.categoryId = data.id;
 					this.leaf = data.leaf;
+				} else if(data.categoryType == '3'){
+					this.$refs.treeRef.setCurrentKey(null);
+					return;
 				} else {
 
 					this.action = 'form';
@@ -107,7 +112,6 @@
 						that.treeData = [];
 					} else {
 						that.emptyText = '';
-						// 过滤掉栏目类型为链接属性
 						that.treeData = res.data.rows;
 						that.treeData = ms.util.treeData(that.treeData, 'id', 'categoryId', 'children');
 						that.treeData = [{

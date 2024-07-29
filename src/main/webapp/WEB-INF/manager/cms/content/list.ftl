@@ -1,7 +1,6 @@
 
 <template type="text/x-template" id="content-main">
 <div id="main" class="ms-index"  v-cloak>
-    <ms-search ref="search" @search="search" :condition-data="conditionList" :conditions="conditions"></ms-search>
     <el-header class="ms-header" height="50px">
         <el-col :span=12>
             <@shiro.hasPermission name="cms:content:save">
@@ -39,10 +38,11 @@
                             </el-select>
                         </el-form-item>
                     </el-col>
-                    <el-col :span=8 style="text-align: right;padding-right: 10px;">
+                    <el-col :span=8 style="display: flex;justify-content: end;padding-right: 10px;">
                         <el-button type="primary" class="el-icon-search" size="default" @click="form.sqlWhere=null;currentPage=1;list()">查询</el-button>
                         <el-button @click="rest"  class="el-icon-refresh" size="default">重置</el-button>
-                        <el-button type="primary" class="el-icon-s-operation" size="default" @click="$refs.search.open()">筛选</el-button>
+                        <ms-search ref="search" @search="search" :search-json="searchJson" :search-key="historyKey"></ms-search>
+
                     </el-col>
                 </el-row>
             </el-form>
@@ -71,6 +71,19 @@
             <el-table-column label="文章副标题" align="left" prop="contentShortTitle" show-overflow-tooltip>
             </el-table-column>
             <el-table-column label="文章链接" align="left" prop="categoryId" :formatter="contentCategoryPathFormat" width="240">
+            </el-table-column>
+            <el-table-column label="是否显示" width="100" align="center" prop="contentDisplay">
+                <template #header>是否显示
+                    <el-popover placement="top-start" title="提示" trigger="hover" >
+                        为否后，该文章将不会在前台显示。
+                        <template #reference>
+                            <i class="el-icon-question"></i>
+                        </template>
+                    </el-popover>
+                </template>
+                <template #default="scope">
+                    <el-tag :type="scope.row.contentDisplay==0?'success':'info'">{{scope.row.contentDisplay==0?'显示':'隐藏'}}</el-tag>
+                </template>
             </el-table-column>
             <el-table-column label="作者" align="left" prop="contentAuthor" width="100" show-overflow-tooltip>
             </el-table-column>
@@ -123,7 +136,7 @@
         props:["categoryId","leaf"],
         data: function () {
             return {
-                conditionList: [{
+                searchJson: [{
                     action: 'and',
                     field: 'content_title',
                     el: 'eq',
@@ -240,7 +253,6 @@
                     name: '修改时间',
                     type: 'date'
                 }],
-                conditions: [],
                 contentCategoryIdOptions: [],
                 dataList: [],
                 //文章列表
@@ -281,7 +293,9 @@
         },
         watch: {
             "categoryId":function(n,o) {
-
+                //默认列表第一页
+                this.form = {};
+                this.currentPage = 1;
                 this.list();
             },
             "leaf":function(n,o) {

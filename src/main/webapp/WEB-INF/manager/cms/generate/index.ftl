@@ -16,7 +16,7 @@
                 class="ms-alert-tip"
                 title="提示"
                 type="info">
-             如果需要使用自动静态化的功能，即文章发布后会自动进行更新，简单的可以采用MStore 的<a href='http://store.mingsoft.net/#/detail?id=290&type=plugin' target="_blank">自动静态化插件</a>，如果需要更好的静态化性能可以考考虑选购企业级<a href="https://www.mingsoft.net/banben.html" target="_blank">版本</a>
+             如果需要使用自动静态化的功能，即文章发布后会自动进行更新，简单的可以采用MStore 的<a href='http://store.mingsoft.net/#/detail?id=290&type=plugin' target="_blank">自动静态化插件</a>，如果需要更好的静态化性能可以考虑选购企业级<a href="https://www.mingsoft.net/banben.html" target="_blank">版本</a>
         </el-alert>
 
 
@@ -496,7 +496,7 @@
         background-color:#FFFFFF;
         flex-direction:column;
         display:flex;
-        margin: 12px 6px;
+        margin: 0px 6px;
         animation-duration:1s;
         width:100%;
         padding-left:20px;
