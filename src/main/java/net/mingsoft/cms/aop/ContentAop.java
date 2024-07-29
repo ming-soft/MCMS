@@ -24,7 +24,6 @@ package net.mingsoft.cms.aop;
 
 import cn.hutool.core.io.FileUtil;
 import net.mingsoft.base.constant.Const;
-import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.base.exception.BusinessException;
 import net.mingsoft.base.util.BundleUtil;
 import net.mingsoft.basic.aop.BaseAop;
@@ -32,6 +31,8 @@ import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.biz.IHistoryLogBiz;
+import net.mingsoft.cms.constant.e.CategoryTypeEnum;
+import net.mingsoft.cms.constant.e.ContentEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.cms.entity.HistoryLogEntity;
@@ -39,7 +40,7 @@ import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
@@ -84,6 +85,7 @@ public class ContentAop extends BaseAop {
     /**
      * 文章浏览记录，
      * 如果该文章该ip已经记录过，则不在重复记录
+     *
      * @param pjp
      * @return
      * @throws Throwable
@@ -130,10 +132,12 @@ public class ContentAop extends BaseAop {
      *
      * @param jp
      */
-    @After("delete()")
+    @AfterReturning("delete()")
     public void delete(JoinPoint jp) {
         List<ContentEntity> contents = (List<ContentEntity>) getJsonParam(jp);
 
+        // 获取appDir
+        String appDir = BasicUtil.getApp().getAppDir();
         // 获取栏目ID对应文章ID数组 map
         Map<String, List<String>> categoryIdByContentIds = contents.stream()
                 .collect(Collectors.groupingBy(ContentEntity::getCategoryId, Collectors.mapping(ContentEntity::getId, Collectors.toList())));
@@ -143,31 +147,62 @@ public class ContentAop extends BaseAop {
             // 获取栏目
             CategoryEntity category = categoryBiz.getById(categoryId);
             // 获取栏目路径
-            String categoryPath = category.getCategoryPath();
+            String contentPath = appDir
+                    + File.separator + category.getCategoryPath();
             for (String contentId : categoryIdByContentIds.get(categoryId)) {
+                // 组装静态文件地址
+                contentPath = contentPath + File.separator + contentId;
                 // 删除静态文件
-                deleteHtml(categoryPath, contentId);
+                deleteHtml(contentPath);
+            }
+        }
+    }
+
+    @Pointcut("execution(* net.mingsoft.cms.action.ContentAction.update(..))")
+    public void update() {
+    }
+
+    /**
+     * 更新文章后,如果该文章不显示,则删除文章对应的静态化文件
+     * @param jp
+     */
+    @AfterReturning("update()")
+    public void update(JoinPoint jp) {
+        // 更新文章只会一篇一篇更新
+        ContentEntity contentEntity = getType(jp, ContentEntity.class);
+        // appDir
+        String appDir = BasicUtil.getApp().getAppDir();
+        // 判断文章是否存在且判断是否显示,如果不显示则把相关文章删除
+        if (contentEntity != null && contentEntity.getContentDisplay().equals(ContentEnum.HIDE.toString())) {
+            // 判断单篇文章类型
+            // 获取栏目
+            CategoryEntity category = categoryBiz.getById(contentEntity.getCategoryId());
+            if (category != null) {
+                String contentPath = appDir
+                        + File.separator + category.getCategoryPath();
+                if (category.getCategoryType().equals(CategoryTypeEnum.COVER.toString())) {
+                    // 如何是单篇文章则拼接index,不传id值
+                    contentPath = contentPath + File.separator + "index";
+                    deleteHtml(contentPath);
+                } else {
+                    contentPath = contentPath + File.separator + contentEntity.getId();
+                    deleteHtml(contentPath);
+                }
             }
         }
     }
 
 
     /**
-     * @param categoryPath 栏目目录
-     * @param contentId    文章ID
-     *                     根据文章实体删除静态文件
+     * 根据文章路径删除静态文件
+     *
+     * @param contentPath 文章文件路径
      */
-    private void deleteHtml(String categoryPath, String contentId) {
+    private void deleteHtml(String contentPath) {
         // html真实路径
         String htmlPath = BasicUtil.getRealPath(htmlDir);
-        // appDir
-        String appDir = BasicUtil.getApp().getAppDir();
-        // 文件路径组成 html真实路径 + appdir + 栏目路径 + 文章ID + .html
-        String path = htmlPath
-                + File.separator + appDir
-                + categoryPath
-                + File.separator + contentId
-                + ParserUtil.HTML_SUFFIX;
+        // 文件路径组成 html真实路径 + 文章路径 + .html
+        String path = htmlPath + File.separator + contentPath + ParserUtil.HTML_SUFFIX;
         // 校验路径是否合法
         if (path.contains("..") || path.contains("../") || path.contains("..\\")) {
             LOG.error("非法路径："+path);
@@ -178,7 +213,7 @@ public class ContentAop extends BaseAop {
         if (flag) {
             LOG.info("删除静态文件成功！");
         } else {
-            LOG.info("删除失败！");
+            LOG.error("删除失败！");
         }
 
     }

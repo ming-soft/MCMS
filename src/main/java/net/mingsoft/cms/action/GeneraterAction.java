@@ -34,7 +34,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.annotation.LogAnn;
-import net.mingsoft.basic.biz.IModelBiz;
 import net.mingsoft.basic.constant.e.BusinessTypeEnum;
 import net.mingsoft.basic.entity.AppEntity;
 import net.mingsoft.basic.util.BasicUtil;
@@ -96,15 +95,6 @@ public class GeneraterAction extends BaseAction {
      */
     @Autowired
     private ICategoryBiz categoryBiz;
-
-    /**
-     * 模块管理业务层
-     */
-    @Autowired
-    private IModelBiz modelBiz;
-
-    @Value("${ms.manager.path}")
-    private String managerPath;
 
     @Value("${ms.diy.html-dir:html}")
     private String htmlDir;

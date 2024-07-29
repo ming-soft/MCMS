@@ -26,12 +26,13 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.Query;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import net.mingsoft.base.constant.Const;
 import net.mingsoft.base.entity.ResultData;
-import net.mingsoft.basic.exception.BusinessException;
+import net.mingsoft.base.exception.BusinessException;
+import net.mingsoft.base.util.BundleUtil;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.constant.e.CategoryDisplayEnum;
 import net.mingsoft.cms.constant.e.CategoryIsSearchEnum;
@@ -52,7 +53,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -175,32 +175,31 @@ public class CategoryAop extends net.mingsoft.basic.aop.BaseAop {
     @After("delete()")
     public void delete(JoinPoint jp) {
         List<CategoryEntity> categoryEntities = (List<CategoryEntity>) getJsonParam(jp);
+        // appDir
+        String appDir = BasicUtil.getApp().getAppDir() + File.separator;
         for (CategoryEntity categoryEntity : categoryEntities) {
             // 删除静态文件
-            deleteCategoryHtml(categoryEntity.getCategoryPath());
+            deleteCategoryHtml(appDir + categoryEntity.getTypelink());
         }
     }
 
 
     /**
-     * @param categoryPath 栏目目录
+     * @param categoryLink 栏目链接
      *                     删除栏目静态文件
      */
-    public void deleteCategoryHtml(String categoryPath) {
+    public void deleteCategoryHtml(String categoryLink) {
         // 过滤非法路径
-        if (StringUtils.isEmpty(categoryPath) || categoryPath.contains("../") || categoryPath.contains("..\\")) {
-            LOG.error("非法路径：{}", categoryPath);
-            throw new BusinessException("非法路径");
+        if (StringUtils.isEmpty(categoryLink) || categoryLink.contains("../") || categoryLink.contains("..\\")) {
+            LOG.error("非法路径：{}", categoryLink);
+            throw new BusinessException(BundleUtil.getString(Const.RESOURCES,"err.error",BundleUtil.getString(net.mingsoft.basic.constant.Const.RESOURCES,"file.path")));
         }
         // html真实路径
         String htmlPath = BasicUtil.getRealPath(htmlDir);
-        // appDir
-        String appDir = BasicUtil.getApp().getAppDir();
         // 删除静态文件
-        // 文件夹路径组成 html真实路径 + appdir + 栏目路径
+        // 文件夹路径组成 html真实路径 + 栏目路径
         boolean flag = FileUtil.del(htmlPath
-                + File.separator + appDir
-                + categoryPath
+                + File.separator + categoryLink
         );
         if (flag) {
             LOG.info("删除静态文件夹成功！");

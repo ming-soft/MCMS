@@ -32,7 +32,6 @@ public class BaseAction extends net.mingsoft.basic.action.BaseAction{
     @Override
     protected String getResString(String key) {
         
-        // TODO Auto-generated method stub
         String str = "";
         try {
             str = super.getResString(key);
