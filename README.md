@@ -193,24 +193,24 @@ docker run -p 3306:3306 -p 8080:8080 --name mcms --privileged=true -e TZ=Asia/Sh
 
 <table>
     <tr>
-        <td><img src="src/main/webapp/static/images/ad/6.png"/></td>
-        <td><img src="src/main/webapp/static/images/ad/1.png"/></td>
+        <td><img src="//cdn.mingsoft.net/ad/6.png"/></td>
+        <td><img src="//cdn.mingsoft.net/ad/1.png"/></td>
     </tr>
     <tr>
-        <td><img src="src/main/webapp/static/images/ad/2.png"/></td>
-        <td><img src="src/main/webapp/static/images/ad/3.png"/></td>
+        <td><img src="//cdn.mingsoft.net/ad/2.png"/></td>
+        <td><img src="//cdn.mingsoft.net/ad/3.png"/></td>
     </tr>
     <tr>
-        <td><img src="src/main/webapp/static/images/ad/4.png"/></td>
-        <td><img src="src/main/webapp/static/images/ad/5.png"/></td>
+        <td><img src="//cdn.mingsoft.net/ad/4.png"/></td>
+        <td><img src="//cdn.mingsoft.net/ad/5.png"/></td>
     </tr>
     <tr>
-        <td><img src="src/main/webapp/static/images/ad/7.png"/></td>
-        <td><img src="src/main/webapp/static/images/ad/8.png"/></td>
+        <td><img src="//cdn.mingsoft.net/ad/7.png"/></td>
+        <td><img src="//cdn.mingsoft.net/ad/8.png"/></td>
     </tr>
     <tr>
-        <td><img src="src/main/webapp/static/images/ad/9.png"/></td>
-        <td><img src="src/main/webapp/static/images/ad/10.png"/></td>
+        <td><img src="//cdn.mingsoft.net/ad/9.png"/></td>
+        <td><img src="//cdn.mingsoft.net/ad/10.png"/></td>
     </tr>
 </table>
 
