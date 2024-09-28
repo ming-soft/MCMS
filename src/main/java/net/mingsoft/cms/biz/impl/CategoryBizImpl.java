@@ -7,10 +7,10 @@
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
-
+ * <p>
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
-
+ * <p>
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -20,8 +20,6 @@
  */
 
 
-
-
 package net.mingsoft.cms.biz.impl;
 
 import cn.hutool.core.collection.CollUtil;
@@ -29,6 +27,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
@@ -68,19 +67,19 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 
     @Override
     protected IBaseDao getDao() {
-        
+
         return categoryDao;
     }
 
     @Override
     public List<CategoryEntity> queryChildren(CategoryEntity category) {
-        
+
         return categoryDao.queryChildren(category);
     }
 
     @Override
     public void saveEntity(CategoryEntity categoryEntity) {
-        
+
         String pingYin = PinYinUtil.getPingYin(categoryEntity.getCategoryTitle());
         //如果用户自己填入了拼音则使用用户的
         if (StrUtil.isNotBlank(categoryEntity.getCategoryPinyin())) {
@@ -138,7 +137,7 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
         //保存时先保存再修改链接地址，修改时直接修改
         if (StringUtils.isNotBlank(categoryEntity.getId())) {
             categoryEntity.setCategoryPath(path + "/" + categoryEntity.getCategoryPinyin());
-            if (StringUtils.isBlank(path)){
+            if (StringUtils.isBlank(path)) {
                 categoryEntity.setCategoryPath(categoryEntity.getCategoryPinyin());
             }
         }
@@ -207,7 +206,7 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 
     @Override
     public void delete(String categoryId) {
-        
+
         CategoryEntity category = (CategoryEntity) categoryDao.selectById(categoryId);
         //删除父类
         if (category != null) {
@@ -227,10 +226,12 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
             List<CategoryEntity> childNode = categoryDao.queryChildren(parentNode);
             //判断删除的是否为主节点
             if (parentNode != null) {
-                UpdateWrapper<CategoryEntity> updateWrapper = new UpdateWrapper<>();
+                LambdaUpdateWrapper<CategoryEntity> updateWrapper = new LambdaUpdateWrapper<>();
                 //如果没有子节点进行更新代码
                 if (childNode.size() == 1) {
-                    updateWrapper.eq("id", parentNode.getId()).set("leaf", 1);
+                    // 更新父级为叶子节点
+                    updateWrapper.eq(CategoryEntity::getCategoryId, parentNode.getId())
+                            .set(CategoryEntity::getLeaf, true);
                     categoryDao.update(null, updateWrapper);
                 }
 
@@ -327,15 +328,15 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 
 
     @Override
-    public void changeCategoryType(CategoryEntity categoryEntity,String targetCategoryType) {
+    public void changeCategoryType(CategoryEntity categoryEntity, String targetCategoryType) {
 
         // 转换为单篇
-        if (CategoryTypeEnum.COVER.toString().equalsIgnoreCase(targetCategoryType)){
+        if (CategoryTypeEnum.COVER.toString().equalsIgnoreCase(targetCategoryType)) {
             contentDao.deleteEntityByCategoryIds(new String[]{categoryEntity.getId()});
             categoryEntity.setCategoryUrl(null);
             categoryEntity.setCategoryListUrl(null);
-        // 转换为链接
-        } else if (CategoryTypeEnum.LINK.toString().equalsIgnoreCase(targetCategoryType)){
+            // 转换为链接
+        } else if (CategoryTypeEnum.LINK.toString().equalsIgnoreCase(targetCategoryType)) {
             contentDao.deleteEntityByCategoryIds(new String[]{categoryEntity.getId()});
             categoryEntity.setCategoryUrl(null);
             categoryEntity.setCategoryListUrl(null);

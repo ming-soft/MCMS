@@ -24,6 +24,8 @@
 
 package net.mingsoft.cms.biz.impl;
 
+import cn.hutool.core.collection.CollUtil;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import freemarker.template.TemplateException;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
@@ -125,4 +127,29 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		return contentEntities;
 	}
 
+	@Override
+	public Map get(Map map) {
+		//通过tagSqlBiz获取data对应的sql
+		LambdaQueryWrapper<TagEntity> wrapper = new LambdaQueryWrapper<>();
+		wrapper.eq(TagEntity::getTagName, "data");
+		TagEntity tagEntity = tagBiz.getOne(wrapper);
+		if (tagEntity == null) {
+			return null;
+		}
+		String sqlFtl = tagEntity.getTagSql();
+		Map content = null;
+		try {
+			String sql = ParserUtil.rendering(map,sqlFtl);
+			//执行原生的sql
+			List<Map>contentEntities = (List<Map>) tagBiz.excuteSql(sql);
+			if (CollUtil.isEmpty(contentEntities)) {
+				return null;
+			}
+			// 默认取出第一个返回数据
+			content = contentEntities.get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return content;
+	}
 }

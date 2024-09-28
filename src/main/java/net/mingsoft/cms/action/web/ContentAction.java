@@ -32,10 +32,14 @@ import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.bean.ContentBean;
+import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.biz.IHistoryLogBiz;
+import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.cms.entity.HistoryLogEntity;
+import net.mingsoft.mdiy.biz.IModelBiz;
+import net.mingsoft.mdiy.entity.ModelEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,7 +47,10 @@ import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 /**
  * 文章管理控制层
  * @author 铭飞开发团队
@@ -61,6 +68,12 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	 */
 	@Autowired
 	private IContentBiz contentBiz;
+
+	@Autowired
+	private ICategoryBiz categoryBiz;
+
+	@Autowired
+	private IModelBiz modelBiz;
 
 	@Autowired
 	private IHistoryLogBiz historyLogBiz;
@@ -114,11 +127,28 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	@ResponseBody
 	public ResultData get(@ModelAttribute @ApiIgnore ContentEntity content){
 		if(content.getId()==null) {
-			return ResultData.build().error();
+			return ResultData.build().error(getResString("err.empty",this.getResString("id")));
 		}
 		content.setSqlWhere("");
-		ContentEntity _content = (ContentEntity)contentBiz.getById(content.getId());;
-		return ResultData.build().success(_content);
+		ContentEntity _content = contentBiz.getById(content.getId());
+		if(_content==null) {
+			return ResultData.build().error(getResString("err.error",this.getResString("id")));
+		}
+		// 获取栏目数据
+		CategoryEntity categoryEntity = categoryBiz.getById(_content.getCategoryId());
+		ModelEntity modelEntity = new ModelEntity();
+		if (categoryEntity != null) {
+			modelEntity = modelBiz.getById(categoryEntity.getMdiyModelId());
+		}
+		// 组织map查询数据
+		Map<String, Object> map = new HashMap<>();
+		map.put("dataid", content.getId());
+		// 如果没有自定义模型, 不设置自定义模型
+		if (modelEntity != null && StringUtils.isNotBlank(modelEntity.getModelTableName())) {
+			map.put("tableName", modelEntity.getModelTableName());
+		}
+		Map contentMap = contentBiz.get(map);
+		return ResultData.build().success(contentMap);
 	}
 
 	/**

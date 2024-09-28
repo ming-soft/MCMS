@@ -76,4 +76,11 @@ public interface IContentBiz extends IBaseBiz<ContentEntity> {
      */
     List list(Map map);
 
+    /**
+     * 根据解析标签data的sql获取文章数据，如有自定义模型，则返回则加上自定义模型数据
+     * @param map
+     * @return
+     */
+    Map get(Map map);
+
 }
