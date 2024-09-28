@@ -483,31 +483,52 @@
                                 if(that.$refs.modelForm && that.$refs.modelForm.length > 0) {
                                     that.$refs.modelForm[0].$refs.form.form.linkId = res.data.id;
                                     that.$refs.modelForm[0].getForm().save(function (resModel) {
-                                        if(resModel.result){
+                                        if (resModel.result) {
                                             //模型保存成功
-                                        }else {
+                                            // 这里会有异步问题，所以这里分别用了两个保存提示
+                                            that.$notify({
+                                                title: '成功',
+                                                message: '保存成功',
+                                                type: 'success',
+                                                duration: 1000,
+                                                onClose: function () {
+                                                    if (that.categoryChangeEnabled) { //如果列表新增就需要返回的列表
+                                                        that.$emit("back");
+                                                    }
+                                                    //为了让上传控件不显示类型警告
+                                                    if(res.data.contentImg=="") {
+                                                        res.data.contentImg =[];
+                                                    }
+                                                }
+                                            });
+                                        } else {
                                             //模型保存失败
+                                            that.$notify({
+                                                title: '失败',
+                                                message: that.$refs.modelForm[0].modelName + '拓展模型保存失败，' + resModel.msg,
+                                                type: 'warning'
+                                            });
+                                        }
+                                    })
+                                } else {
+                                    that.$notify({
+                                        title: '成功',
+                                        message: '保存成功',
+                                        type: 'success',
+                                        duration: 1000,
+                                        onClose: function () {
+                                            if (that.categoryChangeEnabled) { //如果列表新增就需要返回的列表
+                                                that.$emit("back");
+                                            }
+                                            //为了让上传控件不显示类型警告
+                                            if(res.data.contentImg=="") {
+                                                res.data.contentImg =[];
+                                            }
                                         }
                                     });
                                 }
 
-
-                                that.$notify({
-                                    title: '成功',
-                                    message: '保存成功',
-                                    type: 'success',
-                                    duration: 1000,
-                                    onClose: function () {
-                                        if (that.categoryChangeEnabled) { //如果列表新增就需要返回的列表
-                                            that.$emit("back");
-                                        }
-                                        //为了让上传控件不显示类型警告
-                                        if(res.data.contentImg=="") {
-                                            res.data.contentImg =[];
-                                        }
-                                        that.saveDisabled = false;
-                                    }
-                                });
+                                that.saveDisabled = false;
 
                             } else {
                                 that.$notify({
@@ -518,7 +539,7 @@
                                 that.saveDisabled = false;
                             }
 
-                        });
+                        })
                     } else {
                         that.activeName = 'form';
                         return false;
