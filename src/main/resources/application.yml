@@ -15,6 +15,10 @@ server:
 #    key-store: xxx.pfx 证书文件，证书文件格式具体参考证书分发平台
 #    key-store-password:  1234 证书密码
 
+springfox:
+  documentation:
+    enabled: true #启用swagger文档，生产的时候务必关掉 访问地址：http://ip|域名/项目发布名/swagger-ui/
+
 #配置日志
 logging:
   level:
