@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="robots" content="index, follow"/>
+    <title>铭飞MCMS内容管理系统完整开源版J2EE代码</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="官网同时提供一键运行版本下载，请步移官网....">
+    <meta http-equiv="Cache-Control" content="no-transform"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="applicable-device" content="pc,mobile"/>
+    <link href="/favicon.ico" rel="shortcut icon"/>
+    <link href="/template/1/default/css/style.css" rel="stylesheet"/>
+    <link href="/template/1/default/css/css.css" rel="stylesheet"/>
+    <script src="/template/1/default/js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/template/1/default/js/jquery.superslide.2.1.1.js">//pc导航</script>
+    <script src="/template/1/default/js/anim.js">//动画</script>
+    <script type="text/javascript" src="/template/1/default/js/basic.js"></script>
+</head>
+<body>
+<!--头部begin-->
+<div class="header-v1">
+    <!-- S top-main -->
+    <div class="top-main">
+        <div class="logo1">
+            <a href="/"><img src="/upload/1/appLogo/1609397756549.png" alt="CMS,免费CMS,免费开源Java CMS,CMS系统,Java CMS,CMS内容管理系统,企业CMS,HTML网页模板,CMS模板,CMS源码,网站源码,信创系统软件,安可系统,网站建设,模板网站,建站模板,建站工具,建站平台,建站工具"/></a>
+        </div>
+        <div class="top_search"><em></em>
+            <div class="search_con">
+                <form name="formsearch" action="/mcms/search.do" method="post">
+                    <input class="input1" type="text" name="content_title" id="p" placeholder="搜索" value="">
+                    <input type="submit" class="bnts">
+                </form>
+            </div>
+        </div>
+        <div class="top-main-content">
+            <!-- S nav -->
+            <div class="navBar">
+                <ul class="nav clearfix">
+                    <li class="m ">
+                        <h3><a href="/" title="首页"><span data-title="首页">首页</span></a></h3>
+                    </li>
+                    <!--定义变量typeid、ids，通过这两个变量判断是否选中-->
+                    <li class="m ">
+                        <h3>
+                            <a href="/html/web/product/index.html">
+                                <span data-title="公司产品">公司产品</span>
+                            </a>
+                        </h3>
+                        <div class="sub">
+                            <ul>
+                                <li>
+                                    <a href="/html/web/product/pingtaichanpin/index.html" target="_blank">平台产品</a>
+                                </li>
+                                <li>
+                                    <a href="/html/web/product/kycp/index.html" target="_blank">开源产品</a>
+                                </li>
+                                <li>
+                                    <a href="/html/web/product/hycp/index.html" target="_blank">行业产品</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="m ">
+                        <h3>
+                            <a href="/html/web/jiejuefangan/index.html">
+                                <span data-title="解决方案">解决方案</span>
+                            </a>
+                        </h3>
+                        <div class="sub">
+                            <ul>
+                                <li>
+                                    <a href="/html/web/jiejuefangan/zhihuiyiliaojiejuefangan/index.html" target="_blank">信创国产化解决方案</a>
+                                </li>
+                                <li>
+                                    <a href="/html/web/jiejuefangan/zhihuiyingyetingjiejuefangan/index.html" target="_blank">低代码开发解决方案</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="m ">
+                        <h3>
+                            <a href="/html/web/fuwuanli/index.html">
+                                <span data-title="服务案例">服务案例</span>
+                            </a>
+                        </h3>
+                    </li>
+                    <li class="m on">
+                        <h3>
+                            <a href="/html/web/news/index.html">
+                                <span data-title="新闻动态">新闻动态</span>
+                            </a>
+                        </h3>
+                        <div class="sub">
+                            <ul>
+                                <li>
+                                    <a href="/html/web/news/gsdt/index.html" target="_blank">公司动态</a>
+                                </li>
+                                <li>
+                                    <a href="/html/web/news/xingyedongtai/index.html" target="_blank">行业动态</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="m ">
+                        <h3>
+                            <a href="/html/web/zhaopinxinxi/index.html">
+                                <span data-title="招聘信息">招聘信息</span>
+                            </a>
+                        </h3>
+                    </li>
+                    <li class="m ">
+                        <h3>
+                            <a href="/html/web/zaixianliuyan/index.html">
+                                <span data-title="在线留言">在线留言</span>
+                            </a>
+                        </h3>
+                    </li>
+                    <li class="m ">
+                        <h3>
+                            <a href="/html/web/gywm/gongsijieshao/index.html">
+                                <span data-title="关于我们">关于我们</span>
+                            </a>
+                        </h3>
+                        <div class="sub">
+                            <ul>
+                                <li>
+                                    <a href="/html/web/gywm/lianxiwomen/index.html" target="_blank">联系我们</a>
+                                </li>
+                                <li>
+                                    <a href="/html/web/gywm/gongsijieshao/index.html" target="_blank">公司介绍</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <script type="text/javascript">
+                jQuery(".nav").slide({
+                    type: "menu",
+                    titCell: ".m",
+                    targetCell: ".sub",
+                    effect: "slideDown",
+                    delayTime: 300,
+                    triggerTime: 100,
+                    returnDefault: true
+            });
+            </script>
+            <!-- E nav-->
+        </div>
+    </div>
+    <!-- E top-main -->
+    <div class="c_l"></div>
+</div>
+<!-- S touch-top-wrapper -->
+<div class="touch-top">
+    <div class="touch-top-wrapper clearfix">
+        <div class="touch-logo" skinobjectzone="HtmlLogo_1514">
+            <a class="" href="/">
+                <img src="/upload/1/appLogo/1609397756549.png" alt="CMS,免费CMS,免费开源Java CMS,CMS系统,Java CMS,CMS内容管理系统,企业CMS,HTML网页模板,CMS模板,CMS源码,网站源码,信创系统软件,安可系统,网站建设,模板网站,建站模板,建站工具,建站平台,建站工具"/>
+            </a>
+        </div>
+        <!-- S touch-navigation -->
+        <div class="touch-navigation">
+            <div class="touch-toggle">
+                <ul>
+                    <li class="touch-toggle-item-last">
+                        <a href="javascript:void(0);" class="drawer-menu" data-drawer="search_div">
+                            <i class="touch-icon-search"><span>搜索</span></i>
+                        </a>
+                    </li>
+                    <li class="touch-toggle-item-last">
+                        <a href="javascript:;" class="drawer-menu" data-drawer="drawer-section-menu">
+                            <i class="touch-icon-menu"></i><span>导航</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- E touch-navigation -->
+    </div>
+    <!-- S touch-top -->
+    <div class="touch-toggle-content touch-top-home">
+        <!--手机搜索begin-->
+        <div class="drawer-section search_div">
+            <div class="search_con">
+                <form  name="formsearch" action="/mcms/search.do" method="post" target="_blank" style="height: 42px;">
+                    <input type="text" name="content_title" id="q" class="input1" placeholder="搜索" value=""/>
+                    <input type="submit"  class="bnt1"/>
+                </form>
+            </div>
+        </div>
+        <!--手机搜索end-->
+        <!--手机菜单begin-->
+        <div class="drawer-section drawer-section-menu">
+            <div class="touch-menu" skinobjectzone="menu_2005">
+                <ul>
+                    <li>
+                        <a href="/"><span>首页</span></a>
+                    </li>
+                    <li>
+                        <a href="/html/web/product/index.html">
+                            <span>公司产品</span>
+                            <i class="touch-arrow-down"></i>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="/html/web/product/pingtaichanpin/index.html">
+                                    <span>平台产品</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/html/web/product/kycp/index.html">
+                                    <span>开源产品</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/html/web/product/hycp/index.html">
+                                    <span>行业产品</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/html/web/jiejuefangan/index.html">
+                            <span>解决方案</span>
+                            <i class="touch-arrow-down"></i>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="/html/web/jiejuefangan/zhihuiyiliaojiejuefangan/index.html">
+                                    <span>信创国产化解决方案</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/html/web/jiejuefangan/zhihuiyingyetingjiejuefangan/index.html">
+                                    <span>低代码开发解决方案</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/html/web/fuwuanli/index.html">
+                            <span>服务案例</span>
+                        </a>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/html/web/news/index.html">
+                            <span>新闻动态</span>
+                            <i class="touch-arrow-down"></i>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="/html/web/news/gsdt/index.html">
+                                    <span>公司动态</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/html/web/news/xingyedongtai/index.html">
+                                    <span>行业动态</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/html/web/zhaopinxinxi/index.html">
+                            <span>招聘信息</span>
+                        </a>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/html/web/zaixianliuyan/index.html">
+                            <span>在线留言</span>
+                        </a>
+                        <ul>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="/html/web/gywm/gongsijieshao/index.html">
+                            <span>关于我们</span>
+                            <i class="touch-arrow-down"></i>
+                        </a>
+                        <ul>
+                            <li>
+                                <a href="/html/web/gywm/lianxiwomen/index.html">
+                                    <span>联系我们</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/html/web/gywm/gongsijieshao/index.html">
+                                    <span>公司介绍</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="closetitle">
+                    <img src="/template/1/default/picture/nav_bg2.png">
+                </div>
+            </div>
+        </div>
+        <!--手机菜单end-->
+    </div>
+    <!-- E touch-top -->
+</div>
+<div class="touch_bg">&nbsp;</div>
+<!-- E touch-top-wrapper -->
+<div class="blank_h">&nbsp;</div>
+<script src="/template/1/default/js/public.js">//导航</script>
+<!--头部end-->
+<div class="o_big" >
+    <img src="/upload/1/cms/category/1686219436865.jpg" alt="CMS,免费CMS,免费开源Java CMS,CMS系统,Java CMS,CMS内容管理系统,企业CMS,HTML网页模板,CMS模板,CMS源码,网站源码,信创系统软件,安可系统,网站建设,模板网站,建站模板,建站工具,建站平台,建站工具"/>
+    <h1 >行业动态</h1>
+</div>
+<!--正文begin-->
+<div class="wrap">
+    <div class="product_a anim anim-1"></div>
+</div>
+<div class="news_bg">
+    <div class="wrap">
+        <div class="about_x anim anim-2">
+            <div class="show_t">铭飞MCMS内容管理系统完整开源版J2EE代码</div>
+            <div class="con_line"> 时间：2023-06-08  人气：<script type="text/javascript" src="/cms/content/1666653711092752384/hit.do"></script></div>
+            <div class="con_id">
+                <div><h1 style="margin: 10px 0px; padding: 0px; font-size: 28px; line-height: 1.5;">特点</h1><ul class="task-list list-paddingleft-2" style="margin-left: 30px; padding: 0px; word-break: break-all;"><li><p>免费完整开源：基于MIT协议，源代码完全开源，无商业限制,MS开发团队承诺将MCMS内容系统永久完整开源；</p></li><li><p>标签化建站：不需要专业的后台开发技能，只要使用系统提供的标签，就能轻松建设网站；</p></li><li><p>html静态化：系统支持全站静态化；</p></li><li><p>跨终端：站点同时支持PC与移动端访问，同时会自动根据访问的终端切换到对应的界面，数据由系统统一管理；</p></li><li><p>海量模版：铭飞通过MStore（MS商城）分享更多免费、精美的企业网站模版，降低建站成本；</p></li><li><p>丰富插件：为了让MCms适应更多的业务场景，在MStore用户可以下载对应的插件，如：站群插件、微信插件、商城插件等；</p></li><li><p>每月更新：铭飞团队承诺每月28日为系统升级日，分享更多好用等模版与插件；</p></li><li><p>文档丰富：为了让用户更快速的使用MCms系统进行开发，铭飞团队持续更新开发相关文档，如标签文档、使用文档、视频教程等；</p></li></ul><h1 style="margin: 10px 0px; padding: 0px; font-size: 28px; line-height: 1.5;"><a id="面向对象_3" class="anchor" href="http://git.oschina.net/mingSoft/MCMS#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1_3" style="margin: 0px; padding: 0px; color: rgb(51, 51, 51);"></a>面向对象</h1><ul class="task-list list-paddingleft-2" style="margin-left: 30px; padding: 0px; word-break: break-all;"><li><p>铭飞MCMS是企业在创立初期很好的技术基础框架，加快公司项目开发进度，当然也可以对现有的系统进行升级；</p></li><li><p>个人开发者也可以使用MCMS承接外包项目；</p></li><li><p>初学JAVA的同学可以下载源代码来进行学习交流；</p></li></ul><h1 style="margin: 10px 0px; padding: 0px; font-size: 28px; line-height: 1.5;"><a id="技术框架_4" class="anchor" href="http://git.oschina.net/mingSoft/MCMS#%E6%8A%80%E6%9C%AF%E6%A1%86%E6%9E%B6_4" style="margin: 0px; padding: 0px; color: rgb(51, 51, 51);"></a>技术框架</h1><ul class="task-list list-paddingleft-2" style="margin-left: 30px; padding: 0px; word-break: break-all;"><li><p>核心框架：Spring Framework 4</p></li><li><p>安全框架：Apache Shiro 1.2</p></li><li><p>视图框架：Spring MVC 4</p></li><li><p>任务调度：Spring Task 4</p></li><li><p>持久层框架：MyBatis 3</p></li><li><p>数据库连接池：Alibaba Druid 1.0</p></li><li><p>日志管理：SLF4J 1.7、Log4j</p></li><li><p>JS框架：jQuery 1.10</p></li><li><p>CSS框架：Twitter Bootstrap 2.3.1。</p></li><li><p>富文本：Ueditor</p></li></ul><h1 style="margin: 10px 0px; padding: 0px; font-size: 28px; line-height: 1.5;"><a id="系统结构_5" class="anchor" href="http://git.oschina.net/mingSoft/MCMS#%E7%B3%BB%E7%BB%9F%E7%BB%93%E6%9E%84_5" style="margin: 0px; padding: 0px; color: rgb(51, 51, 51);"></a>系统结构</h1><p style="margin: 10px auto; padding: 0px; line-height: 1.5;"><img class="md_relative_url" title="在这里输入图片标题" src="/ueditor/jsp/upload/image/20210105/1609818395900070630.jpg" alt="输入图片说明" style="margin: 0px; padding: 0px; border: 0px; max-width: 100%; height: auto;"/></p><h1 style="margin: 10px 0px; padding: 0px; font-size: 28px; line-height: 1.5;"><a id="开发环境_6" class="anchor" href="http://git.oschina.net/mingSoft/MCMS#%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83_6" style="margin: 0px; padding: 0px; color: rgb(51, 51, 51);"></a>开发环境</h1><p style="margin: 10px auto; padding: 0px; line-height: 1.5;">建议开发者使用以下环境，这样避免版本带来的问题</p><ul class="task-list list-paddingleft-2" style="margin-left: 30px; padding: 0px; word-break: break-all;"><li><p>IDE:eclipse</p></li><li><p>DB:Mysql5.5</p></li><li><p>JDK:JAVA 7、J2EE6</p></li><li><p>WEB:Tomcat8</p></li></ul><h1 style="margin: 10px 0px; padding: 0px; font-size: 28px; line-height: 1.5;"><a id="运行环境_7" class="anchor" href="http://git.oschina.net/mingSoft/MCMS#%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83_7" style="margin: 0px; padding: 0px; color: rgb(51, 51, 51);"></a>运行环境</h1><ul class="task-list list-paddingleft-2" style="margin-left: 30px; padding: 0px; word-break: break-all;"><li><p>WEB服务器：Weblogic、Tomcat、WebSphere、JBoss、Jetty 等</p></li><li><p>数据库服务器：Mysql5.5</p></li><li><p>操作系统：Windows、Linux、Unix 等</p></li></ul><h1 style="margin: 10px 0px; padding: 0px; font-size: 28px; line-height: 1.5;"><a id="快速体验_8" class="anchor" href="http://git.oschina.net/mingSoft/MCMS#%E5%BF%AB%E9%80%9F%E4%BD%93%E9%AA%8C_8" style="margin: 0px; padding: 0px; color: rgb(51, 51, 51);"></a>快速体验</h1><ul class="task-list list-paddingleft-2" style="margin-left: 30px; padding: 0px; word-break: break-all;"><li><p>将MCMS项目源码导入eclipse；</p></li><li><p>创建数据库db-mcms-open,注意：数据库使用utf-8编码，导入doc/db-mcms-open.sql备份文件；</p></li><li><p>修改src\main\resources\ms.properties文件中的数据库设置参数；</p></li><li><p>第一次启动必须先访问后台，后台访问地址：http://+ip地址（或localhost）:tomcat端口/项目发布名/ms/login.do 必需先访问后台界面再访问前台界面</p></li><li><p>前台访问地址：<a href="http://xn--ip%28localhost%29-4v7w4gy75n:tomcat%E7%AB%AF%E5%8F%A3/%E9%A1%B9%E7%9B%AE%E5%8F%91%E5%B8%83%E5%90%8D" target="_blank" style="margin: 0px; padding: 0px; color: rgb(51, 51, 51);">http://ip地址（或localhost）:tomcat端口/项目发布名</a>,如果发布的地址不是<a href="http://localhost:8080/mcms" target="_blank" style="margin: 0px; padding: 0px; color: rgb(51, 51, 51);">http://localhost:8080/mcms</a>，先在后台生成静态页面再进行访问</p></li><li><p>管理员账号，用户名：msopen 密码：msopen</p></li></ul><h1 style="margin: 10px 0px; padding: 0px; font-size: 28px; line-height: 1.5;"><a id="文件说明_9" class="anchor" href="http://git.oschina.net/mingSoft/MCMS#%E6%96%87%E4%BB%B6%E8%AF%B4%E6%98%8E_9" style="margin: 0px; padding: 0px; color: rgb(51, 51, 51);"></a>文件说明</h1><ul class="task-list list-paddingleft-2" style="margin-left: 30px; padding: 0px; word-break: break-all;"><li><p>.externalToolBuilders eclipse缓存文件</p></li><li><p>.settings eclipse配置缓存文件</p></li><li><p>doc 项目文档文件夹，里面有数据库文件</p></li><li><p>src/main maven结构的项目源代码</p></li><li><p>java/com/mingsoft java源代码文件</p></li><li><p>resources 项目的资源配置文件</p></li><li><p>webapp<br style="margin: 0px; padding: 0px;"/>META-INF&nbsp;<br style="margin: 0px; padding: 0px;"/>WEB-INF&nbsp;<br style="margin: 0px; padding: 0px;"/>manager&nbsp;<br style="margin: 0px; padding: 0px;"/>html/1 默认生成的静态代码，实际项目需要删除，只是提供给开发者快速预览生成后的静态页面<br style="margin: 0px; padding: 0px;"/>templets/1/mooc 默认模版<br style="margin: 0px; padding: 0px;"/>upload&nbsp;</p></li><li><p>target 临时文件，可以删除让maven自动生成</p></li><li><p>.classpath eclipse配置缓存文件</p></li><li><p>.project eclipse配置缓存文件</p></li><li><p>LICENSE 项目协议说明</p></li><li><p>README.md 项目说明文档</p></li><li><p>pom.xml maven的依赖配置文件</p></li></ul><h1 style="margin: 10px 0px; padding: 0px; font-size: 28px; line-height: 1.5;"><a id="代码部署与常见问题_10" class="anchor" href="http://git.oschina.net/mingSoft/MCMS#%E4%BB%A3%E7%A0%81%E9%83%A8%E7%BD%B2%E4%B8%8E%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98_10" style="margin: 0px; padding: 0px; color: rgb(51, 51, 51);"></a>代码部署与常见问题</h1><ul class="task-list list-paddingleft-2" style="margin-left: 30px; padding: 0px; word-break: break-all;"><li><p>铭飞MCms 部署视频&nbsp;<a href="http://ms.mingsoft.net/mbbs/13988/detail.do" target="_blank" style="margin: 0px; padding: 0px; color: rgb(51, 51, 51);">http://ms.mingsoft.net/mbbs/13988/detail.do</a></p></li><li><p>MCms环境配置常见问题&nbsp;<a href="http://ms.mingsoft.net/mbbs/13000/detail.do" target="_blank" style="margin: 0px; padding: 0px; color: rgb(51, 51, 51);">http://ms.mingsoft.net/mbbs/13000/detail.do</a></p></li><li><p>MStore使用方式：<a href="http://ms.mingsoft.net/mbbs/13008/detail.do" target="_blank" style="margin: 0px; padding: 0px; color: rgb(51, 51, 51);">http://ms.mingsoft.net/mbbs/13008/detail.do</a></p></li></ul><h1 style="margin: 10px 0px; padding: 0px; font-size: 28px; line-height: 1.5;"><a id="开源说明_11" class="anchor" href="http://git.oschina.net/mingSoft/MCMS#%E5%BC%80%E6%BA%90%E8%AF%B4%E6%98%8E_11" style="margin: 0px; padding: 0px; color: rgb(51, 51, 51);"></a>开源说明</h1><ul class="task-list list-paddingleft-2" style="margin-left: 30px; padding: 0px; word-break: break-all;"><li><p>系统100%开源</p></li><li><p>铭飞MCms是铭飞MS平台的一个子模块，同时铭飞MCms所依赖的模块都是用maven方式提供了源码获取方式,具体看pom.xml文件的&lt;!-- MAVEN源码加载 --&gt;部分</p></li></ul><h1 style="margin: 10px 0px; padding: 0px; font-size: 28px; line-height: 1.5;"><a id="系统美图_12" class="anchor" href="http://git.oschina.net/mingSoft/MCMS#%E7%B3%BB%E7%BB%9F%E7%BE%8E%E5%9B%BE_12" style="margin: 0px; padding: 0px; color: rgb(51, 51, 51);"></a>系统美图</h1><p style="margin: 10px auto; padding: 0px; line-height: 1.5;"><img class="md_relative_url" title="铭飞模版商城，模版商城" src="/ueditor/jsp/upload/image/20210105/1609818396224099515.jpg" alt="输入图片说明" style="margin: 0px; padding: 0px; border: 0px; max-width: 100%; height: auto;"/><br style="margin: 0px; padding: 0px;"/><img class="md_relative_url" title="铭飞模版商城，插件商城" src="/ueditor/jsp/upload/image/20210105/1609818396728044765.png" alt="输入图片说明" style="margin: 0px; padding: 0px; border: 0px; max-width: 100%; height: auto;"/><br style="margin: 0px; padding: 0px;"/><img class="md_relative_url" title="铭飞内容管理系统后台演示" src="/ueditor/jsp/upload/image/20210105/1609818396886062056.png" alt="输入图片说明" style="margin: 0px; padding: 0px; border: 0px; max-width: 100%; height: auto;"/></p><p><br/></p></div>
+            </div>
+            <div class="prenext">上一篇：<a href="javascript:;">没有了</a></div>
+            <div class="prenext">下一篇：<a href="/html/web/news/xingyedongtai/1666653709826072576.html">【网站】国内 前6名 Java开源CMS建站系统</a></div>
+        </div>
+    </div>
+</div>
+<!--正文end-->
+<!--尾部begin-->
+<div class="f_bg">
+    <div class="f_bg_div">
+                <div class="links">
+            <h2>
+                <a href="/html/web/product/index.html">公司产品</a>
+            </h2>
+            <ul>
+                <li>
+                    <a href="/html/web/product/pingtaichanpin/index.html">平台产品</a>
+                </li>
+                <li>
+                    <a href="/html/web/product/kycp/index.html">开源产品</a>
+                </li>
+                <li>
+                    <a href="/html/web/product/hycp/index.html">行业产品</a>
+                </li>
+            </ul>
+        </div>
+        <div class="links">
+            <h2>
+                <a href="/html/web/news/index.html">新闻动态</a>
+            </h2>
+            <ul>
+                <li>
+                    <a href="/html/web/news/gsdt/index.html">公司动态</a>
+                </li>
+                <li>
+                    <a href="/html/web/news/xingyedongtai/index.html">行业动态</a>
+                </li>
+            </ul>
+        </div>
+        <div class="links">
+            <h2>
+                <a href="/html/web/gywm/gongsijieshao/index.html">关于我们</a>
+            </h2>
+            <ul>
+                <li>
+                    <a href="/html/web/gywm/lianxiwomen/index.html">联系我们</a>
+                </li>
+                <li>
+                    <a href="/html/web/gywm/gongsijieshao/index.html">公司介绍</a>
+                </li>
+            </ul>
+        </div>
+        <div class="links">
+            <h2>
+                <a href="/html/web/jiejuefangan/index.html">解决方案</a>
+            </h2>
+            <ul>
+                <li>
+                    <a href="/html/web/jiejuefangan/zhihuiyiliaojiejuefangan/index.html">信创国产化解决方案</a>
+                </li>
+                <li>
+                    <a href="/html/web/jiejuefangan/zhihuiyingyetingjiejuefangan/index.html">低代码开发解决方案</a>
+                </li>
+            </ul>
+        </div>
+        <div class="f_div2_r">
+            <h2>联系我们</h2>
+            <a href="tel:488-888-8888">488-888-8888</a> <span>仅限中国 9：00-20：00</span>
+            <a href="http://wpa.qq.com/msgrd?v=3&site=某某公司&menu=yes&uin=123456789" class="foot_a" target="_blank">
+                <img src="/template/1/default/picture/foot_bg1.png"/>
+            </a>
+        </div>
+        <div class="f_div2_r2">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAGQCAIAAAAP3aGbAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAH3klEQVR4nO3dQW4bSRBFQWvg+1/ZcwTXIicnHxmxNsRuWnqozUf9/Pnz5xdAwT//9wMAvBIsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CAjN9TP+jn52fqRxW9XO849RVdu0ry8b02H/vlka49zwcb/KqdsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gY2xK+uDaCezG4Apt6/WubxMefc+2xDyq+2vJM0gkLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CAjNUt4YvNadLB6dbUhXovP+fa5X2DHzf1FUV/Q6YcfH0nLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjLObQk/2NQKbHNNtnzr3Oa+74P3hh/MCQvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMW8I9m+O1qQ3g4FCuOIG0E7zGCQvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsICMc1vCL19vbe4EXxy8mG9zbnnw9b/8D8QJC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgIzVLeHmCO6gzWHawTsQrz3Stdnm/scVOWEBGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAxtj4+cvvd3xxcG074vG/PjpIHuGvY4oTFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmrF6m+iC7OPvV2z8HP+uavaHlLuPlIy6/vhAVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWEDGuS3h5lJscOK0OV7bHKYN/ndc29xt7hYfvyLXF/6VExaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZq1vC5bsCRwyuwL78srwp15akX/41LnPCAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIOOnuIQ6eAng5sAtuhM8+L/2V8uDu2v/+wd/05ywgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyPjYLeHymuzavYQfbPOrPrhJLP7BDnLCAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIOP35odNbQA351TL060PvlFuysEl6ae6Nsn85YQFhAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAxuqWcOpGuWs/Z1Bxbjl4deM1H7xJPPhIL5ywgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIGN1/Pxiam66OZAedG2SGt1+T7n2PIMOLv9fOGEBGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQcW5LODVfmrptdHlOde2O2MGh3OY3uflqg++1+UjRPxAnLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjLObQmnbG4Slx3cCU659kjLY7roBHKTExaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZY1vC4nhtcCnmRrm/OvhIax5/PV5e/1O/okdOWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWT8bO77ru0NB5/n2o1y177GX/def/PmyuWvaMrByz2dsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gY2xJuLrw2n/nRtRXYi+WlWHQCWXTtD8SWEPhGggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpDxe+oHTc2FNtdkywPAa2O6Zdd2gteWrY8+eAL5wgkLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CAjLEt4ZdPnF4GZZvjtegI7trecPmzPvX1BzlhARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQMbY+PlF8ZbQwY1ocW46+MzFK3KnXv/gb/7UhH6ZExaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZq1vCF5vzpYMLrykHX+3aMO3a3nDQ5p21y79pTlhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVknNsSfrAPHq+9ODhvXDP47h+8E3zhhAVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGLeGeqRXYy7+Z2hsOftbmI73YHOU92lyJTr3+8tfohAVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWEDGzwcvs0Y8zrs2X21zBfbi8d2vPfaU5Wcu/qYNcsICMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgY/VewmsrsIOufUWDQ7lr88apz1oe3H359Y5OWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWSM3UsI8F9zwgIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsICMfwGevTRHzrTS1gAAAABJRU5ErkJggg=="/>微信二维码
+        </div>
+    </div>
+</div>
+<div class="f_div3">
+    <div class="f_bg_div footx"><span class="l">站点版权信息，可配置</span></div>
+</div>
+<!--尾部end--> 
+<script language="javascript" src="/template/1/default/js/foot.js"></script><!--尾部end-->
+</body>
+</html>
