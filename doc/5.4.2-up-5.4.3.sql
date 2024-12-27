@@ -114,4 +114,4 @@ UPDATE `mdiy_tag` SET `tag_name` = 'tags', `tag_type` = 'macro', `tag_sql` = '<#
 UPDATE `mdiy_tag` SET `tag_name` = 'global', `tag_type` = 'global', `tag_sql` = '', `tag_class` = 'globalTagService', `tag_description` = '全局自定义标签样例', `MODEL_ID` = '1860892324126367745', `UPDATE_BY` = NULL, `UPDATE_DATE` = '2024-11-25 09:36:40', `CREATE_BY` = '57', `CREATE_DATE` = '2024-11-25 09:36:40', `DEL` = 0, `NOT_DEL` = 0 WHERE `id` = 19;
 
 
-
+UPDATE `app` SET `app_name` = '5.4.3  铭飞MCms' WHERE `id` = '1';
