@@ -18,6 +18,23 @@
     <script type="text/javascript" src="/{ms:global.style/}js/jquery.superslide.2.1.1.js">//pc导航</script>
     <script src="/{ms:global.style/}js/anim.js">//动画</script>
     <script type="text/javascript" src="/{ms:global.style/}js/basic.js"></script>
+    <script type="text/javascript" src="{ms:global.contextpath/}/static/plugins/vue/2.6.9/vue.min.js"></script>
+    <link rel="stylesheet" href="{ms:global.contextpath/}/static/plugins/minireset/0.0.2/minireset.min.css" />
+    <link rel="stylesheet" href="https://cdn.mingsoft.net/iconfont/iconfont.css" />
+    <link rel="stylesheet" href="{ms:global.contextpath/}/static/plugins/animate/4.1.0/animate.min.css">
+    <script src="{ms:global.contextpath/}/static/plugins/element-ui/2.15.8/index.min.js"></script>
+    <link rel="stylesheet" href="{ms:global.contextpath/}/static/plugins/element-ui/2.15.8/theme-chalk/index.min.css" />
+    <!--网络请求框架-->
+    <script src="{ms:global.contextpath/}/static/plugins/axios/1.7.3/axios.min.js"></script>
+    <script src="{ms:global.contextpath/}/static/plugins/qs/6.6.0/qs.min.js"></script>
+    <script src="{ms:global.contextpath/}/static/plugins/ms/3.0/ms.umd.js"></script>
+    <script src="{ms:global.contextpath/}/static/plugins/ms/3.0/ms-el-form.umd.js"></script>
+    <script>
+        ms.base= "{ms:global.contextpath/}"
+    </script>
+    <#include "component/ms-comment.htm" />
+    <#include "component/ms-mattention.htm" />
+
 </head>
 <body>
 <#include "header.htm" />
@@ -29,7 +46,7 @@
 <div class="wrap">
     <div class="product_a anim anim-1"></div>
 </div>
-<div class="news_bg">
+<div class="news_bg" id="app">
     <div class="wrap">
         <div class="about_x anim anim-2">
             <div class="show_t">${field.title}</div>
@@ -37,13 +54,109 @@
             <div class="con_id">
                 <div>${field.content}</div>
             </div>
+            <div>
+                <el-alert title="需要集成会员插件、关注插件、评论插件下面的功能才能正常使用" type="warning" :closable="false" />
+            </div>
+            <!--文章底部交互-start-->
+            <div class="detail-bottom-interaction">
+                <ms-mattention :data-id="dataId" data-type="文章点赞" icon="icon-zan" label="${field.title}"></ms-mattention>
+                <ms-mattention :data-id="dataId" data-type="文章点踩" icon="icon-cai" label="${field.title}"></ms-mattention>
+            </div>
+            <!--文章底部交互-end-->
             <div class="prenext">上一篇：<a href="<#if pre.link !=''>{ms:global.html/}${pre.link}<#else>javascript:;</#if>">${pre.title}</a></div>
             <div class="prenext">下一篇：<a href="<#if next.link !=''>{ms:global.html/}${next.link}<#else>javascript:;</#if>">${next.title}</a></div>
         </div>
+        <!--评论容器-start-->
+
+        <div class="w-comment-div">
+
+            <!--评论-start-->
+            <ms-comment :data-id="dataId" :page-no="pageNo" :data-type="dataType" :data-title="dataTitle"></ms-comment>
+            <!--评论-end-->
+        </div>
+        <!--评论容器-end-->
     </div>
 </div>
 <!--正文end-->
 <#include "footer.htm" />
 <script language="javascript" src="/{ms:global.style/}js/foot.js"></script><!--尾部end-->
+<script>
+    var app = new Vue({
+        el: '#app',
+        component(){
+        },
+        data: {
+            searchForm: {
+                keyword: ""
+            },
+            hotSearchKeywords: [],
+            //文章商品id
+            dataId: "${field.id}",
+            //当前页数
+            pageNo: ${(page.cur)!1},
+            // 业务名称(文章标题)
+            dataTitle: "${field.title}",
+            // 业务类型
+            dataType: "文章",
+        },
+        methods: {
+        },
+        computed(){
+        },
+        created(){
+        }
+    })
+</script>
+<style>
+    .detail-bottom-interaction {
+        text-align: left;
+        flex-direction: row;
+        padding-right: 0px;
+        display: flex;
+        box-sizing: border-box;
+        margin-left: 0px;
+        min-height: 50px;
+        margin-right: 0px;
+        flex-shrink: 0;
+        width: 1280px;
+        margin-bottom: 0px;
+        padding-top: 0px;
+        padding-left: 0px;
+        margin-top: 40px;
+    }
+
+
+
+    .detail-bottom-interaction .interaction-like {
+        min-height: 50px;
+        margin-right: 20px;
+        align-items: center;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        display: flex;
+        flex-shrink: 0;
+        width: unset;
+        box-sizing: border-box;
+        margin-top: 0px;
+        height: 100%;
+    }
+
+
+
+    .detail-bottom-interaction .interaction-like .label {
+        margin-right: 5px;
+        font-size: 28PX;
+        margin-top: 0px;
+    }
+
+
+
+    .detail-bottom-interaction .interaction-like .value {
+        margin-right: 0px;
+        flex-direction: row;
+        word-wrap: break-word;
+        display: inline-block;
+    }
+</style>
 </body>
 </html>

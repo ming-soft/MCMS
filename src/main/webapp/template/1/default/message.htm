@@ -6,7 +6,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
     <meta name="robots" content="index, follow"/>
-    <title>{ms:channel type="parent"}${field.typetitle}{/ms:channel}</title>
+    <title>{ms:channel type="self"}${field.typetitle}{/ms:channel}</title>
     <meta name="keywords" content="${field.typekeyword}">
     <meta name="description" content="${field.typedescrip}">
     <meta http-equiv="Cache-Control" content="no-transform"/>
@@ -32,7 +32,7 @@
 <body>
 <#include "header.htm" />
 <div class="o_big">
-    {ms:channel type="parent"}
+    {ms:channel type="self"}
    <img src="{@ms:file field.typelitpic/}" alt="CMS,免费CMS,免费开源Java CMS,CMS系统,Java CMS,CMS内容管理系统,企业CMS,HTML网页模板,CMS模板,CMS源码,网站源码,信创系统软件,安可系统,网站建设,模板网站,建站模板,建站工具,建站平台,建站工具"/>
    <h1>${field.typetitle}</h1>
     {/ms:channel}
@@ -175,7 +175,7 @@
                                         type: 'warning'
                                     });
                                 } else {
-                                    that.$alert('需要安装留言插件才能使用，请先进入后台MStore安装留言插件使用。推荐开发者分享的<a href="http://store.mingsoft.net/#/detail?id=310&type=plugin" target="_blank" style="color:#409EFF ">留言插件</a>', '留言插件提示', {
+                                    that.$alert('需要安装留言插件才能使用，请先进入后台MStore安装留言插件使用。<a href="http://store.mingsoft.net/#/detail?id=310&type=plugin" target="_blank">查看留言插件</a>', '留言插件提示', {
                                         dangerouslyUseHTMLString: true
                                     });
                                 }

@@ -11,7 +11,7 @@
     <meta http-equiv="Cache-Control" content="no-transform"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <meta name="applicable-device" content="pc,mobile"/>
-    <link href="/favicon.ico" rel="shortcut icon"/>
+  	<link href="{@ms:file global.foot.ico/}" rel="shortcut icon"/>
     <link href="/{ms:global.style/}css/style.css" rel="stylesheet"/>
     <link href="/{ms:global.style/}css/index.css" rel="stylesheet"/>
     <script src="/{ms:global.style/}js/jquery-1.8.3.min.js"></script>
@@ -101,13 +101,13 @@
             {ms:channel  typeid="1666653706550321163" }
             <li class="anim anim-1">
                 <a href="<#if field.type==3>{ms:global.html/}${field.typeurl}<#else>{ms:global.html/}${field.typelink}</#if>" title="${field.typetitle}">
-                <div class="imgs">
-                    <img src="{@ms:file field.typeico/}" alt="${field.typetitle}">
-                </div>
-                <div class="txts">
-                    <h2 class="f28">${field.typetitle}</h2>
-                    <p>${field.typeshorttitle}...</p>
-                </div>
+                    <div class="imgs">
+                        <img src="{@ms:file field.typeico/}" alt="${field.typetitle}">
+                    </div>
+                    <div class="txts">
+                        <h2 class="f28">${field.typetitle}</h2>
+                        <p>${field.typeshorttitle}...</p>
+                    </div>
                 </a>
             </li>
             {/ms:channel}

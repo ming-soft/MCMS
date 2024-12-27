@@ -78,13 +78,18 @@
       $("body").removeClass("nav-hide");
     }
   }
-  $(window).mousewheel(function(e, delta) { //滚动条向上滚动
-      p = $(window).scrollTop();
-      if( p > $(window).height() ){
-        if (delta < 0) {
-          $("body").addClass("nav-hide");
-        } else { //上滚
-           $("body").removeClass("nav-hide");
-        }
+
+    window.onmousewheel = document.onmousewheel = document.onmousewheel = function(e){
+      e = e || window.event;
+      var delta = 0;
+      if (e.wheelDelta) {
+        delta = e.wheelDelta/120;
+      } else if (e.detail) {
+        delta = -e.detail/3;
       }
-  })
+      if (delta > 0) {
+        $("body").removeClass("nav-hide");
+      } else if (delta < 0) {
+       $("body").addClass("nav-hide");
+      }
+     }
