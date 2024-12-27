@@ -1,0 +1,1340 @@
+<script type="text/x-template" id="ms-comment">
+	<div class="comment-container">
+		<!--评论开始-->
+		<div class="article-comment">
+			<a style="width: 50px;height: 50px;margin-right: 10px;">
+				<img src="/upload/1/people/icon/1872457333638361088.png" alt="icon">
+			</a>
+			<!--输入框-start-->
+			<el-form ref="form" :model="form" :rules="rules" style="width:100%;margin-top: 5px;">
+				<el-form-item prop="commentContent" style="margin-top: -5px">
+					<el-input type="textarea" placeholder="快来评论吧~" v-model="form.commentContent">
+					</el-input>
+				</el-form-item>
+				<el-form-item>
+					<el-button style="margin-left: 40px" type="primary" plain @click="send()" :disabled="!form.commentContent">提交评论</el-button>
+				</el-form-item>
+			</el-form>
+
+			<!--输入框-end-->
+		</div>
+		<!--评论结束-->
+		<!--评论回复列表-start-->
+		<div class="messages" v-if="total>0">
+			<div class="w-commentlist-header">
+				<div class="w-commentlist-total">{{total}}条评论</div>
+			</div>
+			<!--评论列表-start-->
+			<div class="messages-item">
+				<div class="w-comment-list">
+					<!-- 评论模型 -->
+					<div v-show="flag" v-for="(item,index) in commentDataList" :key="item.id + item.parentName"
+						 style="margin-bottom: 20px;">
+						<!-- 父级评论start -->
+						<div class="w-comment-item" style="display:flex">
+							<!--头像默认用一个图标替代-start-->
+							<a class="w-comment-userpic" style="margin-right: 10px;">
+								<img class="w-user-pic" v-if="item.puIcon"
+									 :src="item.puIcon" />
+								<img class="w-user-pic" v-else
+									 src="/upload/1/people/icon/1872457333638361088.png" />
+							</a>
+							<!--头像默认用一个图标替代-end-->
+							<!--评论内容-start-->
+							<div class="w-comment-item-box">
+								<!-- 评论用户名start -->
+								<div class="w-comment-item-box-head">
+									<a class="w-comment-item-username">
+										{{item.peopleName?item.peopleName:'游客'}}
+									</a>
+								</div>
+								<!-- 评论用户名end -->
+								<!--具体评论内容-start-->
+								<div class="w-comment-item-box-content">
+									<p> {{item.commentContent}} </p>
+									<!--图片-->
+<!--									<div v-if="item.commentPicture">-->
+<!--										<template v-for="picture in JSON.parse(item.commentPicture)">-->
+<!--											<el-image-->
+<!--													style="width: 100px; height: 100px;margin: 0 10px 10px 0px"-->
+<!--													:src="`{ms:global.contextPath/}`+picture.path"-->
+<!--													:preview-src-list="item.pictureList"-->
+<!--											>-->
+<!--											</el-image>-->
+<!--										</template>-->
+<!--									</div>-->
+<!--									&lt;!&ndash;视频&ndash;&gt;-->
+<!--									<div v-if="item.commentFileJson">-->
+<!--										<template v-for="file in JSON.parse(item.commentFileJson)">-->
+<!--											<video class="video-demo">-->
+<!--												<source :src="file.path" type="video/mp4"/>-->
+<!--											</video>-->
+<!--										</template>-->
+<!--									</div>-->
+								</div>
+								<!--具体评论内容-start-->
+								<!-- 评论底部交互start -->
+								<div class="w-comment-item-box-bottom">
+									<span class="w-comment-time">{{item.commentTime}}&nbsp;&nbsp;IP 属地:{{item.commentIp}} </span>
+									<div class="w-comment-interaction">
+										<button class="w-comment-reply-btn">
+											<i class="iconfont icon-pinglun label"></i>
+											<label :for="'reply-input'+index" class="value" @click="switchShowComment(item)">
+												回复
+											</label>
+										</button>
+										<button class="w-comment-like-btn" @click="like(item)" :class="{checked:item.likeLabel=='取消'}">
+											<i class="iconfont icon-zan label"></i>
+											<span v-if="!item.likeTotal">赞</span>
+											<span class="value" v-else>
+                          {{item.likeTotal}}
+                        </span>
+										</button>
+									</div>
+								</div>
+								<!-- 评论底部交互end -->
+								<!-- 回复框start -->
+								<div class="w-comment-reply" v-show="item.showChildComment">
+									<el-input style="width: 98%;margin-right: 10px" type="text" :placeholder="'请输入回复内容'" v-model="form.replyContent"
+											  :id="'reply-input'+index">
+									</el-input>
+									<el-button @click="reply(item)" :disabled="!form.replyContent" type="primary">发送</el-button>
+								</div>
+								<!-- 回复框end -->
+							</div>
+						</div>
+						<!-- 父级评论end -->
+						<!-- 子评论列表start -->
+						<div
+								v-for="child,index in (showChildComment?item.childCommentDataLists:item.childCommentDataLists.slice(0,2))"
+								:key="child.id+child.parentName">
+							<div class="w-comment-item w-child-reply" style="display:flex">
+								<!--头像默认用一个图标替代-start-->
+								<a class="w-comment-userpic" style="margin-right: 10px;">
+									<img class="w-user-pic" v-if="child.puIcon"
+										 :src="child.puIcon" />
+									<img class="w-user-pic" v-else
+										 src="https://pic2.zhimg.com/v2-abed1a8c04700ba7d72b45195223e0ff_xl.jpg?source=32738c0c" />
+								</a>
+								<!--头像默认用一个图标替代-end-->
+								<!--评论内容-start-->
+								<div class="w-comment-item-box">
+									<!-- 评论用户名start -->
+									<div class="w-comment-item-box-head">
+										<a class="w-comment-item-username">
+											{{child.peopleName?child.peopleName:'游客'}}
+										</a>
+										<i class="el-icon-caret-right"
+										   style="font-size: 12px;color:rgb(153, 153, 153);margin: 0px 4px;"></i>
+										<a class="w-comment-item-replyname">{{child.parentName?child.parentName:'游客'}}</a>
+									</div>
+									<!-- 评论用户名end -->
+									<!--具体评论内容-start-->
+									<div class="w-comment-item-box-content">
+										<p> {{child.commentContent}} </p>
+									</div>
+									<!--具体评论内容-start-->
+									<!-- 评论底部交互start -->
+									<div class="w-comment-item-box-bottom">
+										<span class="w-comment-time">{{child.commentTime}}&nbsp;&nbsp;IP 属地:{{item.commentIp}} </span>
+										<div class="w-comment-interaction">
+											<button class="w-comment-reply-btn">
+												<i class="iconfont icon-pinglun label"></i>
+												<label class="value" :for="'child-reply'+index" @click="switchShowComment(child)">
+													回复
+												</label>
+											</button>
+											<button class="w-comment-like-btn" @click="like(child)"
+													:class="{checked:child.likeLabel=='取消'}">
+												<i class="iconfont icon-zan label"></i>
+												<span v-if="!child.likeTotal">赞</span>
+												<span class="value" v-else>
+                            {{child.likeTotal}}
+                          </span>
+											</button>
+										</div>
+									</div>
+									<!-- 评论底部交互end -->
+									<!-- 回复框start -->
+									<div class="w-comment-reply" v-show="child.showChildComment">
+										<el-input style="width: 98%;margin-right: 10px" type="text" :placeholder="'请输入回复内容'" v-model="form.replyContent"
+												  :id="'child-reply'+index">
+										</el-input>
+										<el-button @click="reply(child)" :disabled="!form.replyContent" type="primary">发送</el-button>
+									</div>
+									<!-- 回复框end -->
+								</div>
+							</div>
+						</div>
+						<!-- 子评论列表end -->
+						<!-- 当子列表大于2时出现start -->
+						<button class="w-show-other-childcomment"
+								v-if="item.childCommentDataLists.length > 2 && item.childCommentDataLists.length <= 5 && !showChildComment"
+								@click="showOtherchildComment(item)">
+							展开其他 {{item.childCommentDataLists.length - 2}} 条回复<i class="el-icon-arrow-right"></i>
+						</button>
+						<button class="w-show-other-childcomment" v-else-if="item.childCommentDataLists.length > 5"
+								@click="showAllChildComment(item)">
+							查看全部 {{item.childCommentDataLists.length}} 条回复<i class="el-icon-arrow-right"></i>
+						</button>
+						<!-- 当子列表大于2时出现end -->
+					</div>
+					<!--  -->
+					<el-dialog title="评论回复" :visible.sync="dialogTableVisible" v-if="currentComment" class="w-dialog-container"
+							   :lock-scroll="false">
+						<div class="w-dialog-reply">
+							<div class="current-comment">
+								<div class="w-comment-item" style="display:flex">
+									<!--头像默认用一个图标替代-start-->
+									<a class="w-comment-userpic" style="margin-right: 10px;">
+										<img class="w-user-pic" v-if="currentComment.puIcon"
+											 :src="currentComment.puIcon" />
+										<img class="w-user-pic" v-else
+											 src="https://pic2.zhimg.com/v2-abed1a8c04700ba7d72b45195223e0ff_xl.jpg?source=32738c0c" />
+									</a>
+									<!--头像默认用一个图标替代-end-->
+									<!--评论内容-start-->
+									<div class="w-comment-item-box">
+										<!-- 评论用户名start -->
+										<div class="w-comment-item-box-head">
+											<a class="w-comment-item-username">
+												{{currentComment.peopleName?currentComment.peopleName:'游客'}}
+											</a>
+										</div>
+										<!-- 评论用户名end -->
+										<!--具体评论内容-start-->
+										<div class="w-comment-item-box-content">
+											<p> {{currentComment.commentContent}} </p>
+										</div>
+										<!--具体评论内容-start-->
+										<!-- 评论底部交互start -->
+										<div class="w-comment-item-box-bottom">
+											<span class="w-comment-time">{{currentComment.commentTime}}&nbsp;&nbsp;IP 属地:{{item.commentIp}} </span>
+											<div class="w-comment-interaction">
+												<button class="w-comment-reply-btn">
+													<i class="iconfont icon-pinglun label"></i>
+													<label class="value" :for="'dialog-reply'+currentComment.puNickname"
+														   @click="switchShowComment(currentComment)">
+														回复
+													</label>
+												</button>
+												<button class="w-comment-like-btn" @click="like(currentComment)"
+														:class="{checked:currentComment.likeLabel=='取消'}">
+													<i class="iconfont icon-zan label"></i>
+													<span v-if="!currentComment.likeTotal">赞</span>
+													<span class="value" v-else>
+                              {{currentComment.likeTotal}}
+                            </span>
+												</button>
+											</div>
+										</div>
+										<!-- 评论底部交互end -->
+										<div class="w-comment-reply" v-show="currentComment.showChildComment">
+											<el-input style="width: 98%" type="text" :placeholder="'请输入回复内容'" v-model="form.replyContent"
+													  :id="'dialog-reply'+currentComment.puNickname">
+											</el-input>
+											<el-button @click="reply(currentComment)" :disabled="!form.replyContent" type="primary">发送
+											</el-button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="w-reply-list">
+								<div class="w-commentlist-header">
+									<div class="w-commentlist-total">{{currentComment.childCommentDataLists.length}}条回复</div>
+								</div>
+								<div class="w-reply-list-container">
+									<div class="w-reply-item" v-for="childReply,index in currentComment.childCommentDataLists"
+										 :key="childReply.id">
+										<div class="w-comment-item w-child-reply" style="display:flex">
+											<!--头像默认用一个图标替代-start-->
+											<a class="w-comment-userpic" style="margin-right: 10px;">
+												<img class="w-user-pic" v-if="childReply.puIcon"
+													 :src="childReply.puIcon" />
+												<img class="w-user-pic" v-else="childReply.puIcon"
+													 src="https://pic2.zhimg.com/v2-abed1a8c04700ba7d72b45195223e0ff_xl.jpg?source=32738c0c" />
+											</a>
+											<!--头像默认用一个图标替代-end-->
+											<!--评论内容-start-->
+											<div class="w-comment-item-box">
+												<!-- 评论用户名start -->
+												<div class="w-comment-item-box-head">
+													<a class="w-comment-item-username">
+														{{childReply.peopleName?childReply.peopleName:'游客'}}
+													</a>
+													<i class="el-icon-caret-right"
+													   style="font-size: 12px;color:rgb(153, 153, 153);margin: 0px 4px;"></i>
+													<a class="w-comment-item-replyname">{{childReply.parentName?childReply.parentName:'游客'}}</a>
+												</div>
+												<!-- 评论用户名end -->
+												<!--具体评论内容-start-->
+												<div class="w-comment-item-box-content">
+													<p> {{childReply.commentContent}} </p>
+												</div>
+												<!--具体评论内容-start-->
+												<!-- 评论底部交互start -->
+												<div class="w-comment-item-box-bottom">
+													<span class="w-comment-time">{{childReply.commentTime}}&nbsp;&nbsp;IP 属地:{{item.commentIp}} </span>
+													<div class="w-comment-interaction">
+														<button class="w-comment-reply-btn" @click="switchShowComment(childReply)">
+															<i class="iconfont icon-pinglun label"></i>
+															<label class="value" :for="'dialog-reply'+index">
+																回复
+															</label>
+														</button>
+														<button class="w-comment-like-btn" @click="like(childReply)"
+																:class="{checked:reply.likeLabel=='取消'}">
+															<i class="iconfont icon-zan label"></i>
+															<span v-if="!reply.likeTotal">赞</span>
+															<span class="value" v-else>
+                                  {{childReply.likeTotal}}
+                                </span>
+														</button>
+													</div>
+												</div>
+												<!-- 评论底部交互end -->
+												<!-- 回复框start -->
+												<div class="w-comment-reply" v-show="childReply.showChildComment">
+													<el-input style="width: 98%" type="text" :placeholder="'请输入回复内容'" v-model="form.replyContent"
+															  :id="'dialog-reply'+index">
+													</el-input>
+													<el-button @click="reply(childReply)" :disabled="!form.replyContent" type="primary">发送
+													</el-button>
+												</div>
+												<!-- 回复框end -->
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</el-dialog>
+				</div>
+			</div>
+			<!--评论列表-end-->
+			<!-- 当子列表大于2时出现start -->
+			<button class="w-show-other-comment"
+					:style="loadMoreStyle"
+					@click="showNextComment()"
+					:disabled="isMoreDisabled"
+			>
+				{{moreText}}<i class="el-icon-arrow-right"></i>
+			</button>
+			<!-- 当子列表大于2时出现end -->
+		</div>
+		<div v-else class="emptyText">
+			<span>{{emptyText}}</span>
+		</div>
+		<!--评论回复列表-end-->
+	</div>
+</script>
+<script>
+	Vue.component('ms-comment',{
+		template: "#ms-comment",
+		name: "ms-comment",
+		props:{
+			// 业务编号
+			dataId:{
+				type: String
+			},
+			// 当前页
+			pageNo:{
+				type: String
+			},
+			// 业务名称(文章标题)
+			dataTitle:{
+				type: String
+			},
+			// 业务类型
+			dataType: {
+				type: String
+			},
+		},
+		data: function(){
+			return{
+				// 加载更多控制
+				loadMoreStyle:'',
+				// 控制加在更多按钮的禁用
+				isMoreDisabled: false,
+				// 加载更多文本
+				moreText: '加载更多',
+				// 已弃用web接口，默认移除验证码校验
+				verifCode: ms.base + "/code?t=" + (new Date).getTime(),//ms.base + "/code?t=" + new Date().getTime()
+				windowScrollStyle: '',
+				flag: true,
+				commentDataList: [], //评论表列表
+				pageSize: 10, //页面数量
+				currentPage: 1, //初始页,
+				emptyText: '',
+				//总记录数量
+				total: 0,
+				form: {
+					//评论内容
+					commentContent: '',
+					//文章商品id
+					dataId: this.dataId,
+					//业务链接
+					collectionDataUrl: window.location.href,
+					//业务类型
+					dataType: this.dataType,
+					// 业务名称
+					dataTitle: this.dataTitle,
+					//回复内容
+					replyContent: '',
+					// 评论图片
+					commentPicture: [],
+					// 附件JSON
+					commentFileJson: [],
+					// 评论打分
+					commentPoints: 0
+				},
+				rules: {
+					commentContent: [{
+						// "required": true,
+						// "message": "请输入评论"
+					}]
+				},
+				isVisitor: 'false', //是否开启游客
+				// likeLabel: '点赞', //评论点赞label
+				dialogTableVisible: false,
+				showChildComment: false, //是否展开其他的子评论
+				dialogTableVisible: false,
+				// 展示当前评论的所有子评论
+				currentComment: null,
+				// 评价颜色
+				commentPointsColor: ['#99A9BF', '#F7BA2A', '#FF9900'],
+			}
+		},
+		computed: {
+			//表格最大高度 用来自适应
+			tableHeight: function () {
+				return document.documentElement.clientHeight - 171;
+			}
+		},
+		methods: {
+			// 加载更多
+			showNextComment: function () {
+				this.pageNo = this.pageNo+1
+				// 默认返回了所有数据，此方法弃用
+				// this.list()
+			},
+			//初始化评论数据
+			initCommentItem: function(data) {
+				//回复框的显示与隐藏
+				data.showChildComment = false
+				//初始化评论点赞总数
+				data.likeTotal = 0
+				//初始化评论点赞的状态
+				data.likeLabel = "点赞"
+				//初始化子评论列表
+				data.childCommentDataLists = []
+				// 查询当前评论的点赞数
+				ms.http.post( ms.base + "/attention/collectionLog/count.do", {
+					dataId: data.id,
+					dataType: '评论点赞'
+				}).then(function (res) {
+					// 将点赞数添加到data中
+					if (res.result) {
+						data.likeTotal = res.data;
+					}
+
+				})
+			},
+			//展开其他的子评论列表
+			showOtherchildComment: function(item) {
+				this.showChildComment = true
+				this.childCommentList = item.childCommentDataLists
+			},
+			//展示所有的子评论列表
+			showAllChildComment: function(item) {
+				this.dialogTableVisible = true
+				this.currentComment = item
+			},
+			//转换时间
+			dateHandler: function(millisecond) {
+				var timdedetail = millisecond; //假如是10位毫秒需要乘1000
+				//获取年份
+				var year = new Date(timdedetail).getFullYear();
+				//获取月份，获取的月份比实际小1，所以在使用的时候需要+1
+				var month = new Date(timdedetail).getMonth() + 1;
+				//获取日
+				var date = new Date(timdedetail).getDate();
+				//获取时
+				var hours = new Date(timdedetail).getHours();
+				//获取分
+				var minutes = new Date(timdedetail).getMinutes();
+				//获取秒
+				var seconds = new Date(timdedetail).getSeconds();
+				//组合格式为年-月-日 时：分：秒（2021-7-5 21:21:21）
+				var time = year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds;
+				return time
+			},
+			// 回复评论
+			reply: function (item) {
+				var that = this;
+				ms.http.post( ms.base + '/people/comment/save.do', {
+					commentId: item.id,
+					dataId: that.form.dataId,
+					commentContent: that.form.replyContent,
+					dataType: that.dataType, //业务类型
+					dataTitle: that.dataTitle,
+				}).then(function (res) {
+					if (res.result) {
+						that.form.replyContent = ""
+						item.showChildComment = false
+						that.$notify({
+							title: '成功',
+							type: 'success',
+							message: '回复成功!',
+							duration: 1000,
+							onClose: function () {
+								that.$refs.form.resetFields()
+								location.reload();
+							}
+						});
+					} else {
+						that.clearForm();
+						that.$message.error(res.msg);
+					}
+				}).catch(function (err) {
+					that.clearForm();
+					that.$notify({
+						title: '提示',
+						dangerouslyUseHTMLString: true,
+						message: '需要安装评论插件才能使用，请先进入后台MStore安装评论插件使用。<span style="color: #409EFF; text-decoration: underline;">'
+								+'<a href="http://store.mingsoft.net/#/detail?id=268&type=plugin" target="_blank">点击查看评论插件</a></span>',
+						type: 'warning'
+					});
+					console.log(err);
+				})
+
+			},
+			// 评论点赞
+			like: function (item) {
+				var that = this
+				ms.http.post( ms.base + "/people/attention/collection/save.do", {
+					dataId: item.id,
+					dataType: '评论点赞',
+					collectionDataTitle: item.commentContent,
+				}).then(function (res) {
+					if (res.data){
+						that.$message({
+							message: '点赞成功',
+							type: 'success'
+						});
+						item.likeLabel = '取消'
+					} else {
+						that.$message('取消点赞');
+						item.likeLabel = '点赞'
+					}
+					that.likeTotals(item)
+				});
+			},
+			// 评论点赞数
+			likeTotals: function (item) {
+				var that = this;
+				//用户-关注接口
+				ms.http.post( ms.base + "/attention/collection/queryCollectionCount.do", {
+					dataIds: item.id,
+					dataType: "评论点赞"
+				}).then((res) => {
+					item.likeTotal = 0;
+					if (res.data && res.data.rows.length > 0) {
+						item.likeTotal = res.data.rows[0].dataCount;
+					}
+				})
+			},
+			// 判断是否开启游客
+			// 已弃用，开发者可以自由扩展游客功能
+			enableVisitor: function () {
+				var that = this;
+				ms.http.get( ms.base + '/mdiy/config/get.do', {
+					configName: '评论配置',
+					key: 'enableVisitor'
+				}).then(function (res) {
+					if (res.result) {
+						that.isVisitor = res.data
+					}
+				})
+			},
+			hide: function (arr) {
+				var that = this
+				arr.forEach(function (x) {
+					let e = that.$el.querySelector("#key_" + x)
+					if (e) {
+						e.style.display = 'none'
+					}
+				})
+			},
+			//vue方法异步请求评论保存接口
+			send: function () {
+				var that = this;
+				that.form.dataType = that.dataType;
+				ms.http.post( ms.base + '/people/comment/save.do', that.form).then(function (res) {
+					if (res.result) {
+						that.$notify({
+							title: '成功',
+							type: 'success',
+							message: '评论成功!',
+							duration: 1000,
+							onClose: function () {
+								that.$refs.form.resetFields()
+								location.reload();
+							}
+						});
+					} else {
+						that.clearForm();
+						that.$message.error(res.msg);
+					}
+				}).catch(function (err) {
+					that.clearForm();
+					that.$notify({
+						title: '提示',
+						dangerouslyUseHTMLString: true,
+						message: '需要安装会员插件才能使用，请先进入后台MStore安装会员插件使用。<span style="color: #409EFF; text-decoration: underline;">' +
+								'<a href="http://store.mingsoft.net/#/detail?id=269&type=plugin" target="_blank">点击查看会员插件</a></span>',
+						type: 'warning'
+					});
+				})
+
+			},
+			//查询所有评论
+			list: function () {
+				var that = this;
+				ms.http.post( ms.base + '/comment/list.do', {
+					dataId: that.dataId,
+					dataType: that.dataType,
+					//当前页数
+					pageNo: that.pageNo,
+					//每页文章条数
+					pageSize: 9999,
+				}).then(function (res) {
+					if (res.result) {
+						// 所有评论
+						var allComment = res.data.rows;
+						if (allComment.length <= 0) {
+							that.emptyText = '还没有评论，发表第一个评论吧'
+						} else {
+							// 控制 加载更多按钮是否显示
+							if (allComment.length < 10){
+								// 按钮添加禁用
+								that.loadMoreStyle = "background:none #1214191a;cursor: not-allowed;"
+								// 按钮禁用
+								that.isMoreDisabled = true
+								// 更改提示信息
+								that.moreText = '已加载全部'
+							}
+							ms.http.get( ms.base + '/comment/count.do', {
+								dataId: that.dataId,
+								dataType: that.dataType
+							}).then(function (res) {
+								that.total = res.data;
+							});
+							var commentDataIds = [];
+							// 取出dataId
+							allComment.forEach(function (data) {
+								commentDataIds.push(data.id);
+							})
+							var allCommentCount = [];
+							// 先请求一遍点赞数据
+							ms.http.post( ms.base + "/attention/collection/queryCollectionCount.do", {
+								dataIds: commentDataIds.toString(),
+								dataType: '评论点赞'
+							}).then(function (res) {
+								allCommentCount = res.data;
+								allComment.forEach(function (comment) {
+									comment.likeTotal = 0;
+									comment.likeLabel = '点赞';
+									allCommentCount.rows.forEach(function (item) {
+										if (comment.id == item.dataId) {
+											comment.likeTotal = item.dataCount;
+											comment.likeLabel = item.isLike ? '取消' : '点赞';
+										}
+									})
+								})
+								// 评论数据处理
+								that.commentDataFormat(allComment);
+							}).catch(function (err) {
+								console.log(err);
+								// 异常处理，抛异常且处理评论数据格式
+								that.commentDataFormat(allComment);
+							})
+						}
+					} else{
+						that.$notify({
+							title: '失败',
+							message: res.msg,
+							type: 'warning'
+						});
+					}
+				}).catch(function (err){
+					that.$notify({
+						title: '提示',
+						dangerouslyUseHTMLString: true,
+						message: '需要安装评论插件才能使用，请先进入后台MStore安装评论插件使用。<span style="color: #409EFF; text-decoration: underline;">' +
+								'<a href="http://store.mingsoft.net/#/detail?id=268&type=plugin" target="_blank">点击查看评论插件</a></span>',
+						type: 'warning'
+					});
+				})
+			},
+			//
+			commentDataFormat: function (allComment) {
+				var that = this;
+				// 第一级评论
+				var topComment = allComment.filter(c => !c.topId || c.topId==0)
+
+				// 遍历所有评论，设置层级关系
+				topComment.forEach(function (data) {
+					// 如果有peopleInfo 取出头像
+					if (data.peopleInfo && data.peopleInfo!='{}'){
+						var peopleInfo = JSON.parse(data.peopleInfo)
+						data.puIcon = peopleInfo.puIcon;
+					}
+					// 处理ip
+					if (data.commentIp){
+						data.commentIp = JSON.parse(data.commentIp).addr;
+					}
+					//回复框的显示与隐藏
+					data.showChildComment = false
+					//初始化子评论列表
+					data.childCommentDataLists = [];
+					// 当前遍历到评论的所有子评论
+					var childComments = allComment.filter(item => item.topId && item.topId==data.id)
+
+					childComments.forEach(function (childData) {
+						// 子评论头像
+						if (childData.peopleInfo && childData.peopleInfo!='{}'){
+							var peopleInfo = JSON.parse(childData.peopleInfo)
+							childData.puIcon = peopleInfo.puIcon;
+						}
+						// 处理ip
+						if (childData.commentIp){
+							childData.commentIp = JSON.parse(childData.commentIp).addr;
+						}
+						//回复框的显示与隐藏
+						childData.showChildComment = false
+						// 如果父评论为顶级评论则直接赋值
+						if (childData.commentId == data.id){
+							childData.parentName = data.peopleName;
+						} else {
+							// 找到当前遍历子评论的父评论
+							var parentComment = childComments.find(function (item) {
+								return item.id == childData.commentId;
+							})
+							if (parentComment){
+								childData.parentName = parentComment.peopleName;
+							}
+						}
+						// 将处理完的数据push到顶级评论的子集中
+						data.childCommentDataLists.push(childData);
+					});
+					// 存放顶级评论
+					that.commentDataList.push(data)
+				});
+			},
+			// 清理评论表单数据
+			clearForm: function () {
+				var that = this;
+				that.$refs.form.resetFields();
+			},
+			show: function (arr) {
+				var that = this
+				arr.forEach(function (x) {
+					let e = that.$el.querySelector("#key_" + x)
+					if (e) {
+						e.style.display = 'flex'
+					}
+				})
+			},
+			//切换回复框
+			switchShowComment: function(comment) {
+				if (comment.showChildComment) comment.showChildComment = !comment.showChildComment
+				else {
+					this.commentDataList.forEach((item) => {
+						item.showChildComment = false;
+						item.childCommentDataLists.forEach((child) => {
+							child.showChildComment = false;
+						})
+					})
+					comment.showChildComment = true
+				}
+			},
+			switchShow: function (arr) {
+				var that = this
+				arr.forEach(function (x) {
+					let e = that.$el.querySelector("#key_" + x)
+					if (e) {
+						e.style.display = e.style.display == 'none' ? 'flex' : 'none'
+					}
+				})
+			},
+			windowScroll: function() {
+				// 滚动条距离页面顶部的距离
+				// 以下写法原生兼容
+				let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+				if (scrollTop > 200) {
+					this.windowScrollStyle = "rgba(255, 255, 255, 1)"
+				} else {
+					this.windowScrollStyle = "rgba(255, 255, 255, 0.4)"
+				}
+			},
+			// 验证码 看不清换一张
+			code: function () {
+				this.verifCode = ms.base + "/code?t=" + (new Date).getTime();//
+			},
+			// 移除图片交互效果
+			commentPictureHandRemove: function (file, files) {
+				var index = -1;
+				index = this.form.commentPicture.findIndex(function (text) {
+					return text == file;
+				});
+
+				if (index != -1) {
+					this.form.commentPicture.splice(index, 1);
+				}
+			},
+			//上传超过限制
+			commentPictureHandExceed: function (files, fileList) {
+				this.$notify({
+					title: '失败',
+					message: '当前最多上传5张图片',
+					type: 'warning'
+				});
+			},
+			// 上传图片成功后
+			successImg: function (response, file, fileList) {
+				var that = this;
+				if(response.result){
+					that.form.commentPicture.push({
+						url: response.data,
+						name: file.name,
+						uid: file.uid,
+					});
+				}else {
+					this.$notify({
+						title: '失败',
+						message: response.msg,
+						type: 'warning'
+					});
+				}
+			},
+			// 附件上传
+			// 点击已上传文件
+			fileHandlePreview: function (file){
+				console.log(file);
+			},
+			// 移除附件前
+			beforeRemove: function (file, fileList){
+				return this.$confirm(`确定移除 ${ file.name }？`);
+			},
+			// 移除附件
+			handleRemove: function (file,fileList){
+				var fileJsonList = this.form.commentFileJson;
+				this.form.commentFileJson = fileJsonList.filter(function (fileJson){
+					return fileJson.uid != file.uid;
+				})
+			},
+			// 超出限制
+			fileHandleExceed: function (files, fileList){
+				this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+			},
+			// 上传附件成功后
+			successFile: function (response, file, fileList) {
+				var that = this;
+				if(response.result){
+					that.form.commentFileJson.push({
+						url: response.data,
+						name: file.name,
+						uid: file.uid,
+					});
+				}else {
+					this.$notify({
+						title: '失败',
+						message: response.msg,
+						type: 'warning'
+					});
+				}
+			},
+			// 视频播放
+			playVideo: function (){
+				var myVideo = document.getElementsByClassName("video-demo");
+				if (myVideo.paused)
+					myVideo.play();
+				else
+					myVideo.pause();
+			}
+		},
+		created: function () {
+			this.list();
+			this.enableVisitor();
+		},
+		mounted: function () {
+			window.addEventListener('scroll', this.windowScroll)
+		},
+		beforeDestroy: function () {
+			window.removeEventListener('scroll', this.windowScroll)
+		}
+	})
+</script>
+<style scoped>
+	.thumbsUpchecked {
+		color: #06f;
+
+	}
+
+	.w-show-other-comment{
+		width: 50%;
+		display: inline-block;
+		font-size: 14px;
+		line-height: 32px;
+		text-align: center;
+		cursor: pointer;
+		background: none rgba(133, 144, 166, 0.1);
+		border: 1px solid transparent;
+		border-radius: 3px;
+		margin: 10px 0px 10px 150px;
+		padding: 0px 6px 0px 12px;
+		height: 32px;
+		color: rgb(133, 144, 166);
+		font-weight: 500;
+	}
+
+	.emptyText {
+		display: flex;
+		width: 50%;
+		min-height: 100px;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		border: 1px solid #c1c1c1;
+		border-radius: 2px;
+		font-size: 20px;
+		color: rgb(133, 144, 166);
+		margin-bottom: 40px;
+	}
+
+	.messages {
+		margin-bottom: 10px;
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		width: 50%;
+		border: 1px solid rgb(235, 235, 235);
+		border-radius: 4px;
+		box-sizing: border-box;
+	}
+
+	.messages a:hover {
+		cursor: pointer;
+		color: #444444;
+	}
+
+	.messages .w-comment-list {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	.messages .w-comment-list .w-show-other-childcomment {
+		display: inline-block;
+		font-size: 14px;
+		line-height: 32px;
+		text-align: center;
+		cursor: pointer;
+		background: none rgba(133, 144, 166, 0.1);
+		border: 1px solid transparent;
+		border-radius: 3px;
+		margin: 10px 0px 10px 54px;
+		padding: 0px 6px 0px 12px;
+		height: 32px;
+		color: rgb(133, 144, 166);
+		font-weight: 500;
+	}
+
+	.messages .w-commentlist-header {
+		box-sizing: border-box;
+		position: relative;
+		flex: 0 0 auto;
+		padding-left: 20px;
+		padding-right: 20px;
+		height: 50px;
+		-webkit-box-align: center;
+		align-items: center;
+		-webkit-box-pack: justify;
+		justify-content: space-between;
+		display: flex;
+	}
+
+	.messages .w-commentlist-header::before {
+		display: block;
+		content: " ";
+		position: absolute;
+		inset: -50%;
+		pointer-events: none;
+		transform: scale(0.5, 0.5);
+		border-bottom: 1px solid rgb(235, 235, 235);
+	}
+
+	.messages .w-commentlist-header .w-commentlist-total {
+		box-sizing: border-box;
+		margin: 0px;
+		min-width: 0px;
+		font-size: 15px;
+		color: rgb(68, 68, 68);
+		font-weight: 600;
+	}
+
+	.messages .w-comment-item {
+		box-sizing: border-box;
+		display: flex;
+		padding: 10px 20px 14px;
+	}
+
+	.w-comment-item .w-comment-userpic {
+		box-sizing: border-box;
+		margin: 0px;
+		min-width: 0px;
+		color: rgb(23, 81, 153);
+		flex: 0 0 auto;
+		height: 24px;
+		width: 24px;
+	}
+
+	.w-comment-item .w-comment-userpic .w-user-pic {
+		box-sizing: border-box;
+		max-width: 100%;
+		background-color: rgb(255, 255, 255);
+		width: 24px;
+		height: 24px;
+		border-radius: 2px;
+		filter: brightness(0.95);
+		flex: 0 0 auto;
+	}
+
+	.messages .w-comment-item-box-head {
+		display: flex;
+		align-items: center;
+	}
+
+	.messages .w-comment-item-box-head .w-comment-item-username,
+	.messages .w-comment-item-box-head .w-comment-item-replyname {
+		box-sizing: border-box;
+		margin: 0px;
+		min-width: 0px;
+		font-size: 15px;
+		font-weight: bold;
+		text-decoration: none;
+		color: #444444;
+	}
+
+	.messages .w-comment-item-box {
+		width: 100%;
+	}
+
+	.messages .w-comment-item-box .w-comment-reply {
+		box-sizing: border-box;
+		margin: 8px 0px 0px;
+		min-width: 0px;
+		flex: 1 1 auto;
+		display: flex;
+	}
+
+	.messages .w-comment-item-box-content {
+		color: rgb(68, 68, 68);
+		overflow-wrap: break-word;
+		font-size: 15px;
+		line-height: 21px;
+		margin-top: 5px;
+		box-sizing: border-box;
+	}
+
+	.messages .w-comment-item-box-bottom {
+		box-sizing: border-box;
+		margin: 4px 0px 0px;
+		min-width: 0px;
+		-webkit-box-align: center;
+		align-items: center;
+		-webkit-box-pack: justify;
+		justify-content: space-between;
+		display: flex;
+	}
+
+	.messages .w-comment-item-box-bottom .w-comment-time {
+		box-sizing: border-box;
+		margin: 0px;
+		min-width: 0px;
+		-webkit-box-align: center;
+		align-items: center;
+		flex: 0 0 auto;
+		font-size: 14px;
+		color: rgb(153, 153, 153);
+		display: flex;
+	}
+
+	.w-comment-interaction button {
+		margin-left: 16px;
+	}
+
+	.w-comment-interaction .w-comment-reply-btn {
+		display: inline-block;
+		padding: 0px;
+		font-size: 14px;
+		line-height: inherit;
+		color: rgb(133, 144, 166);
+		text-align: center;
+		cursor: pointer;
+		background: none transparent;
+		border: none;
+		border-radius: 0px;
+		height: auto;
+	}
+
+	.w-comment-interaction .w-comment-reply-btn label {
+		cursor: pointer;
+	}
+
+	.w-comment-interaction .w-comment-like-btn {
+		display: inline-block;
+		padding: 0px;
+		font-size: 14px;
+		line-height: inherit;
+		color: rgb(133, 144, 166);
+		text-align: center;
+		cursor: pointer;
+		background: none transparent;
+		border: none rgb(133, 144, 166);
+		border-radius: 0px;
+		height: auto;
+	}
+
+	.w-comment-interaction .checked {
+		color: rgb(0, 97, 242);
+	}
+
+	.messages .w-child-reply {
+		padding: 10px 20px 14px 54px;
+	}
+
+	/* 弹出全部回复 */
+	.w-dialog-container {
+		overflow: hidden auto;
+		z-index: 2001;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		position: fixed;
+	}
+
+	.el-dialog__title {
+		box-sizing: border-box;
+		margin: 0px;
+		min-width: 0px;
+		color: rgb(68, 68, 68);
+		font-weight: 600;
+	}
+
+	.el-dialog__body {
+		overflow-y: scroll;
+		padding: 0;
+
+	}
+
+
+	.current-comment {
+		border-top: 1px solid rgb(235, 235, 235);
+		border-bottom: 20px solid rgba(133, 144, 166, 0.1);
+		padding: 20px;
+	}
+
+	.current-comment .w-comment-item {
+		padding: 0;
+	}
+
+	.el-dialog {
+		margin-top: 0 !important;
+		height: calc(100vh - 48px);
+		display: flex;
+		flex-direction: column;
+		position: relative;
+		z-index: 1;
+		box-sizing: border-box;
+		max-height: calc(100vh - 48px);
+		box-sizing: border-box;
+		margin: 0 auto;
+		width: 700px;
+	}
+
+	.w-reply-list-container .w-reply-item {
+		padding: 20px;
+	}
+
+	.w-reply-list-container .w-reply-item .w-child-reply {
+		padding: 0;
+	}
+
+	.w-reply-bottom-input {
+		box-sizing: border-box;
+		margin: 0px;
+		min-width: 0px;
+		display: flex;
+		flex: 0 0 auto;
+		padding: 10px 20px;
+		box-shadow: rgb(18 18 18 / 12%) 0px -1px 3px;
+	}
+
+	.w-reply-bottom-input .w-avatar {
+		box-sizing: border-box;
+		margin: 0px 10px 0px 0px;
+		min-width: 0px;
+		max-width: 100%;
+		background-color: rgb(255, 255, 255);
+		width: 40px;
+		height: 40px;
+		border-radius: 3px;
+	}
+	.comment-container {
+		width: 100%;
+	}
+
+	.comment-container .article-comment {
+		display: flex;
+		box-sizing: border-box;
+		border-top-left-radius: 0px;
+		padding-bottom: 12px;
+		flex-wrap: nowrap;
+		border-bottom-left-radius: 0px;
+		width: 50%;
+		border-bottom-right-radius: 0px;
+		margin-bottom: 0px;
+		border-top-right-radius: 0px;
+		padding-top: 12px;
+		margin-top: 30px;
+	}
+
+	.article-comment>span {
+		padding-bottom: 0px;
+		color: #333333;
+		flex-direction: row;
+		word-wrap: break-word;
+		display: inline-block;
+		padding-right: 0px;
+		width: 100%;
+		font-size: 32PX;
+		margin-bottom: 6px;
+		padding-top: 0px;
+		padding-left: 0px;
+		margin-top: 0px;
+	}
+
+	.article-comment .ms-input {
+		border-color: #DCDFE6;
+		background-color: #FFFFFF;
+		align-items: center;
+		flex-direction: row;
+		display: flex;
+		padding-right: 4px;
+		box-sizing: border-box;
+		justify-content: space-between;
+		border-top-left-radius: 2px;
+		padding-bottom: 0px;
+		flex-wrap: nowrap;
+		border-bottom-left-radius: 2px;
+		border-width: 1px;
+		width: 100%;
+		border-bottom-right-radius: 2px;
+		border-top-right-radius: 2px;
+		margin-bottom: 0px;
+		padding-top: 0px;
+		border-style: solid;
+		padding-left: 4px;
+		margin-top: 0px;
+		height: 100px;
+	}
+
+	.article-comment .ms-input span {
+		color: #DCDFE6;
+		flex-direction: row;
+		word-wrap: break-word;
+		display: inline-block;
+		padding-right: 0px;
+		border-top-left-radius: 0px;
+		padding-bottom: 0px;
+		border-bottom-left-radius: 0px;
+		border-bottom-right-radius: 0px;
+		border-top-right-radius: 0px;
+		font-size: 14PX;
+		padding-top: 0px;
+		padding-left: 0px;
+	}
+
+	.article-comment>.post-comment {
+		cursor: pointer;
+		background-color: #0099ff;
+		color: #FFFFFF;
+		text-align: center;
+		display: inline-block;
+		padding-right: 20px;
+		box-sizing: border-box;
+		border-top-left-radius: 8px;
+		padding-bottom: 0px;
+		border-bottom-left-radius: 8px;
+		border-bottom-right-radius: 8px;
+		line-height: 42px;
+		font-size: 16px;
+		margin-bottom: 0px;
+		border-top-right-radius: 8px;
+		padding-top: 0px;
+		padding-left: 20px;
+		margin-top: 10px;
+		height: 42px;
+	}
+
+	.article-comment>.hot-comment {
+		padding-bottom: 0px;
+		flex-wrap: nowrap;
+		flex-direction: column;
+		display: flex;
+		padding-right: 0px;
+		width: 100%;
+		box-sizing: border-box;
+		padding-top: 0px;
+		padding-left: 0px;
+		justify-content: center;
+		margin-top: 20px;
+	}
+
+	.article-comment>.hot-comment span {
+		flex-direction: row;
+		word-wrap: break-word;
+		display: inline-block;
+		width: 100%;
+		font-size: 16PX;
+		line-height: 36px;
+		margin-top: 0px;
+		height: 36px;
+	}
+
+	.article-comment>.hot-comment div {
+		padding-bottom: 0px;
+		flex-wrap: nowrap;
+		flex-direction: row;
+		display: flex;
+		padding-right: 0px;
+		width: 100%;
+		box-sizing: border-box;
+		padding-top: 0px;
+		padding-left: 0px;
+		margin-top: 12px;
+		height: 100px;
+	}
+
+	.article-comment>.hot-comment div img {
+		width: 100%;
+		margin-top: 0px;
+		height: 100%;
+	}
+
+	.el-upload--picture-card i {
+		line-height: unset !important;
+	}
+
+</style>

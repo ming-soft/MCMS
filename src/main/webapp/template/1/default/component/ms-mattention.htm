@@ -1,0 +1,122 @@
+<script type="text/x-template" id="ms-mattention">
+	<div class="interaction-like interaction-btn" :class="{thumbsUpchecked:thumbsUp == true}">
+		<i :class="icon" @click="saveAttention()"></i>
+		<span class="value">
+            {{attentionTotal}}
+		</span>
+	</div>
+</script>
+<script>
+	Vue.component('ms-mattention',{
+		template: "#ms-mattention",
+		name: "ms-mattention",
+		props:{
+			// 业务编号
+			dataId:{
+				type: String
+			},
+			// 类型
+			dataType:{
+				type: String
+			},
+			// 图标
+			icon:{
+				type: String
+			},
+			// 标题
+			label:{
+				type: String
+			}
+		},
+		data: function(){
+			return{
+				// 数量
+				attentionTotal: 0,
+				thumbsUp: false,
+			}
+		},
+		methods: {
+			// 保存
+			saveAttention: function () {
+				var that = this
+				ms.http.post( ms.base + "/people/attention/collection/save.do", {
+					dataId: that.dataId,
+					dataType: that.dataType,
+					collectionDataTitle: that.label,
+				}).then(function (res) {
+					if (res.result) {
+						that.attentionTotals(that.dataType)
+						that.thumbsUp = res.data;
+					}
+				});
+			},
+			// 关注数量
+			attentionTotals: function (dataType) {
+				var that = this;
+				//用户-关注接口
+				ms.http.post(ms.base + "/attention/collection/queryCollectionCount.do", {
+					dataIds: that.dataId,
+					dataType: dataType
+				}).then(function (res) {
+					if(res.result && res.data.rows.length > 0){
+						that.attentionTotal = 0;
+						res.data.rows.forEach(function (item) {
+							if (item.dataId == that.dataId) {
+								that.attentionTotal = item.dataCount;
+								if (item.isLike) {
+									that.thumbsUp = item.isLike;
+								}
+							}
+						})
+					} else {
+						that.attentionTotal = 0
+					}
+				}).catch(function (err) {
+					that.$notify({
+						title: '提示',
+						dangerouslyUseHTMLString: true,
+						message: '需要安装关注插件才能使用，请先进入后台MStore安装关注插件使用。<span style="color: #409EFF; text-decoration: underline;">'
+								+'<a href="http://store.mingsoft.net/#/detail?id=265&type=plugin" target="_blank">点击查看关注插件</a></span>',
+						type: 'warning'
+					});
+				})
+			},
+		},
+		created: function () {
+			this.icon = "iconfont "+this.icon+" label"
+			this.attentionTotals(this.dataType)
+		}
+	})
+</script>
+<style scoped>
+	.news-detail .detail-bottom-interaction .interaction-like {
+		min-height: 50px;
+		margin-right: 20px;
+		align-items: center;
+		flex-wrap: nowrap;
+		flex-direction: row;
+		display: flex;
+		flex-shrink: 0;
+		width: unset;
+		box-sizing: border-box;
+		margin-top: 0px;
+		height: 100%;
+	}
+
+	.news-detail .detail-bottom-interaction .interaction-like .label {
+		margin-right: 5px;
+		font-size: 28PX;
+		margin-top: -8px;
+	}
+
+	.news-detail .detail-bottom-interaction .interaction-like .value {
+		margin-right: 0px;
+		flex-direction: row;
+		word-wrap: break-word;
+		display: inline-block;
+	}
+
+	.interaction-btn {
+		cursor: pointer;
+	}
+</style>
