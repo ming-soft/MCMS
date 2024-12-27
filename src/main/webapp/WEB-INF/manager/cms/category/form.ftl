@@ -433,7 +433,9 @@
                     // 文章管理的内容模型id
                     mdiyModelId: '',
                     //栏目字典
-                    categoryFlag: []
+                    categoryFlag: [],
+                    // 拓展字段类型
+                    isChild: 'cms'
                 },
                 categoryTypeOptions: [{
                     "value": "1",
@@ -607,8 +609,8 @@
 
                         data.categoryImg = JSON.stringify(data.categoryImg);
                         data.categoryIco = JSON.stringify(data.categoryIco);
-                        ms.http.post(url, data).then(function (data) {
-                            if (data.result) {
+                        ms.http.post(url, data).then(function (res) {
+                            if (res.result) {
 
                                 that.$notify({
                                     title: '成功',
@@ -622,7 +624,7 @@
                             } else {
                                 that.$notify({
                                     title: '失败',
-                                    message: data.msg,
+                                    message: res.msg,
                                     type: 'warning'
                                 });
                             }
@@ -672,7 +674,7 @@
                         if (res.data.categoryImg) {
                             res.data.categoryImg = JSON.parse(res.data.categoryImg);
                             res.data.categoryImg.forEach(function (value) {
-                                value.url = ms.base + value.path;
+                                value.url = ms.base + value.url;
                             });
                         } else {
                             res.data.categoryImg = [];
@@ -680,7 +682,7 @@
                         if (res.data.categoryIco) {
                             res.data.categoryIco = JSON.parse(res.data.categoryIco);
                             res.data.categoryIco.forEach(function (value) {
-                                value.url = ms.base + value.path;
+                                value.url = ms.base + value.url;
                             });
                         } else {
                             res.data.categoryIco = [];
@@ -743,9 +745,8 @@
             categoryImgSuccess: function (response, file, fileList) {
                 if (response.result) {
                     this.form.categoryImg.push({
-                        url: file.url,
+                        url: response.data,
                         name: file.name,
-                        path: response.data,
                         uid: file.uid
                     });
                 } else {
@@ -782,9 +783,8 @@
             categoryIcoSuccess: function (response, file, fileList) {
                 if (response.result) {
                     this.form.categoryIco.push({
-                        url: file.url,
+                        url: response.data,
                         name: file.name,
-                        path: response.data,
                         uid: file.uid
                     });
                 } else {

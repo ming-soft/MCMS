@@ -134,9 +134,16 @@
     var contentList = Vue.defineComponent({
         template: '#content-main',
         props:["categoryId","leaf"],
+        provide() {
+            return {
+                searchParent: this //筛选使用
+            };
+        },
         data: function () {
             return {
-                searchJson: [{
+
+                searchJson: [
+                   {
                     action: 'and',
                     field: 'content_title',
                     el: 'eq',
@@ -152,9 +159,9 @@
                     type: 'input'
                 }, {
                     action: 'and',
-                    field: 'category_id',
+                    field: 'ct.category_id',
                     el: 'eq',
-                    model: 'categoryId',
+                    model: 'contentCategoryId',
                     name: '所属栏目',
                     key: 'id',
                     title: 'categoryTitle',

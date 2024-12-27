@@ -166,6 +166,7 @@
                                     </el-form-item>
                                 </el-col>
                             </el-row>
+
                             <el-row
                                     :gutter=0
                                     justify="start" align="top">
@@ -209,6 +210,7 @@
                                                 :action="ms.manager+'/file/upload.do'"
                                                 :on-remove="contentImghandleRemove"
                                                 :style="{width:''}"
+                                                :multiple=true
                                                 :limit="10"
                                                 :on-exceed="contentImghandleExceed"
                                                 :disabled="false"
@@ -222,7 +224,7 @@
                                             <template #tip>
                                                 <div class="ms-form-tip">
                                                     标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'{@ms:file field.litpic/}'}</a><br/>
-                                                    最多可上传10张图片，文章缩略图,支持jpg格式；多图情况下，{@ms:file field.litpic/}会只取第一张缩略图，其他用法参考文档arclist标签
+                                                    一次可上传多张图片，最多可上传10张图片，文章缩略图,支持jpg格式；多图情况下，{@ms:file field.litpic/}会只取第一张缩略图，其他用法参考文档arclist标签
                                                 </div>
                                             </template>
                                         </el-upload>
@@ -284,7 +286,7 @@
                             </el-form-item>
                         </el-form>
                         <div :id="'model'+index" v-else>
-                            <ms-mdiy-form v-if="modelName!=null" ref="modelForm" type="model" :model-name="modelName" :model-id="modelId" :id="form.id"></ms-mdiy-form>
+                            <ms-mdiy-form v-if="modelId!=null" ref="modelForm" type="model" :model-id="modelId" :id="form.id"></ms-mdiy-form>
                         </div>
                     </el-tab-pane>
                 </el-tabs>
@@ -310,7 +312,6 @@
                 activeName: 'form',
                 //自定义模型实例
                 model: undefined,
-                modelName:null,
                 modelId:null,
                 editableTabs: [{
                     title: '文章编辑',
@@ -363,6 +364,7 @@
                     //文章外链接
                     contentOutLink: '',
                     contentDatetime: ms.util.date.fmt(Date.now(),"yyyy-MM-dd hh:mm:ss"),
+                    id:"",
                 },
                 contentTypeOptions: [],
                 contentTagsOptions: [],
@@ -391,7 +393,7 @@
                     }],
                     // 文章外链接
                     contentOutLink: [{
-                        "pattern":/(((http|ftp|https):\/\/)?)([a-zA-Z0-9.-])\/[a-zA-Z0-9&%.\/-~-]*/,
+                        "pattern":'^((https|http|ftp|rtsp|mms){0,1}(:\/\/){0,1})(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$',
                         "message":"文章外链接格式不匹配"},{"min":0,"max":200,"message":"文章外链接长度必须为0-200"}],
                     // 文章标签
                     contentTags: [{
@@ -427,7 +429,6 @@
 
             async save () {
                 var that = this; //自定义模型需要验证
-
 
 
                 let formValid = false;
@@ -480,6 +481,8 @@
                         data.contentImg = JSON.stringify(data.contentImg);
                         ms.http.post(url, data).then(function (res) {
                             if (res.result) {
+                                // 接受保存的文章id 避免新增单篇栏目保存不刷新时 再次修改造成多次保存
+                                that.form.id = res.data.id
                                 if(that.$refs.modelForm && that.$refs.modelForm.length > 0) {
                                     that.$refs.modelForm[0].$refs.form.form.linkId = res.data.id;
                                     that.$refs.modelForm[0].getForm().save(function (resModel) {
@@ -600,11 +603,10 @@
 
                 //如果存在自定义模型
                 if(_category.length == 1 && _category[0].mdiyModelId) {
+                    that.editableTabs.push({title: '加载中...',name: 'custom-name'});
                     ms.http.get(ms.manager + "/mdiy/model/get.do", {id: _category[0].mdiyModelId}).then(function (res) {
                         if (res.result && res.data) {
-                            that.editableTabs.push({title: '加载中...',name: 'custom-name'});
                             that.modelId = res.data.id;
-                            that.modelName = res.data.modelName;
                             that.editableTabs[1].title = res.data.modelName
                         }
                     });
@@ -636,7 +638,7 @@
                         if (res.data.contentImg && res.data.contentImg != '') {
                             res.data.contentImg = JSON.parse(res.data.contentImg);
                             res.data.contentImg.forEach(function (value) {
-                                value.url = ms.base + value.path;
+                                value.url = ms.base + value.url;
                             });
                         } else {
                             res.data.contentImg = [];
@@ -674,7 +676,7 @@
                             if (res.data.contentImg) {
                                 res.data.contentImg = JSON.parse(res.data.contentImg);
                                 res.data.contentImg.forEach(function (value) {
-                                    value.url = ms.base + value.path;
+                                    value.url = ms.base + value.url;
                                 });
                             } else {
                                 res.data.contentImg = [];
@@ -731,7 +733,7 @@
             //获取contentType数据源
             contentTypeOptionsGet: function () {
                 var that = this;
-                ms.http.get(ms.base + '/mdiy/dict/list.do', {
+                ms.http.get(ms.manager +'/mdiy/dict/list.do', {
                     dictType: '文章属性',
                     pageSize: 99999
                 }).then(function (data) {
@@ -746,7 +748,7 @@
             //获取contentTag数据源
             contentTagsOptionsGet: function () {
                 var that = this;
-                ms.http.get(ms.base + '/mdiy/dict/list.do', {
+                ms.http.get(ms.manager  + '/mdiy/dict/list.do', {
                     dictType: '文章标签',
                     pageSize: 99999
                 }).then(function (data) {
@@ -760,9 +762,8 @@
             contentImgSuccess: function (response, file, fileList) {
                 if(response.result){
                     this.form.contentImg.push({
-                        url: file.url,
+                        url: response.data,
                         name: file.name,
-                        path: response.data,
                         uid: file.uid
                     });
 
@@ -805,9 +806,6 @@
                     message: '当前最多上传10个文件',
                     type: 'warning'
                 });
-            },
-            contentImgHandLePreview:function (file) {
-                window.open(file.url)
             },
             //只有在渲染完栏目数据之后才会初始化
             init: function () {
@@ -852,6 +850,7 @@
                     clipboard.destroy();
                 });
             },
+
         },
         created: function () {
             this.contentCategoryIdOptionsGet();

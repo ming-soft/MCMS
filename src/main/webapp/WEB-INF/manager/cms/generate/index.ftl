@@ -16,133 +16,165 @@
                 class="ms-alert-tip"
                 title="提示"
                 type="info">
-             如果需要使用自动静态化的功能，即文章发布后会自动进行更新，简单的可以采用MStore 的<a href='http://store.mingsoft.net/#/detail?id=290&type=plugin' target="_blank">自动静态化插件</a>，如果需要更好的静态化性能可以考虑选购企业级<a href="https://www.mingsoft.net/banben.html" target="_blank">版本</a>
+            如果需要使用自动静态化的功能，即文章发布后会自动进行更新，简单的可以采用MStore 的<a href='http://store.mingsoft.net/#/detail?id=290&type=plugin' target="_blank">自动静态化插件</a>，如果需要更好的静态化性能可以考虑选购企业级<a href="https://www.mingsoft.net/banben.html" target="_blank">版本</a>
         </el-alert>
 
 
-    <el-form ref="form" label-width="100px" size="default">
+        <el-form ref="form" label-width="100px" size="default" label-position="top">
 
-        <div class="class-2" >
-            <div class="class-3 panel" >
-                <div class="class-4" >
-                    <el-form-item label="主页模板" >
-                        <el-select v-model="template"
-                                   :filterable="true"
-                                   :clearable="false"
-                                   placeholder="请选择主页模板">
-                            <el-option v-for='item in templateOptions' :key="item" :value="item"
-                                       :label="item"></el-option>
-                        </el-select>
-                        <div class="ms-form-tip">
-                            一般选择<i>index.htm</i>模板
-                        </div>
-                    </el-form-item>
-                </div>
-                <div class="class-7" >
-                    <el-form-item label="主页位置">
-                        <el-input v-model="position"
-                                  :disabled="false"
-                                  :style="{width:  '100%'}"
-                                  :clearable="true"
-                                  placeholder="请输入主页位置">
-                        </el-input>
-                        <div class="ms-form-tip">
-                            一般为index.html或default.html,
-                            如果是<i>引导页面->首页</i>，可以手动调整主页模板与主页设置，先生成引导页，再生成首页。一般default.html为引导页面index.html为主页(需要服务器容器配置好对应默认页)。<br/>
-                            点击“预览主页”可跳转到网站首页进行预览网站首页<br/>
-                            不能选择有分页标签的页面生成，例如news-list.htm、search.htm<br/>
-                            如果下拉没有出现模板，请检查应用设置是否绑定了模板<br/>
-                        </div>
-                    </el-form-item>
-                </div>
-                <div class="class-10" >
-                    <el-form-item>
-                        <@shiro.hasPermission name="cms:generate:index">
-                            <el-button type="primary" @click="updataIndex" :loading="homeLoading">{{homeLoading?'更新中':'生成主页'}}</el-button>
-                        </@shiro.hasPermission>
-                            <el-button plain @click="viewIndex">预览主页</el-button>
-                    </el-form-item>
-                </div>
-            </div>
-            <div class="class-13 panel" >
-                <div class="class-14" >
-                    <el-form-item label="文章栏目">
-                        <el-tree-select
-                                v-model="contentSection"
-                                :data="treeList"
-                                :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
-                                :render-after-expand="false"
-                                :check-strictly="true"
-                                :default-expand-all="true"
-                                placeholder="请选择文章栏目"
-                                filterable
-                        ></el-tree-select>
-                        <div class="ms-form-tip">
-                            生成指定栏目下的文章内容
-                        </div>
-                    </el-form-item>
-                </div>
-                <div class="class-17" >
-                    <el-form-item label="指定时间">
-                        <el-date-picker
-                                v-model="time"
-                                placeholder="请选择指定时间"
-                                start-placeholder=""
-                                en.class-3d-placeholder=""
-                                :readonly="false"
-                                :disabled="false"
-                                :editable="false"
-                                :clearable="false"
-                                format="YYYY-MM-DD"
-                                value-format="YYYY-MM-DD"
-                                :style="{width:'100%'}"
-                                type="date">
-                        </el-date-picker>
-                        <div class="ms-form-tip">
-                            根据内容的更新时间来生成，例如：2021-01-01，则生成21年01月01号以后更新过的文章，如果遇到内容没有生成或者内容样式没有更新可以调整时间
-                        </div>
-                    </el-form-item>
-                </div>
-                <div class="class-20" >
-                    <@shiro.hasPermission name="cms:generate:article">
-                        <el-form-item>
-                            <el-button type="primary" @click="updateArticle" :loading="articleLoading">{{articleLoading?'更新中':'生成文章'}}</el-button>
+            <div class="class-2" >
+                <div class="class-3 panel" >
+                    <div class="class-4" >
+                        <el-form-item label="主页模板" >
+                            <el-select v-model="template"
+                                       :filterable="true"
+                                       :clearable="false"
+                                       placeholder="请选择主页模板">
+                                <el-option v-for='item in templateOptions' :key="item" :value="item"
+                                           :label="item"></el-option>
+                            </el-select>
+                            <div class="ms-form-tip">
+                                一般选择<i>index.htm</i>模板
+                            </div>
                         </el-form-item>
-                    </@shiro.hasPermission>
-
+                    </div>
+                    <div class="class-7" >
+                        <el-form-item label="主页位置">
+                            <el-input v-model="position"
+                                      :disabled="false"
+                                      :style="{width:  '100%'}"
+                                      :clearable="true"
+                                      placeholder="请输入主页位置">
+                            </el-input>
+                            <div class="ms-form-tip">
+                                一般为index.html或default.html,
+                                如果是<i>引导页面->首页</i>，可以手动调整主页模板与主页设置，先生成引导页，再生成首页。一般default.html为引导页面index.html为主页(需要服务器容器配置好对应默认页)。<br/>
+                                点击“预览主页”可跳转到网站首页进行预览网站首页<br/>
+                                不能选择有分页标签的页面生成，例如news-list.htm、search.htm<br/>
+                                如果下拉没有出现模板，请检查应用设置是否绑定了模板<br/>
+                            </div>
+                        </el-form-item>
+                    </div>
+                    <div class="class-10" >
+                        <el-form-item>
+                            <@shiro.hasPermission name="cms:generate:index">
+                                <el-button type="primary" @click="updataIndex" :loading="homeLoading">{{homeLoading?'更新中':'生成主页'}}</el-button>
+                            </@shiro.hasPermission>
+                            <el-button plain @click="viewIndex">预览主页</el-button>
+                        </el-form-item>
+                    </div>
                 </div>
+
+
+
+
+                <div class="class-13 panel" >
+                    <div class="class-14" >
+                        <el-form-item label="文章栏目">
+                            <el-tree-select
+                                    v-model="contentSection"
+                                    :data="treeList"
+                                    :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
+                                    :render-after-expand="false"
+                                    :check-strictly="true"
+                                    :default-expand-all="true"
+                                    placeholder="请选择文章栏目"
+                                    filterable
+                            ></el-tree-select>
+                            <div class="ms-form-tip">
+                                生成指定栏目下的文章内容
+                            </div>
+                        </el-form-item>
+                    </div>
+                    <div class="class-17" >
+                        <el-form-item label="指定时间">
+                            <el-date-picker
+                                    v-model="time"
+                                    placeholder="请选择指定时间"
+                                    start-placeholder=""
+                                    en.class-3d-placeholder=""
+                                    :readonly="false"
+                                    :disabled="false"
+                                    :editable="false"
+                                    :clearable="false"
+                                    format="YYYY-MM-DD"
+                                    value-format="YYYY-MM-DD"
+                                    :style="{width:'100%'}"
+                                    type="date">
+                            </el-date-picker>
+                            <div class="ms-form-tip">
+                                根据内容的更新时间来生成，例如：2021-01-01，则生成21年01月01号以后更新过的文章，如果遇到内容没有生成或者内容样式没有更新可以调整时间
+                            </div>
+                        </el-form-item>
+                    </div>
+                    <div class="class-20" >
+                        <@shiro.hasPermission name="cms:generate:article">
+                            <el-form-item>
+                                <el-button type="primary" @click="updateArticle" :loading="articleLoading">{{articleLoading?'更新中':'生成文章'}}</el-button>
+                            </el-form-item>
+                        </@shiro.hasPermission>
+
+                    </div>
+                </div>
+
+                <div class="class-23 panel" >
+                    <div class="class-24" >
+                        <el-form-item label="生成栏目">
+                            <el-tree-select
+                                    v-model="section"
+                                    :data="treeList"
+                                    :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
+                                    :render-after-expand="false"
+                                    :check-strictly="true"
+                                    :default-expand-all="true"
+                                    placeholder="请选择文章栏目"
+                                    filterable
+                            ></el-tree-select>
+                            <div class="ms-form-tip">
+                                生成<b>栏目类型</b>为列表的数据，例如：新闻列表、产品列表 <br>
+                                单篇栏目绑定模板后没有文章，也会生成对应html
+                            </div>
+                        </el-form-item>
+                    </div>
+
+                    <div class="class-30" >
+                        <@shiro.hasPermission name="cms:generate:column">
+                            <el-form-item>
+                                <el-button type="primary" @click="updateColumn" :loading="columnLoading">{{columnLoading?'更新中':'生成栏目'}}</el-button>
+                            </el-form-item>
+                        </@shiro.hasPermission>
+
+                    </div>
+                </div>
+
+                <div class="class-13 panel" >
+                    <div class="class-7" >
+                        <el-form-item label="删除页面">
+                            <el-input v-model="deletePath"
+                                      :disabled="false"
+                                      :style="{width:  '100%'}"
+                                      :clearable="true"
+                                      placeholder="请输入要删除的页面路径">
+                            </el-input>
+                            <div class="ms-form-tip">
+                                输入要删除的页面路径,复制域名后面的路径<br/>
+                                如: 页面http://localhost:8080/html/web/index.html,在输入框输入html/web/index.html<br/>
+                                如: 页面http://localhost:8080/web/index.html,在输入框输入/web/index.html,根据右侧提示信息填写开头 如html<br/>
+                                输入后点击删除页面即可<br/>
+                            </div>
+                        </el-form-item>
+                    </div>
+                    <div class="class-10" >
+                        <el-form-item>
+                            <@shiro.hasPermission name="cms:generate:del">
+                                <el-button type="primary" @click="del(deletePath)" :loading="homeLoading">{{homeLoading?'删除中':'删除页面'}}</el-button>
+                            </@shiro.hasPermission>
+                        </el-form-item>
+                    </div>
+                </div>
+
             </div>
-            <div class="class-23 panel" >
-                <div class="class-24" >
-                    <el-form-item label="生成栏目">
-                        <el-tree-select
-                                v-model="section"
-                                :data="treeList"
-                                :props="{value: 'id',label: 'categoryTitle',children: 'children'}"
-                                :render-after-expand="false"
-                                :check-strictly="true"
-                                :default-expand-all="true"
-                                placeholder="请选择文章栏目"
-                                filterable
-                        ></el-tree-select>
-                        <div class="ms-form-tip">
-                            生成<b>栏目类型</b>为列表的数据，例如：新闻列表、产品列表 <br>
-                            单篇栏目绑定模板后没有文章，也会生成对应html
-                        </div>
-                    </el-form-item>
-                </div>
-
-                <div class="class-30" >
-                    <@shiro.hasPermission name="cms:generate:column">
-                    <el-form-item>
-                        <el-button type="primary" @click="updateColumn" :loading="columnLoading">{{columnLoading?'更新中':'生成栏目'}}</el-button>
-                    </el-form-item>
-                    </@shiro.hasPermission>
-
-                </div>
-            </div>
-        </div>
-    </el-form>
+        </el-form>
     </el-main>
 </div>
 </body>
@@ -162,6 +194,7 @@
                 //主题模板
                 templateOptions: [],
                 position: 'index',
+                deletePath:"",
                 //位置
                 contentSection: '0',
                 //文章栏目
@@ -176,6 +209,42 @@
             }
         },
         methods: {
+            //删除
+            del: function (deletePath) {
+                var that = this;
+                if (!deletePath.trim()) {
+                    that.$notify({
+                        title: '失败',
+                        message: "请输入有效的页面路径",
+                        type: 'warning'
+                    });
+                    return;
+                }
+                that.$confirm('确定删除该文件吗?', '删除文件', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    ms.http.post(ms.manager + "/cms/generate/delete.do", {
+                        deletePath:deletePath
+                    }).then(function (res) {
+                        if (res.result) {
+                            that.$notify({
+                                title: '成功',
+                                type: 'success',
+                                message: '删除成功!'
+                            }); //删除成功
+                        } else {
+                            that.$notify({
+                                title: '失败',
+                                message: res.msg,
+                                type: 'warning'
+                            });
+                        }
+                    });
+                })
+            },
+
             //更新主页
             updataIndex: function () {
                 var that = this;
@@ -188,7 +257,7 @@
                     return;
                 }
                 that.homeLoading = true;
-                ms.http.post(ms.manager + '/cms/generate//generateIndex.do', {
+                ms.http.post(ms.manager + '/cms/generate/generateIndex.do', {
                     url: that.template,
                     position: that.position
                 }).then(function (data) {
@@ -284,7 +353,7 @@
             },
             getTree: function () {
                 var that = this;
-                ms.http.get(ms.manager + "/cms/category/list.do", {
+                ms.http.get(ms.manager + "/cms/generate/list.do", {
                     pageSize: 9999
                 }).then(function (res) {
                     if (res.result) {
