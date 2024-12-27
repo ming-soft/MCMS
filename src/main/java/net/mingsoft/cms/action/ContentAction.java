@@ -22,6 +22,7 @@
 
 package net.mingsoft.cms.action;
 
+import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -121,7 +122,7 @@ public class ContentAction extends BaseAction {
         // 检查SQL注入
         SqlInjectionUtil.filterContent(content.getCategoryId());
         BasicUtil.startPage();
-        List contentList = contentBiz.queryContent(content);
+        List<ContentBean> contentList = contentBiz.queryContent(content);
         return ResultData.build().success(new EUListBean(contentList, (int) BasicUtil.endPage(contentList).getTotal()));
     }
 
@@ -269,10 +270,10 @@ public class ContentAction extends BaseAction {
             }
             //获取到配置模型实体
             ModelEntity modelEntity = modelBiz.getById(categoryEntity.getMdiyModelId());
+            // 过滤表名
+            SqlInjectionUtil.filterContent(modelEntity.getModelTableName());
             //删除模型表的数据
-            Map<String, String> map = new HashMap<>();
-            map.put("link_id", contents.get(i).getId());
-            modelBiz.deleteBySQL(modelEntity.getModelTableName(), map);
+            modelBiz.update(StrUtil.format("delete from {} where link_id = ?", modelEntity.getModelTableName()), contents.get(i).getId());
         }
 
         contentBiz.removeByIds(ids);

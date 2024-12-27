@@ -23,7 +23,6 @@
 package net.mingsoft.cms.action.web;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -42,6 +41,7 @@ import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.entity.ModelEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -158,7 +158,8 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	 */
 	@ApiOperation(value = "查看文章点击数")
 	@ApiImplicitParam(name = "contentId", value = "文章编号", required = true,paramType="path")
-	@GetMapping(value = "/{contentId}/hit")
+	// 由于适配增加了对clob序列化处理，此处需要指定响应头
+	@GetMapping(value = "/{contentId}/hit", produces = MediaType.TEXT_HTML_VALUE)
 	@ResponseBody
 	public String hit(@PathVariable @ApiIgnore String contentId) {
 		if(StringUtils.isEmpty(contentId)){

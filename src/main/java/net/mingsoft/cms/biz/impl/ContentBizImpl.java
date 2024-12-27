@@ -88,7 +88,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 	}
 
 	@Override
-	public List<CategoryBean> queryContent(ContentBean contentBean) {
+	public List<ContentBean> queryContent(ContentBean contentBean) {
 		return this.contentDao.queryContent(contentBean);
 
 	}

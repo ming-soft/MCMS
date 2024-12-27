@@ -25,6 +25,7 @@
 		<result column="category_flag" property="categoryFlag" /><!--栏目属性 -->
 		<result column="category_path" property="categoryPath" /><!--栏目路径 -->
 		<result column="category_parent_ids" property="categoryParentIds" /><!--父类型编号 -->
+		<result column="is_child" property="isChild" /><!--扩展业务标记 -->
 		<result column="create_by" property="createBy" /><!--创建人 -->
 		<result column="create_date" property="createDate" /><!--创建时间 -->
 		<result column="update_by" property="updateBy" /><!--修改人 -->
@@ -62,6 +63,7 @@
 			<if test="dictId != null">dict_id=#{dictId},</if>
 			<if test="categoryFlag != null ">category_flag=#{categoryFlag},</if>
 			<if test="categoryPath != null and categoryPath != ''">category_path=#{categoryPath},</if>
+			<if test="isChild != null and isChild != ''">is_child=#{isChild},</if>
 			<if test="createBy &gt; 0">create_by=#{createBy},</if>
 			<if test="createDate != null">create_date=#{createDate},</if>
 			<if test="updateBy &gt; 0">update_by=#{updateBy},</if>
@@ -107,6 +109,7 @@
 			<if test="del != null"> and del=#{del} </if>
 			<if test="topId != null and topId != ''"> and top_id=#{topId}</if>
 			<if test="leaf != null"> and leaf=#{leaf}</if>
+			<if test="isChild != null and isChild != ''"> and is_child=#{isChild}</if>
 		</where>
 	</select>
 
@@ -180,6 +183,7 @@
 			<if test="del != null"> and del=#{del} </if>
 			<if test="topId != null and topId != ''"> and top_id=#{topId}</if>
 			<if test="leaf != null"> and leaf=#{leaf}</if>
+			<if test="isChild != null and isChild != ''"> and is_child=#{isChild}</if>
 			<include refid="net.mingsoft.base.dao.IBaseDao.sqlWhere"></include>
 		</where>
 	</select>

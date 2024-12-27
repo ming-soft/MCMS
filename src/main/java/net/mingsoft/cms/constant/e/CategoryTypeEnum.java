@@ -44,6 +44,10 @@ public enum CategoryTypeEnum implements BaseEnum {
      * 链接
      */
     LINK("3"),
+    /**
+     * 专题专栏
+     */
+    TOPIC("topic"),
 
     /**
      * 未知类型

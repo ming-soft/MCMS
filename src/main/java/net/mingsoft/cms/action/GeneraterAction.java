@@ -26,14 +26,19 @@ package net.mingsoft.cms.action;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateException;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.annotation.LogAnn;
+import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.constant.e.BusinessTypeEnum;
 import net.mingsoft.basic.entity.AppEntity;
 import net.mingsoft.basic.util.BasicUtil;
@@ -56,6 +61,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -108,6 +114,25 @@ public class GeneraterAction extends BaseAction {
     @GetMapping("/index")
     public String index(HttpServletRequest request, ModelMap model) {
         return "/cms/generate/index";
+    }
+
+    /**
+     * 获取所有栏目数据
+     * 重写接口说明：
+     * 处理静态化生成页无法获取所有分类信息问题
+     * 目前栏目作为一个公共数据，方便以后拓展其他业务
+     * @param category 分类实体
+     */
+    @ApiOperation(value = "查询分类列表接口")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "categoryTitle", value = "栏目管理名称", required = false, paramType = "query"),
+            @ApiImplicitParam(name = "categoryParentId", value = "父类型编号", required = false, paramType = "query"),
+    })
+    @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category) {
+        List categoryList = categoryBiz.list(new LambdaQueryWrapper<CategoryEntity>(category));
+        return ResultData.build().success(new EUListBean(categoryList, categoryList.size()));
     }
 
     /**
@@ -220,6 +245,16 @@ public class GeneraterAction extends BaseAction {
                     }
                     CmsParserUtil.generateBasic(articleIdList, htmlDir,null);
                     break;
+                default:
+                    // 为了方面拓展其他静态化栏目，都默认走这个业务
+                    // 判断模板文件是否存在
+                    if (StringUtils.isEmpty(column.getCategoryUrl()) || !FileUtil.exist(ParserUtil.buildTemplatePath(column.getCategoryUrl()))) {
+                        LOG.error("{} 模板不存在：{}", column.getCategoryTitle(), column.getCategoryUrl());
+                        continue;
+                    }
+                    // TODO: 2024/11/26 目前只根据内容模版生成静态文件 
+                    CmsParserUtil.generate(column.getCategoryUrl(), column.getCategoryPinyin(), htmlDir);
+                    break;
             }
         }
 
@@ -279,6 +314,11 @@ public class GeneraterAction extends BaseAction {
             if (category.getCategoryType().equals(CategoryTypeEnum.LINK.toString())) {
                 continue;
             }
+
+            // 如果是单篇文章跳过生成
+            if (category.getCategoryType().equals(CategoryTypeEnum.COVER.toString())) {
+                continue;
+            }
             contentBean.setCategoryId(category.getId());
             contentBean.setCategoryType(category.getCategoryType());
             contentBean.setOrderBy("date");
@@ -291,13 +331,12 @@ public class GeneraterAction extends BaseAction {
                     LOG.error("{} 模板不存在：{}", category.getCategoryTitle(), category.getCategoryListUrl());
                     continue;
                 }
-            } else if (category.getCategoryType().equals(CategoryTypeEnum.COVER.toString())) {
-                continue;
+                // 有符合条件的就更新
+                if (articleIdList.size() > 0) {
+                    CmsParserUtil.generateBasic(articleIdList, htmlDir,contentUpdateTime);
+                }
             }
-            // 有符合条件的就更新
-            if (articleIdList.size() > 0) {
-                CmsParserUtil.generateBasic(articleIdList, htmlDir,contentUpdateTime);
-            }
+
         }
 
 
@@ -319,6 +358,57 @@ public class GeneraterAction extends BaseAction {
         String indexPosition = app.getAppHostUrl() + htmlDir + File.separator + app.getAppDir()
                 + File.separator + position + ParserUtil.HTML_SUFFIX;
         return "redirect:" + indexPosition;
+    }
+
+    /**
+     * 删除页面
+     * <p>
+     * 页面名称
+     *
+     * @param request 响应
+     */
+    @ApiOperation(value = "删除页面")
+    @ApiImplicitParam(name = "fileName", value = "主页名称", required = true, paramType = "query")
+    @LogAnn(title = "删除页面", businessType = BusinessTypeEnum.DELETE)
+    @PostMapping("/delete")
+    @ResponseBody
+    @RequiresPermissions("cms:generate:del")
+    public ResultData delete(HttpServletRequest request) {
+        String deletePath = BasicUtil.getString("deletePath");
+        if (StrUtil.isBlank(deletePath)) {
+            return ResultData.build().error("请先输入要删除的文件路径");
+        }
+        // 确定以html开头
+        if (!deletePath.startsWith(htmlDir) && !deletePath.startsWith("/" + htmlDir)) {
+            return ResultData.build().error("删除路径请以" + htmlDir + "开头");
+        }
+        if (deletePath.contains("..") || deletePath.contains("../") || deletePath.contains("..\\")) {
+            return ResultData.build().error("非法路径");
+        }
+        String appDir = BasicUtil.getApp().getAppDir();
+        // 用户输入的实际路径
+        String realPath = BasicUtil.getRealPath(deletePath);
+        //站点的真实路径 html/web(站点id)
+        String webRealPath = BasicUtil.getRealPath(htmlDir + "/" + appDir + "/");
+
+        String htmlRealPath = BasicUtil.getRealPath(htmlDir);
+        // 取html下的文件
+        List<String> paths = FileUtil.listFileNames(htmlRealPath);
+        // 暂不考虑 html/web/index 与  html/index短链 同时存在; 只处理html/web/index 与  html/index短链 单独存在的场景
+        if (CollUtil.isEmpty(paths)) {
+            // 为空则说为目录  就有web；
+            // 判断传入的路径是否以 （html+/+站点+/ yaml配置中） 开头；是则为同一个站，不是则跨站
+            if (!realPath.startsWith(webRealPath)) {
+                return ResultData.build().error("不允许跨站删除");
+            }
+        }
+        //  只剩下情况  文件 html/web（本站）/index  和 html/index  判断直接删除文件
+        if (FileUtil.exist(realPath)) {
+            FileUtil.del(realPath);
+            return ResultData.build().success();
+        } else {
+            return ResultData.build().error("文件不存在");
+        }
     }
 
 

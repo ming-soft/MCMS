@@ -60,7 +60,7 @@ public interface IContentDao extends IBaseDao<ContentEntity> {
      * @contentBean
      * @return
      */
-    public List<CategoryBean> queryContent(ContentBean contentBean);
+    public List<ContentBean> queryContent(ContentBean contentBean);
 
     /**
      * 根据查询文章实体总数

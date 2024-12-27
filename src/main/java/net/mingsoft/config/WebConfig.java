@@ -29,8 +29,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import net.mingsoft.basic.filter.XSSEscapeFilter;
 import net.mingsoft.basic.interceptor.ActionInterceptor;
 import net.mingsoft.mdiy.biz.IConfigBiz;
+import net.mingsoft.mdiy.constant.e.ModelCustomTypeEnum;
 import net.mingsoft.mdiy.entity.ConfigEntity;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
@@ -62,8 +64,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Resource
     private IConfigBiz configBiz;
 
-    @Resource
+
+    @Autowired(required = false)
     private MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter;
+
 
     @Bean
     public ActionInterceptor actionInterceptor() {
@@ -88,7 +92,7 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        // 排除配置
+          // 排除配置
         registry.addInterceptor(actionInterceptor()).excludePathPatterns("/static/**", "/app/**", "/webjars/**",
                 "/*.html", "/*.htm");
     }
@@ -178,13 +182,11 @@ public class WebConfig implements WebMvcConfigurer {
         WebMvcConfigurer.super.addViewControllers(registry);
     }
 
-
     /**
      * 解决com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException 问题，提交实体不存在的字段异常
      */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        
         converters.add(mappingJackson2HttpMessageConverter);
         WebMvcConfigurer.super.configureMessageConverters(converters);
 
@@ -205,6 +207,8 @@ public class WebConfig implements WebMvcConfigurer {
         if (!StringUtils.isEmpty(configName) && !StringUtils.isEmpty(configName)) {
             ConfigEntity configEntity = new ConfigEntity();
             configEntity.setConfigName(configName);
+            // 防止查询到重复的数据
+            configEntity.setConfigType(ModelCustomTypeEnum.CONFIG.getLabel());
             configEntity = (ConfigEntity)this.configBiz.getOne(new QueryWrapper(configEntity));
             return configEntity != null && !StringUtils.isEmpty(configEntity.getConfigData()) ? (Map) JSONUtil.toBean(configEntity.getConfigData(), HashMap.class) : null;
         } else {

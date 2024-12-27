@@ -164,6 +164,11 @@ public class CategoryEntity extends BaseEntity {
      */
     private String topId;
 
+    /**
+     * 子业务关联
+     */
+    private String isChild;
+
     public Boolean getLeaf() {
         return leaf;
     }
@@ -567,5 +572,18 @@ public class CategoryEntity extends BaseEntity {
      */
     public String getUrl() {
         return "/" + MSProperties.diy.htmlDir + "/" + BasicUtil.getApp().getAppDir() + "/" +this.getCategoryPath() + "/index.html";
+    }
+
+    /**
+     * 获取子业务关联
+     */
+    public String getIsChild() {
+        return isChild;
+    }
+    /**
+     * 设置子业务关联
+     */
+    public void setIsChild(String isChild) {
+        this.isChild = isChild;
     }
 }

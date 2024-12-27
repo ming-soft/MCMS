@@ -234,7 +234,7 @@
 			<if test="contentTitle != null and contentTitle != ''"> and  content_title like CONCAT(CONCAT('%',#{contentTitle}),'%')</if>
 			<if test="contentShortTitle != null and contentShortTitle != ''"> and  content_short_title like CONCAT(CONCAT('%',#{contentShortTitle}),'%')</if>
 			<if test="categoryId != null and categoryId != ''"> 	and (ct.category_id=#{categoryId} or ct.category_id in
-				(select id FROM cms_category where find_in_set(#{categoryId},CATEGORY_PARENT_IDS)>0 and cms_category.category_type != 2))</if>
+				(select id FROM cms_category where find_in_set(#{categoryId},CATEGORY_PARENT_IDS)>0 and cms_category.category_type != '2'))</if>
 			<if test="contentType != null and contentType != ''">
 				and
 				<foreach item="item" index="index" collection="contentType.split(',')" open="(" separator="or"
@@ -258,6 +258,7 @@
 			<if test="createDate != null"> and ct.create_date=#{createDate} </if>
 			<if test="updateBy &gt; 0"> and ct.update_by=#{updateBy} </if>
 			<if test="updateDate != null"> and update_date=#{updateDate} </if>
+
 			<include refid="net.mingsoft.base.dao.IBaseDao.sqlWhere"></include>
 		</where>
 		)ct ORDER BY ct.content_datetime desc,content_sort desc
@@ -324,11 +325,11 @@
 			where ct.del=0 and ct.content_display=0 and c.category_display='enable'
 
 			<!-- 查询子栏目数据 -->
-			<if test="categoryId!=null and  categoryId!='' and categoryType==1">
+			<if test="categoryId!=null and  categoryId!='' and categoryType== '1'.toString()">
 				and (ct.category_id=#{categoryId} or ct.category_id in
 				(select id FROM cms_category where find_in_set(#{categoryId},CATEGORY_PARENT_IDS)>0))
 			</if>
-			<if test="categoryId!=null and  categoryId!='' and categoryType==2">
+			<if test="categoryId!=null and  categoryId!='' and categoryType== '2'.toString()">
 				and ct.category_id=#{categoryId}
 			</if>
 
@@ -375,11 +376,11 @@
 		where ct.del=0 and ct.content_display=0 and c.category_display='enable'
 
 		<!-- 查询子栏目数据 -->
-		<if test="categoryId!=null and  categoryId!='' and categoryType==1">
+		<if test="categoryId!=null and  categoryId!='' and categoryType== '1'.toString()">
 			and (ct.category_id=#{categoryId} or ct.category_id in
-			(select id FROM cms_category where find_in_set(#{categoryId},CATEGORY_PARENT_IDS)>0 and category_type!=2))
+			(select id FROM cms_category where find_in_set(#{categoryId},CATEGORY_PARENT_IDS)>0 and category_type!='2'))
 		</if>
-		<if test="categoryId!=null and  categoryId!='' and categoryType==2">
+		<if test="categoryId!=null and  categoryId!='' and categoryType== '2'.toString()">
 			and ct.category_id=#{categoryId}
 		</if>
 		<if test="beginTime!=null and beginTime!=''">

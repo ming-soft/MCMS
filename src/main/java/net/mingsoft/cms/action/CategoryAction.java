@@ -93,6 +93,11 @@ public class CategoryAction extends BaseAction {
     @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category) {
+        // TODO: 2024/12/2 为了拓展栏目使用方法，增加isChild字段处理
+        // 这里根据外部传值，如果没有则默认查询cms下栏目
+        if (StrUtil.isBlank(category.getIsChild())) {
+            category.setIsChild("cms");
+        }
         List categoryList = categoryBiz.list(new LambdaQueryWrapper<CategoryEntity>(category));
         return ResultData.build().success(new EUListBean(categoryList, categoryList.size()));
     }

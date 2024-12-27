@@ -52,7 +52,7 @@ public interface IContentBiz extends IBaseBiz<ContentEntity> {
      * @param contentBean
      * @return
      */
-    List<CategoryBean> queryContent(ContentBean contentBean);
+    List<ContentBean> queryContent(ContentBean contentBean);
 
     /**
      * 文章搜索结果总数，提供搜索使用
