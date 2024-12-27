@@ -55,7 +55,20 @@
                 <div>${field.content}</div>
             </div>
             <div>
-                <el-alert title="需要集成会员插件、关注插件、评论插件下面的功能才能正常使用" type="warning" :closable="false" />
+                <el-alert
+                        title="需要集成会员插件、关注插件、评论插件下面的功能才能正常使用"
+                        type="warning"
+                        :closable="false"
+                        show-icon
+                >
+                    <template slot="title">
+                        需要集成会员插件、关注插件、评论插件下面的功能才能正常使用；
+                        <a href="http://store.mingsoft.net/#/detail?id=271&type=plugin" target="_blank" style="color: #409EFF; text-decoration: none;">
+                            会员模板
+                        </a>
+                        推荐使用MStore的会员模板
+                    </template>
+                </el-alert>
             </div>
             <!--文章底部交互-start-->
             <div class="detail-bottom-interaction">
