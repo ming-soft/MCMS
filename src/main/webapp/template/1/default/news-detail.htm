@@ -32,9 +32,11 @@
     <script>
         ms.base= "{ms:global.contextpath/}"
     </script>
+
+    <!--评论关注插件-start-->
     <#include "component/ms-comment.htm" />
     <#include "component/ms-mattention.htm" />
-
+    <!--评论关注插件-start-->
 </head>
 <body>
 <#include "header.htm" />
@@ -70,17 +72,18 @@
                     </template>
                 </el-alert>
             </div>
-            <!--文章底部交互-start-->
+            <!--关注-start-->
             <div class="detail-bottom-interaction">
                 <ms-mattention :data-id="dataId" data-type="文章点赞" icon="icon-zan" label="${field.title}"></ms-mattention>
                 <ms-mattention :data-id="dataId" data-type="文章点踩" icon="icon-cai" label="${field.title}"></ms-mattention>
             </div>
-            <!--文章底部交互-end-->
+            <!--关注-end-->
             <div class="prenext">上一篇：<a href="<#if pre.link !=''>{ms:global.html/}${pre.link}<#else>javascript:;</#if>">${pre.title}</a></div>
             <div class="prenext">下一篇：<a href="<#if next.link !=''>{ms:global.html/}${next.link}<#else>javascript:;</#if>">${next.title}</a></div>
         </div>
-        <!--评论容器-start-->
 
+
+        <!--评论容器-start-->
         <div class="w-comment-div">
 
             <!--评论-start-->
