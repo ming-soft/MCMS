@@ -31,7 +31,7 @@
 	<a href="http://doc.mingsoft.net/mcms/"  target="_blank">在线使用手册</a>
 	<a href="https://space.bilibili.com/1825880395" target="_blank">B站视频</a><br/>
 	<a href="https://ke.qq.com/course/3026403"  target="_blank">代码生成器视频教程</a><br/>
-	<a href="https://cloud.189.cn/t/I3maM3uURjmm"  target="_blank">Windows一键运行版本\Linux一键运行版本</a>
+	<a href="https://cloud.189.cn/web/share?code=7veQBn3i267f%EF%BC%88%E8%AE%BF%E9%97%AE%E7%A0%81%EF%BC%9Aapz2%EF%BC%89"  target="_blank">Windows一键运行版本\Linux一键运行版本</a>
     <a href="#快速体验docker" >Docker体验</a>
 </p>
 
