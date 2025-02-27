@@ -521,6 +521,13 @@ public class CategoryEntity extends BaseEntity {
     private String typepath;
 
     /**
+     * 获取栏目小图 (标签使用）
+     */
+    public String getTypeico() {
+        return categoryIco;
+    }
+
+    /**
      * 获取栏目图片 (标签使用）
      */
     public String getTypepath() {

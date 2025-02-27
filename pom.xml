@@ -44,24 +44,24 @@
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-base</artifactId>
-            <version>2.2.6</version>
+            <version>2.2.7</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-basic</artifactId>
-            <version>2.2.6</version>
+            <version>2.2.7</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mdiy</artifactId>
-            <version>2.2.6</version>
+            <version>2.2.7</version>
         </dependency>
 
         <!--store入口依赖（源码不开发），如果不需要MStore可以直接去掉依赖-->
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>store-client</artifactId>
-            <version>2.2.6</version>
+            <version>2.2.7</version>
         </dependency>
         <dependency>
             <groupId>com.github.oshi</groupId>
@@ -127,13 +127,13 @@
                 <excludes>
                     <!-- 可以避免将静态资源打入jar包中，方便生产实时修改静态资源文件-->
                     <!-- 打包生产建议并手动将static、html、upload、template复制到生产 -->
-                    <!--<exclude>static/</exclude>
+                    <exclude>static/</exclude>
                     <exclude>html/</exclude>
                     <exclude>upload/</exclude>
-                    <exclude>template/</exclude>-->
+                    <exclude>template/</exclude>
 
                     <!-- 如果生产需要实时修改WEB-INF/下的页面可，启用这行并手动将项目中的WEB-INF目录复制到运行环境 -->
-                    <!--<exclude>WEB-INF/</exclude>-->
+                    <exclude>WEB-INF/</exclude>
                 </excludes>
          </resource>
          <resource>

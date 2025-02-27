@@ -38,6 +38,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.Ordered;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -61,7 +62,11 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
+    /**
+     * 必须增加@Lazy注解，否则会导致 configBiz 实例化 单例模式，导致configBiz不被aop拦截、事务机制不生效
+     */
     @Resource
+    @Lazy
     private IConfigBiz configBiz;
 
 
@@ -92,7 +97,7 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-          // 排除配置
+        // 排除配置
         registry.addInterceptor(actionInterceptor()).excludePathPatterns("/static/**", "/app/**", "/webjars/**",
                 "/*.html", "/*.htm");
     }
@@ -187,6 +192,7 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        // TODO Auto-generated method stub
         converters.add(mappingJackson2HttpMessageConverter);
         WebMvcConfigurer.super.configureMessageConverters(converters);
 

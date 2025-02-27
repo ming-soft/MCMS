@@ -674,7 +674,7 @@
                         if (res.data.categoryImg) {
                             res.data.categoryImg = JSON.parse(res.data.categoryImg);
                             res.data.categoryImg.forEach(function (value) {
-                                value.url = ms.base + value.url;
+                                value.url = ms.contextpath + value.url;
                             });
                         } else {
                             res.data.categoryImg = [];
@@ -682,7 +682,7 @@
                         if (res.data.categoryIco) {
                             res.data.categoryIco = JSON.parse(res.data.categoryIco);
                             res.data.categoryIco.forEach(function (value) {
-                                value.url = ms.base + value.url;
+                                value.url = ms.contextpath + value.url;
                             });
                         } else {
                             res.data.categoryIco = [];

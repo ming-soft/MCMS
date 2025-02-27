@@ -1,4 +1,4 @@
-
+<#include "mdiy/components/ms-dict.ftl">
 <template type="text/x-template" id="content-form">
     <div id="form" v-cloak>
         <el-header class="ms-header ms-tr" height="50px" >
@@ -232,16 +232,15 @@
                                 </el-col>
                                 <el-col :span=12>
                                     <el-form-item label="文章标签" prop="contentTags">
-                                        <el-select v-model="form.contentTags"
-                                                   :style="{width: '100%'}"
-                                                   :filterable="false"
-                                                   :disabled="false"
-                                                   :multiple="true" :clearable="true"
-                                                   placeholder="请选择文章标签">
-                                            <el-option v-for='item in contentTagsOptions' :key="item.dictValue"
-                                                       :value="item.dictValue"
-                                                       :label="item.dictLabel"></el-option>
-                                        </el-select>
+                                        <ms-dict v-model="form.contentTags"
+                                                 :style="{width: ''}"
+                                                 :filterable="true"
+                                                 :disabled="false"
+                                                 dict-type="文章标签"
+                                                 :multiple-limit="5"
+                                                 :multiple="true" :clearable="true"
+                                                 placeholder="请选择文章标签">
+                                        </ms-dict>
                                         <div class="ms-form-tip">
                                             标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.tags}</a>
                                             通过自定义字典可扩展数据；字典类型：文章标签
@@ -299,6 +298,9 @@
     var contentForm = Vue.defineComponent({
         template: '#content-form',
         props:["categoryId","categoryType","id"],
+        components:{
+            MsDict
+        },
         data: function () {
             var checkTags = function (rule, value, callback){
                 if (value.length > 5){
@@ -638,7 +640,7 @@
                         if (res.data.contentImg && res.data.contentImg != '') {
                             res.data.contentImg = JSON.parse(res.data.contentImg);
                             res.data.contentImg.forEach(function (value) {
-                                value.url = ms.base + value.url;
+                                value.url = ms.contextpath + value.url;
                             });
                         } else {
                             res.data.contentImg = [];
@@ -676,7 +678,7 @@
                             if (res.data.contentImg) {
                                 res.data.contentImg = JSON.parse(res.data.contentImg);
                                 res.data.contentImg.forEach(function (value) {
-                                    value.url = ms.base + value.url;
+                                    value.url = ms.contextpath + value.url;
                                 });
                             } else {
                                 res.data.contentImg = [];

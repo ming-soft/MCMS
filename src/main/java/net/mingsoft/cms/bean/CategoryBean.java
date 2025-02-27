@@ -48,6 +48,21 @@ public class CategoryBean extends CategoryEntity {
 	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date contentUpdateDate;
 
+	/**
+	 * 文章发布时间
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+	private Date contentDatetime;
+
+	public Date getContentDatetime() {
+		return contentDatetime;
+	}
+
+	public void setContentDatetime(Date contentDatetime) {
+		this.contentDatetime = contentDatetime;
+	}
+
 	public Date getContentUpdateDate() {
 		return contentUpdateDate;
 	}

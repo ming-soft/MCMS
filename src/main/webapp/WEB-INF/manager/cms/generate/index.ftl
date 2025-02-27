@@ -167,7 +167,7 @@
                     <div class="class-10" >
                         <el-form-item>
                             <@shiro.hasPermission name="cms:generate:del">
-                                <el-button type="primary" @click="del(deletePath)" :loading="homeLoading">{{homeLoading?'删除中':'删除页面'}}</el-button>
+                                <el-button type="primary" @click="del()" :loading="delLoading">{{delLoading?'删除中':'删除页面'}}</el-button>
                             </@shiro.hasPermission>
                         </el-form-item>
                     </div>
@@ -190,6 +190,7 @@
                 homeLoading: false,
                 articleLoading: false,
                 columnLoading: false,
+                delLoading:false,
                 template: '',
                 //主题模板
                 templateOptions: [],
@@ -210,14 +211,16 @@
         },
         methods: {
             //删除
-            del: function (deletePath) {
+            del: function () {
                 var that = this;
-                if (!deletePath.trim()) {
+                that.delLoading = true;
+                if (!that.deletePath.trim()) {
                     that.$notify({
                         title: '失败',
                         message: "请输入有效的页面路径",
                         type: 'warning'
                     });
+                    that.delLoading = false;
                     return;
                 }
                 that.$confirm('确定删除该文件吗?', '删除文件', {
@@ -226,7 +229,7 @@
                     type: 'warning'
                 }).then(function () {
                     ms.http.post(ms.manager + "/cms/generate/delete.do", {
-                        deletePath:deletePath
+                        deletePath:that.deletePath
                     }).then(function (res) {
                         if (res.result) {
                             that.$notify({
@@ -241,7 +244,10 @@
                                 type: 'warning'
                             });
                         }
+                        that.delLoading = false;
                     });
+                }).catch(function (err) {
+                    that.delLoading = false;
                 })
             },
 

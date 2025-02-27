@@ -192,3 +192,8 @@ textarea::-webkit-input-placeholder {
 .el-form-item__content {
     display: unset !important;
 }
+
+/**提示引导信息宽度问题**/
+.el-popper {
+    width: unset!important;
+}

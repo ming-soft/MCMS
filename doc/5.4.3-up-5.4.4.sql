@@ -1,0 +1,11 @@
+ALTER TABLE `mdiy_tag`   ADD COLUMN `APP_ID` varchar(20) NULL DEFAULT 'global' COMMENT '站点id，如果是global说明在站群下是全局标识' AFTER `CREATE_DATE`;
+ALTER TABLE `mdiy_model`    ADD COLUMN `APP_ID` varchar(20) NULL DEFAULT 'global' COMMENT '站点id，如果是global说明在站群下是全局标识' AFTER `NOT_DEL`;
+ALTER TABLE `mdiy_config`    ADD COLUMN `APP_ID` varchar(20) NULL DEFAULT 'global' COMMENT '站点id，如果是global说明在站群下是全局标识' AFTER `NOT_DEL`;
+ALTER TABLE `model`    ADD COLUMN `APP_ID` varchar(20) NULL COMMENT '站点id，默认情况是null' AFTER `DEL`;
+UPDATE mdiy_tag SET APP_ID = 'global' WHERE APP_ID IS null ;
+UPDATE mdiy_model SET APP_ID = 'global' WHERE APP_ID IS null ;
+UPDATE mdiy_config SET APP_ID = 'global' WHERE APP_ID IS null ;
+UPDATE model m1 JOIN (SELECT m.id,mm.id AS model_id, mm.model_name, m.model_url FROM model m JOIN mdiy_model mm ON m.model_url LIKE CONCAT( '%mdiy:configData:', mm.model_name, ':%' )) m2 ON m1.id = m2.id SET m1.model_url = REPLACE ( m1.model_url, CONCAT( 'mdiy:configData:', m2.model_name ), CONCAT( 'mdiy:configData:', m2.model_id ));
+ALTER TABLE `cms_content`    MODIFY COLUMN `content_datetime` datetime NULL DEFAULT CURRENT_TIMESTAMP AFTER `CONTENT_TAGS`;
+UPDATE model p1 JOIN (SELECT t1.id,t2.id AS model_id,t2.model_name,t1.model_url FROM model t1 JOIN mdiy_model t2 ON t1.model_url LIKE CONCAT( '%modelName=', t2.model_name, '%' )) p2 ON p1.id = p2.id SET p1.model_url = REPLACE (p1.model_url,CONCAT( 'modelName=', p2.model_name ),CONCAT( 'modelId=', p2.model_id ));
+UPDATE model m1 JOIN (SELECT m.id,mm.id AS model_id, mm.model_name, m.model_url FROM model m JOIN mdiy_model mm ON m.model_url LIKE CONCAT( '%mdiy:formData:', mm.model_name, ':%' )) m2 ON m1.id = m2.id SET m1.model_url = REPLACE ( m1.model_url, CONCAT( 'mdiy:formData:', m2.model_name ), CONCAT( 'mdiy:formData:', m2.model_id ));

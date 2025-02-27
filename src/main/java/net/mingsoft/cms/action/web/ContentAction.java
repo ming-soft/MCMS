@@ -37,11 +37,11 @@ import net.mingsoft.cms.biz.IHistoryLogBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.cms.entity.HistoryLogEntity;
+import net.mingsoft.mdiy.biz.IConfigBiz;
 import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.entity.ModelEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -74,6 +74,9 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 
 	@Autowired
 	private IModelBiz modelBiz;
+
+	@Autowired
+	private IConfigBiz modelBiz1;
 
 	@Autowired
 	private IHistoryLogBiz historyLogBiz;
@@ -159,7 +162,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	@ApiOperation(value = "查看文章点击数")
 	@ApiImplicitParam(name = "contentId", value = "文章编号", required = true,paramType="path")
 	// 由于适配增加了对clob序列化处理，此处需要指定响应头
-	@GetMapping(value = "/{contentId}/hit", produces = MediaType.TEXT_HTML_VALUE)
+	@GetMapping(value = "/{contentId}/hit", produces = "application/javascript")
 	@ResponseBody
 	public String hit(@PathVariable @ApiIgnore String contentId) {
 		if(StringUtils.isEmpty(contentId)){
