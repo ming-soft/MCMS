@@ -154,6 +154,12 @@
                  <executable>true</executable>
                   <fork>true</fork>
              </configuration>
+             <configuration>
+                 <mainClass>net.mingsoft.MSApplication</mainClass>
+                 <executable>true</executable>
+                 <includeSystemScope>true</includeSystemScope>
+                 <fork>true</fork>
+             </configuration>
          </plugin>
 
          <plugin>
