@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.mingsoft</groupId>
     <artifactId>ms-mcms</artifactId>
-    <version>5.4.3</version>
+    <version>5.4.4</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <!-- 打包war包，注意不启用(resources》resource》excludes的配置并注释掉maven-assembly-plugin 插件配置 -->
     <!--<packaging>war</packaging>-->
