@@ -37,7 +37,6 @@ import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.cms.entity.HistoryLogEntity;
 import net.mingsoft.mdiy.util.ParserUtil;
-import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -111,7 +110,7 @@ public class ContentAop extends BaseAop {
         historyLog.setHlIsMobile(BasicUtil.isMobileDevice());
         historyLog.setCreateDate(new Date());
         //保存浏览记录
-        historyLogBiz.saveEntity(historyLog);
+        historyLogBiz.save(historyLog);
         //更新点击数
         if (content.getContentHit() == null) {
             content.setContentHit(1);

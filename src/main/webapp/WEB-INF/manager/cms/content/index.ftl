@@ -80,7 +80,7 @@
 					this.$refs.treeRef.setCurrentKey(null);
 					return;
 				} else {
-
+					this.id = null;
 					this.action = 'form';
 					this.categoryId = data.id;
 					this.categoryType = data.categoryType;

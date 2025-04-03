@@ -22,6 +22,9 @@
 
 package net.mingsoft.cms.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import net.mingsoft.base.entity.BaseEntity;
 /**
 * 文章浏览记录实体
@@ -29,10 +32,23 @@ import net.mingsoft.base.entity.BaseEntity;
 * 创建日期：2019-12-23 9:24:03<br/>
 * 历史修订：<br/>
 */
+@TableName("cms_history_log")
 public class HistoryLogEntity extends BaseEntity {
 
 private static final long serialVersionUID = 1577064243576L;
 
+	@TableId(type = IdType.AUTO)
+	private String id;
+
+	@Override
+	public String getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(String id) {
+		this.id = id;
+	}
 	/**
 	* 文章编号
 	*/

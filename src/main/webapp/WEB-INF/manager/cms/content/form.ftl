@@ -14,7 +14,7 @@
                         <el-button type="primary" class="iconfont icon-baocun" size="default" @click="save()" :loading="saveDisabled">保存
                         </el-button>
                     </@shiro.hasPermission>
-                    <el-button v-if="categoryType!='2' || id!=null" size="default" class="iconfont icon-fanhui" plain @click="back()">返回
+                    <el-button  v-if="categoryType!='2' || id!=null" size="default" class="iconfont icon-fanhui" plain @click="back()">返回
                     </el-button>
                     <el-button v-if="form.id && categoryType=='2'" size="default" type="danger" class="el-icon-delete" @click="del()" :disabled="!form.id" >删除
                     </el-button>
@@ -559,7 +559,7 @@
                     cancelButtonText: '取消',
                     type: 'warning'
                 }).then(function () {
-                    var formData = that.form;
+                    var formData = JSON.parse(JSON.stringify(that.form));
                     formData.contentImg = "";
                     formData.contentType = "";
                     formData.contentTags = "";

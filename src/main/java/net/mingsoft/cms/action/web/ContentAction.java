@@ -23,6 +23,7 @@
 package net.mingsoft.cms.action.web;
 
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -30,26 +31,28 @@ import io.swagger.annotations.ApiOperation;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.biz.IHistoryLogBiz;
+import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.cms.entity.HistoryLogEntity;
-import net.mingsoft.mdiy.biz.IConfigBiz;
+import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.entity.ModelEntity;
+import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.*;
 
 /**
  * 文章管理控制层
@@ -76,46 +79,66 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	private IModelBiz modelBiz;
 
 	@Autowired
-	private IConfigBiz modelBiz1;
-
-	@Autowired
 	private IHistoryLogBiz historyLogBiz;
 
 	/**
 	 * 查询文章列表接口
-	 * @param content 文章
 	 * @return
 	 */
 	@ApiOperation(value = "查询文章列表接口")
 	@ApiImplicitParams({
-    	@ApiImplicitParam(name = "id", value = "文章id", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "contentTitle", value = "文章标题", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "contentShortTitle", value = "文章副标题", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "categoryId", value = "所属栏目", required =false,paramType="query"),
-		@ApiImplicitParam(name = "contentType", value = "文章类型", required =false,paramType="query"),
-		@ApiImplicitParam(name = "contentAuthor", value = "文章作者", required =false,paramType="query"),
-		@ApiImplicitParam(name = "contentSource", value = "文章来源", required =false,paramType="query"),
-		@ApiImplicitParam(name = "contentDatetime", value = "发布时间", required =false,paramType="query"),
-		@ApiImplicitParam(name = "contentTags", value = "文章标签", required =false,paramType="query"),
-		@ApiImplicitParam(name = "contentDescription", value = "描述", required =false,paramType="query"),
-		@ApiImplicitParam(name = "contentKeyword", value = "关键字", required =false,paramType="query"),
-		@ApiImplicitParam(name = "contentDetails", value = "文章内容", required =false,paramType="query"),
-		@ApiImplicitParam(name = "contentOutLink", value = "文章跳转链接地址", required =false,paramType="query"),
-		@ApiImplicitParam(name = "contentHit", value = "点击次数", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "categoryType", value = "栏目类型", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "categoryFlag", value = "栏目属性", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "flag", value = "属性标记", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "noflag", value = "排除文章类型", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "hasDetailHtml", value = "文章是否被静态化", required =false,paramType="query"),
-    	@ApiImplicitParam(name = "hasListHtml", value = "栏目是否被静态化", required =false,paramType="query"),
+			@ApiImplicitParam(name = "typeid", value = "所属栏目", required =true,paramType="query"),
+			@ApiImplicitParam(name = "pageNo", value = "页码", required =false,paramType="query"),
+			@ApiImplicitParam(name = "size", value = "一页显示数量", required =false,paramType="query"),
+			@ApiImplicitParam(name = "orderby", value = "排序", required =false,paramType="query"),
     })
-	@RequestMapping(value = "/list",method = {RequestMethod.GET,RequestMethod.POST})
+	@GetMapping(value = "/list")
 	@ResponseBody
-	public ResultData list(@ModelAttribute @ApiIgnore ContentBean content) {
-		BasicUtil.startPage();
-		content.setSqlWhere("");
-		List contentList = contentBiz.query(content);
-		return ResultData.build().success(new EUListBean(contentList,(int)BasicUtil.endPage(contentList).getTotal()));
+	public ResultData list(HttpServletResponse response, HttpServletRequest request) {
+		//会将请求参数全部转换map
+		Map map = BasicUtil.assemblyRequestMap();
+		String typeid = (String) map.get("typeid");
+		if (StrUtil.isBlank(typeid)){
+			return ResultData.build().error(getResString("err.empty", this.getResString("content.category.id")));
+		}
+		ContentBean content = new ContentBean();
+		content.setCategoryType(CategoryTypeEnum.LIST.toString());
+		content.setContentDisplay("0");
+		content.setCategoryId(typeid);
+		List<CategoryBean> articleList = contentBiz.queryIdsByCategoryIdForParser(content);
+		PageBean page = new PageBean();
+		List filedStr = new ArrayList<>();
+		page.setPageNo(BasicUtil.getInt("pageNo",1));
+		page.setSize(BasicUtil.getInt("size",10));
+		map.put("ispaging","true");
+		map.putIfAbsent("size",page.getSize());
+		if (BasicUtil.getWebsiteApp() != null) {
+			map.put("appid", BasicUtil.getWebsiteApp().getId());
+		}
+		map.put(ParserUtil.PAGE, page);
+		if (typeid != null) {
+			CategoryEntity column = categoryBiz.getById(typeid);
+			// 获取表单类型的id
+			if (column != null && ObjectUtil.isNotNull(column.getMdiyModelId())) {
+				ModelEntity	contentModel = (ModelEntity) modelBiz.getById(column.getMdiyModelId());
+				if (contentModel != null) {
+					// 保存自定义模型的数据
+					Map<String, String> fieldMap = contentModel.getFieldMap();
+					for (String s : fieldMap.keySet()) {
+						filedStr.add(fieldMap.get(s));
+					}
+					// 设置自定义模型表名，方便解析的时候关联表查询
+					map.put(ParserUtil.TABLE_NAME, contentModel.getModelTableName());
+
+				}
+			}
+
+			// 设置栏目，方便解析的时候关联表查询
+			map.put(ParserUtil.COLUMN, column);
+		}
+		//实际上list是需要参数，例如分页、栏目分类、属性等待，具体看标签arclist对应的参数
+		List contentList = contentBiz.list(map);
+		return ResultData.build().success(new EUListBean(contentList,articleList.size()));
 	}
 
 
@@ -191,7 +214,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		entity.setHlIp(ip);
 		entity.setContentId(content.getId());
 		entity.setCreateDate(new Date());
-		historyLogBiz.saveEntity(entity);
+		historyLogBiz.save(entity);
 
 		return "document.write(" + content.getContentHit() + ")";
 	}

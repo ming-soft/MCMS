@@ -322,7 +322,7 @@
 			ct.id article_id,ct.content_img litpic,c.*,ct.update_date as content_update_date
 			FROM cms_content ct
 			LEFT JOIN cms_category c ON ct.category_id = c.id
-			where ct.del=0 and ct.content_display=0 and c.category_display='enable'
+			where ct.del=0 and ct.content_display='0' and c.category_display='enable'
 
 			<!-- 查询子栏目数据 -->
 			<if test="categoryId!=null and  categoryId!='' and categoryType== '1'.toString()">
@@ -373,7 +373,7 @@
 		ct.id article_id,ct.content_img  litpic,c.*
 		FROM cms_content ct
 		LEFT JOIN cms_category c ON ct.category_id = c.id
-		where ct.del=0 and ct.content_display=0 and c.category_display='enable'
+		where ct.del=0 and ct.content_display='0' and c.category_display='enable'
 
 		<!-- 查询子栏目数据 -->
 		<if test="categoryId!=null and  categoryId!='' and categoryType== '1'.toString()">
@@ -434,16 +434,16 @@
 		</if>
 		<where>
 			a.del=0
-			and a.content_display=0
+			and a.content_display='0'
 			and c.category_display='enable'
 			and c.category_is_search='enable'
 			<if test="categoryIds!=null and categoryIds!=''">
 				and
 				<foreach item="item" index="index" collection="categoryIds.split(',')" open="(" separator="or"
 						 close=")">
-					a.category_id=${item}
+					a.category_id=#{item}
 					or a.category_id in (select id FROM cms_category where cms_category.del=0
-					and FIND_IN_SET(${item},CATEGORY_PARENT_IDS) > 0)
+					and FIND_IN_SET(#{item},CATEGORY_PARENT_IDS) > 0)
 				</foreach>
 			</if>
 

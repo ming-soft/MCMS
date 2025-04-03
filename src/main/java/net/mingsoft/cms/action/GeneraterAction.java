@@ -237,6 +237,7 @@ public class GeneraterAction extends BaseAction {
                     }
 
                     if (articleIdList.size() == 0) {
+                        LOG.error("静态化单篇类型栏目异常：{} ，异常原因：没有文章", column.getCategoryTitle());
                         CategoryBean columnArticleIdBean = new CategoryBean();
                         CopyOptions copyOptions = CopyOptions.create();
                         copyOptions.setIgnoreError(true);
