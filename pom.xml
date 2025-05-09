@@ -19,7 +19,16 @@
         <log4j.version>2.23.0</log4j.version>
     </properties>
     <packaging>jar</packaging>
-
+    <repositories>
+        <repository>
+            <id>central-repos</id>
+            <name>Central Repository 2</name>
+            <url>https://central.sonatype.com/repository/maven-snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
     <dependencies>
         <dependency>
             <groupId>net.mingsoft</groupId>
@@ -140,25 +149,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
-                    <compilerArguments>
-                        <verbose/>
-                        <bootclasspath>${java.home}/lib/rt.jar${path.separator}${java.home}/lib/jce.jar</bootclasspath>
-                    </compilerArguments>
                 </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.plexus</groupId>
-                        <artifactId>plexus-compiler-eclipse</artifactId>
-                        <version>2.1</version>
-                    </dependency>
-                </dependencies>
             </plugin>
 
             <!-- 结合(resources》resource》excludes的配置使用 -->
