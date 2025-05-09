@@ -27,6 +27,7 @@ import cn.hutool.json.JSONUtil;
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateNotFoundException;
+import io.swagger.v3.oas.annotations.Hidden;
 import net.mingsoft.base.constant.Const;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
@@ -45,7 +46,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import springfox.documentation.annotations.ApiIgnore;
+// import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -63,7 +64,7 @@ import java.util.Map;
  * @date 2018年12月17日
  * @date 2021年8月26日取消默认search.htm
  */
-@ApiIgnore
+@Hidden
 @Controller("dynamicPageAction")
 @RequestMapping("/mcms")
 public class MCmsAction extends net.mingsoft.cms.action.BaseAction {

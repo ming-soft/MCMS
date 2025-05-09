@@ -23,10 +23,13 @@
 package net.mingsoft.cms.action;
 
 import cn.hutool.core.util.StrUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.base.util.SqlInjectionUtil;
 import net.mingsoft.basic.annotation.LogAnn;
@@ -47,7 +50,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -60,7 +62,7 @@ import java.util.List;
  * 创建日期：2019-11-28 15:12:32<br/>
  * 历史修订：<br/>
  */
-@Api(tags = {"后端-内容模块接口"})
+@Tag(name = "后端-内容模块接口")
 @Controller("cmsContentAction")
 @RequestMapping("/${ms.manager.path}/cms/content")
 public class ContentAction extends BaseAction {
@@ -83,7 +85,7 @@ public class ContentAction extends BaseAction {
     /**
      * 返回主界面index
      */
-    @ApiIgnore
+    @Hidden
     @GetMapping("/index")
     public String index() {
         return "/cms/content/index";
@@ -92,7 +94,7 @@ public class ContentAction extends BaseAction {
     /**
      * 返回主界面main
      */
-    @ApiIgnore
+    @Hidden
     @GetMapping("/main")
     public String main() {
         return "/cms/content/main";
@@ -103,20 +105,20 @@ public class ContentAction extends BaseAction {
      *
      * @param content 文章实体
      */
-    @ApiOperation(value = "查询文章列表接口")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "contentTitle", value = "文章标题", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "categoryId", value = "所属栏目", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentType", value = "文章类型", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentDisplay", value = "是否显示,0:显示 1:不显示", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentAuthor", value = "文章作者", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentSource", value = "文章来源", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentDatetime", value = "发布时间", required = false, paramType = "query"),
+    @Operation(summary =  "查询文章列表接口")
+    @Parameters({
+            @Parameter(name = "contentTitle", description = "文章标题", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "categoryId", description = "所属栏目", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentType", description = "文章类型", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentDisplay", description = "是否显示,0:显示 1:不显示", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentAuthor", description = "文章作者", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentSource", description = "文章来源", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentDatetime", description = "发布时间", required =  false, in = ParameterIn.QUERY),
     })
     @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
     @RequiresPermissions("cms:content:view")
-    public ResultData list(@ModelAttribute @ApiIgnore ContentBean content) {
+    public ResultData list(@ModelAttribute @Parameter(hidden = true) ContentBean content) {
         // 检查SQL注入
         SqlInjectionUtil.filterContent(content.getCategoryId());
         BasicUtil.startPage();
@@ -127,7 +129,7 @@ public class ContentAction extends BaseAction {
     /**
      * 返回编辑界面content_form
      */
-    @ApiIgnore
+    @Hidden
     @GetMapping("/form")
     public String form(@ModelAttribute ContentEntity content, ModelMap model) {
         model.addAttribute("appId", BasicUtil.getApp().getAppId());
@@ -139,12 +141,12 @@ public class ContentAction extends BaseAction {
      *
      * @param content 文章实体
      */
-    @ApiOperation(value = "获取文章详情接口")
-    @ApiImplicitParam(name = "id", value = "编号", required = true, paramType = "query")
+    @Operation(summary =  "获取文章详情接口")
+    @Parameter(name = "id", description = "编号", required =  true, in = ParameterIn.QUERY)
     @GetMapping("/get")
     @ResponseBody
     @RequiresPermissions("cms:content:view")
-    public ResultData get(@ModelAttribute @ApiIgnore ContentEntity content) {
+    public ResultData get(@ModelAttribute @Parameter(hidden = true) ContentEntity content) {
         if (content.getId() == null) {
             return ResultData.build().error();
         }
@@ -157,11 +159,11 @@ public class ContentAction extends BaseAction {
      *
      * @param content 文章实体
      */
-    @ApiOperation(value = "根据封面获取文章列表接口")
-    @ApiImplicitParam(name = "categoryId", value = "分类编号", required = true, paramType = "query")
+    @Operation(summary =  "根据封面获取文章列表接口")
+    @Parameter(name = "categoryId", description = "分类编号", required =  true, in = ParameterIn.QUERY)
     @GetMapping("/getFromFengMian")
     @ResponseBody
-    public ResultData getFromFengMian(@ModelAttribute @ApiIgnore ContentEntity content) {
+    public ResultData getFromFengMian(@ModelAttribute @Parameter(hidden = true) ContentEntity content) {
         if (StringUtils.isBlank(content.getCategoryId())) {
             return ResultData.build().error(getResString("err.empty", this.getResString("category.id")));
         }
@@ -178,27 +180,27 @@ public class ContentAction extends BaseAction {
      *
      * @param content 文章实体
      */
-    @ApiOperation(value = "保存文章列表接口")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "contentTitle", value = "文章标题", required = true, paramType = "query"),
-            @ApiImplicitParam(name = "categoryId", value = "所属栏目", required = true, paramType = "query"),
-            @ApiImplicitParam(name = "contentType", value = "文章类型", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentDisplay", value = "是否显示,0:显示 1:不显示", required = true, paramType = "query"),
-            @ApiImplicitParam(name = "contentAuthor", value = "文章作者", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentSource", value = "文章来源", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentDatetime", value = "发布时间", required = true, paramType = "query"),
-            @ApiImplicitParam(name = "contentSort", value = "自定义顺序", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentImg", value = "文章缩略图", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentDescription", value = "描述", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentKeyword", value = "关键字", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentDetails", value = "文章内容", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentOutLink", value = "文章跳转链接地址", required = false, paramType = "query"),
+    @Operation(summary =  "保存文章列表接口")
+    @Parameters({
+            @Parameter(name = "contentTitle", description = "文章标题", required =  true, in = ParameterIn.QUERY),
+            @Parameter(name = "categoryId", description = "所属栏目", required =  true, in = ParameterIn.QUERY),
+            @Parameter(name = "contentType", description = "文章类型", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentDisplay", description = "是否显示,0:显示 1:不显示", required =  true, in = ParameterIn.QUERY),
+            @Parameter(name = "contentAuthor", description = "文章作者", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentSource", description = "文章来源", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentDatetime", description = "发布时间", required =  true, in = ParameterIn.QUERY),
+            @Parameter(name = "contentSort", description = "自定义顺序", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentImg", description = "文章缩略图", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentDescription", description = "描述", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentKeyword", description = "关键字", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentDetails", description = "文章内容", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentOutLink", description = "文章跳转链接地址", required =  false, in = ParameterIn.QUERY),
     })
     @PostMapping("/save")
     @ResponseBody
     @LogAnn(title = "保存文章", businessType = BusinessTypeEnum.INSERT)
     @RequiresPermissions("cms:content:save")
-    public ResultData save(@ModelAttribute @ApiIgnore ContentEntity content) {
+    public ResultData save(@ModelAttribute @Parameter(hidden = true) ContentEntity content) {
         //验证缩略图参数值是否合法
         if (content.getContentImg() == null || !content.getContentImg().matches("^\\[.{1,}]$")) {
             content.setContentImg("");
@@ -247,9 +249,9 @@ public class ContentAction extends BaseAction {
     /**
      * @param contents 文章实体
      */
-    @ApiOperation(value = "批量删除文章列表接口")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "contents", value = "文章集合", allowMultiple = true, dataType = "ContentEntity", required = true)
+    @Operation(summary =  "批量删除文章列表接口")
+    @Parameters({
+            @Parameter(name = "contents", description = "文章集合", schema = @Schema(allOf = ContentEntity.class), required = true)
 
     })
     @PostMapping("/delete")
@@ -283,28 +285,28 @@ public class ContentAction extends BaseAction {
      *
      * @param content 文章实体
      */
-    @ApiOperation(value = "更新文章列表接口")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "编号", required = true, paramType = "query"),
-            @ApiImplicitParam(name = "contentTitle", value = "文章标题", required = true, paramType = "query"),
-            @ApiImplicitParam(name = "categoryId", value = "所属栏目", required = true, paramType = "query"),
-            @ApiImplicitParam(name = "contentType", value = "文章类型", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentDisplay", value = "是否显示,0:显示 1:不显示", required = true, paramType = "query"),
-            @ApiImplicitParam(name = "contentAuthor", value = "文章作者", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentSource", value = "文章来源", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentDatetime", value = "发布时间", required = true, paramType = "query"),
-            @ApiImplicitParam(name = "contentSort", value = "自定义顺序", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentImg", value = "文章缩略图", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentDescription", value = "描述", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentKeyword", value = "关键字", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentDetails", value = "文章内容", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "contentOutLink", value = "文章跳转链接地址", required = false, paramType = "query"),
+    @Operation(summary =  "更新文章列表接口")
+    @Parameters({
+            @Parameter(name = "id", description = "编号", required =  true, in = ParameterIn.QUERY),
+            @Parameter(name = "contentTitle", description = "文章标题", required =  true, in = ParameterIn.QUERY),
+            @Parameter(name = "categoryId", description = "所属栏目", required =  true, in = ParameterIn.QUERY),
+            @Parameter(name = "contentType", description = "文章类型", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentDisplay", description = "是否显示,0:显示 1:不显示", required =  true, in = ParameterIn.QUERY),
+            @Parameter(name = "contentAuthor", description = "文章作者", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentSource", description = "文章来源", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentDatetime", description = "发布时间", required =  true, in = ParameterIn.QUERY),
+            @Parameter(name = "contentSort", description = "自定义顺序", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentImg", description = "文章缩略图", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentDescription", description = "描述", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentKeyword", description = "关键字", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentDetails", description = "文章内容", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "contentOutLink", description = "文章跳转链接地址", required =  false, in = ParameterIn.QUERY),
     })
     @PostMapping("/update")
     @ResponseBody
     @LogAnn(title = "更新文章", businessType = BusinessTypeEnum.UPDATE)
     @RequiresPermissions("cms:content:update")
-    public ResultData update(@ModelAttribute @ApiIgnore ContentEntity content) {
+    public ResultData update(@ModelAttribute @Parameter(hidden = true) ContentEntity content) {
         //验证缩略图参数值是否合法
         if (content.getContentImg() == null || !content.getContentImg().matches("^\\[.{1,}]$")) {
             content.setContentImg("");

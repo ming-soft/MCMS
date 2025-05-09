@@ -32,10 +32,11 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.bean.EUListBean;
@@ -61,7 +62,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -79,7 +79,7 @@ import java.util.stream.Collectors;
  * @date: 2018年1月31日 下午2:52:07
  * @Copyright: 2018 www.mingsoft.net Inc. All rights reserved.
  */
-@Api(tags={"后端-静态化"})
+@Tag(name = "后端-静态化")
 @Controller("cmsGenerater")
 @RequestMapping("/${ms.manager.path}/cms/generate")
 @Scope("request")
@@ -123,14 +123,14 @@ public class GeneraterAction extends BaseAction {
      * 目前栏目作为一个公共数据，方便以后拓展其他业务
      * @param category 分类实体
      */
-    @ApiOperation(value = "查询分类列表接口")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "categoryTitle", value = "栏目管理名称", required = false, paramType = "query"),
-            @ApiImplicitParam(name = "categoryParentId", value = "父类型编号", required = false, paramType = "query"),
+    @Operation(summary =  "查询分类列表接口")
+    @Parameters({
+            @Parameter(name = "categoryTitle", description = "栏目管理名称", required =  false, in = ParameterIn.QUERY),
+            @Parameter(name = "categoryParentId", description = "父类型编号", required =  false, in = ParameterIn.QUERY),
     })
     @RequestMapping(value = "/list", method = {RequestMethod.GET, RequestMethod.POST})
     @ResponseBody
-    public ResultData list(@ModelAttribute @ApiIgnore CategoryEntity category) {
+    public ResultData list(@ModelAttribute @Parameter(hidden = true) CategoryEntity category) {
         List categoryList = categoryBiz.list(new LambdaQueryWrapper<CategoryEntity>(category));
         return ResultData.build().success(new EUListBean(categoryList, categoryList.size()));
     }
@@ -141,7 +141,7 @@ public class GeneraterAction extends BaseAction {
      * @param request
      * @param response
      */
-    @ApiOperation(value = "生成主页接口")
+    @Operation(summary =  "生成主页接口")
     @RequestMapping(value = "/generateIndex", method = {RequestMethod.GET, RequestMethod.POST})
     @RequiresPermissions("cms:generate:index")
     @LogAnn(title = "生成主页", businessType = BusinessTypeEnum.UPDATE)
@@ -177,7 +177,7 @@ public class GeneraterAction extends BaseAction {
      * @param response
      * @param categoryId
      */
-    @ApiOperation(value = "生成栏目接口")
+    @Operation(summary =  "生成栏目接口")
     @RequestMapping(value = "/{categoryId}/generateColumn", method = {RequestMethod.GET, RequestMethod.POST})
     @LogAnn(title = "生成栏目", businessType = BusinessTypeEnum.UPDATE)
     @RequiresPermissions("cms:generate:column")
@@ -269,7 +269,7 @@ public class GeneraterAction extends BaseAction {
      * @param response
      * @param columnId
      */
-    @ApiOperation(value = "生成文章接口")
+    @Operation(summary =  "生成文章接口")
     @RequestMapping(value = "/{columnId}/generateArticle", method = {RequestMethod.GET, RequestMethod.POST})
     @RequiresPermissions("cms:generate:article")
     @LogAnn(title = "生成文章", businessType = BusinessTypeEnum.UPDATE)
@@ -351,7 +351,7 @@ public class GeneraterAction extends BaseAction {
      * @param request
      * @return
      */
-    @ApiOperation(value = "预览主页接口")
+    @Operation(summary =  "预览主页接口")
     @RequestMapping(value = "/{position}/viewIndex", method = {RequestMethod.GET, RequestMethod.POST})
     public String viewIndex(HttpServletRequest request, @PathVariable String position, HttpServletResponse response) {
         AppEntity app = BasicUtil.getApp();
@@ -368,8 +368,8 @@ public class GeneraterAction extends BaseAction {
      *
      * @param request 响应
      */
-    @ApiOperation(value = "删除页面")
-    @ApiImplicitParam(name = "fileName", value = "主页名称", required = true, paramType = "query")
+    @Operation(summary =  "删除页面")
+    @Parameter(name = "fileName", description = "主页名称", required =  true, in = ParameterIn.QUERY)
     @LogAnn(title = "删除页面", businessType = BusinessTypeEnum.DELETE)
     @PostMapping("/delete")
     @ResponseBody
