@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.mingsoft</groupId>
     <artifactId>ms-mcms</artifactId>
-    <version>5.4.5</version>
+    <version>5.5.0</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <!-- 打包war包，注意不启用(resources》resource》excludes的配置并注释掉maven-assembly-plugin 插件配置 -->
     <!--<packaging>war</packaging>-->
@@ -44,24 +44,26 @@
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-base</artifactId>
-            <version>2.2.8</version>
+            <version>2.2.9</version>
         </dependency>
+
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-basic</artifactId>
-            <version>2.2.8</version>
+            <version>2.2.9</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mdiy</artifactId>
-            <version>2.2.8</version>
+            <version>2.2.9</version>
         </dependency>
+
 
         <!--store入口依赖（源码不开发），如果不需要MStore可以直接去掉依赖-->
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>store-client</artifactId>
-            <version>2.2.8</version>
+            <version>2.2.9</version>
         </dependency>
         <dependency>
             <groupId>com.github.oshi</groupId>
@@ -73,21 +75,6 @@
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
             <exclusions>
-                <exclusion>
-                    <artifactId>log4j-api</artifactId>
-                    <groupId>org.apache.logging.log4j</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-slf4j-impl</artifactId>
-            <version>${log4j.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>log4j-core</artifactId>
-                    <groupId>org.apache.logging.log4j</groupId>
-                </exclusion>
                 <exclusion>
                     <artifactId>log4j-api</artifactId>
                     <groupId>org.apache.logging.log4j</groupId>
@@ -174,19 +161,13 @@
                      <bootclasspath>${java.home}/lib/rt.jar${path.separator}${java.home}/lib/jce.jar</bootclasspath>
                  </compilerArguments>
              </configuration>
-             <dependencies>
-                 <dependency>
-                     <groupId>org.codehaus.plexus</groupId>
-                     <artifactId>plexus-compiler-eclipse</artifactId>
-                     <version>2.1</version>
-                 </dependency>
-             </dependencies>
          </plugin>
 
          <!-- 结合(resources》resource》excludes的配置使用 -->
          <!-- 打包出的结构 http://doc.mingsoft.net/server/huan-jing-pei-zhi/jarbu-shu.html#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84-->
          <!-- 打包war包时，注释掉此插件-->
          <plugin>
+             <groupId>org.apache.maven.plugins</groupId>
              <artifactId>maven-assembly-plugin</artifactId>
              <version>3.1.1</version>
              <executions>
