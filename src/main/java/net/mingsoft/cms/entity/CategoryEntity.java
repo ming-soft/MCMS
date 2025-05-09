@@ -62,7 +62,7 @@ public class CategoryEntity extends BaseEntity {
     /**
      * 栏目副标题
      */
-    @TableField(updateStrategy = FieldStrategy.IGNORED)
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private String categoryShortTitle;
     /**
      * 栏目别名
@@ -71,7 +71,8 @@ public class CategoryEntity extends BaseEntity {
     /**
      * 所属栏目
      */
-    @TableField(insertStrategy = FieldStrategy.NOT_EMPTY, updateStrategy = FieldStrategy.NOT_EMPTY, whereStrategy = FieldStrategy.NOT_EMPTY)
+    //@TableField(insertStrategy = FieldStrategy.NOT_EMPTY, updateStrategy = FieldStrategy.NOT_EMPTY, whereStrategy = FieldStrategy.NOT_EMPTY)
+    @TableField(insertStrategy = FieldStrategy.NOT_EMPTY, updateStrategy = FieldStrategy.ALWAYS, whereStrategy = FieldStrategy.NOT_EMPTY)
     private String categoryId;
     /**
      * 栏目管理属性
@@ -84,12 +85,12 @@ public class CategoryEntity extends BaseEntity {
     /**
      * 列表模板
      */
-    @TableField(updateStrategy = FieldStrategy.IGNORED)
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private String categoryListUrl;
     /**
      * 内容模板
      */
-    @TableField(updateStrategy = FieldStrategy.IGNORED)
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private String categoryUrl;
     /**
      * 栏目管理关键字
@@ -127,13 +128,13 @@ public class CategoryEntity extends BaseEntity {
     /**
      * 文章管理的内容模型id
      */
-    @TableField(updateStrategy = FieldStrategy.IGNORED)
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private String mdiyModelId;
 
     /**
      * 栏目管理的内容模型id
      */
-    @TableField(updateStrategy = FieldStrategy.IGNORED)
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private String mdiyCategoryModelId;
 
     /**
@@ -151,7 +152,7 @@ public class CategoryEntity extends BaseEntity {
     /**
      * 父类型编号
      */
-    @TableField(updateStrategy = FieldStrategy.IGNORED)
+    @TableField(updateStrategy = FieldStrategy.ALWAYS)
     private String categoryParentIds;
 
     /**

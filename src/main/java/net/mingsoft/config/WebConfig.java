@@ -26,6 +26,7 @@ import cn.hutool.json.JSONUtil;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.spring.stat.BeanTypeAutoProxyCreator;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import jakarta.annotation.Resource;
 import net.mingsoft.basic.filter.XSSEscapeFilter;
 import net.mingsoft.basic.interceptor.ActionInterceptor;
 import net.mingsoft.mdiy.biz.IConfigBiz;
@@ -43,12 +44,8 @@ import org.springframework.core.Ordered;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.context.request.RequestContextListener;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 
-import javax.annotation.Resource;
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -100,6 +97,12 @@ public class WebConfig implements WebMvcConfigurer {
         // 排除配置
         registry.addInterceptor(actionInterceptor()).excludePathPatterns("/static/**", "/app/**", "/webjars/**",
                 "/*.html", "/*.htm");
+    }
+
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        // 启用后缀模式匹配
+        configurer.setUseSuffixPatternMatch(true);
     }
 
     @Override
@@ -192,7 +195,6 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        // TODO Auto-generated method stub
         converters.add(mappingJackson2HttpMessageConverter);
         WebMvcConfigurer.super.configureMessageConverters(converters);
 

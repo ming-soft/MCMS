@@ -43,7 +43,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -331,7 +330,7 @@ public class CmsParserUtil {
             String finalWritePath = writePath;
             HashMap<Object, Object> cloneMap = MapUtil.newHashMap();
             cloneMap.putAll(parserParams);
-            HttpServletRequest request = SpringUtil.getRequest();
+//            HttpServletRequest request = SpringUtil.getRequest();
             String content = null;
             try {
                 content = ParserUtil.rendering(columnUrl, cloneMap);

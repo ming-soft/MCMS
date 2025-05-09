@@ -134,6 +134,8 @@ private static final long serialVersionUID = 1574925152617L;
 	 */
 	private Integer hasListHtml;
 
+
+
 	public Integer getContentHit() {
 		return contentHit;
 	}

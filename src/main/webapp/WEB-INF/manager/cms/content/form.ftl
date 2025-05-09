@@ -273,9 +273,10 @@
                                     标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.descrip}</a>，用于SEO优化
                                 </div>
                             </el-form-item>
-                            <el-form-item label="文章内容" prop="contentDetails" v-loading="editorHiden">
+                            <el-form-item label="文章内容" prop="contentDetails" v-loading="editorHidden">
                                 <vue-ueditor-wrap style="line-height: 0px"
-                                                  v-if="!editorHiden"
+                                                  ref="editor"
+                                                  v-if="!editorHidden"
                                                   v-model="form.contentDetails"
                                                   :config="editorConfig"></vue-ueditor-wrap>
                                 <div class="ms-form-tip">
@@ -309,7 +310,7 @@
                 callback();
             }
             return {
-                editorHiden:true,
+                editorHidden:true,
                 saveDisabled: false,
                 activeName: 'form',
                 //自定义模型实例
@@ -329,7 +330,7 @@
                     maximumWords: 2000,
                     initialFrameWidth: '100%',
                     initialFrameHeight: 400,
-                    serverUrl: ms.base + "/static/plugins/ueditor/1.4.3.3/jsp/editor.do?jsonConfig=%7BvideoUrlPrefix:\'\',fileManagerListPath:\'\',imageMaxSize:204800000,videoMaxSize:204800000,fileMaxSize:204800000,fileUrlPrefix:\'\',imageUrlPrefix:\'\',imagePathFormat:\'/${app.id}/editor/%7Btime%7D\',filePathFormat:\'/${app.id}/editor/%7Btime%7D\',videoPathFormat:\'/${app.id}/editor/%7Btime%7D\'%7D",
+                    serverUrl: ms.manager + "/editor.do?version=1.4.3.3",
                     UEDITOR_HOME_URL: ms.base + '/static/plugins/ueditor/1.4.3.3/'
                 },
                 contentCategoryIdOptions: [],
@@ -460,6 +461,7 @@
                         that.saveDisabled = true; //判断
 
                         var data = JSON.parse(JSON.stringify(that.form));
+
                         // 固定属性顺序为字典顺序
                         if (data.contentType && data.contentType.length > 0) {
                             var orderTypes = [];
@@ -780,8 +782,7 @@
             },
             //contentImg文件上传失败回调
             contentImgError: function (response, file, fileList) {
-                response = response.toString().replace("Error: ","")
-                response = JSON.parse(response);
+                response = JSON.parse(response.message);
                 this.$notify({
                     title: '失败',
                     message: response.msg,
@@ -811,9 +812,9 @@
             },
             //只有在渲染完栏目数据之后才会初始化
             init: function () {
-				var that = this;
+                var that = this;
                 this.form.id = this.id;
-                this.editorHiden = true;
+                this.editorHidden = true;
 
                 //在指定栏目下新增或编辑文章时
                 if (this.categoryId) {
@@ -836,7 +837,7 @@
 
                 setTimeout(()=>{
                     //显示编辑器
-                    that.editorHiden = false;
+                    that.editorHidden = false;
                 },200)
             },
             //复制文章id

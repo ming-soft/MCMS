@@ -170,8 +170,7 @@
                                                    :label="item.modelName"></el-option>
                                     </el-select>
                                     <div class="ms-form-tip">
-                                        文章字段不满足，使用<b>代码生成器</b>生成<b>自定义模型</b>来扩展，<br/>
-                                        大概步骤：<i>代码生成器->复制自定义模型->打开系统后台的自定义管理->选择自定义模型->导入->文章 自定义模型 绑定</i>
+                                        如果发布时候文章字段信息不够，可以采用铭飞代码生成器生成自定义模型，再通过“自定义模块->自定义模型->导入”功能导入模型，注意类型是文章。如果栏目下有文章则不允许修改绑定的模型
                                     </div>
                                 </el-form-item>
 
@@ -338,7 +337,20 @@
                             </el-upload>
                         </el-form-item>
                     </el-form>
-
+                    <el-dialog
+                            v-model="dialogVisible"
+                            title="Tips"
+                            width="500">
+                        <span>This is a message</span>
+                        <template #footer>
+                            <div class="dialog-footer">
+                                <el-button @click="dialogVisible = false">Cancel</el-button>
+                                <el-button type="primary" @click="dialogVisible = false">
+                                    Confirm
+                                </el-button>
+                            </div>
+                        </template>
+                    </el-dialog>
                 </el-tab-pane>
             </el-tabs>
         </el-scrollbar>
@@ -366,6 +378,7 @@
                 })
             }
             return {
+                dialogVisible: false,
                 activeName: 'form',
                 //自定义模型实例
                 model: undefined,
@@ -816,8 +829,7 @@
             },
             //categoryImg文件上传失败回调
             categoryImgError: function (response, file, fileList) {
-                response = response.toString().replace("Error: ","")
-                response = JSON.parse(response);
+                response = JSON.parse(response.message);
                 this.$notify({
                     title: '失败',
                     message: response.msg,

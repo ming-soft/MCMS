@@ -1,67 +1,45 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.18</version>
+        <version>3.4.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.mingsoft</groupId>
     <artifactId>ms-mcms</artifactId>
-    <version>5.4.5</version>
+    <version>6.0.0</version>
     <name>${project.groupId}:${project.artifactId}</name>
-    <!-- 打包war包，注意不启用(resources》resource》excludes的配置并注释掉maven-assembly-plugin 插件配置 -->
-    <!--<packaging>war</packaging>-->
+    <!-- 打包war包 -->
     <properties>
-        <java.version>1.8</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <log4j.version>2.20.0</log4j.version>
+        <log4j.version>2.23.0</log4j.version>
     </properties>
-    <repositories>
-        <repository>
-            <id>central-repos</id>
-            <name>Central Repository 2</name>
-            <url>https://repo.maven.apache.org/maven2/</url>
-        </repository>
-        <!--阿里云仓库，注意：如果使用阿里云仓库遇到启动缺少jar包的时候，必须使用国外中央库拉取-->
-        <!--
-        <repository>
-            <id>alimaven</id>
-            <name>aliyun maven</name>
-            <url>https://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-        -->
-    </repositories>
+    <packaging>jar</packaging>
+
     <dependencies>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-base</artifactId>
-            <version>2.2.8</version>
+            <version>3.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-basic</artifactId>
-            <version>2.2.8</version>
+            <version>3.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mdiy</artifactId>
-            <version>2.2.8</version>
+            <version>3.0.0-SNAPSHOT</version>
         </dependency>
-
-        <!--store入口依赖（源码不开发），如果不需要MStore可以直接去掉依赖-->
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>store-client</artifactId>
-            <version>2.2.8</version>
+            <version>3.0.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.github.oshi</groupId>
@@ -135,79 +113,79 @@
                     <!-- 如果生产需要实时修改WEB-INF/下的页面可，启用这行并手动将项目中的WEB-INF目录复制到运行环境 -->
                     <!-- <exclude>WEB-INF/</exclude> -->
                 </excludes>
-         </resource>
-         <resource>
-             <directory>src/main/resources</directory>
-         </resource>
-         <resource>
-             <directory>src/main/java</directory>
-             <excludes>
-                 <exclude>**/*.java</exclude>
-             </excludes>
-         </resource>
-     </resources>
-     <plugins>
-         <plugin>
-             <groupId>org.springframework.boot</groupId>
-             <artifactId>spring-boot-maven-plugin</artifactId>
-             <configuration>
-                 <mainClass>net.mingsoft.MSApplication</mainClass>
-                 <executable>true</executable>
-                 <includeSystemScope>true</includeSystemScope>
-                 <fork>true</fork>
-             </configuration>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <excludes>
+                    <exclude>**/*.java</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>net.mingsoft.MSApplication</mainClass>
+                    <executable>true</executable>
+                    <includeSystemScope>true</includeSystemScope>
+                    <fork>true</fork>
+                </configuration>
 
-         </plugin>
+            </plugin>
 
-         <plugin>
-             <groupId>org.apache.maven.plugins</groupId>
-             <artifactId>maven-compiler-plugin</artifactId>
-             <version>3.1</version>
-             <configuration>
-                 <source>${java.version}</source>
-                 <target>${java.version}</target>
-                 <encoding>${project.build.sourceEncoding}</encoding>
-                 <showDeprecation>true</showDeprecation>
-                 <showWarnings>true</showWarnings>
-                 <compilerArguments>
-                     <verbose/>
-                     <bootclasspath>${java.home}/lib/rt.jar${path.separator}${java.home}/lib/jce.jar</bootclasspath>
-                 </compilerArguments>
-             </configuration>
-             <dependencies>
-                 <dependency>
-                     <groupId>org.codehaus.plexus</groupId>
-                     <artifactId>plexus-compiler-eclipse</artifactId>
-                     <version>2.1</version>
-                 </dependency>
-             </dependencies>
-         </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>true</showWarnings>
+                    <compilerArguments>
+                        <verbose/>
+                        <bootclasspath>${java.home}/lib/rt.jar${path.separator}${java.home}/lib/jce.jar</bootclasspath>
+                    </compilerArguments>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.plexus</groupId>
+                        <artifactId>plexus-compiler-eclipse</artifactId>
+                        <version>2.1</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
 
-         <!-- 结合(resources》resource》excludes的配置使用 -->
-         <!-- 打包出的结构 http://doc.mingsoft.net/server/huan-jing-pei-zhi/jarbu-shu.html#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84-->
-         <!-- 打包war包时，注释掉此插件-->
-         <plugin>
-             <artifactId>maven-assembly-plugin</artifactId>
-             <version>3.1.1</version>
-             <executions>
-                 <execution>
-                     <id>build-package</id>
-                     <phase>package</phase>
-                     <goals>
-                         <goal>single</goal>
-                     </goals>
-                     <configuration>
-                         <finalName>${project.artifactId}</finalName>
-                         <descriptors>
-                             <descriptor>assembly.xml</descriptor>
-                         </descriptors>
-                     </configuration>
-                 </execution>
-             </executions>
-         </plugin>
+            <!-- 结合(resources》resource》excludes的配置使用 -->
+            <!-- 打包出的结构 http://doc.mingsoft.net/server/huan-jing-pei-zhi/jarbu-shu.html#%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84-->
+            <!-- 打包war包时，注释掉此插件-->
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>build-package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <finalName>${project.artifactId}</finalName>
+                            <descriptors>
+                                <descriptor>assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
 
-     </plugins>
-     <defaultGoal>compile</defaultGoal>
- </build>
+        </plugins>
+        <defaultGoal>compile</defaultGoal>
+    </build>
 </project>

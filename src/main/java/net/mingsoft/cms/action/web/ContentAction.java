@@ -24,10 +24,13 @@ package net.mingsoft.cms.action.web;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.util.BasicUtil;
@@ -48,10 +51,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**
@@ -60,7 +60,7 @@ import java.util.*;
  * 创建日期：2019-11-28 15:12:32<br/>
  * 历史修订：<br/>
  */
-@Api(tags={"前端-内容模块接口"})
+@Tag(name="前端-内容模块接口")
 @Controller("WebcmsContentAction")
 @RequestMapping("/cms/content")
 public class ContentAction extends net.mingsoft.cms.action.BaseAction{
@@ -85,12 +85,12 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	 * 查询文章列表接口
 	 * @return
 	 */
-	@ApiOperation(value = "查询文章列表接口")
-	@ApiImplicitParams({
-			@ApiImplicitParam(name = "typeid", value = "所属栏目", required =true,paramType="query"),
-			@ApiImplicitParam(name = "pageNo", value = "页码", required =false,paramType="query"),
-			@ApiImplicitParam(name = "size", value = "一页显示数量", required =false,paramType="query"),
-			@ApiImplicitParam(name = "orderby", value = "排序", required =false,paramType="query"),
+	@Operation(summary = "查询文章列表接口")
+	@Parameters({
+			@Parameter(name = "typeid", description = "所属栏目", required =true, in= ParameterIn.QUERY),
+			@Parameter(name = "pageNo", description = "页码", required =false, in= ParameterIn.QUERY),
+			@Parameter(name = "size", description = "一页显示数量", required =false, in= ParameterIn.QUERY),
+			@Parameter(name = "orderby", description = "排序", required =false, in= ParameterIn.QUERY),
     })
 	@GetMapping(value = "/list")
 	@ResponseBody
@@ -147,11 +147,11 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	 * @param content 文章
 	 * @return
 	 */
-	@ApiOperation(value = "获取文章列表接口")
-    @ApiImplicitParam(name = "id", value = "编号", required =true,paramType="query")
+	@Operation(summary =  "获取文章列表接口")
+    @Parameter(name = "id", description = "编号", required = true, in = ParameterIn.QUERY)
 	@GetMapping("/get")
 	@ResponseBody
-	public ResultData get(@ModelAttribute @ApiIgnore ContentEntity content){
+	public ResultData get(@ModelAttribute @Parameter(hidden = true) ContentEntity content){
 		if(content.getId()==null) {
 			return ResultData.build().error(getResString("err.empty",this.getResString("id")));
 		}
@@ -182,12 +182,12 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	 * @param contentId 文章编号
 	 * @return
 	 */
-	@ApiOperation(value = "查看文章点击数")
-	@ApiImplicitParam(name = "contentId", value = "文章编号", required = true,paramType="path")
+	@Operation(summary =  "查看文章点击数")
+	@Parameter(name = "contentId", description = "文章编号", required = true, in = ParameterIn.PATH)
 	// 由于适配增加了对clob序列化处理，此处需要指定响应头
 	@GetMapping(value = "/{contentId}/hit", produces = "application/javascript")
 	@ResponseBody
-	public String hit(@PathVariable @ApiIgnore String contentId) {
+	public String hit(@PathVariable @Parameter(hidden = true) String contentId) {
 		if(StringUtils.isEmpty(contentId)){
 			return "document.write(0)";
 		}

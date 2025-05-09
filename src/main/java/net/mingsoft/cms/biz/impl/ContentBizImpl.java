@@ -33,7 +33,6 @@ import net.mingsoft.base.dao.IBaseDao;
 import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.IContentBiz;
-import net.mingsoft.cms.dao.ICategoryDao;
 import net.mingsoft.cms.dao.IContentDao;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.mdiy.biz.ITagBiz;
@@ -65,15 +64,11 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 
 	@Autowired
 	private IContentDao contentDao;
-	/**
-	 * 栏目管理业务层
-	 */
-	@Autowired
-	private ICategoryDao categoryDao;
 
 
 	@Autowired
 	private ITagBiz tagBiz;
+
 
 	@Override
 	protected IBaseDao getDao() {
@@ -111,14 +106,15 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		//通过tagSqlBiz获取arclist对应的sql
 		QueryWrapper<TagEntity> tagWrapper = new QueryWrapper<>();
 		tagWrapper.eq("tag_name", "arclist");
-		TagEntity tagEntity = tagBiz.getOne(tagWrapper);
+		TagEntity tagEntity = tagBiz.getOne(tagWrapper,false);
 		String sqlFtl = tagEntity.getTagSql();
-		List<ContentEntity> contentEntities = null;
+		List<Map<String, Object>> contentEntities = null;
 		//通过ParserUtil
 		try {
 			String sql = ParserUtil.rendering(map,sqlFtl);
 			//执行原生的sql
-			contentEntities = (List<ContentEntity>) tagBiz.excuteSql(sql);
+			//contentEntities = (List<ContentEntity>) tagBiz.excuteSql(sql);过期
+			contentEntities = tagBiz.queryForList(sql);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (TemplateException e) {
@@ -132,7 +128,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		//通过tagSqlBiz获取data对应的sql
 		LambdaQueryWrapper<TagEntity> wrapper = new LambdaQueryWrapper<>();
 		wrapper.eq(TagEntity::getTagName, "data");
-		TagEntity tagEntity = tagBiz.getOne(wrapper);
+		TagEntity tagEntity = tagBiz.getOne(wrapper,false);
 		if (tagEntity == null) {
 			return null;
 		}
@@ -141,7 +137,8 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		try {
 			String sql = ParserUtil.rendering(map,sqlFtl);
 			//执行原生的sql
-			List<Map>contentEntities = (List<Map>) tagBiz.excuteSql(sql);
+			//List<Map>contentEntities = (List<Map>) tagBiz.excuteSql(sql);过期
+			List<Map<String, Object>> contentEntities = tagBiz.queryForList(sql);
 			if (CollUtil.isEmpty(contentEntities)) {
 				return null;
 			}
@@ -152,4 +149,6 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 		}
 		return content;
 	}
+
+
 }
