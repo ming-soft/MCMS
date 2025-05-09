@@ -273,9 +273,9 @@
                                     标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.descrip}</a>，用于SEO优化
                                 </div>
                             </el-form-item>
-                            <el-form-item label="文章内容" prop="contentDetails" v-loading="editorHiden">
+                            <el-form-item label="文章内容" prop="contentDetails" v-loading="editorHidden">
                                 <vue-ueditor-wrap style="line-height: 0px"
-                                                  v-if="!editorHiden"
+                                                  v-show="!editorHidden"
                                                   v-model="form.contentDetails"
                                                   :config="editorConfig"></vue-ueditor-wrap>
                                 <div class="ms-form-tip">
@@ -293,7 +293,6 @@
         </el-main>
     </div>
 </template>
-
 <script>
     var contentForm = Vue.defineComponent({
         template: '#content-form',
@@ -309,7 +308,7 @@
                 callback();
             }
             return {
-                editorHiden:true,
+                editorHidden:true,
                 saveDisabled: false,
                 activeName: 'form',
                 //自定义模型实例
@@ -329,7 +328,8 @@
                     maximumWords: 2000,
                     initialFrameWidth: '100%',
                     initialFrameHeight: 400,
-                    serverUrl: ms.base + "/static/plugins/ueditor/1.4.3.3/jsp/editor.do?jsonConfig=%7BvideoUrlPrefix:\'\',fileManagerListPath:\'\',imageMaxSize:204800000,videoMaxSize:204800000,fileMaxSize:204800000,fileUrlPrefix:\'\',imageUrlPrefix:\'\',imagePathFormat:\'/${app.id}/editor/%7Btime%7D\',filePathFormat:\'/${app.id}/editor/%7Btime%7D\',videoPathFormat:\'/${app.id}/editor/%7Btime%7D\'%7D",
+                    serverUrl: ms.manager + "/editor.do?version=1.4.3.3",
+                    UEDITOR_BASE_URL: ms.base + '/static/plugins/ueditor/1.4.3.3/',
                     UEDITOR_HOME_URL: ms.base + '/static/plugins/ueditor/1.4.3.3/'
                 },
                 contentCategoryIdOptions: [],
@@ -655,6 +655,11 @@
                             that.changeModel(category[0].id);
                         }
 
+                        setTimeout(()=>{
+                            //显示编辑器
+                            that.editorHidden = false;
+                        },500)
+
                     }
                 }).catch(function (err) {
                     console.log(err);
@@ -700,6 +705,11 @@
                                 that.categoryChangeEnabled = false;
                                 that.changeModel(category[0].id);
                             }
+
+                            setTimeout(()=>{
+                                //显示编辑器
+                                that.editorHidden = false;
+                            },500)
                         }
                     } else {
                         that.$notify({
@@ -780,8 +790,7 @@
             },
             //contentImg文件上传失败回调
             contentImgError: function (response, file, fileList) {
-                response = response.toString().replace("Error: ","")
-                response = JSON.parse(response);
+                response = JSON.parse(response.message);
                 this.$notify({
                     title: '失败',
                     message: response.msg,
@@ -811,9 +820,9 @@
             },
             //只有在渲染完栏目数据之后才会初始化
             init: function () {
-				var that = this;
+                var that = this;
                 this.form.id = this.id;
-                this.editorHiden = true;
+                this.editorHidden = true;
 
                 //在指定栏目下新增或编辑文章时
                 if (this.categoryId) {
@@ -828,16 +837,22 @@
                         //指定栏目新增文章渲染自定义模型
                     }else {
                         this.changeModel(this.categoryId);
+                        setTimeout(()=>{
+                            //显示编辑器
+                            that.editorHidden = false;
+                        },500)
                     }
                     //不指定栏目编辑文章
                 }else if (this.form.id) {
                     this.get(this.form.id);
-                }//else 如果即不指定栏目新增文章，又不是编辑文章就不渲染自定义模型
+                }else if (!this.form.id) { //新增
+                    setTimeout(()=>{
+                        //显示编辑器
+                        that.editorHidden = false;
+                    },500)
+                }
 
-                setTimeout(()=>{
-                    //显示编辑器
-                    that.editorHiden = false;
-                },200)
+
             },
             //复制文章id
             copyString: function () {
