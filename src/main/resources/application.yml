@@ -10,6 +10,8 @@ server:
   error:
     include-exception: true
     include-message: always
+  tomcat:
+    max-swallow-size: 1GB # tomcat容器最大请求大小，可按需修改(一般比最大文件上传大小大一些就行)，避免上传文件超出最大限制时容器中断请求，导致获取不到异常信息
 
 #  ssl: #https证书配置 配置了之后只能通过https访问应用
 #    key-store: xxx.pfx 证书文件，证书文件格式具体参考证书分发平台
@@ -18,16 +20,20 @@ server:
 logging:
   level:
     net.mingsoft: debug
-    springfox.documentation: error
+    org.springdoc: error
   config: classpath:log4j-spring.xml
 
-springfox:
-  documentation:
-    auto-startup: false #启用swagger功能，false 将不会启用swagger-ui和api-doc 生产的时候务必关掉
-    enabled: false #启用swagger文档(启用时需要swagger功能也开启 auto-startup: true)，生产的时候务必关掉 访问地址：http://ip|域名/项目发布名/swagger-ui/
+springdoc:
+  api-docs:
+    enabled: true #启用swagger功能，false 将不会启用swagger-ui和api-doc 生产的时候务必关掉
+  swagger-ui:
+    enabled: true #启用swagger文档(启用时需要swagger功能也开启 api-docs.enable: true)，生产的时候务必关掉 访问地址：http://ip|域名/项目发布名/swagger-ui.html
+    doc-expansion: none #默认不展开
+    tags-sorter: alpha   # 按字母顺序排列标签
+    operations-sorter: alpha # 按字母顺序排列操作
+  packages-to-scan: net.mingsoft #扫描包,多个包用逗号隔开
 
 ms:
-  #  mstore-url: http://wtp.i.mingsoft.net
   #scheme: https #解决使用代理服务器代理应用时标签解析域名依旧为http的问题
   xss:
     enable: true #xss过滤器的开关
@@ -54,11 +60,11 @@ ms:
     back-up: /upload_back
     multipart:
       #最大上传文件大小 单位：KB
-      max-file-size: 10240
+      max-file-size: 1024000
       #文件暂存临时目录
       upload-temp-dir: temp
       #临时文件大小
-      max-in-memory-size: 10240
+      max-in-memory-size: 1024000
       #总上传最大大小 单位：KB -1禁用
       max-request-size: -1
 
@@ -82,7 +88,7 @@ spring:
       testOnBorrow: true #设置从连接池获取连接时是否检查连接有效性，true检查，false不检查
       testOnReturn: true #设置从连接池归还连接时是否检查连接有效性，true检查，false不检查
       poolPreparedStatements: true #可以支持PSCache（提升写入、查询效率）
-      filters: stat,wall #配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+#      filters: stat,wall #配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
       keepAlive: true #保持长连接
       stat-view-servlet:
         enabled: false #启用druid监控
