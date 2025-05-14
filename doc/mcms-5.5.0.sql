@@ -1,3 +1,4 @@
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -597,37 +598,6 @@ INSERT INTO `model` (`id`, `model_id`, `model_parent_ids`, `model_code`, `model_
 COMMIT;
 
 -- ----------------------------
--- Table structure for people
--- ----------------------------
-DROP TABLE IF EXISTS `people`;
-CREATE TABLE `people` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID主键',
-  `PEOPLE_NAME` varchar(30) DEFAULT NULL COMMENT '账号',
-  `PEOPLE_PASSWORD` varchar(50) DEFAULT NULL COMMENT '密码',
-  `PEOPLE_IP` varchar(100) DEFAULT NULL COMMENT '用户登录IP',
-  `PEOPLE_PHONE` varchar(30) DEFAULT NULL COMMENT '手机号码',
-  `PEOPLE_PHONECHECK` int(1) DEFAULT '0' COMMENT '1手机验证通过',
-  `PEOPLE_MAIL` varchar(120) DEFAULT NULL COMMENT '用户邮箱',
-  `PEOPLE_MAILLCHECK` int(1) DEFAULT '0' COMMENT '1邮箱验证通过',
-  `PEOPLE_STATE` int(2) DEFAULT '1' COMMENT '用户状态',
-  `PEOPLE_CODE` varchar(15) DEFAULT NULL COMMENT '随机验证码',
-  `PEOPLE_CODESENDDATE` timestamp NULL DEFAULT NULL COMMENT '发送验证码时间',
-  `PEOPLE_DATETIME` timestamp NULL DEFAULT NULL COMMENT '注册时间',
-  `UPDATE_BY` varchar(11) DEFAULT NULL COMMENT '更新人',
-  `UPDATE_DATE` timestamp NULL DEFAULT NULL COMMENT '更新时间',
-  `CREATE_BY` varchar(11) DEFAULT NULL COMMENT '创建人',
-  `CREATE_DATE` timestamp NULL DEFAULT NULL COMMENT '创建时间',
-  `DEL` int(1) DEFAULT '0' COMMENT '删除标记',
-  PRIMARY KEY (`ID`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='户用基础表';
-
--- ----------------------------
--- Records of people
--- ----------------------------
-BEGIN;
-COMMIT;
-
--- ----------------------------
 -- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
@@ -756,50 +726,5 @@ INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (98, 1817, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (99, 1818, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (100, 1819, 48);
 COMMIT;
-
--- ----------------------------
--- Procedure structure for ConvertAllColumnNamesToUppercase
--- ----------------------------
-DROP PROCEDURE IF EXISTS `ConvertAllColumnNamesToUppercase`;
-delimiter ;;
-CREATE PROCEDURE `ConvertAllColumnNamesToUppercase`()
-BEGIN
-    DECLARE done INT DEFAULT FALSE;
-    DECLARE tableName VARCHAR(255);
-    DECLARE columnName VARCHAR(255);
-    DECLARE columnType VARCHAR(255);
-    DECLARE cur CURSOR FOR
-        SELECT TABLE_NAME, COLUMN_NAME, COLUMN_TYPE
-        FROM INFORMATION_SCHEMA.COLUMNS
-        WHERE TABLE_SCHEMA = DATABASE(); -- 当前数据库
-    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
-
-    OPEN cur;
-
-    read_loop: LOOP
-        FETCH cur INTO tableName, columnName, columnType;
-        IF done THEN
-            LEAVE read_loop;
-        END IF;
-
-        -- 动态生成 ALTER TABLE 语句
-        SET @sql = CONCAT(
-            'ALTER TABLE `', tableName, '` ',
-            'CHANGE COLUMN `', columnName, '` `', UPPER(columnName), '` ', columnType
-        );
-
-        -- 输出生成的 SQL 语句（用于调试）
-        SELECT @sql AS 'Generated SQL';
-
-        -- 执行生成的 SQL 语句
-        PREPARE stmt FROM @sql;
-        EXECUTE stmt;
-        DEALLOCATE PREPARE stmt;
-    END LOOP;
-
-    CLOSE cur;
-END
-;;
-delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;
