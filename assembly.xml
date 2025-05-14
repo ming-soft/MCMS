@@ -53,7 +53,6 @@
             </includes>
         </fileSet>
     </fileSets>
-
     <files>
         <file>
             <source>${project.build.directory}/${project.build.finalName}.jar</source>
