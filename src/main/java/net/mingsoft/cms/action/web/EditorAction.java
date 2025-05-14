@@ -18,6 +18,10 @@
  * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+
+
+
+
 package net.mingsoft.cms.action.web;
 
 import cn.hutool.core.map.MapUtil;
@@ -27,7 +31,6 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import net.mingsoft.cms.action.BaseAction;
 import net.mingsoft.config.MSProperties;
-import net.mingsoft.config.MultipartProperties;
 import net.mingsoft.mdiy.util.ConfigUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +57,7 @@ import java.util.Map;
 public class EditorAction extends BaseAction {
 
     @Resource
-    private MultipartProperties multipartProperties;
+    private MSProperties msProperties;
 
     @ResponseBody
     @RequestMapping(value = "editor", method = {RequestMethod.GET, RequestMethod.POST})
@@ -62,7 +65,7 @@ public class EditorAction extends BaseAction {
         boolean enableWeb = MSProperties.upload.enableWeb;
 
         Map uploadConfig = ConfigUtil.getMap("文件上传配置");
-        long maxFileSize = multipartProperties.getMaxFileSize();
+        long maxFileSize = msProperties.getUpload().getMultipart().getMaxFileSize();
         // 兼容其他版本的上传配置
         if (MapUtil.isNotEmpty(uploadConfig)){
             enableWeb = Boolean.parseBoolean(String.valueOf(uploadConfig.get("uploadEnable")));
