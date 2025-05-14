@@ -816,8 +816,7 @@
             },
             //categoryImg文件上传失败回调
             categoryImgError: function (response, file, fileList) {
-                response = response.toString().replace("Error: ","")
-                response = JSON.parse(response);
+                response = JSON.parse(response.message);
                 this.$notify({
                     title: '失败',
                     message: response.msg,

@@ -328,9 +328,9 @@
                     maximumWords: 2000,
                     initialFrameWidth: '100%',
                     initialFrameHeight: 400,
-                    serverUrl: ms.manager + "/editor.do?version=1.4.3.3",
+                    serverUrl: ms.base + "/editor.do?version=1.4.3.3",
+                    UEDITOR_HOME_URL: ms.base + '/static/plugins/ueditor/1.4.3.3/',
                     UEDITOR_BASE_URL: ms.base + '/static/plugins/ueditor/1.4.3.3/',
-                    UEDITOR_HOME_URL: ms.base + '/static/plugins/ueditor/1.4.3.3/'
                 },
                 contentCategoryIdOptions: [],
                 categoryChangeEnabled: true,
