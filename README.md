@@ -136,8 +136,13 @@ docker run -p 3306:3306 -p 8080:8080 --name mcms --privileged=true -e TZ=Asia/Sh
 # 启动Mcms
 docker exec mcms /home/start.sh
 
+# MCms启动成功后,登录管理后台地址（前端页面需要先进行静态化才能访问 具体操作菜单 内容管理->静态化）
+http://ip:8080/ms/login.do
+账号\密码：msopen\msopen
+
 ```
 `MYSQL_ROOT_PASSWORD` 数据库密码，如果修改需要修改容器 `/home/mcms/config/` 下配置文件的链接，实际部署可以将 `/home/mcms` 挂载到外部文件夹，方便更新 `mcms` 系统文件
+
 
 
 # 技术选型
