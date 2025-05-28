@@ -24557,6 +24557,17 @@ UE.plugin.register('simpleupload', function (){
                     errorHandler(me.getLang('autoupload.errorLoadConfig'));
                     return;
                 }
+
+                // 二开结束
+                var maxSize = me.getOpt('imageMaxSize');
+
+                /* 判断文件大小是否超出限制 */
+                if(input.files[0].size > maxSize) {
+                    showErrorLoader(me.getLang('simpleupload.exceedSizeError'));
+                    return;
+                }
+                // 二开结束
+
                 // 判断文件格式是否错误
                 var filename = input.value,
                     fileext = filename ? filename.substr(filename.lastIndexOf('.')):'';
