@@ -1,6 +1,5 @@
 /*
  *  jQuery OwlCarousel v1.3.3
- *  www.sucaijiayuan.com
  */
 
 if (typeof Object.create !== "function") {

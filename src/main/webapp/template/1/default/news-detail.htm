@@ -32,11 +32,9 @@
     <script>
         ms.base= "{ms:global.contextpath/}"
     </script>
-
-    <!--评论关注插件-start-->
     <#include "component/ms-comment.htm" />
     <#include "component/ms-mattention.htm" />
-    <!--评论关注插件-start-->
+
 </head>
 <body>
 <#include "header.htm" />
@@ -64,9 +62,7 @@
                         show-icon
                 >
                     <template slot="title">
-                        需要集成<a href="http://store.mingsoft.net/#/detail?id=269&type=plugin" target="_blank" style="color: #409EFF; text-decoration: none;">会员插件</a>、
-                        <a href="http://store.mingsoft.net/#/detail?id=265&type=plugin" target="_blank" style="color: #409EFF; text-decoration: none;">关注插件</a>、
-                        <a href="http://store.mingsoft.net/#/detail?id=268&type=plugin" target="_blank" style="color: #409EFF; text-decoration: none;">评论插件</a>下面的功能才能正常使用；
+                        需要集成会员插件、关注插件、评论插件下面的功能才能正常使用；若不需要使用news-detail-bak.htm即可
                         <a href="http://store.mingsoft.net/#/detail?id=271&type=plugin" target="_blank" style="color: #409EFF; text-decoration: none;">
                             会员模板
                         </a>
@@ -74,18 +70,17 @@
                     </template>
                 </el-alert>
             </div>
-            <!--关注-start-->
+            <!--文章底部交互-start-->
             <div class="detail-bottom-interaction">
                 <ms-mattention :data-id="dataId" data-type="文章点赞" icon="icon-zan" label="${field.title}"></ms-mattention>
                 <ms-mattention :data-id="dataId" data-type="文章点踩" icon="icon-cai" label="${field.title}"></ms-mattention>
             </div>
-            <!--关注-end-->
+            <!--文章底部交互-end-->
             <div class="prenext">上一篇：<a href="<#if pre.link !=''>{ms:global.html/}${pre.link}<#else>javascript:;</#if>">${pre.title}</a></div>
             <div class="prenext">下一篇：<a href="<#if next.link !=''>{ms:global.html/}${next.link}<#else>javascript:;</#if>">${next.title}</a></div>
         </div>
-
-
         <!--评论容器-start-->
+
         <div class="w-comment-div">
 
             <!--评论-start-->

@@ -12,7 +12,7 @@
 					</el-input>
 				</el-form-item>
 				<el-form-item>
-					<el-button  type="primary" plain @click="send()" :disabled="!form.commentContent">提交评论</el-button>
+					<el-button style="margin-left: 40px" type="primary" plain @click="send()" :disabled="!form.commentContent">提交评论</el-button>
 				</el-form-item>
 			</el-form>
 
@@ -365,7 +365,7 @@
 				commentDataList: [], //评论表列表
 				pageSize: 10, //页面数量
 				currentPage: 1, //初始页,
-				emptyText: '暂无评论',
+				emptyText: '',
 				//总记录数量
 				total: 0,
 				form: {
@@ -668,6 +668,7 @@
 						});
 					}
 				}).catch(function (err){
+					that.emptyText = '需要安装评论插件才能使用，请先进入后台MStore安装评论插件使用。'
 					that.$notify({
 						title: '提示',
 						dangerouslyUseHTMLString: true,
@@ -906,6 +907,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		border: 1px solid #c1c1c1;
 		border-radius: 2px;
 		font-size: 20px;
 		color: rgb(133, 144, 166);
