@@ -337,20 +337,6 @@
                             </el-upload>
                         </el-form-item>
                     </el-form>
-                    <el-dialog
-                            v-model="dialogVisible"
-                            title="Tips"
-                            width="500">
-                        <span>This is a message</span>
-                        <template #footer>
-                            <div class="dialog-footer">
-                                <el-button @click="dialogVisible = false">Cancel</el-button>
-                                <el-button type="primary" @click="dialogVisible = false">
-                                    Confirm
-                                </el-button>
-                            </div>
-                        </template>
-                    </el-dialog>
                 </el-tab-pane>
             </el-tabs>
         </el-scrollbar>
@@ -378,7 +364,6 @@
                 })
             }
             return {
-                dialogVisible: false,
                 activeName: 'form',
                 //自定义模型实例
                 model: undefined,

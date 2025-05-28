@@ -57,7 +57,7 @@
                                         ></el-tree-select>
                                         <div class="ms-form-tip">
                                             标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.typetitle}</a>
-                                            不能选择封面、链接栏目类型，不能选择父栏目
+                                            不能选择单篇、链接类型的栏目，不能选择父栏目
                                         </div>
                                     </el-form-item>
                                 </el-col>
@@ -772,6 +772,11 @@
                     });
 
                 }else {
+					// 移除上传图片
+					var index = fileList.indexOf(file);
+					if (index > -1) {
+						fileList.splice(index, 1);
+					}
                     this.$notify({
                         title: '失败',
                         message: response.msg,
