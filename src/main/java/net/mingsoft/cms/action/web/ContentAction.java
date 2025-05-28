@@ -87,7 +87,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	 */
 	@Operation(summary = "查询文章列表接口")
 	@Parameters({
-			@Parameter(name = "typeid", description = "所属栏目", required =true, in= ParameterIn.QUERY),
+			@Parameter(name = "typeid", description = "所属栏目", required =false, in= ParameterIn.QUERY),
 			@Parameter(name = "pageNo", description = "页码", required =false, in= ParameterIn.QUERY),
 			@Parameter(name = "size", description = "一页显示数量", required =false, in= ParameterIn.QUERY),
 			@Parameter(name = "orderby", description = "排序", required =false, in= ParameterIn.QUERY),
@@ -98,13 +98,12 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		//会将请求参数全部转换map
 		Map map = BasicUtil.assemblyRequestMap();
 		String typeid = (String) map.get("typeid");
-		if (StrUtil.isBlank(typeid)){
-			return ResultData.build().error(getResString("err.empty", this.getResString("content.category.id")));
-		}
 		ContentBean content = new ContentBean();
+		if (StrUtil.isNotBlank(typeid)){
+			content.setCategoryId(typeid);
+		}
 		content.setCategoryType(CategoryTypeEnum.LIST.toString());
 		content.setContentDisplay("0");
-		content.setCategoryId(typeid);
 		List<CategoryBean> articleList = contentBiz.queryIdsByCategoryIdForParser(content);
 		PageBean page = new PageBean();
 		List filedStr = new ArrayList<>();

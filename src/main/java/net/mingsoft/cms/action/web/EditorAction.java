@@ -22,6 +22,8 @@
 
 
 
+
+
 package net.mingsoft.cms.action.web;
 
 import cn.hutool.core.map.MapUtil;
@@ -65,7 +67,7 @@ public class EditorAction extends BaseAction {
         boolean enableWeb = MSProperties.upload.enableWeb;
 
         Map uploadConfig = ConfigUtil.getMap("文件上传配置");
-        long maxFileSize = msProperties.getUpload().getMultipart().getMaxFileSize();
+        long maxFileSize = msProperties.getUpload().getMultipart().getMaxFileSize() * 1000;
         // 兼容其他版本的上传配置
         if (MapUtil.isNotEmpty(uploadConfig)){
             enableWeb = Boolean.parseBoolean(String.valueOf(uploadConfig.get("uploadEnable")));

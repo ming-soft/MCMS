@@ -23,14 +23,21 @@
 package net.mingsoft.cms.action;
 
 import cn.hutool.core.date.DateUtil;
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileNameUtil;
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
+import com.baidu.ueditor.define.BaseState;
+import com.baidu.ueditor.define.State;
 import io.github.xcodeding.UeditorActionEnter;
 import jakarta.servlet.http.HttpServletRequest;
 import net.mingsoft.base.constant.Const;
+import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.base.exception.BusinessException;
 import net.mingsoft.base.util.BundleUtil;
+import net.mingsoft.basic.action.BaseFileAction;
+import net.mingsoft.basic.bean.UploadConfigBean;
 import net.mingsoft.basic.entity.AppEntity;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.config.MSProperties;
@@ -47,7 +54,7 @@ import java.util.MissingResourceException;
  * @Author: 铭飞开源团队--huise
  * @Date: 2019/8/9 20:47
  */
-public class BaseAction extends net.mingsoft.basic.action.BaseAction{
+public class BaseAction extends BaseFileAction {
     /**
      * 读取国际化资源文件(没有占位符号的)，优先模块对应的资源文件，如果模块资源文件找不到就会优先基础层
      * @param key 国际化文件key
@@ -90,10 +97,16 @@ public class BaseAction extends net.mingsoft.basic.action.BaseAction{
      */
     public String exec(HttpServletRequest request, MultipartFile upfile, Map execFileConfigMap, String version){
         String uploadFolderPath = MSProperties.upload.path;
+        String uploadMapping = MSProperties.upload.mapping;
 
-        String configRootPath = ConfigUtil.getString("文件上传配置", "uploadPath", "");
-        uploadFolderPath = StringUtils.isBlank(configRootPath) ? uploadFolderPath : configRootPath;
-        String rootPath = BasicUtil.getRealPath(uploadFolderPath);
+        Map uploadConfig = ConfigUtil.getMap("文件上传配置");
+        if (MapUtil.isNotEmpty(uploadConfig)){
+            uploadFolderPath = uploadConfig.get("uploadPath").toString();
+            uploadMapping = uploadConfig.get("uploadMapping").toString();
+        }
+
+        // 获取真实完整上传路径
+        String rootPath = FileUtil.isAbsolutePath(uploadFolderPath) ? uploadFolderPath : BasicUtil.getRealPath(uploadFolderPath);
 
         Map execConfigMap = new HashMap();
         execConfigMap.putAll(execFileConfigMap);
@@ -103,7 +116,11 @@ public class BaseAction extends net.mingsoft.basic.action.BaseAction{
         String datePath = DateUtil.format(new Date(), "yyyyMMdd");
 
         // /appId/editor/yyyyMMdd/{time}
-        String filePathFormat = "/".concat(app.getAppId()).concat("/editor/").concat(datePath).concat("/").concat("{time}");
+        String filePath = "/".concat(app.getAppId()).concat("/editor/").concat(datePath).concat("/");
+
+        String filePathFormat = filePath.concat("{time}");
+
+
 
         execConfigMap.put("imagePathFormat", filePathFormat);
         execConfigMap.put("filePathFormat", filePathFormat);
@@ -116,20 +133,40 @@ public class BaseAction extends net.mingsoft.basic.action.BaseAction{
 
         // 文件主名称不允许为空
         if (upfile != null){
+            State state = null;
             String upFileMainName = FileNameUtil.mainName(upfile.getOriginalFilename());
             if (StringUtils.isBlank(upFileMainName)){
-                throw new BusinessException(getResString("err.error",getResString("file.name")));
+                return new BaseState(false, getResString("err.error",getResString("file.name"))).toJSONString();
+            }
+            UploadConfigBean configBean = new UploadConfigBean(filePath, upfile, null, true);
+            try {
+                ResultData resultData = this.upload(configBean);
+                if (resultData.isSuccess()) {
+                    // 组装百度编辑器格式
+                    state = new BaseState(true);
+                    state.putInfo("original", upfile.getOriginalFilename());
+                    state.putInfo("size", upfile.getSize());
+                    state.putInfo("title", FileNameUtil.getName(resultData.getData(String.class)));
+                    state.putInfo("type", "." + FileNameUtil.getSuffix(upfile.getOriginalFilename()));
+                    state.putInfo("url", resultData.getData(String.class));
+                } else {
+                    state = new BaseState(false, resultData.getMsg());
+                }
+                return  state.toJSONString();
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new BaseState(false, 500).toJSONString();
             }
         }
 
         //过滤非法上传路径
         if (execConfig != null && (execConfig.contains("../") || execConfig.contains("..\\"))) {
-            throw new BusinessException(BundleUtil.getString(Const.RESOURCES,"err.error",BundleUtil.getString(net.mingsoft.basic.constant.Const.RESOURCES,"file.path")));
+            return new BaseState(false, BundleUtil.getString(Const.RESOURCES,"err.error",BundleUtil.getString(net.mingsoft.basic.constant.Const.RESOURCES,"file.path"))).toJSONString();
         }
         UeditorActionEnter actionEnter = new UeditorActionEnter(upfile,request, rootPath, execConfig, BasicUtil.getRealPath(""), BasicUtil.getRealPath(StrUtil.format("static/plugins/ueditor/{}/config.json",version)));
         String result = actionEnter.exec();
         Map jsonMap = JSONUtil.toBean(result,Map.class);
-        jsonMap.put("url","/".concat(uploadFolderPath).concat(jsonMap.get("url")+""));
+        jsonMap.put("url","/".concat(uploadMapping.replaceAll("/([\\s\\S]*)/\\*\\*",  "$1")).concat(jsonMap.get("url")+""));
         return JSONUtil.toJsonStr(jsonMap);
 
 
