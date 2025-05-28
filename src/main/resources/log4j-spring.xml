@@ -23,10 +23,19 @@
             <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
         </console>
 
-        <!--文件会打印出所有信息，这个log每次运行程序会自动清空，由append属性决定，适合临时测试用-->
-        <File name="Filelog" fileName="${FILE_PATH}/${FILE_NAME}.log" append="false">
+        <!--文件会打印出所有信息-->
+        <RollingFile name="RollingFileDebug" fileName="${FILE_PATH}/${FILE_NAME}.log"
+                     filePattern="${FILE_PATH}/${FILE_NAME}-%d{yyyy-MM-dd}_%i.log.gz">
             <PatternLayout pattern="${LOG_PATTERN}"/>
-        </File>
+            <Policies>
+                <!-- 每天滚动一次 -->
+                <TimeBasedTriggeringPolicy interval="1"/>
+                <!-- 当文件大小超过10MB时触发滚动 -->
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <!-- 最多保留15个归档文件 -->
+            <DefaultRolloverStrategy max="15"/>
+        </RollingFile>
 
         <!-- 这个会打印出所有的info及以下级别的信息，每次大小超过size，则这size大小的日志会自动存入按年份-月份建立的文件夹下面并进行压缩，作为存档-->
         <RollingFile name="RollingFileInfo" fileName="${FILE_PATH}/info.log" filePattern="${FILE_PATH}/${FILE_NAME}-INFO-%d{yyyy-MM-dd}_%i.log.gz">
@@ -88,7 +97,7 @@
 
         <root level="info">
             <appender-ref ref="Console"/>
-            <appender-ref ref="Filelog"/>
+            <appender-ref ref="RollingFileDebug"/>
             <appender-ref ref="RollingFileInfo"/>
             <appender-ref ref="RollingFileWarn"/>
             <appender-ref ref="RollingFileError"/>
