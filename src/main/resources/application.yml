@@ -20,7 +20,11 @@ server:
 logging:
   level:
     net.mingsoft: debug
-    org.springdoc: error
+    net.mingsoft.base.dao.IBaseDao: debug
+    org.springframework: error
+    springfox.documentation: error
+    com.baomidou: error
+    net.sf: error
   config: classpath:log4j-spring.xml
 
 springdoc:
@@ -61,8 +65,8 @@ ms:
     multipart:
       #最大上传文件大小 单位：KB
       max-file-size: 1024000
-      #文件暂存临时目录
-      upload-temp-dir: temp
+      #文件暂存临时目录 基于tomcat目录下
+      upload-temp-dir: mcms-temp
       #临时文件大小
       max-in-memory-size: 1024000
       #总上传最大大小 单位：KB -1禁用
@@ -89,7 +93,7 @@ spring:
 #      filters: stat,wall #配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
       keepAlive: true #保持长连接
       stat-view-servlet:
-        enabled: true #启用druid监控
+        enabled: false #启用druid监控
   profiles:
     active: dev
   cache:
