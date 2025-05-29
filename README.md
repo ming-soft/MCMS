@@ -14,7 +14,7 @@
         <img src="https://img.shields.io/:license-MIT-blue.svg" alt="低代码平台，开源排名第一的java cms，免费开源的java cms, 免费开源Javacms,MCMS,开源Java CMS,Java网站建设工具,开源CMS,内容管理系统,CMS软件,网站建设工具,网站模板,响应式模板,自适应模板,多功能模板,网站插件,功能插件,扩展插件,定制插件,Java CMS定制" />
 	</a>
 	<a target="_blank" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
-		<img src="https://img.shields.io/badge/JDK-8+-green.svg" alt="低代码平台，开源排名第一的java cms，免费开源的java cms, 免费开源Javacms,MCMS,开源Java CMS,Java网站建设工具,开源CMS,内容管理系统,CMS软件,网站建设工具,网站模板,响应式模板,自适应模板,多功能模板,网站插件,功能插件,扩展插件,定制插件,Java CMS定制"/>
+		<img src="https://img.shields.io/badge/JDK-17+-green.svg" alt="低代码平台，开源排名第一的java cms，免费开源的java cms, 免费开源Javacms,MCMS,开源Java CMS,Java网站建设工具,开源CMS,内容管理系统,CMS软件,网站建设工具,网站模板,响应式模板,自适应模板,多功能模板,网站插件,功能插件,扩展插件,定制插件,Java CMS定制"/>
 	</a>
 	<a target="_blank" href="https://gitee.com/mingSoft/MCMS/stargazers">
 		<img src="https://gitee.com/mingSoft/MCMS/badge/star.svg?theme=dark" alt='低代码平台，开源排名第一的java cms，免费开源的java cms, 免费开源Javacms,MCMS,开源Java CMS,Java网站建设工具,开源CMS,内容管理系统,CMS软件,网站建设工具,网站模板,响应式模板,自适应模板,多功能模板,网站插件,功能插件,扩展插件,定制插件,Java CMS定制'/>
@@ -102,7 +102,7 @@
 * Windows、Linux
 * Eclipse、Idea
 * Mysql≧5.7 (开启忽略大小写)
-* JDK≧8
+* JDK≧17
 * Tomcat≧8
 
 
