@@ -96,9 +96,6 @@ spring:
         enabled: false #启用druid监控
   profiles:
     active: dev
-  cache:
-    ehcache:
-      config: classpath:ehcache.xml
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
