@@ -700,49 +700,6 @@ INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (99, 1818, 48);
 INSERT INTO `role_model` (`id`, `model_id`, `role_id`) VALUES (100, 1819, 48);
 COMMIT;
 
--- ----------------------------
--- Procedure structure for ConvertAllColumnNamesToUppercase
--- ----------------------------
-DROP PROCEDURE IF EXISTS `ConvertAllColumnNamesToUppercase`;
-delimiter ;;
-CREATE PROCEDURE `ConvertAllColumnNamesToUppercase`()
-BEGIN
-    DECLARE done INT DEFAULT FALSE;
-    DECLARE tableName VARCHAR(255);
-    DECLARE columnName VARCHAR(255);
-    DECLARE columnType VARCHAR(255);
-    DECLARE cur CURSOR FOR
-        SELECT TABLE_NAME, COLUMN_NAME, COLUMN_TYPE
-        FROM INFORMATION_SCHEMA.COLUMNS
-        WHERE TABLE_SCHEMA = DATABASE(); -- 当前数据库
-    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
-    OPEN cur;
-
-    read_loop: LOOP
-        FETCH cur INTO tableName, columnName, columnType;
-        IF done THEN
-            LEAVE read_loop;
-        END IF;
-
-        -- 动态生成 ALTER TABLE 语句
-        SET @sql = CONCAT(
-            'ALTER TABLE `', tableName, '` ',
-            'CHANGE COLUMN `', columnName, '` `', UPPER(columnName), '` ', columnType
-        );
-
-        -- 输出生成的 SQL 语句（用于调试）
-        SELECT @sql AS 'Generated SQL';
-
-        -- 执行生成的 SQL 语句
-        PREPARE stmt FROM @sql;
-        EXECUTE stmt;
-        DEALLOCATE PREPARE stmt;
-    END LOOP;
-
-    CLOSE cur;
-END
-;;
-delimiter ;
 
 SET FOREIGN_KEY_CHECKS = 1;
