@@ -219,20 +219,20 @@ public class ContentAction extends BaseAction {
             return ResultData.build().error(getResString("err.length", this.getResString("content.source"), "0", "200"));
         }
         //验证文章描述的值是否合法
-        if (!StringUtil.checkLength(content.getContentDescription() + "", 0, 400)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("content.description"), "0", "400"));
+        if (!StringUtil.checkLength(content.getContentDescription() + "", 0, 500)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("content.description"), "0", "500"));
         }
         //验证文章链接的值是否合法
-        if (!StringUtil.checkLength(content.getContentOutLink() + "", 0, 255)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("content.url"), "0", "255"));
+        if (!StringUtil.checkLength(content.getContentOutLink() + "", 0, 200)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("content.url"), "0", "200"));
         }
         //验证文章显示的值是否合法
-        if (!StringUtil.checkLength(content.getContentDisplay() + "", 0, 1)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("content.display"), "0", "1"));
+        if (StringUtils.isBlank(content.getContentDisplay())) {
+            return ResultData.build().error(getResString("err.empty", this.getResString("content.display")));
         }
         //验证文章关键字的值是否合法
-        if (!StringUtil.checkLength(content.getContentKeyword() + "", 0, 255)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("content.keyword"), "0", "255"));
+        if (!StringUtil.checkLength(content.getContentKeyword() + "", 0, 100)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("content.keyword"), "0", "100"));
         }
         //验证文章类型的值是否合法
         if (!StringUtil.checkLength(content.getContentType() + "", 0, 20)) {
@@ -242,6 +242,15 @@ public class ContentAction extends BaseAction {
         if (content.getContentDatetime()==null) {
             return ResultData.build().error(getResString("err.empty", this.getResString("content.datetime")));
         }
+
+        if (!StringUtil.checkLength(content.getContentShortTitle() + "", 0, 200)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("content.short.title"), "0", "200"));
+        }
+        // 文章标签限制5个
+        if (StringUtils.isNotEmpty(content.getContentTags()) && content.getContentTags().split(",").length > 5){
+            return ResultData.build().error(getResString("err.length",this.getResString("content.tags"),"0","5"));
+        }
+
         contentBiz.save(content);
         return ResultData.build().success(content);
     }
@@ -325,20 +334,20 @@ public class ContentAction extends BaseAction {
             return ResultData.build().error(getResString("err.length", this.getResString("content.source"), "0", "200"));
         }
         //验证文章描述的值是否合法
-        if (!StringUtil.checkLength(content.getContentDescription() + "", 0, 400)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("content.description"), "0", "400"));
+        if (!StringUtil.checkLength(content.getContentDescription() + "", 0, 500)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("content.description"), "0", "500"));
         }
         //验证文章链接的值是否合法
-        if (!StringUtil.checkLength(content.getContentOutLink() + "", 0, 255)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("content.url"), "0", "255"));
+        if (!StringUtil.checkLength(content.getContentOutLink() + "", 0, 200)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("content.url"), "0", "200"));
         }
         //验证文章显示的值是否合法
-        if (!StringUtil.checkLength(content.getContentDisplay() + "", 0, 1)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("content.display"), "0", "1"));
+        if (StringUtils.isBlank(content.getContentDisplay())) {
+            return ResultData.build().error(getResString("err.empty", this.getResString("content.display")));
         }
         //验证文章关键字的值是否合法
-        if (!StringUtil.checkLength(content.getContentKeyword() + "", 0, 255)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("content.keyword"), "0", "255"));
+        if (!StringUtil.checkLength(content.getContentKeyword() + "", 0, 100)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("content.keyword"), "0", "100"));
         }
         //验证文章类型的值是否合法
         if (!StringUtil.checkLength(content.getContentType() + "", 0, 20)) {
@@ -348,6 +357,15 @@ public class ContentAction extends BaseAction {
         if (content.getContentDatetime()==null) {
             return ResultData.build().error(getResString("err.empty", this.getResString("content.datetime")));
         }
+
+        if (!StringUtil.checkLength(content.getContentShortTitle() + "", 0, 200)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("content.short.title"), "0", "200"));
+        }
+        // 文章标签限制5个
+        if (StringUtils.isNotEmpty(content.getContentTags()) && content.getContentTags().split(",").length > 5){
+            return ResultData.build().error(getResString("err.length",this.getResString("content.tags"),"0","5"));
+        }
+
         contentBiz.saveOrUpdate(content);
         return ResultData.build().success(content);
     }

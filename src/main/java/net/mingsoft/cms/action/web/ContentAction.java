@@ -92,12 +92,15 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 			@Parameter(name = "size", description = "一页显示数量", required =false, in= ParameterIn.QUERY),
 			@Parameter(name = "orderby", description = "排序", required =false, in= ParameterIn.QUERY),
     })
-	@GetMapping(value = "/list")
+	@RequestMapping(value = "/list",method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public ResultData list(HttpServletResponse response, HttpServletRequest request) {
 		//会将请求参数全部转换map
 		Map map = BasicUtil.assemblyRequestMap();
 		String typeid = (String) map.get("typeid");
+		 if (StrUtil.isBlank(typeid)){
+			typeid = (String) map.get("categoryId");
+		}
 		ContentBean content = new ContentBean();
 		if (StrUtil.isNotBlank(typeid)){
 			content.setCategoryId(typeid);

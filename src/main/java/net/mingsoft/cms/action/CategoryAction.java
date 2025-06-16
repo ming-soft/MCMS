@@ -164,28 +164,32 @@ public class CategoryAction extends BaseAction {
     @LogAnn(title = "保存分类", businessType = BusinessTypeEnum.INSERT)
     @RequiresPermissions("cms:category:save")
     public ResultData save(@ModelAttribute @Parameter(hidden = true) CategoryEntity category) {
-        //验证缩略图参数值是否合法
+        //验证banner图参数值是否合法
         if (category.getCategoryImg() == null || !category.getCategoryImg().matches("^\\[.{1,}]$")) {
             category.setCategoryImg("");
+        }
+        //验证栏目小图参数值是否合法
+        if (category.getCategoryIco() == null || !category.getCategoryIco().matches("^\\[.{1,}]$")) {
+            category.setCategoryIco("");
         }
         //验证栏目管理名称的值是否合法
         if (StringUtils.isBlank(category.getCategoryTitle())) {
             return ResultData.build().error(getResString("err.empty", this.getResString("category.title")));
         }
-        if (!StringUtil.checkLength(category.getCategoryTitle() + "", 1, 100)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("category.title"), "1", "100"));
+        if (!StringUtil.checkLength(category.getCategoryTitle() + "", 1, 200)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.title"), "1", "200"));
         }
         //验证栏目描述的值是否合法
         if (!StringUtil.checkLength(category.getCategoryDescrip() + "", 0, 500)) {
             return ResultData.build().error(getResString("err.length", this.getResString("category.descrip"), "0", "500"));
         }
         //验证栏目关键字的值是否合法
-        if (!StringUtil.checkLength(category.getCategoryKeyword() + "", 0, 300)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("category.keyword"), "0", "300"));
+        if (!StringUtil.checkLength(category.getCategoryKeyword() + "", 0, 100)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.keyword"), "0", "100"));
         }
         //验证栏目路径的值是否合法
-        if (!StringUtil.checkLength(category.getCategoryPath() + "", 0, 500)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("category.path"), "0", "500"));
+        if (!StringUtil.checkLength(category.getCategoryPath() + "", 0, 400)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.path"), "0", "400"));
         }
         //验证栏目列表模板的值是否合法
         if (!StringUtil.checkLength(category.getCategoryListUrl() + "", 0, 50)) {
@@ -197,8 +201,8 @@ public class CategoryAction extends BaseAction {
         }
 
         //验证栏目自定义链接的值是否合法
-        if (!StringUtil.checkLength(category.getCategoryDiyUrl() + "", 0, 255)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("category.diy.url"), "0", "255"));
+        if (!StringUtil.checkLength(category.getCategoryDiyUrl() + "", 0, 200)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.diy.url"), "0", "200"));
         }
         //验证栏目属性的值是否合法
         if (!StringUtil.checkLength(category.getCategoryFlag() + "", 0, 20)) {
@@ -227,6 +231,17 @@ public class CategoryAction extends BaseAction {
         if (!StringUtil.checkLength(category.getCategoryParentIds() + "", 1, 100)) {
             return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
         }
+        // 验证栏目副标题的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryShortTitle() + "", 0, 200)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.short.title"), "0", "200"));
+        }
+        if (StringUtils.isBlank(category.getCategoryDisplay())){
+            return ResultData.build().error(getResString("err.empty",this.getResString("category.display")));
+        }
+        if (StringUtils.isBlank(category.getCategoryIsSearch())){
+            return ResultData.build().error(getResString("err.empty",this.getResString("category.is.search")));
+        }
+
         //判断拼音是否重复
         if (StrUtil.isNotBlank(category.getCategoryPinyin())) {
             if (!category.getCategoryPinyin().matches("^[a-zA-Z0-9]*$")){
@@ -295,9 +310,13 @@ public class CategoryAction extends BaseAction {
     @LogAnn(title = "更新分类", businessType = BusinessTypeEnum.UPDATE)
     @RequiresPermissions("cms:category:update")
     public ResultData update(@ModelAttribute @Parameter(hidden = true) CategoryEntity category) {
-        //验证缩略图参数值是否合法
+        //验证banner图参数值是否合法
         if (category.getCategoryImg() == null || !category.getCategoryImg().matches("^\\[.{1,}]$")) {
             category.setCategoryImg("");
+        }
+        //验证栏目小图参数值是否合法
+        if (category.getCategoryIco() == null || !category.getCategoryIco().matches("^\\[.{1,}]$")) {
+            category.setCategoryIco("");
         }
         if (StringUtils.isEmpty(category.getId())){
             return ResultData.build().error(getResString("err.empty", this.getResString("category.id")));
@@ -306,20 +325,20 @@ public class CategoryAction extends BaseAction {
         if (StringUtils.isBlank(category.getCategoryTitle())) {
             return ResultData.build().error(getResString("err.empty", this.getResString("category.title")));
         }
-        if (!StringUtil.checkLength(category.getCategoryTitle() + "", 1, 100)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("category.title"), "1", "100"));
+        if (!StringUtil.checkLength(category.getCategoryTitle() + "", 1, 200)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.title"), "1", "200"));
         }
         //验证栏目描述的值是否合法
         if (!StringUtil.checkLength(category.getCategoryDescrip() + "", 0, 500)) {
             return ResultData.build().error(getResString("err.length", this.getResString("category.descrip"), "0", "500"));
         }
         //验证栏目关键字的值是否合法
-        if (!StringUtil.checkLength(category.getCategoryKeyword() + "", 0, 300)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("category.keyword"), "0", "300"));
+        if (!StringUtil.checkLength(category.getCategoryKeyword() + "", 0, 100)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.keyword"), "0", "100"));
         }
         //验证栏目自定义链接的值是否合法
-        if (!StringUtil.checkLength(category.getCategoryDiyUrl() + "", 0, 255)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("category.diy.url"), "0", "255"));
+        if (!StringUtil.checkLength(category.getCategoryDiyUrl() + "", 0, 200)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.diy.url"), "0", "200"));
         }
         //验证栏目属性的值是否合法
         if (!StringUtil.checkLength(category.getCategoryFlag() + "", 0, 20)) {
@@ -330,8 +349,8 @@ public class CategoryAction extends BaseAction {
             return ResultData.build().error(getResString("err.length", this.getResString("category.list.url"), "0", "50"));
         }
         //验证栏目路径的值是否合法
-        if (!StringUtil.checkLength(category.getCategoryPath() + "", 0, 500)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("category.path"), "0", "500"));
+        if (!StringUtil.checkLength(category.getCategoryPath() + "", 0, 400)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.path"), "0", "400"));
         }
         //验证栏目类型的值是否合法
         if (!StringUtil.checkLength(category.getCategoryType() + "", 0, 1)) {
@@ -348,6 +367,16 @@ public class CategoryAction extends BaseAction {
         //验证栏目父ids值是否合法
         if (!StringUtil.checkLength(category.getCategoryParentIds() + "", 0, 100)) {
             return ResultData.build().error(getResString("err.length", this.getResString("category.parent.id"), "1", "100"));
+        }
+        // 验证栏目副标题的值是否合法
+        if (!StringUtil.checkLength(category.getCategoryShortTitle() + "", 0, 200)) {
+            return ResultData.build().error(getResString("err.length", this.getResString("category.short.title"), "0", "200"));
+        }
+        if (StringUtils.isBlank(category.getCategoryDisplay())){
+            return ResultData.build().error(getResString("err.empty",this.getResString("category.display")));
+        }
+        if (StringUtils.isBlank(category.getCategoryIsSearch())){
+            return ResultData.build().error(getResString("err.empty",this.getResString("category.is.search")));
         }
         // 过滤非法路径
         if (FileNameUtil.containsInvalid(category.getCategoryPinyin())) {
