@@ -276,7 +276,7 @@
                             <el-form-item label="文章内容" prop="contentDetails" v-loading="editorHidden">
                                 <vue-ueditor-wrap style="line-height: 0px"
                                                   ref="editor"
-                                                  v-if="!editorHidden"
+
                                                   v-model="form.contentDetails"
                                                   :config="editorConfig"></vue-ueditor-wrap>
                                 <div class="ms-form-tip">

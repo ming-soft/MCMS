@@ -111,6 +111,7 @@ html *, body * {
 }
 .ms-scrollbar  .el-scrollbar__view{
     padding-right: 17px;
+    z-index: 999;
 }
 /*后台管理界面的el-menu通用样式*/
 .ms-index .el-menu {
