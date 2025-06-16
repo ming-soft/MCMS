@@ -265,6 +265,8 @@
                                     :disabled="false"
                                     v-model="form.categoryKeyword"
                                     :style="{width: '100%'}"
+                                    maxlength="100"
+                                    show-word-limit
                                     placeholder="关键字，有助于搜索">
                             </el-input>
                             <div class="ms-form-tip">
@@ -279,6 +281,8 @@
                                     :disabled="false"
                                     v-model="form.categoryDescrip"
                                     :style="{width: '100%'}"
+                                    maxlength="500"
+                                    show-word-limit
                                     placeholder="栏目描述，有助于搜索">
                             </el-input>
                             <div class="ms-form-tip">
@@ -454,27 +458,46 @@
                     // 栏目管理名称
                     categoryTitle: [{
                         "required": true,
-                        "message": "请选择栏目管理名称"
+                        "message": "请输入栏目名称"
+                    },{
+                        "min":1,
+                        "max":200,
+                        "message":"栏目名称长度必须为1-200"
+                    }],
+                    categoryShortTitle:[{
+                        "min":0,
+                        "max":200,
+                        "message":"栏目副标题长度必须为0-200"
+                    }],
+                    categoryDisplay: [{
+                        "required": true,
+                        "message": "请选择栏目是否显示"
                     }],
                     categoryIsSearch: [{
                         "required": true,
                         "message": "请选择栏目是否可被搜索"
                     }],
-                    // categoryListUrl: [{
-                    //     "required": true,
-                    //     "message": "请选择列表模板"
-                    // }],
+                    categoryDiyUrl: [{
+                        "min":0,
+                        "max":200,
+                        "message":"自定义链接长度必须为0-200"
+                    }],
                     categoryPinyin: [{
                         validator: validatorCategoryPinyin, trigger: 'blur'
                     }, {
                         "pattern": /^[^[!@#$"'%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]+$/,
                         "message": "拼音格式不匹配"
                     }],
-                    // 内容模板
-                    // categoryUrl: [{
-                    //     "required": true,
-                    //     "message": "请选择内容模板"
-                    // }]
+                    categoryKeyword: [{
+                        "min":0,
+                        "max":100,
+                        "message":"栏目管理关键字长度必须为0-100"
+                    }],
+                    categoryDescrip: [{
+                        "min":0,
+                        "max":500,
+                        "message":"栏目管理描述长度必须为0-500"
+                    }],
                 }
             };
         },

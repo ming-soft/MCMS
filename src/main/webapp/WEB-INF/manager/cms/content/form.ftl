@@ -255,6 +255,8 @@
                                         :disabled="false"
                                         v-model="form.contentKeyword"
                                         :style="{width: '100%'}"
+                                        maxlength="100"
+                                        show-word-limit
                                         placeholder="请输入文章关键字">
                                 </el-input>
                                 <div class="ms-form-tip">
@@ -267,6 +269,8 @@
                                         :disabled="false"
                                         v-model="form.contentDescription"
                                         :style="{width: '100%'}"
+                                        maxlength="500"
+                                        show-word-limit
                                         placeholder="请输入对该文章的简短描述，以便用户查看文章简略">
                                 </el-input>
                                 <div class="ms-form-tip">
@@ -276,7 +280,6 @@
                             <el-form-item label="文章内容" prop="contentDetails" v-loading="editorHidden">
                                 <vue-ueditor-wrap style="line-height: 0px"
                                                   ref="editor"
-
                                                   v-model="form.contentDetails"
                                                   :config="editorConfig"></vue-ueditor-wrap>
                                 <div class="ms-form-tip">
@@ -331,8 +334,7 @@
                     initialFrameWidth: '100%',
                     initialFrameHeight: 400,
                     serverUrl: ms.manager + "/editor.do?version=1.4.3.3",
-                    UEDITOR_HOME_URL: ms.base + '/static/plugins/ueditor/1.4.3.3/',
-                    UEDITOR_BASE_URL: ms.base + '/static/plugins/ueditor/1.4.3.3/'
+                    UEDITOR_HOME_URL: ms.base + '/static/plugins/ueditor/1.4.3.3/'
                 },
                 contentCategoryIdOptions: [],
                 categoryChangeEnabled: true,
@@ -385,20 +387,52 @@
                     contentTitle: [{
                         "required": true,
                         "message": "请输入文章标题"
-                    }],
-                    // 发布时间
-                    contentDatetime: [{
-                        "required": true,
-                        "message": "发布时间不能为空"
+                    },{
+                        "min":0,
+                        "max":200,
+                        "message":"文章标题长度必须为0-200"
                     }],
                     categoryId: [{
                         "required": true,
                         "message": "所属栏目不能为空"
                     }],
-                    // 文章外链接
+                    contentShortTitle: [{
+                        "min":0,
+                        "max":200,
+                        "message":"文章副标题长度必须为0-200"
+                    }],
                     contentOutLink: [{
                         "pattern":'^((https|http|ftp|rtsp|mms){0,1}(:\/\/){0,1})(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$',
-                        "message":"文章外链接格式不匹配"},{"min":0,"max":200,"message":"文章外链接长度必须为0-200"}],
+                        "message":"文章外链接格式不匹配"
+                    },{
+                        "min":0,
+                        "max":200,
+                        "message":"文章外链接长度必须为0-200"
+                    }],
+                    contentSource: [{
+                        "min":0,
+                        "max":200,
+                        "message":"文章来源长度必须为0-200"
+                    }],
+                    contentAuthor: [{
+                        "min":0,
+                        "max":200,
+                        "message":"文章作者长度必须为0-200"
+                    }],
+                    contentDatetime: [{
+                        "required": true,
+                        "message": "发布时间不能为空"
+                    }],
+                    contentKeyword: [{
+                        "min":0,
+                        "max":100,
+                        "message":"关键字长度必须为0-100"
+                    }],
+                    contentDescription: [{
+                        "min":0,
+                        "max":500,
+                        "message":"描述长度必须为0-500"
+                    }],
                     // 文章标签
                     contentTags: [{
                         validator: checkTags, trigger: 'blur'
