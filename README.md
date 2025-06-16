@@ -123,16 +123,28 @@ git clone https://gitee.com/mingSoft/MCMS.git<br/>
 # 快速体验（docker）
 
 ```
-docker run -p 3306:3306 -p 8080:8080 --name mcms --privileged=true -e TZ=Asia/Shanghai  \
---restart=always -e MYSQL_ROOT_PASSWORD=123456 -d docker.1ms.run/mingsoft/mcms \
+docker run -p 3316:3306 -p 8181:8080 --name mcms --privileged=true -e TZ=Asia/Shanghai  \
+--restart=always -e MYSQL_ROOT_PASSWORD=123456 -d docker.1ms.run/mingsoft/mcms:6.0.0 \
 --sql-mode="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" \
 --lower-case-table-names=1 \
 --query-cache-type=1 \
 --query-cache-size=600000 \
 --max-connections=1000
 
+# 容器启动成功后执行启动mcms服务
+
+docker exec mcms /home/start.sh
+
+#后台访问地址
+http://localhost:8181/ms/login.do
+账号：msopen
+密码：msopen
+
 ```
+
 `MYSQL_ROOT_PASSWORD` 数据库密码，如果修改需要修改容器 `/home/mcms/config/` 下配置文件的链接，实际部署可以将 `/home/mcms` 挂载到外部文件夹，方便更新 `mcms` 系统文件
+
+
 
 
 # 技术选型
