@@ -517,7 +517,15 @@
                             data.contentTags = data.contentTags.join(',');
                         }
 
-                        data.contentImg = JSON.stringify(data.contentImg);
+                        if (data.contentImg.length>0) {
+                            data.contentImg.forEach(function (value) {
+                                value.url = value.url.replace(new RegExp('^'+ms.contextpath), "");
+                            });
+                            data.contentImg = JSON.stringify(data.contentImg);
+                        } else {
+                            data.contentImg = '';
+                        }
+
                         ms.http.post(url, data).then(function (res) {
                             if (res.result) {
                                 // 接受保存的文章id 避免新增单篇栏目保存不刷新时 再次修改造成多次保存
@@ -677,7 +685,9 @@
                         if (res.data.contentImg && res.data.contentImg != '') {
                             res.data.contentImg = JSON.parse(res.data.contentImg);
                             res.data.contentImg.forEach(function (value) {
-                                value.url = ms.contextpath + value.url;
+                                if(!value.url.startsWith("http://") && !value.url.startsWith("https://")) {
+                                    value.url = ms.contextpath + value.url;
+                                }
                             });
                         } else {
                             res.data.contentImg = [];
@@ -715,7 +725,9 @@
                             if (res.data.contentImg) {
                                 res.data.contentImg = JSON.parse(res.data.contentImg);
                                 res.data.contentImg.forEach(function (value) {
-                                    value.url = ms.contextpath + value.url;
+                                    if(!value.url.startsWith("http://") && !value.url.startsWith("https://")) {
+                                        value.url = ms.contextpath + value.url;
+                                    }
                                 });
                             } else {
                                 res.data.contentImg = [];
@@ -737,6 +749,8 @@
                                 that.categoryChangeEnabled = false;
                                 that.changeModel(category[0].id);
                             }
+                        }else {
+							that.changeModel(that.form.categoryId);
                         }
                     } else {
                         that.$notify({

@@ -627,9 +627,25 @@
                         if (data.categoryFlag) {
                             data.categoryFlag = data.categoryFlag.join(',');
                         }
+                        //没有图片就直接为空,不能为[]
+                        if (data.categoryImg.length>0) {
+                            data.categoryImg.forEach(function (value) {
+                                value.url = value.url.replace(new RegExp('^'+ms.contextpath), "");
+                            });
+                            data.categoryImg = JSON.stringify(data.categoryImg);
+                        } else {
+                            data.categoryImg = '';
+                        }
+                        //没有图片就直接为空,不能为[]
+                        if (data.categoryIco.length>0) {
+                            data.categoryIco.forEach(function (value) {
+                                value.url = value.url.replace(new RegExp('^'+ms.contextpath), "");
+                            });
+                            data.categoryIco = JSON.stringify(data.categoryIco);
+                        } else {
+                            data.categoryIco = '';
+                        }
 
-                        data.categoryImg = JSON.stringify(data.categoryImg);
-                        data.categoryIco = JSON.stringify(data.categoryIco);
                         ms.http.post(url, data).then(function (res) {
                             if (res.result) {
 
@@ -695,7 +711,9 @@
                         if (res.data.categoryImg) {
                             res.data.categoryImg = JSON.parse(res.data.categoryImg);
                             res.data.categoryImg.forEach(function (value) {
-                                value.url = ms.contextpath + value.url;
+                                if(!value.url.startsWith("http://") && !value.url.startsWith("https://")) {
+                                    value.url = ms.contextpath + value.url;
+                                }
                             });
                         } else {
                             res.data.categoryImg = [];
@@ -703,7 +721,9 @@
                         if (res.data.categoryIco) {
                             res.data.categoryIco = JSON.parse(res.data.categoryIco);
                             res.data.categoryIco.forEach(function (value) {
-                                value.url = ms.contextpath + value.url;
+                                if(!value.url.startsWith("http://") && !value.url.startsWith("https://")) {
+                                    value.url = ms.contextpath + value.url;
+                                }
                             });
                         } else {
                             res.data.categoryIco = [];

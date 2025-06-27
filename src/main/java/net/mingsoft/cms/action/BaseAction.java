@@ -39,12 +39,17 @@ import net.mingsoft.base.util.BundleUtil;
 import net.mingsoft.basic.action.BaseFileAction;
 import net.mingsoft.basic.bean.UploadConfigBean;
 import net.mingsoft.basic.entity.AppEntity;
+import net.mingsoft.basic.service.IUploadBaseService;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.basic.util.SpringUtil;
 import net.mingsoft.config.MSProperties;
 import net.mingsoft.mdiy.util.ConfigUtil;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -116,9 +121,9 @@ public class BaseAction extends BaseFileAction {
         String datePath = DateUtil.format(new Date(), "yyyyMMdd");
 
         // /appId/editor/yyyyMMdd/{time}
-        String filePath = "/".concat(app.getAppId()).concat("/editor/").concat(datePath).concat("/");
+        String uploadPath = "/".concat(app.getAppId()).concat("/editor/").concat(datePath).concat("/");
 
-        String filePathFormat = filePath.concat("{time}");
+        String filePathFormat = uploadPath.concat("{time}");
 
 
 
@@ -131,16 +136,40 @@ public class BaseAction extends BaseFileAction {
 
         String execConfig = JSONUtil.toJsonStr(execConfigMap);
 
-        // 文件主名称不允许为空
+        // 如果upfile不为空，说明此处操作时上传附件操作
         if (upfile != null){
             State state = null;
             String upFileMainName = FileNameUtil.mainName(upfile.getOriginalFilename());
             if (StringUtils.isBlank(upFileMainName)){
                 return new BaseState(false, getResString("err.error",getResString("file.name"))).toJSONString();
             }
-            UploadConfigBean configBean = new UploadConfigBean(filePath, upfile, null, true);
+            // 组装uploadConfigBean上传使用
+            UploadConfigBean bean = new UploadConfigBean(uploadPath, upfile, null, true);
+            bean.setFileSize(upfile.getSize());
+            bean.setFileName(upfile.getOriginalFilename());
             try {
-                ResultData resultData = this.upload(configBean);
+                // 判断是依赖ms-file插件
+                String type = ConfigUtil.getString("存储设置", "storeSelect");
+                IUploadBaseService uploadBaseService = null;
+                if (StringUtils.isNotBlank(type)) {
+                    // 单个文件上传计算下各个参数值避免重复上传
+                    if (StringUtils.isBlank(bean.getFileIdentifier())){
+                        try {
+                            bean.setFileIdentifier(String.valueOf(Hex.encodeHex(MessageDigest.getInstance("MD5").digest(bean.getFile().getBytes()))));
+                        } catch (NoSuchAlgorithmException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    //ms-file 插件启用
+                    uploadBaseService = (IUploadBaseService) SpringUtil.getBean(type);
+                }
+                ResultData resultData = null;
+                // 根据不同类型决定上传逻辑
+                if (uploadBaseService != null) {
+                    resultData = uploadBaseService.upload(bean);
+                } else {
+                    resultData = this.upload(bean);
+                }
                 if (resultData.isSuccess()) {
                     // 组装百度编辑器格式
                     state = new BaseState(true);
@@ -148,11 +177,19 @@ public class BaseAction extends BaseFileAction {
                     state.putInfo("size", upfile.getSize());
                     state.putInfo("title", FileNameUtil.getName(resultData.getData(String.class)));
                     state.putInfo("type", "." + FileNameUtil.getSuffix(upfile.getOriginalFilename()));
-                    state.putInfo("url", resultData.getData(String.class));
+                    // 由于百度编辑器不是正常的uploadConfigBean，是无法正常通过getFileIdentifier获取到文件标识的，所以在这里做一个容错处理
+                    state.putInfo("fileIdentifier", bean.getFileIdentifier());
+                    // 判断是否有contentPath
+                    String contextPath = BasicUtil.getContextPath();
+                    String filePath = resultData.getData(String.class);
+                    if (StringUtils.isNotBlank(filePath) && !filePath.startsWith("http")) {
+                        filePath = (contextPath.equals("/") ? "" : contextPath) + filePath;
+                    }
+                    state.putInfo("url", filePath);
                 } else {
                     state = new BaseState(false, resultData.getMsg());
                 }
-                return  state.toJSONString();
+                return state.toJSONString();
             } catch (Exception e) {
                 e.printStackTrace();
                 return new BaseState(false, 500).toJSONString();
