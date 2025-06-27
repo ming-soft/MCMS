@@ -22,15 +22,41 @@
 package net.mingsoft;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.env.Environment;
+
+import java.util.logging.Logger;
 
 @SpringBootApplication(scanBasePackages = {"net.mingsoft"})
 @MapperScan(basePackages={"**.dao","com.baomidou.**.mapper"})
 @ServletComponentScan(basePackages = {"net.mingsoft"})
 public class MSApplication {
+	private static Logger log = Logger.getLogger(MSApplication.class.getName());
 	public static void main(String[] args) {
-		SpringApplication.run(MSApplication.class, args);
+		SpringApplication springApplication = new SpringApplication(MSApplication.class);
+		springApplication.setBannerMode(Banner.Mode.OFF);
+		ConfigurableApplicationContext configurableApplicationContext = springApplication.run(args);
+		Environment env = configurableApplicationContext.getEnvironment();
+		System.out.printf(
+				"\n" +
+						"\033[1;36m" + // 青色加粗
+						"╔══════════════════════════════════════════════════════════╗\n" +
+						"║ \033[1;33m🚀 MCms Application Started Successfully! \033[1;36m               ║\n" +
+						"╠══════════════════════════════════════════════════════════╣\n" +
+						"║ \033[0;32m➜ Manager URL: \033[0;33mhttp://localhost:%s\033[1;36m%s\033[1;36m/login.do         ║\n" +
+						"║ \033[0;32m➜ Front URL: \033[0;33mhttp://localhost:%s/\033[1;36m                      ║\n" +
+						"║ \033[0;32m➜ Activate Profiles: \033[0;35m%s\033[1;36m                                 ║\n" +
+						"╚══════════════════════════════════════════════════════════╝" +
+						"\033[0m", // 重置颜色
+				env.getProperty("server.port"),
+				env.getProperty("ms.manager.path"),
+				env.getProperty("server.port"),
+				String.join(", ", env.getActiveProfiles())
+		);
 	}
 }
+
