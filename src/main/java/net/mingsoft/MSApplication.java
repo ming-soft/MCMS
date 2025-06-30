@@ -35,7 +35,6 @@ import java.util.logging.Logger;
 @MapperScan(basePackages={"**.dao","com.baomidou.**.mapper"})
 @ServletComponentScan(basePackages = {"net.mingsoft"})
 public class MSApplication {
-	private static Logger log = Logger.getLogger(MSApplication.class.getName());
 	public static void main(String[] args) {
 		SpringApplication springApplication = new SpringApplication(MSApplication.class);
 		springApplication.setBannerMode(Banner.Mode.OFF);
