@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="robots" content="index, follow"/>
+    <title>${field.title}</title>
+    <meta name="keywords" content="${field.keyword}">
+    <meta name="description" content="${field.descrip}">
+    <meta http-equiv="Cache-Control" content="no-transform"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <meta name="applicable-device" content="pc,mobile"/>
+    <link href="/favicon.ico" rel="shortcut icon"/>
+    <link href="/{ms:global.style/}css/style.css" rel="stylesheet"/>
+    <link href="/{ms:global.style/}css/css.css" rel="stylesheet"/>
+    <script src="/{ms:global.style/}js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="/{ms:global.style/}js/jquery.superslide.2.1.1.js">//pc导航</script>
+    <script src="/{ms:global.style/}js/anim.js">//动画</script>
+    <script type="text/javascript" src="/{ms:global.style/}js/basic.js"></script>
+</head>
+<body>
+<#include "header.htm" />
+<div class="o_big" >
+    <img src="{@ms:file field.typelitpic/}" alt="CMS,免费CMS,免费开源Java CMS,CMS系统,Java CMS,CMS内容管理系统,企业CMS,HTML网页模板,CMS模板,CMS源码,网站源码,信创系统软件,安可系统,网站建设,模板网站,建站模板,建站工具,建站平台,建站工具"/>
+    <h1 >${field.typedescrip}</h1>
+</div>
+<!--正文begin-->
+<div class="wrap">
+    <div class="product_a anim anim-1"></div>
+</div>
+<div class="news_bg">
+    <div class="wrap">
+        <div class="about_x anim anim-2">
+            <div class="show_t">${field.title}</div>
+            <div class="con_line"> 时间：${field.date?string("yyyy-MM-dd")}  人气：${field.hit}</div>
+            <div class="con_id">
+                <div>${field.content}</div>
+            </div>
+            <div class="prenext">上一篇：<a href="<#if pre.link !=''>{ms:global.html/}${pre.link}<#else>javascript:;</#if>">${pre.title}</a></div>
+            <div class="prenext">下一篇：<a href="<#if next.link !=''>{ms:global.html/}${next.link}<#else>javascript:;</#if>">${next.title}</a></div>
+        </div>
+    </div>
+</div>
+<!--正文end-->
+<#include "footer.htm" />
+<script language="javascript" src="/{ms:global.style/}js/foot.js"></script><!--尾部end-->
+</body>
+</html>
