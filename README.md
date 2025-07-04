@@ -151,33 +151,33 @@ http://localhost:8181/ms/login.do
 
 ## 后端框架
 
-| 技术 | 名称           | 官网 |
-| :--- |:-------------| :--- |
-| Spring Framework | 容器           | [http://projects.spring.io/spring-framework](http://projects.spring.io/spring-framework/) |
-| Spring Boot | MVC          | [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot) |
-| Apache Shiro | 安全           | [http://shiro.apache.org](http://shiro.apache.org/) |
-| Spring session | 分布式Session管理 | [http://projects.spring.io/spring-session](http://projects.spring.io/spring-session) |
-| MyBatis | DAO          | [http://www.mybatis.org](http://www.mybatis.org/mybatis-3/zh/index.html) |
-| MyBatis-Plus | ORM          | [https://baomidou.com/](https://baomidou.com/) |
-| Freemarker | 视图           | [http://freemarker.foofun.cn](http://freemarker.foofun.cn/) |
-| PageHelper | MyBatis分页插件  | [http://git.oschina.net/free/Mybatis\_PageHelper](http://git.oschina.net/free/Mybatis_PageHelper) |
-| Log4J | 日志组件         | [http://logging.apache.org](http://logging.apache.org) |
-| Maven | 项目构建         | [http://maven.apache.org](http://maven.apache.org/) |
-| Elasticsearch | 分布式搜索引擎      | [https://www.elastic.co](https://www.elastic.co/) |
-| Redis | 分布式缓存数据库     | [https://redis.io](https://redis.io) |
-| hutool | 工具类          | [http://hutool.mydoc.io](http://hutool.mydoc.io) |
+| 技术            | 名称               | 官网                                                       | 开源协议       |
+| :------------- |:------------------| :--------------------------------------------------------- |:------------|
+| Spring Framework | 容器               | [http://projects.spring.io/spring-framework](http://projects.spring.io/spring-framework/) | Apache 2.0 |
+| Spring Boot      | MVC               | [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot) | Apache 2.0 |
+| Apache Shiro     | 安全               | [http://shiro.apache.org](http://shiro.apache.org/) | Apache 2.0 |
+| Spring session   | 分布式Session管理  | [http://projects.spring.io/spring-session](http://projects.spring.io/spring-session) | Apache 2.0 |
+| MyBatis          | DAO                | [http://www.mybatis.org](http://www.mybatis.org/mybatis-3/zh/index.html) | Apache 2.0 |
+| MyBatis-Plus     | ORM                | [https://baomidou.com/](https://baomidou.com/) | Apache 2.0 |
+| Freemarker       | 视图               | [http://freemarker.foofun.cn](http://freemarker.foofun.cn/) | Apache 2.0 |
+| PageHelper       | MyBatis分页插件    | [http://git.oschina.net/free/Mybatis_PageHelper](http://git.oschina.net/free/Mybatis_PageHelper) | Apache 2.0 |
+| Log4J            | 日志组件           | [http://logging.apache.org](http://logging.apache.org) | Apache 2.0 |
+| Maven            | 项目构建           | [http://maven.apache.org](http://maven.apache.org/) | Apache 2.0 |
+| Elasticsearch    | 分布式搜索引擎     | [https://www.elastic.co](https://www.elastic.co/) | Apache 2.0 |
+| Redis            | 分布式缓存数据库   | [https://redis.io](https://redis.io) | MIT |
+| Hutool           | 工具类             | [http://hutool.mydoc.io](http://hutool.mydoc.io) | MIT |
 
 ## 前端框架
 
-| 技术           | 名称 | 官网 |
-|:-------------| :--- | :--- |
-| Vue 3          | MVVM框架 | [https://cn.vuejs.org//](https://cn.vuejs.org/) |
-| Element Plus | UI库 | [https://element-plus.org/](https://element-plus.org/) |
-| jQuery       | 函式库 | [http://jquery.com/](http://jquery.com/) |
-| hover.css    | 点击效果插件 | [https://github.com/fians/Waves/](https://github.com/fians/Waves) |
-| validator    | 验证库 | [https://github.com/chriso/validator.js](https://github.com/chriso/validator.js) |
-| animate      | 动画 | [http://daneden.github.io/animate.css/](http://daneden.github.io/animate.css/) |
-| icon         | 矢量小图标\(待更新\) | [https://www.iconfont.cn/](https://www.iconfont.cn/) |
+| 技术            | 名称               | 官网                                                       | 开源协议       |
+|:--------------| :-----------------| :---------------------------------------------------------- |:-------------|
+| Vue 3         | MVVM框架           | [https://cn.vuejs.org//](https://cn.vuejs.org/) | MIT |
+| Element Plus  | UI库               | [https://element-plus.org/](https://element-plus.org/) | MIT |
+| jQuery        | 函式库             | [http://jquery.com/](http://jquery.com/) | MIT |
+| hover.css     | 点击效果插件       | [https://github.com/fians/Waves/](https://github.com/fians/Waves) | MIT |
+| validator     | 验证库             | [https://github.com/chriso/validator.js](https://github.com/chriso/validator.js) | MIT |
+| animate       | 动画               | [http://daneden.github.io/animate.css/](http://daneden.github.io/animate.css/) | MIT |
+| icon          | 矢量小图标(待更新) | [https://www.iconfont.cn/](https://www.iconfont.cn/) | N/A (Free use) |
 
 
 # 文件说明
