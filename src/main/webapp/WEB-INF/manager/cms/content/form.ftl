@@ -814,6 +814,11 @@
             //contentImg文件上传完成回调
             contentImgSuccess: function (response, file, fileList) {
                 if(response.result){
+                    if(!response.data.startsWith("http://") && !response.data.startsWith("https://")) {
+                        file.url = ms.contextpath + response.data;
+                    }else{
+                        file.url = response.data;
+                    }
                     this.form.contentImg.push({
                         url: response.data,
                         name: file.name,

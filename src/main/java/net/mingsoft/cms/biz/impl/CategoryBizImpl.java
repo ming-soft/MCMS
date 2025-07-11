@@ -225,7 +225,7 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
                 //如果没有子节点进行更新代码
                 if (childNode.size() == 1) {
                     // 更新父级为叶子节点
-                    updateWrapper.eq(CategoryEntity::getCategoryId, parentNode.getId())
+                    updateWrapper.eq(CategoryEntity::getId, parentNode.getId())
                             .set(CategoryEntity::getLeaf, true);
                     categoryDao.update(null, updateWrapper);
                 }

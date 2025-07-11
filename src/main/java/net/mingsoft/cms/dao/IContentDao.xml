@@ -257,7 +257,7 @@
 			<if test="createBy &gt; 0"> and ct.create_by=#{createBy} </if>
 			<if test="createDate != null"> and ct.create_date=#{createDate} </if>
 			<if test="updateBy &gt; 0"> and ct.update_by=#{updateBy} </if>
-			<if test="updateDate != null"> and update_date=#{updateDate} </if>
+			<if test="updateDate != null"> and ct.update_date=#{updateDate} </if>
 
 			<include refid="net.mingsoft.base.dao.IBaseDao.sqlWhere"></include>
 		</where>

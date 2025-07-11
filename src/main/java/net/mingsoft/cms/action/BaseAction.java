@@ -21,11 +21,14 @@
 
 
 package net.mingsoft.cms.action;
+
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONArray;
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.baidu.ueditor.define.BaseState;
 import com.baidu.ueditor.define.State;
@@ -49,10 +52,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.MissingResourceException;
+import java.util.*;
 
 /**
  * @Author: 铭飞开源团队--huise
@@ -150,15 +150,15 @@ public class BaseAction extends BaseFileAction {
                 // 判断是依赖ms-file插件
                 String type = ConfigUtil.getString("存储设置", "storeSelect");
                 IUploadBaseService uploadBaseService = null;
-                if (StringUtils.isNotBlank(type)) {
-                    // 单个文件上传计算下各个参数值避免重复上传
-                    if (StringUtils.isBlank(bean.getFileIdentifier())){
-                        try {
-                            bean.setFileIdentifier(String.valueOf(Hex.encodeHex(MessageDigest.getInstance("MD5").digest(bean.getFile().getBytes()))));
-                        } catch (NoSuchAlgorithmException e) {
-                            e.printStackTrace();
-                        }
+                // 单个文件上传计算下各个参数值避免重复上传
+                if (StringUtils.isBlank(bean.getFileIdentifier())){
+                    try {
+                        bean.setFileIdentifier(String.valueOf(Hex.encodeHex(MessageDigest.getInstance("MD5").digest(bean.getFile().getBytes()))));
+                    } catch (NoSuchAlgorithmException e) {
+                        e.printStackTrace();
                     }
+                }
+                if (StringUtils.isNotBlank(type)) {
                     //ms-file 插件启用
                     uploadBaseService = (IUploadBaseService) SpringUtil.getBean(type);
                 }
@@ -201,8 +201,30 @@ public class BaseAction extends BaseFileAction {
         }
         UeditorActionEnter actionEnter = new UeditorActionEnter(upfile,request, rootPath, execConfig, BasicUtil.getRealPath(""), BasicUtil.getRealPath(StrUtil.format("static/plugins/ueditor/{}/config.json",version)));
         String result = actionEnter.exec();
+        // 获取请求类型
+        String action = BasicUtil.getString("action");
         Map jsonMap = JSONUtil.toBean(result,Map.class);
-        jsonMap.put("url","/".concat(uploadMapping.replaceAll("/([\\s\\S]*)/\\*\\*",  "$1")).concat(jsonMap.get("url")+""));
+        // 这里会有图片复制粘贴情况
+        if ("catchimage".equalsIgnoreCase(action) && jsonMap.get("state").equals("SUCCESS")) {
+            // 处理绝对路径和项目名情况
+            JSONArray fileUrls = JSONUtil.parseArray(MapUtil.getStr(jsonMap, "list", "[]"));
+            String url = "";
+            List<JSONObject> list = new ArrayList<>();
+            // 循环上传文件，判断是否有项目名和绝对路径
+            for (Object fileUrl : fileUrls) {
+                JSONObject jsonObject = (JSONObject) fileUrl;
+                url = jsonObject.getStr("url");
+                // 判断是否有contentPath
+                String contextPath = BasicUtil.getContextPath();
+                if (StringUtils.isNotBlank(url) && !url.startsWith("http")) {
+                    url = "/".concat(uploadMapping.replaceAll("/([\\s\\S]*)/\\*\\*", "$1")).concat(url + "");
+                    url = (contextPath.equals("/") ? "" : contextPath) + url;
+                }
+                jsonObject.set("url", url);
+                list.add(jsonObject);
+            }
+            jsonMap.put("list", list);
+        }
         return JSONUtil.toJsonStr(jsonMap);
 
 

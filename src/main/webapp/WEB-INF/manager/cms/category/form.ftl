@@ -785,6 +785,11 @@
             //categoryImg文件上传完成回调
             categoryImgSuccess: function (response, file, fileList) {
                 if (response.result) {
+                    if(!response.data.startsWith("http://") && !response.data.startsWith("https://")) {
+                        file.url = ms.contextpath + response.data;
+                    }else{
+                        file.url = response.data;
+                    }
                     this.form.categoryImg.push({
                         url: response.data,
                         name: file.name,
@@ -823,6 +828,11 @@
             //categoryIco文件上传完成回调
             categoryIcoSuccess: function (response, file, fileList) {
                 if (response.result) {
+                    if(!response.data.startsWith("http://") && !response.data.startsWith("https://")) {
+                        file.url = ms.contextpath + response.data;
+                    }else{
+                        file.url = response.data;
+                    }
                     this.form.categoryIco.push({
                         url: response.data,
                         name: file.name,

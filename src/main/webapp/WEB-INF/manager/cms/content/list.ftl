@@ -485,6 +485,7 @@
             },
             //重置表单
             rest: function () {
+                this.currentPage = 1;
                 this.form.sqlWhere = null;
                 this.$refs.searchForm.resetFields();
                 this.list();
@@ -542,25 +543,6 @@
             }
         },
 
-        created: function () {
-            //因为mounted生命周期，不能更新data对象，所以需要增加created进行处理
-            if(sessionStorage.getItem(this.historyKey)) {
-                var _history = JSON.parse(sessionStorage.getItem(this.historyKey))
-                if(_history.form) {
-                    this.form = _history.form;
-                }
-                if(_history.total) {
-                    this.total = parseInt(_history.total);
-                }
-                if(_history.page.pageNo) {
-                    this.currentPage = parseInt(_history.page.pageNo);
-                }
-                if(_history.page.pageSize) {
-                    this.pageSize = parseInt(_history.page.pageSize);
-                }
-
-            }
-        }
 
     });
 </script>
