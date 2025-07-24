@@ -21,7 +21,7 @@
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-base</artifactId>
-            <version>3.0.2</version>
+            <version>3.0.2.1</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
