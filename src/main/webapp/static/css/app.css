@@ -198,3 +198,7 @@ textarea::-webkit-input-placeholder {
 .el-popper {
     width: unset!important;
 }
+
+.el-tabs--top {
+    flex-direction: column;
+}
