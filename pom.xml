@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.mingsoft</groupId>
     <artifactId>ms-mcms</artifactId>
-    <version>6.0.1</version>
+    <version>6.0.2</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <packaging>jar</packaging>
     <properties>
