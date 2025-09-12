@@ -37,6 +37,8 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.bean.EUListBean;
@@ -63,8 +65,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -352,10 +352,11 @@ public class GeneraterAction extends BaseAction {
      * @return
      */
     @Operation(summary =  "预览主页接口")
-    @RequestMapping(value = "/{position}/viewIndex", method = {RequestMethod.GET, RequestMethod.POST})
-    public String viewIndex(HttpServletRequest request, @PathVariable String position, HttpServletResponse response) {
+    @RequestMapping(value = "/viewIndex", method = {RequestMethod.GET, RequestMethod.POST})
+    public String viewIndex(HttpServletRequest request,  HttpServletResponse response) {
         AppEntity app = BasicUtil.getApp();
         // 组织主页预览地址
+        String position = request.getParameter("position");
         String indexPosition = app.getAppHostUrl() + htmlDir + File.separator + app.getAppDir()
                 + File.separator + position + ParserUtil.HTML_SUFFIX;
         return "redirect:" + indexPosition;

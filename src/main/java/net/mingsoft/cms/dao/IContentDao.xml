@@ -122,7 +122,7 @@
 				<if test="contentDescription != null and contentDescription != ''">#{contentDescription},</if>
 				<if test="contentKeyword != null and contentKeyword != ''">#{contentKeyword},</if>
 				<if test="contentDetails != null and contentDetails != ''">#{contentDetails},</if>
-				<if test="contentUrl != null and contentUrl != ''">#{contentUrl},</if>
+				<if test="contentOutLink != null and contentOutLink != ''">#{contentOutLink},</if>
 				<if test="contentHit != null">#{contentHit},</if>
 				<if test="createBy &gt; 0">#{createBy},</if>
 				<if test="createDate != null">#{createDate},</if>

@@ -294,7 +294,7 @@
                     });
                     return;
                 }
-                window.open(ms.manager + "/cms/generate/" + this.position + "/viewIndex.do");
+                window.open(ms.manager + "/cms/generate/viewIndex.do?position="+this.position);
             },
             //更新栏目
             updateColumn: function () {

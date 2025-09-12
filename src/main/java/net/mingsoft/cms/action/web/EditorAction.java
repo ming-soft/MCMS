@@ -27,6 +27,7 @@
 package net.mingsoft.cms.action.web;
 
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.annotation.Resource;
@@ -42,6 +43,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 百度编辑器上传<br>
@@ -67,19 +69,26 @@ public class EditorAction extends BaseAction {
         boolean enableWeb = MSProperties.upload.enableWeb;
 
         Map uploadConfig = ConfigUtil.getMap("文件上传配置");
+        Map<String, Object> map = new HashMap<>();
         long maxFileSize = msProperties.getUpload().getMultipart().getMaxFileSize() * 1000;
         // 兼容其他版本的上传配置
         if (MapUtil.isNotEmpty(uploadConfig)){
-            enableWeb = Boolean.parseBoolean(String.valueOf(uploadConfig.get("uploadEnable")));
+            enableWeb = MapUtil.getBool(uploadConfig, "enableWeb");
             maxFileSize = MapUtil.getLong(uploadConfig,"webFileSize") * 1000;
+            // 由于我们webFileType是一个大集合，不像管理员端那样细分，所以这边改成
+            // 不做空判断，hutool中的StrUtil.split已做处理，返回一个空数组
+            String imageType = MapUtil.getStr(uploadConfig, "imageType");
+            String videoType = MapUtil.getStr(uploadConfig, "videoType");
+            String fileType = MapUtil.getStr(uploadConfig, "fileType");
+            map.put("imageAllowFiles", StrUtil.split(imageType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
+            map.put("videoAllowFiles", StrUtil.split(videoType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
+            map.put("fileAllowFiles", StrUtil.split(fileType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
+
         }
         if (!enableWeb) {
-            HashMap<String, String> map = new HashMap<>();
             map.put("state","配置不允许前端上传文件");
             return JSONUtil.toJsonStr(map);
         }
-        Map<String, Object> map = new HashMap<>();
-
         // 控制大小
         map.put("imageMaxSize", maxFileSize);
         map.put("videoMaxSize", maxFileSize);

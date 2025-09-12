@@ -1,4 +1,3 @@
-<#include "mdiy/components/ms-dict.ftl">
 <template type="text/x-template" id="content-form">
     <div id="form" v-cloak>
         <el-header class="ms-header ms-tr" height="50px" >
@@ -23,7 +22,7 @@
         </el-header>
         <el-main class="ms-container" style="position:relative;">
             <el-scrollbar class="ms-scrollbar" style="height: 100%;">
-                <el-tabs v-model="activeName" style="height: calc(100% - 10px);">
+                <el-tabs v-model="activeName" style="height: calc(100% - 10px);" tab-position="top">
                     <el-tab-pane style="position:relative;" v-for="(item, index) in editableTabs" :key="index"
                                  :label="item.title" :name="item.name">
                         <el-form v-if="item.title=='文章编辑'" ref="form" :model="form" :rules="rules" label-width="120px"
@@ -303,15 +302,8 @@
         template: '#content-form',
         props:["categoryId","categoryType","id"],
         components:{
-            MsDict
         },
         data: function () {
-            var checkTags = function (rule, value, callback){
-                if (value.length > 5){
-                    return callback(new Error('文章标签最多选择5个'));
-                }
-                callback();
-            }
             return {
                 editorHidden:true,
                 saveDisabled: false,
@@ -433,10 +425,6 @@
                         "max":500,
                         "message":"描述长度必须为0-500"
                     }],
-                    // 文章标签
-                    contentTags: [{
-                        validator: checkTags, trigger: 'blur'
-                    }]
                 },
                 historyKey:"cms_content_history"
             };

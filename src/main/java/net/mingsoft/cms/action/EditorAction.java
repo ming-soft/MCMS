@@ -1,6 +1,7 @@
 package net.mingsoft.cms.action;
 
 import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.StrUtil;
 import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 百度编辑器后台上传<br>
@@ -48,6 +50,15 @@ public class EditorAction extends BaseAction{
             map.put("imageMaxSize", MapUtil.getLong(uploadConfig,"imageSize") * 1000);
             map.put("videoMaxSize", MapUtil.getLong(uploadConfig,"videoSize") * 1000);
             map.put("fileMaxSize", MapUtil.getLong(uploadConfig,"fileSize") * 1000);
+
+            // 不做空判断，hutool中的StrUtil.split已做处理，返回一个空数组
+            String imageType = MapUtil.getStr(uploadConfig, "imageType");
+            String videoType = MapUtil.getStr(uploadConfig, "videoType");
+            String fileType = MapUtil.getStr(uploadConfig, "fileType");
+            map.put("imageAllowFiles", StrUtil.split(imageType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
+            map.put("videoAllowFiles", StrUtil.split(videoType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
+            map.put("fileAllowFiles", StrUtil.split(fileType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
+
         }else {
             // 控制大小
             map.put("imageMaxSize", maxFileSize * 1000);
