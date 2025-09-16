@@ -40,6 +40,10 @@ public class MSApplication {
 		springApplication.setBannerMode(Banner.Mode.OFF);
 		ConfigurableApplicationContext configurableApplicationContext = springApplication.run(args);
 		Environment env = configurableApplicationContext.getEnvironment();
+		String port = env.getProperty("server.port", "8080");
+		String managerPath = env.getProperty("ms.manager.path", "");
+		String profiles = String.join(", ", env.getActiveProfiles());
+
 		System.out.printf(
 				"\n" +
 						"\033[1;36m" + // 青色加粗
@@ -51,12 +55,11 @@ public class MSApplication {
 						"║ \033[0;32m➜ Activate Profiles: \033[0;35m%s\033[1;36m                                 ║\n" +
 						"╚══════════════════════════════════════════════════════════╝" +
 						"\033[0m", // 重置颜色
-				env.getProperty("server.port"),
-				env.getProperty("ms.manager.path"),
-				env.getProperty("server.port"),
-				String.join(", ", env.getActiveProfiles())
+				port,
+				managerPath,
+				port,
+				profiles
 		);
-		SpringApplication.run(MSApplication.class, args);
 	}
 }
 
