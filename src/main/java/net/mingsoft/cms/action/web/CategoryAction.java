@@ -83,7 +83,6 @@ public class CategoryAction extends net.mingsoft.cms.action.BaseAction{
 	@PostMapping(value="/list")
 	@ResponseBody
 	public ResultData list(@ModelAttribute @Parameter(hidden = true) CategoryEntity category) {
-		BasicUtil.startPage();
 		category.setSqlWhere("");
 		List categoryList = categoryBiz.query(category);
 		return ResultData.build().success(new EUListBean(categoryList,(int)BasicUtil.endPage(categoryList).getTotal()));

@@ -158,7 +158,7 @@ public class BaseAction extends BaseFileAction {
             return new EditorStateBean(false, "上传涂鸦图片失败").toString();
         }
 
-        UploadConfigBean bean = new UploadConfigBean(uploadPath, file, null, true);
+        UploadConfigBean bean = new UploadConfigBean(uploadPath, file, true);
         bean.setFileSize(bytes.length);
         bean.setFileName(file.getName());
         EditorStateBean state = new EditorStateBean();
@@ -200,7 +200,7 @@ public class BaseAction extends BaseFileAction {
                 continue;
             }
 
-            UploadConfigBean bean = new UploadConfigBean(uploadPath, file, null, true);
+            UploadConfigBean bean = new UploadConfigBean(uploadPath, file, true);
             bean.setFileSize(file.getSize());
             bean.setFileName(file.getName());
 
@@ -236,7 +236,7 @@ public class BaseAction extends BaseFileAction {
             return new EditorStateBean(false, getResString("err.error", getResString("file.name"))).toString();
         }
         // 组装uploadConfigBean上传使用
-        UploadConfigBean bean = new UploadConfigBean(uploadPath, upfile, null, true);
+        UploadConfigBean bean = new UploadConfigBean(uploadPath, upfile, true);
         bean.setFileSize(upfile.getSize());
         bean.setFileName(upfile.getOriginalFilename());
         try {

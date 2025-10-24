@@ -163,7 +163,7 @@ public class CmsParserUtil {
                 columnListPath = ParserUtil.buildHtmlPath(column.getCategoryPath() + File.separator + ParserUtil.INDEX, htmlDir, parserParams.get(ParserUtil.APP_DIR).toString());
                 // 设置分页的起始位置
                 page.setPageNo(pageNo);
-                String read = ParserUtil.rendering(File.separator + column.getCategoryListUrl(), parserParams);
+                String read = ParserUtil.rendering(column.getCategoryListUrl(), parserParams);
                 FileUtil.writeString(read, columnListPath, Const.UTF8);
 
             } else {
@@ -181,7 +181,7 @@ public class CmsParserUtil {
                     }
                     // 设置分页的起始位置
                     page.setPageNo(pageNo);
-                    String read = ParserUtil.rendering(File.separator + column.getCategoryListUrl(), parserParams);
+                    String read = ParserUtil.rendering(column.getCategoryListUrl(), parserParams);
                     FileUtil.writeString(read, columnListPath, Const.UTF8);
                     pageNo++;
                 }

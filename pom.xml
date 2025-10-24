@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.2</version>
+        <version>3.5.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.mingsoft</groupId>
     <artifactId>ms-mcms</artifactId>
-    <version>6.0.3</version>
+    <version>6.1.0</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <packaging>jar</packaging>
     <properties>
@@ -21,22 +21,22 @@
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-base</artifactId>
-            <version>3.0.3</version>
+            <version>3.0.4</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-basic</artifactId>
-            <version>3.0.3</version>
+            <version>3.0.4</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>ms-mdiy</artifactId>
-            <version>3.0.3</version>
+            <version>3.0.4</version>
         </dependency>
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>store-client</artifactId>
-            <version>3.0.3</version>
+            <version>3.0.4</version>
         </dependency>
         <dependency>
             <groupId>com.github.oshi</groupId>
