@@ -326,7 +326,19 @@
                     initialFrameWidth: '100%',
                     initialFrameHeight: 400,
                     serverUrl: ms.manager + "/editor.do?version=1.4.3.3",
-                    UEDITOR_HOME_URL: ms.base + '/static/plugins/ueditor/1.4.3.3/'
+                    UEDITOR_HOME_URL: ms.base + '/static/plugins/ueditor/1.4.3.3/',
+                    toolbars: [[
+                        'fullscreen', 'source', '|', 'undo', 'redo', '|',
+                        'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset',  'pasteplain', '|',
+                        'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'lineheight', '|',
+                        'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+                        'directionalityltr', 'directionalityrtl', 'indent', '|',
+                        'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+                        'link', 'unlink',  '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+                        'simpleupload', 'insertimage', 'insertvideo', 'music', 'attachment', 'map', 'insertframe', 'insertcode', 'pagebreak','horizontal', '|',
+                        'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',
+                        'preview', 'help'
+                    ]]
                 },
                 contentCategoryIdOptions: [],
                 categoryChangeEnabled: true,
