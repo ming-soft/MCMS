@@ -109,7 +109,7 @@ CREATE TABLE `cms_content` (
   `content_title` varchar(255) DEFAULT NULL COMMENT '文章标题',
   `content_short_title` varchar(255) DEFAULT NULL COMMENT '文章副标题',
   `content_keyword` varchar(255) DEFAULT NULL COMMENT '关键字',
-  `content_description` varchar(400) DEFAULT NULL COMMENT '描述',
+  `content_description` varchar(1000) DEFAULT NULL COMMENT '描述',
   `content_img` varchar(2000) DEFAULT NULL COMMENT '文章缩略图',
   `content_source` varchar(255) DEFAULT NULL COMMENT '文章来源',
   `content_author` varchar(255) DEFAULT NULL COMMENT '文章作者',

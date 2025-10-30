@@ -39,6 +39,8 @@ springdoc:
 
 ms:
   #scheme: https #解决使用代理服务器代理应用时标签解析域名依旧为http的问题
+  log:
+    exclude-field: managerPassword,oldManagerPassword,newManagerPassword,newConfirmManagerPassword # 日志过滤字段，填写后字段信息将不会出现在日志请求参数和返回参数中，多个用逗号隔开
   xss:
     enable: true #xss过滤器的开关
     filter-url: /**   #过滤的url,多个用逗号分开
