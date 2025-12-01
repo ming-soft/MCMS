@@ -1,13 +1,13 @@
 <script type="text/x-template" id="ms-mattention">
 	<div class="interaction-like interaction-btn" :class="{thumbsUpchecked:thumbsUp == true}">
-		<i :class="icon" @click="saveAttention()"></i>
+		<i  :class="localIcon" @click="saveAttention()"></i>
 		<span class="value">
             {{attentionTotal}}
 		</span>
 	</div>
 </script>
 <script>
-	Vue.component('ms-mattention',{
+	var MsMattention = Vue.defineComponent({
 		template: "#ms-mattention",
 		name: "ms-mattention",
 		props:{
@@ -33,6 +33,7 @@
 				// 数量
 				attentionTotal: 0,
 				thumbsUp: false,
+				localIcon: this.icon
 			}
 		},
 		methods: {
@@ -83,7 +84,7 @@
 			},
 		},
 		created: function () {
-			this.icon = "iconfont "+this.icon+" label"
+			this.localIcon = "iconfont "+this.icon+" label"
 			this.attentionTotals(this.dataType)
 		}
 	})

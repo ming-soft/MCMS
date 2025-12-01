@@ -329,7 +329,7 @@
 	</div>
 </script>
 <script>
-	Vue.component('ms-comment',{
+	var MsComment = Vue.defineComponent({
 		template: "#ms-comment",
 		name: "ms-comment",
 		props:{
@@ -339,7 +339,8 @@
 			},
 			// 当前页
 			pageNo:{
-				type: String
+				type: String,
+				default: '1'
 			},
 			// 业务名称(文章标题)
 			dataTitle:{
@@ -549,7 +550,7 @@
 			enableVisitor: function () {
 				var that = this;
 				ms.http.get( ms.base + '/mdiy/config/get.do', {
-					configName: '评论配置',
+					configName: '文章评论配置',
 					key: 'enableVisitor'
 				}).then(function (res) {
 					if (res.result) {

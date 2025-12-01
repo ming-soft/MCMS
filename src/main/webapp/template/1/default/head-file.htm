@@ -4,28 +4,59 @@
 <meta name="format-detection" content="telephone=no">
 <meta name="app-mobile-web-app-capable" content="yes">
 <meta name="app-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="keywords" content="{ms:global.keyword/}">
-<meta name="description" content="{ms:global.descrip/}">
-<script type="text/javascript" src="{ms:global.host/}static/plugins/vue/2.6.9/vue.min.js"></script>
-<link rel="stylesheet" href="{ms:global.host/}static/plugins/minireset/0.0.2/minireset.min.css">
-<link rel="stylesheet" href="{ms:global.host/}static/plugins/iconfont/1.0.0/iconfont.css">
-<link rel="stylesheet" href="{ms:global.host/}static/plugins/animate/4.1.0/animate.min.css">
-<script src="{ms:global.host/}static/plugins/element-ui/2.15.7/index.min.js"></script>
-<link rel="stylesheet" href="{ms:global.host/}static/plugins/element-ui/2.15.7/theme-chalk/index.min.css">
-<!--网络请求框架-->
-<script src="{ms:global.host/}static/plugins/axios/0.18.0/axios.min.js"></script>
-<script src="{ms:global.host/}static/plugins/qs/6.6.0/qs.min.js"></script>
-<script src="{ms:global.host/}static/plugins/ms/2.0/ms.umd.js"></script>
-<script src="{ms:global.host/}static/plugins/swiper/6.4.1/swiper-bundle.js"></script>
-<link rel="stylesheet" href="{ms:global.host/}static/plugins/swiper/6.4.1/swiper-bundle.css">
-<script>
-    SwiperClass = Swiper
-</script>
-<script src="{ms:global.host/}static/plugins/vue-awesome-swiper/4.1.1/vue-awesome-swiper.min.js"></script>
 
+<!--网络请求框架-->
+<script src="${base}/static/plugins/axios/1.7.3/axios.min.js"></script>
+<script src="${base}/static/plugins/qs/6.6.0/qs.min.js"></script>
+
+<script type="text/javascript" src="${base}/static/plugins/vue/3.4.25/vue.global.js"></script>
+<script src="${base}/static/plugins/vue-i18n/8.18.2/vue-i18n.js"></script>
+<!-- 图标 -->
+<link rel="stylesheet" type="text/css" href="${base}/static/plugins/iconfont/1.0.0/iconfont.css" />
+<script src="${base}/static/plugins/iconfont/1.0.0/iconfont.js"></script>
+
+<!-- element-plus引入 -->
+<link rel="stylesheet" type="text/css" href="${base}/static/plugins/element-plus/2.11.2/index.css" />
+<script src="${base}/static/plugins/element-plus/2.11.2/index.full.js"></script>
+<script src="${base}/static/plugins/element-plus/2.11.2/zh-cn.js"></script>
+<link rel="stylesheet"  type="text/css" href="${base}/static/plugins/element-icons/icon.css" />
+<!--自定义-->
+<script src="${base}/static/plugins/vue3-sfc-loader/0.9.5/vue3-sfc-loader.js"></script>
 <script>
-    Vue.use(VueAwesomeSwiper)
+    //必须先设置对象，否则自定义无法渲染
+    window.vue3SfcLoader = window["vue3-sfc-loader"];
 </script>
+<!--铭飞-->
+<script src="${base}/static/plugins/ms/3.0/ms.umd.js"></script>
+<script src="${base}/static/plugins/ms/3.0/ms-el-form.umd.js"></script>
+<link rel="stylesheet"  type="text/css" href="${base}/static/plugins/ms/3.0/ms-el-form.css" />
+<script src="${base}/static/mdiy/index.js"></script>
+<script>
+    ms.base= "{ms:global.contextpath/}"
+</script>
+
+
+<script >
+    /**
+     * 封装vue创建过程，方便初始化组件
+     * @param obj
+     * @returns vue实例
+     * @private
+     */
+    function _Vue(obj) {
+
+        var app = Vue.createApp(obj);
+        app.config.globalProperties.ms = ms;
+        app.use(ElementPlus,{
+            locale: ElementPlusLocaleZhCn
+        });
+        app.use(MsElForm);
+        app.component(obj.components);
+        return app.mount(obj.el);
+    }
+</script>
+
+
 <style>
     :root {
     --swiper-theme-color:$ {
@@ -34,9 +65,7 @@
     }
 
 </style>
-<script>
-    ms.base = "";
-</script>
+
 <style>
     [v-cloak]{
         display: none;

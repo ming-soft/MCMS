@@ -18,16 +18,10 @@
     <script type="text/javascript" src="/{ms:global.style/}js/jquery.superslide.2.1.1.js">//pc导航</script>
     <script src="/{ms:global.style/}js/anim.js">//动画</script>
     <script type="text/javascript" src="/{ms:global.style/}js/basic.js"></script>
-    <!--引入vue库-->
-    <script type="text/javascript" src="/static/plugins/vue/2.6.9/vue.min.js"></script>
-    <!--引入element-ui库-->
-    <script src="${base}/static/plugins/element-ui/2.15.8/index.min.js"></script>
-    <link rel="stylesheet" href="/static/plugins/element-ui/2.15.8/theme-chalk/index.min.css">
-    <!--网络请求框架-->
-    <script src="/static/plugins/axios/0.18.0/axios.min.js"></script>
-    <script src="/static/plugins/qs/6.6.0/qs.min.js"></script>
-    <script src="/static/plugins/ms/2.0/ms.umd.js"></script>
-    <script src="/static/plugins/ms/2.0/ms-el-form.umd.js"></script>
+
+    <!-- 引入vue3相关资源   -->
+    <#include  "head-file.htm" />
+
 </head>
 <body>
 <#include "header.htm" />
@@ -106,7 +100,7 @@
     <script language="javascript" src="/{ms:global.style/}js/foot.js"></script>
 </body>
 <script>
-    var form = new Vue({
+    var form = new _Vue({
         el: '#form',
         data: function () {
             return {

@@ -18,20 +18,10 @@
     <script type="text/javascript" src="/{ms:global.style/}js/jquery.superslide.2.1.1.js">//pc导航</script>
     <script src="/{ms:global.style/}js/anim.js">//动画</script>
     <script type="text/javascript" src="/{ms:global.style/}js/basic.js"></script>
-    <script type="text/javascript" src="{ms:global.contextpath/}/static/plugins/vue/2.6.9/vue.min.js"></script>
-    <link rel="stylesheet" href="{ms:global.contextpath/}/static/plugins/minireset/0.0.2/minireset.min.css" />
-    <link rel="stylesheet" href="https://cdn.mingsoft.net/iconfont/iconfont.css" />
-    <link rel="stylesheet" href="{ms:global.contextpath/}/static/plugins/animate/4.1.0/animate.min.css">
-    <script src="{ms:global.contextpath/}/static/plugins/element-ui/2.15.8/index.min.js"></script>
-    <link rel="stylesheet" href="{ms:global.contextpath/}/static/plugins/element-ui/2.15.8/theme-chalk/index.min.css" />
-    <!--网络请求框架-->
-    <script src="{ms:global.contextpath/}/static/plugins/axios/1.7.3/axios.min.js"></script>
-    <script src="{ms:global.contextpath/}/static/plugins/qs/6.6.0/qs.min.js"></script>
-    <script src="{ms:global.contextpath/}/static/plugins/ms/3.0/ms.umd.js"></script>
-    <script src="{ms:global.contextpath/}/static/plugins/ms/3.0/ms-el-form.umd.js"></script>
-    <script>
-        ms.base= "{ms:global.contextpath/}"
-    </script>
+
+    <!-- 引入vue3相关资源   -->
+    <#include  "head-file.htm" />
+
     <#include "component/ms-comment.htm" />
     <#include "component/ms-mattention.htm" />
 
@@ -94,23 +84,27 @@
 <#include "footer.htm" />
 <script language="javascript" src="/{ms:global.style/}js/foot.js"></script><!--尾部end-->
 <script>
-    var app = new Vue({
+    var app = new _Vue({
         el: '#app',
-        component(){
+        components:{
+            MsComment,
+            MsMattention
         },
-        data: {
-            searchForm: {
-                keyword: ""
-            },
-            hotSearchKeywords: [],
-            //文章商品id
-            dataId: "${field.id}",
-            //当前页数
-            pageNo: ${(page.cur)!1},
-            // 业务名称(文章标题)
-            dataTitle: "${field.title}",
-            // 业务类型
-            dataType: "文章",
+        data: function () {
+            return{
+                searchForm: {
+                    keyword: ""
+                },
+                hotSearchKeywords: [],
+                //文章商品id
+                dataId: "${field.id}",
+                //当前页数
+                pageNo: "${(page.cur)!1}",
+                // 业务名称(文章标题)
+                dataTitle: "${field.title}",
+                // 业务类型
+                dataType: "content"
+            }
         },
         methods: {
         },
