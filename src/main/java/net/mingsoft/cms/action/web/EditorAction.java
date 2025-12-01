@@ -73,7 +73,7 @@ public class EditorAction extends BaseAction {
         long maxFileSize = msProperties.getUpload().getMultipart().getMaxFileSize() * 1000;
         // 兼容其他版本的上传配置
         if (MapUtil.isNotEmpty(uploadConfig)){
-            enableWeb = MapUtil.getBool(uploadConfig, "enableWeb");
+            enableWeb = MapUtil.getBool(uploadConfig, "uploadEnable");
             maxFileSize = MapUtil.getLong(uploadConfig,"webFileSize") * 1000;
             // 由于我们webFileType是一个大集合，不像管理员端那样细分，所以这边改成
             // 不做空判断，hutool中的StrUtil.split已做处理，返回一个空数组

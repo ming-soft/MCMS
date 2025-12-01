@@ -399,6 +399,8 @@ public class CategoryAction extends BaseAction {
         if (StrUtil.isNotBlank(category.getCategoryPinyin()) && StringUtil.checkLength(category.getCategoryPinyin() + "", 1, 100)) {
             pingYin = category.getCategoryPinyin();
         }
+        // 去除拼音中空格或者空白字符
+        pingYin = pingYin.replaceAll("\\s+", "");
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setCategoryPinyin(pingYin);
         CategoryEntity categoryBizEntity = categoryBiz.getOne(new LambdaQueryWrapper<>(categoryEntity));

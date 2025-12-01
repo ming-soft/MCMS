@@ -80,6 +80,8 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
         if (StrUtil.isNotBlank(categoryEntity.getCategoryPinyin())) {
             pingYin = categoryEntity.getCategoryPinyin();
         }
+        // 去除拼音中空格或者空白字符
+        pingYin = pingYin.replaceAll("\\s+", "");
         CategoryEntity category = new CategoryEntity();
         category.setCategoryPinyin(pingYin);
         Object categoryBizEntity = getEntity(category);
@@ -131,9 +133,10 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
         }
         //保存时先保存再修改链接地址，修改时直接修改
         if (StringUtils.isNotBlank(categoryEntity.getId())) {
-            categoryEntity.setCategoryPath(path + "/" + categoryEntity.getCategoryPinyin());
+            String pinyin = categoryEntity.getCategoryPinyin().trim();
+            categoryEntity.setCategoryPath(path + "/" + pinyin);
             if (StringUtils.isBlank(path)) {
-                categoryEntity.setCategoryPath(categoryEntity.getCategoryPinyin());
+                categoryEntity.setCategoryPath(pinyin);
             }
         }
 

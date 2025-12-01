@@ -247,7 +247,7 @@ public class GeneraterAction extends BaseAction {
                     CmsParserUtil.generateBasic(articleIdList, htmlDir,null);
                     break;
                 default:
-                    // 为了方面拓展其他静态化栏目，都默认走这个业务
+                    // 其他基于栏目表扩展的业务，都默认走这里静态化
                     // 判断模板文件是否存在
                     if (StringUtils.isEmpty(column.getCategoryUrl()) || !FileUtil.exist(ParserUtil.buildTemplatePath(column.getCategoryUrl()))) {
                         LOG.error("{} 模板不存在：{}", column.getCategoryTitle(), column.getCategoryUrl());
