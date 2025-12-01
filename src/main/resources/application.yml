@@ -45,7 +45,7 @@ ms:
     enable: true #xss过滤器的开关
     filter-url: /**   #过滤的url,多个用逗号分开
     # #排除的url,多个用逗号分开,如果怕设置后台过滤麻烦，直接排除 /ms/**
-    exclude-url: /static/**,/template/**,/ms/mdiy/config/**,/ms/mdiy/model/**,/ms/mdiy/form/**
+    exclude-url: /static/**,/template/**,/ms/mdiy/config/**,/ms/mdiy/model/**,/ms/mdiy/form/**,/ms/mdiy/form/**
     #过滤的参数名,多个用逗号分开 默认排除菜单、自定模型JSON、模版内容、文章内容，具体根据需要配置其他字段
     exclude-field: contentDetails,templateMail,fileContent
   # shiro-key:  #16位长度，不填写默认随机生成
