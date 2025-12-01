@@ -335,10 +335,16 @@
                         'directionalityltr', 'directionalityrtl', 'indent', '|',
                         'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
                         'link', 'unlink',  '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-                        'simpleupload', 'insertimage', 'insertvideo', 'music', 'attachment', 'map', 'insertframe', 'insertcode', 'pagebreak','horizontal', '|',
+                        'simpleupload', 'insertimage', 'insertvideo', 'attachment', 'map', 'insertcode', 'pagebreak','horizontal', '|',
                         'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow', 'deleterow', 'insertcol', 'deletecol', 'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols', '|',
                         'preview', 'help'
                     ]]
+                    ,'fontfamily':[
+                       { label:'',name:'songti',val:'宋体,SimSun'},
+                       { label:'',name:'kaiti',val:'楷体,楷体_GB2312, SimKai'},
+                       { label:'',name:'heiti',val:'黑体, SimHei'},
+                       { label:'',name:'lishu',val:'隶书, SimLi'}
+                    ]
                 },
                 contentCategoryIdOptions: [],
                 categoryChangeEnabled: true,

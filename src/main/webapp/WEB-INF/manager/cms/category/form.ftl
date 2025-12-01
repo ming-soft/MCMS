@@ -151,7 +151,7 @@
                                         </el-radio>
                                     </el-radio-group>
                                     <div class="ms-form-tip">
-                                        列表：<b>列表->详情</b> 的页面，例如：<i>新闻列表、图片列表</i>,可以多篇文章<br>
+                                        列表：<b>列表->内容</b> 的页面，例如：<i>新闻列表、图片列表</i>,可以多篇文章<br>
                                         单篇：<b>单篇文章</b>，例如：<i>关于我们、公司介绍</i>，只能发一篇文章<br>
                                         链接：外链接，需要配合逻辑判断<b>&lt;#if&gt;</b>和<b>自定义链接</b>标签使用使用，不能发文章<br>
                                         修改栏目时，如果该栏目下存在文章栏目类型则不能修改
@@ -178,13 +178,13 @@
                         </el-row>
                         <el-row :gutter=0 justify="start" align="top">
                             <el-col :span=12>
-                                <el-form-item prop="categoryUrl" label="详情模板" v-if="form.categoryType != '3'">
+                                <el-form-item prop="categoryUrl" label="内容模板" v-if="form.categoryType != '3'">
                                     <el-select v-model="form.categoryUrl"
                                                :style="{width: '100%'}"
                                                :filterable="true"
                                                :disabled="false"
                                                :multiple="false" :clearable="true"
-                                               placeholder="请选择详情模板">
+                                               placeholder="请选择内容模板">
                                         <el-option v-for='item in categoryUrlOptions' :key="item" :value="item"
                                                    :label="item"></el-option>
                                     </el-select>
@@ -602,7 +602,7 @@
                         if (that.form.categoryType == '2') {
                             that.form.categoryListUrl = '';
                         }
-                        //栏目属性为链接则不需要列表和详情模板
+                        //栏目属性为链接则不需要列表和内容模板
                         if (that.form.categoryType == '3') {
                             that.form.categoryListUrl = '';
                             that.form.categoryUrl = '';

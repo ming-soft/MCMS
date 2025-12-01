@@ -87,6 +87,8 @@
                 </el-table-column>
                 <el-table-column label="作者" align="left" prop="contentAuthor" width="100" show-overflow-tooltip>
                 </el-table-column>
+                <el-table-column label="创建人" align="left" prop="createBy" width="100"  :formatter="createByFormatter" show-overflow-tooltip>
+                </el-table-column>
                 <el-table-column label="排序" width="55" align="right" prop="contentSort">
                 </el-table-column>
                 <el-table-column label="点击量" width="90" align="right" prop="contentHit">
