@@ -103,7 +103,7 @@
 * Eclipse、Idea
 * Mysql≧5.7 (开启忽略大小写)
 * JDK≧17
-* Tomcat≧8
+* Tomcat≧10
 
 
 # 快速体验（导入到 Eclipse 或 IDEA）
