@@ -72,7 +72,12 @@
                                     </div>
                                 </el-form-item>
                             </el-col>
-                            <el-col :span=12 style="display: flex">
+                        </el-row>
+
+                        <el-row
+                                :gutter=0
+                                justify="start" align="top">
+                            <el-col :span=12 >
                                 <el-form-item label="栏目属性" prop="categoryFlag">
                                     <el-select v-model="form.categoryFlag"
                                                :style="{width: '100%'}"
@@ -84,16 +89,18 @@
                                                    :value="item.dictValue"
                                                    :label="item.dictLabel"></el-option>
                                     </el-select>
-                                    <div class="ms-form-tip">
-                                        可以在自定义字典中管理
-                                    </div>
                                 </el-form-item>
+                                </el-col>
+                            <el-col :span=12 style="display: flex">
                                 <el-form-item label="自定义顺序" prop="categorySort">
                                     <el-input-number
                                             v-model="form.categorySort"
                                             :disabled="false"
                                             controls-position="">
                                     </el-input-number>
+                                    <div class="ms-form-tip">
+                                        前台模板标签需要设置orderby属性为sort才能生效
+                                    </div>
                                 </el-form-item>
                             </el-col>
                         </el-row>
@@ -298,6 +305,7 @@
                                     :on-remove="categoryImghandleRemove"
                                     :style="{width:''}"
                                     :limit="1"
+                                    :before-upload="beforeImageUpload"
                                     :on-exceed="categoryImghandleExceed"
                                     :disabled="false"
                                     :data="{uploadPath:'/cms/category','isRename':true,'appId':true}"
@@ -323,6 +331,7 @@
                                     :on-remove="categoryIcohandleRemove"
                                     :style="{width:''}"
                                     :limit="1"
+                                    :before-upload="beforeImageUpload"
                                     :on-exceed="categoryIcohandleExceed"
                                     :disabled="false"
                                     :data="{uploadPath:'/cms/category','isRename':true,'appId':true}"
@@ -873,6 +882,22 @@
                     message: response.msg,
                     type: 'warning'
                 });
+            },
+            // 上传之前检测是否是图片类型
+            beforeImageUpload: function (file) {
+                var type = file.type;
+                if (type) {
+                    var isImage = type.startsWith('image/');
+                    if (!isImage) {
+                        this.$notify({
+                            title: '提示',
+                            message: '请上传图片文件',
+                            type: 'warning'
+                        });
+                    }
+                    return isImage;
+                }
+                return false;
             }
         },
         created: function () {

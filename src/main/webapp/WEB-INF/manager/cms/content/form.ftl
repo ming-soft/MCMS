@@ -216,6 +216,7 @@
                                                 :data="{uploadPath:'/cms/content','isRename':true ,'appId':true}"
                                                 :on-success="contentImgSuccess"
                                                 :on-error="contentImgError"
+                                                :before-upload="beforeImageUpload"
                                                 :on-preview="contentImgHandLePreview"
                                                 accept="image/*"
                                                 list-type="picture-card">
@@ -322,6 +323,8 @@
                     scaleEnabled: true,
                     compressSide:0,
                     maxImageSideLength:1000,
+                    elementPathEnabled: false, // 是否开启编辑器中的路径
+                    wordCount: false, // 是否开启字数统计
                     maximumWords: 2000,
                     initialFrameWidth: '100%',
                     initialFrameHeight: 400,
@@ -918,7 +921,22 @@
                     clipboard.destroy();
                 });
             },
-
+            // 上传之前检测是否是图片类型
+            beforeImageUpload: function (file) {
+                var type = file.type;
+                if (type) {
+                    var isImage = type.startsWith('image/');
+                    if (!isImage) {
+                        this.$notify({
+                            title: '提示',
+                            message: '请上传图片文件',
+                            type: 'warning'
+                        });
+                    }
+                    return isImage;
+                }
+                return false;
+            }
         },
         created: function () {
             this.contentCategoryIdOptionsGet();

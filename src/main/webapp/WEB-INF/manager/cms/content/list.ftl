@@ -89,7 +89,18 @@
                 </el-table-column>
                 <el-table-column label="创建人" align="left" prop="createBy" width="100"  :formatter="createByFormatter" show-overflow-tooltip>
                 </el-table-column>
-                <el-table-column label="排序" width="55" align="right" prop="contentSort">
+                <el-table-column label="排序" width="75" align="right" prop="contentSort">
+                    <template #header>排序
+                        <el-popover placement="top-start" title="提示" trigger="hover" >
+                            前台模板标签需设置orderby属性为sort才能生效，<a href="https://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html#orderby%E5%A4%9A%E5%AD%97%E6%AE%B5%E4%BD%BF%E7%94%A8%E6%A0%B7%E4%BE%8B542%E5%8F%8A%E4%BB%A5%E4%B8%8A%E7%89%88%E6%9C%AC" target="_blank">参考</a>
+                            <template #reference>
+                                <i class="el-icon-question"></i>
+                            </template>
+                        </el-popover>
+                    </template>
+                    <template #default="scope">
+                        {{scope.row.contentSort?scope.row.contentSort:0}}
+                    </template>
                 </el-table-column>
                 <el-table-column label="点击量" width="90" align="right" prop="contentHit">
                     <template #header>点击量
@@ -106,8 +117,11 @@
                 </el-table-column>
                 <el-table-column label="发布时间" align="center" prop="contentDatetime" :formatter="dateFormat" width="120">
                 </el-table-column>
-                <el-table-column label="操作" width="120" align="center"   fixed="right">
+                <el-table-column label="操作" width="150" align="center"   fixed="right">
                     <template #default="scope">
+                        <@shiro.hasPermission name="cms:content:save">
+                            <el-link type="primary" :underline="false" @click="copy(scope.row.id)">复制</el-link>
+                        </@shiro.hasPermission>
                         <@shiro.hasPermission name="cms:content:update">
                             <el-link type="primary" :underline="false" @click="openForm(scope.row.id)">编辑</el-link>
                         </@shiro.hasPermission>
@@ -414,6 +428,42 @@
             //新增
             openForm: function (id) {
                 this.$emit("form",id)
+            },
+            // 复制指定文章
+            copy: function (id) {
+                var that = this;
+                if (!id) {
+                    that.$notify({
+                        title: '失败',
+                        message: '请选择要复制的文章!',
+                        type: 'warning'
+                    });
+                    return;
+                }
+                that.$confirm('此操作将复制所选内容生成一篇文章, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(function () {
+                    ms.http.get(ms.manager + "/cms/content/copy.do", {
+                        "id": id
+                    }).then(function (res) {
+                        if (res.result) {
+                            that.$notify({
+                                title: '成功',
+                                message: '复制成功!',
+                                type: 'success'
+                            });
+                            that.list();
+                        } else {
+                            that.$notify({
+                                title: '失败',
+                                message: res.msg,
+                                type: 'warning'
+                            });
+                        }
+                    })
+                })
             },
             // 表格数据转换 id->name
             contentCategoryIdFormat: function (row, column, cellValue, index) {

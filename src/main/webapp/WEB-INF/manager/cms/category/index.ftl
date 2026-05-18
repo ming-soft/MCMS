@@ -54,7 +54,18 @@
             </el-table-column>
             <el-table-column label="类型" align="center" prop="categoryType" :formatter="categoryTypeFormat" width="70">
             </el-table-column>
-            <el-table-column label="排序" align="center" prop="categorySort" width="70">
+            <el-table-column label="排序" align="center" prop="categorySort" width="75">
+                <template #header>排序
+                    <el-popover placement="top-start" title="提示" trigger="hover" >
+                        前台模板标签需设置orderby属性为sort才能生效，<a href="https://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html#orderby-%E7%A4%BA%E4%BE%8B" target="_blank">参考</a>
+                        <template #reference>
+                            <i class="el-icon-question"></i>
+                        </template>
+                    </el-popover>
+                </template>
+                <template #default="scope">
+                    {{scope.row.categorySort?scope.row.categorySort:0}}
+                </template>
             </el-table-column>
             <el-table-column label="链接地址" align="left" prop="categoryPath" min-width="200" show-overflow-tooltip>
                 <template #default="scope">
