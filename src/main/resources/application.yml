@@ -20,11 +20,7 @@ server:
 logging:
   level:
     net.mingsoft: debug
-    net.mingsoft.base.dao.IBaseDao: debug
-    org.springframework: error
-    springfox.documentation: error
-    com.baomidou: error
-    net.sf: error
+    org.springdoc: error
   config: classpath:log4j-spring.xml
 
 springdoc:
@@ -39,19 +35,18 @@ springdoc:
 
 ms:
   #scheme: https #解决使用代理服务器代理应用时标签解析域名依旧为http的问题
-  log:
-    exclude-field: managerPassword,oldManagerPassword,newManagerPassword,newConfirmManagerPassword # 日志过滤字段，填写后字段信息将不会出现在日志请求参数和返回参数中，多个用逗号隔开
   xss:
     enable: true #xss过滤器的开关
     filter-url: /**   #过滤的url,多个用逗号分开
     # #排除的url,多个用逗号分开,如果怕设置后台过滤麻烦，直接排除 /ms/**
-    exclude-url: /static/**,/template/**,/ms/mdiy/config/**,/ms/mdiy/model/**,/ms/mdiy/form/**,/ms/mdiy/tag/**
+    exclude-url: /static/**,/template/**,/ms/mdiy/config/**,/ms/mdiy/model/**,/ms/mdiy/form/**,/ms/mdiy/tag/**,/store/client/model/**
     #过滤的参数名,多个用逗号分开 默认排除菜单、自定模型JSON、模版内容、文章内容，具体根据需要配置其他字段
     exclude-field: contentDetails,templateMail,fileContent
   # shiro-key:  #16位长度，不填写默认随机生成
-
+  log:
+    exclude-field: managerPassword,oldManagerPassword,newManagerPassword,newConfirmManagerPassword # 日志过滤字段，填写后字段信息将不会出现在日志请求参数和返回参数中，多个用逗号隔开
   diy:
-    html-dir: html
+    html-dir: html #静态文件存放路径，默认html，不支持绝对路径，修改后需要重新静态化
 
   manager:
     path: /ms #后台访问的路径，如:http://项目/ms/login.do，生产的时候建议修改
@@ -59,10 +54,10 @@ ms:
 
   upload:
     enable-web: true  #启用web层的上传
-    template: template #模板文件夹支持重命名，不支持路径
+    template: template #模板文件夹名称配置：修改名称后需将原 `template` 文件夹重命名为新值；注意仅支持文件名，不支持路径格式
     path: upload #文件上传路径，可以根据实际写绝对路径（绝对路径需要开发版以上才支持）
     mapping: /upload/** #修改需要谨慎，系统第一次部署可以随意修改，如果已经有了上传数据，再次修改会导致之前上传的文件404
-    denied: exe,jsp,xml,sh,bat,py,ftl,jspx
+    denied: exe,jsp,xml,sh,bat,py,ftl,jspx,svg,php,asp,aspx,jsp,dll,so,jar,class
     back-up: /upload_back
     multipart:
       #最大上传文件大小 单位：KB
@@ -98,6 +93,9 @@ spring:
         enabled: false #启用druid监控
   profiles:
     active: dev
+  cache:
+    ehcache:
+      config: classpath:ehcache.xml
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
