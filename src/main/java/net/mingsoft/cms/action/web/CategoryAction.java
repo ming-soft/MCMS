@@ -22,21 +22,28 @@
 
 package net.mingsoft.cms.action.web;
 
+import cn.hutool.core.util.StrUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
+import net.mingsoft.mdiy.util.ConfigUtil;
+import net.mingsoft.mdiy.util.ParserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+
 /**
  * 分类管理控制层
  * @author 铭飞开发团队
@@ -57,35 +64,38 @@ public class CategoryAction extends net.mingsoft.cms.action.BaseAction{
 
 	/**
 	 * 查询分类列表
-	 * @param category 分类实体
 	 */
 	@Operation(summary = "查询分类列表接口")
 	@Parameters({
-    	@Parameter(name = "id", description = "栏目管理ID", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "categoryTitle", description = "栏目管理名称", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "categoryShortTitle", description = "栏目管理副标题", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "categoryPinyin", description = "栏目管理别名", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "categoryId", description = "所属栏目id", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "categoryType", description = "栏目管理属性", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "categoryListUrl", description = "列表模板", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "categoryUrl", description = "内容模板", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "categoryKeyword", description = "栏目管理关键字", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "categoryDescrip", description = "栏目管理描述", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "categoryDiyUrl", description = "自定义链接", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "mdiyModelId", description = "文章管理的内容模型id", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "dictId", description = "字典对应编号", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "categoryFlag", description = "栏目属性", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "categoryPath", description = "栏目路径", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "categoryParentIds", description = "父类型编号", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "leaf", description = "叶子节点", required = false, in = ParameterIn.QUERY),
-    	@Parameter(name = "topId", description = "顶级id", required = false, in = ParameterIn.QUERY),
+		@Parameter(name = "type", description = "栏目属性，如son、self、nav等", required = false, in = ParameterIn.QUERY),
+		@Parameter(name = "typeid", description = "栏目id", required = false, in = ParameterIn.QUERY),
+    	@Parameter(name = "typeids", description = "多个栏目id，以逗号隔开", required = false, in = ParameterIn.QUERY),
+    	@Parameter(name = "size", description = "栏目个数", required = false, in = ParameterIn.QUERY),
+    	@Parameter(name = "flag", description = "筛选指定属性栏目", required = false, in = ParameterIn.QUERY),
+    	@Parameter(name = "noflag", description = "筛选属性之外的栏目", required = false, in = ParameterIn.QUERY),
+    	@Parameter(name = "orderby", description = "排序方式", required = false, in = ParameterIn.QUERY),
+    	@Parameter(name = "order", description = "升序或降序", required = false, in = ParameterIn.QUERY),
+    	@Parameter(name = "appId", description = "站点id，配合typeid参数使用", required = false, in = ParameterIn.QUERY),
     })
-	@PostMapping(value="/list")
+	@RequestMapping(value = "/list",method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public ResultData list(@ModelAttribute @Parameter(hidden = true) CategoryEntity category) {
-		category.setSqlWhere("");
-		List categoryList = categoryBiz.query(category);
-		return ResultData.build().success(new EUListBean(categoryList,(int)BasicUtil.endPage(categoryList).getTotal()));
+	public ResultData list(HttpServletResponse response, HttpServletRequest request) {
+		//会将请求参数全部转换map
+		Map<String,Object> map = BasicUtil.assemblyRequestMap();
+		if (BasicUtil.getWebsiteApp() != null) {
+			map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getId());
+		}
+		String typeid = (String) map.get("typeid");
+		if (StrUtil.isNotBlank(typeid)){
+			CategoryEntity column = categoryBiz.getById(typeid);
+			map.put(ParserUtil.COLUMN, column);
+		}
+		// 判断是否开启短链
+		boolean shortSwitch = ConfigUtil.getBoolean("静态化配置", "shortSwitch", false);
+		map.put(ParserUtil.SHORT_SWITCH, shortSwitch);
+		List<Map<String,Object>> categoryList  = categoryBiz.list(map);
+		return ResultData.build().success(new EUListBean(categoryList,categoryList.size()));
+
 	}
 
 

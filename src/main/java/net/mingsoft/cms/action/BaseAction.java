@@ -27,6 +27,7 @@ import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileNameUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.http.HttpDownloader;
 import cn.hutool.json.JSONUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import net.mingsoft.base.entity.ResultData;
@@ -36,6 +37,7 @@ import net.mingsoft.basic.bean.UploadConfigBean;
 import net.mingsoft.basic.entity.AppEntity;
 import net.mingsoft.basic.service.IUploadBaseService;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.basic.util.IpUtils;
 import net.mingsoft.basic.util.SpringUtil;
 import net.mingsoft.cms.bean.EditorStateBean;
 import net.mingsoft.mdiy.util.ConfigUtil;
@@ -45,6 +47,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.*;
@@ -54,6 +58,7 @@ import java.util.*;
  * @Date: 2019/8/9 20:47
  */
 public class BaseAction extends BaseFileAction {
+
     /**
      * 读取国际化资源文件(没有占位符号的)，优先模块对应的资源文件，如果模块资源文件找不到就会优先基础层
      *
@@ -134,7 +139,7 @@ public class BaseAction extends BaseFileAction {
                 return catchImage(request, uploadPath);
             default:
                 // 获取编辑器配置
-                return getEditorConfig(execConfigMap, BasicUtil.getRealPath(StrUtil.format("static/plugins/ueditor/{}/config.json", version)));
+                return getEditorConfig(execConfigMap, BasicUtil.getRealPath(StrUtil.format("/static/plugins/ueditor/{}/config.json", version)));
         }
     }
 
@@ -182,23 +187,35 @@ public class BaseAction extends BaseFileAction {
      */
     private String catchImage(HttpServletRequest request, String uploadPath) {
         // 获取图片地址
-        String[] remotes = request.getParameterValues("source[]");
+        String[] urls = request.getParameterValues("source[]");
         EditorStateBean multiState = new EditorStateBean(true);
         List<EditorStateBean> states = new ArrayList<>();
-        for (String remote : remotes) {
-            if (StringUtils.isBlank(remote)) {
+        for (String url : urls) {
+            if (StringUtils.isBlank(url) || !isValidUrl(url)) {
                 continue;
             }
 
             // 根据文件后缀当默认值，防止出现某些文件通过字节流获取后缀为空的情况
-            String suffix = FileNameUtil.getSuffix(remote);
+            String suffix = FileNameUtil.getSuffix(url);
             suffix = StrUtil.isBlank(suffix) ? "png" : suffix;
 
-            // 转成multipartFile对象方便组装成上传bean
-            MultipartFile file = net.mingsoft.basic.util.FileUtil.remoteUrlToMultipartFile(remote, suffix);
-            if (file == null) {
+            // 获取远程文件字节流
+            byte[] bytes = null;
+            try {
+                // 获取远程文件字节流, 默认超时时间为10秒
+                bytes = HttpDownloader.downloadBytes(url, 10000);
+            } catch (Exception e) {
+                // 捕获异常，防止因异常导致后续错误
+                LOG.debug("下载远程文件失败，地址： {}", url);
+                e.printStackTrace();
+            }
+
+            if (bytes == null) {
                 continue;
             }
+
+            // 转成multipartFile对象方便组装成上传bean
+            MultipartFile file = net.mingsoft.basic.util.FileUtil.bytesToMultipartFile(bytes, suffix);
 
             UploadConfigBean bean = new UploadConfigBean(uploadPath, file, true);
             bean.setFileSize(file.getSize());
@@ -214,7 +231,7 @@ public class BaseAction extends BaseFileAction {
             // 这里还需要把源文件地址添加到结果中
             if (state.isSuccess()) {
                 state.put("state", "SUCCESS");
-                state.put("source", remote);
+                state.put("source", url);
             }
             states.add(state);
         }
@@ -315,6 +332,35 @@ public class BaseAction extends BaseFileAction {
             state = new EditorStateBean(false, resultData.getMsg());
         }
         return state;
+    }
+
+    /**
+     * 判断url是否合法
+     * 1. 协议限制：只允许 http 和 https
+     * 2. 域名/IP：禁止访问内网
+     * @param url url
+     * @return 合法返回true，否则返回false
+     */
+    private boolean isValidUrl(String url) {
+        try {
+            URL u = new URL(url);
+            // 1. 协议限制：只允许 http 和 https
+            String protocol = u.getProtocol().toLowerCase();
+            if (!"http".equals(protocol) && !"https".equals(protocol)) {
+                LOG.debug("协议错误，请检查远程地址协议： {}", url);
+                return false;
+            }
+
+            // 2. 禁止访问内网
+            String host = u.getHost();
+            if (IpUtils.isInternalIp(host)) {
+                LOG.debug("禁止访问内网，请检查远程地址： {}", url);
+                return false;
+            }
+            return true;
+        } catch (MalformedURLException e) {
+            return false;
+        }
     }
 
 }

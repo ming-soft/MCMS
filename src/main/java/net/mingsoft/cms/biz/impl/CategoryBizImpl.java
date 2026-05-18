@@ -26,21 +26,31 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import freemarker.template.TemplateException;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
+import net.mingsoft.base.exception.BusinessException;
+import net.mingsoft.base.util.BundleUtil;
+import net.mingsoft.basic.util.FileUtil;
 import net.mingsoft.basic.util.PinYinUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
+import net.mingsoft.cms.constant.Const;
 import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.dao.ICategoryDao;
 import net.mingsoft.cms.dao.IContentDao;
 import net.mingsoft.cms.entity.CategoryEntity;
+import net.mingsoft.mdiy.biz.ITagBiz;
+import net.mingsoft.mdiy.entity.TagEntity;
+import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 分类管理持久化层
@@ -58,6 +68,9 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
 
     @Autowired
     private IContentDao contentDao;
+
+    @Autowired
+    private ITagBiz tagBiz;
 
 
     @Override
@@ -82,6 +95,11 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
         }
         // 去除拼音中空格或者空白字符
         pingYin = pingYin.replaceAll("\\s+", "");
+        //检测是否存在路径穿越风险
+        if (StrUtil.isNotBlank(pingYin) && FileUtil.isInvalidFileName(pingYin)) {
+            LOG.error("拼音中包含非法字符，可能存在路径穿越风险，当前栏目拼音为：{}", pingYin);
+            throw new BusinessException(BundleUtil.getBaseString("err.error", BundleUtil.getString(Const.RESOURCES, "category.pinyin")));
+        }
         CategoryEntity category = new CategoryEntity();
         category.setCategoryPinyin(pingYin);
         Object categoryBizEntity = getEntity(category);
@@ -345,6 +363,27 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
         categoryEntity.setCategoryType(targetCategoryType);
         categoryEntity.setCategoryDiyUrl(null);
         categoryDao.updateById(categoryEntity);
+    }
+
+    @Override
+    public List<Map<String,Object>> list(Map<String,Object> map) {
+        QueryWrapper<TagEntity> tagWrapper = new QueryWrapper<>();
+        tagWrapper.eq("tag_name", "channel");
+        TagEntity tagEntity = tagBiz.getOne(tagWrapper,false);
+        String sqlFtl = tagEntity.getTagSql();
+        List<Map<String, Object>> categoryList = null;
+        //通过ParserUtil
+        try {
+            String sql = ParserUtil.rendering(map,sqlFtl);
+            //执行原生的sql
+            Map<String, Object> sqlPrepareParams = ParserUtil.flatten(map);
+            categoryList = tagBiz.queryForListByNamedJdbc(sql,sqlPrepareParams);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (TemplateException e) {
+            e.printStackTrace();
+        }
+        return categoryList;
     }
 
 }

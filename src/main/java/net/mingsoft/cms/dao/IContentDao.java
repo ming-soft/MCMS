@@ -67,13 +67,14 @@ public interface IContentDao extends IBaseDao<ContentEntity> {
      *
      * @param tableName
      *            :自定义生成的表名
+     * @param diyModel 自定义模型 field 和 value的Map
      * @param map
      *            key:字段名 value:List 字段的各种判断值 list[0]:是否为自定义字段 list[1]:是否为整形
      *            list[2]:是否是等值查询 list[3]:字段的值
      * @param categoryIds 栏目id集合
      * @return 文章实体总数
      */
-    int getSearchCount(@Param("tableName") String tableName, @Param("diyList") List diyList, @Param("map") Map<String, Object> map,
+    int getSearchCount(@Param("tableName") String tableName, @Param("diyModel") Map<String,Object> diyModel, @Param("map") Map<String, Object> map,
                         @Param("categoryIds") String categoryIds);
 
     /**

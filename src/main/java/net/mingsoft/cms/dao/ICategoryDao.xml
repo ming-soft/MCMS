@@ -116,7 +116,7 @@
 	<!-- 模糊查询开始 -->
 	<select id="queryChildren" resultMap="resultMap">
 		select *,
-		( SELECT count(*) FROM cms_category cc WHERE cc.category_id = cms_category.id AND cc.del = 0 ) AS childsize from cms_category
+		( SELECT count(*) FROM cms_category cc WHERE cc.category_id = category.id AND cc.del = 0 ) AS childsize from cms_category category
 		<where>
 			del=0
 			<if test="dictId &gt; 0">

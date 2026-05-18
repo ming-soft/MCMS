@@ -30,6 +30,7 @@ import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.base.util.SqlInjectionUtil;
 import net.mingsoft.basic.annotation.LogAnn;
@@ -40,6 +41,7 @@ import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
+import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.mdiy.biz.IModelBiz;
@@ -53,6 +55,7 @@ import org.springframework.web.bind.annotation.*;
 
 import jakarta.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -119,8 +122,6 @@ public class ContentAction extends BaseAction {
     @ResponseBody
     @RequiresPermissions("cms:content:view")
     public ResultData list(@ModelAttribute @Parameter(hidden = true) ContentBean content) {
-        // 检查SQL注入
-        SqlInjectionUtil.filterContent(content.getCategoryId());
         BasicUtil.startPage();
         List<ContentBean> contentList = contentBiz.queryContent(content);
         return ResultData.build().success(new EUListBean(contentList, (int) BasicUtil.endPage(contentList).getTotal()));
@@ -200,7 +201,7 @@ public class ContentAction extends BaseAction {
     @ResponseBody
     @LogAnn(title = "保存文章", businessType = BusinessTypeEnum.INSERT)
     @RequiresPermissions("cms:content:save")
-    public ResultData save(@ModelAttribute @Parameter(hidden = true) ContentEntity content) {
+    public ResultData save(@ModelAttribute @Parameter(hidden = true) @Valid ContentEntity content) {
         //验证缩略图参数值是否合法
         if (content.getContentImg() == null || !content.getContentImg().matches("^\\[.{1,}]$")) {
             content.setContentImg("");
@@ -253,6 +254,56 @@ public class ContentAction extends BaseAction {
 
         contentBiz.save(content);
         return ResultData.build().success(content);
+    }
+
+    /**
+     * 根据指定的文章 ID 复制一篇文章，生成新的文章。<br>
+     * 新文章将重置 ID、发布时间、点击数等字段，并保留原文章的大部分内容。<br>
+     * 仅支持栏目类型为“列表”的文章复制。 <br>
+     *
+     * @param content 文章实体，ID 必填
+     * @return 返回复制成功后的新文章实体，或错误信息
+     */
+    @Operation(summary =  "复制文章")
+    @Parameter(name = "id", description = "编号", required =  true, in = ParameterIn.QUERY)
+    @GetMapping("/copy")
+    @ResponseBody
+    @RequiresPermissions("cms:content:save")
+    public ResultData copy(@ModelAttribute @Parameter(hidden = true) ContentEntity content) {
+        // 校验文章ID是否为空
+        if (StrUtil.isBlank(content.getId())) {
+            return ResultData.build().error(getResString("err.empty", this.getResString("id")));
+        }
+        // 根据ID获取文章实体
+        ContentEntity contentEntity = contentBiz.getById(content.getId());
+
+        // 校验文章是否存在
+        if (contentEntity == null) {
+            return ResultData.build().error(getResString("err.error", this.getResString("id")));
+        }
+        // 只能栏目列表才能复制文章，校验栏目ID是否存在
+        if (StringUtils.isBlank(contentEntity.getCategoryId())) {
+            return ResultData.build().error(getResString("err.empty", this.getResString("category.id")));
+        }
+        // 获取栏目实体
+        CategoryEntity categoryEntity = categoryBiz.getById(contentEntity.getCategoryId());
+        // 校验栏目是否存在
+        if (categoryEntity == null) {
+            return ResultData.build().error(getResString("err.error", this.getResString("id")));
+        }
+        // 校验栏目类型是否为列表类型
+        if (!CategoryTypeEnum.LIST.toString().equals(categoryEntity.getCategoryType())) {
+            return ResultData.build().error(getResString("err.error", this.getResString("category.type")));
+        }
+        contentEntity.setId(null);
+        contentEntity.setContentDatetime(new Date());
+        contentEntity.setContentHit(0);
+        contentEntity.setCreateBy(BasicUtil.getManager().getId());
+        contentEntity.setCreateDate(new Date());
+        contentEntity.setUpdateBy(null);
+        contentEntity.setUpdateDate(null);
+        contentBiz.save(contentEntity);
+        return ResultData.build().success(contentEntity);
     }
 
     /**
@@ -315,7 +366,7 @@ public class ContentAction extends BaseAction {
     @ResponseBody
     @LogAnn(title = "更新文章", businessType = BusinessTypeEnum.UPDATE)
     @RequiresPermissions("cms:content:update")
-    public ResultData update(@ModelAttribute @Parameter(hidden = true) ContentEntity content) {
+    public ResultData update(@ModelAttribute @Parameter(hidden = true) @Valid ContentEntity content) {
         //验证缩略图参数值是否合法
         if (content.getContentImg() == null || !content.getContentImg().matches("^\\[.{1,}]$")) {
             content.setContentImg("");

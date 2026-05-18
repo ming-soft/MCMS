@@ -31,27 +31,27 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import net.mingsoft.base.constant.Const;
 import net.mingsoft.base.entity.ResultData;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.util.BasicUtil;
-import net.mingsoft.cms.bean.CategoryBean;
-import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.biz.IHistoryLogBiz;
-import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.cms.entity.HistoryLogEntity;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.entity.ModelEntity;
+import net.mingsoft.mdiy.util.ConfigUtil;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
@@ -83,51 +83,57 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 
 	/**
 	 * 查询文章列表接口
-	 * @return
+	 * 自定义模型查询必须指定栏目，仅在typeid参数存在时生效
+	 * @return 文章列表
 	 */
 	@Operation(summary = "查询文章列表接口")
 	@Parameters({
 			@Parameter(name = "typeid", description = "所属栏目", required =false, in= ParameterIn.QUERY),
 			@Parameter(name = "pageNo", description = "页码", required =false, in= ParameterIn.QUERY),
-			@Parameter(name = "size", description = "一页显示数量", required =false, in= ParameterIn.QUERY),
-			@Parameter(name = "orderby", description = "排序", required =false, in= ParameterIn.QUERY),
-    })
+			@Parameter(name = "ispaging", description = "是否分页", required =false, in= ParameterIn.QUERY),
+			@Parameter(name = "typeids", description = "多个栏目id，以逗号隔开", required = false, in = ParameterIn.QUERY),
+			@Parameter(name = "size", description = "文章个数", required = false, in = ParameterIn.QUERY),
+			@Parameter(name = "flag", description = "筛选指定属性文章", required = false, in = ParameterIn.QUERY),
+			@Parameter(name = "noflag", description = "筛选属性之外的文章", required = false, in = ParameterIn.QUERY),
+			@Parameter(name = "orderby", description = "排序方式", required = false, in = ParameterIn.QUERY),
+			@Parameter(name = "order", description = "升序或降序", required = false, in = ParameterIn.QUERY),
+			@Parameter(name = "appId", description = "站点id，配合typeid参数使用", required = false, in = ParameterIn.QUERY),
+
+	})
 	@RequestMapping(value = "/list",method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public ResultData list(HttpServletResponse response, HttpServletRequest request) {
 		//会将请求参数全部转换map
-		Map map = BasicUtil.assemblyRequestMap();
+		Map<String,Object> map = BasicUtil.assemblyRequestMap();
 		String typeid = (String) map.get("typeid");
 		 if (StrUtil.isBlank(typeid)){
 			typeid = (String) map.get("categoryId");
 		}
-		ContentBean content = new ContentBean();
-		if (StrUtil.isNotBlank(typeid)){
-			content.setCategoryId(typeid);
-		}
-		content.setCategoryType(CategoryTypeEnum.LIST.toString());
-		content.setContentDisplay("0");
-		List<CategoryBean> articleList = contentBiz.queryIdsByCategoryIdForParser(content);
+
 		PageBean page = new PageBean();
-		List filedStr = new ArrayList<>();
+		Set<String> modelFieldNames = new HashSet<>();
+		// 栏目对应自定义模型字段的值 自定义模型仅在单栏目查询时支持
+		Map<String,Object> modelFieldValueMap = new HashMap<>();
+		// 栏目对应模型
+		ModelEntity contentModel = null;
 		page.setPageNo(BasicUtil.getInt("pageNo",1));
 		page.setSize(BasicUtil.getInt("size",10));
 		map.put("ispaging","true");
 		map.putIfAbsent("size",page.getSize());
 		if (BasicUtil.getWebsiteApp() != null) {
-			map.put("appid", BasicUtil.getWebsiteApp().getId());
+			map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getId());
 		}
 		map.put(ParserUtil.PAGE, page);
 		if (typeid != null) {
 			CategoryEntity column = categoryBiz.getById(typeid);
 			// 获取表单类型的id
 			if (column != null && ObjectUtil.isNotNull(column.getMdiyModelId())) {
-				ModelEntity	contentModel = (ModelEntity) modelBiz.getById(column.getMdiyModelId());
+				contentModel = (ModelEntity) modelBiz.getById(column.getMdiyModelId());
 				if (contentModel != null) {
 					// 保存自定义模型的数据
 					Map<String, String> fieldMap = contentModel.getFieldMap();
 					for (String s : fieldMap.keySet()) {
-						filedStr.add(fieldMap.get(s));
+						modelFieldNames.add(fieldMap.get(s));
 					}
 					// 设置自定义模型表名，方便解析的时候关联表查询
 					map.put(ParserUtil.TABLE_NAME, contentModel.getModelTableName());
@@ -138,16 +144,62 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 			// 设置栏目，方便解析的时候关联表查询
 			map.put(ParserUtil.COLUMN, column);
 		}
+		// 读取请求中自定义模型的字段
+		if (!modelFieldNames.isEmpty()) {
+			for (Map.Entry<String, Object> entry : map.entrySet()) {
+				if (entry != null) {
+					//空值不处理
+					if (ObjectUtil.isNull(entry.getValue())) {
+						continue;
+					}
+
+					Object rawValue = entry.getValue();
+					if (rawValue == null) {
+						continue;
+					}
+
+					String value = rawValue.toString();
+					// 如果是get方法需要将请求地址参数转码
+					if (request.getMethod().equals(RequestMethod.GET)) {
+						try {
+							value = new String(value.getBytes("ISO-8859-1"), Const.UTF8);
+						} catch (UnsupportedEncodingException e) {
+							e.printStackTrace();
+						}
+					}
+
+					// 保存至自定义字段集合
+					if (StringUtils.isNotBlank(value)) {
+						//判断请求中的是否是自定义模型中的字段
+						if (modelFieldNames.contains(entry.getKey())) {
+							//设置自定义模型字段和值
+							modelFieldValueMap.put(entry.getKey(),value);
+						}
+					}
+
+				}
+			}
+		}
+
+		//添加自定义模型的字段和值
+		if (modelFieldValueMap.size() > 0) {
+			map.put("diyModel", modelFieldValueMap);
+		}
+
+		int count = contentBiz.getSearchCount(contentModel, modelFieldValueMap, map, typeid);
+		// 判断是否开启短链
+		boolean shortSwitch = ConfigUtil.getBoolean("静态化配置", "shortSwitch", false);
+		map.put(ParserUtil.SHORT_SWITCH, shortSwitch);
 		//实际上list是需要参数，例如分页、栏目分类、属性等待，具体看标签arclist对应的参数
-		List contentList = contentBiz.list(map);
-		return ResultData.build().success(new EUListBean(contentList,articleList.size()));
+		List<Map<String,Object>> contentList = contentBiz.list(map);
+		return ResultData.build().success(new EUListBean(contentList,count));
 	}
 
 
 	/**
-	 * 获取文章列表接口
+	 * 根据文章id获取指定文章接口，如果文章有绑定的自定义模型会一并查询返回
 	 * @param content 文章
-	 * @return
+	 * @return 文章数据
 	 */
 	@Operation(summary =  "获取文章列表接口")
     @Parameter(name = "id", description = "编号", required = true, in = ParameterIn.QUERY)
@@ -175,14 +227,17 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		if (modelEntity != null && StringUtils.isNotBlank(modelEntity.getModelTableName())) {
 			map.put("tableName", modelEntity.getModelTableName());
 		}
-		Map contentMap = contentBiz.get(map);
+		// 判断是否开启短链
+		boolean shortSwitch = ConfigUtil.getBoolean("静态化配置", "shortSwitch", false);
+		map.put(ParserUtil.SHORT_SWITCH, shortSwitch);
+		Map<String,Object> contentMap = contentBiz.get(map);
 		return ResultData.build().success(contentMap);
 	}
 
 	/**
 	 * 查看文章点击数
 	 * @param contentId 文章编号
-	 * @return
+	 * @return 文章点击数
 	 */
 	@Operation(summary =  "查看文章点击数")
 	@Parameter(name = "contentId", description = "文章编号", required = true, in = ParameterIn.PATH)

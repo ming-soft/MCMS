@@ -23,16 +23,18 @@ package net.mingsoft.cms.action.web;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.PageUtil;
-import cn.hutool.json.JSONUtil;
 import freemarker.core.ParseException;
 import freemarker.template.MalformedTemplateNameException;
 import freemarker.template.TemplateNotFoundException;
 import io.swagger.v3.oas.annotations.Hidden;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import net.mingsoft.base.constant.Const;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
+import net.mingsoft.config.MSProperties;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.entity.ModelEntity;
@@ -47,14 +49,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
+import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 动态生成页面，需要后台配置自定义页数据
@@ -103,19 +104,16 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         PageBean page = new PageBean();
         page.setSize(ParserUtil.getPageSize(search, 20));
 
-        //参数集合，提供给解析使用
+        // 模板渲染参数集合，提供给freemarker解析使用
         Map<String, Object> params = new HashMap<>();
 
-        // 读取请求字段
-        Map<String, Object> field = BasicUtil.assemblyRequestMap();
-
-        // 自定义字段集合
-        Map<String, String> diyFieldName = new HashMap<String, String>();
+        // search所有请求参数
+        Map<String, Object> searchMap = BasicUtil.assemblyRequestMap();
 
         //记录自定义模型字段名
-        List filedStr = new ArrayList<>();
-        // 栏目对应字段的值
-        List<DiyModelMap> fieldValueList = new ArrayList<DiyModelMap>();
+        Set<String> modelFieldNames = new HashSet<>();
+        // 栏目对应自定义模型字段的值 自定义模型仅在单栏目查询时支持
+        Map<String,Object> modelFieldValueMap = new HashMap<>();
 
         // 当前栏目
         CategoryEntity column = null;
@@ -138,18 +136,18 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
         //根据栏目确定自定义模型
         if (typeId != null) {
-            column = (CategoryEntity) categoryBiz.getById(typeId);
+            column = categoryBiz.getById(typeId);
             // 获取表单类型的id
             if (column != null && ObjectUtil.isNotNull(column.getMdiyModelId())) {
-                contentModel = (ModelEntity) modelBiz.getById(column.getMdiyModelId());
+                contentModel = modelBiz.getById(column.getMdiyModelId());
                 if (contentModel != null) {
                     // 保存自定义模型的数据
                     Map<String, String> fieldMap = contentModel.getFieldMap();
                     for (String s : fieldMap.keySet()) {
-                        filedStr.add(fieldMap.get(s));
+                        modelFieldNames.add(fieldMap.get(s));
                     }
                     // 设置自定义模型表名，方便解析的时候关联表查询
-                    params.put(ParserUtil.TABLE_NAME, contentModel.getModelTableName());
+                    params.put(ParserUtil.SEARCH_TABLE_NAME, contentModel.getModelTableName());
                 }
             }
 
@@ -157,20 +155,21 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
             params.put(ParserUtil.COLUMN, column);
         }
 
-        // 处理读取请求字段
-        if (field != null) {
-            for (Map.Entry<String, Object> entry : field.entrySet()) {
+        // 读取请求中自定义模型字段
+        if (searchMap.size() > 0 && !modelFieldNames.isEmpty()) {
+            for (Map.Entry<String, Object> entry : searchMap.entrySet()) {
                 if (entry != null) {
                     //空值不处理
                     if (ObjectUtil.isNull(entry.getValue())) {
                         continue;
                     }
 
-                    // 对值进行安全处理
-                    // 处理由get方法请求中文乱码问题
-                    String value = entry.getValue().toString().replaceAll("('|\"|\\\\)", "\\\\$1");
-                    //Xss过滤
-                    value = clearXss(value);
+                    Object rawValue = entry.getValue();
+                    if (rawValue == null) {
+                        continue;
+                    }
+
+                    String value = rawValue.toString();
                     // 如果是get方法需要将请求地址参数转码
                     if (request.getMethod().equals(RequestMethod.GET)) {
                         try {
@@ -182,14 +181,10 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
                     // 保存至自定义字段集合
                     if (StringUtils.isNotBlank(value)) {
-                        diyFieldName.put(entry.getKey(), value);
                         //判断请求中的是否是自定义模型中的字段
-                        if (filedStr.contains(entry.getKey())) {
+                        if (modelFieldNames.contains(entry.getKey())) {
                             //设置自定义模型字段和值
-                            DiyModelMap diyMap = new DiyModelMap();
-                            diyMap.setKey(entry.getKey());
-                            diyMap.setValue(value);
-                            fieldValueList.add(diyMap);
+                            modelFieldValueMap.put(entry.getKey(),value);
                         }
                     }
 
@@ -198,12 +193,11 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         }
 
         //添加自定义模型的字段和值
-        if (fieldValueList.size() > 0) {
-            params.put("diyModel", fieldValueList);
+        if (modelFieldValueMap.size() > 0) {
+            params.put("diyModel", modelFieldValueMap);
         }
 
 
-        Map<String, Object> searchMap = field;
         String contentTag = BasicUtil.getString("content_tag");
         if (StringUtils.isNotBlank(contentTag)){
             searchMap.put("content_tag", contentTag);
@@ -212,23 +206,26 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         StringBuilder urlParams = new StringBuilder();
 
         searchMap.forEach((k, v) -> {
-            //sql注入过滤
             if (v != null) {
-                searchMap.put(k, v.toString().replaceAll("('|\"|\\\\)", "\\\\$1"));
-                searchMap.put(k, clearXss(searchMap.get(k).toString()));
+                String val = v.toString();
+                // URL 参数encode处理
                 if (!"size".equals(k) && !"pageNo".equals(k)) {
-                    urlParams.append(k).append("=").append(searchMap.get(k)).append("&");
+                    try {
+                        urlParams.append(k).append("=").append(URLEncoder.encode(val, "UTF-8")).append("&");
+                    } catch (UnsupportedEncodingException e) {
+                        LOG.error("参数encode失败:{}",e.getMessage());
+                    }
                 }
             }
         });
 
         //查询数量 站群会自动拼appId区分
-        int count = contentBiz.getSearchCount(contentModel, fieldValueList, searchMap, categoryIds);
+        int count = contentBiz.getSearchCount(contentModel, modelFieldValueMap, searchMap, categoryIds);
         page.setRcount(count);
         params.put("search", searchMap);
 
         //站点编号
-        Boolean shortSwitch = ConfigUtil.getBoolean("短链配置", "shortLinkSwitch");
+        Boolean shortSwitch = ConfigUtil.getBoolean("静态化配置", "shortSwitch");
         if (BasicUtil.getWebsiteApp() != null) {
             params.put(ParserUtil.APP_DIR, BasicUtil.getWebsiteApp().getAppDir());
             params.put(ParserUtil.URL, BasicUtil.getWebsiteApp().getAppHostUrl());
@@ -241,6 +238,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
             params.put(ParserUtil.APP_DIR, BasicUtil.getApp().getAppDir());
         }
         params.put(ParserUtil.SHORT_SWITCH, shortSwitch);
+        params.put(ParserUtil.TEMPLATE,  MSProperties.upload.template);
 
         //对项目名预处理
         String contextPath = BasicUtil.getContextPath();
@@ -250,7 +248,6 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
         params.putIfAbsent(ParserUtil.CONTEXT_PATH, contextPath);
 
         searchMap.put("pageNo", 0);
-//        ParserUtil.read(search, map, page);
         int total = PageUtil.totalPage(count, page.getSize());
 
 
@@ -302,56 +299,6 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
             e.printStackTrace();
         }
         return content;
-    }
-
-    // 清除路径中的转义字符
-    private String clearXss(String value) {
-
-        if (value == null || "".equals(value)) {
-            return value;
-        }
-
-        value = value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
-        value = value.replaceAll("\\(", "&#40;").replace("\\)", "&#41;");
-        value = value.replaceAll("'", "&#39;");
-        value = value.replaceAll("eval\\((.*)\\)", "");
-        value = value.replaceAll("[\\\"\\\'][\\s]*javascript:(.*)[\\\"\\\']",
-                "\"\"");
-        value = value.replace("script", "");
-
-        return value;
-    }
-
-    /**
-     * 存储自定义模型字段和接口参数
-     *
-     * @author 铭软开源团队
-     * @date 2019年3月5日
-     */
-    class DiyModelMap {
-        private String key;
-        private Object value;
-
-        public String getKey() {
-            return key;
-        }
-
-        public void setKey(String key) {
-            this.key = key;
-        }
-
-        public Object getValue() {
-            return value;
-        }
-
-        public void setValue(Object value) {
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return JSONUtil.toJsonStr(this);
-        }
     }
 
 }

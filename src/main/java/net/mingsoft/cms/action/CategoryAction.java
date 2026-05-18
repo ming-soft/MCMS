@@ -38,6 +38,7 @@ import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.constant.e.BusinessTypeEnum;
 import net.mingsoft.basic.util.BasicUtil;
+import net.mingsoft.basic.util.FileUtil;
 import net.mingsoft.basic.util.PinYinUtil;
 import net.mingsoft.basic.util.StringUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
@@ -401,6 +402,11 @@ public class CategoryAction extends BaseAction {
         }
         // 去除拼音中空格或者空白字符
         pingYin = pingYin.replaceAll("\\s+", "");
+        //检测是否存在路径穿越风险
+        if (StringUtils.isNotBlank(pingYin) && FileUtil.isInvalidFileName(pingYin)) {
+            LOG.error("拼音中包含非法字符，可能存在路径穿越风险，当前栏目拼音为：{}", pingYin);
+            return ResultData.build().error(getResString("err.error", getResString("category.pinyin")));
+        }
         CategoryEntity categoryEntity = new CategoryEntity();
         categoryEntity.setCategoryPinyin(pingYin);
         CategoryEntity categoryBizEntity = categoryBiz.getOne(new LambdaQueryWrapper<>(categoryEntity));

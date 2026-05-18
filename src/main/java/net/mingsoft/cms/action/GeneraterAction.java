@@ -332,6 +332,10 @@ public class GeneraterAction extends BaseAction {
                     LOG.error("{} 模板不存在：{}", category.getCategoryTitle(), category.getCategoryListUrl());
                     continue;
                 }
+                if (!FileUtil.exist(ParserUtil.buildTemplatePath(category.getCategoryUrl())) || StringUtils.isEmpty(category.getCategoryUrl())) {
+                    LOG.error("{} 模板不存在：{}", category.getCategoryTitle(), category.getCategoryUrl());
+                    continue;
+                }
                 // 有符合条件的就更新
                 if (articleIdList.size() > 0) {
                     CmsParserUtil.generateBasic(articleIdList, htmlDir,contentUpdateTime);

@@ -57,12 +57,12 @@ public interface IContentBiz extends IBaseBiz<ContentEntity> {
     /**
      * 文章搜索结果总数，提供搜索使用
      * @param contentModel 文章模型，
-     * @param diyList 扩展模型字段 List<Map> key:自定义模型字段:值
+     * @param diyModel 扩展模型字段 Map key:自定义模型字段  value:字段值
      * @param whereMap 条件
      * @param categoryIds 栏目编号集合 格式：1,2,3
-     * @return
+     * @return 搜索总数
      */
-    int getSearchCount(ModelEntity contentModel, List diyList, Map whereMap, String categoryIds);
+    int getSearchCount(ModelEntity contentModel, Map<String,Object> diyModel, Map whereMap, String categoryIds);
     /**
      * 根据文章属性查询,不包括单篇
      * @param contentBean
@@ -72,16 +72,16 @@ public interface IContentBiz extends IBaseBiz<ContentEntity> {
 
     /**
      * 根据解析标签arclist的sql获取list
-     * @return
+     * @return 文章集合
      */
-    List list(Map map);
+    List<Map<String, Object>> list(Map<String,Object> map);
 
     /**
      * 根据解析标签data的sql获取文章数据，如有自定义模型，则返回则加上自定义模型数据
-     * @param map
-     * @return
+     * @param map 解析参数map
+     * @return 文章map
      */
-    Map get(Map map);
+    Map<String,Object> get(Map<String,Object> map);
 
 
 }

@@ -26,6 +26,7 @@ import net.mingsoft.base.biz.IBaseBiz;
 import net.mingsoft.cms.entity.CategoryEntity;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -65,4 +66,11 @@ public interface ICategoryBiz extends IBaseBiz<CategoryEntity> {
      * @param targetCategoryType 目标栏目类型
      */
     void changeCategoryType(CategoryEntity categoryEntity,String targetCategoryType);
+
+    /**
+     * 解析标签channel的sql获取list
+     * @param map 查询条件
+     * @return 栏目集合
+     */
+    List<Map<String,Object>> list(Map<String,Object> map);
 }

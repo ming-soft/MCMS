@@ -34,6 +34,7 @@ import net.mingsoft.basic.util.SpringUtil;
 import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
+import net.mingsoft.config.MSProperties;
 import net.mingsoft.mdiy.bean.PageBean;
 import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.biz.impl.ModelBizImpl;
@@ -66,6 +67,7 @@ public class CmsParserUtil {
     public static void generate(String templatePath, String targetPath, String htmlDir) throws IOException {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put(ParserUtil.IS_DO, false);
+        map.put(ParserUtil.TEMPLATE,  MSProperties.upload.template);
         CategoryEntity column = new CategoryEntity();
         //内容管理栏目编码
         map.put(ParserUtil.COLUMN, column);
@@ -120,6 +122,7 @@ public class CmsParserUtil {
             parserParams.put(ParserUtil.IS_DO, false);
             parserParams.put(ParserUtil.HTML, htmlDir);
             parserParams.put(ParserUtil.PAGE, page);
+            parserParams.put(ParserUtil.TEMPLATE,  MSProperties.upload.template);
 
             //站点编号
             if (BasicUtil.getWebsiteApp() != null) {
@@ -216,6 +219,7 @@ public class CmsParserUtil {
         }
 
         parserParams.put(ParserUtil.HTML, htmlDir);
+        parserParams.put(ParserUtil.TEMPLATE,  MSProperties.upload.template);
 
         //对项目名预处理
         String contextPath = BasicUtil.getContextPath();
@@ -241,11 +245,7 @@ public class CmsParserUtil {
             String articleId = categoryBean.getArticleId();
             // 文章的栏目路径
             String articleColumnPath = categoryBean.getCategoryPath();
-            // 该文章相关分类
-            String categoryParentId = categoryBean.getId();
-            if (StringUtils.isNotBlank(categoryBean.getCategoryParentIds())) {
-                categoryParentId += ',' + categoryBean.getCategoryParentIds();
-            }
+
             // 文章的模板路径
             String columnUrl = categoryBean.getCategoryUrl();
             LOG.debug("columnUrl {}",columnUrl);
@@ -266,7 +266,7 @@ public class CmsParserUtil {
                 artId++;
                 continue;
             }
-            // 将
+            // 记录处理的id
             generateIds.add(articleId);
             //如果是封面就生成index.html
             if (categoryBean.getCategoryType().equals(CategoryTypeEnum.COVER.toString())) {
@@ -302,19 +302,13 @@ public class CmsParserUtil {
             // 第一篇文章没有上一篇
             if (artId > 0) {
                 CategoryBean preCaBean = articleIdList.get(artId - 1);
-                //判断当前文档是否与上一页文章在同一栏目下，并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
-//				if( categoryParentId.contains(preCaBean.getCategoryId()+"")){
                 page.setPreId(preCaBean.getArticleId());
-//				}
             }
 
             // 最后一篇文章没有下一篇
             if (artId + 1 < articleIdList.size()) {
                 CategoryBean nextCaBean = articleIdList.get(artId + 1);
-                //判断当前文档是否与下一页文章在同一栏目下并且不能使用父栏目字符串，因为父栏目中没有所属栏目编号
-//				if(categoryParentId.contains(nextCaBean.getCategoryId()+"")){
                 page.setNextId(nextCaBean.getArticleId());
-//				}
             }
 
             // 文章更新时间在指定时间之前 跳过
@@ -323,14 +317,10 @@ public class CmsParserUtil {
                 continue;
             }
 
-
-
-
             parserParams.put(ParserUtil.PAGE, page);
             String finalWritePath = writePath;
-            HashMap<Object, Object> cloneMap = MapUtil.newHashMap();
+            HashMap<String, Object> cloneMap = MapUtil.newHashMap();
             cloneMap.putAll(parserParams);
-//            HttpServletRequest request = SpringUtil.getRequest();
             String content = null;
             try {
                 content = ParserUtil.rendering(columnUrl, cloneMap);

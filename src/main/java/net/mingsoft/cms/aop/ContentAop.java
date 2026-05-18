@@ -36,6 +36,7 @@ import net.mingsoft.cms.constant.e.ContentEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
 import net.mingsoft.cms.entity.HistoryLogEntity;
+import net.mingsoft.mdiy.util.ConfigUtil;
 import net.mingsoft.mdiy.util.ParserUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -141,13 +142,18 @@ public class ContentAop extends BaseAop {
         Map<String, List<String>> categoryIdByContentIds = contents.stream()
                 .collect(Collectors.groupingBy(ContentEntity::getCategoryId, Collectors.mapping(ContentEntity::getId, Collectors.toList())));
         List<String> categoryIds = new ArrayList<>(categoryIdByContentIds.keySet());
+        boolean shortSwitch = ConfigUtil.getBoolean("短链配置", "shortSwitch", false);
         // 考虑到在全部中删除文章 栏目不同
         for (String categoryId : categoryIds) {
             // 获取栏目
             CategoryEntity category = categoryBiz.getById(categoryId);
-            // 获取栏目路径
-            String contentPath = appDir
-                    + File.separator + category.getCategoryPath();
+            String contentPath = appDir;
+            // 是否短链情况，短链则不处理
+            if (!shortSwitch) {
+                // 获取栏目路径
+                contentPath = contentPath
+                        + File.separator + category.getCategoryPath();
+            }
             for (String contentId : categoryIdByContentIds.get(categoryId)) {
                 // 组装静态文件地址
                 contentPath = contentPath + File.separator + contentId;

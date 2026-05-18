@@ -27,6 +27,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import net.mingsoft.base.entity.BaseEntity;
+import net.mingsoft.basic.annotation.Xss;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.config.MSProperties;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -301,6 +302,7 @@ private static final long serialVersionUID = 1574925152617L;
 	/**
 	* 获取文章内容
 	*/
+	@Xss(message="文章内容不合法")
 	public String getContentDetails() {
 	return this.contentDetails;
 	}
