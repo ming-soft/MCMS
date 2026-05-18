@@ -1,0 +1,528 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html" />
+    <meta http-equiv="Pragma" CONTENT="no-cache" />
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="app-mobile-web-app-capable" content="yes"/>
+    <meta name="app-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="ms-des" content="1980520801381494785,2010631325856305154"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>{ms:global.name/}-${field.typetitle}</title>
+    <meta name="keywords" content="${field.typekeyword}">
+    <meta name="description" content="${field.typedescrip}">
+
+    <link href="{@ms:file global.ico/}" rel="shortcut icon"/>
+
+    <link rel="stylesheet" href="${base}/static/plugins/minireset/0.0.2/minireset.min.css" />
+    <link rel="stylesheet" href="${base}/static/plugins/iconfont/1.0.0/iconfont.css" />
+    <link rel="stylesheet" href="${base}/static/plugins/animate/4.1.0/animate.min.css">
+    <link rel="stylesheet" href="${base}/static/plugins/hover/2.3.1/hover-min.css" />
+
+
+    <link  rel="stylesheet" href="${base}/static/plugins/swiper/12.1.3/swiper-bundle.min.css" />
+    <script src="${base}/static/plugins/swiper/12.1.3/swiper-bundle.min.js"></script>
+
+    <script src="${base}/static/plugins/jquery/3.6.3/jquery-3.6.3.min.js"></script>
+    <script src="${base}/static/plugins/jquery.pagination/1.0.0/jquery.pagination.min.js"></script>
+
+    <!-- 引入 Layer 的核心文件 -->
+    <link rel="stylesheet" href="${base}/static/plugins/layer/3.5.1/theme/default/layer.min.css" />
+    <script src="${base}/static/plugins/layer/3.5.1/layer.min.js"></script>
+
+
+    <!--全局样式 app.css-->
+    <link rel="stylesheet" href="${base}/{ms:global.style/}css/app.css" />
+
+    <script src="//cdn.mingsoft.net/designer/ms.designer.min.js"></script>
+    <!--页面分享-->
+    <script src="/static/plugins/sharejs/1.0.16/social-share.min.js"></script>
+    <link rel="stylesheet" href="/static/plugins/sharejs/1.0.16/share.min.css" />
+        {@ms:pageurl/}
+</head>
+<body>
+<#include "头部.htm"/>
+<div class="top-bg" style="background-image: url({@ms:file field.typelitpic/})">
+    <span class="swiper-title"> ${field.typetitle} </span>
+</div>
+<div id="view-1762225911000_68614" class="son_nav">
+    <div id="w-loop-1771918018000_25891">
+        <div class="ms-loop">
+            <#assign typeid=field.typeid>
+            <#if field.typeleaf !=0>
+            {ms:channel type='level'}
+            <div class="<#if field.typeid == typeid>active</#if> ms-loop-item">
+                <a href=" {ms:global.html/}${field.typelink}" target="_blank" class="title"> ${field.typetitle} </a>
+            </div>
+            {/ms:channel}
+            <#else>
+            {ms:channel type='son'}
+            <div class="<#if field.typeid == typeid>active</#if> ms-loop-item">
+                <a href=" {ms:global.html/}${field.typelink}" target="_blank" class="title"> ${field.typetitle} </a>
+            </div>
+            {/ms:channel}
+            </#if>
+        </div>
+    </div>
+</div>
+<!--开源产品-start-->
+<div id="view-1769648786000_15098" class="product">
+    <div id="w-loop-1769648786000_41340">
+        <div class="ms-loop">
+            {ms:arclist ispaging=true size=6}
+            <div class="ms-loop-item hvr-float">
+                <div class="div1775814443000_59474">
+                    <a href="<#if field.outlink?has_content>${field.outlink}<#else>{ms:global.html/}${field.link}</#if>" target="_blank" style="width: 100%;height: 100%;display: contents;"> <img class="img hvr-grow" src="{@ms:file field.litpic/}" title="${field.title}" alt="${field.title}"> </a>
+                </div>
+                <div class="box">
+                    <a href="<#if field.outlink?has_content>${field.outlink}<#else>{ms:global.html/}${field.link}</#if>" target="_blank" class="tit"> ${field.title} </a> <a href="<#if field.outlink?has_content>${field.outlink}<#else>{ms:global.html/}${field.link}</#if>" target="_blank" class="desc"> ${field.descrip} </a>
+                </div>
+            </div>
+            {/ms:arclist}
+        </div>
+    </div>
+</div>
+<!--开源产品-end-->
+<div id="w-id-2013547212201037825-1772246545000_18933" style="display: contents"></div>
+<script>
+    $("#w-id-2013547212201037825-1772246545000_18933").pagination({
+        currentPage: ${(page.cur)!1},// 当前页数
+        totalPage: ${(page.total)!0},// 总页数
+        isShow: true,// 是否显示首尾页
+        count: 4,// 控制分页组件中同时显示的页码按钮数量
+        homePageText: "首页",// 首页文本
+        endPageText: "尾页",// 尾页文本
+        prevPageText: "上一页",// 上一页文本
+        nextPageText: "下一页",// 下一页文本
+        showPrevOnFirst: true, // 在首页是否显示上一页
+        showNextOnLast: true, // 在尾页是否显示下一页
+        callback: function(current) {
+            // 回调,current(当前页数)
+            location.href = pageurl(current);
+        }
+    });
+</script>
+<#include "底部.htm"/>
+<style>
+    /*页面css*/
+    
+    /*PC端响应式*/
+    
+    .top-bg {
+        width:100%;
+        height:440px;
+        flex-shrink:0;
+        box-sizing:border-box;
+        position:relative;
+        flex-direction:column;
+        display:flex;
+        background-image:url('/{ms:global.style/}images/2034507316526583808.jpg');
+        background-position:center;
+        background-repeat:no-repeat;
+        background-size:cover;
+        align-items:center;
+        justify-content:center;
+    }
+    
+    .swiper-title {
+        flex-direction:row;
+        display:-webkit-inline-box;
+        word-wrap:break-word;
+        -webkit-line-clamp:0;
+        -webkit-box-orient:vertical;
+        font-size:60px;
+        color:rgba(255, 255, 255, 1);
+        font-weight:600;
+    }
+    
+    .son_nav {
+        width:100%;
+        flex-shrink:0;
+        box-sizing:border-box;
+        position:relative;
+        flex-direction:column;
+        display:flex;
+        align-items:center;
+        margin-top:30px;
+        margin-bottom:px;
+    }
+    
+    .son_nav .ms-loop .ms-loop-item:hover .title {
+        color:rgba(255, 255, 255, 1) !important ;
+    }
+    
+    .son_nav .ms-loop .ms-loop-item:hover{
+        background-color:rgba(64, 158, 255, 1) !important;
+    }
+    
+    .son_nav .ms-loop .active .title {
+        color:rgba(255, 255, 255, 1) !important;
+    }
+    
+    .son_nav .ms-loop .active{
+        background-color:rgba(64, 158, 255, 1) !important;
+    }
+    
+    #w-loop-1771918018000_25891 > .ms-loop {
+        flex-direction:row;
+        flex-shrink:0;
+        flex-wrap:wrap;
+        box-sizing:border-box;
+        display:flex;
+        margin-left:-0px;
+        margin-top:-0px;
+    }
+    
+    #w-loop-1771918018000_25891 > .ms-loop .ms-loop-item {
+        display:flex;
+        flex-direction:row;
+        background-color:rgba(240, 240, 240, 1);
+        margin-left:6px;
+        margin-right:6px;
+        justify-content:center;
+        align-items:center;
+    }
+    
+    #w-loop-1771918018000_25891 > .ms-loop .ms-loop-item .title {
+        width:160px;
+        height:unset;
+        color:rgba(68, 68, 68, 1);
+        font-size:14PX;
+        text-align:center;
+        padding-top:18px;
+        padding-bottom:18px;
+    }
+    
+    .product {
+        width:100%;
+        flex-shrink:0;
+        box-sizing:border-box;
+        position:relative;
+        flex-direction:column;
+        display:flex;
+        align-items:center;
+        margin-top:50px;
+        margin-bottom:px;
+    }
+    
+    #w-loop-1769648786000_41340 > .ms-loop {
+        flex-direction:row;
+        flex-shrink:0;
+        flex-wrap:wrap;
+        box-sizing:border-box;
+        display:flex;
+        margin-left:-20px;
+        margin-top:-20px;
+        width:80%;
+        padding-top:20px;
+        padding-bottom:20px;
+        max-width:1300px;
+    }
+    
+    #w-loop-1769648786000_41340 > .ms-loop .ms-loop-item:hover{
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    #w-loop-1769648786000_41340 > .ms-loop .ms-loop-item:hover .box .tit{
+        color: #00a1e9 !important;
+    }
+    
+    #w-loop-1769648786000_41340 > .ms-loop .ms-loop-item {
+        width:100%;
+        display:flex;
+        flex:0 0 calc(33.333333333333336% - 20px);
+        margin-left:20px;
+        margin-top:20px;
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        border-color:#E8E8E8;
+        border-style:solid;
+        border-width:1px;
+        overflow:hidden;
+    }
+    
+    #w-loop-1769648786000_41340 > .ms-loop .ms-loop-item .div1775814443000_59474 {
+        width:100%;
+        height:256px;
+        flex-shrink:0;
+        box-sizing:border-box;
+        display:flex;
+        flex-direction:column;
+        overflow:hidden;
+    }
+    
+    #w-loop-1769648786000_41340 > .ms-loop .img {
+        vertical-align:top;
+        width:100%;
+        height:100%;
+        object-fit:fill;
+    }
+    
+    #w-loop-1769648786000_41340 > .ms-loop .box {
+        width:100%;
+        height:160px;
+        flex-shrink:0;
+        box-sizing:border-box;
+        position:relative;
+        flex-direction:column;
+        display:flex;
+        align-items:center;
+        justify-content:flex-start;
+        padding-top:30px;
+        padding-left:30px;
+        padding-right:30px;
+    }
+    
+    #w-loop-1769648786000_41340 > .ms-loop .tit {
+        flex-direction:row;
+        display:-webkit-box;
+        word-wrap:break-word;
+        -webkit-line-clamp:1;
+        -webkit-box-orient:vertical;
+        font-size:24PX;
+        color:rgba(51, 51, 51, 1);
+        font-weight:400;
+        margin-bottom:5px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
+    
+    #w-loop-1769648786000_41340 > .ms-loop .desc {
+        flex-direction:row;
+        display:-webkit-box;
+        word-wrap:break-word;
+        -webkit-line-clamp:2;
+        -webkit-box-orient:vertical;
+        font-size:14PX;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        color:rgba(146, 146, 146, 1);
+        line-height:20px;
+        text-align:center;
+    }
+    
+    #w-id-2013547212201037825-1772246545000_18933 > .ui-pagination-container {
+        width:100%;
+        flex-direction:row;
+        flex-shrink:0;
+        box-sizing:border-box;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        flex-wrap:wrap;
+        padding-top:10px;
+        padding-bottom:10px;
+        margin-top:35px;
+    }
+    
+    /*** 悬停样式 字体 **/
+    
+    #w-id-2013547212201037825-1772246545000_18933 > .ui-pagination-container .ui-pagination-page-item:hover {
+        color:rgba(86, 141, 189, 1);
+    }
+    
+    /*** 悬停样式 边框 **/
+    
+    #w-id-2013547212201037825-1772246545000_18933 > .ui-pagination-container .ui-pagination-page-item:hover {
+        border-color:#568DBD;
+        border-style:solid;
+        border-width:1px;
+    }
+    
+    /*** 激活样式 字体 **/
+    
+    #w-id-2013547212201037825-1772246545000_18933 > .ui-pagination-container .ui-pagination-page-item.active {
+        color:rgba(255, 255, 255, 1);
+    }
+    
+    /*** 激活样式 背景 **/
+    
+    #w-id-2013547212201037825-1772246545000_18933 > .ui-pagination-container .ui-pagination-page-item.active {
+        background-color:rgba(86, 141, 189, 1);
+    }
+    
+    /*** 激活样式 边框 **/
+    
+    #w-id-2013547212201037825-1772246545000_18933 > .ui-pagination-container .ui-pagination-page-item.active {
+        border-color:#568DBD;
+        border-style:solid;
+        border-width:1px;
+    }
+    
+    #w-id-2013547212201037825-1772246545000_18933 > .ui-pagination-container .ui-pagination-page-item {
+        flex-direction:row;
+        display:-webkit-inline-box;
+        word-wrap:break-word;
+        -webkit-line-clamp:0;
+        -webkit-box-orient:vertical;
+        width:unset;
+        height:unset;
+        padding-top:5px;
+        padding-bottom:5px;
+        padding-right:12px;
+        padding-left:12px;
+        border-color:#DDDDDD;
+        border-style:solid;
+        border-width:1px;
+        margin-left:5px;
+        margin-bottom:px;
+        margin-right:5px;
+    }
+    
+    /*H5端响应式*/
+    
+    @media (max-width: 768px) {
+        .top-bg {
+            height:250px;
+        }
+    
+        .swiper-title {
+            font-size:28PX;
+        }
+    
+        .son_nav {
+            width:100%;
+            flex-direction:column;
+            display:flex;
+            align-items:center;
+            margin-top:10px;
+        }
+    
+        #w-loop-1771918018000_25891 > .ms-loop {
+            margin-left:-0px;
+            margin-top:-0px;
+            flex-direction:row;
+            display:flex;
+            justify-content:center;
+        }
+    
+        #w-loop-1771918018000_25891 > .ms-loop .ms-loop-item {
+            margin-top:5px;
+            margin-bottom:5px;
+        }
+    
+        #w-loop-1771918018000_25891 > .ms-loop .ms-loop-item .title {
+            padding-left:0px;
+            padding-top:10px;
+            padding-bottom:10px;
+            padding-right:0px;
+        }
+    
+        .product {
+            width:100%;
+            flex-direction:column;
+            display:flex;
+            align-items:center;
+            margin-top:5px;
+        }
+    
+        #w-loop-1769648786000_41340 > .ms-loop {
+            display:flex !important;
+            width:95%;
+            margin-left:-20px;
+            margin-top:-20px;
+        }
+    
+        #w-loop-1769648786000_41340 > .ms-loop .ms-loop-item {
+            margin-left:20px;
+            margin-top:20px;
+            flex:0 0 calc(50% - 20px);
+        }
+    
+        #w-loop-1769648786000_41340 > .ms-loop .ms-loop-item .div1775814443000_59474 {
+            height:130px;
+        }
+    
+        #w-loop-1769648786000_41340 > .ms-loop .box {
+            padding-left:10px;
+            padding-right:10px;
+            padding-top:10px;
+            padding-bottom:10px;
+            height:100px;
+        }
+    
+        #w-loop-1769648786000_41340 > .ms-loop .tit {
+            font-size:16PX;
+        }
+    
+        #w-loop-1769648786000_41340 > .ms-loop .desc {
+            font-size:14PX;
+            width:100%;
+        }
+    
+        #w-id-2013547212201037825-1772246545000_18933 > .ui-pagination-container {
+            width:100%;
+            flex-direction:row;
+            display:flex;
+            justify-content:center;
+        }
+    
+        #w-id-2013547212201037825-1772246545000_18933 > .ui-pagination-container .ui-pagination-page-item {
+            padding-top:5px;
+            padding-bottom:5px;
+            padding-left:10px;
+            padding-right:10px;
+            font-size:12PX;
+            margin-right:2px;
+            margin-top:0px;
+            margin-bottom:0px;
+            margin-left:2px;
+        }
+    
+    }
+    
+    /*iPad端响应式*/
+    
+    @media (min-width: 768px) and (max-width: 1024px) {
+        .swiper-title {
+            font-size:42PX;
+        }
+    
+        #w-loop-1771918018000_25891 > .ms-loop {
+            margin-left:-0px;
+            margin-top:-0px;
+        }
+    
+        #w-loop-1769648786000_41340 > .ms-loop {
+            margin-left:-25px;
+            margin-top:-25px;
+        }
+    
+        #w-loop-1769648786000_41340 > .ms-loop .ms-loop-item {
+            flex:0 0 calc(33.333333333333336% - 25px);
+            margin-left:25px;
+            margin-top:25px;
+        }
+    
+        #w-loop-1769648786000_41340 > .ms-loop .ms-loop-item .div1775814443000_59474 {
+            height:180px;
+        }
+    
+        #w-loop-1769648786000_41340 > .ms-loop .box {
+            height:130px;
+        }
+    
+        #w-id-2013547212201037825-1772246545000_18933 > .ui-pagination-container {
+            width:100%;
+        }
+    
+        #w-id-2013547212201037825-1772246545000_18933 > .ui-pagination-container .ui-pagination-page-item {
+            margin-top:0px;
+            margin-bottom:0px;
+            margin-left:5px;
+            margin-right:5px;
+            padding-top:5px;
+            padding-bottom:5px;
+            padding-left:12px;
+            padding-right:12px;
+        }
+    
+    }
+
+</style>
+</body>
+</html>
