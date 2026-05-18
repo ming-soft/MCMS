@@ -22,11 +22,11 @@
 
 
 
-
 package net.mingsoft.config;
 
 import jakarta.annotation.Resource;
 import jakarta.servlet.Filter;
+import net.mingsoft.basic.filter.ShiroInvalidRequestFilter;
 import net.mingsoft.basic.filter.ShiroLoginFilter;
 import net.mingsoft.basic.filter.ShiroRoleFilter;
 import net.mingsoft.basic.realm.CustomModularRealmAuthenticator;
@@ -51,9 +51,7 @@ import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Configuration
 public class ShiroConfig {
@@ -121,6 +119,7 @@ public class ShiroConfig {
 		// 角色校验过滤器最终会在对应的reaml中的hasRole校验，可以在ShiroRoleFilter中自定义一些操作
 		 filters.put("managerRoles", new ShiroRoleFilter(MSProperties.manager.path  + "/login.do"));
 		// filters.put("peopleRoles", new ShiroRoleFilter(MSProperties.people.loginUrl));
+		filters.put("invalidRequest", invalidRequestFilter());
 
 		// 设置拦截器
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
@@ -139,6 +138,20 @@ public class ShiroConfig {
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
+	}
+
+	/**
+	 * 路径拦截过滤
+	 */
+	@Bean
+	public ShiroInvalidRequestFilter invalidRequestFilter() {
+		ShiroInvalidRequestFilter invalidRequestFilter = new ShiroInvalidRequestFilter();
+		Set<String> excludedPaths = new HashSet<>();
+		// 排除指定路径的ASCII编码检查，避免因URL中包含中文字符而导致请求失败
+		excludedPaths.add("/upload/**");
+		excludedPaths.add("/template/**");
+		invalidRequestFilter.setExcludedPaths(excludedPaths);
+		return invalidRequestFilter;
 	}
 
 	/**
