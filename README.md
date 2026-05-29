@@ -101,7 +101,7 @@
 建议开发者使用以下环境，这样避免版本带来的问题
 * Windows、Linux
 * Eclipse、Idea
-* Mysql≧5.7 (开启忽略大小写)
+* Mysql≧8 (开启忽略大小写)
 * JDK≧17
 * Tomcat≧10
 
@@ -156,7 +156,6 @@ http://localhost:8181/ms/login.do
 | Spring Framework | 容器               | [http://projects.spring.io/spring-framework](http://projects.spring.io/spring-framework/) | Apache 2.0 |
 | Spring Boot      | MVC               | [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot) | Apache 2.0 |
 | Apache Shiro     | 安全               | [http://shiro.apache.org](http://shiro.apache.org/) | Apache 2.0 |
-| Spring session   | 分布式Session管理  | [http://projects.spring.io/spring-session](http://projects.spring.io/spring-session) | Apache 2.0 |
 | MyBatis          | DAO                | [http://www.mybatis.org](http://www.mybatis.org/mybatis-3/zh/index.html) | Apache 2.0 |
 | MyBatis-Plus     | ORM                | [https://baomidou.com/](https://baomidou.com/) | Apache 2.0 |
 | Freemarker       | 视图               | [http://freemarker.foofun.cn](http://freemarker.foofun.cn/) | Apache 2.0 |
@@ -197,35 +196,42 @@ http://localhost:8181/ms/login.do
 
 
 # 文档
-* 使用手册 http://doc.mingsoft.net/mcms/
-* 插件手册 http://doc.mingsoft.net/plugs/
+* 使用手册 https://doc.mingsoft.net/mcms/
+* 插件手册 https://doc.mingsoft.net/plugs/
+* 部署手册 https://doc.mingsoft.net/server/
 
 # 关于版本说明 [更多版本查看](https://www.mingsoft.net/banben.html)
 1. 开源版本永久免费发布源代码，开发者、企业可以终身免费使用，每个月团队会收集开源系统的问题并在每月的28号进行更新；
 2. 企业版本以上更新频率上更快，功能也比开源版本的要多，同时会根据不同版本提供额外插件，不同版本也会提供不同的人工在线服务（服务时间工作日 9:30-17:30）
 
+# MStore 使用模板
+模版可以在线进行拖拽设计
+![MStore 使用模板](https://doc.mingsoft.net/ms/designer/local-store.gif)
+
+价值源自分享，开发者分享模板或好用的插件，让代码给开发者带来更多的自由的被动收入！
+
 # 软件截图
 
 <table>
     <tr>
-        <td><img src="//cdn.mingsoft.net/ad/6.png"/></td>
-        <td><img src="//cdn.mingsoft.net/ad/1.png"/></td>
+        <td><img src="https://cdn.mingsoft.net/ad/6.png"/></td>
+        <td><img src="https://cdn.mingsoft.net/ad/1.png"/></td>
     </tr>
     <tr>
-        <td><img src="//cdn.mingsoft.net/ad/2.png"/></td>
-        <td><img src="//cdn.mingsoft.net/ad/3.png"/></td>
+        <td><img src="https://cdn.mingsoft.net/ad/2.png"/></td>
+        <td><img src="https://cdn.mingsoft.net/ad/3.png"/></td>
     </tr>
     <tr>
-        <td><img src="//cdn.mingsoft.net/ad/4.png"/></td>
-        <td><img src="//cdn.mingsoft.net/ad/5.png"/></td>
+        <td><img src="https://cdn.mingsoft.net/ad/4.png"/></td>
+        <td><img src="https://cdn.mingsoft.net/ad/5.png"/></td>
     </tr>
     <tr>
-        <td><img src="//cdn.mingsoft.net/ad/7.png"/></td>
-        <td><img src="//cdn.mingsoft.net/ad/8.png"/></td>
+        <td><img src="https://cdn.mingsoft.net/ad/7.png"/></td>
+        <td><img src="https://cdn.mingsoft.net/ad/8.png"/></td>
     </tr>
     <tr>
-        <td><img src="//cdn.mingsoft.net/ad/9.png"/></td>
-        <td><img src="//cdn.mingsoft.net/ad/10.png"/></td>
+        <td><img src="https://cdn.mingsoft.net/ad/9.png"/></td>
+        <td><img src="https://cdn.mingsoft.net/ad/10.png"/></td>
     </tr>
 </table>
 
@@ -234,31 +240,40 @@ http://localhost:8181/ms/login.do
 以下功能都可以在平台 https://www.mingsoft.net 上免费使用
 做开源我们是业余的，写代码我们是认真的。研发产品的路上我们一直在探索、一直在学习、一直在用心投入，希望能给更多的企业与开发者提供一些更有价值的服务。
 
-## 项目管理
+## 皮肤设计器
 
+[立即体验](https://designer.mingsoft.net/)
 <table>
 	<tr>
-		<td><img src="//www.mingsoft.net/upload/1/cms/content/1600746325257.gif"/></td>
+		<td><img src="https://cdn.mingsoft.net/gif/designer.gif"/></td>
 	</tr>
-	<tr>
-		<td><img src="//www.mingsoft.net/upload/1/cms/content/1600746514131.gif"/></td>
-	</tr>	
 </table>
 
 ## 代码生成器
-
+[立即体验](https://coder.mingsoft.net/)
 <table>
 	<tr>
-		<td><img src="//www.mingsoft.net/upload/1/cms/content/1600746629646.gif"/></td>
+		<td><img src="https://www.mingsoft.net/upload/1/cms/content/1600746629646.gif"/></td>
 	</tr>
 	<tr>
-		<td><img src="//www.mingsoft.net/upload/1/cms/content/1600746692814.gif"/></td>
+		<td><img src="https://www.mingsoft.net/upload/1/cms/content/1600746692814.gif"/></td>
 	</tr>	
 </table>
 
-## 模版插件分享
+## 项目管理
+[立即体验](https://pm.mingsoft.net/people/index.do)
+<table>
+	<tr>
+		<td><img src="https://www.mingsoft.net/upload/1/cms/content/1600746325257.gif"/></td>
+	</tr>
+	<tr>
+		<td><img src="https://www.mingsoft.net/upload/1/cms/content/1600746514131.gif"/></td>
+	</tr>	
+</table>
 
-价值源自分享，开发者可以再MStore安装分享插件进行分享模版（后续会升级到插件分享），让代码给开发者带来更多的被动收入！  
+
+
+
 
 
 
