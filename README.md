@@ -206,7 +206,7 @@ http://localhost:8181/ms/login.do
 
 # MStore 使用模板
 模版可以在线进行拖拽设计
-![MStore 使用模板](https://doc.mingsoft.net/ms/designer/local-store.gif)
+![MStore 使用模板](https://cdn.mingsoft.net/gif/store-local.gif)
 
 价值源自分享，开发者分享模板或好用的插件，让代码给开发者带来更多的自由的被动收入！
 
