@@ -208,15 +208,16 @@ http://localhost:8181/ms/login.do
 
 
 
-# 铭飞平台
-
+# 铭飞MS平台
 以下功能都可以在平台 https://www.mingsoft.net 上免费使用
 做开源我们是业余的，写代码我们是认真的。研发产品的路上我们一直在探索、一直在学习、一直在用心投入，希望能给更多的企业与开发者提供一些更有价值的服务。
-
 
 ## MStore 使用模板
 模版可以在线进行拖拽设计
 ![MStore 使用模板](https://cdn.mingsoft.net/gif/store-local.gif)
+
+通过MStore远程安装模板
+![示意图](https://cdn.mingsoft.net/gif/store-remote.gif)
 
 价值源自分享，开发者分享模板或好用的插件，让代码给开发者带来更多的自由的被动收入！
 
