@@ -256,16 +256,16 @@ http://localhost:8181/ms/login.do
 
 <table>
     <tr>
-        <td><img src="https://cdn.mingsoft.net/ad/6.png"/></td>
         <td><img src="https://cdn.mingsoft.net/ad/1.png"/></td>
-    </tr>
-    <tr>
         <td><img src="https://cdn.mingsoft.net/ad/2.png"/></td>
-        <td><img src="https://cdn.mingsoft.net/ad/3.png"/></td>
     </tr>
     <tr>
+        <td><img src="https://cdn.mingsoft.net/ad/3.png"/></td>
         <td><img src="https://cdn.mingsoft.net/ad/4.png"/></td>
+    </tr>
+    <tr>
         <td><img src="https://cdn.mingsoft.net/ad/5.png"/></td>
+        <td><img src="https://cdn.mingsoft.net/ad/6.png"/></td>
     </tr>
     <tr>
         <td><img src="https://cdn.mingsoft.net/ad/7.png"/></td>
