@@ -1,0 +1,627 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html" />
+    <meta http-equiv="Pragma" CONTENT="no-cache" />
+    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,width=device-width"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="app-mobile-web-app-capable" content="yes"/>
+    <meta name="app-mobile-web-app-status-bar-style" content="black-translucent"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <title>{ms:global.name/}-${field.typetitle}</title>
+    <meta name="keywords" content="${field.typekeyword}">
+    <meta name="description" content="${field.typedescrip}">
+
+    <link href="{@ms:file global.ico/}" rel="shortcut icon"/>
+
+    <link rel="stylesheet" href="${base}/static/plugins/minireset/0.0.2/minireset.min.css" />
+    <link rel="stylesheet" href="${base}/static/plugins/iconfont/1.0.0/iconfont.css" />
+    <link rel="stylesheet" href="${base}/static/plugins/animate/4.1.0/animate.min.css">
+    <link rel="stylesheet" href="${base}/static/plugins/hover/2.3.1/hover-min.css" />
+
+
+    <link  rel="stylesheet" href="${base}/static/plugins/swiper/12.1.3/swiper-bundle.min.css" />
+    <script src="${base}/static/plugins/swiper/12.1.3/swiper-bundle.min.js"></script>
+
+    <script src="${base}/static/plugins/jquery/3.6.3/jquery-3.6.3.min.js"></script>
+    <script src="${base}/static/plugins/jquery.pagination/1.0.0/jquery.pagination.min.js"></script>
+
+    <!-- 引入 Layer 的核心文件 -->
+    <link rel="stylesheet" href="${base}/static/plugins/layer/3.5.1/theme/default/layer.min.css" />
+    <script src="${base}/static/plugins/layer/3.5.1/layer.min.js"></script>
+
+
+    <!--全局样式 app.css-->
+    <link rel="stylesheet" href="${base}/{ms:global.style/}css/app.css" />
+
+    <script src="//cdn.mingsoft.net/designer/ms.designer.min.js"></script>
+    <!--页面分享-->
+    <script src="/static/plugins/sharejs/1.0.16/social-share.min.js"></script>
+    <link rel="stylesheet" href="/static/plugins/sharejs/1.0.16/share.min.css" />
+        {@ms:pageurl/}
+</head>
+<body>
+<#include "头部.htm"/>
+<div class="top-bg" style="background-image: url({@ms:file field.typelitpic/})">
+    <span class="swiper-title"> ${field.typetitle} </span>
+</div>
+<div id="view-1772248662000_25421" class="product">
+    <div id="w-loop-1772248662000_73422">
+        <div class="ms-loop">
+            <#assign typeid=field.typeid>
+            <#if field.typeleaf !=0>
+            {ms:channel type='level'}
+            <div class="<#if field.typeid == typeid>active</#if> ms-loop-item">
+                <a href=" {ms:global.html/}${field.typelink}" target="_blank" class="title"> ${field.typetitle} </a>
+            </div>
+            {/ms:channel}
+            <#else>
+            {ms:channel type='son'}
+            <div class="<#if field.typeid == typeid>active</#if> ms-loop-item">
+                <a href=" {ms:global.html/}${field.typelink}" target="_blank" class="title"> ${field.typetitle} </a>
+            </div>
+            {/ms:channel}
+            </#if>
+        </div>
+    </div>
+</div>
+<div id="view-1772248689000_40561" class="news">
+    <div id="w-loop-1772248689000_81527">
+        <div class="ms-loop">
+            {ms:arclist size=6 ispaging=true}
+            <div class="ms-loop-item">
+                <div class="imgs">
+                    <a href="<#if field.outlink?has_content>${field.outlink}<#else>{ms:global.html/}${field.link}</#if>" target="_blank" style="width: 100%;height: 100%;display: contents;"> <img class="img hvr-grow" src="{@ms:file field.litpic/}" title="${field.title}" alt="${field.title}"> </a>
+                </div>
+                <div class="about">
+                    <a href="<#if field.outlink?has_content>${field.outlink}<#else>{ms:global.html/}${field.link}</#if>" target="_blank" class="title"> ${field.title} </a> <a href="<#if field.outlink?has_content>${field.outlink}<#else>{ms:global.html/}${field.link}</#if>" target="_blank" class="time"> ${field.date?string('YYYY-MM-dd')} </a> <span class="desc"> ${field.descrip} </span> <a href="<#if field.outlink?has_content>${field.outlink}<#else>{ms:global.html/}${field.link}</#if>" target="_blank" class="more"> 查看更多+ </a>
+                </div>
+            </div>
+            {/ms:arclist}
+        </div>
+    </div>
+    <div id="w-id-2013547212201037825-1772248744000_68783" style="display: contents"></div>
+    <script>
+    $("#w-id-2013547212201037825-1772248744000_68783").pagination({
+        currentPage: ${(page.cur)!1},// 当前页数
+        totalPage: ${(page.total)!0},// 总页数
+        isShow: true,// 是否显示首尾页
+        count: 4,// 控制分页组件中同时显示的页码按钮数量
+        homePageText: "首页",// 首页文本
+        endPageText: "尾页",// 尾页文本
+        prevPageText: "上一页",// 上一页文本
+        nextPageText: "下一页",// 下一页文本
+        showPrevOnFirst: true, // 在首页是否显示上一页
+        showNextOnLast: true, // 在尾页是否显示下一页
+        callback: function(current) {
+            // 回调,current(当前页数)
+            location.href = pageurl(current);
+        }
+    });
+</script>
+</div>
+<#include "底部.htm"/>
+<style>
+    /*页面css*/
+    
+    /*PC端响应式*/
+    
+    .top-bg {
+        width:100%;
+        height:440px;
+        flex-shrink:0;
+        box-sizing:border-box;
+        position:relative;
+        flex-direction:column;
+        display:flex;
+        background-image:url('/{ms:global.style/}images/2034507316526583808.jpg');
+        background-position:center;
+        background-repeat:no-repeat;
+        background-size:cover;
+        align-items:center;
+        justify-content:center;
+    }
+    
+    .swiper-title {
+        flex-direction:row;
+        display:-webkit-inline-box;
+        word-wrap:break-word;
+        -webkit-line-clamp:0;
+        -webkit-box-orient:vertical;
+        font-size:60px;
+        color:rgba(255, 255, 255, 1);
+        font-weight:600;
+    }
+    
+    .product {
+        width:100%;
+        height:unset;
+        flex-direction:column;
+        flex-shrink:0;
+        box-sizing:border-box;
+        display:flex;
+        align-items:center;
+        padding-top:36px;
+        padding-bottom:36px;
+    }
+    
+    .product .ms-loop .ms-loop-item:hover .title {
+        color:rgba(255, 255, 255, 1) !important ;
+    }
+    
+    .product .ms-loop .ms-loop-item:hover{
+        background-color:rgba(64, 158, 255, 1) !important;
+    }
+    
+    .product .ms-loop .active .title {
+        color:rgba(255, 255, 255, 1) !important;
+    }
+    
+    .product .ms-loop .active{
+        background-color:rgba(64, 158, 255, 1) !important;
+    }
+    
+    #w-loop-1772248662000_73422 > .ms-loop {
+        flex-direction:row;
+        flex-shrink:0;
+        flex-wrap:wrap;
+        box-sizing:border-box;
+        display:flex;
+        margin-left:-0px;
+        margin-top:-0px;
+    }
+    
+    #w-loop-1772248662000_73422 > .ms-loop .ms-loop-item {
+        display:flex;
+        flex-direction:row;
+        background-color:rgba(240, 240, 240, 1);
+        margin-left:6px;
+        margin-right:6px;
+        justify-content:center;
+        align-items:center;
+    }
+    
+    #w-loop-1772248662000_73422 > .ms-loop .title {
+        width:160px;
+        height:unset;
+        color:rgba(68, 68, 68, 1);
+        font-size:14PX;
+        text-align:center;
+        padding-top:18px;
+        padding-bottom:18px;
+    }
+    
+    #view-1772248689000_40561.news {
+        width:100%;
+        height:unset;
+        flex-direction:column;
+        flex-shrink:0;
+        box-sizing:border-box;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+    }
+    
+    #view-1772248689000_40561.news .ms-loop-item:hover .about .title{
+        color: #409EFF;
+    }
+    
+    #view-1772248689000_40561.news .ms-loop-item:hover .about .more{
+        background-color: #409EFF;
+        color: #fff;
+        border: 1px solid #409EFF;
+    }
+    
+    #w-loop-1772248689000_81527 > .ms-loop {
+        width:80%;
+        height:unset;
+        flex-direction:column;
+        flex-shrink:0;
+        flex-wrap:wrap;
+        box-sizing:border-box;
+        display:flex;
+        margin-bottom:12px;
+        margin-left:-0px;
+        max-width:1300px;
+        margin-top:-0px;
+    }
+    
+    #w-loop-1772248689000_81527 > .ms-loop .ms-loop-item {
+        width:100%;
+        height:unset;
+        display:flex;
+        flex-direction:row;
+        justify-content:space-between;
+        padding-bottom:24px;
+        border-bottom-style:solid;
+        border-bottom-color:#CCCCCC;
+        border-bottom-width:1px;
+        margin-left:px;
+        margin-top:12px;
+    }
+    
+    #w-loop-1772248689000_81527 > .ms-loop .imgs {
+        width:17%;
+        height:unset;
+        flex-direction:column;
+        flex-shrink:0;
+        box-sizing:border-box;
+        display:flex;
+        overflow:hidden;
+    }
+    
+    #w-loop-1772248689000_81527 > .ms-loop .img {
+        width:100%;
+        height:100%;
+        flex-direction:column;
+        flex-shrink:0;
+        box-sizing:border-box;
+        display:flex;
+        overflow:hidden;
+        object-fit:cover;
+    }
+    
+    #w-loop-1772248689000_81527 > .ms-loop .about {
+        width:78%;
+        flex-direction:column;
+        flex-shrink:0;
+        box-sizing:border-box;
+        display:flex;
+        justify-content:space-around;
+    }
+    
+    #w-loop-1772248689000_81527 > .ms-loop .title {
+        flex-direction:row;
+        display:-webkit-inline-box;
+        word-wrap:break-word;
+        -webkit-line-clamp:0;
+        -webkit-box-orient:vertical;
+        width:unset;
+        height:unset;
+        font-size:18PX;
+        color:rgba(51, 51, 51, 1);
+    }
+    
+    #w-loop-1772248689000_81527 > .ms-loop .time {
+        flex-direction:row;
+        display:-webkit-inline-box;
+        word-wrap:break-word;
+        -webkit-line-clamp:0;
+        -webkit-box-orient:vertical;
+        width:unset;
+        height:unset;
+        font-size:14PX;
+        color:rgba(153, 153, 153, 1);
+    }
+    
+    #w-loop-1772248689000_81527 > .ms-loop .desc {
+        flex-direction:row;
+        display:-webkit-box;
+        word-wrap:break-word;
+        -webkit-line-clamp:2;
+        -webkit-box-orient:vertical;
+        width:unset;
+        height:unset;
+        font-size:14PX;
+        color:rgba(123, 123, 123, 1);
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
+    
+    #w-loop-1772248689000_81527 > .ms-loop .more {
+        flex-direction:row;
+        display:-webkit-inline-box;
+        word-wrap:break-word;
+        -webkit-line-clamp:0;
+        -webkit-box-orient:vertical;
+        font-size:16PX;
+        width:106px;
+        height:unset;
+        text-align:center;
+        padding-top:5px;
+        padding-bottom:5px;
+        background-color:rgba(245, 245, 245, 1);
+        border-color:#BABABA;
+        border-style:solid;
+        border-width:1px;
+        color:rgba(130, 130, 130, 1);
+        border-radius:4px;
+    }
+    
+    #w-id-2013547212201037825-1772248744000_68783 > .ui-pagination-container {
+        width:100%;
+        flex-direction:row;
+        flex-shrink:0;
+        box-sizing:border-box;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        flex-wrap:wrap;
+        padding-top:10px;
+        padding-bottom:10px;
+        margin-top:35px;
+    }
+    
+    /*** 悬停样式 字体 **/
+    
+    #w-id-2013547212201037825-1772248744000_68783 > .ui-pagination-container .ui-pagination-page-item:hover {
+        color:rgba(86, 141, 189, 1);
+    }
+    
+    /*** 悬停样式 边框 **/
+    
+    #w-id-2013547212201037825-1772248744000_68783 > .ui-pagination-container .ui-pagination-page-item:hover {
+        border-color:#568DBD;
+        border-style:solid;
+        border-width:1px;
+    }
+    
+    /*** 激活样式 字体 **/
+    
+    #w-id-2013547212201037825-1772248744000_68783 > .ui-pagination-container .ui-pagination-page-item.active {
+        color:rgba(255, 255, 255, 1);
+    }
+    
+    /*** 激活样式 背景 **/
+    
+    #w-id-2013547212201037825-1772248744000_68783 > .ui-pagination-container .ui-pagination-page-item.active {
+        background-color:rgba(86, 141, 189, 1);
+    }
+    
+    /*** 激活样式 边框 **/
+    
+    #w-id-2013547212201037825-1772248744000_68783 > .ui-pagination-container .ui-pagination-page-item.active {
+        border-color:#568DBD;
+        border-style:solid;
+        border-width:1px;
+    }
+    
+    #w-id-2013547212201037825-1772248744000_68783 > .ui-pagination-container .ui-pagination-page-item {
+        flex-direction:row;
+        display:-webkit-inline-box;
+        word-wrap:break-word;
+        -webkit-line-clamp:0;
+        -webkit-box-orient:vertical;
+        width:unset;
+        height:unset;
+        padding-top:5px;
+        padding-bottom:5px;
+        padding-right:12px;
+        padding-left:12px;
+        border-color:#DDDDDD;
+        border-style:solid;
+        border-width:1px;
+        margin-left:5px;
+        margin-bottom:px;
+        margin-right:5px;
+    }
+    
+    /*H5端响应式*/
+    
+    @media (max-width: 768px) {
+        .top-bg {
+            height:250px;
+        }
+    
+        .swiper-title {
+            font-size:28PX;
+        }
+    
+        .product {
+            width:100%;
+            padding:0px;
+            flex-wrap:wrap;
+            margin-top:10px;
+            margin-bottom:10px;
+            margin-left:0px;
+            margin-right:0px;
+        }
+    
+        #w-loop-1772248662000_73422 > .ms-loop {
+            margin-left:-0px;
+            margin-top:-0px;
+            flex-direction:row;
+            display:flex;
+            justify-content:center;
+        }
+    
+        #w-loop-1772248662000_73422 > .ms-loop .ms-loop-item {
+            margin-top:5px;
+            margin-bottom:5px;
+        }
+    
+        #w-loop-1772248662000_73422 > .ms-loop .title {
+            padding-left:0px;
+            padding-top:10px;
+            padding-bottom:10px;
+            padding-right:0px;
+        }
+    
+        #view-1772248689000_40561.news {
+            width:100%;
+            margin:0px;
+            padding:0px;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop {
+            width:95%;
+            margin:0px;
+            padding:0px;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .ms-loop-item {
+            width:100%;
+            margin:0px;
+            padding-top:10px;
+            padding-bottom:10px;
+            padding-left:0px;
+            padding-right:0px;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .imgs {
+            width:29%;
+            margin:0px;
+            padding:0px;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .img {
+            width:100%;
+            margin:0px;
+            padding:0px;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .about {
+            width:68%;
+            margin:0px;
+            padding:0px;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .title {
+            width:100%;
+            margin:0px;
+            padding:0px;
+            display:-webkit-box;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            -webkit-line-clamp:1;
+            -webkit-box-orient:vertical;
+            font-size:14PX;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .time {
+            width:100%;
+            margin:0px;
+            padding:0px;
+            font-size:12PX;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .desc {
+            width:100%;
+            margin:0px;
+            padding:0px;
+            font-size:12PX;
+            line-height:18px;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .more {
+            width:100%;
+            margin:0px;
+            padding:0px;
+            display:none !important;
+        }
+    
+        #w-id-2013547212201037825-1772248744000_68783 > .ui-pagination-container {
+            width:100%;
+            flex-direction:row;
+            display:flex;
+            justify-content:center;
+        }
+    
+        #w-id-2013547212201037825-1772248744000_68783 > .ui-pagination-container .ui-pagination-page-item {
+            padding-top:5px;
+            padding-bottom:5px;
+            padding-left:10px;
+            padding-right:10px;
+            font-size:12PX;
+            margin-right:2px;
+            margin-top:0px;
+            margin-bottom:0px;
+            margin-left:2px;
+        }
+    
+    }
+    
+    /*iPad端响应式*/
+    
+    @media (min-width: 768px) and (max-width: 1024px) {
+        .swiper-title {
+            font-size:42PX;
+        }
+    
+        .product {
+            width:100%;
+        }
+    
+        #w-loop-1772248662000_73422 > .ms-loop {
+            margin-left:-0px;
+            margin-top:-0px;
+        }
+    
+        #view-1772248689000_40561.news {
+            width:100%;
+            margin:0px;
+            padding:0px;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop {
+            margin:0px;
+            padding:0px;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .ms-loop-item {
+            margin:0px;
+            padding-top:15px;
+            padding-bottom:15px;
+            padding-left:0px;
+            padding-right:0px;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .imgs {
+            margin:0px;
+            padding:0px;
+            width:19%;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .img {
+            margin:0px;
+            padding:0px;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .about {
+            margin:0px;
+            padding:0px;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .title {
+            margin:0px;
+            padding:0px;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .time {
+            margin:0px;
+            padding:0px;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .desc {
+            width:100%;
+            margin:0px;
+            padding:0px;
+        }
+    
+        #w-loop-1772248689000_81527 > .ms-loop .more {
+            margin:0px;
+            padding:0px;
+        }
+    
+        #w-id-2013547212201037825-1772248744000_68783 > .ui-pagination-container {
+            width:100%;
+        }
+    
+        #w-id-2013547212201037825-1772248744000_68783 > .ui-pagination-container .ui-pagination-page-item {
+            margin-top:0px;
+            margin-bottom:0px;
+            margin-left:5px;
+            margin-right:5px;
+            padding-top:5px;
+            padding-bottom:5px;
+            padding-left:12px;
+            padding-right:12px;
+        }
+    
+    }
+
+</style>
+</body>
+</html>
