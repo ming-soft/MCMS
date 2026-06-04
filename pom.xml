@@ -36,7 +36,7 @@
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>store-client</artifactId>
-            <version>3.0.6</version>
+            <version>3.0.6.1</version>
         </dependency>
         <dependency>
             <groupId>com.github.oshi</groupId>
