@@ -33,9 +33,9 @@
 	<a href="#皮肤设计器" title="MCMS开源可视化皮肤设计器" >皮肤设计器</a> 
     <a href="#mstore-使用模板" title="MStore网站模板使用教程" >MStore模板使用</a>
     <a href="#代码生成器" title="MCMS低代码Java代码生成器">代码生成器</a> 
-	<a href="http://a.cms.demo.mingsoft.net/ms/login.do" target="_blank" rel="noopener" title="MCMS开源Java CMS后台管理系统演示">后台演示</a> 
-    <a href="http://a.cms.demo.mingsoft.net/" target="_blank" rel="noopener" title="MCMS前台网站效果展示">前台演示</a> 
-	<a href="http://doc.mingsoft.net/mcms/" target="_blank" rel="noopener" title="在线使用手册与官方开发文档">在线使用手册</a>
+	<a href="https://a.cms.demo.mingsoft.net/ms/login.do" target="_blank" rel="noopener" title="MCMS开源Java CMS后台管理系统演示">后台演示</a> 
+    <a href="https://a.cms.demo.mingsoft.net/" target="_blank" rel="noopener" title="MCMS前台网站效果展示">前台演示</a> 
+	<a href="https://doc.mingsoft.net/mcms/" target="_blank" rel="noopener" title="在线使用手册与官方开发文档">在线使用手册</a>
 	<a href="https://space.bilibili.com/1825880395" target="_blank" rel="noopener" title="B站Java CMS视频教程中心">B站视频</a><br/>
 	<a href="https://cloud.189.cn/web/share?code=7veQBn3i267f%EF%BC%88%E8%AE%BF%E9%97%AE%E7%A0%81%EF%BC%9Aapz2%EF%BC%89" target="_blank" rel="noopener" title="Windows与Linux一键运行版本下载">一键运行版本</a>
     <a href="#快速体验docker" title="Docker一键部署体验">Docker体验</a>
@@ -57,7 +57,7 @@
 [![加入QQ群](https://img.shields.io/badge/QQ五群-231211521-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=IfVdHXCm13Ui6NrcjvrraFkGsI8L3U1r&jump_from=webapi&authKey=Go37VdoKublA0p47ww9fS+fxt2DAh1URslG0/7ugg8zs1b+heVlGZwkASM/PlJPG)
 
 
-<a href="http://store.mingsoft.net" target="_blank" rel="noopener">
+<a href="https://store.mingsoft.net" target="_blank" rel="noopener">
 	<img src="https://foruda.gitee.com/images/1689152074095382619/e477707b_542665.png" 
 	     alt="MStore商城：提供丰富的响应式网站模板与功能插件，价值源自分享" 
 	     title="点击进入 MStore 商城获取更多 Java CMS 模板插件">
