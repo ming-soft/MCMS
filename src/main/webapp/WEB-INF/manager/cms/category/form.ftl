@@ -192,7 +192,7 @@
                                                :disabled="false"
                                                :multiple="false" :clearable="true"
                                                placeholder="请选择内容模板">
-                                        <el-option v-for='item in categoryUrlOptions' :key="item" :value="item"
+                                        <el-option v-for='item in templateOptions' :key="item" :value="item"
                                                    :label="item"></el-option>
                                     </el-select>
                                     <div class="ms-form-tip">
@@ -222,7 +222,7 @@
                                                :disabled="false"
                                                :multiple="false" :clearable="true"
                                                placeholder="请选择列表模板">
-                                        <el-option v-for='item in categoryListUrlOptions' :key="item" :value="item"
+                                        <el-option v-for='item in templateOptions' :key="item" :value="item"
                                                    :label="item"></el-option>
                                     </el-select>
                                     <div class="ms-form-tip">
@@ -458,8 +458,7 @@
                     "value": "3",
                     "label": "链接"
                 }],
-                categoryListUrlOptions: [],
-                categoryUrlOptions: [],
+                templateOptions: [],
                 mdiyModelListOptions: [],
                 mdiyCategoryModelListOptions: [],
                 categoryFlagOptions: [],
@@ -764,18 +763,10 @@
                     }
                 });
             },
-            //获取categoryListUrl数据源
-            categoryListUrlOptionsGet: function () {
+            templateOptionsGet: function () {
                 var that = this;
                 ms.http.get(ms.manager + "/basic/template/queryTemplateFileForColumn.do", {}).then(function (data) {
-                    that.categoryListUrlOptions = data.data;
-                });
-            },
-            //获取categoryUrl数据源
-            categoryUrlOptionsGet: function () {
-                var that = this;
-                ms.http.get(ms.manager + "/basic/template/queryTemplateFileForColumn.do", {}).then(function (data) {
-                    that.categoryUrlOptions = data.data;
+                    that.templateOptions = data.data;
                 });
             },
             //获取categoryFlag数据源
@@ -905,8 +896,7 @@
             this.queryColumnContentModelList();
             this.queryCategoryModelList();
             this.getTree();
-            this.categoryListUrlOptionsGet();
-            this.categoryUrlOptionsGet();
+            this.templateOptionsGet();
             this.categoryFlagOptionsGet();
             this.form.id = ms.util.getParameter("id");
             this.form.childId = ms.util.getParameter("childId");// 判断是否增加子栏目

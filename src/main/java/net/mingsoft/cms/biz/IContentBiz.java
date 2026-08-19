@@ -23,6 +23,7 @@
 package net.mingsoft.cms.biz;
 
 import net.mingsoft.base.biz.IBaseBiz;
+import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.entity.ContentEntity;
@@ -74,7 +75,7 @@ public interface IContentBiz extends IBaseBiz<ContentEntity> {
      * 根据解析标签arclist的sql获取list
      * @return 文章集合
      */
-    List<Map<String, Object>> list(Map<String,Object> map);
+    EUListBean list(Map<String,Object> map);
 
     /**
      * 根据解析标签data的sql获取文章数据，如有自定义模型，则返回则加上自定义模型数据

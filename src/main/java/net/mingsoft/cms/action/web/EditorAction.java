@@ -73,16 +73,22 @@ public class EditorAction extends BaseAction {
         long maxFileSize = msProperties.getUpload().getMultipart().getMaxFileSize() * 1000;
         // 兼容其他版本的上传配置
         if (MapUtil.isNotEmpty(uploadConfig)){
-            enableWeb = MapUtil.getBool(uploadConfig, "uploadEnable");
-            maxFileSize = MapUtil.getLong(uploadConfig,"webFileSize") * 1000;
+            enableWeb = MapUtil.getBool(uploadConfig, "uploadEnable", false);
+            maxFileSize = MapUtil.getLong(uploadConfig,"webFileSize", maxFileSize) * 1000;
             // 由于我们webFileType是一个大集合，不像管理员端那样细分，所以这边改成
-            // 不做空判断，hutool中的StrUtil.split已做处理，返回一个空数组
+            // 如果存在限制类型配置则使用配置，如果没有则使用编辑器自身配置
             String imageType = MapUtil.getStr(uploadConfig, "imageType");
+            if (StrUtil.isNotBlank(imageType)) {
+                map.put("imageAllowFiles", StrUtil.split(imageType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
+            }
             String videoType = MapUtil.getStr(uploadConfig, "videoType");
+            if (StrUtil.isNotBlank(videoType)) {
+                map.put("videoAllowFiles", StrUtil.split(videoType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
+            }
             String fileType = MapUtil.getStr(uploadConfig, "fileType");
-            map.put("imageAllowFiles", StrUtil.split(imageType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
-            map.put("videoAllowFiles", StrUtil.split(videoType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
-            map.put("fileAllowFiles", StrUtil.split(fileType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
+            if (StrUtil.isNotBlank(fileType)) {
+                map.put("fileAllowFiles", StrUtil.split(fileType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
+            }
 
         }
         if (!enableWeb) {

@@ -47,18 +47,23 @@ public class EditorAction extends BaseAction{
         Map<String, Object> map = new HashMap<>();
         // 兼容其他版本的上传配置
         if (MapUtil.isNotEmpty(uploadConfig)){
-            map.put("imageMaxSize", MapUtil.getLong(uploadConfig,"imageSize") * 1000);
-            map.put("videoMaxSize", MapUtil.getLong(uploadConfig,"videoSize") * 1000);
-            map.put("fileMaxSize", MapUtil.getLong(uploadConfig,"fileSize") * 1000);
+            map.put("imageMaxSize", MapUtil.getLong(uploadConfig,"imageSize", maxFileSize) * 1000);
+            map.put("videoMaxSize", MapUtil.getLong(uploadConfig,"videoSize", maxFileSize) * 1000);
+            map.put("fileMaxSize", MapUtil.getLong(uploadConfig,"fileSize", maxFileSize) * 1000);
 
-            // 不做空判断，hutool中的StrUtil.split已做处理，返回一个空数组
+            // 如果存在限制类型配置则使用配置，如果没有则使用编辑器自身配置
             String imageType = MapUtil.getStr(uploadConfig, "imageType");
+            if (StrUtil.isNotBlank(imageType)) {
+                map.put("imageAllowFiles", StrUtil.split(imageType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
+            }
             String videoType = MapUtil.getStr(uploadConfig, "videoType");
+            if (StrUtil.isNotBlank(videoType)) {
+                map.put("videoAllowFiles", StrUtil.split(videoType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
+            }
             String fileType = MapUtil.getStr(uploadConfig, "fileType");
-            map.put("imageAllowFiles", StrUtil.split(imageType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
-            map.put("videoAllowFiles", StrUtil.split(videoType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
-            map.put("fileAllowFiles", StrUtil.split(fileType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
-
+            if (StrUtil.isNotBlank(fileType)) {
+                map.put("fileAllowFiles", StrUtil.split(fileType, ",", true,  true).stream().map(str -> "." + str).collect(Collectors.toList()));
+            }
         }else {
             // 控制大小
             map.put("imageMaxSize", maxFileSize * 1000);

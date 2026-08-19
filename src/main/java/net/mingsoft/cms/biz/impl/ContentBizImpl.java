@@ -28,8 +28,10 @@ import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import freemarker.template.TemplateException;
+import net.mingsoft.base.biz.SqlQueryWrapper;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
+import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.IContentBiz;
@@ -39,6 +41,7 @@ import net.mingsoft.mdiy.biz.ITagBiz;
 import net.mingsoft.mdiy.entity.ModelEntity;
 import net.mingsoft.mdiy.entity.TagEntity;
 import net.mingsoft.mdiy.util.ParserUtil;
+import net.sf.jsqlparser.JSQLParserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,24 +105,31 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 	}
 
 	@Override
-	public List<Map<String, Object>> list(Map<String,Object> map ) {
+	public EUListBean list(Map<String,Object> map ) {
 		//通过tagSqlBiz获取arclist对应的sql
 		QueryWrapper<TagEntity> tagWrapper = new QueryWrapper<>();
 		tagWrapper.eq("tag_name", "arclist");
 		TagEntity tagEntity = tagBiz.getOne(tagWrapper,false);
 		String sqlFtl = tagEntity.getTagSql();
 		List<Map<String, Object>> contentEntities = null;
+		int total = 0;
 		try {
 			String sql = ParserUtil.rendering(map,sqlFtl);
 			Map<String, Object> sqlPrepareParams = ParserUtil.flatten(map);
 			//执行原生的sql
 			contentEntities = tagBiz.queryForListByNamedJdbc(sql,sqlPrepareParams);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (TemplateException e) {
+
+			// 获取到总数
+			SqlQueryWrapper sqlQueryWrapper = new SqlQueryWrapper();
+			String countSql = sqlQueryWrapper.getCountSql(sql);
+			List<Map<String, Object>> list = queryForListByNamedJdbc(countSql, sqlPrepareParams);
+
+			Object countValue = list.get(0).values().iterator().next();
+			total = ((Number)countValue).intValue();
+		} catch (IOException | TemplateException | JSQLParserException e) {
 			e.printStackTrace();
 		}
-		return contentEntities;
+		return new EUListBean(contentEntities, total);
 	}
 
 	@Override

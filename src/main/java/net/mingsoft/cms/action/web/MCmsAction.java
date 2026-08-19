@@ -109,7 +109,7 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
         // search所有请求参数
         Map<String, Object> searchMap = BasicUtil.assemblyRequestMap();
-
+        ParserUtil.checkRequestParams(searchMap);
         //记录自定义模型字段名
         Set<String> modelFieldNames = new HashSet<>();
         // 栏目对应自定义模型字段的值 自定义模型仅在单栏目查询时支持

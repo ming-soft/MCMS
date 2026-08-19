@@ -33,7 +33,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.mingsoft.base.constant.Const;
 import net.mingsoft.base.entity.ResultData;
-import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
@@ -105,6 +104,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	public ResultData list(HttpServletResponse response, HttpServletRequest request) {
 		//会将请求参数全部转换map
 		Map<String,Object> map = BasicUtil.assemblyRequestMap();
+		ParserUtil.checkRequestParams(map);
 		String typeid = (String) map.get("typeid");
 		 if (StrUtil.isBlank(typeid)){
 			typeid = (String) map.get("categoryId");
@@ -117,9 +117,9 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		// 栏目对应模型
 		ModelEntity contentModel = null;
 		page.setPageNo(BasicUtil.getInt("pageNo",1));
-		page.setSize(BasicUtil.getInt("size",10));
 		map.put("ispaging","true");
-		map.putIfAbsent("size",page.getSize());
+		// 规范接口传入的size参数
+		map.put("size",BasicUtil.getInt("size",10));
 		if (BasicUtil.getWebsiteApp() != null) {
 			map.put(ParserUtil.APP_ID, BasicUtil.getWebsiteApp().getId());
 		}
@@ -186,13 +186,11 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 			map.put("diyModel", modelFieldValueMap);
 		}
 
-		int count = contentBiz.getSearchCount(contentModel, modelFieldValueMap, map, typeid);
 		// 判断是否开启短链
 		boolean shortSwitch = ConfigUtil.getBoolean("静态化配置", "shortSwitch", false);
 		map.put(ParserUtil.SHORT_SWITCH, shortSwitch);
 		//实际上list是需要参数，例如分页、栏目分类、属性等待，具体看标签arclist对应的参数
-		List<Map<String,Object>> contentList = contentBiz.list(map);
-		return ResultData.build().success(new EUListBean(contentList,count));
+		return ResultData.build().success(contentBiz.list(map));
 	}
 
 
@@ -201,7 +199,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 	 * @param content 文章
 	 * @return 文章数据
 	 */
-	@Operation(summary =  "获取文章列表接口")
+	@Operation(summary =  "获取文章详情接口")
     @Parameter(name = "id", description = "编号", required = true, in = ParameterIn.QUERY)
 	@GetMapping("/get")
 	@ResponseBody
@@ -230,6 +228,7 @@ public class ContentAction extends net.mingsoft.cms.action.BaseAction{
 		// 判断是否开启短链
 		boolean shortSwitch = ConfigUtil.getBoolean("静态化配置", "shortSwitch", false);
 		map.put(ParserUtil.SHORT_SWITCH, shortSwitch);
+		ParserUtil.checkRequestParams(map);
 		Map<String,Object> contentMap = contentBiz.get(map);
 		return ResultData.build().success(contentMap);
 	}

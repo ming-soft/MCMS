@@ -26,7 +26,6 @@ package net.mingsoft.cms.action;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateException;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
@@ -384,37 +383,38 @@ public class GeneraterAction extends BaseAction {
         if (StrUtil.isBlank(deletePath)) {
             return ResultData.build().error("请先输入要删除的文件路径");
         }
-        // 确定以html开头
-        if (!deletePath.startsWith(htmlDir) && !deletePath.startsWith("/" + htmlDir)) {
-            return ResultData.build().error("删除路径请以" + htmlDir + "开头");
-        }
-        if (deletePath.contains("..") || deletePath.contains("../") || deletePath.contains("..\\")) {
-            return ResultData.build().error("非法路径");
-        }
-        String appDir = BasicUtil.getApp().getAppDir();
-        // 用户输入的实际路径
-        String realPath = BasicUtil.getRealPath(deletePath);
-        //站点的真实路径 html/web(站点id)
-        String webRealPath = BasicUtil.getRealPath(htmlDir + "/" + appDir + "/");
 
-        String htmlRealPath = BasicUtil.getRealPath(htmlDir);
-        // 取html下的文件
-        List<String> paths = FileUtil.listFileNames(htmlRealPath);
-        // 暂不考虑 html/web/index 与  html/index短链 同时存在; 只处理html/web/index 与  html/index短链 单独存在的场景
-        if (CollUtil.isEmpty(paths)) {
-            // 为空则说为目录  就有web；
-            // 判断传入的路径是否以 （html+/+站点+/ yaml配置中） 开头；是则为同一个站，不是则跨站
-            if (!realPath.startsWith(webRealPath)) {
-                return ResultData.build().error("不允许跨站删除");
+        try {
+            // 1.html路径
+            String htmlPath = BasicUtil.getRealPath(htmlDir);
+            // 解析获取真实的绝对路径
+            File htmlFile = new File(htmlPath).getCanonicalFile();
+
+            // 2 html/appDir路径
+            String appDir = BasicUtil.getApp().getAppDir();
+            String appDirPath = new File(htmlFile,appDir).getCanonicalPath();
+
+            // 3 具体删除文件路径
+            File targetFile = new File(htmlFile, deletePath).getCanonicalFile();
+            String targetPath = targetFile.getAbsolutePath();
+
+            // 具体文件路径 必须 以 html/appDir/ 开头
+            if (!targetPath.startsWith(appDirPath + File.separator)) {
+                return ResultData.build().error("不允许跨目录删除");
             }
+
+            // 删除的必须是文件 且必须存在
+            if (!targetFile.isDirectory() && targetFile.exists()) {
+                FileUtil.del(targetFile);
+                return ResultData.build().success();
+            } else {
+                return ResultData.build().error("文件不存在");
+            }
+        } catch (IOException e) {
+            LOG.error("解析文件路径失败, deletePath: {}", deletePath, e);
+            return ResultData.build().error("文件路径错误，删除失败");
         }
-        //  只剩下情况  文件 html/web（本站）/index  和 html/index  判断直接删除文件
-        if (FileUtil.exist(realPath)) {
-            FileUtil.del(realPath);
-            return ResultData.build().success();
-        } else {
-            return ResultData.build().error("文件不存在");
-        }
+
     }
 
 
