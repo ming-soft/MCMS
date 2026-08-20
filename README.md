@@ -272,12 +272,12 @@ http://localhost:8181/ms/login.do
 <a href="https://coder.mingsoft.net/" target="_blank" rel="noopener">立即体验</a>
 <table>
 	<tr>
-		<td><img src="https://www.mingsoft.net/upload/1/cms/content/1600746629646.gif" 
+		<td><img src="https://cdn.mingsoft.net/gif/code1.gif" 
               alt="MCMS低代码平台-Java代码生成器在线配置表单与业务模型流程演示" 
               title="Java代码生成器一键配置业务表单"></td>
 	</tr>
 	<tr>
-		<td><img src="https://www.mingsoft.net/upload/1/cms/content/1600746692814.gif" 
+		<td><img src="https://cdn.mingsoft.net/gif/code2.gif" 
               alt="MCMS低代码开发-自动生成前后端解耦的Java源代码前端HTML预览" 
               title="Java代码生成器一键生成前后端源代码"></td>
 	</tr>	
@@ -288,14 +288,14 @@ http://localhost:8181/ms/login.do
 <table>
    <tr>
       <td>
-         <img src="https://www.mingsoft.net/upload/1/cms/content/1600746325257.gif" 
+         <img src="https://cdn.mingsoft.net/gif/pm1.gif" 
               alt="铭飞项目管理平台-低代码开发团队协同与研发任务指派流程演示" 
               title="项目管理团队协同与任务指派演示">
       </td>
    </tr>
    <tr>
       <td>
-         <img src="https://www.mingsoft.net/upload/1/cms/content/1600746514131.gif" 
+         <img src="https://cdn.mingsoft.net/gif/pm2.gif" 
               alt="铭飞项目管理系统-项目看板、工时日志统计与任务排期日历展示" 
               title="项目管理工时统计与任务排期日历演示">
       </td>
