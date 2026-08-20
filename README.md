@@ -50,11 +50,12 @@
 ## 官方技术交流与社区支持
 
 
-[![加入QQ群](https://img.shields.io/badge/QQ一群-231212174-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=FVvyoF1YwtFpCGLf--h42_AwtF6JOD9M&jump_from=webapi&authKey=EyNayGyX0U/6hJKtpBInh9FsCpeM8Vx2KqrmmCZyXe3f1PD5kboChBSIWkB6SOb5)
-[![加入QQ群](https://img.shields.io/badge/QQ二群-221335098-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=fedNH1fR6niG16cYVPXPZJ3U8m9Hfxaf&jump_from=webapi&authKey=6rMUTyta7sKlSpeF/fYkVHp6mF9sZc6i5vmHzGgdh6WHW34yww5eDBXJwCVmoMyl)
-[![加入QQ群](https://img.shields.io/badge/QQ三群-242805203-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=1K_RsMwZcf09Y-_74PhA_NfI85RqeDyK&jump_from=webapi&authKey=vCeXrE2f5QCobzDFZ4lHzHyH7sGtmhVfR326MjEmeMy6u0NgHlIglCCxD/6b7tEK)
-[![加入QQ群](https://img.shields.io/badge/QQ四群-881894877-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=TzRiJf4x7tZsjKEzo8EuwuHqTALc0xCA&jump_from=webapi&authKey=04YpueACppV1tLykhOQ+fdzPhPwOkIU685LgCOQqrwEjtVQCOvTAyd6qn3xAiXl2)
-[![加入QQ群](https://img.shields.io/badge/QQ五群-231211521-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=IfVdHXCm13Ui6NrcjvrraFkGsI8L3U1r&jump_from=webapi&authKey=Go37VdoKublA0p47ww9fS+fxt2DAh1URslG0/7ugg8zs1b+heVlGZwkASM/PlJPG)
+[![加入QQ群](https://img.shields.io/badge/QQ一群(已满)-231212174-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=FVvyoF1YwtFpCGLf--h42_AwtF6JOD9M&jump_from=webapi&authKey=EyNayGyX0U/6hJKtpBInh9FsCpeM8Vx2KqrmmCZyXe3f1PD5kboChBSIWkB6SOb5)
+[![加入QQ群](https://img.shields.io/badge/QQ二群(已满)-221335098-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=fedNH1fR6niG16cYVPXPZJ3U8m9Hfxaf&jump_from=webapi&authKey=6rMUTyta7sKlSpeF/fYkVHp6mF9sZc6i5vmHzGgdh6WHW34yww5eDBXJwCVmoMyl)
+[![加入QQ群](https://img.shields.io/badge/QQ三群(已满)-242805203-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=1K_RsMwZcf09Y-_74PhA_NfI85RqeDyK&jump_from=webapi&authKey=vCeXrE2f5QCobzDFZ4lHzHyH7sGtmhVfR326MjEmeMy6u0NgHlIglCCxD/6b7tEK)
+[![加入QQ群](https://img.shields.io/badge/QQ四群(已满)-881894877-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=TzRiJf4x7tZsjKEzo8EuwuHqTALc0xCA&jump_from=webapi&authKey=04YpueACppV1tLykhOQ+fdzPhPwOkIU685LgCOQqrwEjtVQCOvTAyd6qn3xAiXl2)
+[![加入QQ群](https://img.shields.io/badge/QQ五群(已满)-231211521-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=IfVdHXCm13Ui6NrcjvrraFkGsI8L3U1r&jump_from=webapi&authKey=Go37VdoKublA0p47ww9fS+fxt2DAh1URslG0/7ugg8zs1b+heVlGZwkASM/PlJPG)
+[![加入QQ群](https://img.shields.io/badge/QQ六群-527579891-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=9ABLBuNghNaL5_IhGg9au-3vw4kkey8Y&jump_from=webapi&authKey=Ss0dwGvqEbAdomp5y5qcQNYTNT00Z8Zxkwg56qenBC4hBPwj0sXqZnLoxYkHIB7X)
 
 
 <a href="https://store.mingsoft.net" target="_blank" rel="noopener">
