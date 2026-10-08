@@ -27,7 +27,9 @@
                   v-loading="loading"
                   :default-expand-all=true
                   :tree-props="{children: 'children'}"
+                  :default-sort="tableDefaultSort"
                   tooltip-effect="dark"
+                  @sort-change="handleSortChange"
                   @selection-change="handleSelectionChange">
             <template #empty>
                 {{emptyText}}
@@ -54,7 +56,7 @@
             </el-table-column>
             <el-table-column label="类型" align="center" prop="categoryType" :formatter="categoryTypeFormat" width="70">
             </el-table-column>
-            <el-table-column label="排序" align="center" prop="categorySort" width="75">
+            <el-table-column label="排序" align="center" prop="categorySort" sortable="custom" width="100">
                 <template #header>排序
                     <el-popover placement="top-start" title="提示" trigger="hover" >
                         前台模板标签需设置orderby属性为sort才能生效，<a href="https://doc.mingsoft.net/mcms/biao-qian/lan-mu-lie-biao-ms-channel.html#orderby-%E7%A4%BA%E4%BE%8B" target="_blank">参考</a>
@@ -69,22 +71,21 @@
             </el-table-column>
             <el-table-column label="链接地址" align="left" prop="categoryPath" min-width="200" show-overflow-tooltip>
                 <template #default="scope">
-                    <span v-if="scope.row.categoryType == '1' || scope.row.categoryType == '2'" style="cursor: pointer"
-                          class="copyBtn" :data-clipboard-text="scope.row.url"
-                          @click="copyContent">{{scope.row.url}}</span>
-                    <span v-if="scope.row.categoryType == '3'" style="cursor: pointer" class="copyBtn"
-                          :data-clipboard-text="scope.row.categoryDiyUrl" @click="copyContent">{{scope.row.categoryDiyUrl}}</span>
+                    <a v-if="scope.row.categoryType == '1' || scope.row.categoryType == '2'"
+                       :href="scope.row.url" target="_blank" style="color: #409EFF;">{{scope.row.url}}</a>
+                    <a v-if="scope.row.categoryType == '3'"
+                       :href="scope.row.categoryDiyUrl" target="_blank" style="color: #409EFF;">{{scope.row.categoryDiyUrl}}</a>
                 </template>
             </el-table-column>
-            <el-table-column label="列表地址" align="left" prop="categoryListUrl" width="100" show-overflow-tooltip>
+            <el-table-column label="列表模板" align="left" prop="categoryListUrl" width="100" show-overflow-tooltip>
             </el-table-column>
-            <el-table-column label="内容地址" align="left" prop="categoryUrl" width="100" show-overflow-tooltip>
+            <el-table-column label="内容模板" align="left" prop="categoryUrl" width="100" show-overflow-tooltip>
                 <template #default="scope">
                     {{scope.row.categoryType == '1'?scope.row.categoryUrl:''}}
                     {{scope.row.categoryType == '2'?scope.row.categoryUrl:''}}
                 </template>
             </el-table-column>
-            <el-table-column label="栏目属性" align="left" prop="categoryFlag" width="80" show-overflow-tooltip>
+            <el-table-column label="栏目属性" align="left" prop="categoryFlag" width="82" show-overflow-tooltip>
                 <template #default="scope">
                     {{getDictLabel(scope.row.categoryFlag)}}
                 </template>
@@ -123,12 +124,17 @@
             return {
                 //分类列表
                 dataList: [],
+                //未排序的原始树，用于取消排序时还原
+                originDataList: [],
                 //分类列表选中
                 selectionList: [],
                 //加载状态
                 loading: true,
                 //提示文字
                 emptyText: '',
+                //排序偏好：ascending / descending，空表示不排序
+                sortOrder: '',
+                categorySortStorageKey: 'cms-category-sort-order',
                 categoryFlagOptions: [],
                 manager: ms.manager,
                 loadState: false,
@@ -169,6 +175,14 @@
                     // 栏目管理的内容模型id
                     mdiyModelId: ''
                 }
+            }
+        },
+        computed: {
+            tableDefaultSort: function () {
+                if (this.sortOrder === 'ascending' || this.sortOrder === 'descending') {
+                    return {prop: 'categorySort', order: this.sortOrder};
+                }
+                return undefined;
             }
         },
         methods: {
@@ -232,6 +246,58 @@
                 }
                 return labels.toString();
             },
+            //按排序字段整理树，每一级栏目都参与排序，空值按 0
+            sortTree: function (list, order) {
+                if (!list || !list.length) {
+                    return list || [];
+                }
+                var desc = order !== 'ascending';
+                list.sort(function (a, b) {
+                    var sa = Number(a.categorySort || 0);
+                    var sb = Number(b.categorySort || 0);
+                    return desc ? (sb - sa) : (sa - sb);
+                });
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].children && list[i].children.length) {
+                        this.sortTree(list[i].children, order);
+                    }
+                }
+                return list;
+            },
+            //根据本地偏好排序；无偏好时保持接口原顺序
+            applySortPreference: function () {
+                var list = JSON.parse(JSON.stringify(this.originDataList || []));
+                if (this.sortOrder === 'ascending' || this.sortOrder === 'descending') {
+                    this.dataList = this.sortTree(list, this.sortOrder);
+                } else {
+                    this.dataList = list;
+                }
+            },
+            //点击排序列：保存偏好，并同步调整各级栏目顺序；取消排序则还原
+            handleSortChange: function (column) {
+                if (column.prop !== 'categorySort') {
+                    return;
+                }
+                if (column.order === 'ascending' || column.order === 'descending') {
+                    this.sortOrder = column.order;
+                } else {
+                    this.sortOrder = '';
+                }
+                try {
+                    if (this.sortOrder) {
+                        localStorage.setItem(this.categorySortStorageKey, this.sortOrder);
+                    } else {
+                        localStorage.removeItem(this.categorySortStorageKey);
+                    }
+                } catch (e) {
+                    console.log(e)
+                }
+                // 数据未就绪时只记偏好，等 list 返回后再应用
+                if (!this.originDataList.length) {
+                    return;
+                }
+                this.applySortPreference();
+            },
             //查询列表
             list: function () {
                 var that = this;
@@ -246,10 +312,12 @@
 
                     if (!res.result || res.data.total <= 0) {
                         that.emptyText = '暂无数据';
+                        that.originDataList = [];
                         that.dataList = [];
                     } else {
                         that.emptyText = '';
-                        that.dataList = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
+                        that.originDataList = ms.util.treeData(res.data.rows, 'id', 'categoryId', 'children');
+                        that.applySortPreference();
                     }
                 });
                 setTimeout(function () {
@@ -362,6 +430,13 @@
         created: function () {
             /* this.categoryListUrlOptionsGet();
              this.categoryUrlOptionsGet();*/
+            try {
+                var order = localStorage.getItem(this.categorySortStorageKey) || '';
+                this.sortOrder = (order === 'ascending' || order === 'descending') ? order : '';
+            } catch (e) {
+                console.log(e)
+                this.sortOrder = '';
+            }
             this.categoryFlagOptionsGet();
             this.list();
         }

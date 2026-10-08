@@ -54,7 +54,7 @@
                     {{emptyText}}
                 </template>
                 <el-table-column type="selection" width="40"></el-table-column>
-                <el-table-column label="编号" width="200" prop="id">
+                <el-table-column label="编号" width="100" prop="id" show-overflow-tooltip>
                     <template #header>编号
                         <el-popover placement="top-start" title="提示" trigger="hover" >
                             标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html#%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8-msarclist" target="_blank">${'$'}{field.id}</a>
@@ -64,13 +64,15 @@
                         </el-popover>
                     </template>
                 </el-table-column>
-                <el-table-column label="栏目名" align="left" prop="categoryId" :formatter="contentCategoryIdFormat" width="180">
+                <el-table-column label="栏目名" align="left" prop="categoryId" :formatter="contentCategoryIdFormat" width="150" show-overflow-tooltip>
                 </el-table-column>
                 <el-table-column label="文章标题" align="left" prop="contentTitle" show-overflow-tooltip>
                 </el-table-column>
-                <el-table-column label="文章副标题" align="left" prop="contentShortTitle" show-overflow-tooltip>
-                </el-table-column>
-                <el-table-column label="文章链接" align="left" prop="categoryId" :formatter="contentCategoryPathFormat" width="240">
+                <el-table-column label="文章链接" align="left" prop="categoryId" width="240" show-overflow-tooltip>
+                    <template #default="scope">
+                        <a v-if="contentCategoryPathFormat(scope.row)" :href="contentCategoryPathFormat(scope.row)"
+                           target="_blank" style="color: #409EFF;">{{contentCategoryPathFormat(scope.row)}}</a>
+                    </template>
                 </el-table-column>
                 <el-table-column label="是否显示" width="100" align="center" prop="contentDisplay">
                     <template #header>是否显示
@@ -482,16 +484,16 @@
                 return value;
             },
             // 表格数据转换 id->path
-            contentCategoryPathFormat: function (row, column, cellValue, index) {
+            contentCategoryPathFormat: function (row) {
                 var path = "";
-                if (cellValue) {
+                if (row && row.categoryId) {
                     var data = this.contentCategoryIdOptions.find(function (value) {
-                        return value.id == cellValue;
+                        return value.id == row.categoryId;
                     });
                     if (data && data.categoryPath) {
                         // row.url /html/web/categoryPath/文章id.html categoryPath做占位符
-                        path = row.url.replace("categoryPath",data.categoryPath);
-                    }else {
+                        path = row.url.replace("categoryPath", data.categoryPath);
+                    } else {
                         path = row.url;
                     }
                 }
