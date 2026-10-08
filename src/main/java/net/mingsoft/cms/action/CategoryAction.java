@@ -101,7 +101,9 @@ public class CategoryAction extends BaseAction {
         if (StrUtil.isBlank(category.getIsChild())) {
             category.setIsChild("cms");
         }
-        List categoryList = categoryBiz.list(new LambdaQueryWrapper<CategoryEntity>(category));
+        LambdaQueryWrapper<CategoryEntity> wrapper = new LambdaQueryWrapper<>(category);
+        wrapper.orderByAsc(CategoryEntity::getCreateDate);
+        List categoryList = categoryBiz.list(wrapper);
         return ResultData.build().success(new EUListBean(categoryList, categoryList.size()));
     }
 

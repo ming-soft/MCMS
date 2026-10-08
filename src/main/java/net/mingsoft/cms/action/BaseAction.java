@@ -25,9 +25,9 @@ package net.mingsoft.cms.action;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.file.FileNameUtil;
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.HttpDownloader;
 import cn.hutool.json.JSONUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import net.mingsoft.base.entity.ResultData;
@@ -36,8 +36,8 @@ import net.mingsoft.basic.action.BaseFileAction;
 import net.mingsoft.basic.bean.UploadConfigBean;
 import net.mingsoft.basic.entity.AppEntity;
 import net.mingsoft.basic.service.IUploadBaseService;
+import net.mingsoft.basic.service.LocalCacheService;
 import net.mingsoft.basic.util.BasicUtil;
-import net.mingsoft.basic.util.IpUtils;
 import net.mingsoft.basic.util.SpringUtil;
 import net.mingsoft.cms.bean.EditorStateBean;
 import net.mingsoft.mdiy.util.ConfigUtil;
@@ -47,8 +47,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.*;
@@ -136,8 +134,12 @@ public class BaseAction extends BaseFileAction {
                 return uploadEditorFile(uploadPath, upfile);
             case "catchimage":
                 // 抓取网络图片到本地
-                return catchImage(request, uploadPath);
+                long imageMaxSize = MapUtil.getLong(execConfigMap, "imageMaxSize", 10 * 1024 * 1000L);
+                return catchImage(request, uploadPath, imageMaxSize);
             default:
+                if (StrUtil.isBlank(version)) {
+                    return new EditorStateBean(false, "富文本编辑器版本不能为空").toString();
+                }
                 // 获取编辑器配置
                 return getEditorConfig(execConfigMap, BasicUtil.getRealPath(StrUtil.format("/static/plugins/ueditor/{}/config.json", version)));
         }
@@ -181,52 +183,39 @@ public class BaseAction extends BaseFileAction {
     /**
      * 抓取远程图片保存到本地
      *
-     * @param request    HttpServletRequest
-     * @param uploadPath 上传路径
+     * @param request      HttpServletRequest
+     * @param uploadPath   上传路径
+     * @param imageMaxSize 允许的最大图片字节数
      * @return
      */
-    private String catchImage(HttpServletRequest request, String uploadPath) {
+    private String catchImage(HttpServletRequest request, String uploadPath, long imageMaxSize) {
         // 获取图片地址
         String[] urls = request.getParameterValues("source[]");
         EditorStateBean multiState = new EditorStateBean(true);
         List<EditorStateBean> states = new ArrayList<>();
+        if (urls == null || urls.length == 0) {
+            multiState.put("list", states);
+            return multiState.toString();
+        }
+        LocalCacheService cacheService = new LocalCacheService();
         for (String url : urls) {
-            if (StringUtils.isBlank(url) || !isValidUrl(url)) {
+            // 从缓存中获取文件
+            UploadConfigBean bean = cacheService.get(url, UploadConfigBean.class);
+
+            if (bean == null) {
                 continue;
             }
-
-            // 根据文件后缀当默认值，防止出现某些文件通过字节流获取后缀为空的情况
-            String suffix = FileNameUtil.getSuffix(url);
-            suffix = StrUtil.isBlank(suffix) ? "png" : suffix;
-
-            // 获取远程文件字节流
-            byte[] bytes = null;
-            try {
-                // 获取远程文件字节流, 默认超时时间为10秒
-                bytes = HttpDownloader.downloadBytes(url, 10000);
-            } catch (Exception e) {
-                // 捕获异常，防止因异常导致后续错误
-                LOG.debug("下载远程文件失败，地址： {}", url);
-                e.printStackTrace();
-            }
-
-            if (bytes == null) {
-                continue;
-            }
-
-            // 转成multipartFile对象方便组装成上传bean
-            MultipartFile file = net.mingsoft.basic.util.FileUtil.bytesToMultipartFile(bytes, suffix);
-
-            UploadConfigBean bean = new UploadConfigBean(uploadPath, file, true);
-            bean.setFileSize(file.getSize());
-            bean.setFileName(file.getName());
-
+            bean.setRename(true);
+            bean.setUploadPath(uploadPath);
             EditorStateBean state = new EditorStateBean();
             try {
                 state = this.uploadFile(bean);
             } catch (IOException e) {
                 LOG.debug("抓取图片失败");
                 state = new EditorStateBean(false, "抓取图片失败");
+            } finally {
+                // 删除缓存
+                cacheService.remove(url);
             }
             // 这里还需要把源文件地址添加到结果中
             if (state.isSuccess()) {
@@ -332,35 +321,6 @@ public class BaseAction extends BaseFileAction {
             state = new EditorStateBean(false, resultData.getMsg());
         }
         return state;
-    }
-
-    /**
-     * 判断url是否合法
-     * 1. 协议限制：只允许 http 和 https
-     * 2. 域名/IP：禁止访问内网
-     * @param url url
-     * @return 合法返回true，否则返回false
-     */
-    private boolean isValidUrl(String url) {
-        try {
-            URL u = new URL(url);
-            // 1. 协议限制：只允许 http 和 https
-            String protocol = u.getProtocol().toLowerCase();
-            if (!"http".equals(protocol) && !"https".equals(protocol)) {
-                LOG.debug("协议错误，请检查远程地址协议： {}", url);
-                return false;
-            }
-
-            // 2. 禁止访问内网
-            String host = u.getHost();
-            if (IpUtils.isInternalIp(host)) {
-                LOG.debug("禁止访问内网，请检查远程地址： {}", url);
-                return false;
-            }
-            return true;
-        } catch (MalformedURLException e) {
-            return false;
-        }
     }
 
 }

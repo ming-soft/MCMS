@@ -85,4 +85,10 @@ public interface IContentBiz extends IBaseBiz<ContentEntity> {
     Map<String,Object> get(Map<String,Object> map);
 
 
+    /**
+     * 删除文章 及 文章对应的自定义模型数据(如果有)
+     * @param contents 文章集合
+     *                 必须有id属性
+     */
+    void deleteBatch(List<ContentEntity> contents);
 }

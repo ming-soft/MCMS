@@ -319,24 +319,7 @@ public class ContentAction extends BaseAction {
     @LogAnn(title = "删除文章", businessType = BusinessTypeEnum.DELETE)
     @RequiresPermissions("cms:content:del")
     public ResultData delete(@RequestBody List<ContentEntity> contents) {
-        List<String> ids = new ArrayList<>();
-        for (int i = 0; i < contents.size(); i++) {
-            ids.add(contents.get(i).getId());
-            //获取栏目实体
-            CategoryEntity categoryEntity = categoryBiz.getById(contents.get(i).getCategoryId());
-            //如果栏目绑定的模型ID为空
-            if (StringUtils.isBlank(categoryEntity.getMdiyModelId())) {
-                continue;
-            }
-            //获取到配置模型实体
-            ModelEntity modelEntity = modelBiz.getById(categoryEntity.getMdiyModelId());
-            // 过滤表名
-            SqlInjectionUtil.filterContent(modelEntity.getModelTableName());
-            //删除模型表的数据
-            modelBiz.update(StrUtil.format("delete from {} where link_id = ?", modelEntity.getModelTableName()), contents.get(i).getId());
-        }
-
-        contentBiz.removeByIds(ids);
+        contentBiz.deleteBatch(contents);
         return ResultData.build().success();
     }
 

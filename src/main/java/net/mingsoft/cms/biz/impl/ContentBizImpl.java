@@ -25,27 +25,34 @@
 package net.mingsoft.cms.biz.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import freemarker.template.TemplateException;
 import net.mingsoft.base.biz.SqlQueryWrapper;
 import net.mingsoft.base.biz.impl.BaseBizImpl;
 import net.mingsoft.base.dao.IBaseDao;
+import net.mingsoft.base.util.SqlInjectionUtil;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.cms.bean.CategoryBean;
 import net.mingsoft.cms.bean.ContentBean;
 import net.mingsoft.cms.biz.IContentBiz;
+import net.mingsoft.cms.dao.ICategoryDao;
 import net.mingsoft.cms.dao.IContentDao;
+import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
+import net.mingsoft.mdiy.biz.IModelBiz;
 import net.mingsoft.mdiy.biz.ITagBiz;
 import net.mingsoft.mdiy.entity.ModelEntity;
 import net.mingsoft.mdiy.entity.TagEntity;
 import net.mingsoft.mdiy.util.ParserUtil;
 import net.sf.jsqlparser.JSQLParserException;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
@@ -57,7 +64,7 @@ import java.util.Map;
  * 创建日期：2019-11-28 15:12:32<br/>
  * 历史修订：<br/>
  */
- @Service("cmscontentBizImpl")
+@Service("cmscontentBizImpl")
 public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> implements IContentBiz {
 
 	/*
@@ -67,6 +74,12 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 
 	@Autowired
 	private IContentDao contentDao;
+
+	@Autowired
+	private ICategoryDao categoryDao;
+
+	@Autowired
+	private IModelBiz modelBiz;
 
 
 	@Autowired
@@ -157,6 +170,25 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 			e.printStackTrace();
 		}
 		return content;
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void deleteBatch(List<ContentEntity> contents) {
+		for (ContentEntity content : contents) {
+			// 获取栏目实体
+			CategoryEntity categoryEntity = categoryDao.selectById(content.getCategoryId());
+			if (StringUtils.isBlank(categoryEntity.getMdiyModelId())) {
+				continue;
+			}
+			// 获取到配置模型实体
+			ModelEntity modelEntity = modelBiz.getById(categoryEntity.getMdiyModelId());
+			// 表名检测
+			SqlInjectionUtil.checkStandardTableColumnName(modelEntity.getModelTableName());
+			// 删除模型表的数据
+			modelBiz.update(StrUtil.format("delete from {} where link_id = ?", modelEntity.getModelTableName()), content.getId());
+		}
+		removeBatchByIds(contents);
 	}
 
 

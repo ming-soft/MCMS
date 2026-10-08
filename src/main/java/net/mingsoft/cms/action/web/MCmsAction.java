@@ -30,6 +30,7 @@ import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import net.mingsoft.base.constant.Const;
+import net.mingsoft.base.exception.BusinessException;
 import net.mingsoft.basic.util.BasicUtil;
 import net.mingsoft.cms.biz.ICategoryBiz;
 import net.mingsoft.cms.biz.IContentBiz;
@@ -109,6 +110,13 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
         // search所有请求参数
         Map<String, Object> searchMap = BasicUtil.assemblyRequestMap();
+        // 参数不能为空
+        for (String key : searchMap.keySet()) {
+            if (ObjectUtil.isNull(searchMap.get(key))) {
+                LOG.debug("{}参数为空，请检查参数是否输入完整", key);
+                throw new BusinessException("请输入搜索关键词或选择筛选条件");
+            }
+        }
         ParserUtil.checkRequestParams(searchMap);
         //记录自定义模型字段名
         Set<String> modelFieldNames = new HashSet<>();
