@@ -72,9 +72,12 @@
 </a>
 
 
-<a href="https://www.mingsoft.net/" target="_blank" rel="noopener">
-	<img src="https://foruda.gitee.com/images/1689149903145351822/c3fed309_542665.png" 
-	     alt="免备案建站服务：安全可靠稳定的站群SaaS部署平台，9.9元在线开通网站" 
+<a href="https://www.mingsoft.net/saas-free-website.html" target="_blank" rel="noopener">
+<img src="https://foruda.gitee.com/images/1790070472546498239/5bf59f3d_542665.jpeg" 
+	     alt="免备案建站服务：安全可靠稳定的站群SaaS部署平台" 
+	     title="访问铭飞官网了解低代码SaaS快速建站方案">
+	<img src="https://foruda.gitee.com/images/1789441024485441546/9ab7adac_542665.png" 
+	     alt="免备案建站服务：安全可靠稳定的站群SaaS部署平台" 
 	     title="访问铭飞官网了解低代码SaaS快速建站方案">
 </a>
 
