@@ -157,7 +157,14 @@ public class EditorFileVerifyAop extends FileVerifyAop {
                 }
                 bean = new UploadConfigBean();
                 bean.setFile(file);
-                return super.prepareUpload(bean, web);
+                ResultData res = super.prepareUpload(bean, web);
+                if (res.isSuccess()) {
+                    String suffix = FileNameUtil.getSuffix(file.getOriginalFilename());
+                    if ("jsp".equalsIgnoreCase(suffix) || "jspx".equalsIgnoreCase(suffix)) {
+                        return ResultData.build().error("非法的文件类型");
+                    }
+                }
+                return res;
             case "catchimage":
                 // 抓取网络图片到本地
                 String[] urls = SpringUtil.getRequest().getParameterValues("source[]");
@@ -199,6 +206,12 @@ public class EditorFileVerifyAop extends FileVerifyAop {
                     bean.setFileName(file.getOriginalFilename());
                     bean.setFileSize(file.getSize());
                     ResultData resultData = super.prepareUpload(bean, web);
+                    if (resultData.isSuccess()) {
+                        String sfx = FileNameUtil.getSuffix(file.getOriginalFilename());
+                        if ("jsp".equalsIgnoreCase(sfx) || "jspx".equalsIgnoreCase(sfx)) {
+                            resultData = ResultData.build().error("非法的文件类型");
+                        }
+                    }
                     if (!resultData.isSuccess()) {
                         // 抓取图片失败，清除缓存中数据
                         for (String catchImageUrl : catchImageUrls) {
