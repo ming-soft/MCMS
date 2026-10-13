@@ -48,9 +48,9 @@
     <div id="w-search-1775207273000_45870" style="display: contents">
         <form id="w-search-form-1775207273000_45870" action="{ms:global.contextpath/}/mcms/search.do" method="post" class="ms-search">
             <div class="ms-search-input-area">
-                <input class="ms-search-input" type="text" name="content_title" value="<#if search.content_title?has_content>${MUtil.escape(search.content_title)}<#else>${search.content_title}</#if>" placeholder="请输入搜索内容"> <input type="hidden" name="style" value="{ms:global.template/}"> <input type="hidden" name="tmpl" value="搜索.htm">
+                <input class="ms-search-input" type="text" name="content_title" required value="<#if search.content_title?has_content>${MUtil.escape(search.content_title)}<#else>${search.content_title}</#if>" placeholder="请输入搜索内容"> <input type="hidden" name="style" value="{ms:global.template/}"> <input type="hidden" name="tmpl" value="搜索.htm">
             </div>
-            <button class="ms-search-submit" type="button" onclick="document.getElementById('w-search-form-1775207273000_45870').submit();"><i class="iconfont icon-fangdajing"></i> 立即搜索</button>
+            <button class="ms-search-submit" type="submit"><i class="iconfont icon-fangdajing"></i> 立即搜索</button>
         </form>
     </div>
     <!--搜索组件-end-->
