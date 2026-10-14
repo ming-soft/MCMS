@@ -32,7 +32,7 @@
                     <#if field.childsize gt 0>
                     <div class="ms-nav-dropdown-content">
                         <ul>
-                            {ms:channel}
+                            {ms:channel flag='n' orderby='sort'}
                             <li class="<#if field.childsize gt 0>ms-nav-dropdown</#if>"><a href="<#if field.type == 3><#if field.typeurl?starts_with('http')> ${field.typeurl} <#else> {ms:global.html/}${field.typeurl}</#if> <#else>{ms:global.html/}${field.typelink}</#if> ">${field.typetitle}</a></li>
                             {/ms:channel}
                         </ul>
