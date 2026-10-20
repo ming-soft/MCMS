@@ -21,6 +21,7 @@
 
 package net.mingsoft.cms.action.web;
 
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.PageUtil;
 import freemarker.core.ParseException;
@@ -110,12 +111,26 @@ public class MCmsAction extends net.mingsoft.cms.action.BaseAction {
 
         // search所有请求参数
         Map<String, Object> searchMap = BasicUtil.assemblyRequestMap();
-        // 参数不能为空
+        // 忽略某些参数，除以下参数外，其他参数必须有值
+        String[] ignoreParams = {"style", "categoryIds", "tmpl", "content_type"};
+        // 标记是否存在有效的搜索条件
+        boolean hasSearchCondition = false;
+        // 遍历请求参数，检查是否有除忽略参数外的有效搜索条件
         for (String key : searchMap.keySet()) {
-            if (ObjectUtil.isNull(searchMap.get(key))) {
-                LOG.debug("{}参数为空，请检查参数是否输入完整", key);
-                throw new BusinessException("请输入搜索关键词或选择筛选条件");
+            // 跳过不需要作为搜索条件校验的参数
+            if (ArrayUtil.containsIgnoreCase(ignoreParams, key)) {
+                continue;
             }
+            Object value = searchMap.get(key);
+            // 如果参数值不为空，则认为存在有效的搜索条件
+            if (ObjectUtil.isNotNull(value) && StringUtils.isNotBlank(value.toString())) {
+                hasSearchCondition = true;
+                break;
+            }
+        }
+        // 如果没有搜索条件，则抛出异常提示用户
+        if (!hasSearchCondition) {
+            throw new BusinessException("请输入搜索关键词或选择筛选条件");
         }
         ParserUtil.checkRequestParams(searchMap);
         //记录自定义模型字段名
