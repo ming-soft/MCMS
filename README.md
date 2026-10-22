@@ -165,7 +165,7 @@ git clone https://gitee.com/mingSoft/MCMS.git
   --name mcms \
   -e TZ=Asia/Shanghai \
   -e MYSQL_ROOT_PASSWORD='YourPassword!' \
-  mingsoft/mcms:6.2.2 \
+  docker.1ms.run/mingsoft/mcms:6.2.2 \
   --sql-mode=STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION \
   --lower-case-table-names=1 \
   --max-connections=1000
