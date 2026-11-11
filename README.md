@@ -57,11 +57,9 @@
 [![加入QQ群](https://img.shields.io/badge/QQ五群(已满)-231211521-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=IfVdHXCm13Ui6NrcjvrraFkGsI8L3U1r&jump_from=webapi&authKey=Go37VdoKublA0p47ww9fS+fxt2DAh1URslG0/7ugg8zs1b+heVlGZwkASM/PlJPG)
 [![加入QQ群](https://img.shields.io/badge/QQ六群-527579891-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=9ABLBuNghNaL5_IhGg9au-3vw4kkey8Y&jump_from=webapi&authKey=Ss0dwGvqEbAdomp5y5qcQNYTNT00Z8Zxkwg56qenBC4hBPwj0sXqZnLoxYkHIB7X)
 
-
-
-
-[![免备案建站服务、在线设计网站、AI快速建站](https://foruda.gitee.com/images/1794383888720095924/15167f95_542665.png "1 2.png")](https://store.mingsoft.net/saas)
-
+<a href="https://gitee.com/link?target=https%3A%2F%2Fstore.mingsoft.net%2Fsaas" target="_blank" >
+    <img title="1 2.png" alt="免备案建站服务、在线设计网站、AI快速建站" src="https://foruda.gitee.com/images/1794383888720095924/15167f95_542665.png">
+</a>
 
 <a href="https://store.mingsoft.net" target="_blank" rel="noopener">
 	<img src="https://foruda.gitee.com/images/1689152074095382619/e477707b_542665.png" 
@@ -69,12 +67,12 @@
 	     title="点击进入 MStore 商城获取更多 Java CMS 模板插件">
 </a>
 
-
 <a href="https://www.mingsoft.net/renwudating.html" target="_blank" rel="noopener">
 	<img src="https://foruda.gitee.com/images/1686668592600137699/9ce47a46_542665.png" 
 	     alt="铭飞任务大厅：构建良好的开源生态，让开发者知识共享与发布悬赏任务" 
 	     title="点击进入铭飞任务大厅参与定制开发与技术共创">
 </a>
+
 
 
 ## 开源说明
