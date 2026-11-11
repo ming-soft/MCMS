@@ -32,7 +32,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import net.mingsoft.base.entity.ResultData;
-import net.mingsoft.base.util.SqlInjectionUtil;
 import net.mingsoft.basic.annotation.LogAnn;
 import net.mingsoft.basic.bean.EUListBean;
 import net.mingsoft.basic.constant.e.BusinessTypeEnum;
@@ -44,8 +43,6 @@ import net.mingsoft.cms.biz.IContentBiz;
 import net.mingsoft.cms.constant.e.CategoryTypeEnum;
 import net.mingsoft.cms.entity.CategoryEntity;
 import net.mingsoft.cms.entity.ContentEntity;
-import net.mingsoft.mdiy.biz.IModelBiz;
-import net.mingsoft.mdiy.entity.ModelEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +50,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -80,10 +75,6 @@ public class ContentAction extends BaseAction {
 
     @Autowired
     private ICategoryBiz categoryBiz;
-
-
-    @Resource(name = "mdiyModelBizImpl")
-    private IModelBiz modelBiz;
 
     /**
      * 返回主界面index

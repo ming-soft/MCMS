@@ -47,7 +47,7 @@ import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
+import org.springframework.boot.web.server.autoconfigure.ServerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -113,13 +113,19 @@ public class ShiroConfig {
 
 		Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
 		filters.put("authc",new ShiroLoginFilter());
-		// 依赖会员后需放开104行,107行
+		// 依赖会员后需放开103行,106行
 		// PeopleLoginFilter会员登录过滤器，在这里people/**接口都会拦截校验是否登录
 		// filters.put("pauth",new PeopleLoginFilter(MSProperties.people.loginUrl));
 		// 角色校验过滤器最终会在对应的reaml中的hasRole校验，可以在ShiroRoleFilter中自定义一些操作
 		 filters.put("managerRoles", new ShiroRoleFilter(MSProperties.manager.path  + "/login.do"));
 		// filters.put("peopleRoles", new ShiroRoleFilter(MSProperties.people.loginUrl));
-		filters.put("invalidRequest", invalidRequestFilter());
+		ShiroInvalidRequestFilter invalidRequestFilter = new ShiroInvalidRequestFilter();
+		Set<String> excludedPaths = new HashSet<>();
+		// 排除指定路径的ASCII编码检查，避免因URL中包含中文字符而导致请求失败
+		excludedPaths.add("/upload/**");
+		excludedPaths.add("/template/**");
+		invalidRequestFilter.setExcludedPaths(excludedPaths);
+		filters.put("invalidRequest", invalidRequestFilter);
 
 		// 设置拦截器
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
@@ -131,27 +137,15 @@ public class ShiroConfig {
 		filterChainDefinitionMap.put(MSProperties.manager.path + "/checkLogin.do", "anon");
 		// 其余接口一律拦截
 		// 主要这行代码必须放在所有权限设置的最后，不然会导致所有 url 都被拦截
-		// 依赖会员后，放开123行以及202-205行
+		// 依赖会员后，放开128行以及210-213行
 		// roles[**]中的**值必须和对应的Reaml赋予当前登录的Roles名称一致，然后值必须时CustomUserNamePasswordToken.AuthType中的值，如果这里值和对应Reaml值不一致则会出现无法访问情况
 		filterChainDefinitionMap.put(msProperties.getManager().path + "/**", "authc,managerRoles[MANAGER]");
 		// filterChainDefinitionMap.put("/people/**", "pauth,peopleRoles[PEOPLE]");
 
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+		// 设置默认允许访问，即未匹配到过滤器链规则的请求将被直接放行
+		shiroFilterFactoryBean.setAllowAccessByDefault(true);
 		return shiroFilterFactoryBean;
-	}
-
-	/**
-	 * 路径拦截过滤
-	 */
-	@Bean
-	public ShiroInvalidRequestFilter invalidRequestFilter() {
-		ShiroInvalidRequestFilter invalidRequestFilter = new ShiroInvalidRequestFilter();
-		Set<String> excludedPaths = new HashSet<>();
-		// 排除指定路径的ASCII编码检查，避免因URL中包含中文字符而导致请求失败
-		excludedPaths.add("/upload/**");
-		excludedPaths.add("/template/**");
-		invalidRequestFilter.setExcludedPaths(excludedPaths);
-		return invalidRequestFilter;
 	}
 
 	/**

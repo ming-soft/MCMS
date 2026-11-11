@@ -364,6 +364,10 @@
             var that = this
             //验证拼音是否存在
             var validatorCategoryPinyin = function (rule, value, callback) {
+                // 如果用户没有填写拼音，则跳过校验
+                if (!that.form.categoryPinyin) {
+                    return callback();
+                }
                 //
                 ms.http.get(ms.manager+'/cms/category/verifyPingYin.do',{
                     id:that.form.id,
@@ -493,8 +497,8 @@
                     categoryPinyin: [{
                         validator: validatorCategoryPinyin, trigger: 'blur'
                     }, {
-                        "pattern": /^[^[!@#$"'%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]+$/,
-                        "message": "拼音格式不匹配"
+                        "pattern": /^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$/,
+                        "message": "拼音格式不匹配，仅支持字母、数字和-，且不能以-开头或结尾"
                     }],
                     categoryKeyword: [{
                         "min":0,
@@ -548,34 +552,9 @@
                     }
                 });
             },
-            'form.categoryTitle': function (n) {
-                var regu = "[[!@'\"#$%^&*()_+-/~?！@#￥%…&*（）——+—？》《：“‘’]";
-                this.rules.categoryPinyin = [{
-                    "validator": this.validatorCategoryPinyin, trigger: 'blur'
-                }, {
-                    "pattern": /^[^[!@#$"'%^&*()_+-/~?！\\、@#￥%…&*（）——+—？》《：“‘’\s]+$/,
-                    "message": "拼音格式不匹配"
-                }];
-                if (this.regularCheck(regu, n)) {
-                    this.rules.categoryPinyin.push({
-                        "required": true,
-                        "message": "请输入栏目拼音名称"
-                    });
-                }
-            },
         },
         computed: {},
         methods: {
-
-            //正则校验regu 正则表达式，str被校验的字段，符合返回true否则false
-            regularCheck: function(regu, str) {
-                var re = new RegExp(regu);
-                if (re.test(str)) {
-                    return true;
-                }else{
-                    return false;
-                }
-            },
             getTree: function () {
                 var that = this;
                 ms.http.get(ms.manager + "/cms/category/list.do").then(function (res) {

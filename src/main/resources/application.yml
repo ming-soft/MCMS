@@ -3,13 +3,6 @@ server:
   servlet:
     context-path: / #项目名称
     session.timeout: P0DT60M0S #D天H小时M分钟S秒，字符T是紧跟在时分秒之前的，每个单位都必须由数字开始,且时分秒顺序不能乱
-    encoding:
-      force: true
-      charset: utf-8
-      enabled: true
-  error:
-    include-exception: true
-    include-message: always
   tomcat:
     max-swallow-size: 1GB # tomcat容器最大请求大小，可按需修改(一般比最大文件上传大小大一些就行)，避免上传文件超出最大限制时容器中断请求，导致获取不到异常信息
 
@@ -39,7 +32,7 @@ ms:
     enable: true #xss过滤器的开关
     filter-url: /**   #过滤的url,多个用逗号分开
     # #排除的url,多个用逗号分开,如果怕设置后台过滤麻烦，直接排除 /ms/**
-    exclude-url: /static/**,/template/**,/ms/mdiy/config/**,/ms/mdiy/model/**,/ms/mdiy/form/**,/ms/mdiy/tag/**,/store/client/api/model/**
+    exclude-url: /static/**,/template/**,/ms/mdiy/config/**,/ms/mdiy/model/**,/ms/mdiy/form/**,/ms/mdiy/tag/**,/store/client/model/**
     #过滤的参数名,多个用逗号分开 默认排除菜单、自定模型JSON、模版内容、文章内容，具体根据需要配置其他字段
     exclude-field: contentDetails,templateMail,fileContent
   # shiro-key:  #16位长度，不填写默认随机生成
@@ -98,6 +91,7 @@ spring:
       config: classpath:ehcache.xml
   mvc:
     pathmatch:
+      # Boot4 已移除 use-suffix-pattern；*.do 兼容见 SuffixMatchRequestMappingHandlerMapping
       matching-strategy: ANT_PATH_MATCHER
       use-suffix-pattern: true
   devtools:
@@ -107,6 +101,10 @@ spring:
       exclude: static/**,WEB-INF/**
   servlet:
     multipart:
+      enabled: true
+    encoding:
+      charset: utf-8
+      force: true
       enabled: true
   freemarker:
     suffix: .ftl
@@ -127,6 +125,10 @@ spring:
       time_format: HH:mm:ss
       datetime_format: yyyy-MM-dd HH:mm:ss
       number_format: 0.##
+  web:
+    error:
+      include-exception: true
+      include-message: always
 
 mybatis-plus:
   #因为IBaseDao是一个抽象类，没有实体，所以自动注入的时候不会注入，需要手动映射

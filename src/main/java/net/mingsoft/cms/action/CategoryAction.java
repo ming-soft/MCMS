@@ -247,7 +247,7 @@ public class CategoryAction extends BaseAction {
 
         //判断拼音是否重复
         if (StrUtil.isNotBlank(category.getCategoryPinyin())) {
-            if (!category.getCategoryPinyin().matches("^[a-zA-Z0-9]*$")){
+            if (!category.getCategoryPinyin().matches("^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$")){
                 return ResultData.build().error(this.getResString("err.error",this.getResString("category.pinyin")));
             }
             CategoryEntity _category = new CategoryEntity();
@@ -387,7 +387,7 @@ public class CategoryAction extends BaseAction {
         }
         //判断拼音是否重复并且是否和原拼音相同
         if (StrUtil.isNotBlank(category.getCategoryPinyin()) && !categoryBiz.getById(category.getId()).getCategoryPinyin().equals(category.getCategoryPinyin())) {
-            if (!category.getCategoryPinyin().matches("^[a-zA-Z0-9]*$")){
+            if (!category.getCategoryPinyin().matches("^[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*$")){
                 return ResultData.build().error(this.getResString("err.error",this.getResString("category.pinyin")));
             }
             CategoryEntity _category = new CategoryEntity();
@@ -403,9 +403,9 @@ public class CategoryAction extends BaseAction {
             pingYin = category.getCategoryPinyin();
         }
         // 去除拼音中空格或者空白字符
-        pingYin = pingYin.replaceAll("\\s+", "");
+        pingYin = pingYin.replaceAll("[^a-zA-Z0-9-]", "");
         //检测是否存在路径穿越风险
-        if (StringUtils.isNotBlank(pingYin) && FileUtil.isInvalidFileName(pingYin)) {
+        if (StringUtils.isNotBlank(pingYin) && FileUtil.isInvalidPath(pingYin)) {
             LOG.error("拼音中包含非法字符，可能存在路径穿越风险，当前栏目拼音为：{}", pingYin);
             return ResultData.build().error(getResString("err.error", getResString("category.pinyin")));
         }
@@ -450,13 +450,6 @@ public class CategoryAction extends BaseAction {
     @GetMapping("/verifyPingYin")
     @ResponseBody
     public ResultData verifyPingYin(@ModelAttribute @Parameter(hidden = true) CategoryEntity category) {
-        //验证id是否合法
-        if (StringUtils.isEmpty(category.getId())){
-            return ResultData.build().error(getResString("err.empty", this.getResString("id")));
-        }
-        if (!StringUtil.checkLength(category.getId() + "", 0, 20)) {
-            return ResultData.build().error(getResString("err.length", this.getResString("id"), "0", "20"));
-        }
         //验证拼音是否合法
         if (StringUtils.isEmpty(category.getCategoryPinyin())){
             return ResultData.build().error(getResString("err.empty", this.getResString("category.pinyin")));

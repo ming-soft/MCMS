@@ -94,9 +94,9 @@ public class CategoryBizImpl extends BaseBizImpl<ICategoryDao, CategoryEntity> i
             pingYin = categoryEntity.getCategoryPinyin();
         }
         // 去除拼音中空格或者空白字符
-        pingYin = pingYin.replaceAll("\\s+", "");
+        pingYin = pingYin.replaceAll("[^a-zA-Z0-9-]", "");
         //检测是否存在路径穿越风险
-        if (StrUtil.isNotBlank(pingYin) && FileUtil.isInvalidFileName(pingYin)) {
+        if (StrUtil.isNotBlank(pingYin) && FileUtil.isInvalidPath(pingYin)) {
             LOG.error("拼音中包含非法字符，可能存在路径穿越风险，当前栏目拼音为：{}", pingYin);
             throw new BusinessException(BundleUtil.getBaseString("err.error", BundleUtil.getString(Const.RESOURCES, "category.pinyin")));
         }

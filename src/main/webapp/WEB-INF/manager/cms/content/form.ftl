@@ -1,3 +1,4 @@
+<#include "/cms/component/ms-seo-inner-link.ftl">
 <template type="text/x-template" id="content-form">
     <div id="form" v-cloak>
         <el-header class="ms-header ms-tr" height="50px" >
@@ -228,6 +229,7 @@
                                                 </div>
                                             </template>
                                         </el-upload>
+                                        <el-button type="primary" dashed size="small" @click="applyFirstContentImageAsThumb">获取正文首图</el-button>
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span=12>
@@ -282,9 +284,12 @@
                                                   ref="editor"
                                                   v-model="form.contentDetails"
                                                   :config="editorConfig"></vue-ueditor-wrap>
-                                <div class="ms-form-tip">
+                                <div class="ms-form-tip" style="position: relative">
                                     标签：<a href="http://doc.mingsoft.net/mcms/biao-qian/wen-zhang-lie-biao-ms-arclist.html" target="_blank">${'$'}{field.content}</a> <br/>
                                     温馨提示：推荐使用高级版本编辑器，<a href='http://store.mingsoft.net/#/detail?id=299&type=plugin' target="_blank">新版富文本编辑器</a>
+                                    <div style="position: absolute;top:8px;right:0">
+                                        <ms-seo-inner-link v-model="form.contentDetails"/>
+                                    </div>
                                 </div>
                             </el-form-item>
                         </el-form>
@@ -303,6 +308,7 @@
         template: '#content-form',
         props:["categoryId","categoryType","id"],
         components:{
+            MsSeoInnerLink
         },
         data: function () {
             return {
@@ -818,6 +824,58 @@
                         data = data.data;
                         that.contentTagsOptions = data.rows;
                     }
+                });
+            },
+            // 手动取正文第一张图作为缩略图（仅无缩略图时）
+            applyFirstContentImageAsThumb: function () {
+                if (this.form.contentImg && this.form.contentImg.length > 0) {
+                    this.$notify({
+                        title: '提示',
+                        message: '已有缩略图，无需再取',
+                        type: 'warning'
+                    });
+                    return;
+                }
+                // 获取文章正文 HTML 内容，若为空则默认为空字符串
+                var html = this.form.contentDetails || '';
+                // 用正则匹配正文中第一个 <img> 标签的 src 属性值
+                var match = html.match(/<img[^>]+src\s*=\s*["']([^"']+)["']/i);
+                // 提取图片地址并去除首尾空格，未匹配到则为空字符串
+                var src = match && match[1] ? match[1].trim() : '';
+                if (!src) {
+                    this.$notify({
+                        title: '提示',
+                        message: '正文中未找到图片',
+                        type: 'warning'
+                    });
+                    return;
+                }
+                if (src.indexOf('data:') === 0) {
+                    this.$notify({
+                        title: '提示',
+                        message: '正文首图为Base64图片，暂不支持设为缩略图',
+                        type: 'warning'
+                    });
+                    return;
+                }
+                // 默认使用原始图片地址作为缩略图展示URL
+                var displayUrl = src;
+                // 若图片地址不是绝对URL（http/https），且存在应用上下文路径，且图片地址本身未包含该上下文路径，
+                // 则需要拼接 contextpath 以确保缩略图在管理后台中能正确加载
+                if (!src.startsWith('http://') && !src.startsWith('https://') && ms.contextpath && !src.startsWith(ms.contextpath)) {
+                    // 兼容 src 以 "/" 开头或相对路径两种情况，统一拼成 "/contextpath/xxx" 形式
+                    displayUrl = ms.contextpath + (src.startsWith('/') ? src : '/' + src);
+                }
+                var name = src.substring(src.lastIndexOf('/') + 1) || 'content-thumb';
+                this.form.contentImg = [{
+                    url: displayUrl,
+                    name: name,
+                    uid: Date.now()
+                }];
+                this.$notify({
+                    title: '成功',
+                    message: '已取正文首图设为缩略图',
+                    type: 'success'
                 });
             },
             //contentImg文件上传完成回调

@@ -188,7 +188,7 @@ public class ContentBizImpl  extends BaseBizImpl<IContentDao, ContentEntity> imp
 			// 删除模型表的数据
 			modelBiz.update(StrUtil.format("delete from {} where link_id = ?", modelEntity.getModelTableName()), content.getId());
 		}
-		removeBatchByIds(contents);
+		removeByIds(contents);
 	}
 
 

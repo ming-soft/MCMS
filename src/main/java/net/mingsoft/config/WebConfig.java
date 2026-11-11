@@ -37,19 +37,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
+import org.springframework.boot.webmvc.autoconfigure.WebMvcRegistrations;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.Ordered;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverters;
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.web.context.request.RequestContextListener;
-import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -68,7 +72,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 
     @Autowired(required = false)
-    private MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter;
+    private JacksonJsonHttpMessageConverter jsonHttpMessageConverter;
 
 
     @Bean
@@ -99,10 +103,17 @@ public class WebConfig implements WebMvcConfigurer {
                 "/*.html", "/*.htm");
     }
 
-    @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {
-        // 启用后缀模式匹配
-        configurer.setUseSuffixPatternMatch(true);
+    /**
+     * Spring Boot 4 已移除 useSuffixPatternMatch，通过自定义 HandlerMapping 兼容 *.do
+     */
+    @Bean
+    public WebMvcRegistrations webMvcRegistrations() {
+        return new WebMvcRegistrations() {
+            @Override
+            public RequestMappingHandlerMapping getRequestMappingHandlerMapping() {
+                return new SuffixMatchRequestMappingHandlerMapping();
+            }
+        };
     }
 
     @Override
@@ -191,13 +202,15 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     /**
-     * 解决com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException 问题，提交实体不存在的字段异常
+     * 解决 UnrecognizedPropertyException，并保留默认 ByteArrayHttpMessageConverter，
+     * 避免 byte[] 被 Jackson 编成 Base64。
+     * Spring Framework 7：使用 ServerBuilder 版 configureMessageConverters（List 版已过期）。
      */
     @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        converters.add(mappingJackson2HttpMessageConverter);
-        WebMvcConfigurer.super.configureMessageConverters(converters);
-
+    public void configureMessageConverters(HttpMessageConverters.ServerBuilder builder) {
+        if (jsonHttpMessageConverter != null) {
+            builder.withJsonConverter(jsonHttpMessageConverter);
+        }
     }
 
 
