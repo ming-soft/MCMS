@@ -61,13 +61,13 @@
     <img title="1 2.png" alt="免备案建站服务、在线设计网站、AI快速建站" src="https://foruda.gitee.com/images/1794383888720095924/15167f95_542665.png">
 </a>
 
-<a href="https://store.mingsoft.net" target="_blank" rel="noopener">
+<a href="https://store.mingsoft.net" target="_blank">
 	<img src="https://foruda.gitee.com/images/1689152074095382619/e477707b_542665.png" 
 	     alt="MStore商城：提供丰富的响应式网站模板与功能插件，价值源自分享" 
 	     title="点击进入 MStore 商城获取更多 Java CMS 模板插件">
 </a>
 
-<a href="https://www.mingsoft.net/renwudating.html" target="_blank" rel="noopener">
+<a href="https://www.mingsoft.net/renwudating.html" target="_blank">
 	<img src="https://foruda.gitee.com/images/1686668592600137699/9ce47a46_542665.png" 
 	     alt="铭飞任务大厅：构建良好的开源生态，让开发者知识共享与发布悬赏任务" 
 	     title="点击进入铭飞任务大厅参与定制开发与技术共创">
