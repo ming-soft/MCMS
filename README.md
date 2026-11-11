@@ -58,6 +58,11 @@
 [![加入QQ群](https://img.shields.io/badge/QQ六群-527579891-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=9ABLBuNghNaL5_IhGg9au-3vw4kkey8Y&jump_from=webapi&authKey=Ss0dwGvqEbAdomp5y5qcQNYTNT00Z8Zxkwg56qenBC4hBPwj0sXqZnLoxYkHIB7X)
 
 
+
+
+[![免备案建站服务、在线设计网站、AI快速建站](https://foruda.gitee.com/images/1794383888720095924/15167f95_542665.png "1 2.png")](https://store.mingsoft.net/saas)
+
+
 <a href="https://store.mingsoft.net" target="_blank" rel="noopener">
 	<img src="https://foruda.gitee.com/images/1689152074095382619/e477707b_542665.png" 
 	     alt="MStore商城：提供丰富的响应式网站模板与功能插件，价值源自分享" 
@@ -71,22 +76,6 @@
 	     title="点击进入铭飞任务大厅参与定制开发与技术共创">
 </a>
 
-
-<a href="https://www.mingsoft.net/saas-free-website.html" target="_blank" rel="noopener">
-<img src="https://foruda.gitee.com/images/1790070472546498239/5bf59f3d_542665.jpeg" 
-	     alt="免备案建站服务：安全可靠稳定的站群SaaS部署平台" 
-	     title="访问铭飞官网了解低代码SaaS快速建站方案">
-	<img src="https://foruda.gitee.com/images/1789441024485441546/9ab7adac_542665.png" 
-	     alt="免备案建站服务：安全可靠稳定的站群SaaS部署平台" 
-	     title="访问铭飞官网了解低代码SaaS快速建站方案">
-</a>
-
-
-<a href="https://www.mingsoft.net/1915279312982421506.html" target="_blank" rel="noopener">
-	<img src="https://www.mingsoft.net/upload/1/cms/content/20250424/1745473233713.png" 
-	     alt="MCMS全面适配国产数据库服务：完美支持达梦、人大金仓、神通等国产数据库" 
-	     title="点击查看开源Java CMS支持国产化信创环境的升级配置说明">
-</a>
 
 ## 开源说明
 
