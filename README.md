@@ -128,7 +128,7 @@ git clone https://gitee.com/mingSoft/MCMS.git
 
 ## 一键运行版本
 
-[云盘下载](https://cloud.189.cn/web/share?code=7veQBn3i267f%EF%BC%88%E8%AE%BF%E9%97%AE%E7%A0%81%EF%BC%9Aapz2%EF%BC%89
+不需要安装任何软件，绿色允许包直接启动运行。[云盘下载](https://cloud.189.cn/web/share?code=7veQBn3i267f%EF%BC%88%E8%AE%BF%E9%97%AE%E7%A0%81%EF%BC%9Aapz2%EF%BC%89
 )
 
 
