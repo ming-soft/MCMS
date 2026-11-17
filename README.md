@@ -1,53 +1,375 @@
 <p align="center">
-	<a href="https://www.mingsoft.net/" target="_blank" rel="noopener">
-<img src="http://cdn.mingsoft.net/global/images/logo-blue.png"  alt="铭飞MCMS开源Java内容管理系统Logo" width="50" height="50">
-</a>
-</p>
-<p align="center">
-	<strong>价值源自分享</strong>
+  <a href="https://www.mingsoft.net/" target="_blank" rel="noopener">
+    <img src="https://cdn.mingsoft.net/global/images/logo-blue.png" alt="铭飞 MCms 开源 Java 内容管理系统" width="64" height="64">
+  </a>
 </p>
 
+<h1 align="center">MCms — 开源 Java 内容管理系统</h1>
+
 <p align="center">
-   <a target="_blank" rel="noopener" href="https://search.maven.org/search?q=ms-mcms">
-        <img src="https://img.shields.io/maven-central/v/net.mingsoft/ms-mcms.svg?label=Maven%20Central" alt="MCMS内容管理系统在Maven中央仓库的最新稳定版本号"/>
-   </a>
-
-   <a target="_blank" rel="noopener" href="https://baike.baidu.com/item/MIT%E8%AE%B8%E5%8F%AF%E8%AF%81/6671281">
-        <img src="https://img.shields.io/:license-MIT-blue.svg" alt="铭飞MCMS采用MIT开源协议免费开放源代码" />
-   </a>
-
-   <a target="_blank" rel="noopener" href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">
-      <img src="https://img.shields.io/badge/JDK-17+-green.svg" alt="铭飞低代码平台支持JDK17及以上Java运行环境"/>
-   </a>
-
-   <a target="_blank" rel="noopener" href="https://gitee.com/mingSoft/MCMS/stargazers">
-      <img src="https://gitee.com/mingSoft/MCMS/badge/star.svg?theme=dark" alt='开源Java CMS项目MCMS在Gitee社区的Star星标数量'/>
-   </a>
-
-   <a target="_blank" rel="noopener" href='https://github.com/ming-soft/mcms'>
-      <img src="https://img.shields.io/github/stars/ming-soft/mcms.svg?style=social" alt="铭飞开源内容管理系统在GitHub平台的Star关注度"/>
-   </a>
+  <strong>让内容管理更简单，让开发与分享创造更多价值。</strong>
 </p>
 
 <p align="center">
-	<a href="#皮肤设计器" title="MCMS开源可视化皮肤设计器" >皮肤设计器</a> 
-    <a href="#mstore-使用模板" title="MStore网站模板使用教程" >MStore模板使用</a>
-    <a href="#代码生成器" title="MCMS低代码Java代码生成器">代码生成器</a> 
-	<a href="https://a.cms.demo.mingsoft.net/ms/login.do" target="_blank" rel="noopener" title="MCMS开源Java CMS后台管理系统演示">后台演示</a> 
-    <a href="https://a.cms.demo.mingsoft.net/" target="_blank" rel="noopener" title="MCMS前台网站效果展示">前台演示</a> 
-	<a href="https://doc.mingsoft.net/mcms/" target="_blank" rel="noopener" title="在线使用手册与官方开发文档">在线使用手册</a>
-	<a href="https://space.bilibili.com/1825880395" target="_blank" rel="noopener" title="B站Java CMS视频教程中心">B站视频</a><br/>
-	<a href="#一键运行版本" target="_blank" rel="noopener" title="Windows与Linux一键运行版本下载">一键运行版本</a>
-    <a href="#快速体验docker" title="Docker一键部署体验">Docker体验</a>
+  MCms 是一款基于 Java 技术栈的开源内容管理系统，面向企业官网建设、内容管理和业务开发场景。
+  除了内容管理能力，还提供可视化皮肤设计、代码生成以及模板和插件扩展能力，
+  帮助企业和开发者更高效地搭建网站、扩展业务。
 </p>
-
--------------------------------------------------------------------------------
 
 <p align="center">
-	<strong>一直在改变，从未停止过！努力打造一款国内好用的Java CMS内容管理软件</strong>
+  <a href="https://search.maven.org/search?q=ms-MCms" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/maven-central/v/net.mingsoft/ms-MCms.svg?label=Maven%20Central" alt="Maven Central 版本">
+  </a>
+  <a href="https://baike.baidu.com/item/MIT%E8%AE%B8%E5%8F%AF%E8%AF%81/6671281" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License">
+  </a>
+  <a href="https://gitee.com/mingSoft/MCms/stargazers" target="_blank" rel="noopener">
+    <img src="https://gitee.com/mingSoft/MCms/badge/star.svg?theme=dark" alt="Gitee Stars">
+  </a>
+  <a href="https://github.com/ming-soft/MCms" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/github/stars/ming-soft/MCms.svg?style=social" alt="GitHub Stars">
+  </a>
+  <img src="https://img.shields.io/badge/JDK-17%2B-green.svg" alt="JDK 17+">
 </p>
 
-## 官方技术交流与社区支持
+<p align="center">
+  <a href="#核心能力">核心能力</a> ·
+  <a href="#快速开始">快速开始</a> ·
+  <a href="#技术架构">技术架构</a> ·
+  <a href="#生态工具">生态工具</a> ·
+  <a href="#文档与支持">文档与支持</a>
+</p>
+
+<p align="center">
+  <a href="https://a.cms.demo.mingsoft.net/ms/login.do" target="_blank" rel="noopener">后台演示</a> ·
+  <a href="https://a.cms.demo.mingsoft.net/" target="_blank" rel="noopener">前台演示</a> ·
+  <a href="https://doc.mingsoft.net/MCms/" target="_blank" rel="noopener">在线文档</a> ·
+  <a href="https://space.bilibili.com/1825880395" target="_blank" rel="noopener">视频教程</a>
+</p>
+
+---
+
+## 项目简介
+
+MCms（铭飞内容管理系统）是一款面向企业网站建设与内容管理的 Java 开源项目。系统采用模块化设计，提供内容管理、栏目管理、模板管理、静态化等基础能力，并围绕实际建站和开发需求，形成由 **MCms、MDesigner、MCode、MStore** 等工具组成的开发生态。
+
+- **MCms：内容管理核心** — 管理站点、栏目、文章及相关内容，支持模板驱动的网站建设。
+- **MDesigner：可视化皮肤设计器** — 通过拖拽方式设计页面和网站模板，降低页面制作门槛。
+- **MCode：代码生成器** — 根据业务模型和表单配置生成代码，减少重复开发工作。
+- **MStore：模板与插件生态** — 提供模板和插件的分享、获取与扩展渠道，帮助项目按需扩展。
+
+项目坚持开源共享，适合希望使用 Java 技术建设网站、开展二次开发或学习内容管理系统实现方式的团队与开发者。
+
+## 核心能力
+
+### 1. 内容管理与网站建设
+
+- **栏目与内容管理**：集中管理网站栏目、文章及相关内容。
+- **模板标签建站**：通过系统标签调用内容数据，结合模板完成页面开发。
+- **静态化支持**：支持生成网站首页、栏目页和内容页等静态页面。
+- **多终端展示**：支持 PC 与移动端网站展示，内容由系统统一管理。
+- **SEO 辅助**：结合静态化、页面模板及站点内容配置，支持网站搜索引擎优化工作。
+
+### 2. 可视化页面设计
+
+通过 MDesigner 在线设计网站页面和皮肤模板，支持拖拽式编辑。设计完成后可结合 MCms 模板机制使用，减少重复编写页面的工作。
+
+### 3. 代码生成与业务扩展
+
+通过 MCode 配置业务模型和表单，辅助生成前后端代码，适用于常见管理功能的开发场景。开发者可在生成代码的基础上继续调整和扩展。
+
+### 4. 模板与插件扩展
+
+通过 MStore 获取或分享网站模板、功能插件。可根据项目需求选择相应扩展，例如站群、微信、商城等类型的插件（具体功能以插件实际版本和说明为准）。
+
+### 5. 模块化与持续维护
+
+- 项目采用模块化开发方式，相关模块可通过 Maven 依赖进行引入。
+- 铭飞团队持续维护开源版本，并定期整理问题与发布更新。
+- 提供使用文档、开发文档和视频教程，方便部署、使用与二次开发。
+
+## 适用场景
+
+| 使用对象 | 典型场景 |
+| --- | --- |
+| 企业与组织 | 企业官网、品牌网站、信息发布网站和内容门户建设 |
+| 软件开发团队 | 在现有 Java 技术体系中集成内容管理能力，减少基础功能重复开发 |
+| 独立开发者 | 快速搭建项目基础框架，开展定制开发或交付网站项目 |
+| Java 学习者 | 学习内容管理系统的模块组织、模板机制和常见业务实现 |
+
+## 开源协议与商用说明
+
+MCms 开源版本采用 **MIT License**。使用、修改和分发前，请阅读项目根目录中的 `LICENSE` 文件，并根据 MIT 协议要求保留版权和许可声明。
+
+项目欢迎企业和开发者基于开源代码开展学习、集成、二次开发与商业项目应用。使用过程中，请尊重开源协议及项目原有版权信息。
+
+## 快速开始
+
+### 环境要求
+
+以下为项目 README 当前列出的开发环境建议。实际运行时，请结合所使用的 MCms 分支、依赖版本和部署方式核对兼容性。
+
+| 环境 | 建议版本或说明 |
+| --- | --- |
+| 操作系统 | Windows、Linux |
+| JDK | 17 或以上 |
+| 数据库 | MySQL 8 或以上，按项目要求配置大小写规则 |
+| 构建工具 | Maven |
+| IDE | IntelliJ IDEA 或 Eclipse |
+| Web 容器 | 原项目开发说明列出 Tomcat 10；请以当前分支的启动方式和配置为准 |
+
+### 方式一：从源码运行
+
+**1. 获取源代码**
+
+```bash
+git clone https://gitee.com/mingSoft/MCms.git
+```
+
+**2. 导入项目**
+
+- IntelliJ IDEA：通过 `pom.xml` 导入 Maven 项目，等待依赖加载完成。
+- Eclipse：选择 `File -> Import -> Maven -> Existing Maven Projects`，然后选择项目目录。
+
+首次导入时，Maven 需要下载项目依赖，耗时取决于网络环境。
+
+**3. 创建数据库**
+
+创建名为 `MCms` 的数据库，并使用 UTF-8 编码。根据项目版本导入 `doc` 目录中对应的完整数据库 SQL 文件。
+
+如果是从旧版本升级，请先确认升级路径，再使用对应的 `*-up-*.sql` 升级脚本。已经导入对应版本完整 SQL 的环境，不要重复执行同一版本的升级脚本。
+
+**4. 配置数据库连接**
+
+根据本地环境修改：
+
+```text
+src/main/resources/application-dev.yml
+```
+
+请确认数据库地址、端口、库名、用户名和密码与实际环境一致。
+
+**5. 启动项目**
+
+在 IDE 中运行 `MSApplication.java` 的 `main` 方法。启动类、配置文件和启动参数请以当前检出的分支为准。
+
+**6. 登录后台并生成页面**
+
+后台地址：
+
+```text
+http://localhost:8080/ms/login.do
+```
+
+原项目示例初始账号：
+
+```text
+用户名：msopen
+密码：msopen
+```
+
+首次体验时，登录后台后进入“内容管理 -> 静态化”，按需生成首页、栏目和文章页面。
+
+> 安全提示：示例账号仅用于本地体验。正式部署前，请立即修改默认账号密码，并完成必要的安全配置；不要将示例账号直接用于公网环境。
+
+### 方式二：Docker 快速体验
+
+以下命令用于快速体验一体化镜像。正式部署前，建议根据实际版本确认镜像标签、数据持久化目录、端口和安全配置。
+
+```bash
+docker run -d \
+  -p 3366:3306 \
+  -p 8181:8181 \
+  --name MCms \
+  -e TZ=Asia/Shanghai \
+  -e MYSQL_ROOT_PASSWORD='请替换为强密码' \
+  docker.1ms.run/mingsoft/MCms \
+  --sql-mode=STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION \
+  --lower-case-table-names=1 \
+  --max-connections=1000
+```
+
+后台访问地址：
+
+```text
+http://localhost:8181/ms/login.do
+```
+
+原项目示例初始账号：
+
+```text
+用户名：msopen
+密码：msopen
+```
+
+**部署注意事项：**
+
+- 请将示例数据库密码替换为强密码，不要在生产环境使用示例密码。
+- 建议按镜像说明将数据库数据目录和 MCms 文件目录挂载到宿主机，避免容器重建导致数据丢失。
+- 正式环境应配置访问控制、HTTPS、定期备份和日志管理。
+- `docker.1ms.run/mingsoft/MCms` 为原说明中提供的镜像地址；镜像标签和最新使用方式请以项目发布信息为准。
+
+### 方式三：一键运行版本
+
+不希望自行准备开发环境的用户，可以使用项目提供的一键运行包进行体验：
+
+[一键运行版本下载（天翼云盘）](https://cloud.189.cn/web/share?code=7veQBn3i267f%EF%BC%88%E8%AE%BF%E9%97%AE%E7%A0%81%EF%BC%9Aapz2%EF%BC%89)
+
+## Maven 模块引用
+
+MCms 采用模块化开发方式。铭飞发布到 Maven 中央仓库的模块，可根据实际项目需要在 `pom.xml` 中添加依赖。
+
+如需获取模块源码，可参考以下依赖配置示例，并将模块名称和版本号替换为实际坐标：
+
+```xml
+<dependency>
+    <groupId>net.mingsoft</groupId>
+    <artifactId>模块名称</artifactId>
+    <version>版本号</version>
+    <classifier>sources</classifier>
+    <scope>provided</scope>
+</dependency>
+```
+
+可在 [Maven Central](https://search.maven.org/search?q=ms-MCms) 查询已发布的模块及版本。
+
+## 技术架构
+
+MCms 使用 Java 后端技术栈，并结合前端框架、缓存和搜索组件构建网站内容管理与扩展能力。以下为项目原说明中列出的主要技术组件，具体依赖版本请以当前分支的 `pom.xml` 和前端项目配置为准。
+
+### 后端技术
+
+| 技术 | 主要用途 | 官方地址 |
+| --- | --- | --- |
+| Spring Framework | 应用基础框架与容器 | [官网](https://spring.io/projects/spring-framework) |
+| Spring Boot | 应用配置与启动 | [官网](https://spring.io/projects/spring-boot) |
+| Apache Shiro | 权限与安全框架 | [官网](https://shiro.apache.org/) |
+| MyBatis | 持久层框架 | [官网](https://mybatis.org/mybatis-3/) |
+| MyBatis-Plus | MyBatis 增强工具 | [官网](https://baomidou.com/) |
+| FreeMarker | 模板引擎 | [官网](https://freemarker.apache.org/) |
+| PageHelper | MyBatis 分页插件 | [项目地址](https://gitee.com/free/Mybatis_PageHelper) |
+| Log4j | 日志组件 | [官网](https://logging.apache.org/) |
+| Maven | 项目构建与依赖管理 | [官网](https://maven.apache.org/) |
+| Elasticsearch | 搜索与检索 | [官网](https://www.elastic.co/) |
+| Redis | 缓存与数据服务 | [官网](https://redis.io/) |
+| Hutool | Java 工具库 | [官网](https://hutool.cn/) |
+
+### 前端技术
+
+| 技术 | 主要用途 | 官方地址 |
+| --- | --- | --- |
+| Vue 3 | 前端框架 | [官网](https://cn.vuejs.org/) |
+| Element Plus | Vue 组件库 | [官网](https://element-plus.org/) |
+| jQuery | JavaScript 工具库 | [官网](https://jquery.com/) |
+| hover.css | CSS 交互效果 | [项目地址](https://github.com/IanLunn/Hover) |
+| Validator.js | 数据校验 | [项目地址](https://github.com/validatorjs/validator.js) |
+| Animate.css | CSS 动画 | [项目地址](https://animate.style/) |
+| Iconfont | 图标资源 | [官网](https://www.iconfont.cn/) |
+
+## 项目目录
+
+| 路径 | 说明 |
+| --- | --- |
+| `doc/` | 项目文档及数据库脚本 |
+| `src/main/java/` | Java 源代码 |
+| `src/main/resources/` | 应用资源与配置文件 |
+| `src/main/webapp/static/` | JavaScript、CSS、图片等静态资源 |
+| `src/main/webapp/html/` | 示例静态页面目录，用于预览生成效果 |
+| `src/main/webapp/templet/` | 网站模板目录 |
+| `src/main/webapp/upload/` | 上传资源目录 |
+| `src/main/webapp/WEB-INF/manager/` | 后台视图页面 |
+| `LICENSE` | 开源协议 |
+| `README.md` | 项目说明 |
+| `pom.xml` | Maven 项目依赖与构建配置 |
+
+## 生态工具
+
+MCms 不仅提供内容管理功能，也围绕网站建设和开发过程提供配套工具。以下平台可用于在线体验，具体功能以各平台实际开放内容为准。
+
+### MDesigner — 可视化皮肤设计器
+
+通过在线拖拽方式设计网站页面和模板，帮助开发者更直观地完成页面布局与样式制作。
+
+[进入 MDesigner](https://designer.mingsoft.net/)
+
+![MCms 可视化皮肤设计器演示](https://cdn.mingsoft.net/gif/designer.gif)
+
+### MStore — 模板与插件生态
+
+MStore 提供网站模板和功能插件。用户可以根据项目需要获取模板或扩展功能；开发者也可以分享模板、插件等内容，让开发成果获得更多使用机会。
+
+**在线设计模板：**
+
+![MStore 模板在线设计演示](https://cdn.mingsoft.net/gif/store-local.gif)
+
+**远程安装模板：**
+
+![MStore 远程安装模板演示](https://cdn.mingsoft.net/gif/store-remote.gif)
+
+[进入 MStore](https://store.mingsoft.net/)
+
+### MCode — Java 代码生成器
+
+通过配置业务模型和表单，辅助生成前后端业务代码，减少常见管理功能的重复开发工作。
+
+[进入代码生成器](https://coder.mingsoft.net/)
+
+![Java 代码生成器配置演示](https://cdn.mingsoft.net/gif/code1.gif)
+
+![Java 代码生成器代码生成演示](https://cdn.mingsoft.net/gif/code2.gif)
+
+### 项目管理平台
+
+提供项目协作、任务管理和研发过程管理等工具，帮助团队组织项目开发工作。
+
+[进入项目管理平台](https://pm.mingsoft.net/people/index.do)
+
+![项目管理平台任务协作演示](https://cdn.mingsoft.net/gif/pm1.gif)
+
+![项目管理平台看板与统计演示](https://cdn.mingsoft.net/gif/pm2.gif)
+
+### 铭软 SaaS 建站服务
+
+除开源部署方式外，也可了解铭软提供的 SaaS 建站服务，按实际需求选择在线建站方案。
+
+[了解 SaaS 建站服务](https://store.mingsoft.net/saas)
+
+## 系统界面
+
+以下为 MCms 后台部分功能界面示意：
+
+| 登录界面 | 控制台 |
+| --- | --- |
+| ![MCms 后台登录界面](https://cdn.mingsoft.net/ad/1.png) | ![MCms 系统控制台](https://cdn.mingsoft.net/ad/2.png) |
+| 插件管理 | 栏目管理 |
+| ![MCms 插件管理界面](https://cdn.mingsoft.net/ad/3.png) | ![MCms 栏目编辑界面](https://cdn.mingsoft.net/ad/4.png) |
+| 静态化管理 | 内容管理 |
+| ![MCms 静态化管理界面](https://cdn.mingsoft.net/ad/5.png) | ![MCms 文章管理界面](https://cdn.mingsoft.net/ad/6.png) |
+| 系统配置 | 模板管理 |
+| ![MCms 系统配置界面](https://cdn.mingsoft.net/ad/7.png) | ![MCms 模板管理界面](https://cdn.mingsoft.net/ad/8.png) |
+| 日志管理 | 栏目结构 |
+| ![MCms 日志管理界面](https://cdn.mingsoft.net/ad/9.png) | ![MCms 栏目结构管理界面](https://cdn.mingsoft.net/ad/10.png) |
+
+## 版本说明
+
+- **开源版本**：永久免费开放源代码，供开发者和企业使用、学习与二次开发。开源版本的更新安排以项目实际发布记录为准。
+- **企业版本及其他版本**：在功能范围、更新节奏、配套插件和技术服务等方面可能有所不同，具体权益以官方版本说明为准。
+
+[查看版本功能对比](https://www.mingsoft.net/banben.html)
+
+## 文档与支持
+
+- [MCms 使用手册](https://doc.mingsoft.net/MCms/)
+- [插件开发与使用手册](https://doc.mingsoft.net/plugs/)
+- [服务器部署手册](https://doc.mingsoft.net/server/)
+- [Maven Central 模块查询](https://search.maven.org/search?q=ms-MCms)
+- [Gitee 源码仓库](https://gitee.com/mingSoft/MCms)
+- [GitHub 源码仓库](https://github.com/ming-soft/MCms)
+- [Bilibili 视频教程](https://space.bilibili.com/1825880395)
+
+### QQ 技术交流群
+
+欢迎开发者交流使用问题、开发经验和功能建议。部分群聊已满，请优先选择仍可加入的群。
 
 
 [![加入QQ群](https://img.shields.io/badge/QQ一群(已满)-231212174-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=FVvyoF1YwtFpCGLf--h42_AwtF6JOD9M&jump_from=webapi&authKey=EyNayGyX0U/6hJKtpBInh9FsCpeM8Vx2KqrmmCZyXe3f1PD5kboChBSIWkB6SOb5)
@@ -59,313 +381,19 @@
 
 
 
+## 参与项目
 
-## 开源说明
+欢迎通过以下方式参与 MCms：
 
-* 系统100%开源
-* 模块化开发模式，铭飞所开发的模块都发布到了maven中央库。 可以通过pom.xml文件的方式拉取源代码
+- 提交 Issue，反馈问题或提出功能建议。
+- 提交 Pull Request，参与代码改进。
+- 分享模板、插件和使用经验，丰富项目生态。
+- 完善文档和示例，帮助更多开发者快速上手。
 
-```
-<dependency>
-	<groupId>net.mingsoft</groupId>
-	<artifactId>模块</artifactId>
-	<version>版本号</version>
-	<classifier>sources</classifier>
-	<scope>provided</scope>
-</dependency>
-```
+## 关于铭飞
 
+铭飞持续投入 MCms 及相关开发工具的建设，希望通过开源代码、开发工具、模板插件和文档社区，让企业建站与 Java 应用开发更加高效。
 
+**价值源自分享。欢迎使用 MCms，也欢迎参与共建。**
 
-## 商用
-
-基于<a href="https://www.oschina.net/question/12_2829" target="_blank" rel="noopener" title="查看开源中国关于 MIT 协议商用授权的合规说明" >MIT</a> 开源协议，可直接商用无需授权，但请尊重开源精神不要去掉代码中铭飞的注释和版权信息
-
-
-## 特点
-
-* 支持可视化模板拖拽网页设计<br>
-* 免费完整开源：基于MIT协议，源代码完全开源，无商业限制,MS开发团队承诺将MCMS内容系统永久完整开源；<br/>
-* 标签化建站：不需要专业的后台开发技能，只要使用系统提供的标签，就能轻松建设网站；<br/>
-* html静态化：系统支持全站静态化；<br/>
-* 跨终端：站点同时支持PC与移动端访问，同时会自动根据访问的终端切换到对应的界面，数据由系统统一管理；<br/>
-* 海量模版：铭飞通过MStore（MS商城）分享更多免费、精美的企业网站模版，降低建站成本；<br/>
-* 丰富插件：为了让MCms适应更多的业务场景，在MStore用户可以下载对应的插件，如：站群插件、微信插件、商城插件等；<br/>
-* 每月更新：铭飞团队承诺每月28日为系统升级日，分享更多好用等模版与插件；<br/>
-* 文档丰富：为了让用户更快速的使用MCms系统进行开发，铭飞团队持续更新开发相关文档，如标签文档、使用文档、视频教程等；<br/>
-
-## 面向对象
-
-* 企 业：帮助创立初期的公司或团队快速搭建产品的技术平台，加快公司项目开发进度；
-* 开发者：帮助开发者快速完成承接外包的项目，避免从零搭建系统；
-* 学习者：初学JAVA的同学可以下载源代码来进行学习交流；
-
-## 开发环境
-建议开发者使用以下环境，这样避免版本带来的问题
-* Windows、Linux
-* Eclipse、Idea
-* Mysql≧8 (开启忽略大小写)
-* JDK≧17
-* Tomcat≧10
-
-
-## 快速体验（导入到 Eclipse 或 IDEA）
-
-1、检出源代码：
-```bash
-git clone https://gitee.com/mingSoft/MCMS.git
-```
-
-2、导入项目<br/>
-* Eclipse导入，菜单 File -> Import，然后选择 Maven -> Existing Maven Projects，点击 Next> 按钮，选择检出的项目MCMS文件夹，然后点击 Finish 按钮，即可成功导入
-* IDEA导入，点击 Import Project，选择 pom.xml 文件，点击 Next 按钮，选择 Import Maven projects automatically 复选框，然后一直点击 Next 按钮，直到点击 Finish 按钮，即可成功导入<br/>
-
-4、Eclipse（IDEA）会自动加载 Maven 依赖包，初次加载会比较慢（根据自身网络情况而定），若工程上有小叉号，请打开 Problems 窗口，查看具体错误内容，直到无错误为止<br/>
-5、创建数据库mcms（数据库使用utf-8编码），导入doc/mcms-版本号.sql，如果升级现有系统请使用＊-up-*.sql升级，如果导入了系统对应的完整版SQL，sql升级补丁不需要重复导入；<br/>
-6、修改src\main\resources\application-dev.yml文件中的数据库设置参数；<br/>
-7、运行MSApplication.java main方法<br/>
-8、首先先访问后台地址：http://localhost:8080/ms/login.do ，管理员账号，用户名：msopen 密码：msopen，进入后台点击内容管理->静态化菜单，进行"生成主页"，"生成栏目","生成文章"操作一遍 （注意！！！是后台登录界面，不是会员中心登录界面）
-
-## 一键运行版本
-
-不需要安装任何软件，绿色允许包直接启动运行。[云盘下载](https://cloud.189.cn/web/share?code=7veQBn3i267f%EF%BC%88%E8%AE%BF%E9%97%AE%E7%A0%81%EF%BC%9Aapz2%EF%BC%89
-)
-
-
-## 快速体验（docker）
-
-```
- docker run -d \
-  -p 3366:3306 \
-  -p 8181:8181 \
-  --name mcms \
-  -e TZ=Asia/Shanghai \
-  -e MYSQL_ROOT_PASSWORD='YourPassword!' \
-  docker.1ms.run/mingsoft/mcms \
-  --sql-mode=STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION \
-  --lower-case-table-names=1 \
-  --max-connections=1000
-
-#后台访问地址
-http://localhost:8181/ms/login.do
-账号：msopen
-密码：msopen
-
-```
-
-`MYSQL_ROOT_PASSWORD` 数据库密码，实际部署可以将 `/home/mcms` 挂载到外部文件夹，方便更新 `mcms` 系统文件
-
-
-
-
-## 技术选型
-
-### 后端框架
-
-| 技术            | 名称               | 官网                                                       | 开源协议       |
-| :------------- |:------------------| :--------------------------------------------------------- |:------------|
-| Spring Framework | 容器               | [http://projects.spring.io/spring-framework](http://projects.spring.io/spring-framework/) | Apache 2.0 |
-| Spring Boot      | MVC               | [https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot) | Apache 2.0 |
-| Apache Shiro     | 安全               | [http://shiro.apache.org](http://shiro.apache.org/) | Apache 2.0 |
-| MyBatis          | DAO                | [http://www.mybatis.org](http://www.mybatis.org/mybatis-3/zh/index.html) | Apache 2.0 |
-| MyBatis-Plus     | ORM                | [https://baomidou.com/](https://baomidou.com/) | Apache 2.0 |
-| Freemarker       | 视图               | [http://freemarker.foofun.cn](http://freemarker.foofun.cn/) | Apache 2.0 |
-| PageHelper       | MyBatis分页插件    | [https://gitee.com/free/Mybatis_PageHelper](https://gitee.com/free/Mybatis_PageHelper) | Apache 2.0 |
-| Log4J            | 日志组件           | [http://logging.apache.org](http://logging.apache.org) | Apache 2.0 |
-| Maven            | 项目构建           | [http://maven.apache.org](http://maven.apache.org/) | Apache 2.0 |
-| Elasticsearch    | 分布式搜索引擎     | [https://www.elastic.co](https://www.elastic.co/) | Apache 2.0 |
-| Redis            | 分布式缓存数据库   | [https://redis.io](https://redis.io) | MIT |
-| Hutool           | 工具类             | [http://hutool.mydoc.io](http://hutool.mydoc.io) | MIT |
-
-### 前端框架
-
-| 技术            | 名称               | 官网                                                       | 开源协议       |
-|:--------------| :-----------------| :---------------------------------------------------------- |:-------------|
-| Vue 3         | MVVM框架           | [https://cn.vuejs.org//](https://cn.vuejs.org/) | MIT |
-| Element Plus  | UI库               | [https://element-plus.org/](https://element-plus.org/) | MIT |
-| jQuery        | 函式库             | [http://jquery.com/](http://jquery.com/) | MIT |
-| hover.css     | 点击效果插件       | [https://github.com/fians/Waves/](https://github.com/fians/Waves) | MIT |
-| validator     | 验证库             | [https://github.com/chriso/validator.js](https://github.com/chriso/validator.js) | MIT |
-| animate       | 动画               | [http://daneden.github.io/animate.css/](http://daneden.github.io/animate.css/) | MIT |
-| icon          | 矢量小图标(待更新) | [https://www.iconfont.cn/](https://www.iconfont.cn/) | N/A (Free use) |
-
-
-## 文件说明
-
-* doc 项目文档文件夹，里面有数据库文件
-* src/main/java java源代码
-* src/main/resources 项目的资源配置文件
-* src/main/webapp
-* src/main/webapp/static 静态资源文件，如：js、css、image、等第三方前端插件库
-* src/main/webapp/html 生成的静态页面，实际项目需要删除，只是提供给开发者快速预览生成后的静态页面
-* src/main/webapp/templet 模版文件夹
-* src/main/webapp/upload 上传资源文件夹
-* src/main/webapp/WEB-INF/manager 后端视图页面
-* LICENSE 项目协议说明
-* README.md 项目说明文档
-* pom.xml 依赖配置文件
-
-
-
-## 文档
-
-* 使用手册 <a href="https://doc.mingsoft.net/mcms/" target="_blank" rel="noopener">https://doc.mingsoft.net/mcms/ </a>
-* 插件手册 <a href="https://doc.mingsoft.net/plugs/" target="_blank" rel="noopener">https://doc.mingsoft.net/plugs/ </a>
-* 部署手册 <a href="https://doc.mingsoft.net/server/" target="_blank" rel="noopener">https://doc.mingsoft.net/server/ </a>
-
-## Vue3脚手架版本
-
-目前开发版本以上已经支持 Vue 3 脚手架，您可以通过 [MCMS企业版与开源版本对比](https://www.mingsoft.net/banben.html "查看MCMS版本功能差异说明") 了解更多细节。
-
-## 关于版本说明 <a href="https://www.mingsoft.net/banben.html" target="_blank" rel="noopener">更多版本查看</a>
-
-1. 开源版本永久免费发布源代码，开发者、企业可以终身免费使用，每个月团队会收集开源系统的问题并在每月的28号进行更新；
-2. 企业版本以上更新频率上更快，功能也比开源版本的要多，同时会根据不同版本提供额外插件，不同版本也会提供不同的人工在线服务（服务时间工作日 9:30-17:30）
-
-
-## 铭飞MS平台
-
-<a href="https://gitee.com/link?target=https%3A%2F%2Fstore.mingsoft.net%2Fsaas" target="_blank" >
-    <img title="1 2.png" alt="免备案建站服务、在线设计网站、AI快速建站" 
-src="https://foruda.gitee.com/images/1794385883797680500/c834a851_542665.png">
-</a>
-
-<a href="https://store.mingsoft.net" target="_blank">
-	<img src="https://foruda.gitee.com/images/1689152074095382619/e477707b_542665.png" 
-	     alt="MStore商城：提供丰富的响应式网站模板与功能插件，价值源自分享" 
-	     title="点击进入 MStore 商城获取更多 Java CMS 模板插件">
-</a>
-
-<a href="https://www.mingsoft.net/renwudating.html" target="_blank">
-	<img src="https://foruda.gitee.com/images/1686668592600137699/9ce47a46_542665.png" 
-	     alt="铭飞任务大厅：构建良好的开源生态，让开发者知识共享与发布悬赏任务" 
-	     title="点击进入铭飞任务大厅参与定制开发与技术共创">
-</a>
-
-
-以下功能都可以在平台 <a href="https://www.mingsoft.net" target="_blank" rel="noopener">https://www.mingsoft.net</a> 上免费使用
-做开源我们是业余的，写代码我们是认真的。研发产品的路上我们一直在探索、一直在学习、一直在用心投入，希望能给更多的企业与开发者提供一些更有价值的服务。
-
-### MStore 使用模板
-模版可以在线进行拖拽设计
-![MStore 使用模板](https://cdn.mingsoft.net/gif/store-local.gif)
-
-通过MStore远程安装模板
-![MStore 远程安装模板](https://cdn.mingsoft.net/gif/store-remote.gif)
-
-价值源自分享，开发者分享模板或好用的插件，让代码给开发者带来更多的自由的被动收入！
-
-### 皮肤设计器
-
-<a href="https://designer.mingsoft.net/" target="_blank" rel="noopener">立即体验</a>
-<table>
-	<tr>
-		<td><img src="https://cdn.mingsoft.net/gif/designer.gif" alt="MCMS可视化皮肤设计器拖拽在线建站与网页模板设计演示" title="MCMS可视化皮肤设计器拖拽建站演示"></td>
-	</tr>
-</table>
-
-### 代码生成器
-
-<a href="https://coder.mingsoft.net/" target="_blank" rel="noopener">立即体验</a>
-<table>
-	<tr>
-		<td><img src="https://cdn.mingsoft.net/gif/code1.gif" 
-              alt="MCMS低代码平台-Java代码生成器在线配置表单与业务模型流程演示" 
-              title="Java代码生成器一键配置业务表单"></td>
-	</tr>
-	<tr>
-		<td><img src="https://cdn.mingsoft.net/gif/code2.gif" 
-              alt="MCMS低代码开发-自动生成前后端解耦的Java源代码前端HTML预览" 
-              title="Java代码生成器一键生成前后端源代码"></td>
-	</tr>	
-</table>
-
-### 项目管理
-<a href="https://pm.mingsoft.net/people/index.do" target="_blank" rel="noopener">立即体验</a>
-<table>
-   <tr>
-      <td>
-         <img src="https://cdn.mingsoft.net/gif/pm1.gif" 
-              alt="铭飞项目管理平台-低代码开发团队协同与研发任务指派流程演示" 
-              title="项目管理团队协同与任务指派演示">
-      </td>
-   </tr>
-   <tr>
-      <td>
-         <img src="https://cdn.mingsoft.net/gif/pm2.gif" 
-              alt="铭飞项目管理系统-项目看板、工时日志统计与任务排期日历展示" 
-              title="项目管理工时统计与任务排期日历演示">
-      </td>
-   </tr>  
-</table>
-
-## 软件截图
-
-<table>
-    <tr>
-        <td>
-            <img src="https://cdn.mingsoft.net/ad/1.png" 
-                 alt="MCMS后台登录界面-安全稳定的Java内容管理系统登录中心" 
-                 title="MCMS内容管理系统后台登录页">
-        </td>
-        <td>
-            <img src="https://cdn.mingsoft.net/ad/2.png" 
-                 alt="MCMS系统控制台工作台-多维度数据统计看板与常用功能快捷入口" 
-                 title="MCMS系统控制台工作台">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <img src="https://cdn.mingsoft.net/ad/3.png"  
-                 alt="MCMS插件管理与MStore本地市场-一键在线升级与扩展系统功能" 
-                 title="MCMS插件商城与组件一键升级管理">
-        </td>
-        <td>
-            <img src="https://cdn.mingsoft.net/ad/4.png" 
-                 alt="MCMS多级树状栏目编辑-支持自定义模型映射与伪静态路径生成配置" 
-                 title="MCMS栏目编辑与高级属性配置">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <img src="https://cdn.mingsoft.net/ad/5.png" 
-                 alt="MCMS全站HTML静态化管理-一键生成主页栏目文章提升SEO抓取速度" 
-                 title="MCMS全站HTML静态化一键生成">
-        </td>
-        <td>
-            <img src="https://cdn.mingsoft.net/ad/6.png" 
-                 alt="MCMS文章内容发布管理-支持富文本编辑、自定义属性" 
-                 title="MCMS文章发布与内容列表管理">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <img src="https://cdn.mingsoft.net/ad/7.png" 
-                 alt="MCMS应用全局参数设置" 
-                 title="MCMS系统应用全局参数配置">
-        </td>
-        <td>
-            <img src="https://cdn.mingsoft.net/ad/8.png" 
-                 alt="MCMS模板管理-支持可视化快速建站的后台配置界面" 
-                 title="MCMS模板管理">
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <img src="https://cdn.mingsoft.net/ad/9.png" 
-                 alt="MCMS系统日志审计管理-记录管理员操作行为日志与高安全性审计" 
-                 title="MCMS系统操作与行为日志审计">
-        </td>
-        <td>
-            <img src="https://cdn.mingsoft.net/ad/10.png" 
-                 alt="MCMS栏目架构管理-支持无限层级分类、隐藏显示及权限划分" 
-                 title="MCMS无限层级栏目管理">
-        </td>
-    </tr>
-</table>
-
-
-
-
-
-
+[铭飞官网](https://www.mingsoft.net/) · [MStore](https://store.mingsoft.net/) · [在线文档](https://doc.mingsoft.net/MCms/)
