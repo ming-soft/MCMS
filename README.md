@@ -18,7 +18,7 @@
 
 <p align="center">
   <a href="https://search.maven.org/search?q=ms-MCms" target="_blank" rel="noopener">
-    <img src="https://img.shields.io/maven-central/v/net.mingsoft/ms-MCms.svg?label=Maven%20Central" alt="Maven Central 版本">
+    <img src="https://img.shields.io/maven-central/v/net.mingsoft/ms-mcms.svg?label=Maven%20Central" alt="Maven Central 版本">
   </a>
   <a href="https://baike.baidu.com/item/MIT%E8%AE%B8%E5%8F%AF%E8%AF%81/6671281" target="_blank" rel="noopener">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License">
