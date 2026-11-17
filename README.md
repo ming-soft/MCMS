@@ -37,7 +37,7 @@
     <a href="https://a.cms.demo.mingsoft.net/" target="_blank" rel="noopener" title="MCMS前台网站效果展示">前台演示</a> 
 	<a href="https://doc.mingsoft.net/mcms/" target="_blank" rel="noopener" title="在线使用手册与官方开发文档">在线使用手册</a>
 	<a href="https://space.bilibili.com/1825880395" target="_blank" rel="noopener" title="B站Java CMS视频教程中心">B站视频</a><br/>
-	<a href="https://cloud.189.cn/web/share?code=7veQBn3i267f%EF%BC%88%E8%AE%BF%E9%97%AE%E7%A0%81%EF%BC%9Aapz2%EF%BC%89" target="_blank" rel="noopener" title="Windows与Linux一键运行版本下载">一键运行版本</a>
+	<a href="#一键运行版本" target="_blank" rel="noopener" title="Windows与Linux一键运行版本下载">一键运行版本</a>
     <a href="#快速体验docker" title="Docker一键部署体验">Docker体验</a>
 </p>
 
@@ -57,22 +57,6 @@
 [![加入QQ群](https://img.shields.io/badge/QQ五群(已满)-231211521-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=IfVdHXCm13Ui6NrcjvrraFkGsI8L3U1r&jump_from=webapi&authKey=Go37VdoKublA0p47ww9fS+fxt2DAh1URslG0/7ugg8zs1b+heVlGZwkASM/PlJPG)
 [![加入QQ群](https://img.shields.io/badge/QQ六群-527579891-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=9ABLBuNghNaL5_IhGg9au-3vw4kkey8Y&jump_from=webapi&authKey=Ss0dwGvqEbAdomp5y5qcQNYTNT00Z8Zxkwg56qenBC4hBPwj0sXqZnLoxYkHIB7X)
 
-<a href="https://gitee.com/link?target=https%3A%2F%2Fstore.mingsoft.net%2Fsaas" target="_blank" >
-    <img title="1 2.png" alt="免备案建站服务、在线设计网站、AI快速建站" 
-src="https://foruda.gitee.com/images/1794385883797680500/c834a851_542665.png">
-</a>
-
-<a href="https://store.mingsoft.net" target="_blank">
-	<img src="https://foruda.gitee.com/images/1689152074095382619/e477707b_542665.png" 
-	     alt="MStore商城：提供丰富的响应式网站模板与功能插件，价值源自分享" 
-	     title="点击进入 MStore 商城获取更多 Java CMS 模板插件">
-</a>
-
-<a href="https://www.mingsoft.net/renwudating.html" target="_blank">
-	<img src="https://foruda.gitee.com/images/1686668592600137699/9ce47a46_542665.png" 
-	     alt="铭飞任务大厅：构建良好的开源生态，让开发者知识共享与发布悬赏任务" 
-	     title="点击进入铭飞任务大厅参与定制开发与技术共创">
-</a>
 
 
 
@@ -91,9 +75,7 @@ src="https://foruda.gitee.com/images/1794385883797680500/c834a851_542665.png">
 </dependency>
 ```
 
-## Vue 3 脚手架版本
 
-目前开发版本以上已经支持 VUE 3 脚手架，您可以通过 [MCMS企业版与开源版本对比](https://www.mingsoft.net/banben.html "查看MCMS版本功能差异说明") 了解更多细节。
 
 ## 商用
 
@@ -143,6 +125,12 @@ git clone https://gitee.com/mingSoft/MCMS.git
 6、修改src\main\resources\application-dev.yml文件中的数据库设置参数；<br/>
 7、运行MSApplication.java main方法<br/>
 8、首先先访问后台地址：http://localhost:8080/ms/login.do ，管理员账号，用户名：msopen 密码：msopen，进入后台点击内容管理->静态化菜单，进行"生成主页"，"生成栏目","生成文章"操作一遍 （注意！！！是后台登录界面，不是会员中心登录界面）
+
+## 一键运行版本
+
+[云盘下载](https://cloud.189.cn/web/share?code=7veQBn3i267f%EF%BC%88%E8%AE%BF%E9%97%AE%E7%A0%81%EF%BC%9Aapz2%EF%BC%89
+)
+
 
 ## 快速体验（docker）
 
@@ -225,16 +213,35 @@ http://localhost:8181/ms/login.do
 * 插件手册 <a href="https://doc.mingsoft.net/plugs/" target="_blank" rel="noopener">https://doc.mingsoft.net/plugs/ </a>
 * 部署手册 <a href="https://doc.mingsoft.net/server/" target="_blank" rel="noopener">https://doc.mingsoft.net/server/ </a>
 
+## Vue3脚手架版本
+
+目前开发版本以上已经支持 Vue 3 脚手架，您可以通过 [MCMS企业版与开源版本对比](https://www.mingsoft.net/banben.html "查看MCMS版本功能差异说明") 了解更多细节。
+
 ## 关于版本说明 <a href="https://www.mingsoft.net/banben.html" target="_blank" rel="noopener">更多版本查看</a>
 
 1. 开源版本永久免费发布源代码，开发者、企业可以终身免费使用，每个月团队会收集开源系统的问题并在每月的28号进行更新；
 2. 企业版本以上更新频率上更快，功能也比开源版本的要多，同时会根据不同版本提供额外插件，不同版本也会提供不同的人工在线服务（服务时间工作日 9:30-17:30）
 
 
-
-
-
 ## 铭飞MS平台
+
+<a href="https://gitee.com/link?target=https%3A%2F%2Fstore.mingsoft.net%2Fsaas" target="_blank" >
+    <img title="1 2.png" alt="免备案建站服务、在线设计网站、AI快速建站" 
+src="https://foruda.gitee.com/images/1794385883797680500/c834a851_542665.png">
+</a>
+
+<a href="https://store.mingsoft.net" target="_blank">
+	<img src="https://foruda.gitee.com/images/1689152074095382619/e477707b_542665.png" 
+	     alt="MStore商城：提供丰富的响应式网站模板与功能插件，价值源自分享" 
+	     title="点击进入 MStore 商城获取更多 Java CMS 模板插件">
+</a>
+
+<a href="https://www.mingsoft.net/renwudating.html" target="_blank">
+	<img src="https://foruda.gitee.com/images/1686668592600137699/9ce47a46_542665.png" 
+	     alt="铭飞任务大厅：构建良好的开源生态，让开发者知识共享与发布悬赏任务" 
+	     title="点击进入铭飞任务大厅参与定制开发与技术共创">
+</a>
+
 
 以下功能都可以在平台 <a href="https://www.mingsoft.net" target="_blank" rel="noopener">https://www.mingsoft.net</a> 上免费使用
 做开源我们是业余的，写代码我们是认真的。研发产品的路上我们一直在探索、一直在学习、一直在用心投入，希望能给更多的企业与开发者提供一些更有价值的服务。
