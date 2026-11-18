@@ -51,20 +51,16 @@
 
 ---
 
-
 ## QQ 技术交流群
 
 欢迎开发者交流使用问题、开发经验和功能建议。部分群聊已满，请优先选择仍可加入的群。
 
-
-[![加入QQ群](https://img.shields.io/badge/QQ一群(已满)-231212174-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=FVvyoF1YwtFpCGLf--h42_AwtF6JOD9M&jump_from=webapi&authKey=EyNayGyX0U/6hJKtpBInh9FsCpeM8Vx2KqrmmCZyXe3f1PD5kboChBSIWkB6SOb5)
-[![加入QQ群](https://img.shields.io/badge/QQ二群(已满)-221335098-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=fedNH1fR6niG16cYVPXPZJ3U8m9Hfxaf&jump_from=webapi&authKey=6rMUTyta7sKlSpeF/fYkVHp6mF9sZc6i5vmHzGgdh6WHW34yww5eDBXJwCVmoMyl)
-[![加入QQ群](https://img.shields.io/badge/QQ三群(已满)-242805203-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=1K_RsMwZcf09Y-_74PhA_NfI85RqeDyK&jump_from=webapi&authKey=vCeXrE2f5QCobzDFZ4lHzHyH7sGtmhVfR326MjEmeMy6u0NgHlIglCCxD/6b7tEK)
-[![加入QQ群](https://img.shields.io/badge/QQ四群(已满)-881894877-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=TzRiJf4x7tZsjKEzo8EuwuHqTALc0xCA&jump_from=webapi&authKey=04YpueACppV1tLykhOQ+fdzPhPwOkIU685LgCOQqrwEjtVQCOvTAyd6qn3xAiXl2)
-[![加入QQ群](https://img.shields.io/badge/QQ五群(已满)-231211521-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=IfVdHXCm13Ui6NrcjvrraFkGsI8L3U1r&jump_from=webapi&authKey=Go37VdoKublA0p47ww9fS+fxt2DAh1URslG0/7ugg8zs1b+heVlGZwkASM/PlJPG)
-[![加入QQ群](https://img.shields.io/badge/QQ六群-527579891-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=9ABLBuNghNaL5_IhGg9au-3vw4kkey8Y&jump_from=webapi&authKey=Ss0dwGvqEbAdomp5y5qcQNYTNT00Z8Zxkwg56qenBC4hBPwj0sXqZnLoxYkHIB7X)
-
-
+[![加入QQ群](https://img.shields.io/badge/QQ%E4%B8%80%E7%BE%A4(%E5%B7%B2%E6%BB%A1)-231212174-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=FVvyoF1YwtFpCGLf--h42_AwtF6JOD9M&jump_from=webapi&authKey=EyNayGyX0U/6hJKtpBInh9FsCpeM8Vx2KqrmmCZyXe3f1PD5kboChBSIWkB6SOb5)
+[![加入QQ群](https://img.shields.io/badge/QQ%E4%BA%8C%E7%BE%A4(%E5%B7%B2%E6%BB%A1)-221335098-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=fedNH1fR6niG16cYVPXPZJ3U8m9Hfxaf&jump_from=webapi&authKey=6rMUTyta7sKlSpeF/fYkVHp6mF9sZc6i5vmHzGgdh6WHW34yww5eDBXJwCVmoMyl)
+[![加入QQ群](https://img.shields.io/badge/QQ%E4%B8%89%E7%BE%A4(%E5%B7%B2%E6%BB%A1)-242805203-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=1K_RsMwZcf09Y-_74PhA_NfI85RqeDyK&jump_from=webapi&authKey=vCeXrE2f5QCobzDFZ4lHzHyH7sGtmhVfR326MjEmeMy6u0NgHlIglCCxD/6b7tEK)
+[![加入QQ群](https://img.shields.io/badge/QQ%E5%9B%9B%E7%BE%A4(%E5%B7%B2%E6%BB%A1)-881894877-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=TzRiJf4x7tZsjKEzo8EuwuHqTALc0xCA&jump_from=webapi&authKey=04YpueACppV1tLykhOQ+fdzPhPwOkIU685LgCOQqrwEjtVQCOvTAyd6qn3xAiXl2)
+[![加入QQ群](https://img.shields.io/badge/QQ%E4%BA%94%E7%BE%A4(%E5%B7%B2%E6%BB%A1)-231211521-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=IfVdHXCm13Ui6NrcjvrraFkGsI8L3U1r&jump_from=webapi&authKey=Go37VdoKublA0p47ww9fS+fxt2DAh1URslG0/7ugg8zs1b+heVlGZwkASM/PlJPG)
+[![加入QQ群](https://img.shields.io/badge/QQ%E5%85%AD%E7%BE%A4-527579891-red.svg?logo=tencentqq&style=for-the-badge)](https://qm.qq.com/cgi-bin/qm/qr?k=9ABLBuNghNaL5_IhGg9au-3vw4kkey8Y&jump_from=webapi&authKey=Ss0dwGvqEbAdomp5y5qcQNYTNT00Z8Zxkwg56qenBC4hBPwj0sXqZnLoxYkHIB7X)
 
 ## 项目简介
 
@@ -185,7 +181,7 @@ http://localhost:8080/ms/login.do
 密码：msopen
 ```
 
-首次体验时，登录后台后进入“内容管理 -> 静态化”，按需生成首页、栏目和文章页面。
+首次体验时，登录后台后进入"内容管理 -> 静态化"，按需生成首页、栏目和文章页面。
 
 > 安全提示：示例账号仅用于本地体验。正式部署前，请立即修改默认账号密码，并完成必要的安全配置；不要将示例账号直接用于公网环境。
 
@@ -452,7 +448,6 @@ MStore 提供网站模板和功能插件。用户可以根据项目需要获取�
 - [Gitee 源码仓库](https://gitee.com/mingSoft/MCms)
 - [GitHub 源码仓库](https://github.com/ming-soft/MCms)
 - [Bilibili 视频教程](https://space.bilibili.com/1825880395)
-
 
 ## 参与项目
 
