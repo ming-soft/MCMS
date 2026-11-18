@@ -42,7 +42,7 @@
         <dependency>
             <groupId>net.mingsoft</groupId>
             <artifactId>store-client</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.0.1</version>
         </dependency>
     </dependencies>
 
