@@ -1,3 +1,19 @@
+/*
+ Navicat Premium Data Transfer
+
+ Source Server         : docker-3306-docker-cloud
+ Source Server Type    : MySQL
+ Source Server Version : 90200 (9.2.0)
+ Source Host           : localhost:3306
+ Source Schema         : mcms
+
+ Target Server Type    : MySQL
+ Target Server Version : 90200 (9.2.0)
+ File Encoding         : 65001
+
+ Date: 24/11/2026 11:27:44
+*/
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -329,7 +345,7 @@ CREATE TABLE `mdiy_dict` (
   UNIQUE KEY `inx_unique` (`dict_value`,`dict_label`,`dict_type`) USING BTREE,
   KEY `inx_dict_value` (`dict_value`) USING BTREE,
   KEY `inx_dict_label` (`dict_label`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=651 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin ROW_FORMAT=DYNAMIC COMMENT='字典表';
+) ENGINE=InnoDB AUTO_INCREMENT=652 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin ROW_FORMAT=DYNAMIC COMMENT='字典表';
 
 -- ----------------------------
 -- Records of mdiy_dict
@@ -349,6 +365,7 @@ INSERT INTO `mdiy_dict` (`id`, `dict_value`, `dict_label`, `dict_type`, `dict_de
 INSERT INTO `mdiy_dict` (`id`, `dict_value`, `dict_label`, `dict_type`, `dict_description`, `is_child`, `dict_enable`, `dict_remarks`, `dict_sort`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`, `NOT_DEL`) VALUES (648, 'people', '会员', '自定义模型类型', NULL, NULL, '1', NULL, 0, NULL, NULL, NULL, NULL, 0, 1);
 INSERT INTO `mdiy_dict` (`id`, `dict_value`, `dict_label`, `dict_type`, `dict_description`, `is_child`, `dict_enable`, `dict_remarks`, `dict_sort`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`, `NOT_DEL`) VALUES (649, 'people', '会员', '自定义页面类型', NULL, NULL, '1', NULL, 0, NULL, NULL, NULL, NULL, 0, 1);
 INSERT INTO `mdiy_dict` (`id`, `dict_value`, `dict_label`, `dict_type`, `dict_description`, `is_child`, `dict_enable`, `dict_remarks`, `dict_sort`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`, `NOT_DEL`) VALUES (650, '时政热点', '时政热点', '文章标签', NULL, NULL, '1', NULL, 0, '57', '2023-09-28 16:27:43', '106', '2023-06-08 15:13:13', 0, 0);
+INSERT INTO `mdiy_dict` (`id`, `dict_value`, `dict_label`, `dict_type`, `dict_description`, `is_child`, `dict_enable`, `dict_remarks`, `dict_sort`, `UPDATE_BY`, `UPDATE_DATE`, `CREATE_BY`, `CREATE_DATE`, `DEL`, `NOT_DEL`) VALUES (651, 'https://www.mingsoft.net/', 'MCMS', 'SEO内链接', NULL, '', '1', '', 0, NULL, '2026-11-05 17:15:20', '57', '2026-11-05 17:15:20', 0, 0);
 COMMIT;
 
 -- ----------------------------
