@@ -31,8 +31,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.net.Inet4Address;
+import java.net.Inet6Address;
+import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -364,9 +368,9 @@ public class EditorFileVerifyAop extends FileVerifyAop {
                 return false;
             }
 
-            // 4. 禁止访问内网 / 本机 / 特殊 IP
-            if (IpUtils.isInternalIp(host)) {
-                LOG.debug("禁止访问内网，请检查远程地址：{}", url);
+            // 4. 禁止访问内网 / 本机 / 特殊用途 IP（含 CGNAT 100.64.0.0/10、IPv6 ULA、IPv4 映射地址及多记录 DNS 校验）
+            if (IpUtils.isInternalIp(host) || isBlockedHost(host)) {
+                LOG.debug("禁止访问内网或特殊用途地址，请检查远程地址：{}", url);
                 return false;
             }
             return true;
@@ -374,6 +378,130 @@ public class EditorFileVerifyAop extends FileVerifyAop {
             LOG.debug("远程地址格式错误：{}", url);
             return false;
         }
+    }
+
+    /**
+     * 校验主机解析出的全部 IP 地址，只要存在任一内网或 RFC 6890/6598 特殊用途地址即拒绝访问
+     *
+     * @param host 主机名或 IP
+     * @return 需要拦截返回 true，允许访问返回 false
+     */
+    private static boolean isBlockedHost(String host) {
+        try {
+            InetAddress[] addresses = InetAddress.getAllByName(host);
+            if (addresses == null || addresses.length == 0) {
+                return true;
+            }
+            for (InetAddress address : addresses) {
+                if (isBlockedAddress(address)) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (UnknownHostException e) {
+            LOG.debug("无法解析远程主机地址：{}", host);
+            return true;
+        }
+    }
+
+    /**
+     * 判断单个 InetAddress 是否属于内网、保留段、CGNAT（100.64.0.0/10）或其他特殊用途地址
+     */
+    private static boolean isBlockedAddress(InetAddress address) {
+        if (address == null) {
+            return true;
+        }
+        if (address.isAnyLocalAddress()
+                || address.isLoopbackAddress()
+                || address.isLinkLocalAddress()
+                || address.isSiteLocalAddress()
+                || address.isMulticastAddress()) {
+            return true;
+        }
+        byte[] raw = address.getAddress();
+        if (address instanceof Inet4Address && raw.length == 4) {
+            return isBlockedIpv4(raw[0] & 0xFF, raw[1] & 0xFF, raw[2] & 0xFF, raw[3] & 0xFF);
+        }
+        if (address instanceof Inet6Address && raw.length == 16) {
+            // IPv4-mapped IPv6 (::ffff:0:0/96)
+            boolean ipv4Mapped = true;
+            for (int i = 0; i < 10; i++) {
+                if (raw[i] != 0) {
+                    ipv4Mapped = false;
+                    break;
+                }
+            }
+            if (ipv4Mapped && (raw[10] & 0xFF) == 0xFF && (raw[11] & 0xFF) == 0xFF) {
+                return isBlockedIpv4(raw[12] & 0xFF, raw[13] & 0xFF, raw[14] & 0xFF, raw[15] & 0xFF);
+            }
+            int first = raw[0] & 0xFF;
+            int second = raw[1] & 0xFF;
+            // IPv6 Unique Local Address (fc00::/7)
+            if ((first & 0xFE) == 0xFC) {
+                return true;
+            }
+            // IPv6 Link-Local (fe80::/10)
+            if (first == 0xFE && (second & 0xC0) == 0x80) {
+                return true;
+            }
+            // IPv6 Multicast (ff00::/8)
+            if (first == 0xFF) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 检查 IPv4 是否命中私网、CGNAT 或 RFC 6890 特殊用途网段
+     */
+    private static boolean isBlockedIpv4(int b0, int b1, int b2, int b3) {
+        // 0.0.0.0/8 (Current network)
+        if (b0 == 0) {
+            return true;
+        }
+        // 10.0.0.0/8 (Private)
+        if (b0 == 10) {
+            return true;
+        }
+        // 100.64.0.0/10 (RFC 6598 CGNAT, 含阿里云元数据 100.100.100.200)
+        if (b0 == 100 && (b1 & 0xC0) == 64) {
+            return true;
+        }
+        // 127.0.0.0/8 (Loopback)
+        if (b0 == 127) {
+            return true;
+        }
+        // 169.254.0.0/16 (Link-Local / 云厂商元数据 169.254.169.254)
+        if (b0 == 169 && b1 == 254) {
+            return true;
+        }
+        // 172.16.0.0/12 (Private)
+        if (b0 == 172 && (b1 & 0xF0) == 16) {
+            return true;
+        }
+        // 192.0.0.0/24 (IETF Protocol Assignments) & 192.0.2.0/24 (TEST-NET-1)
+        if (b0 == 192 && b1 == 0 && (b2 == 0 || b2 == 2)) {
+            return true;
+        }
+        // 192.168.0.0/16 (Private)
+        if (b0 == 192 && b1 == 168) {
+            return true;
+        }
+        // 198.18.0.0/15 (Benchmarking)
+        if (b0 == 198 && (b1 & 0xFE) == 18) {
+            return true;
+        }
+        // 198.51.100.0/24 (TEST-NET-2)
+        if (b0 == 198 && b1 == 51 && b2 == 100) {
+            return true;
+        }
+        // 203.0.113.0/24 (TEST-NET-3)
+        if (b0 == 203 && b1 == 0 && b2 == 113) {
+            return true;
+        }
+        // 224.0.0.0/4 (Multicast) & 240.0.0.0/4 (Reserved / Broadcast)
+        return (b0 & 0xE0) == 224;
     }
 
 }
